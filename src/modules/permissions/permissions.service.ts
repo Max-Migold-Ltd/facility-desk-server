@@ -1,0 +1,59 @@
+import { prisma } from '../../config/database';
+import { AccessLevel } from '../../../generated/prisma';
+import { NotFoundError } from '../../errors';
+
+export class PermissionsService {
+  async findByRole(roleId: string) {
+    const role = await prisma.role.findUnique({
+      where: { id: roleId }
+    });
+
+    if (!role) {
+      throw new NotFoundError('Role');
+    }
+
+    const permissions = await prisma.permission.findMany({
+      where: { roleId },
+      orderBy: { resource: 'asc' }
+    });
+
+    return permissions;
+  }
+
+  async updateRolePermissions(
+    roleId: string,
+    permissions: Array<{ resource: string; accessLevel: AccessLevel }>
+  ) {
+    const role = await prisma.role.findUnique({
+      where: { id: roleId }
+    });
+
+    if (!role) {
+      throw new NotFoundError('Role');
+    }
+
+    // Use transaction to update all permissions atomically
+    const updatedPermissions = await prisma.$transaction(
+      permissions.map(perm =>
+        prisma.permission.upsert({
+          where: {
+            roleId_resource: {
+              roleId,
+              resource: perm.resource
+            }
+          },
+          update: {
+            accessLevel: perm.accessLevel
+          },
+          create: {
+            roleId,
+            resource: perm.resource,
+            accessLevel: perm.accessLevel
+          }
+        })
+      )
+    );
+
+    return updatedPermissions;
+  }
+}

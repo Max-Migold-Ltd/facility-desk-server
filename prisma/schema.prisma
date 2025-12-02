@@ -1,0 +1,90 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+  output   = "../generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+// Enums
+enum RoleName {
+  ADMIN
+  TECHNICIAN
+  USER
+}
+
+enum AccessLevel {
+  NONE
+  READ
+  WRITE
+}
+
+enum UserStatus {
+  ACTIVE
+  INACTIVE
+  SUSPENDED
+}
+
+// Models
+model User {
+  id            String        @id @default(uuid())
+  email         String        @unique
+  password      String
+  firstName     String
+  lastName      String
+  status        UserStatus    @default(ACTIVE)
+  roleId        String
+  role          Role          @relation(fields: [roleId], references: [id], onDelete: Restrict)
+  refreshTokens RefreshToken[]
+  createdAt     DateTime      @default(now())
+  updatedAt     DateTime      @updatedAt
+
+  @@index([email])
+  @@index([roleId])
+  @@map("users")
+}
+
+model Role {
+  id          String       @id @default(uuid())
+  name        RoleName     @unique
+  description String?
+  users       User[]
+  permissions Permission[]
+  createdAt   DateTime     @default(now())
+  updatedAt   DateTime     @updatedAt
+
+  @@index([name])
+  @@map("roles")
+}
+
+model Permission {
+  id          String      @id @default(uuid())
+  roleId      String
+  role        Role        @relation(fields: [roleId], references: [id], onDelete: Cascade)
+  resource    String
+  accessLevel AccessLevel @default(NONE)
+  createdAt   DateTime    @default(now())
+  updatedAt   DateTime    @updatedAt
+
+  @@unique([roleId, resource])
+  @@index([roleId])
+  @@map("permissions")
+}
+
+model RefreshToken {
+  id        String   @id @default(uuid())
+  token     String   @unique
+  userId    String
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  expiresAt DateTime
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([token])
+  @@index([userId])
+  @@map("refresh_tokens")
+}
