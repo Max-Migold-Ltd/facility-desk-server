@@ -1,7 +1,6 @@
-import { PrismaClient, RoleName, AccessLevel } from '../generated/prisma';
-import { hashPassword } from '../src/utils/password.util';
-
-const prisma = new PrismaClient();
+import { RoleName, AccessLevel } from '../generated/prisma/client';
+import { hashPassword } from '../utils/password.util';
+import prisma from '../lib/prisma';
 
 // Resource list for permissions
 const RESOURCES = [

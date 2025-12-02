@@ -1,5 +1,5 @@
 import { prisma } from '../../config/database';
-import { AccessLevel } from '../../../generated/prisma';
+import { AccessLevel } from '../../generated/prisma';
 import { NotFoundError } from '../../errors';
 
 export class PermissionsService {

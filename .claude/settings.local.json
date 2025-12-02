@@ -6,7 +6,9 @@
       "Bash(powershell -Command:*)",
       "Bash(cat:*)",
       "Bash(test:*)",
-      "Bash(npm install:*)"
+      "Bash(npm install:*)",
+      "Bash(if exist \"prisma\\seed.ts\" del \"prisma\\seed.ts\")",
+      "Bash(npm run seed:*)"
     ],
     "deny": [],
     "ask": []

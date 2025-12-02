@@ -1,5 +1,5 @@
 import { Request, Response, NextFunction } from 'express';
-import { AccessLevel } from '../../generated/prisma';
+import { AccessLevel } from '../generated/prisma';
 import { prisma } from '../config/database';
 import { ForbiddenError } from '../errors';
 

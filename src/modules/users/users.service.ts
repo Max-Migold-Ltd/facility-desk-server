@@ -1,6 +1,6 @@
 import { prisma } from '../../config/database';
 import { NotFoundError } from '../../errors';
-import { UserStatus } from '../../../generated/prisma';
+import { UserStatus } from '../../generated/prisma';
 
 export class UsersService {
   async findAll(options: {

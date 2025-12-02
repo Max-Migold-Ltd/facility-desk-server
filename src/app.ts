@@ -58,7 +58,7 @@ app.use(`/api/${API_VERSION}/users`, apiRateLimiter, userRoutes);
 app.use(`/api/${API_VERSION}/roles`, apiRateLimiter, roleRoutes, permissionRoutes);
 
 // 404 handler
-app.use('*', (req: Request, res: Response) => {
+app.use((req: Request, res: Response) => {
   res.status(404).json({
     success: false,
     error: {

@@ -1,5 +1,5 @@
 import { Request, Response, NextFunction } from 'express';
-import { RoleName } from '../../generated/prisma';
+import { RoleName } from '../generated/prisma';
 import { ForbiddenError } from '../errors';
 
 export const requireRole = (roles: RoleName[]) => {

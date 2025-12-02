@@ -3,7 +3,7 @@ import { UsersController } from './users.controller';
 import { authenticate } from '../../middleware/auth.middleware';
 import { requireRole } from '../../middleware/rbac.middleware';
 import { requirePermission } from '../../middleware/permission.middleware';
-import { RoleName } from '../../../generated/prisma';
+import { RoleName } from '../../generated/prisma';
 
 const router = Router();
 const usersController = new UsersController();
