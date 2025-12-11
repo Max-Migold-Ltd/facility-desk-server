@@ -88,6 +88,12 @@ enum Availability {
   RENT
 }
 
+enum CompanyType {
+  CORPORATE_GROUP
+  CUSTOMER
+  SUPPLIER
+}
+
 model User {
   id            String         @id @default(uuid())
   email         String         @unique
@@ -414,6 +420,10 @@ model File {
   complexes Complex[]
 
   @@map("files")
+}
+
+model Company {
+  type CompanyType
 }
 
 model CalenderEntity {

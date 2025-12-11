@@ -32,11 +32,6 @@ const assetController = new AssetController();
  *           type: string
  *         description: Search by name or description
  *       - in: query
- *         name: subCategoryId
- *         schema:
- *           type: string
- *         description: Filter by subcategory ID
- *       - in: query
  *         name: categoryId
  *         schema:
  *           type: string
@@ -58,11 +53,69 @@ const assetController = new AssetController();
  *     responses:
  *       200:
  *         description: Paginated list of assets
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 success:
+ *                   type: boolean
+ *                   example: true
+ *                 data:
+ *                   type: object
+ *                   properties:
+ *                     data:
+ *                       type: array
+ *                       items:
+ *                         type: object
+ *                         properties:
+ *                           id:
+ *                             type: string
+ *                             format: uuid
+ *                             example: "123e4567-e89b-12d3-a456-426614174000"
+ *                           name:
+ *                             type: string
+ *                             example: "Door"
+ *                           description:
+ *                             type: string
+ *                             nullable: true
+ *                             example: "Main entrance door"
+ *                           categoryId:
+ *                             type: string
+ *                             format: uuid
+ *                             example: "123e4567-e89b-12d3-a456-426614174001"
+ *                           createdAt:
+ *                             type: string
+ *                             format: date-time
+ *                             example: "2024-01-01T00:00:00.000Z"
+ *                           updatedAt:
+ *                             type: string
+ *                             format: date-time
+ *                             example: "2024-01-01T00:00:00.000Z"
+ *                     pagination:
+ *                       type: object
+ *                       properties:
+ *                         page:
+ *                           type: integer
+ *                           example: 1
+ *                         limit:
+ *                           type: integer
+ *                           example: 10
+ *                         total:
+ *                           type: integer
+ *                           example: 50
+ *                         totalPages:
+ *                           type: integer
+ *                           example: 5
  *       401:
  *         description: Not authenticated
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/Error'
  *   post:
  *     summary: Create a new asset
- *     description: Create a new asset
+ *     description: Create a new asset in the system
  *     tags: [Assets]
  *     security:
  *       - bearerAuth: []
@@ -74,24 +127,70 @@ const assetController = new AssetController();
  *             type: object
  *             required:
  *               - name
- *               - subCategoryId
+ *               - categoryId
  *             properties:
  *               name:
  *                 type: string
- *                 example: Door
- *               subCategoryId:
+ *                 example: "Door"
+ *                 description: Name of the asset
+ *               categoryId:
  *                 type: string
- *                 example: uuid-here
+ *                 format: uuid
+ *                 example: "123e4567-e89b-12d3-a456-426614174001"
+ *                 description: ID of the asset category
  *               description:
  *                 type: string
- *                 example: Main entrance door
+ *                 example: "Main entrance door"
+ *                 description: Optional description of the asset
  *     responses:
  *       201:
  *         description: Asset successfully created
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 success:
+ *                   type: boolean
+ *                   example: true
+ *                 data:
+ *                   type: object
+ *                   properties:
+ *                     id:
+ *                       type: string
+ *                       format: uuid
+ *                       example: "123e4567-e89b-12d3-a456-426614174000"
+ *                     name:
+ *                       type: string
+ *                       example: "Door"
+ *                     description:
+ *                       type: string
+ *                       nullable: true
+ *                       example: "Main entrance door"
+ *                     categoryId:
+ *                       type: string
+ *                       format: uuid
+ *                       example: "123e4567-e89b-12d3-a456-426614174001"
+ *                     createdAt:
+ *                       type: string
+ *                       format: date-time
+ *                       example: "2024-01-01T00:00:00.000Z"
+ *                     updatedAt:
+ *                       type: string
+ *                       format: date-time
+ *                       example: "2024-01-01T00:00:00.000Z"
  *       400:
  *         description: Validation error
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/Error'
  *       401:
  *         description: Not authenticated
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/Error'
  */
 router
   .route("/")
@@ -113,17 +212,61 @@ router
  *         required: true
  *         schema:
  *           type: string
+ *           format: uuid
  *         description: Asset ID
+ *         example: "123e4567-e89b-12d3-a456-426614174000"
  *     responses:
  *       200:
  *         description: Asset details
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 success:
+ *                   type: boolean
+ *                   example: true
+ *                 data:
+ *                   type: object
+ *                   properties:
+ *                     id:
+ *                       type: string
+ *                       format: uuid
+ *                       example: "123e4567-e89b-12d3-a456-426614174000"
+ *                     name:
+ *                       type: string
+ *                       example: "Door"
+ *                     description:
+ *                       type: string
+ *                       nullable: true
+ *                       example: "Main entrance door"
+ *                     categoryId:
+ *                       type: string
+ *                       format: uuid
+ *                       example: "123e4567-e89b-12d3-a456-426614174001"
+ *                     createdAt:
+ *                       type: string
+ *                       format: date-time
+ *                       example: "2024-01-01T00:00:00.000Z"
+ *                     updatedAt:
+ *                       type: string
+ *                       format: date-time
+ *                       example: "2024-01-01T00:00:00.000Z"
  *       401:
  *         description: Not authenticated
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/Error'
  *       404:
  *         description: Asset not found
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/Error'
  *   patch:
  *     summary: Update asset
- *     description: Update an existing asset
+ *     description: Update an existing asset. Only provided fields will be updated.
  *     tags: [Assets]
  *     security:
  *       - bearerAuth: []
@@ -133,7 +276,9 @@ router
  *         required: true
  *         schema:
  *           type: string
+ *           format: uuid
  *         description: Asset ID
+ *         example: "123e4567-e89b-12d3-a456-426614174000"
  *     requestBody:
  *       required: true
  *       content:
@@ -143,22 +288,75 @@ router
  *             properties:
  *               name:
  *                 type: string
- *               subCategoryId:
+ *                 example: "Updated Door"
+ *                 description: Updated name of the asset
+ *               categoryId:
  *                 type: string
+ *                 format: uuid
+ *                 example: "123e4567-e89b-12d3-a456-426614174001"
+ *                 description: Updated category ID
  *               description:
  *                 type: string
+ *                 example: "Updated main entrance door"
+ *                 description: Updated description of the asset
  *     responses:
  *       200:
  *         description: Asset successfully updated
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 success:
+ *                   type: boolean
+ *                   example: true
+ *                 data:
+ *                   type: object
+ *                   properties:
+ *                     id:
+ *                       type: string
+ *                       format: uuid
+ *                       example: "123e4567-e89b-12d3-a456-426614174000"
+ *                     name:
+ *                       type: string
+ *                       example: "Updated Door"
+ *                     description:
+ *                       type: string
+ *                       nullable: true
+ *                       example: "Updated main entrance door"
+ *                     categoryId:
+ *                       type: string
+ *                       format: uuid
+ *                       example: "123e4567-e89b-12d3-a456-426614174001"
+ *                     createdAt:
+ *                       type: string
+ *                       format: date-time
+ *                       example: "2024-01-01T00:00:00.000Z"
+ *                     updatedAt:
+ *                       type: string
+ *                       format: date-time
+ *                       example: "2024-01-01T00:00:00.000Z"
  *       400:
  *         description: Validation error
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/Error'
  *       401:
  *         description: Not authenticated
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/Error'
  *       404:
  *         description: Asset not found
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/Error'
  *   delete:
  *     summary: Delete asset
- *     description: Delete an asset from the system
+ *     description: Delete an asset from the system. This action cannot be undone.
  *     tags: [Assets]
  *     security:
  *       - bearerAuth: []
@@ -168,14 +366,35 @@ router
  *         required: true
  *         schema:
  *           type: string
+ *           format: uuid
  *         description: Asset ID
+ *         example: "123e4567-e89b-12d3-a456-426614174000"
  *     responses:
  *       200:
  *         description: Asset successfully deleted
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 success:
+ *                   type: boolean
+ *                   example: true
+ *                 data:
+ *                   type: null
+ *                   example: null
  *       401:
  *         description: Not authenticated
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/Error'
  *       404:
  *         description: Asset not found
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/Error'
  */
 router
   .route("/:id")

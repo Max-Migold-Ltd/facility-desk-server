@@ -58,7 +58,9 @@ const swaggerOptions: swaggerJSDoc.Options = {
             { name: "Buildings", description: "Building management endpoints" },
             { name: "Floors", description: "Floor management endpoints" },
             { name: "Units", description: "Unit management endpoints" },
-            { name: "Rooms", description: "Room management endpoints" }
+            { name: "Rooms", description: "Room management endpoints" },
+            { name: "Assets", description: "Asset management endpoints" },
+            { name: "Asset Categories", description: "Asset category management endpoints" }
         ]
     },
     apis: ["./src/modules/**/*.routes.ts"]
