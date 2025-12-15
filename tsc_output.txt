@@ -1,0 +1,18 @@
+﻿src/modules/maintenance/maintenance.service.ts(19,7): error TS2322: Type '{ processStatus: "PENDING"; assignee?: { connect: { id: string; }; } | undefined; performer: { connect: { id: string; }; }; endDate?: Date | undefined; startDate?: Date | undefined; ... 8 more ...; requester: { ...; }; }' is not assignable to type '(Without<MaintenanceCreateInput, MaintenanceUncheckedCreateInput> & MaintenanceUncheckedCreateInput) | (Without<...> & MaintenanceCreateInput)'.
+  Type '{ processStatus: "PENDING"; assignee?: { connect: { id: string; }; } | undefined; performer: { connect: { id: string; }; }; endDate?: Date | undefined; startDate?: Date | undefined; ... 8 more ...; requester: { ...; }; }' is not assignable to type 'Without<MaintenanceUncheckedCreateInput, MaintenanceCreateInput> & MaintenanceCreateInput'.
+    Type '{ processStatus: "PENDING"; assignee?: { connect: { id: string; }; } | undefined; performer: { connect: { id: string; }; }; endDate?: Date | undefined; startDate?: Date | undefined; ... 8 more ...; requester: { ...; }; }' is not assignable to type 'MaintenanceCreateInput'.
+      Types of property 'startDate' are incompatible.
+        Type 'Date | undefined' is not assignable to type 'string | Date'.
+          Type 'undefined' is not assignable to type 'string | Date'.
+src/modules/sites/services/buildings.service.ts(116,7): error TS2322: Type '{ photos?: { connect: { id: string; }[]; } | undefined; name: string; code: string; mainUse?: MainUse; availability?: Availability; status?: ServiceStatus; ... 18 more ...; calenderEntityId?: string; }' is not assignable to type '(Without<BuildingCreateInput, BuildingUncheckedCreateInput> & BuildingUncheckedCreateInput) | (Without<...> & BuildingCreateInput)'.
+  Type '{ photos?: { connect: { id: string; }[]; } | undefined; name: string; code: string; mainUse?: MainUse; availability?: Availability; status?: ServiceStatus; ... 18 more ...; calenderEntityId?: string; }' is not assignable to type 'Without<BuildingCreateInput, BuildingUncheckedCreateInput> & BuildingUncheckedCreateInput'.
+    Type '{ photos?: { connect: { id: string; }[]; } | undefined; name: string; code: string; mainUse?: MainUse; availability?: Availability; status?: ServiceStatus; ... 18 more ...; calenderEntityId?: string; }' is not assignable to type 'Without<BuildingCreateInput, BuildingUncheckedCreateInput>'.
+      Types of property 'address' are incompatible.
+        Type 'string | undefined' is not assignable to type 'undefined'.
+          Type 'string' is not assignable to type 'undefined'.
+src/modules/sites/services/buildings.service.ts(143,7): error TS2322: Type 'UpdateBuildingDto' is not assignable to type '(Without<BuildingUpdateInput, BuildingUncheckedUpdateInput> & BuildingUncheckedUpdateInput) | (Without<...> & BuildingUpdateInput)'.
+  Type 'UpdateBuildingDto' is not assignable to type 'Without<BuildingUpdateInput, BuildingUncheckedUpdateInput> & BuildingUncheckedUpdateInput'.
+    Type 'UpdateBuildingDto' is not assignable to type 'Without<BuildingUpdateInput, BuildingUncheckedUpdateInput>'.
+      Types of property 'address' are incompatible.
+        Type 'string | undefined' is not assignable to type 'undefined'.
+          Type 'string' is not assignable to type 'undefined'.

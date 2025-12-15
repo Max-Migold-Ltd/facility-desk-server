@@ -89,10 +89,25 @@ export type Team = $Result.DefaultSelection<Prisma.$TeamPayload>
  */
 export type Address = $Result.DefaultSelection<Prisma.$AddressPayload>
 /**
+ * Model Contract
+ * 
+ */
+export type Contract = $Result.DefaultSelection<Prisma.$ContractPayload>
+/**
  * Model CalenderEntity
  * 
  */
 export type CalenderEntity = $Result.DefaultSelection<Prisma.$CalenderEntityPayload>
+/**
+ * Model Maintenance
+ * 
+ */
+export type Maintenance = $Result.DefaultSelection<Prisma.$MaintenancePayload>
+/**
+ * Model Preventive
+ * 
+ */
+export type Preventive = $Result.DefaultSelection<Prisma.$PreventivePayload>
 /**
  * Model RefreshToken
  * 
@@ -236,6 +251,40 @@ export const EmployeeType: {
 export type EmployeeType = (typeof EmployeeType)[keyof typeof EmployeeType]
 
 
+export const MaintenanceType: {
+  PREVENTIVE: 'PREVENTIVE',
+  CORRECTIVE: 'CORRECTIVE'
+};
+
+export type MaintenanceType = (typeof MaintenanceType)[keyof typeof MaintenanceType]
+
+
+export const Status: {
+  PENDING: 'PENDING',
+  IN_PROGRESS: 'IN_PROGRESS',
+  COMPLETED: 'COMPLETED'
+};
+
+export type Status = (typeof Status)[keyof typeof Status]
+
+
+export const ProcessType: {
+  MAINTENANCE: 'MAINTENANCE',
+  CORRECTIVE: 'CORRECTIVE'
+};
+
+export type ProcessType = (typeof ProcessType)[keyof typeof ProcessType]
+
+
+export const Priority: {
+  LOW: 'LOW',
+  MEDIUM: 'MEDIUM',
+  HIGH: 'HIGH'
+};
+
+export type Priority = (typeof Priority)[keyof typeof Priority]
+
+
 export const AssetCategoryType: {
   DEVICES: 'DEVICES',
   FINISHINGS: 'FINISHINGS',
@@ -244,6 +293,17 @@ export const AssetCategoryType: {
 };
 
 export type AssetCategoryType = (typeof AssetCategoryType)[keyof typeof AssetCategoryType]
+
+
+export const Frequency: {
+  DAILY: 'DAILY',
+  WEEKLY: 'WEEKLY',
+  MONTHLY: 'MONTHLY',
+  YEARLY: 'YEARLY',
+  CUSTOM: 'CUSTOM'
+};
+
+export type Frequency = (typeof Frequency)[keyof typeof Frequency]
 
 }
 
@@ -299,9 +359,29 @@ export type EmployeeType = $Enums.EmployeeType
 
 export const EmployeeType: typeof $Enums.EmployeeType
 
+export type MaintenanceType = $Enums.MaintenanceType
+
+export const MaintenanceType: typeof $Enums.MaintenanceType
+
+export type Status = $Enums.Status
+
+export const Status: typeof $Enums.Status
+
+export type ProcessType = $Enums.ProcessType
+
+export const ProcessType: typeof $Enums.ProcessType
+
+export type Priority = $Enums.Priority
+
+export const Priority: typeof $Enums.Priority
+
 export type AssetCategoryType = $Enums.AssetCategoryType
 
 export const AssetCategoryType: typeof $Enums.AssetCategoryType
+
+export type Frequency = $Enums.Frequency
+
+export const Frequency: typeof $Enums.Frequency
 
 /**
  * ##  Prisma Client ʲˢ
@@ -571,6 +651,16 @@ export class PrismaClient<
   get address(): Prisma.AddressDelegate<ExtArgs, ClientOptions>;
 
   /**
+   * `prisma.contract`: Exposes CRUD operations for the **Contract** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more Contracts
+    * const contracts = await prisma.contract.findMany()
+    * ```
+    */
+  get contract(): Prisma.ContractDelegate<ExtArgs, ClientOptions>;
+
+  /**
    * `prisma.calenderEntity`: Exposes CRUD operations for the **CalenderEntity** model.
     * Example usage:
     * ```ts
@@ -579,6 +669,26 @@ export class PrismaClient<
     * ```
     */
   get calenderEntity(): Prisma.CalenderEntityDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.maintenance`: Exposes CRUD operations for the **Maintenance** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more Maintenances
+    * const maintenances = await prisma.maintenance.findMany()
+    * ```
+    */
+  get maintenance(): Prisma.MaintenanceDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.preventive`: Exposes CRUD operations for the **Preventive** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more Preventives
+    * const preventives = await prisma.preventive.findMany()
+    * ```
+    */
+  get preventive(): Prisma.PreventiveDelegate<ExtArgs, ClientOptions>;
 
   /**
    * `prisma.refreshToken`: Exposes CRUD operations for the **RefreshToken** model.
@@ -1038,7 +1148,10 @@ export namespace Prisma {
     Employee: 'Employee',
     Team: 'Team',
     Address: 'Address',
+    Contract: 'Contract',
     CalenderEntity: 'CalenderEntity',
+    Maintenance: 'Maintenance',
+    Preventive: 'Preventive',
     RefreshToken: 'RefreshToken'
   };
 
@@ -1055,7 +1168,7 @@ export namespace Prisma {
       omit: GlobalOmitOptions
     }
     meta: {
-      modelProps: "user" | "role" | "permission" | "complex" | "building" | "floor" | "unit" | "room" | "assetCategory" | "asset" | "file" | "company" | "employee" | "team" | "address" | "calenderEntity" | "refreshToken"
+      modelProps: "user" | "role" | "permission" | "complex" | "building" | "floor" | "unit" | "room" | "assetCategory" | "asset" | "file" | "company" | "employee" | "team" | "address" | "contract" | "calenderEntity" | "maintenance" | "preventive" | "refreshToken"
       txIsolationLevel: Prisma.TransactionIsolationLevel
     }
     model: {
@@ -2169,6 +2282,80 @@ export namespace Prisma {
           }
         }
       }
+      Contract: {
+        payload: Prisma.$ContractPayload<ExtArgs>
+        fields: Prisma.ContractFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.ContractFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ContractPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.ContractFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ContractPayload>
+          }
+          findFirst: {
+            args: Prisma.ContractFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ContractPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.ContractFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ContractPayload>
+          }
+          findMany: {
+            args: Prisma.ContractFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ContractPayload>[]
+          }
+          create: {
+            args: Prisma.ContractCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ContractPayload>
+          }
+          createMany: {
+            args: Prisma.ContractCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.ContractCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ContractPayload>[]
+          }
+          delete: {
+            args: Prisma.ContractDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ContractPayload>
+          }
+          update: {
+            args: Prisma.ContractUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ContractPayload>
+          }
+          deleteMany: {
+            args: Prisma.ContractDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.ContractUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.ContractUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ContractPayload>[]
+          }
+          upsert: {
+            args: Prisma.ContractUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ContractPayload>
+          }
+          aggregate: {
+            args: Prisma.ContractAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateContract>
+          }
+          groupBy: {
+            args: Prisma.ContractGroupByArgs<ExtArgs>
+            result: $Utils.Optional<ContractGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.ContractCountArgs<ExtArgs>
+            result: $Utils.Optional<ContractCountAggregateOutputType> | number
+          }
+        }
+      }
       CalenderEntity: {
         payload: Prisma.$CalenderEntityPayload<ExtArgs>
         fields: Prisma.CalenderEntityFieldRefs
@@ -2240,6 +2427,154 @@ export namespace Prisma {
           count: {
             args: Prisma.CalenderEntityCountArgs<ExtArgs>
             result: $Utils.Optional<CalenderEntityCountAggregateOutputType> | number
+          }
+        }
+      }
+      Maintenance: {
+        payload: Prisma.$MaintenancePayload<ExtArgs>
+        fields: Prisma.MaintenanceFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.MaintenanceFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MaintenancePayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.MaintenanceFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MaintenancePayload>
+          }
+          findFirst: {
+            args: Prisma.MaintenanceFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MaintenancePayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.MaintenanceFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MaintenancePayload>
+          }
+          findMany: {
+            args: Prisma.MaintenanceFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MaintenancePayload>[]
+          }
+          create: {
+            args: Prisma.MaintenanceCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MaintenancePayload>
+          }
+          createMany: {
+            args: Prisma.MaintenanceCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.MaintenanceCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MaintenancePayload>[]
+          }
+          delete: {
+            args: Prisma.MaintenanceDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MaintenancePayload>
+          }
+          update: {
+            args: Prisma.MaintenanceUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MaintenancePayload>
+          }
+          deleteMany: {
+            args: Prisma.MaintenanceDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.MaintenanceUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.MaintenanceUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MaintenancePayload>[]
+          }
+          upsert: {
+            args: Prisma.MaintenanceUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MaintenancePayload>
+          }
+          aggregate: {
+            args: Prisma.MaintenanceAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateMaintenance>
+          }
+          groupBy: {
+            args: Prisma.MaintenanceGroupByArgs<ExtArgs>
+            result: $Utils.Optional<MaintenanceGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.MaintenanceCountArgs<ExtArgs>
+            result: $Utils.Optional<MaintenanceCountAggregateOutputType> | number
+          }
+        }
+      }
+      Preventive: {
+        payload: Prisma.$PreventivePayload<ExtArgs>
+        fields: Prisma.PreventiveFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.PreventiveFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PreventivePayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.PreventiveFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PreventivePayload>
+          }
+          findFirst: {
+            args: Prisma.PreventiveFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PreventivePayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.PreventiveFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PreventivePayload>
+          }
+          findMany: {
+            args: Prisma.PreventiveFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PreventivePayload>[]
+          }
+          create: {
+            args: Prisma.PreventiveCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PreventivePayload>
+          }
+          createMany: {
+            args: Prisma.PreventiveCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.PreventiveCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PreventivePayload>[]
+          }
+          delete: {
+            args: Prisma.PreventiveDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PreventivePayload>
+          }
+          update: {
+            args: Prisma.PreventiveUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PreventivePayload>
+          }
+          deleteMany: {
+            args: Prisma.PreventiveDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.PreventiveUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.PreventiveUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PreventivePayload>[]
+          }
+          upsert: {
+            args: Prisma.PreventiveUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PreventivePayload>
+          }
+          aggregate: {
+            args: Prisma.PreventiveAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregatePreventive>
+          }
+          groupBy: {
+            args: Prisma.PreventiveGroupByArgs<ExtArgs>
+            result: $Utils.Optional<PreventiveGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.PreventiveCountArgs<ExtArgs>
+            result: $Utils.Optional<PreventiveCountAggregateOutputType> | number
           }
         }
       }
@@ -2424,7 +2759,10 @@ export namespace Prisma {
     employee?: EmployeeOmit
     team?: TeamOmit
     address?: AddressOmit
+    contract?: ContractOmit
     calenderEntity?: CalenderEntityOmit
+    maintenance?: MaintenanceOmit
+    preventive?: PreventiveOmit
     refreshToken?: RefreshTokenOmit
   }
 
@@ -2591,6 +2929,8 @@ export namespace Prisma {
     floors: number
     units: number
     rooms: number
+    maintenances: number
+    preventives: number
   }
 
   export type ComplexCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -2599,6 +2939,8 @@ export namespace Prisma {
     floors?: boolean | ComplexCountOutputTypeCountFloorsArgs
     units?: boolean | ComplexCountOutputTypeCountUnitsArgs
     rooms?: boolean | ComplexCountOutputTypeCountRoomsArgs
+    maintenances?: boolean | ComplexCountOutputTypeCountMaintenancesArgs
+    preventives?: boolean | ComplexCountOutputTypeCountPreventivesArgs
   }
 
   // Custom InputTypes
@@ -2647,6 +2989,20 @@ export namespace Prisma {
     where?: RoomWhereInput
   }
 
+  /**
+   * ComplexCountOutputType without action
+   */
+  export type ComplexCountOutputTypeCountMaintenancesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: MaintenanceWhereInput
+  }
+
+  /**
+   * ComplexCountOutputType without action
+   */
+  export type ComplexCountOutputTypeCountPreventivesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: PreventiveWhereInput
+  }
+
 
   /**
    * Count Type BuildingCountOutputType
@@ -2657,6 +3013,7 @@ export namespace Prisma {
     floors: number
     units: number
     rooms: number
+    preventives: number
   }
 
   export type BuildingCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -2664,6 +3021,7 @@ export namespace Prisma {
     floors?: boolean | BuildingCountOutputTypeCountFloorsArgs
     units?: boolean | BuildingCountOutputTypeCountUnitsArgs
     rooms?: boolean | BuildingCountOutputTypeCountRoomsArgs
+    preventives?: boolean | BuildingCountOutputTypeCountPreventivesArgs
   }
 
   // Custom InputTypes
@@ -2705,6 +3063,13 @@ export namespace Prisma {
     where?: RoomWhereInput
   }
 
+  /**
+   * BuildingCountOutputType without action
+   */
+  export type BuildingCountOutputTypeCountPreventivesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: PreventiveWhereInput
+  }
+
 
   /**
    * Count Type FloorCountOutputType
@@ -2713,11 +3078,15 @@ export namespace Prisma {
   export type FloorCountOutputType = {
     rooms: number
     units: number
+    maintenances: number
+    preventives: number
   }
 
   export type FloorCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     rooms?: boolean | FloorCountOutputTypeCountRoomsArgs
     units?: boolean | FloorCountOutputTypeCountUnitsArgs
+    maintenances?: boolean | FloorCountOutputTypeCountMaintenancesArgs
+    preventives?: boolean | FloorCountOutputTypeCountPreventivesArgs
   }
 
   // Custom InputTypes
@@ -2743,6 +3112,20 @@ export namespace Prisma {
    */
   export type FloorCountOutputTypeCountUnitsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: UnitWhereInput
+  }
+
+  /**
+   * FloorCountOutputType without action
+   */
+  export type FloorCountOutputTypeCountMaintenancesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: MaintenanceWhereInput
+  }
+
+  /**
+   * FloorCountOutputType without action
+   */
+  export type FloorCountOutputTypeCountPreventivesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: PreventiveWhereInput
   }
 
 
@@ -2792,10 +3175,14 @@ export namespace Prisma {
 
   export type RoomCountOutputType = {
     photos: number
+    maintenances: number
+    preventives: number
   }
 
   export type RoomCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     photos?: boolean | RoomCountOutputTypeCountPhotosArgs
+    maintenances?: boolean | RoomCountOutputTypeCountMaintenancesArgs
+    preventives?: boolean | RoomCountOutputTypeCountPreventivesArgs
   }
 
   // Custom InputTypes
@@ -2814,6 +3201,20 @@ export namespace Prisma {
    */
   export type RoomCountOutputTypeCountPhotosArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: FileWhereInput
+  }
+
+  /**
+   * RoomCountOutputType without action
+   */
+  export type RoomCountOutputTypeCountMaintenancesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: MaintenanceWhereInput
+  }
+
+  /**
+   * RoomCountOutputType without action
+   */
+  export type RoomCountOutputTypeCountPreventivesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: PreventiveWhereInput
   }
 
 
@@ -2845,6 +3246,37 @@ export namespace Prisma {
    */
   export type AssetCategoryCountOutputTypeCountAssetsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: AssetWhereInput
+  }
+
+
+  /**
+   * Count Type AssetCountOutputType
+   */
+
+  export type AssetCountOutputType = {
+    maintenances: number
+  }
+
+  export type AssetCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    maintenances?: boolean | AssetCountOutputTypeCountMaintenancesArgs
+  }
+
+  // Custom InputTypes
+  /**
+   * AssetCountOutputType without action
+   */
+  export type AssetCountOutputTypeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AssetCountOutputType
+     */
+    select?: AssetCountOutputTypeSelect<ExtArgs> | null
+  }
+
+  /**
+   * AssetCountOutputType without action
+   */
+  export type AssetCountOutputTypeCountMaintenancesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: MaintenanceWhereInput
   }
 
 
@@ -2943,10 +3375,16 @@ export namespace Prisma {
 
   export type EmployeeCountOutputType = {
     teams: number
+    performedMaintenances: number
+    requestedMaintenances: number
+    assignedMaintenances: number
   }
 
   export type EmployeeCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     teams?: boolean | EmployeeCountOutputTypeCountTeamsArgs
+    performedMaintenances?: boolean | EmployeeCountOutputTypeCountPerformedMaintenancesArgs
+    requestedMaintenances?: boolean | EmployeeCountOutputTypeCountRequestedMaintenancesArgs
+    assignedMaintenances?: boolean | EmployeeCountOutputTypeCountAssignedMaintenancesArgs
   }
 
   // Custom InputTypes
@@ -2965,6 +3403,67 @@ export namespace Prisma {
    */
   export type EmployeeCountOutputTypeCountTeamsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: TeamWhereInput
+  }
+
+  /**
+   * EmployeeCountOutputType without action
+   */
+  export type EmployeeCountOutputTypeCountPerformedMaintenancesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: MaintenanceWhereInput
+  }
+
+  /**
+   * EmployeeCountOutputType without action
+   */
+  export type EmployeeCountOutputTypeCountRequestedMaintenancesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: MaintenanceWhereInput
+  }
+
+  /**
+   * EmployeeCountOutputType without action
+   */
+  export type EmployeeCountOutputTypeCountAssignedMaintenancesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: MaintenanceWhereInput
+  }
+
+
+  /**
+   * Count Type TeamCountOutputType
+   */
+
+  export type TeamCountOutputType = {
+    maintenances: number
+    preventives: number
+  }
+
+  export type TeamCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    maintenances?: boolean | TeamCountOutputTypeCountMaintenancesArgs
+    preventives?: boolean | TeamCountOutputTypeCountPreventivesArgs
+  }
+
+  // Custom InputTypes
+  /**
+   * TeamCountOutputType without action
+   */
+  export type TeamCountOutputTypeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the TeamCountOutputType
+     */
+    select?: TeamCountOutputTypeSelect<ExtArgs> | null
+  }
+
+  /**
+   * TeamCountOutputType without action
+   */
+  export type TeamCountOutputTypeCountMaintenancesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: MaintenanceWhereInput
+  }
+
+  /**
+   * TeamCountOutputType without action
+   */
+  export type TeamCountOutputTypeCountPreventivesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: PreventiveWhereInput
   }
 
 
@@ -3072,6 +3571,37 @@ export namespace Prisma {
    */
   export type CalenderEntityCountOutputTypeCountEmployeesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: EmployeeWhereInput
+  }
+
+
+  /**
+   * Count Type MaintenanceCountOutputType
+   */
+
+  export type MaintenanceCountOutputType = {
+    photos: number
+  }
+
+  export type MaintenanceCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    photos?: boolean | MaintenanceCountOutputTypeCountPhotosArgs
+  }
+
+  // Custom InputTypes
+  /**
+   * MaintenanceCountOutputType without action
+   */
+  export type MaintenanceCountOutputTypeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MaintenanceCountOutputType
+     */
+    select?: MaintenanceCountOutputTypeSelect<ExtArgs> | null
+  }
+
+  /**
+   * MaintenanceCountOutputType without action
+   */
+  export type MaintenanceCountOutputTypeCountPhotosArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: FileWhereInput
   }
 
 
@@ -6851,6 +7381,8 @@ export namespace Prisma {
     floors?: boolean | Complex$floorsArgs<ExtArgs>
     units?: boolean | Complex$unitsArgs<ExtArgs>
     rooms?: boolean | Complex$roomsArgs<ExtArgs>
+    maintenances?: boolean | Complex$maintenancesArgs<ExtArgs>
+    preventives?: boolean | Complex$preventivesArgs<ExtArgs>
     _count?: boolean | ComplexCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["complex"]>
 
@@ -6945,6 +7477,8 @@ export namespace Prisma {
     floors?: boolean | Complex$floorsArgs<ExtArgs>
     units?: boolean | Complex$unitsArgs<ExtArgs>
     rooms?: boolean | Complex$roomsArgs<ExtArgs>
+    maintenances?: boolean | Complex$maintenancesArgs<ExtArgs>
+    preventives?: boolean | Complex$preventivesArgs<ExtArgs>
     _count?: boolean | ComplexCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type ComplexIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -6963,6 +7497,8 @@ export namespace Prisma {
       floors: Prisma.$FloorPayload<ExtArgs>[]
       units: Prisma.$UnitPayload<ExtArgs>[]
       rooms: Prisma.$RoomPayload<ExtArgs>[]
+      maintenances: Prisma.$MaintenancePayload<ExtArgs>[]
+      preventives: Prisma.$PreventivePayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -7389,6 +7925,8 @@ export namespace Prisma {
     floors<T extends Complex$floorsArgs<ExtArgs> = {}>(args?: Subset<T, Complex$floorsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$FloorPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     units<T extends Complex$unitsArgs<ExtArgs> = {}>(args?: Subset<T, Complex$unitsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$UnitPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     rooms<T extends Complex$roomsArgs<ExtArgs> = {}>(args?: Subset<T, Complex$roomsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$RoomPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    maintenances<T extends Complex$maintenancesArgs<ExtArgs> = {}>(args?: Subset<T, Complex$maintenancesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$MaintenancePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    preventives<T extends Complex$preventivesArgs<ExtArgs> = {}>(args?: Subset<T, Complex$preventivesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PreventivePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -7977,6 +8515,54 @@ export namespace Prisma {
   }
 
   /**
+   * Complex.maintenances
+   */
+  export type Complex$maintenancesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Maintenance
+     */
+    select?: MaintenanceSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Maintenance
+     */
+    omit?: MaintenanceOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MaintenanceInclude<ExtArgs> | null
+    where?: MaintenanceWhereInput
+    orderBy?: MaintenanceOrderByWithRelationInput | MaintenanceOrderByWithRelationInput[]
+    cursor?: MaintenanceWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: MaintenanceScalarFieldEnum | MaintenanceScalarFieldEnum[]
+  }
+
+  /**
+   * Complex.preventives
+   */
+  export type Complex$preventivesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Preventive
+     */
+    select?: PreventiveSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Preventive
+     */
+    omit?: PreventiveOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PreventiveInclude<ExtArgs> | null
+    where?: PreventiveWhereInput
+    orderBy?: PreventiveOrderByWithRelationInput | PreventiveOrderByWithRelationInput[]
+    cursor?: PreventiveWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: PreventiveScalarFieldEnum | PreventiveScalarFieldEnum[]
+  }
+
+  /**
    * Complex without action
    */
   export type ComplexDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -8380,6 +8966,7 @@ export namespace Prisma {
     floors?: boolean | Building$floorsArgs<ExtArgs>
     units?: boolean | Building$unitsArgs<ExtArgs>
     rooms?: boolean | Building$roomsArgs<ExtArgs>
+    preventives?: boolean | Building$preventivesArgs<ExtArgs>
     _count?: boolean | BuildingCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["building"]>
 
@@ -8476,6 +9063,7 @@ export namespace Prisma {
     floors?: boolean | Building$floorsArgs<ExtArgs>
     units?: boolean | Building$unitsArgs<ExtArgs>
     rooms?: boolean | Building$roomsArgs<ExtArgs>
+    preventives?: boolean | Building$preventivesArgs<ExtArgs>
     _count?: boolean | BuildingCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type BuildingIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -8499,6 +9087,7 @@ export namespace Prisma {
       floors: Prisma.$FloorPayload<ExtArgs>[]
       units: Prisma.$UnitPayload<ExtArgs>[]
       rooms: Prisma.$RoomPayload<ExtArgs>[]
+      preventives: Prisma.$PreventivePayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -8925,6 +9514,7 @@ export namespace Prisma {
     floors<T extends Building$floorsArgs<ExtArgs> = {}>(args?: Subset<T, Building$floorsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$FloorPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     units<T extends Building$unitsArgs<ExtArgs> = {}>(args?: Subset<T, Building$unitsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$UnitPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     rooms<T extends Building$roomsArgs<ExtArgs> = {}>(args?: Subset<T, Building$roomsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$RoomPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    preventives<T extends Building$preventivesArgs<ExtArgs> = {}>(args?: Subset<T, Building$preventivesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PreventivePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -9488,6 +10078,30 @@ export namespace Prisma {
   }
 
   /**
+   * Building.preventives
+   */
+  export type Building$preventivesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Preventive
+     */
+    select?: PreventiveSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Preventive
+     */
+    omit?: PreventiveOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PreventiveInclude<ExtArgs> | null
+    where?: PreventiveWhereInput
+    orderBy?: PreventiveOrderByWithRelationInput | PreventiveOrderByWithRelationInput[]
+    cursor?: PreventiveWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: PreventiveScalarFieldEnum | PreventiveScalarFieldEnum[]
+  }
+
+  /**
    * Building without action
    */
   export type BuildingDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -9864,6 +10478,8 @@ export namespace Prisma {
     building?: boolean | BuildingDefaultArgs<ExtArgs>
     rooms?: boolean | Floor$roomsArgs<ExtArgs>
     units?: boolean | Floor$unitsArgs<ExtArgs>
+    maintenances?: boolean | Floor$maintenancesArgs<ExtArgs>
+    preventives?: boolean | Floor$preventivesArgs<ExtArgs>
     _count?: boolean | FloorCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["floor"]>
 
@@ -9946,6 +10562,8 @@ export namespace Prisma {
     building?: boolean | BuildingDefaultArgs<ExtArgs>
     rooms?: boolean | Floor$roomsArgs<ExtArgs>
     units?: boolean | Floor$unitsArgs<ExtArgs>
+    maintenances?: boolean | Floor$maintenancesArgs<ExtArgs>
+    preventives?: boolean | Floor$preventivesArgs<ExtArgs>
     _count?: boolean | FloorCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type FloorIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -9964,6 +10582,8 @@ export namespace Prisma {
       building: Prisma.$BuildingPayload<ExtArgs>
       rooms: Prisma.$RoomPayload<ExtArgs>[]
       units: Prisma.$UnitPayload<ExtArgs>[]
+      maintenances: Prisma.$MaintenancePayload<ExtArgs>[]
+      preventives: Prisma.$PreventivePayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -10384,6 +11004,8 @@ export namespace Prisma {
     building<T extends BuildingDefaultArgs<ExtArgs> = {}>(args?: Subset<T, BuildingDefaultArgs<ExtArgs>>): Prisma__BuildingClient<$Result.GetResult<Prisma.$BuildingPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
     rooms<T extends Floor$roomsArgs<ExtArgs> = {}>(args?: Subset<T, Floor$roomsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$RoomPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     units<T extends Floor$unitsArgs<ExtArgs> = {}>(args?: Subset<T, Floor$unitsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$UnitPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    maintenances<T extends Floor$maintenancesArgs<ExtArgs> = {}>(args?: Subset<T, Floor$maintenancesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$MaintenancePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    preventives<T extends Floor$preventivesArgs<ExtArgs> = {}>(args?: Subset<T, Floor$preventivesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PreventivePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -10874,6 +11496,54 @@ export namespace Prisma {
     take?: number
     skip?: number
     distinct?: UnitScalarFieldEnum | UnitScalarFieldEnum[]
+  }
+
+  /**
+   * Floor.maintenances
+   */
+  export type Floor$maintenancesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Maintenance
+     */
+    select?: MaintenanceSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Maintenance
+     */
+    omit?: MaintenanceOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MaintenanceInclude<ExtArgs> | null
+    where?: MaintenanceWhereInput
+    orderBy?: MaintenanceOrderByWithRelationInput | MaintenanceOrderByWithRelationInput[]
+    cursor?: MaintenanceWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: MaintenanceScalarFieldEnum | MaintenanceScalarFieldEnum[]
+  }
+
+  /**
+   * Floor.preventives
+   */
+  export type Floor$preventivesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Preventive
+     */
+    select?: PreventiveSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Preventive
+     */
+    omit?: PreventiveOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PreventiveInclude<ExtArgs> | null
+    where?: PreventiveWhereInput
+    orderBy?: PreventiveOrderByWithRelationInput | PreventiveOrderByWithRelationInput[]
+    cursor?: PreventiveWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: PreventiveScalarFieldEnum | PreventiveScalarFieldEnum[]
   }
 
   /**
@@ -12898,6 +13568,8 @@ export namespace Prisma {
     floor?: boolean | FloorDefaultArgs<ExtArgs>
     unit?: boolean | Room$unitArgs<ExtArgs>
     photos?: boolean | Room$photosArgs<ExtArgs>
+    maintenances?: boolean | Room$maintenancesArgs<ExtArgs>
+    preventives?: boolean | Room$preventivesArgs<ExtArgs>
     _count?: boolean | RoomCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["room"]>
 
@@ -12994,6 +13666,8 @@ export namespace Prisma {
     floor?: boolean | FloorDefaultArgs<ExtArgs>
     unit?: boolean | Room$unitArgs<ExtArgs>
     photos?: boolean | Room$photosArgs<ExtArgs>
+    maintenances?: boolean | Room$maintenancesArgs<ExtArgs>
+    preventives?: boolean | Room$preventivesArgs<ExtArgs>
     _count?: boolean | RoomCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type RoomIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -13020,6 +13694,8 @@ export namespace Prisma {
       floor: Prisma.$FloorPayload<ExtArgs>
       unit: Prisma.$UnitPayload<ExtArgs> | null
       photos: Prisma.$FilePayload<ExtArgs>[]
+      maintenances: Prisma.$MaintenancePayload<ExtArgs>[]
+      preventives: Prisma.$PreventivePayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -13444,6 +14120,8 @@ export namespace Prisma {
     floor<T extends FloorDefaultArgs<ExtArgs> = {}>(args?: Subset<T, FloorDefaultArgs<ExtArgs>>): Prisma__FloorClient<$Result.GetResult<Prisma.$FloorPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
     unit<T extends Room$unitArgs<ExtArgs> = {}>(args?: Subset<T, Room$unitArgs<ExtArgs>>): Prisma__UnitClient<$Result.GetResult<Prisma.$UnitPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
     photos<T extends Room$photosArgs<ExtArgs> = {}>(args?: Subset<T, Room$photosArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$FilePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    maintenances<T extends Room$maintenancesArgs<ExtArgs> = {}>(args?: Subset<T, Room$maintenancesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$MaintenancePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    preventives<T extends Room$preventivesArgs<ExtArgs> = {}>(args?: Subset<T, Room$preventivesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PreventivePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -13988,6 +14666,54 @@ export namespace Prisma {
     take?: number
     skip?: number
     distinct?: FileScalarFieldEnum | FileScalarFieldEnum[]
+  }
+
+  /**
+   * Room.maintenances
+   */
+  export type Room$maintenancesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Maintenance
+     */
+    select?: MaintenanceSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Maintenance
+     */
+    omit?: MaintenanceOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MaintenanceInclude<ExtArgs> | null
+    where?: MaintenanceWhereInput
+    orderBy?: MaintenanceOrderByWithRelationInput | MaintenanceOrderByWithRelationInput[]
+    cursor?: MaintenanceWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: MaintenanceScalarFieldEnum | MaintenanceScalarFieldEnum[]
+  }
+
+  /**
+   * Room.preventives
+   */
+  export type Room$preventivesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Preventive
+     */
+    select?: PreventiveSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Preventive
+     */
+    omit?: PreventiveOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PreventiveInclude<ExtArgs> | null
+    where?: PreventiveWhereInput
+    orderBy?: PreventiveOrderByWithRelationInput | PreventiveOrderByWithRelationInput[]
+    cursor?: PreventiveWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: PreventiveScalarFieldEnum | PreventiveScalarFieldEnum[]
   }
 
   /**
@@ -15265,6 +15991,8 @@ export namespace Prisma {
     createdAt?: boolean
     updatedAt?: boolean
     category?: boolean | AssetCategoryDefaultArgs<ExtArgs>
+    maintenances?: boolean | Asset$maintenancesArgs<ExtArgs>
+    _count?: boolean | AssetCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["asset"]>
 
   export type AssetSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
@@ -15299,6 +16027,8 @@ export namespace Prisma {
   export type AssetOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "description" | "categoryId" | "createdAt" | "updatedAt", ExtArgs["result"]["asset"]>
   export type AssetInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     category?: boolean | AssetCategoryDefaultArgs<ExtArgs>
+    maintenances?: boolean | Asset$maintenancesArgs<ExtArgs>
+    _count?: boolean | AssetCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type AssetIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     category?: boolean | AssetCategoryDefaultArgs<ExtArgs>
@@ -15311,6 +16041,7 @@ export namespace Prisma {
     name: "Asset"
     objects: {
       category: Prisma.$AssetCategoryPayload<ExtArgs>
+      maintenances: Prisma.$MaintenancePayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -15714,6 +16445,7 @@ export namespace Prisma {
   export interface Prisma__AssetClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
     category<T extends AssetCategoryDefaultArgs<ExtArgs> = {}>(args?: Subset<T, AssetCategoryDefaultArgs<ExtArgs>>): Prisma__AssetCategoryClient<$Result.GetResult<Prisma.$AssetCategoryPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    maintenances<T extends Asset$maintenancesArgs<ExtArgs> = {}>(args?: Subset<T, Asset$maintenancesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$MaintenancePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -16145,6 +16877,30 @@ export namespace Prisma {
   }
 
   /**
+   * Asset.maintenances
+   */
+  export type Asset$maintenancesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Maintenance
+     */
+    select?: MaintenanceSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Maintenance
+     */
+    omit?: MaintenanceOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MaintenanceInclude<ExtArgs> | null
+    where?: MaintenanceWhereInput
+    orderBy?: MaintenanceOrderByWithRelationInput | MaintenanceOrderByWithRelationInput[]
+    cursor?: MaintenanceWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: MaintenanceScalarFieldEnum | MaintenanceScalarFieldEnum[]
+  }
+
+  /**
    * Asset without action
    */
   export type AssetDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -16176,16 +16932,19 @@ export namespace Prisma {
   export type FileMinAggregateOutputType = {
     id: string | null
     url: string | null
+    maintenanceId: string | null
   }
 
   export type FileMaxAggregateOutputType = {
     id: string | null
     url: string | null
+    maintenanceId: string | null
   }
 
   export type FileCountAggregateOutputType = {
     id: number
     url: number
+    maintenanceId: number
     _all: number
   }
 
@@ -16193,16 +16952,19 @@ export namespace Prisma {
   export type FileMinAggregateInputType = {
     id?: true
     url?: true
+    maintenanceId?: true
   }
 
   export type FileMaxAggregateInputType = {
     id?: true
     url?: true
+    maintenanceId?: true
   }
 
   export type FileCountAggregateInputType = {
     id?: true
     url?: true
+    maintenanceId?: true
     _all?: true
   }
 
@@ -16281,6 +17043,7 @@ export namespace Prisma {
   export type FileGroupByOutputType = {
     id: string
     url: string
+    maintenanceId: string | null
     _count: FileCountAggregateOutputType | null
     _min: FileMinAggregateOutputType | null
     _max: FileMaxAggregateOutputType | null
@@ -16303,38 +17066,50 @@ export namespace Prisma {
   export type FileSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     url?: boolean
+    maintenanceId?: boolean
     rooms?: boolean | File$roomsArgs<ExtArgs>
     units?: boolean | File$unitsArgs<ExtArgs>
     buildings?: boolean | File$buildingsArgs<ExtArgs>
     complexes?: boolean | File$complexesArgs<ExtArgs>
+    maintenance?: boolean | File$maintenanceArgs<ExtArgs>
     _count?: boolean | FileCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["file"]>
 
   export type FileSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     url?: boolean
+    maintenanceId?: boolean
+    maintenance?: boolean | File$maintenanceArgs<ExtArgs>
   }, ExtArgs["result"]["file"]>
 
   export type FileSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     url?: boolean
+    maintenanceId?: boolean
+    maintenance?: boolean | File$maintenanceArgs<ExtArgs>
   }, ExtArgs["result"]["file"]>
 
   export type FileSelectScalar = {
     id?: boolean
     url?: boolean
+    maintenanceId?: boolean
   }
 
-  export type FileOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "url", ExtArgs["result"]["file"]>
+  export type FileOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "url" | "maintenanceId", ExtArgs["result"]["file"]>
   export type FileInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     rooms?: boolean | File$roomsArgs<ExtArgs>
     units?: boolean | File$unitsArgs<ExtArgs>
     buildings?: boolean | File$buildingsArgs<ExtArgs>
     complexes?: boolean | File$complexesArgs<ExtArgs>
+    maintenance?: boolean | File$maintenanceArgs<ExtArgs>
     _count?: boolean | FileCountOutputTypeDefaultArgs<ExtArgs>
   }
-  export type FileIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
-  export type FileIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
+  export type FileIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    maintenance?: boolean | File$maintenanceArgs<ExtArgs>
+  }
+  export type FileIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    maintenance?: boolean | File$maintenanceArgs<ExtArgs>
+  }
 
   export type $FilePayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "File"
@@ -16343,10 +17118,12 @@ export namespace Prisma {
       units: Prisma.$UnitPayload<ExtArgs>[]
       buildings: Prisma.$BuildingPayload<ExtArgs>[]
       complexes: Prisma.$ComplexPayload<ExtArgs>[]
+      maintenance: Prisma.$MaintenancePayload<ExtArgs> | null
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
       url: string
+      maintenanceId: string | null
     }, ExtArgs["result"]["file"]>
     composites: {}
   }
@@ -16745,6 +17522,7 @@ export namespace Prisma {
     units<T extends File$unitsArgs<ExtArgs> = {}>(args?: Subset<T, File$unitsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$UnitPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     buildings<T extends File$buildingsArgs<ExtArgs> = {}>(args?: Subset<T, File$buildingsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$BuildingPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     complexes<T extends File$complexesArgs<ExtArgs> = {}>(args?: Subset<T, File$complexesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ComplexPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    maintenance<T extends File$maintenanceArgs<ExtArgs> = {}>(args?: Subset<T, File$maintenanceArgs<ExtArgs>>): Prisma__MaintenanceClient<$Result.GetResult<Prisma.$MaintenancePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -16776,6 +17554,7 @@ export namespace Prisma {
   interface FileFieldRefs {
     readonly id: FieldRef<"File", 'String'>
     readonly url: FieldRef<"File", 'String'>
+    readonly maintenanceId: FieldRef<"File", 'String'>
   }
     
 
@@ -17025,6 +17804,10 @@ export namespace Prisma {
      */
     data: FileCreateManyInput | FileCreateManyInput[]
     skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: FileIncludeCreateManyAndReturn<ExtArgs> | null
   }
 
   /**
@@ -17095,6 +17878,10 @@ export namespace Prisma {
      * Limit how many Files to update.
      */
     limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: FileIncludeUpdateManyAndReturn<ExtArgs> | null
   }
 
   /**
@@ -17257,6 +18044,25 @@ export namespace Prisma {
     take?: number
     skip?: number
     distinct?: ComplexScalarFieldEnum | ComplexScalarFieldEnum[]
+  }
+
+  /**
+   * File.maintenance
+   */
+  export type File$maintenanceArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Maintenance
+     */
+    select?: MaintenanceSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Maintenance
+     */
+    omit?: MaintenanceOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MaintenanceInclude<ExtArgs> | null
+    where?: MaintenanceWhereInput
   }
 
   /**
@@ -18641,6 +19447,9 @@ export namespace Prisma {
     company?: boolean | CompanyDefaultArgs<ExtArgs>
     calenderEntity?: boolean | Employee$calenderEntityArgs<ExtArgs>
     teams?: boolean | Employee$teamsArgs<ExtArgs>
+    performedMaintenances?: boolean | Employee$performedMaintenancesArgs<ExtArgs>
+    requestedMaintenances?: boolean | Employee$requestedMaintenancesArgs<ExtArgs>
+    assignedMaintenances?: boolean | Employee$assignedMaintenancesArgs<ExtArgs>
     _count?: boolean | EmployeeCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["employee"]>
 
@@ -18686,6 +19495,9 @@ export namespace Prisma {
     company?: boolean | CompanyDefaultArgs<ExtArgs>
     calenderEntity?: boolean | Employee$calenderEntityArgs<ExtArgs>
     teams?: boolean | Employee$teamsArgs<ExtArgs>
+    performedMaintenances?: boolean | Employee$performedMaintenancesArgs<ExtArgs>
+    requestedMaintenances?: boolean | Employee$requestedMaintenancesArgs<ExtArgs>
+    assignedMaintenances?: boolean | Employee$assignedMaintenancesArgs<ExtArgs>
     _count?: boolean | EmployeeCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type EmployeeIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -18706,6 +19518,9 @@ export namespace Prisma {
       company: Prisma.$CompanyPayload<ExtArgs>
       calenderEntity: Prisma.$CalenderEntityPayload<ExtArgs> | null
       teams: Prisma.$TeamPayload<ExtArgs>[]
+      performedMaintenances: Prisma.$MaintenancePayload<ExtArgs>[]
+      requestedMaintenances: Prisma.$MaintenancePayload<ExtArgs>[]
+      assignedMaintenances: Prisma.$MaintenancePayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -19113,6 +19928,9 @@ export namespace Prisma {
     company<T extends CompanyDefaultArgs<ExtArgs> = {}>(args?: Subset<T, CompanyDefaultArgs<ExtArgs>>): Prisma__CompanyClient<$Result.GetResult<Prisma.$CompanyPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
     calenderEntity<T extends Employee$calenderEntityArgs<ExtArgs> = {}>(args?: Subset<T, Employee$calenderEntityArgs<ExtArgs>>): Prisma__CalenderEntityClient<$Result.GetResult<Prisma.$CalenderEntityPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
     teams<T extends Employee$teamsArgs<ExtArgs> = {}>(args?: Subset<T, Employee$teamsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$TeamPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    performedMaintenances<T extends Employee$performedMaintenancesArgs<ExtArgs> = {}>(args?: Subset<T, Employee$performedMaintenancesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$MaintenancePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    requestedMaintenances<T extends Employee$requestedMaintenancesArgs<ExtArgs> = {}>(args?: Subset<T, Employee$requestedMaintenancesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$MaintenancePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    assignedMaintenances<T extends Employee$assignedMaintenancesArgs<ExtArgs> = {}>(args?: Subset<T, Employee$assignedMaintenancesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$MaintenancePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -19588,6 +20406,78 @@ export namespace Prisma {
   }
 
   /**
+   * Employee.performedMaintenances
+   */
+  export type Employee$performedMaintenancesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Maintenance
+     */
+    select?: MaintenanceSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Maintenance
+     */
+    omit?: MaintenanceOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MaintenanceInclude<ExtArgs> | null
+    where?: MaintenanceWhereInput
+    orderBy?: MaintenanceOrderByWithRelationInput | MaintenanceOrderByWithRelationInput[]
+    cursor?: MaintenanceWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: MaintenanceScalarFieldEnum | MaintenanceScalarFieldEnum[]
+  }
+
+  /**
+   * Employee.requestedMaintenances
+   */
+  export type Employee$requestedMaintenancesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Maintenance
+     */
+    select?: MaintenanceSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Maintenance
+     */
+    omit?: MaintenanceOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MaintenanceInclude<ExtArgs> | null
+    where?: MaintenanceWhereInput
+    orderBy?: MaintenanceOrderByWithRelationInput | MaintenanceOrderByWithRelationInput[]
+    cursor?: MaintenanceWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: MaintenanceScalarFieldEnum | MaintenanceScalarFieldEnum[]
+  }
+
+  /**
+   * Employee.assignedMaintenances
+   */
+  export type Employee$assignedMaintenancesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Maintenance
+     */
+    select?: MaintenanceSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Maintenance
+     */
+    omit?: MaintenanceOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MaintenanceInclude<ExtArgs> | null
+    where?: MaintenanceWhereInput
+    orderBy?: MaintenanceOrderByWithRelationInput | MaintenanceOrderByWithRelationInput[]
+    cursor?: MaintenanceWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: MaintenanceScalarFieldEnum | MaintenanceScalarFieldEnum[]
+  }
+
+  /**
    * Employee without action
    */
   export type EmployeeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -19795,6 +20685,9 @@ export namespace Prisma {
     createdAt?: boolean
     updatedAt?: boolean
     supervisor?: boolean | EmployeeDefaultArgs<ExtArgs>
+    maintenances?: boolean | Team$maintenancesArgs<ExtArgs>
+    preventives?: boolean | Team$preventivesArgs<ExtArgs>
+    _count?: boolean | TeamCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["team"]>
 
   export type TeamSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
@@ -19835,6 +20728,9 @@ export namespace Prisma {
   export type TeamOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "code" | "name" | "description" | "status" | "supervisorId" | "createdAt" | "updatedAt", ExtArgs["result"]["team"]>
   export type TeamInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     supervisor?: boolean | EmployeeDefaultArgs<ExtArgs>
+    maintenances?: boolean | Team$maintenancesArgs<ExtArgs>
+    preventives?: boolean | Team$preventivesArgs<ExtArgs>
+    _count?: boolean | TeamCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type TeamIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     supervisor?: boolean | EmployeeDefaultArgs<ExtArgs>
@@ -19847,6 +20743,8 @@ export namespace Prisma {
     name: "Team"
     objects: {
       supervisor: Prisma.$EmployeePayload<ExtArgs>
+      maintenances: Prisma.$MaintenancePayload<ExtArgs>[]
+      preventives: Prisma.$PreventivePayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -20252,6 +21150,8 @@ export namespace Prisma {
   export interface Prisma__TeamClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
     supervisor<T extends EmployeeDefaultArgs<ExtArgs> = {}>(args?: Subset<T, EmployeeDefaultArgs<ExtArgs>>): Prisma__EmployeeClient<$Result.GetResult<Prisma.$EmployeePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    maintenances<T extends Team$maintenancesArgs<ExtArgs> = {}>(args?: Subset<T, Team$maintenancesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$MaintenancePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    preventives<T extends Team$preventivesArgs<ExtArgs> = {}>(args?: Subset<T, Team$preventivesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PreventivePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -20682,6 +21582,54 @@ export namespace Prisma {
      * Limit how many Teams to delete.
      */
     limit?: number
+  }
+
+  /**
+   * Team.maintenances
+   */
+  export type Team$maintenancesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Maintenance
+     */
+    select?: MaintenanceSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Maintenance
+     */
+    omit?: MaintenanceOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MaintenanceInclude<ExtArgs> | null
+    where?: MaintenanceWhereInput
+    orderBy?: MaintenanceOrderByWithRelationInput | MaintenanceOrderByWithRelationInput[]
+    cursor?: MaintenanceWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: MaintenanceScalarFieldEnum | MaintenanceScalarFieldEnum[]
+  }
+
+  /**
+   * Team.preventives
+   */
+  export type Team$preventivesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Preventive
+     */
+    select?: PreventiveSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Preventive
+     */
+    omit?: PreventiveOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PreventiveInclude<ExtArgs> | null
+    where?: PreventiveWhereInput
+    orderBy?: PreventiveOrderByWithRelationInput | PreventiveOrderByWithRelationInput[]
+    cursor?: PreventiveWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: PreventiveScalarFieldEnum | PreventiveScalarFieldEnum[]
   }
 
   /**
@@ -21798,6 +22746,975 @@ export namespace Prisma {
      * Choose, which related nodes to fetch as well
      */
     include?: AddressInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model Contract
+   */
+
+  export type AggregateContract = {
+    _count: ContractCountAggregateOutputType | null
+    _min: ContractMinAggregateOutputType | null
+    _max: ContractMaxAggregateOutputType | null
+  }
+
+  export type ContractMinAggregateOutputType = {
+    id: string | null
+    code: string | null
+    description: string | null
+  }
+
+  export type ContractMaxAggregateOutputType = {
+    id: string | null
+    code: string | null
+    description: string | null
+  }
+
+  export type ContractCountAggregateOutputType = {
+    id: number
+    code: number
+    description: number
+    _all: number
+  }
+
+
+  export type ContractMinAggregateInputType = {
+    id?: true
+    code?: true
+    description?: true
+  }
+
+  export type ContractMaxAggregateInputType = {
+    id?: true
+    code?: true
+    description?: true
+  }
+
+  export type ContractCountAggregateInputType = {
+    id?: true
+    code?: true
+    description?: true
+    _all?: true
+  }
+
+  export type ContractAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Contract to aggregate.
+     */
+    where?: ContractWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Contracts to fetch.
+     */
+    orderBy?: ContractOrderByWithRelationInput | ContractOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: ContractWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Contracts from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Contracts.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned Contracts
+    **/
+    _count?: true | ContractCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: ContractMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: ContractMaxAggregateInputType
+  }
+
+  export type GetContractAggregateType<T extends ContractAggregateArgs> = {
+        [P in keyof T & keyof AggregateContract]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateContract[P]>
+      : GetScalarType<T[P], AggregateContract[P]>
+  }
+
+
+
+
+  export type ContractGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: ContractWhereInput
+    orderBy?: ContractOrderByWithAggregationInput | ContractOrderByWithAggregationInput[]
+    by: ContractScalarFieldEnum[] | ContractScalarFieldEnum
+    having?: ContractScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: ContractCountAggregateInputType | true
+    _min?: ContractMinAggregateInputType
+    _max?: ContractMaxAggregateInputType
+  }
+
+  export type ContractGroupByOutputType = {
+    id: string
+    code: string
+    description: string
+    _count: ContractCountAggregateOutputType | null
+    _min: ContractMinAggregateOutputType | null
+    _max: ContractMaxAggregateOutputType | null
+  }
+
+  type GetContractGroupByPayload<T extends ContractGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<ContractGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof ContractGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], ContractGroupByOutputType[P]>
+            : GetScalarType<T[P], ContractGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type ContractSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    code?: boolean
+    description?: boolean
+  }, ExtArgs["result"]["contract"]>
+
+  export type ContractSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    code?: boolean
+    description?: boolean
+  }, ExtArgs["result"]["contract"]>
+
+  export type ContractSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    code?: boolean
+    description?: boolean
+  }, ExtArgs["result"]["contract"]>
+
+  export type ContractSelectScalar = {
+    id?: boolean
+    code?: boolean
+    description?: boolean
+  }
+
+  export type ContractOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "code" | "description", ExtArgs["result"]["contract"]>
+
+  export type $ContractPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "Contract"
+    objects: {}
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      code: string
+      description: string
+    }, ExtArgs["result"]["contract"]>
+    composites: {}
+  }
+
+  type ContractGetPayload<S extends boolean | null | undefined | ContractDefaultArgs> = $Result.GetResult<Prisma.$ContractPayload, S>
+
+  type ContractCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<ContractFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: ContractCountAggregateInputType | true
+    }
+
+  export interface ContractDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['Contract'], meta: { name: 'Contract' } }
+    /**
+     * Find zero or one Contract that matches the filter.
+     * @param {ContractFindUniqueArgs} args - Arguments to find a Contract
+     * @example
+     * // Get one Contract
+     * const contract = await prisma.contract.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends ContractFindUniqueArgs>(args: SelectSubset<T, ContractFindUniqueArgs<ExtArgs>>): Prisma__ContractClient<$Result.GetResult<Prisma.$ContractPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one Contract that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {ContractFindUniqueOrThrowArgs} args - Arguments to find a Contract
+     * @example
+     * // Get one Contract
+     * const contract = await prisma.contract.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends ContractFindUniqueOrThrowArgs>(args: SelectSubset<T, ContractFindUniqueOrThrowArgs<ExtArgs>>): Prisma__ContractClient<$Result.GetResult<Prisma.$ContractPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Contract that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ContractFindFirstArgs} args - Arguments to find a Contract
+     * @example
+     * // Get one Contract
+     * const contract = await prisma.contract.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends ContractFindFirstArgs>(args?: SelectSubset<T, ContractFindFirstArgs<ExtArgs>>): Prisma__ContractClient<$Result.GetResult<Prisma.$ContractPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Contract that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ContractFindFirstOrThrowArgs} args - Arguments to find a Contract
+     * @example
+     * // Get one Contract
+     * const contract = await prisma.contract.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends ContractFindFirstOrThrowArgs>(args?: SelectSubset<T, ContractFindFirstOrThrowArgs<ExtArgs>>): Prisma__ContractClient<$Result.GetResult<Prisma.$ContractPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more Contracts that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ContractFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all Contracts
+     * const contracts = await prisma.contract.findMany()
+     * 
+     * // Get first 10 Contracts
+     * const contracts = await prisma.contract.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const contractWithIdOnly = await prisma.contract.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends ContractFindManyArgs>(args?: SelectSubset<T, ContractFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ContractPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a Contract.
+     * @param {ContractCreateArgs} args - Arguments to create a Contract.
+     * @example
+     * // Create one Contract
+     * const Contract = await prisma.contract.create({
+     *   data: {
+     *     // ... data to create a Contract
+     *   }
+     * })
+     * 
+     */
+    create<T extends ContractCreateArgs>(args: SelectSubset<T, ContractCreateArgs<ExtArgs>>): Prisma__ContractClient<$Result.GetResult<Prisma.$ContractPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many Contracts.
+     * @param {ContractCreateManyArgs} args - Arguments to create many Contracts.
+     * @example
+     * // Create many Contracts
+     * const contract = await prisma.contract.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends ContractCreateManyArgs>(args?: SelectSubset<T, ContractCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many Contracts and returns the data saved in the database.
+     * @param {ContractCreateManyAndReturnArgs} args - Arguments to create many Contracts.
+     * @example
+     * // Create many Contracts
+     * const contract = await prisma.contract.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many Contracts and only return the `id`
+     * const contractWithIdOnly = await prisma.contract.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends ContractCreateManyAndReturnArgs>(args?: SelectSubset<T, ContractCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ContractPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a Contract.
+     * @param {ContractDeleteArgs} args - Arguments to delete one Contract.
+     * @example
+     * // Delete one Contract
+     * const Contract = await prisma.contract.delete({
+     *   where: {
+     *     // ... filter to delete one Contract
+     *   }
+     * })
+     * 
+     */
+    delete<T extends ContractDeleteArgs>(args: SelectSubset<T, ContractDeleteArgs<ExtArgs>>): Prisma__ContractClient<$Result.GetResult<Prisma.$ContractPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one Contract.
+     * @param {ContractUpdateArgs} args - Arguments to update one Contract.
+     * @example
+     * // Update one Contract
+     * const contract = await prisma.contract.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends ContractUpdateArgs>(args: SelectSubset<T, ContractUpdateArgs<ExtArgs>>): Prisma__ContractClient<$Result.GetResult<Prisma.$ContractPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more Contracts.
+     * @param {ContractDeleteManyArgs} args - Arguments to filter Contracts to delete.
+     * @example
+     * // Delete a few Contracts
+     * const { count } = await prisma.contract.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends ContractDeleteManyArgs>(args?: SelectSubset<T, ContractDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Contracts.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ContractUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many Contracts
+     * const contract = await prisma.contract.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends ContractUpdateManyArgs>(args: SelectSubset<T, ContractUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Contracts and returns the data updated in the database.
+     * @param {ContractUpdateManyAndReturnArgs} args - Arguments to update many Contracts.
+     * @example
+     * // Update many Contracts
+     * const contract = await prisma.contract.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more Contracts and only return the `id`
+     * const contractWithIdOnly = await prisma.contract.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends ContractUpdateManyAndReturnArgs>(args: SelectSubset<T, ContractUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ContractPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one Contract.
+     * @param {ContractUpsertArgs} args - Arguments to update or create a Contract.
+     * @example
+     * // Update or create a Contract
+     * const contract = await prisma.contract.upsert({
+     *   create: {
+     *     // ... data to create a Contract
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the Contract we want to update
+     *   }
+     * })
+     */
+    upsert<T extends ContractUpsertArgs>(args: SelectSubset<T, ContractUpsertArgs<ExtArgs>>): Prisma__ContractClient<$Result.GetResult<Prisma.$ContractPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of Contracts.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ContractCountArgs} args - Arguments to filter Contracts to count.
+     * @example
+     * // Count the number of Contracts
+     * const count = await prisma.contract.count({
+     *   where: {
+     *     // ... the filter for the Contracts we want to count
+     *   }
+     * })
+    **/
+    count<T extends ContractCountArgs>(
+      args?: Subset<T, ContractCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], ContractCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a Contract.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ContractAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends ContractAggregateArgs>(args: Subset<T, ContractAggregateArgs>): Prisma.PrismaPromise<GetContractAggregateType<T>>
+
+    /**
+     * Group by Contract.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ContractGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends ContractGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: ContractGroupByArgs['orderBy'] }
+        : { orderBy?: ContractGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, ContractGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetContractGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the Contract model
+   */
+  readonly fields: ContractFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for Contract.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__ContractClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the Contract model
+   */
+  interface ContractFieldRefs {
+    readonly id: FieldRef<"Contract", 'String'>
+    readonly code: FieldRef<"Contract", 'String'>
+    readonly description: FieldRef<"Contract", 'String'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * Contract findUnique
+   */
+  export type ContractFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Contract
+     */
+    select?: ContractSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Contract
+     */
+    omit?: ContractOmit<ExtArgs> | null
+    /**
+     * Filter, which Contract to fetch.
+     */
+    where: ContractWhereUniqueInput
+  }
+
+  /**
+   * Contract findUniqueOrThrow
+   */
+  export type ContractFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Contract
+     */
+    select?: ContractSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Contract
+     */
+    omit?: ContractOmit<ExtArgs> | null
+    /**
+     * Filter, which Contract to fetch.
+     */
+    where: ContractWhereUniqueInput
+  }
+
+  /**
+   * Contract findFirst
+   */
+  export type ContractFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Contract
+     */
+    select?: ContractSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Contract
+     */
+    omit?: ContractOmit<ExtArgs> | null
+    /**
+     * Filter, which Contract to fetch.
+     */
+    where?: ContractWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Contracts to fetch.
+     */
+    orderBy?: ContractOrderByWithRelationInput | ContractOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Contracts.
+     */
+    cursor?: ContractWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Contracts from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Contracts.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Contracts.
+     */
+    distinct?: ContractScalarFieldEnum | ContractScalarFieldEnum[]
+  }
+
+  /**
+   * Contract findFirstOrThrow
+   */
+  export type ContractFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Contract
+     */
+    select?: ContractSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Contract
+     */
+    omit?: ContractOmit<ExtArgs> | null
+    /**
+     * Filter, which Contract to fetch.
+     */
+    where?: ContractWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Contracts to fetch.
+     */
+    orderBy?: ContractOrderByWithRelationInput | ContractOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Contracts.
+     */
+    cursor?: ContractWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Contracts from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Contracts.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Contracts.
+     */
+    distinct?: ContractScalarFieldEnum | ContractScalarFieldEnum[]
+  }
+
+  /**
+   * Contract findMany
+   */
+  export type ContractFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Contract
+     */
+    select?: ContractSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Contract
+     */
+    omit?: ContractOmit<ExtArgs> | null
+    /**
+     * Filter, which Contracts to fetch.
+     */
+    where?: ContractWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Contracts to fetch.
+     */
+    orderBy?: ContractOrderByWithRelationInput | ContractOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing Contracts.
+     */
+    cursor?: ContractWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Contracts from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Contracts.
+     */
+    skip?: number
+    distinct?: ContractScalarFieldEnum | ContractScalarFieldEnum[]
+  }
+
+  /**
+   * Contract create
+   */
+  export type ContractCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Contract
+     */
+    select?: ContractSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Contract
+     */
+    omit?: ContractOmit<ExtArgs> | null
+    /**
+     * The data needed to create a Contract.
+     */
+    data: XOR<ContractCreateInput, ContractUncheckedCreateInput>
+  }
+
+  /**
+   * Contract createMany
+   */
+  export type ContractCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many Contracts.
+     */
+    data: ContractCreateManyInput | ContractCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * Contract createManyAndReturn
+   */
+  export type ContractCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Contract
+     */
+    select?: ContractSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the Contract
+     */
+    omit?: ContractOmit<ExtArgs> | null
+    /**
+     * The data used to create many Contracts.
+     */
+    data: ContractCreateManyInput | ContractCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * Contract update
+   */
+  export type ContractUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Contract
+     */
+    select?: ContractSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Contract
+     */
+    omit?: ContractOmit<ExtArgs> | null
+    /**
+     * The data needed to update a Contract.
+     */
+    data: XOR<ContractUpdateInput, ContractUncheckedUpdateInput>
+    /**
+     * Choose, which Contract to update.
+     */
+    where: ContractWhereUniqueInput
+  }
+
+  /**
+   * Contract updateMany
+   */
+  export type ContractUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update Contracts.
+     */
+    data: XOR<ContractUpdateManyMutationInput, ContractUncheckedUpdateManyInput>
+    /**
+     * Filter which Contracts to update
+     */
+    where?: ContractWhereInput
+    /**
+     * Limit how many Contracts to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * Contract updateManyAndReturn
+   */
+  export type ContractUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Contract
+     */
+    select?: ContractSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the Contract
+     */
+    omit?: ContractOmit<ExtArgs> | null
+    /**
+     * The data used to update Contracts.
+     */
+    data: XOR<ContractUpdateManyMutationInput, ContractUncheckedUpdateManyInput>
+    /**
+     * Filter which Contracts to update
+     */
+    where?: ContractWhereInput
+    /**
+     * Limit how many Contracts to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * Contract upsert
+   */
+  export type ContractUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Contract
+     */
+    select?: ContractSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Contract
+     */
+    omit?: ContractOmit<ExtArgs> | null
+    /**
+     * The filter to search for the Contract to update in case it exists.
+     */
+    where: ContractWhereUniqueInput
+    /**
+     * In case the Contract found by the `where` argument doesn't exist, create a new Contract with this data.
+     */
+    create: XOR<ContractCreateInput, ContractUncheckedCreateInput>
+    /**
+     * In case the Contract was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<ContractUpdateInput, ContractUncheckedUpdateInput>
+  }
+
+  /**
+   * Contract delete
+   */
+  export type ContractDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Contract
+     */
+    select?: ContractSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Contract
+     */
+    omit?: ContractOmit<ExtArgs> | null
+    /**
+     * Filter which Contract to delete.
+     */
+    where: ContractWhereUniqueInput
+  }
+
+  /**
+   * Contract deleteMany
+   */
+  export type ContractDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Contracts to delete
+     */
+    where?: ContractWhereInput
+    /**
+     * Limit how many Contracts to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * Contract without action
+   */
+  export type ContractDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Contract
+     */
+    select?: ContractSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Contract
+     */
+    omit?: ContractOmit<ExtArgs> | null
   }
 
 
@@ -22967,6 +24884,3406 @@ export namespace Prisma {
      * Choose, which related nodes to fetch as well
      */
     include?: CalenderEntityInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model Maintenance
+   */
+
+  export type AggregateMaintenance = {
+    _count: MaintenanceCountAggregateOutputType | null
+    _avg: MaintenanceAvgAggregateOutputType | null
+    _sum: MaintenanceSumAggregateOutputType | null
+    _min: MaintenanceMinAggregateOutputType | null
+    _max: MaintenanceMaxAggregateOutputType | null
+  }
+
+  export type MaintenanceAvgAggregateOutputType = {
+    ttSysRunning: Decimal | null
+    ttWorkRunning: Decimal | null
+    totalExecTime: Decimal | null
+    ttSystemOpening: Decimal | null
+    ttWorkOpening: Decimal | null
+    ttSystemAssignment: Decimal | null
+    ttWorkAssignment: Decimal | null
+    ttSystemExecution: Decimal | null
+    ttWorkExecution: Decimal | null
+    ttSysSuspension: Decimal | null
+    ttWorkSuspension: Decimal | null
+    ttEstimate: Decimal | null
+  }
+
+  export type MaintenanceSumAggregateOutputType = {
+    ttSysRunning: Decimal | null
+    ttWorkRunning: Decimal | null
+    totalExecTime: Decimal | null
+    ttSystemOpening: Decimal | null
+    ttWorkOpening: Decimal | null
+    ttSystemAssignment: Decimal | null
+    ttWorkAssignment: Decimal | null
+    ttSystemExecution: Decimal | null
+    ttWorkExecution: Decimal | null
+    ttSysSuspension: Decimal | null
+    ttWorkSuspension: Decimal | null
+    ttEstimate: Decimal | null
+  }
+
+  export type MaintenanceMinAggregateOutputType = {
+    id: string | null
+    type: $Enums.MaintenanceType | null
+    code: string | null
+    description: string | null
+    startDate: Date | null
+    endDate: Date | null
+    shortDescription: string | null
+    action: string | null
+    message: string | null
+    processNotes: string | null
+    performerId: string | null
+    processStatus: $Enums.Status | null
+    register: string | null
+    activityIdTimer: string | null
+    activityStartTime: Date | null
+    activityEndTime: Date | null
+    allDeadlines: string | null
+    processType: $Enums.ProcessType | null
+    ttSysRunning: Decimal | null
+    ttWorkRunning: Decimal | null
+    sorting: string | null
+    requesterId: string | null
+    priority: $Enums.Priority | null
+    siteId: string | null
+    outcome: string | null
+    dueAssignedEnd: Date | null
+    execStart: Date | null
+    dueExecEndDate: Date | null
+    execEndDate: Date | null
+    dueClosuerDate: Date | null
+    totalExecTime: Decimal | null
+    expStartDate: Date | null
+    suspensionReason: string | null
+    category: string | null
+    subCategory: string | null
+    company: string | null
+    teamId: string | null
+    floorId: string | null
+    roomId: string | null
+    ttSystemOpening: Decimal | null
+    ttWorkOpening: Decimal | null
+    ttSystemAssignment: Decimal | null
+    ttWorkAssignment: Decimal | null
+    ttSystemExecution: Decimal | null
+    ttWorkExecution: Decimal | null
+    ttSysSuspension: Decimal | null
+    ttWorkSuspension: Decimal | null
+    ttEstimate: Decimal | null
+    prevMaintenanceConfigId: string | null
+    automaticConfig: boolean | null
+    jointAccounting: boolean | null
+    hasTasks: boolean | null
+    estimateStatus: $Enums.Status | null
+    delayNotification: boolean | null
+    assigneeId: string | null
+    assetId: string | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type MaintenanceMaxAggregateOutputType = {
+    id: string | null
+    type: $Enums.MaintenanceType | null
+    code: string | null
+    description: string | null
+    startDate: Date | null
+    endDate: Date | null
+    shortDescription: string | null
+    action: string | null
+    message: string | null
+    processNotes: string | null
+    performerId: string | null
+    processStatus: $Enums.Status | null
+    register: string | null
+    activityIdTimer: string | null
+    activityStartTime: Date | null
+    activityEndTime: Date | null
+    allDeadlines: string | null
+    processType: $Enums.ProcessType | null
+    ttSysRunning: Decimal | null
+    ttWorkRunning: Decimal | null
+    sorting: string | null
+    requesterId: string | null
+    priority: $Enums.Priority | null
+    siteId: string | null
+    outcome: string | null
+    dueAssignedEnd: Date | null
+    execStart: Date | null
+    dueExecEndDate: Date | null
+    execEndDate: Date | null
+    dueClosuerDate: Date | null
+    totalExecTime: Decimal | null
+    expStartDate: Date | null
+    suspensionReason: string | null
+    category: string | null
+    subCategory: string | null
+    company: string | null
+    teamId: string | null
+    floorId: string | null
+    roomId: string | null
+    ttSystemOpening: Decimal | null
+    ttWorkOpening: Decimal | null
+    ttSystemAssignment: Decimal | null
+    ttWorkAssignment: Decimal | null
+    ttSystemExecution: Decimal | null
+    ttWorkExecution: Decimal | null
+    ttSysSuspension: Decimal | null
+    ttWorkSuspension: Decimal | null
+    ttEstimate: Decimal | null
+    prevMaintenanceConfigId: string | null
+    automaticConfig: boolean | null
+    jointAccounting: boolean | null
+    hasTasks: boolean | null
+    estimateStatus: $Enums.Status | null
+    delayNotification: boolean | null
+    assigneeId: string | null
+    assetId: string | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type MaintenanceCountAggregateOutputType = {
+    id: number
+    type: number
+    code: number
+    description: number
+    startDate: number
+    endDate: number
+    shortDescription: number
+    action: number
+    message: number
+    processNotes: number
+    performerId: number
+    processStatus: number
+    register: number
+    activityIdTimer: number
+    activityStartTime: number
+    activityEndTime: number
+    allDeadlines: number
+    processType: number
+    ttSysRunning: number
+    ttWorkRunning: number
+    sorting: number
+    requesterId: number
+    priority: number
+    siteId: number
+    outcome: number
+    dueAssignedEnd: number
+    execStart: number
+    dueExecEndDate: number
+    execEndDate: number
+    dueClosuerDate: number
+    totalExecTime: number
+    expStartDate: number
+    suspensionReason: number
+    category: number
+    subCategory: number
+    company: number
+    teamId: number
+    floorId: number
+    roomId: number
+    ttSystemOpening: number
+    ttWorkOpening: number
+    ttSystemAssignment: number
+    ttWorkAssignment: number
+    ttSystemExecution: number
+    ttWorkExecution: number
+    ttSysSuspension: number
+    ttWorkSuspension: number
+    ttEstimate: number
+    prevMaintenanceConfigId: number
+    automaticConfig: number
+    jointAccounting: number
+    hasTasks: number
+    estimateStatus: number
+    delayNotification: number
+    assigneeId: number
+    assetId: number
+    createdAt: number
+    updatedAt: number
+    _all: number
+  }
+
+
+  export type MaintenanceAvgAggregateInputType = {
+    ttSysRunning?: true
+    ttWorkRunning?: true
+    totalExecTime?: true
+    ttSystemOpening?: true
+    ttWorkOpening?: true
+    ttSystemAssignment?: true
+    ttWorkAssignment?: true
+    ttSystemExecution?: true
+    ttWorkExecution?: true
+    ttSysSuspension?: true
+    ttWorkSuspension?: true
+    ttEstimate?: true
+  }
+
+  export type MaintenanceSumAggregateInputType = {
+    ttSysRunning?: true
+    ttWorkRunning?: true
+    totalExecTime?: true
+    ttSystemOpening?: true
+    ttWorkOpening?: true
+    ttSystemAssignment?: true
+    ttWorkAssignment?: true
+    ttSystemExecution?: true
+    ttWorkExecution?: true
+    ttSysSuspension?: true
+    ttWorkSuspension?: true
+    ttEstimate?: true
+  }
+
+  export type MaintenanceMinAggregateInputType = {
+    id?: true
+    type?: true
+    code?: true
+    description?: true
+    startDate?: true
+    endDate?: true
+    shortDescription?: true
+    action?: true
+    message?: true
+    processNotes?: true
+    performerId?: true
+    processStatus?: true
+    register?: true
+    activityIdTimer?: true
+    activityStartTime?: true
+    activityEndTime?: true
+    allDeadlines?: true
+    processType?: true
+    ttSysRunning?: true
+    ttWorkRunning?: true
+    sorting?: true
+    requesterId?: true
+    priority?: true
+    siteId?: true
+    outcome?: true
+    dueAssignedEnd?: true
+    execStart?: true
+    dueExecEndDate?: true
+    execEndDate?: true
+    dueClosuerDate?: true
+    totalExecTime?: true
+    expStartDate?: true
+    suspensionReason?: true
+    category?: true
+    subCategory?: true
+    company?: true
+    teamId?: true
+    floorId?: true
+    roomId?: true
+    ttSystemOpening?: true
+    ttWorkOpening?: true
+    ttSystemAssignment?: true
+    ttWorkAssignment?: true
+    ttSystemExecution?: true
+    ttWorkExecution?: true
+    ttSysSuspension?: true
+    ttWorkSuspension?: true
+    ttEstimate?: true
+    prevMaintenanceConfigId?: true
+    automaticConfig?: true
+    jointAccounting?: true
+    hasTasks?: true
+    estimateStatus?: true
+    delayNotification?: true
+    assigneeId?: true
+    assetId?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type MaintenanceMaxAggregateInputType = {
+    id?: true
+    type?: true
+    code?: true
+    description?: true
+    startDate?: true
+    endDate?: true
+    shortDescription?: true
+    action?: true
+    message?: true
+    processNotes?: true
+    performerId?: true
+    processStatus?: true
+    register?: true
+    activityIdTimer?: true
+    activityStartTime?: true
+    activityEndTime?: true
+    allDeadlines?: true
+    processType?: true
+    ttSysRunning?: true
+    ttWorkRunning?: true
+    sorting?: true
+    requesterId?: true
+    priority?: true
+    siteId?: true
+    outcome?: true
+    dueAssignedEnd?: true
+    execStart?: true
+    dueExecEndDate?: true
+    execEndDate?: true
+    dueClosuerDate?: true
+    totalExecTime?: true
+    expStartDate?: true
+    suspensionReason?: true
+    category?: true
+    subCategory?: true
+    company?: true
+    teamId?: true
+    floorId?: true
+    roomId?: true
+    ttSystemOpening?: true
+    ttWorkOpening?: true
+    ttSystemAssignment?: true
+    ttWorkAssignment?: true
+    ttSystemExecution?: true
+    ttWorkExecution?: true
+    ttSysSuspension?: true
+    ttWorkSuspension?: true
+    ttEstimate?: true
+    prevMaintenanceConfigId?: true
+    automaticConfig?: true
+    jointAccounting?: true
+    hasTasks?: true
+    estimateStatus?: true
+    delayNotification?: true
+    assigneeId?: true
+    assetId?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type MaintenanceCountAggregateInputType = {
+    id?: true
+    type?: true
+    code?: true
+    description?: true
+    startDate?: true
+    endDate?: true
+    shortDescription?: true
+    action?: true
+    message?: true
+    processNotes?: true
+    performerId?: true
+    processStatus?: true
+    register?: true
+    activityIdTimer?: true
+    activityStartTime?: true
+    activityEndTime?: true
+    allDeadlines?: true
+    processType?: true
+    ttSysRunning?: true
+    ttWorkRunning?: true
+    sorting?: true
+    requesterId?: true
+    priority?: true
+    siteId?: true
+    outcome?: true
+    dueAssignedEnd?: true
+    execStart?: true
+    dueExecEndDate?: true
+    execEndDate?: true
+    dueClosuerDate?: true
+    totalExecTime?: true
+    expStartDate?: true
+    suspensionReason?: true
+    category?: true
+    subCategory?: true
+    company?: true
+    teamId?: true
+    floorId?: true
+    roomId?: true
+    ttSystemOpening?: true
+    ttWorkOpening?: true
+    ttSystemAssignment?: true
+    ttWorkAssignment?: true
+    ttSystemExecution?: true
+    ttWorkExecution?: true
+    ttSysSuspension?: true
+    ttWorkSuspension?: true
+    ttEstimate?: true
+    prevMaintenanceConfigId?: true
+    automaticConfig?: true
+    jointAccounting?: true
+    hasTasks?: true
+    estimateStatus?: true
+    delayNotification?: true
+    assigneeId?: true
+    assetId?: true
+    createdAt?: true
+    updatedAt?: true
+    _all?: true
+  }
+
+  export type MaintenanceAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Maintenance to aggregate.
+     */
+    where?: MaintenanceWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Maintenances to fetch.
+     */
+    orderBy?: MaintenanceOrderByWithRelationInput | MaintenanceOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: MaintenanceWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Maintenances from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Maintenances.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned Maintenances
+    **/
+    _count?: true | MaintenanceCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: MaintenanceAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: MaintenanceSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: MaintenanceMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: MaintenanceMaxAggregateInputType
+  }
+
+  export type GetMaintenanceAggregateType<T extends MaintenanceAggregateArgs> = {
+        [P in keyof T & keyof AggregateMaintenance]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateMaintenance[P]>
+      : GetScalarType<T[P], AggregateMaintenance[P]>
+  }
+
+
+
+
+  export type MaintenanceGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: MaintenanceWhereInput
+    orderBy?: MaintenanceOrderByWithAggregationInput | MaintenanceOrderByWithAggregationInput[]
+    by: MaintenanceScalarFieldEnum[] | MaintenanceScalarFieldEnum
+    having?: MaintenanceScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: MaintenanceCountAggregateInputType | true
+    _avg?: MaintenanceAvgAggregateInputType
+    _sum?: MaintenanceSumAggregateInputType
+    _min?: MaintenanceMinAggregateInputType
+    _max?: MaintenanceMaxAggregateInputType
+  }
+
+  export type MaintenanceGroupByOutputType = {
+    id: string
+    type: $Enums.MaintenanceType
+    code: string
+    description: string
+    startDate: Date | null
+    endDate: Date | null
+    shortDescription: string | null
+    action: string | null
+    message: string | null
+    processNotes: string | null
+    performerId: string | null
+    processStatus: $Enums.Status
+    register: string | null
+    activityIdTimer: string | null
+    activityStartTime: Date | null
+    activityEndTime: Date | null
+    allDeadlines: string | null
+    processType: $Enums.ProcessType
+    ttSysRunning: Decimal | null
+    ttWorkRunning: Decimal | null
+    sorting: string | null
+    requesterId: string | null
+    priority: $Enums.Priority
+    siteId: string
+    outcome: string | null
+    dueAssignedEnd: Date | null
+    execStart: Date | null
+    dueExecEndDate: Date | null
+    execEndDate: Date | null
+    dueClosuerDate: Date | null
+    totalExecTime: Decimal | null
+    expStartDate: Date | null
+    suspensionReason: string | null
+    category: string | null
+    subCategory: string | null
+    company: string | null
+    teamId: string | null
+    floorId: string | null
+    roomId: string | null
+    ttSystemOpening: Decimal | null
+    ttWorkOpening: Decimal | null
+    ttSystemAssignment: Decimal | null
+    ttWorkAssignment: Decimal | null
+    ttSystemExecution: Decimal | null
+    ttWorkExecution: Decimal | null
+    ttSysSuspension: Decimal | null
+    ttWorkSuspension: Decimal | null
+    ttEstimate: Decimal | null
+    prevMaintenanceConfigId: string | null
+    automaticConfig: boolean
+    jointAccounting: boolean
+    hasTasks: boolean
+    estimateStatus: $Enums.Status
+    delayNotification: boolean
+    assigneeId: string | null
+    assetId: string | null
+    createdAt: Date
+    updatedAt: Date
+    _count: MaintenanceCountAggregateOutputType | null
+    _avg: MaintenanceAvgAggregateOutputType | null
+    _sum: MaintenanceSumAggregateOutputType | null
+    _min: MaintenanceMinAggregateOutputType | null
+    _max: MaintenanceMaxAggregateOutputType | null
+  }
+
+  type GetMaintenanceGroupByPayload<T extends MaintenanceGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<MaintenanceGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof MaintenanceGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], MaintenanceGroupByOutputType[P]>
+            : GetScalarType<T[P], MaintenanceGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type MaintenanceSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    type?: boolean
+    code?: boolean
+    description?: boolean
+    startDate?: boolean
+    endDate?: boolean
+    shortDescription?: boolean
+    action?: boolean
+    message?: boolean
+    processNotes?: boolean
+    performerId?: boolean
+    processStatus?: boolean
+    register?: boolean
+    activityIdTimer?: boolean
+    activityStartTime?: boolean
+    activityEndTime?: boolean
+    allDeadlines?: boolean
+    processType?: boolean
+    ttSysRunning?: boolean
+    ttWorkRunning?: boolean
+    sorting?: boolean
+    requesterId?: boolean
+    priority?: boolean
+    siteId?: boolean
+    outcome?: boolean
+    dueAssignedEnd?: boolean
+    execStart?: boolean
+    dueExecEndDate?: boolean
+    execEndDate?: boolean
+    dueClosuerDate?: boolean
+    totalExecTime?: boolean
+    expStartDate?: boolean
+    suspensionReason?: boolean
+    category?: boolean
+    subCategory?: boolean
+    company?: boolean
+    teamId?: boolean
+    floorId?: boolean
+    roomId?: boolean
+    ttSystemOpening?: boolean
+    ttWorkOpening?: boolean
+    ttSystemAssignment?: boolean
+    ttWorkAssignment?: boolean
+    ttSystemExecution?: boolean
+    ttWorkExecution?: boolean
+    ttSysSuspension?: boolean
+    ttWorkSuspension?: boolean
+    ttEstimate?: boolean
+    prevMaintenanceConfigId?: boolean
+    automaticConfig?: boolean
+    jointAccounting?: boolean
+    hasTasks?: boolean
+    estimateStatus?: boolean
+    delayNotification?: boolean
+    assigneeId?: boolean
+    assetId?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    performer?: boolean | Maintenance$performerArgs<ExtArgs>
+    requester?: boolean | Maintenance$requesterArgs<ExtArgs>
+    site?: boolean | ComplexDefaultArgs<ExtArgs>
+    team?: boolean | Maintenance$teamArgs<ExtArgs>
+    floor?: boolean | Maintenance$floorArgs<ExtArgs>
+    room?: boolean | Maintenance$roomArgs<ExtArgs>
+    assignee?: boolean | Maintenance$assigneeArgs<ExtArgs>
+    asset?: boolean | Maintenance$assetArgs<ExtArgs>
+    photos?: boolean | Maintenance$photosArgs<ExtArgs>
+    _count?: boolean | MaintenanceCountOutputTypeDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["maintenance"]>
+
+  export type MaintenanceSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    type?: boolean
+    code?: boolean
+    description?: boolean
+    startDate?: boolean
+    endDate?: boolean
+    shortDescription?: boolean
+    action?: boolean
+    message?: boolean
+    processNotes?: boolean
+    performerId?: boolean
+    processStatus?: boolean
+    register?: boolean
+    activityIdTimer?: boolean
+    activityStartTime?: boolean
+    activityEndTime?: boolean
+    allDeadlines?: boolean
+    processType?: boolean
+    ttSysRunning?: boolean
+    ttWorkRunning?: boolean
+    sorting?: boolean
+    requesterId?: boolean
+    priority?: boolean
+    siteId?: boolean
+    outcome?: boolean
+    dueAssignedEnd?: boolean
+    execStart?: boolean
+    dueExecEndDate?: boolean
+    execEndDate?: boolean
+    dueClosuerDate?: boolean
+    totalExecTime?: boolean
+    expStartDate?: boolean
+    suspensionReason?: boolean
+    category?: boolean
+    subCategory?: boolean
+    company?: boolean
+    teamId?: boolean
+    floorId?: boolean
+    roomId?: boolean
+    ttSystemOpening?: boolean
+    ttWorkOpening?: boolean
+    ttSystemAssignment?: boolean
+    ttWorkAssignment?: boolean
+    ttSystemExecution?: boolean
+    ttWorkExecution?: boolean
+    ttSysSuspension?: boolean
+    ttWorkSuspension?: boolean
+    ttEstimate?: boolean
+    prevMaintenanceConfigId?: boolean
+    automaticConfig?: boolean
+    jointAccounting?: boolean
+    hasTasks?: boolean
+    estimateStatus?: boolean
+    delayNotification?: boolean
+    assigneeId?: boolean
+    assetId?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    performer?: boolean | Maintenance$performerArgs<ExtArgs>
+    requester?: boolean | Maintenance$requesterArgs<ExtArgs>
+    site?: boolean | ComplexDefaultArgs<ExtArgs>
+    team?: boolean | Maintenance$teamArgs<ExtArgs>
+    floor?: boolean | Maintenance$floorArgs<ExtArgs>
+    room?: boolean | Maintenance$roomArgs<ExtArgs>
+    assignee?: boolean | Maintenance$assigneeArgs<ExtArgs>
+    asset?: boolean | Maintenance$assetArgs<ExtArgs>
+  }, ExtArgs["result"]["maintenance"]>
+
+  export type MaintenanceSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    type?: boolean
+    code?: boolean
+    description?: boolean
+    startDate?: boolean
+    endDate?: boolean
+    shortDescription?: boolean
+    action?: boolean
+    message?: boolean
+    processNotes?: boolean
+    performerId?: boolean
+    processStatus?: boolean
+    register?: boolean
+    activityIdTimer?: boolean
+    activityStartTime?: boolean
+    activityEndTime?: boolean
+    allDeadlines?: boolean
+    processType?: boolean
+    ttSysRunning?: boolean
+    ttWorkRunning?: boolean
+    sorting?: boolean
+    requesterId?: boolean
+    priority?: boolean
+    siteId?: boolean
+    outcome?: boolean
+    dueAssignedEnd?: boolean
+    execStart?: boolean
+    dueExecEndDate?: boolean
+    execEndDate?: boolean
+    dueClosuerDate?: boolean
+    totalExecTime?: boolean
+    expStartDate?: boolean
+    suspensionReason?: boolean
+    category?: boolean
+    subCategory?: boolean
+    company?: boolean
+    teamId?: boolean
+    floorId?: boolean
+    roomId?: boolean
+    ttSystemOpening?: boolean
+    ttWorkOpening?: boolean
+    ttSystemAssignment?: boolean
+    ttWorkAssignment?: boolean
+    ttSystemExecution?: boolean
+    ttWorkExecution?: boolean
+    ttSysSuspension?: boolean
+    ttWorkSuspension?: boolean
+    ttEstimate?: boolean
+    prevMaintenanceConfigId?: boolean
+    automaticConfig?: boolean
+    jointAccounting?: boolean
+    hasTasks?: boolean
+    estimateStatus?: boolean
+    delayNotification?: boolean
+    assigneeId?: boolean
+    assetId?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    performer?: boolean | Maintenance$performerArgs<ExtArgs>
+    requester?: boolean | Maintenance$requesterArgs<ExtArgs>
+    site?: boolean | ComplexDefaultArgs<ExtArgs>
+    team?: boolean | Maintenance$teamArgs<ExtArgs>
+    floor?: boolean | Maintenance$floorArgs<ExtArgs>
+    room?: boolean | Maintenance$roomArgs<ExtArgs>
+    assignee?: boolean | Maintenance$assigneeArgs<ExtArgs>
+    asset?: boolean | Maintenance$assetArgs<ExtArgs>
+  }, ExtArgs["result"]["maintenance"]>
+
+  export type MaintenanceSelectScalar = {
+    id?: boolean
+    type?: boolean
+    code?: boolean
+    description?: boolean
+    startDate?: boolean
+    endDate?: boolean
+    shortDescription?: boolean
+    action?: boolean
+    message?: boolean
+    processNotes?: boolean
+    performerId?: boolean
+    processStatus?: boolean
+    register?: boolean
+    activityIdTimer?: boolean
+    activityStartTime?: boolean
+    activityEndTime?: boolean
+    allDeadlines?: boolean
+    processType?: boolean
+    ttSysRunning?: boolean
+    ttWorkRunning?: boolean
+    sorting?: boolean
+    requesterId?: boolean
+    priority?: boolean
+    siteId?: boolean
+    outcome?: boolean
+    dueAssignedEnd?: boolean
+    execStart?: boolean
+    dueExecEndDate?: boolean
+    execEndDate?: boolean
+    dueClosuerDate?: boolean
+    totalExecTime?: boolean
+    expStartDate?: boolean
+    suspensionReason?: boolean
+    category?: boolean
+    subCategory?: boolean
+    company?: boolean
+    teamId?: boolean
+    floorId?: boolean
+    roomId?: boolean
+    ttSystemOpening?: boolean
+    ttWorkOpening?: boolean
+    ttSystemAssignment?: boolean
+    ttWorkAssignment?: boolean
+    ttSystemExecution?: boolean
+    ttWorkExecution?: boolean
+    ttSysSuspension?: boolean
+    ttWorkSuspension?: boolean
+    ttEstimate?: boolean
+    prevMaintenanceConfigId?: boolean
+    automaticConfig?: boolean
+    jointAccounting?: boolean
+    hasTasks?: boolean
+    estimateStatus?: boolean
+    delayNotification?: boolean
+    assigneeId?: boolean
+    assetId?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }
+
+  export type MaintenanceOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "type" | "code" | "description" | "startDate" | "endDate" | "shortDescription" | "action" | "message" | "processNotes" | "performerId" | "processStatus" | "register" | "activityIdTimer" | "activityStartTime" | "activityEndTime" | "allDeadlines" | "processType" | "ttSysRunning" | "ttWorkRunning" | "sorting" | "requesterId" | "priority" | "siteId" | "outcome" | "dueAssignedEnd" | "execStart" | "dueExecEndDate" | "execEndDate" | "dueClosuerDate" | "totalExecTime" | "expStartDate" | "suspensionReason" | "category" | "subCategory" | "company" | "teamId" | "floorId" | "roomId" | "ttSystemOpening" | "ttWorkOpening" | "ttSystemAssignment" | "ttWorkAssignment" | "ttSystemExecution" | "ttWorkExecution" | "ttSysSuspension" | "ttWorkSuspension" | "ttEstimate" | "prevMaintenanceConfigId" | "automaticConfig" | "jointAccounting" | "hasTasks" | "estimateStatus" | "delayNotification" | "assigneeId" | "assetId" | "createdAt" | "updatedAt", ExtArgs["result"]["maintenance"]>
+  export type MaintenanceInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    performer?: boolean | Maintenance$performerArgs<ExtArgs>
+    requester?: boolean | Maintenance$requesterArgs<ExtArgs>
+    site?: boolean | ComplexDefaultArgs<ExtArgs>
+    team?: boolean | Maintenance$teamArgs<ExtArgs>
+    floor?: boolean | Maintenance$floorArgs<ExtArgs>
+    room?: boolean | Maintenance$roomArgs<ExtArgs>
+    assignee?: boolean | Maintenance$assigneeArgs<ExtArgs>
+    asset?: boolean | Maintenance$assetArgs<ExtArgs>
+    photos?: boolean | Maintenance$photosArgs<ExtArgs>
+    _count?: boolean | MaintenanceCountOutputTypeDefaultArgs<ExtArgs>
+  }
+  export type MaintenanceIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    performer?: boolean | Maintenance$performerArgs<ExtArgs>
+    requester?: boolean | Maintenance$requesterArgs<ExtArgs>
+    site?: boolean | ComplexDefaultArgs<ExtArgs>
+    team?: boolean | Maintenance$teamArgs<ExtArgs>
+    floor?: boolean | Maintenance$floorArgs<ExtArgs>
+    room?: boolean | Maintenance$roomArgs<ExtArgs>
+    assignee?: boolean | Maintenance$assigneeArgs<ExtArgs>
+    asset?: boolean | Maintenance$assetArgs<ExtArgs>
+  }
+  export type MaintenanceIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    performer?: boolean | Maintenance$performerArgs<ExtArgs>
+    requester?: boolean | Maintenance$requesterArgs<ExtArgs>
+    site?: boolean | ComplexDefaultArgs<ExtArgs>
+    team?: boolean | Maintenance$teamArgs<ExtArgs>
+    floor?: boolean | Maintenance$floorArgs<ExtArgs>
+    room?: boolean | Maintenance$roomArgs<ExtArgs>
+    assignee?: boolean | Maintenance$assigneeArgs<ExtArgs>
+    asset?: boolean | Maintenance$assetArgs<ExtArgs>
+  }
+
+  export type $MaintenancePayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "Maintenance"
+    objects: {
+      performer: Prisma.$EmployeePayload<ExtArgs> | null
+      requester: Prisma.$EmployeePayload<ExtArgs> | null
+      site: Prisma.$ComplexPayload<ExtArgs>
+      team: Prisma.$TeamPayload<ExtArgs> | null
+      floor: Prisma.$FloorPayload<ExtArgs> | null
+      room: Prisma.$RoomPayload<ExtArgs> | null
+      assignee: Prisma.$EmployeePayload<ExtArgs> | null
+      asset: Prisma.$AssetPayload<ExtArgs> | null
+      photos: Prisma.$FilePayload<ExtArgs>[]
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      type: $Enums.MaintenanceType
+      code: string
+      description: string
+      startDate: Date | null
+      endDate: Date | null
+      shortDescription: string | null
+      action: string | null
+      message: string | null
+      processNotes: string | null
+      performerId: string | null
+      processStatus: $Enums.Status
+      register: string | null
+      activityIdTimer: string | null
+      activityStartTime: Date | null
+      activityEndTime: Date | null
+      allDeadlines: string | null
+      processType: $Enums.ProcessType
+      ttSysRunning: Prisma.Decimal | null
+      ttWorkRunning: Prisma.Decimal | null
+      sorting: string | null
+      requesterId: string | null
+      priority: $Enums.Priority
+      siteId: string
+      outcome: string | null
+      dueAssignedEnd: Date | null
+      execStart: Date | null
+      dueExecEndDate: Date | null
+      execEndDate: Date | null
+      dueClosuerDate: Date | null
+      totalExecTime: Prisma.Decimal | null
+      expStartDate: Date | null
+      suspensionReason: string | null
+      category: string | null
+      subCategory: string | null
+      company: string | null
+      teamId: string | null
+      floorId: string | null
+      roomId: string | null
+      ttSystemOpening: Prisma.Decimal | null
+      ttWorkOpening: Prisma.Decimal | null
+      ttSystemAssignment: Prisma.Decimal | null
+      ttWorkAssignment: Prisma.Decimal | null
+      ttSystemExecution: Prisma.Decimal | null
+      ttWorkExecution: Prisma.Decimal | null
+      ttSysSuspension: Prisma.Decimal | null
+      ttWorkSuspension: Prisma.Decimal | null
+      ttEstimate: Prisma.Decimal | null
+      prevMaintenanceConfigId: string | null
+      automaticConfig: boolean
+      jointAccounting: boolean
+      hasTasks: boolean
+      estimateStatus: $Enums.Status
+      delayNotification: boolean
+      assigneeId: string | null
+      assetId: string | null
+      createdAt: Date
+      updatedAt: Date
+    }, ExtArgs["result"]["maintenance"]>
+    composites: {}
+  }
+
+  type MaintenanceGetPayload<S extends boolean | null | undefined | MaintenanceDefaultArgs> = $Result.GetResult<Prisma.$MaintenancePayload, S>
+
+  type MaintenanceCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<MaintenanceFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: MaintenanceCountAggregateInputType | true
+    }
+
+  export interface MaintenanceDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['Maintenance'], meta: { name: 'Maintenance' } }
+    /**
+     * Find zero or one Maintenance that matches the filter.
+     * @param {MaintenanceFindUniqueArgs} args - Arguments to find a Maintenance
+     * @example
+     * // Get one Maintenance
+     * const maintenance = await prisma.maintenance.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends MaintenanceFindUniqueArgs>(args: SelectSubset<T, MaintenanceFindUniqueArgs<ExtArgs>>): Prisma__MaintenanceClient<$Result.GetResult<Prisma.$MaintenancePayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one Maintenance that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {MaintenanceFindUniqueOrThrowArgs} args - Arguments to find a Maintenance
+     * @example
+     * // Get one Maintenance
+     * const maintenance = await prisma.maintenance.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends MaintenanceFindUniqueOrThrowArgs>(args: SelectSubset<T, MaintenanceFindUniqueOrThrowArgs<ExtArgs>>): Prisma__MaintenanceClient<$Result.GetResult<Prisma.$MaintenancePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Maintenance that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {MaintenanceFindFirstArgs} args - Arguments to find a Maintenance
+     * @example
+     * // Get one Maintenance
+     * const maintenance = await prisma.maintenance.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends MaintenanceFindFirstArgs>(args?: SelectSubset<T, MaintenanceFindFirstArgs<ExtArgs>>): Prisma__MaintenanceClient<$Result.GetResult<Prisma.$MaintenancePayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Maintenance that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {MaintenanceFindFirstOrThrowArgs} args - Arguments to find a Maintenance
+     * @example
+     * // Get one Maintenance
+     * const maintenance = await prisma.maintenance.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends MaintenanceFindFirstOrThrowArgs>(args?: SelectSubset<T, MaintenanceFindFirstOrThrowArgs<ExtArgs>>): Prisma__MaintenanceClient<$Result.GetResult<Prisma.$MaintenancePayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more Maintenances that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {MaintenanceFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all Maintenances
+     * const maintenances = await prisma.maintenance.findMany()
+     * 
+     * // Get first 10 Maintenances
+     * const maintenances = await prisma.maintenance.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const maintenanceWithIdOnly = await prisma.maintenance.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends MaintenanceFindManyArgs>(args?: SelectSubset<T, MaintenanceFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$MaintenancePayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a Maintenance.
+     * @param {MaintenanceCreateArgs} args - Arguments to create a Maintenance.
+     * @example
+     * // Create one Maintenance
+     * const Maintenance = await prisma.maintenance.create({
+     *   data: {
+     *     // ... data to create a Maintenance
+     *   }
+     * })
+     * 
+     */
+    create<T extends MaintenanceCreateArgs>(args: SelectSubset<T, MaintenanceCreateArgs<ExtArgs>>): Prisma__MaintenanceClient<$Result.GetResult<Prisma.$MaintenancePayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many Maintenances.
+     * @param {MaintenanceCreateManyArgs} args - Arguments to create many Maintenances.
+     * @example
+     * // Create many Maintenances
+     * const maintenance = await prisma.maintenance.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends MaintenanceCreateManyArgs>(args?: SelectSubset<T, MaintenanceCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many Maintenances and returns the data saved in the database.
+     * @param {MaintenanceCreateManyAndReturnArgs} args - Arguments to create many Maintenances.
+     * @example
+     * // Create many Maintenances
+     * const maintenance = await prisma.maintenance.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many Maintenances and only return the `id`
+     * const maintenanceWithIdOnly = await prisma.maintenance.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends MaintenanceCreateManyAndReturnArgs>(args?: SelectSubset<T, MaintenanceCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$MaintenancePayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a Maintenance.
+     * @param {MaintenanceDeleteArgs} args - Arguments to delete one Maintenance.
+     * @example
+     * // Delete one Maintenance
+     * const Maintenance = await prisma.maintenance.delete({
+     *   where: {
+     *     // ... filter to delete one Maintenance
+     *   }
+     * })
+     * 
+     */
+    delete<T extends MaintenanceDeleteArgs>(args: SelectSubset<T, MaintenanceDeleteArgs<ExtArgs>>): Prisma__MaintenanceClient<$Result.GetResult<Prisma.$MaintenancePayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one Maintenance.
+     * @param {MaintenanceUpdateArgs} args - Arguments to update one Maintenance.
+     * @example
+     * // Update one Maintenance
+     * const maintenance = await prisma.maintenance.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends MaintenanceUpdateArgs>(args: SelectSubset<T, MaintenanceUpdateArgs<ExtArgs>>): Prisma__MaintenanceClient<$Result.GetResult<Prisma.$MaintenancePayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more Maintenances.
+     * @param {MaintenanceDeleteManyArgs} args - Arguments to filter Maintenances to delete.
+     * @example
+     * // Delete a few Maintenances
+     * const { count } = await prisma.maintenance.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends MaintenanceDeleteManyArgs>(args?: SelectSubset<T, MaintenanceDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Maintenances.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {MaintenanceUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many Maintenances
+     * const maintenance = await prisma.maintenance.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends MaintenanceUpdateManyArgs>(args: SelectSubset<T, MaintenanceUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Maintenances and returns the data updated in the database.
+     * @param {MaintenanceUpdateManyAndReturnArgs} args - Arguments to update many Maintenances.
+     * @example
+     * // Update many Maintenances
+     * const maintenance = await prisma.maintenance.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more Maintenances and only return the `id`
+     * const maintenanceWithIdOnly = await prisma.maintenance.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends MaintenanceUpdateManyAndReturnArgs>(args: SelectSubset<T, MaintenanceUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$MaintenancePayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one Maintenance.
+     * @param {MaintenanceUpsertArgs} args - Arguments to update or create a Maintenance.
+     * @example
+     * // Update or create a Maintenance
+     * const maintenance = await prisma.maintenance.upsert({
+     *   create: {
+     *     // ... data to create a Maintenance
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the Maintenance we want to update
+     *   }
+     * })
+     */
+    upsert<T extends MaintenanceUpsertArgs>(args: SelectSubset<T, MaintenanceUpsertArgs<ExtArgs>>): Prisma__MaintenanceClient<$Result.GetResult<Prisma.$MaintenancePayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of Maintenances.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {MaintenanceCountArgs} args - Arguments to filter Maintenances to count.
+     * @example
+     * // Count the number of Maintenances
+     * const count = await prisma.maintenance.count({
+     *   where: {
+     *     // ... the filter for the Maintenances we want to count
+     *   }
+     * })
+    **/
+    count<T extends MaintenanceCountArgs>(
+      args?: Subset<T, MaintenanceCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], MaintenanceCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a Maintenance.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {MaintenanceAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends MaintenanceAggregateArgs>(args: Subset<T, MaintenanceAggregateArgs>): Prisma.PrismaPromise<GetMaintenanceAggregateType<T>>
+
+    /**
+     * Group by Maintenance.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {MaintenanceGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends MaintenanceGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: MaintenanceGroupByArgs['orderBy'] }
+        : { orderBy?: MaintenanceGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, MaintenanceGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetMaintenanceGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the Maintenance model
+   */
+  readonly fields: MaintenanceFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for Maintenance.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__MaintenanceClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    performer<T extends Maintenance$performerArgs<ExtArgs> = {}>(args?: Subset<T, Maintenance$performerArgs<ExtArgs>>): Prisma__EmployeeClient<$Result.GetResult<Prisma.$EmployeePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+    requester<T extends Maintenance$requesterArgs<ExtArgs> = {}>(args?: Subset<T, Maintenance$requesterArgs<ExtArgs>>): Prisma__EmployeeClient<$Result.GetResult<Prisma.$EmployeePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+    site<T extends ComplexDefaultArgs<ExtArgs> = {}>(args?: Subset<T, ComplexDefaultArgs<ExtArgs>>): Prisma__ComplexClient<$Result.GetResult<Prisma.$ComplexPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    team<T extends Maintenance$teamArgs<ExtArgs> = {}>(args?: Subset<T, Maintenance$teamArgs<ExtArgs>>): Prisma__TeamClient<$Result.GetResult<Prisma.$TeamPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+    floor<T extends Maintenance$floorArgs<ExtArgs> = {}>(args?: Subset<T, Maintenance$floorArgs<ExtArgs>>): Prisma__FloorClient<$Result.GetResult<Prisma.$FloorPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+    room<T extends Maintenance$roomArgs<ExtArgs> = {}>(args?: Subset<T, Maintenance$roomArgs<ExtArgs>>): Prisma__RoomClient<$Result.GetResult<Prisma.$RoomPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+    assignee<T extends Maintenance$assigneeArgs<ExtArgs> = {}>(args?: Subset<T, Maintenance$assigneeArgs<ExtArgs>>): Prisma__EmployeeClient<$Result.GetResult<Prisma.$EmployeePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+    asset<T extends Maintenance$assetArgs<ExtArgs> = {}>(args?: Subset<T, Maintenance$assetArgs<ExtArgs>>): Prisma__AssetClient<$Result.GetResult<Prisma.$AssetPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+    photos<T extends Maintenance$photosArgs<ExtArgs> = {}>(args?: Subset<T, Maintenance$photosArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$FilePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the Maintenance model
+   */
+  interface MaintenanceFieldRefs {
+    readonly id: FieldRef<"Maintenance", 'String'>
+    readonly type: FieldRef<"Maintenance", 'MaintenanceType'>
+    readonly code: FieldRef<"Maintenance", 'String'>
+    readonly description: FieldRef<"Maintenance", 'String'>
+    readonly startDate: FieldRef<"Maintenance", 'DateTime'>
+    readonly endDate: FieldRef<"Maintenance", 'DateTime'>
+    readonly shortDescription: FieldRef<"Maintenance", 'String'>
+    readonly action: FieldRef<"Maintenance", 'String'>
+    readonly message: FieldRef<"Maintenance", 'String'>
+    readonly processNotes: FieldRef<"Maintenance", 'String'>
+    readonly performerId: FieldRef<"Maintenance", 'String'>
+    readonly processStatus: FieldRef<"Maintenance", 'Status'>
+    readonly register: FieldRef<"Maintenance", 'String'>
+    readonly activityIdTimer: FieldRef<"Maintenance", 'String'>
+    readonly activityStartTime: FieldRef<"Maintenance", 'DateTime'>
+    readonly activityEndTime: FieldRef<"Maintenance", 'DateTime'>
+    readonly allDeadlines: FieldRef<"Maintenance", 'String'>
+    readonly processType: FieldRef<"Maintenance", 'ProcessType'>
+    readonly ttSysRunning: FieldRef<"Maintenance", 'Decimal'>
+    readonly ttWorkRunning: FieldRef<"Maintenance", 'Decimal'>
+    readonly sorting: FieldRef<"Maintenance", 'String'>
+    readonly requesterId: FieldRef<"Maintenance", 'String'>
+    readonly priority: FieldRef<"Maintenance", 'Priority'>
+    readonly siteId: FieldRef<"Maintenance", 'String'>
+    readonly outcome: FieldRef<"Maintenance", 'String'>
+    readonly dueAssignedEnd: FieldRef<"Maintenance", 'DateTime'>
+    readonly execStart: FieldRef<"Maintenance", 'DateTime'>
+    readonly dueExecEndDate: FieldRef<"Maintenance", 'DateTime'>
+    readonly execEndDate: FieldRef<"Maintenance", 'DateTime'>
+    readonly dueClosuerDate: FieldRef<"Maintenance", 'DateTime'>
+    readonly totalExecTime: FieldRef<"Maintenance", 'Decimal'>
+    readonly expStartDate: FieldRef<"Maintenance", 'DateTime'>
+    readonly suspensionReason: FieldRef<"Maintenance", 'String'>
+    readonly category: FieldRef<"Maintenance", 'String'>
+    readonly subCategory: FieldRef<"Maintenance", 'String'>
+    readonly company: FieldRef<"Maintenance", 'String'>
+    readonly teamId: FieldRef<"Maintenance", 'String'>
+    readonly floorId: FieldRef<"Maintenance", 'String'>
+    readonly roomId: FieldRef<"Maintenance", 'String'>
+    readonly ttSystemOpening: FieldRef<"Maintenance", 'Decimal'>
+    readonly ttWorkOpening: FieldRef<"Maintenance", 'Decimal'>
+    readonly ttSystemAssignment: FieldRef<"Maintenance", 'Decimal'>
+    readonly ttWorkAssignment: FieldRef<"Maintenance", 'Decimal'>
+    readonly ttSystemExecution: FieldRef<"Maintenance", 'Decimal'>
+    readonly ttWorkExecution: FieldRef<"Maintenance", 'Decimal'>
+    readonly ttSysSuspension: FieldRef<"Maintenance", 'Decimal'>
+    readonly ttWorkSuspension: FieldRef<"Maintenance", 'Decimal'>
+    readonly ttEstimate: FieldRef<"Maintenance", 'Decimal'>
+    readonly prevMaintenanceConfigId: FieldRef<"Maintenance", 'String'>
+    readonly automaticConfig: FieldRef<"Maintenance", 'Boolean'>
+    readonly jointAccounting: FieldRef<"Maintenance", 'Boolean'>
+    readonly hasTasks: FieldRef<"Maintenance", 'Boolean'>
+    readonly estimateStatus: FieldRef<"Maintenance", 'Status'>
+    readonly delayNotification: FieldRef<"Maintenance", 'Boolean'>
+    readonly assigneeId: FieldRef<"Maintenance", 'String'>
+    readonly assetId: FieldRef<"Maintenance", 'String'>
+    readonly createdAt: FieldRef<"Maintenance", 'DateTime'>
+    readonly updatedAt: FieldRef<"Maintenance", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * Maintenance findUnique
+   */
+  export type MaintenanceFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Maintenance
+     */
+    select?: MaintenanceSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Maintenance
+     */
+    omit?: MaintenanceOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MaintenanceInclude<ExtArgs> | null
+    /**
+     * Filter, which Maintenance to fetch.
+     */
+    where: MaintenanceWhereUniqueInput
+  }
+
+  /**
+   * Maintenance findUniqueOrThrow
+   */
+  export type MaintenanceFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Maintenance
+     */
+    select?: MaintenanceSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Maintenance
+     */
+    omit?: MaintenanceOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MaintenanceInclude<ExtArgs> | null
+    /**
+     * Filter, which Maintenance to fetch.
+     */
+    where: MaintenanceWhereUniqueInput
+  }
+
+  /**
+   * Maintenance findFirst
+   */
+  export type MaintenanceFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Maintenance
+     */
+    select?: MaintenanceSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Maintenance
+     */
+    omit?: MaintenanceOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MaintenanceInclude<ExtArgs> | null
+    /**
+     * Filter, which Maintenance to fetch.
+     */
+    where?: MaintenanceWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Maintenances to fetch.
+     */
+    orderBy?: MaintenanceOrderByWithRelationInput | MaintenanceOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Maintenances.
+     */
+    cursor?: MaintenanceWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Maintenances from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Maintenances.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Maintenances.
+     */
+    distinct?: MaintenanceScalarFieldEnum | MaintenanceScalarFieldEnum[]
+  }
+
+  /**
+   * Maintenance findFirstOrThrow
+   */
+  export type MaintenanceFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Maintenance
+     */
+    select?: MaintenanceSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Maintenance
+     */
+    omit?: MaintenanceOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MaintenanceInclude<ExtArgs> | null
+    /**
+     * Filter, which Maintenance to fetch.
+     */
+    where?: MaintenanceWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Maintenances to fetch.
+     */
+    orderBy?: MaintenanceOrderByWithRelationInput | MaintenanceOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Maintenances.
+     */
+    cursor?: MaintenanceWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Maintenances from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Maintenances.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Maintenances.
+     */
+    distinct?: MaintenanceScalarFieldEnum | MaintenanceScalarFieldEnum[]
+  }
+
+  /**
+   * Maintenance findMany
+   */
+  export type MaintenanceFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Maintenance
+     */
+    select?: MaintenanceSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Maintenance
+     */
+    omit?: MaintenanceOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MaintenanceInclude<ExtArgs> | null
+    /**
+     * Filter, which Maintenances to fetch.
+     */
+    where?: MaintenanceWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Maintenances to fetch.
+     */
+    orderBy?: MaintenanceOrderByWithRelationInput | MaintenanceOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing Maintenances.
+     */
+    cursor?: MaintenanceWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Maintenances from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Maintenances.
+     */
+    skip?: number
+    distinct?: MaintenanceScalarFieldEnum | MaintenanceScalarFieldEnum[]
+  }
+
+  /**
+   * Maintenance create
+   */
+  export type MaintenanceCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Maintenance
+     */
+    select?: MaintenanceSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Maintenance
+     */
+    omit?: MaintenanceOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MaintenanceInclude<ExtArgs> | null
+    /**
+     * The data needed to create a Maintenance.
+     */
+    data: XOR<MaintenanceCreateInput, MaintenanceUncheckedCreateInput>
+  }
+
+  /**
+   * Maintenance createMany
+   */
+  export type MaintenanceCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many Maintenances.
+     */
+    data: MaintenanceCreateManyInput | MaintenanceCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * Maintenance createManyAndReturn
+   */
+  export type MaintenanceCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Maintenance
+     */
+    select?: MaintenanceSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the Maintenance
+     */
+    omit?: MaintenanceOmit<ExtArgs> | null
+    /**
+     * The data used to create many Maintenances.
+     */
+    data: MaintenanceCreateManyInput | MaintenanceCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MaintenanceIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * Maintenance update
+   */
+  export type MaintenanceUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Maintenance
+     */
+    select?: MaintenanceSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Maintenance
+     */
+    omit?: MaintenanceOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MaintenanceInclude<ExtArgs> | null
+    /**
+     * The data needed to update a Maintenance.
+     */
+    data: XOR<MaintenanceUpdateInput, MaintenanceUncheckedUpdateInput>
+    /**
+     * Choose, which Maintenance to update.
+     */
+    where: MaintenanceWhereUniqueInput
+  }
+
+  /**
+   * Maintenance updateMany
+   */
+  export type MaintenanceUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update Maintenances.
+     */
+    data: XOR<MaintenanceUpdateManyMutationInput, MaintenanceUncheckedUpdateManyInput>
+    /**
+     * Filter which Maintenances to update
+     */
+    where?: MaintenanceWhereInput
+    /**
+     * Limit how many Maintenances to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * Maintenance updateManyAndReturn
+   */
+  export type MaintenanceUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Maintenance
+     */
+    select?: MaintenanceSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the Maintenance
+     */
+    omit?: MaintenanceOmit<ExtArgs> | null
+    /**
+     * The data used to update Maintenances.
+     */
+    data: XOR<MaintenanceUpdateManyMutationInput, MaintenanceUncheckedUpdateManyInput>
+    /**
+     * Filter which Maintenances to update
+     */
+    where?: MaintenanceWhereInput
+    /**
+     * Limit how many Maintenances to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MaintenanceIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * Maintenance upsert
+   */
+  export type MaintenanceUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Maintenance
+     */
+    select?: MaintenanceSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Maintenance
+     */
+    omit?: MaintenanceOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MaintenanceInclude<ExtArgs> | null
+    /**
+     * The filter to search for the Maintenance to update in case it exists.
+     */
+    where: MaintenanceWhereUniqueInput
+    /**
+     * In case the Maintenance found by the `where` argument doesn't exist, create a new Maintenance with this data.
+     */
+    create: XOR<MaintenanceCreateInput, MaintenanceUncheckedCreateInput>
+    /**
+     * In case the Maintenance was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<MaintenanceUpdateInput, MaintenanceUncheckedUpdateInput>
+  }
+
+  /**
+   * Maintenance delete
+   */
+  export type MaintenanceDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Maintenance
+     */
+    select?: MaintenanceSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Maintenance
+     */
+    omit?: MaintenanceOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MaintenanceInclude<ExtArgs> | null
+    /**
+     * Filter which Maintenance to delete.
+     */
+    where: MaintenanceWhereUniqueInput
+  }
+
+  /**
+   * Maintenance deleteMany
+   */
+  export type MaintenanceDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Maintenances to delete
+     */
+    where?: MaintenanceWhereInput
+    /**
+     * Limit how many Maintenances to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * Maintenance.performer
+   */
+  export type Maintenance$performerArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Employee
+     */
+    select?: EmployeeSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Employee
+     */
+    omit?: EmployeeOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: EmployeeInclude<ExtArgs> | null
+    where?: EmployeeWhereInput
+  }
+
+  /**
+   * Maintenance.requester
+   */
+  export type Maintenance$requesterArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Employee
+     */
+    select?: EmployeeSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Employee
+     */
+    omit?: EmployeeOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: EmployeeInclude<ExtArgs> | null
+    where?: EmployeeWhereInput
+  }
+
+  /**
+   * Maintenance.team
+   */
+  export type Maintenance$teamArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Team
+     */
+    select?: TeamSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Team
+     */
+    omit?: TeamOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TeamInclude<ExtArgs> | null
+    where?: TeamWhereInput
+  }
+
+  /**
+   * Maintenance.floor
+   */
+  export type Maintenance$floorArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Floor
+     */
+    select?: FloorSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Floor
+     */
+    omit?: FloorOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: FloorInclude<ExtArgs> | null
+    where?: FloorWhereInput
+  }
+
+  /**
+   * Maintenance.room
+   */
+  export type Maintenance$roomArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Room
+     */
+    select?: RoomSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Room
+     */
+    omit?: RoomOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: RoomInclude<ExtArgs> | null
+    where?: RoomWhereInput
+  }
+
+  /**
+   * Maintenance.assignee
+   */
+  export type Maintenance$assigneeArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Employee
+     */
+    select?: EmployeeSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Employee
+     */
+    omit?: EmployeeOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: EmployeeInclude<ExtArgs> | null
+    where?: EmployeeWhereInput
+  }
+
+  /**
+   * Maintenance.asset
+   */
+  export type Maintenance$assetArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Asset
+     */
+    select?: AssetSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Asset
+     */
+    omit?: AssetOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AssetInclude<ExtArgs> | null
+    where?: AssetWhereInput
+  }
+
+  /**
+   * Maintenance.photos
+   */
+  export type Maintenance$photosArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the File
+     */
+    select?: FileSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the File
+     */
+    omit?: FileOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: FileInclude<ExtArgs> | null
+    where?: FileWhereInput
+    orderBy?: FileOrderByWithRelationInput | FileOrderByWithRelationInput[]
+    cursor?: FileWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: FileScalarFieldEnum | FileScalarFieldEnum[]
+  }
+
+  /**
+   * Maintenance without action
+   */
+  export type MaintenanceDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Maintenance
+     */
+    select?: MaintenanceSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Maintenance
+     */
+    omit?: MaintenanceOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MaintenanceInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model Preventive
+   */
+
+  export type AggregatePreventive = {
+    _count: PreventiveCountAggregateOutputType | null
+    _avg: PreventiveAvgAggregateOutputType | null
+    _sum: PreventiveSumAggregateOutputType | null
+    _min: PreventiveMinAggregateOutputType | null
+    _max: PreventiveMaxAggregateOutputType | null
+  }
+
+  export type PreventiveAvgAggregateOutputType = {
+    duration: number | null
+  }
+
+  export type PreventiveSumAggregateOutputType = {
+    duration: number | null
+  }
+
+  export type PreventiveMinAggregateOutputType = {
+    id: string | null
+    code: string | null
+    name: string | null
+    description: string | null
+    frequency: $Enums.Frequency | null
+    cronExpression: string | null
+    lastRun: Date | null
+    nextRun: Date | null
+    priority: $Enums.Priority | null
+    duration: number | null
+    siteId: string | null
+    buildingId: string | null
+    floorId: string | null
+    roomId: string | null
+    teamId: string | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type PreventiveMaxAggregateOutputType = {
+    id: string | null
+    code: string | null
+    name: string | null
+    description: string | null
+    frequency: $Enums.Frequency | null
+    cronExpression: string | null
+    lastRun: Date | null
+    nextRun: Date | null
+    priority: $Enums.Priority | null
+    duration: number | null
+    siteId: string | null
+    buildingId: string | null
+    floorId: string | null
+    roomId: string | null
+    teamId: string | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type PreventiveCountAggregateOutputType = {
+    id: number
+    code: number
+    name: number
+    description: number
+    frequency: number
+    cronExpression: number
+    lastRun: number
+    nextRun: number
+    priority: number
+    duration: number
+    siteId: number
+    buildingId: number
+    floorId: number
+    roomId: number
+    teamId: number
+    createdAt: number
+    updatedAt: number
+    _all: number
+  }
+
+
+  export type PreventiveAvgAggregateInputType = {
+    duration?: true
+  }
+
+  export type PreventiveSumAggregateInputType = {
+    duration?: true
+  }
+
+  export type PreventiveMinAggregateInputType = {
+    id?: true
+    code?: true
+    name?: true
+    description?: true
+    frequency?: true
+    cronExpression?: true
+    lastRun?: true
+    nextRun?: true
+    priority?: true
+    duration?: true
+    siteId?: true
+    buildingId?: true
+    floorId?: true
+    roomId?: true
+    teamId?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type PreventiveMaxAggregateInputType = {
+    id?: true
+    code?: true
+    name?: true
+    description?: true
+    frequency?: true
+    cronExpression?: true
+    lastRun?: true
+    nextRun?: true
+    priority?: true
+    duration?: true
+    siteId?: true
+    buildingId?: true
+    floorId?: true
+    roomId?: true
+    teamId?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type PreventiveCountAggregateInputType = {
+    id?: true
+    code?: true
+    name?: true
+    description?: true
+    frequency?: true
+    cronExpression?: true
+    lastRun?: true
+    nextRun?: true
+    priority?: true
+    duration?: true
+    siteId?: true
+    buildingId?: true
+    floorId?: true
+    roomId?: true
+    teamId?: true
+    createdAt?: true
+    updatedAt?: true
+    _all?: true
+  }
+
+  export type PreventiveAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Preventive to aggregate.
+     */
+    where?: PreventiveWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Preventives to fetch.
+     */
+    orderBy?: PreventiveOrderByWithRelationInput | PreventiveOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: PreventiveWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Preventives from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Preventives.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned Preventives
+    **/
+    _count?: true | PreventiveCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: PreventiveAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: PreventiveSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: PreventiveMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: PreventiveMaxAggregateInputType
+  }
+
+  export type GetPreventiveAggregateType<T extends PreventiveAggregateArgs> = {
+        [P in keyof T & keyof AggregatePreventive]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregatePreventive[P]>
+      : GetScalarType<T[P], AggregatePreventive[P]>
+  }
+
+
+
+
+  export type PreventiveGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: PreventiveWhereInput
+    orderBy?: PreventiveOrderByWithAggregationInput | PreventiveOrderByWithAggregationInput[]
+    by: PreventiveScalarFieldEnum[] | PreventiveScalarFieldEnum
+    having?: PreventiveScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: PreventiveCountAggregateInputType | true
+    _avg?: PreventiveAvgAggregateInputType
+    _sum?: PreventiveSumAggregateInputType
+    _min?: PreventiveMinAggregateInputType
+    _max?: PreventiveMaxAggregateInputType
+  }
+
+  export type PreventiveGroupByOutputType = {
+    id: string
+    code: string
+    name: string
+    description: string
+    frequency: $Enums.Frequency
+    cronExpression: string | null
+    lastRun: Date | null
+    nextRun: Date
+    priority: $Enums.Priority
+    duration: number | null
+    siteId: string
+    buildingId: string | null
+    floorId: string | null
+    roomId: string | null
+    teamId: string | null
+    createdAt: Date
+    updatedAt: Date
+    _count: PreventiveCountAggregateOutputType | null
+    _avg: PreventiveAvgAggregateOutputType | null
+    _sum: PreventiveSumAggregateOutputType | null
+    _min: PreventiveMinAggregateOutputType | null
+    _max: PreventiveMaxAggregateOutputType | null
+  }
+
+  type GetPreventiveGroupByPayload<T extends PreventiveGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<PreventiveGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof PreventiveGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], PreventiveGroupByOutputType[P]>
+            : GetScalarType<T[P], PreventiveGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type PreventiveSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    code?: boolean
+    name?: boolean
+    description?: boolean
+    frequency?: boolean
+    cronExpression?: boolean
+    lastRun?: boolean
+    nextRun?: boolean
+    priority?: boolean
+    duration?: boolean
+    siteId?: boolean
+    buildingId?: boolean
+    floorId?: boolean
+    roomId?: boolean
+    teamId?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    site?: boolean | ComplexDefaultArgs<ExtArgs>
+    building?: boolean | Preventive$buildingArgs<ExtArgs>
+    floor?: boolean | Preventive$floorArgs<ExtArgs>
+    room?: boolean | Preventive$roomArgs<ExtArgs>
+    team?: boolean | Preventive$teamArgs<ExtArgs>
+  }, ExtArgs["result"]["preventive"]>
+
+  export type PreventiveSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    code?: boolean
+    name?: boolean
+    description?: boolean
+    frequency?: boolean
+    cronExpression?: boolean
+    lastRun?: boolean
+    nextRun?: boolean
+    priority?: boolean
+    duration?: boolean
+    siteId?: boolean
+    buildingId?: boolean
+    floorId?: boolean
+    roomId?: boolean
+    teamId?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    site?: boolean | ComplexDefaultArgs<ExtArgs>
+    building?: boolean | Preventive$buildingArgs<ExtArgs>
+    floor?: boolean | Preventive$floorArgs<ExtArgs>
+    room?: boolean | Preventive$roomArgs<ExtArgs>
+    team?: boolean | Preventive$teamArgs<ExtArgs>
+  }, ExtArgs["result"]["preventive"]>
+
+  export type PreventiveSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    code?: boolean
+    name?: boolean
+    description?: boolean
+    frequency?: boolean
+    cronExpression?: boolean
+    lastRun?: boolean
+    nextRun?: boolean
+    priority?: boolean
+    duration?: boolean
+    siteId?: boolean
+    buildingId?: boolean
+    floorId?: boolean
+    roomId?: boolean
+    teamId?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    site?: boolean | ComplexDefaultArgs<ExtArgs>
+    building?: boolean | Preventive$buildingArgs<ExtArgs>
+    floor?: boolean | Preventive$floorArgs<ExtArgs>
+    room?: boolean | Preventive$roomArgs<ExtArgs>
+    team?: boolean | Preventive$teamArgs<ExtArgs>
+  }, ExtArgs["result"]["preventive"]>
+
+  export type PreventiveSelectScalar = {
+    id?: boolean
+    code?: boolean
+    name?: boolean
+    description?: boolean
+    frequency?: boolean
+    cronExpression?: boolean
+    lastRun?: boolean
+    nextRun?: boolean
+    priority?: boolean
+    duration?: boolean
+    siteId?: boolean
+    buildingId?: boolean
+    floorId?: boolean
+    roomId?: boolean
+    teamId?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }
+
+  export type PreventiveOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "code" | "name" | "description" | "frequency" | "cronExpression" | "lastRun" | "nextRun" | "priority" | "duration" | "siteId" | "buildingId" | "floorId" | "roomId" | "teamId" | "createdAt" | "updatedAt", ExtArgs["result"]["preventive"]>
+  export type PreventiveInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    site?: boolean | ComplexDefaultArgs<ExtArgs>
+    building?: boolean | Preventive$buildingArgs<ExtArgs>
+    floor?: boolean | Preventive$floorArgs<ExtArgs>
+    room?: boolean | Preventive$roomArgs<ExtArgs>
+    team?: boolean | Preventive$teamArgs<ExtArgs>
+  }
+  export type PreventiveIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    site?: boolean | ComplexDefaultArgs<ExtArgs>
+    building?: boolean | Preventive$buildingArgs<ExtArgs>
+    floor?: boolean | Preventive$floorArgs<ExtArgs>
+    room?: boolean | Preventive$roomArgs<ExtArgs>
+    team?: boolean | Preventive$teamArgs<ExtArgs>
+  }
+  export type PreventiveIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    site?: boolean | ComplexDefaultArgs<ExtArgs>
+    building?: boolean | Preventive$buildingArgs<ExtArgs>
+    floor?: boolean | Preventive$floorArgs<ExtArgs>
+    room?: boolean | Preventive$roomArgs<ExtArgs>
+    team?: boolean | Preventive$teamArgs<ExtArgs>
+  }
+
+  export type $PreventivePayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "Preventive"
+    objects: {
+      site: Prisma.$ComplexPayload<ExtArgs>
+      building: Prisma.$BuildingPayload<ExtArgs> | null
+      floor: Prisma.$FloorPayload<ExtArgs> | null
+      room: Prisma.$RoomPayload<ExtArgs> | null
+      team: Prisma.$TeamPayload<ExtArgs> | null
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      code: string
+      name: string
+      description: string
+      frequency: $Enums.Frequency
+      cronExpression: string | null
+      lastRun: Date | null
+      nextRun: Date
+      priority: $Enums.Priority
+      duration: number | null
+      siteId: string
+      buildingId: string | null
+      floorId: string | null
+      roomId: string | null
+      teamId: string | null
+      createdAt: Date
+      updatedAt: Date
+    }, ExtArgs["result"]["preventive"]>
+    composites: {}
+  }
+
+  type PreventiveGetPayload<S extends boolean | null | undefined | PreventiveDefaultArgs> = $Result.GetResult<Prisma.$PreventivePayload, S>
+
+  type PreventiveCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<PreventiveFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: PreventiveCountAggregateInputType | true
+    }
+
+  export interface PreventiveDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['Preventive'], meta: { name: 'Preventive' } }
+    /**
+     * Find zero or one Preventive that matches the filter.
+     * @param {PreventiveFindUniqueArgs} args - Arguments to find a Preventive
+     * @example
+     * // Get one Preventive
+     * const preventive = await prisma.preventive.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends PreventiveFindUniqueArgs>(args: SelectSubset<T, PreventiveFindUniqueArgs<ExtArgs>>): Prisma__PreventiveClient<$Result.GetResult<Prisma.$PreventivePayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one Preventive that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {PreventiveFindUniqueOrThrowArgs} args - Arguments to find a Preventive
+     * @example
+     * // Get one Preventive
+     * const preventive = await prisma.preventive.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends PreventiveFindUniqueOrThrowArgs>(args: SelectSubset<T, PreventiveFindUniqueOrThrowArgs<ExtArgs>>): Prisma__PreventiveClient<$Result.GetResult<Prisma.$PreventivePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Preventive that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {PreventiveFindFirstArgs} args - Arguments to find a Preventive
+     * @example
+     * // Get one Preventive
+     * const preventive = await prisma.preventive.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends PreventiveFindFirstArgs>(args?: SelectSubset<T, PreventiveFindFirstArgs<ExtArgs>>): Prisma__PreventiveClient<$Result.GetResult<Prisma.$PreventivePayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Preventive that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {PreventiveFindFirstOrThrowArgs} args - Arguments to find a Preventive
+     * @example
+     * // Get one Preventive
+     * const preventive = await prisma.preventive.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends PreventiveFindFirstOrThrowArgs>(args?: SelectSubset<T, PreventiveFindFirstOrThrowArgs<ExtArgs>>): Prisma__PreventiveClient<$Result.GetResult<Prisma.$PreventivePayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more Preventives that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {PreventiveFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all Preventives
+     * const preventives = await prisma.preventive.findMany()
+     * 
+     * // Get first 10 Preventives
+     * const preventives = await prisma.preventive.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const preventiveWithIdOnly = await prisma.preventive.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends PreventiveFindManyArgs>(args?: SelectSubset<T, PreventiveFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PreventivePayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a Preventive.
+     * @param {PreventiveCreateArgs} args - Arguments to create a Preventive.
+     * @example
+     * // Create one Preventive
+     * const Preventive = await prisma.preventive.create({
+     *   data: {
+     *     // ... data to create a Preventive
+     *   }
+     * })
+     * 
+     */
+    create<T extends PreventiveCreateArgs>(args: SelectSubset<T, PreventiveCreateArgs<ExtArgs>>): Prisma__PreventiveClient<$Result.GetResult<Prisma.$PreventivePayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many Preventives.
+     * @param {PreventiveCreateManyArgs} args - Arguments to create many Preventives.
+     * @example
+     * // Create many Preventives
+     * const preventive = await prisma.preventive.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends PreventiveCreateManyArgs>(args?: SelectSubset<T, PreventiveCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many Preventives and returns the data saved in the database.
+     * @param {PreventiveCreateManyAndReturnArgs} args - Arguments to create many Preventives.
+     * @example
+     * // Create many Preventives
+     * const preventive = await prisma.preventive.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many Preventives and only return the `id`
+     * const preventiveWithIdOnly = await prisma.preventive.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends PreventiveCreateManyAndReturnArgs>(args?: SelectSubset<T, PreventiveCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PreventivePayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a Preventive.
+     * @param {PreventiveDeleteArgs} args - Arguments to delete one Preventive.
+     * @example
+     * // Delete one Preventive
+     * const Preventive = await prisma.preventive.delete({
+     *   where: {
+     *     // ... filter to delete one Preventive
+     *   }
+     * })
+     * 
+     */
+    delete<T extends PreventiveDeleteArgs>(args: SelectSubset<T, PreventiveDeleteArgs<ExtArgs>>): Prisma__PreventiveClient<$Result.GetResult<Prisma.$PreventivePayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one Preventive.
+     * @param {PreventiveUpdateArgs} args - Arguments to update one Preventive.
+     * @example
+     * // Update one Preventive
+     * const preventive = await prisma.preventive.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends PreventiveUpdateArgs>(args: SelectSubset<T, PreventiveUpdateArgs<ExtArgs>>): Prisma__PreventiveClient<$Result.GetResult<Prisma.$PreventivePayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more Preventives.
+     * @param {PreventiveDeleteManyArgs} args - Arguments to filter Preventives to delete.
+     * @example
+     * // Delete a few Preventives
+     * const { count } = await prisma.preventive.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends PreventiveDeleteManyArgs>(args?: SelectSubset<T, PreventiveDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Preventives.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {PreventiveUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many Preventives
+     * const preventive = await prisma.preventive.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends PreventiveUpdateManyArgs>(args: SelectSubset<T, PreventiveUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Preventives and returns the data updated in the database.
+     * @param {PreventiveUpdateManyAndReturnArgs} args - Arguments to update many Preventives.
+     * @example
+     * // Update many Preventives
+     * const preventive = await prisma.preventive.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more Preventives and only return the `id`
+     * const preventiveWithIdOnly = await prisma.preventive.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends PreventiveUpdateManyAndReturnArgs>(args: SelectSubset<T, PreventiveUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PreventivePayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one Preventive.
+     * @param {PreventiveUpsertArgs} args - Arguments to update or create a Preventive.
+     * @example
+     * // Update or create a Preventive
+     * const preventive = await prisma.preventive.upsert({
+     *   create: {
+     *     // ... data to create a Preventive
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the Preventive we want to update
+     *   }
+     * })
+     */
+    upsert<T extends PreventiveUpsertArgs>(args: SelectSubset<T, PreventiveUpsertArgs<ExtArgs>>): Prisma__PreventiveClient<$Result.GetResult<Prisma.$PreventivePayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of Preventives.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {PreventiveCountArgs} args - Arguments to filter Preventives to count.
+     * @example
+     * // Count the number of Preventives
+     * const count = await prisma.preventive.count({
+     *   where: {
+     *     // ... the filter for the Preventives we want to count
+     *   }
+     * })
+    **/
+    count<T extends PreventiveCountArgs>(
+      args?: Subset<T, PreventiveCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], PreventiveCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a Preventive.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {PreventiveAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends PreventiveAggregateArgs>(args: Subset<T, PreventiveAggregateArgs>): Prisma.PrismaPromise<GetPreventiveAggregateType<T>>
+
+    /**
+     * Group by Preventive.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {PreventiveGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends PreventiveGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: PreventiveGroupByArgs['orderBy'] }
+        : { orderBy?: PreventiveGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, PreventiveGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetPreventiveGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the Preventive model
+   */
+  readonly fields: PreventiveFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for Preventive.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__PreventiveClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    site<T extends ComplexDefaultArgs<ExtArgs> = {}>(args?: Subset<T, ComplexDefaultArgs<ExtArgs>>): Prisma__ComplexClient<$Result.GetResult<Prisma.$ComplexPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    building<T extends Preventive$buildingArgs<ExtArgs> = {}>(args?: Subset<T, Preventive$buildingArgs<ExtArgs>>): Prisma__BuildingClient<$Result.GetResult<Prisma.$BuildingPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+    floor<T extends Preventive$floorArgs<ExtArgs> = {}>(args?: Subset<T, Preventive$floorArgs<ExtArgs>>): Prisma__FloorClient<$Result.GetResult<Prisma.$FloorPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+    room<T extends Preventive$roomArgs<ExtArgs> = {}>(args?: Subset<T, Preventive$roomArgs<ExtArgs>>): Prisma__RoomClient<$Result.GetResult<Prisma.$RoomPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+    team<T extends Preventive$teamArgs<ExtArgs> = {}>(args?: Subset<T, Preventive$teamArgs<ExtArgs>>): Prisma__TeamClient<$Result.GetResult<Prisma.$TeamPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the Preventive model
+   */
+  interface PreventiveFieldRefs {
+    readonly id: FieldRef<"Preventive", 'String'>
+    readonly code: FieldRef<"Preventive", 'String'>
+    readonly name: FieldRef<"Preventive", 'String'>
+    readonly description: FieldRef<"Preventive", 'String'>
+    readonly frequency: FieldRef<"Preventive", 'Frequency'>
+    readonly cronExpression: FieldRef<"Preventive", 'String'>
+    readonly lastRun: FieldRef<"Preventive", 'DateTime'>
+    readonly nextRun: FieldRef<"Preventive", 'DateTime'>
+    readonly priority: FieldRef<"Preventive", 'Priority'>
+    readonly duration: FieldRef<"Preventive", 'Int'>
+    readonly siteId: FieldRef<"Preventive", 'String'>
+    readonly buildingId: FieldRef<"Preventive", 'String'>
+    readonly floorId: FieldRef<"Preventive", 'String'>
+    readonly roomId: FieldRef<"Preventive", 'String'>
+    readonly teamId: FieldRef<"Preventive", 'String'>
+    readonly createdAt: FieldRef<"Preventive", 'DateTime'>
+    readonly updatedAt: FieldRef<"Preventive", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * Preventive findUnique
+   */
+  export type PreventiveFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Preventive
+     */
+    select?: PreventiveSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Preventive
+     */
+    omit?: PreventiveOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PreventiveInclude<ExtArgs> | null
+    /**
+     * Filter, which Preventive to fetch.
+     */
+    where: PreventiveWhereUniqueInput
+  }
+
+  /**
+   * Preventive findUniqueOrThrow
+   */
+  export type PreventiveFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Preventive
+     */
+    select?: PreventiveSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Preventive
+     */
+    omit?: PreventiveOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PreventiveInclude<ExtArgs> | null
+    /**
+     * Filter, which Preventive to fetch.
+     */
+    where: PreventiveWhereUniqueInput
+  }
+
+  /**
+   * Preventive findFirst
+   */
+  export type PreventiveFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Preventive
+     */
+    select?: PreventiveSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Preventive
+     */
+    omit?: PreventiveOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PreventiveInclude<ExtArgs> | null
+    /**
+     * Filter, which Preventive to fetch.
+     */
+    where?: PreventiveWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Preventives to fetch.
+     */
+    orderBy?: PreventiveOrderByWithRelationInput | PreventiveOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Preventives.
+     */
+    cursor?: PreventiveWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Preventives from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Preventives.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Preventives.
+     */
+    distinct?: PreventiveScalarFieldEnum | PreventiveScalarFieldEnum[]
+  }
+
+  /**
+   * Preventive findFirstOrThrow
+   */
+  export type PreventiveFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Preventive
+     */
+    select?: PreventiveSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Preventive
+     */
+    omit?: PreventiveOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PreventiveInclude<ExtArgs> | null
+    /**
+     * Filter, which Preventive to fetch.
+     */
+    where?: PreventiveWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Preventives to fetch.
+     */
+    orderBy?: PreventiveOrderByWithRelationInput | PreventiveOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Preventives.
+     */
+    cursor?: PreventiveWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Preventives from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Preventives.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Preventives.
+     */
+    distinct?: PreventiveScalarFieldEnum | PreventiveScalarFieldEnum[]
+  }
+
+  /**
+   * Preventive findMany
+   */
+  export type PreventiveFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Preventive
+     */
+    select?: PreventiveSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Preventive
+     */
+    omit?: PreventiveOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PreventiveInclude<ExtArgs> | null
+    /**
+     * Filter, which Preventives to fetch.
+     */
+    where?: PreventiveWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Preventives to fetch.
+     */
+    orderBy?: PreventiveOrderByWithRelationInput | PreventiveOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing Preventives.
+     */
+    cursor?: PreventiveWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Preventives from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Preventives.
+     */
+    skip?: number
+    distinct?: PreventiveScalarFieldEnum | PreventiveScalarFieldEnum[]
+  }
+
+  /**
+   * Preventive create
+   */
+  export type PreventiveCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Preventive
+     */
+    select?: PreventiveSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Preventive
+     */
+    omit?: PreventiveOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PreventiveInclude<ExtArgs> | null
+    /**
+     * The data needed to create a Preventive.
+     */
+    data: XOR<PreventiveCreateInput, PreventiveUncheckedCreateInput>
+  }
+
+  /**
+   * Preventive createMany
+   */
+  export type PreventiveCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many Preventives.
+     */
+    data: PreventiveCreateManyInput | PreventiveCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * Preventive createManyAndReturn
+   */
+  export type PreventiveCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Preventive
+     */
+    select?: PreventiveSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the Preventive
+     */
+    omit?: PreventiveOmit<ExtArgs> | null
+    /**
+     * The data used to create many Preventives.
+     */
+    data: PreventiveCreateManyInput | PreventiveCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PreventiveIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * Preventive update
+   */
+  export type PreventiveUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Preventive
+     */
+    select?: PreventiveSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Preventive
+     */
+    omit?: PreventiveOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PreventiveInclude<ExtArgs> | null
+    /**
+     * The data needed to update a Preventive.
+     */
+    data: XOR<PreventiveUpdateInput, PreventiveUncheckedUpdateInput>
+    /**
+     * Choose, which Preventive to update.
+     */
+    where: PreventiveWhereUniqueInput
+  }
+
+  /**
+   * Preventive updateMany
+   */
+  export type PreventiveUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update Preventives.
+     */
+    data: XOR<PreventiveUpdateManyMutationInput, PreventiveUncheckedUpdateManyInput>
+    /**
+     * Filter which Preventives to update
+     */
+    where?: PreventiveWhereInput
+    /**
+     * Limit how many Preventives to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * Preventive updateManyAndReturn
+   */
+  export type PreventiveUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Preventive
+     */
+    select?: PreventiveSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the Preventive
+     */
+    omit?: PreventiveOmit<ExtArgs> | null
+    /**
+     * The data used to update Preventives.
+     */
+    data: XOR<PreventiveUpdateManyMutationInput, PreventiveUncheckedUpdateManyInput>
+    /**
+     * Filter which Preventives to update
+     */
+    where?: PreventiveWhereInput
+    /**
+     * Limit how many Preventives to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PreventiveIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * Preventive upsert
+   */
+  export type PreventiveUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Preventive
+     */
+    select?: PreventiveSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Preventive
+     */
+    omit?: PreventiveOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PreventiveInclude<ExtArgs> | null
+    /**
+     * The filter to search for the Preventive to update in case it exists.
+     */
+    where: PreventiveWhereUniqueInput
+    /**
+     * In case the Preventive found by the `where` argument doesn't exist, create a new Preventive with this data.
+     */
+    create: XOR<PreventiveCreateInput, PreventiveUncheckedCreateInput>
+    /**
+     * In case the Preventive was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<PreventiveUpdateInput, PreventiveUncheckedUpdateInput>
+  }
+
+  /**
+   * Preventive delete
+   */
+  export type PreventiveDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Preventive
+     */
+    select?: PreventiveSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Preventive
+     */
+    omit?: PreventiveOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PreventiveInclude<ExtArgs> | null
+    /**
+     * Filter which Preventive to delete.
+     */
+    where: PreventiveWhereUniqueInput
+  }
+
+  /**
+   * Preventive deleteMany
+   */
+  export type PreventiveDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Preventives to delete
+     */
+    where?: PreventiveWhereInput
+    /**
+     * Limit how many Preventives to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * Preventive.building
+   */
+  export type Preventive$buildingArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Building
+     */
+    select?: BuildingSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Building
+     */
+    omit?: BuildingOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: BuildingInclude<ExtArgs> | null
+    where?: BuildingWhereInput
+  }
+
+  /**
+   * Preventive.floor
+   */
+  export type Preventive$floorArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Floor
+     */
+    select?: FloorSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Floor
+     */
+    omit?: FloorOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: FloorInclude<ExtArgs> | null
+    where?: FloorWhereInput
+  }
+
+  /**
+   * Preventive.room
+   */
+  export type Preventive$roomArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Room
+     */
+    select?: RoomSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Room
+     */
+    omit?: RoomOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: RoomInclude<ExtArgs> | null
+    where?: RoomWhereInput
+  }
+
+  /**
+   * Preventive.team
+   */
+  export type Preventive$teamArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Team
+     */
+    select?: TeamSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Team
+     */
+    omit?: TeamOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TeamInclude<ExtArgs> | null
+    where?: TeamWhereInput
+  }
+
+  /**
+   * Preventive without action
+   */
+  export type PreventiveDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Preventive
+     */
+    select?: PreventiveSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Preventive
+     */
+    omit?: PreventiveOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PreventiveInclude<ExtArgs> | null
   }
 
 
@@ -24274,7 +29591,8 @@ export namespace Prisma {
 
   export const FileScalarFieldEnum: {
     id: 'id',
-    url: 'url'
+    url: 'url',
+    maintenanceId: 'maintenanceId'
   };
 
   export type FileScalarFieldEnum = (typeof FileScalarFieldEnum)[keyof typeof FileScalarFieldEnum]
@@ -24336,6 +29654,15 @@ export namespace Prisma {
   export type AddressScalarFieldEnum = (typeof AddressScalarFieldEnum)[keyof typeof AddressScalarFieldEnum]
 
 
+  export const ContractScalarFieldEnum: {
+    id: 'id',
+    code: 'code',
+    description: 'description'
+  };
+
+  export type ContractScalarFieldEnum = (typeof ContractScalarFieldEnum)[keyof typeof ContractScalarFieldEnum]
+
+
   export const CalenderEntityScalarFieldEnum: {
     id: 'id',
     name: 'name',
@@ -24344,6 +29671,93 @@ export namespace Prisma {
   };
 
   export type CalenderEntityScalarFieldEnum = (typeof CalenderEntityScalarFieldEnum)[keyof typeof CalenderEntityScalarFieldEnum]
+
+
+  export const MaintenanceScalarFieldEnum: {
+    id: 'id',
+    type: 'type',
+    code: 'code',
+    description: 'description',
+    startDate: 'startDate',
+    endDate: 'endDate',
+    shortDescription: 'shortDescription',
+    action: 'action',
+    message: 'message',
+    processNotes: 'processNotes',
+    performerId: 'performerId',
+    processStatus: 'processStatus',
+    register: 'register',
+    activityIdTimer: 'activityIdTimer',
+    activityStartTime: 'activityStartTime',
+    activityEndTime: 'activityEndTime',
+    allDeadlines: 'allDeadlines',
+    processType: 'processType',
+    ttSysRunning: 'ttSysRunning',
+    ttWorkRunning: 'ttWorkRunning',
+    sorting: 'sorting',
+    requesterId: 'requesterId',
+    priority: 'priority',
+    siteId: 'siteId',
+    outcome: 'outcome',
+    dueAssignedEnd: 'dueAssignedEnd',
+    execStart: 'execStart',
+    dueExecEndDate: 'dueExecEndDate',
+    execEndDate: 'execEndDate',
+    dueClosuerDate: 'dueClosuerDate',
+    totalExecTime: 'totalExecTime',
+    expStartDate: 'expStartDate',
+    suspensionReason: 'suspensionReason',
+    category: 'category',
+    subCategory: 'subCategory',
+    company: 'company',
+    teamId: 'teamId',
+    floorId: 'floorId',
+    roomId: 'roomId',
+    ttSystemOpening: 'ttSystemOpening',
+    ttWorkOpening: 'ttWorkOpening',
+    ttSystemAssignment: 'ttSystemAssignment',
+    ttWorkAssignment: 'ttWorkAssignment',
+    ttSystemExecution: 'ttSystemExecution',
+    ttWorkExecution: 'ttWorkExecution',
+    ttSysSuspension: 'ttSysSuspension',
+    ttWorkSuspension: 'ttWorkSuspension',
+    ttEstimate: 'ttEstimate',
+    prevMaintenanceConfigId: 'prevMaintenanceConfigId',
+    automaticConfig: 'automaticConfig',
+    jointAccounting: 'jointAccounting',
+    hasTasks: 'hasTasks',
+    estimateStatus: 'estimateStatus',
+    delayNotification: 'delayNotification',
+    assigneeId: 'assigneeId',
+    assetId: 'assetId',
+    createdAt: 'createdAt',
+    updatedAt: 'updatedAt'
+  };
+
+  export type MaintenanceScalarFieldEnum = (typeof MaintenanceScalarFieldEnum)[keyof typeof MaintenanceScalarFieldEnum]
+
+
+  export const PreventiveScalarFieldEnum: {
+    id: 'id',
+    code: 'code',
+    name: 'name',
+    description: 'description',
+    frequency: 'frequency',
+    cronExpression: 'cronExpression',
+    lastRun: 'lastRun',
+    nextRun: 'nextRun',
+    priority: 'priority',
+    duration: 'duration',
+    siteId: 'siteId',
+    buildingId: 'buildingId',
+    floorId: 'floorId',
+    roomId: 'roomId',
+    teamId: 'teamId',
+    createdAt: 'createdAt',
+    updatedAt: 'updatedAt'
+  };
+
+  export type PreventiveScalarFieldEnum = (typeof PreventiveScalarFieldEnum)[keyof typeof PreventiveScalarFieldEnum]
 
 
   export const RefreshTokenScalarFieldEnum: {
@@ -24630,6 +30044,76 @@ export namespace Prisma {
    */
   export type ListEnumEmployeeTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'EmployeeType[]'>
     
+
+
+  /**
+   * Reference to a field of type 'MaintenanceType'
+   */
+  export type EnumMaintenanceTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'MaintenanceType'>
+    
+
+
+  /**
+   * Reference to a field of type 'MaintenanceType[]'
+   */
+  export type ListEnumMaintenanceTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'MaintenanceType[]'>
+    
+
+
+  /**
+   * Reference to a field of type 'Status'
+   */
+  export type EnumStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Status'>
+    
+
+
+  /**
+   * Reference to a field of type 'Status[]'
+   */
+  export type ListEnumStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Status[]'>
+    
+
+
+  /**
+   * Reference to a field of type 'ProcessType'
+   */
+  export type EnumProcessTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'ProcessType'>
+    
+
+
+  /**
+   * Reference to a field of type 'ProcessType[]'
+   */
+  export type ListEnumProcessTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'ProcessType[]'>
+    
+
+
+  /**
+   * Reference to a field of type 'Priority'
+   */
+  export type EnumPriorityFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Priority'>
+    
+
+
+  /**
+   * Reference to a field of type 'Priority[]'
+   */
+  export type ListEnumPriorityFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Priority[]'>
+    
+
+
+  /**
+   * Reference to a field of type 'Frequency'
+   */
+  export type EnumFrequencyFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Frequency'>
+    
+
+
+  /**
+   * Reference to a field of type 'Frequency[]'
+   */
+  export type ListEnumFrequencyFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Frequency[]'>
+    
   /**
    * Deep Input Types
    */
@@ -24884,6 +30368,8 @@ export namespace Prisma {
     floors?: FloorListRelationFilter
     units?: UnitListRelationFilter
     rooms?: RoomListRelationFilter
+    maintenances?: MaintenanceListRelationFilter
+    preventives?: PreventiveListRelationFilter
   }
 
   export type ComplexOrderByWithRelationInput = {
@@ -24917,6 +30403,8 @@ export namespace Prisma {
     floors?: FloorOrderByRelationAggregateInput
     units?: UnitOrderByRelationAggregateInput
     rooms?: RoomOrderByRelationAggregateInput
+    maintenances?: MaintenanceOrderByRelationAggregateInput
+    preventives?: PreventiveOrderByRelationAggregateInput
   }
 
   export type ComplexWhereUniqueInput = Prisma.AtLeast<{
@@ -24953,6 +30441,8 @@ export namespace Prisma {
     floors?: FloorListRelationFilter
     units?: UnitListRelationFilter
     rooms?: RoomListRelationFilter
+    maintenances?: MaintenanceListRelationFilter
+    preventives?: PreventiveListRelationFilter
   }, "id" | "code">
 
   export type ComplexOrderByWithAggregationInput = {
@@ -25051,6 +30541,7 @@ export namespace Prisma {
     floors?: FloorListRelationFilter
     units?: UnitListRelationFilter
     rooms?: RoomListRelationFilter
+    preventives?: PreventiveListRelationFilter
   }
 
   export type BuildingOrderByWithRelationInput = {
@@ -25084,6 +30575,7 @@ export namespace Prisma {
     floors?: FloorOrderByRelationAggregateInput
     units?: UnitOrderByRelationAggregateInput
     rooms?: RoomOrderByRelationAggregateInput
+    preventives?: PreventiveOrderByRelationAggregateInput
   }
 
   export type BuildingWhereUniqueInput = Prisma.AtLeast<{
@@ -25121,6 +30613,7 @@ export namespace Prisma {
     floors?: FloorListRelationFilter
     units?: UnitListRelationFilter
     rooms?: RoomListRelationFilter
+    preventives?: PreventiveListRelationFilter
   }, "id" | "complexId_code">
 
   export type BuildingOrderByWithAggregationInput = {
@@ -25211,6 +30704,8 @@ export namespace Prisma {
     building?: XOR<BuildingScalarRelationFilter, BuildingWhereInput>
     rooms?: RoomListRelationFilter
     units?: UnitListRelationFilter
+    maintenances?: MaintenanceListRelationFilter
+    preventives?: PreventiveListRelationFilter
   }
 
   export type FloorOrderByWithRelationInput = {
@@ -25238,6 +30733,8 @@ export namespace Prisma {
     building?: BuildingOrderByWithRelationInput
     rooms?: RoomOrderByRelationAggregateInput
     units?: UnitOrderByRelationAggregateInput
+    maintenances?: MaintenanceOrderByRelationAggregateInput
+    preventives?: PreventiveOrderByRelationAggregateInput
   }
 
   export type FloorWhereUniqueInput = Prisma.AtLeast<{
@@ -25269,6 +30766,8 @@ export namespace Prisma {
     building?: XOR<BuildingScalarRelationFilter, BuildingWhereInput>
     rooms?: RoomListRelationFilter
     units?: UnitListRelationFilter
+    maintenances?: MaintenanceListRelationFilter
+    preventives?: PreventiveListRelationFilter
   }, "id" | "buildingId_code">
 
   export type FloorOrderByWithAggregationInput = {
@@ -25570,6 +31069,8 @@ export namespace Prisma {
     floor?: XOR<FloorScalarRelationFilter, FloorWhereInput>
     unit?: XOR<UnitNullableScalarRelationFilter, UnitWhereInput> | null
     photos?: FileListRelationFilter
+    maintenances?: MaintenanceListRelationFilter
+    preventives?: PreventiveListRelationFilter
   }
 
   export type RoomOrderByWithRelationInput = {
@@ -25601,6 +31102,8 @@ export namespace Prisma {
     floor?: FloorOrderByWithRelationInput
     unit?: UnitOrderByWithRelationInput
     photos?: FileOrderByRelationAggregateInput
+    maintenances?: MaintenanceOrderByRelationAggregateInput
+    preventives?: PreventiveOrderByRelationAggregateInput
   }
 
   export type RoomWhereUniqueInput = Prisma.AtLeast<{
@@ -25636,6 +31139,8 @@ export namespace Prisma {
     floor?: XOR<FloorScalarRelationFilter, FloorWhereInput>
     unit?: XOR<UnitNullableScalarRelationFilter, UnitWhereInput> | null
     photos?: FileListRelationFilter
+    maintenances?: MaintenanceListRelationFilter
+    preventives?: PreventiveListRelationFilter
   }, "id" | "floorId_buildingId_code">
 
   export type RoomOrderByWithAggregationInput = {
@@ -25767,6 +31272,7 @@ export namespace Prisma {
     createdAt?: DateTimeFilter<"Asset"> | Date | string
     updatedAt?: DateTimeFilter<"Asset"> | Date | string
     category?: XOR<AssetCategoryScalarRelationFilter, AssetCategoryWhereInput>
+    maintenances?: MaintenanceListRelationFilter
   }
 
   export type AssetOrderByWithRelationInput = {
@@ -25777,6 +31283,7 @@ export namespace Prisma {
     createdAt?: SortOrder
     updatedAt?: SortOrder
     category?: AssetCategoryOrderByWithRelationInput
+    maintenances?: MaintenanceOrderByRelationAggregateInput
   }
 
   export type AssetWhereUniqueInput = Prisma.AtLeast<{
@@ -25790,6 +31297,7 @@ export namespace Prisma {
     createdAt?: DateTimeFilter<"Asset"> | Date | string
     updatedAt?: DateTimeFilter<"Asset"> | Date | string
     category?: XOR<AssetCategoryScalarRelationFilter, AssetCategoryWhereInput>
+    maintenances?: MaintenanceListRelationFilter
   }, "id">
 
   export type AssetOrderByWithAggregationInput = {
@@ -25822,19 +31330,23 @@ export namespace Prisma {
     NOT?: FileWhereInput | FileWhereInput[]
     id?: StringFilter<"File"> | string
     url?: StringFilter<"File"> | string
+    maintenanceId?: StringNullableFilter<"File"> | string | null
     rooms?: RoomListRelationFilter
     units?: UnitListRelationFilter
     buildings?: BuildingListRelationFilter
     complexes?: ComplexListRelationFilter
+    maintenance?: XOR<MaintenanceNullableScalarRelationFilter, MaintenanceWhereInput> | null
   }
 
   export type FileOrderByWithRelationInput = {
     id?: SortOrder
     url?: SortOrder
+    maintenanceId?: SortOrderInput | SortOrder
     rooms?: RoomOrderByRelationAggregateInput
     units?: UnitOrderByRelationAggregateInput
     buildings?: BuildingOrderByRelationAggregateInput
     complexes?: ComplexOrderByRelationAggregateInput
+    maintenance?: MaintenanceOrderByWithRelationInput
   }
 
   export type FileWhereUniqueInput = Prisma.AtLeast<{
@@ -25843,15 +31355,18 @@ export namespace Prisma {
     AND?: FileWhereInput | FileWhereInput[]
     OR?: FileWhereInput[]
     NOT?: FileWhereInput | FileWhereInput[]
+    maintenanceId?: StringNullableFilter<"File"> | string | null
     rooms?: RoomListRelationFilter
     units?: UnitListRelationFilter
     buildings?: BuildingListRelationFilter
     complexes?: ComplexListRelationFilter
+    maintenance?: XOR<MaintenanceNullableScalarRelationFilter, MaintenanceWhereInput> | null
   }, "id" | "url">
 
   export type FileOrderByWithAggregationInput = {
     id?: SortOrder
     url?: SortOrder
+    maintenanceId?: SortOrderInput | SortOrder
     _count?: FileCountOrderByAggregateInput
     _max?: FileMaxOrderByAggregateInput
     _min?: FileMinOrderByAggregateInput
@@ -25863,6 +31378,7 @@ export namespace Prisma {
     NOT?: FileScalarWhereWithAggregatesInput | FileScalarWhereWithAggregatesInput[]
     id?: StringWithAggregatesFilter<"File"> | string
     url?: StringWithAggregatesFilter<"File"> | string
+    maintenanceId?: StringNullableWithAggregatesFilter<"File"> | string | null
   }
 
   export type CompanyWhereInput = {
@@ -25973,6 +31489,9 @@ export namespace Prisma {
     company?: XOR<CompanyScalarRelationFilter, CompanyWhereInput>
     calenderEntity?: XOR<CalenderEntityNullableScalarRelationFilter, CalenderEntityWhereInput> | null
     teams?: TeamListRelationFilter
+    performedMaintenances?: MaintenanceListRelationFilter
+    requestedMaintenances?: MaintenanceListRelationFilter
+    assignedMaintenances?: MaintenanceListRelationFilter
   }
 
   export type EmployeeOrderByWithRelationInput = {
@@ -25987,6 +31506,9 @@ export namespace Prisma {
     company?: CompanyOrderByWithRelationInput
     calenderEntity?: CalenderEntityOrderByWithRelationInput
     teams?: TeamOrderByRelationAggregateInput
+    performedMaintenances?: MaintenanceOrderByRelationAggregateInput
+    requestedMaintenances?: MaintenanceOrderByRelationAggregateInput
+    assignedMaintenances?: MaintenanceOrderByRelationAggregateInput
   }
 
   export type EmployeeWhereUniqueInput = Prisma.AtLeast<{
@@ -26004,6 +31526,9 @@ export namespace Prisma {
     company?: XOR<CompanyScalarRelationFilter, CompanyWhereInput>
     calenderEntity?: XOR<CalenderEntityNullableScalarRelationFilter, CalenderEntityWhereInput> | null
     teams?: TeamListRelationFilter
+    performedMaintenances?: MaintenanceListRelationFilter
+    requestedMaintenances?: MaintenanceListRelationFilter
+    assignedMaintenances?: MaintenanceListRelationFilter
   }, "id" | "code">
 
   export type EmployeeOrderByWithAggregationInput = {
@@ -26045,6 +31570,8 @@ export namespace Prisma {
     createdAt?: DateTimeFilter<"Team"> | Date | string
     updatedAt?: DateTimeFilter<"Team"> | Date | string
     supervisor?: XOR<EmployeeScalarRelationFilter, EmployeeWhereInput>
+    maintenances?: MaintenanceListRelationFilter
+    preventives?: PreventiveListRelationFilter
   }
 
   export type TeamOrderByWithRelationInput = {
@@ -26057,6 +31584,8 @@ export namespace Prisma {
     createdAt?: SortOrder
     updatedAt?: SortOrder
     supervisor?: EmployeeOrderByWithRelationInput
+    maintenances?: MaintenanceOrderByRelationAggregateInput
+    preventives?: PreventiveOrderByRelationAggregateInput
   }
 
   export type TeamWhereUniqueInput = Prisma.AtLeast<{
@@ -26072,6 +31601,8 @@ export namespace Prisma {
     createdAt?: DateTimeFilter<"Team"> | Date | string
     updatedAt?: DateTimeFilter<"Team"> | Date | string
     supervisor?: XOR<EmployeeScalarRelationFilter, EmployeeWhereInput>
+    maintenances?: MaintenanceListRelationFilter
+    preventives?: PreventiveListRelationFilter
   }, "id" | "code">
 
   export type TeamOrderByWithAggregationInput = {
@@ -26160,6 +31691,48 @@ export namespace Prisma {
     zipCode?: StringWithAggregatesFilter<"Address"> | string
   }
 
+  export type ContractWhereInput = {
+    AND?: ContractWhereInput | ContractWhereInput[]
+    OR?: ContractWhereInput[]
+    NOT?: ContractWhereInput | ContractWhereInput[]
+    id?: StringFilter<"Contract"> | string
+    code?: StringFilter<"Contract"> | string
+    description?: StringFilter<"Contract"> | string
+  }
+
+  export type ContractOrderByWithRelationInput = {
+    id?: SortOrder
+    code?: SortOrder
+    description?: SortOrder
+  }
+
+  export type ContractWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    code?: string
+    AND?: ContractWhereInput | ContractWhereInput[]
+    OR?: ContractWhereInput[]
+    NOT?: ContractWhereInput | ContractWhereInput[]
+    description?: StringFilter<"Contract"> | string
+  }, "id" | "code">
+
+  export type ContractOrderByWithAggregationInput = {
+    id?: SortOrder
+    code?: SortOrder
+    description?: SortOrder
+    _count?: ContractCountOrderByAggregateInput
+    _max?: ContractMaxOrderByAggregateInput
+    _min?: ContractMinOrderByAggregateInput
+  }
+
+  export type ContractScalarWhereWithAggregatesInput = {
+    AND?: ContractScalarWhereWithAggregatesInput | ContractScalarWhereWithAggregatesInput[]
+    OR?: ContractScalarWhereWithAggregatesInput[]
+    NOT?: ContractScalarWhereWithAggregatesInput | ContractScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"Contract"> | string
+    code?: StringWithAggregatesFilter<"Contract"> | string
+    description?: StringWithAggregatesFilter<"Contract"> | string
+  }
+
   export type CalenderEntityWhereInput = {
     AND?: CalenderEntityWhereInput | CalenderEntityWhereInput[]
     OR?: CalenderEntityWhereInput[]
@@ -26220,6 +31793,481 @@ export namespace Prisma {
     name?: StringWithAggregatesFilter<"CalenderEntity"> | string
     createdAt?: DateTimeWithAggregatesFilter<"CalenderEntity"> | Date | string
     updatedAt?: DateTimeWithAggregatesFilter<"CalenderEntity"> | Date | string
+  }
+
+  export type MaintenanceWhereInput = {
+    AND?: MaintenanceWhereInput | MaintenanceWhereInput[]
+    OR?: MaintenanceWhereInput[]
+    NOT?: MaintenanceWhereInput | MaintenanceWhereInput[]
+    id?: StringFilter<"Maintenance"> | string
+    type?: EnumMaintenanceTypeFilter<"Maintenance"> | $Enums.MaintenanceType
+    code?: StringFilter<"Maintenance"> | string
+    description?: StringFilter<"Maintenance"> | string
+    startDate?: DateTimeNullableFilter<"Maintenance"> | Date | string | null
+    endDate?: DateTimeNullableFilter<"Maintenance"> | Date | string | null
+    shortDescription?: StringNullableFilter<"Maintenance"> | string | null
+    action?: StringNullableFilter<"Maintenance"> | string | null
+    message?: StringNullableFilter<"Maintenance"> | string | null
+    processNotes?: StringNullableFilter<"Maintenance"> | string | null
+    performerId?: StringNullableFilter<"Maintenance"> | string | null
+    processStatus?: EnumStatusFilter<"Maintenance"> | $Enums.Status
+    register?: StringNullableFilter<"Maintenance"> | string | null
+    activityIdTimer?: StringNullableFilter<"Maintenance"> | string | null
+    activityStartTime?: DateTimeNullableFilter<"Maintenance"> | Date | string | null
+    activityEndTime?: DateTimeNullableFilter<"Maintenance"> | Date | string | null
+    allDeadlines?: StringNullableFilter<"Maintenance"> | string | null
+    processType?: EnumProcessTypeFilter<"Maintenance"> | $Enums.ProcessType
+    ttSysRunning?: DecimalNullableFilter<"Maintenance"> | Decimal | DecimalJsLike | number | string | null
+    ttWorkRunning?: DecimalNullableFilter<"Maintenance"> | Decimal | DecimalJsLike | number | string | null
+    sorting?: StringNullableFilter<"Maintenance"> | string | null
+    requesterId?: StringNullableFilter<"Maintenance"> | string | null
+    priority?: EnumPriorityFilter<"Maintenance"> | $Enums.Priority
+    siteId?: StringFilter<"Maintenance"> | string
+    outcome?: StringNullableFilter<"Maintenance"> | string | null
+    dueAssignedEnd?: DateTimeNullableFilter<"Maintenance"> | Date | string | null
+    execStart?: DateTimeNullableFilter<"Maintenance"> | Date | string | null
+    dueExecEndDate?: DateTimeNullableFilter<"Maintenance"> | Date | string | null
+    execEndDate?: DateTimeNullableFilter<"Maintenance"> | Date | string | null
+    dueClosuerDate?: DateTimeNullableFilter<"Maintenance"> | Date | string | null
+    totalExecTime?: DecimalNullableFilter<"Maintenance"> | Decimal | DecimalJsLike | number | string | null
+    expStartDate?: DateTimeNullableFilter<"Maintenance"> | Date | string | null
+    suspensionReason?: StringNullableFilter<"Maintenance"> | string | null
+    category?: StringNullableFilter<"Maintenance"> | string | null
+    subCategory?: StringNullableFilter<"Maintenance"> | string | null
+    company?: StringNullableFilter<"Maintenance"> | string | null
+    teamId?: StringNullableFilter<"Maintenance"> | string | null
+    floorId?: StringNullableFilter<"Maintenance"> | string | null
+    roomId?: StringNullableFilter<"Maintenance"> | string | null
+    ttSystemOpening?: DecimalNullableFilter<"Maintenance"> | Decimal | DecimalJsLike | number | string | null
+    ttWorkOpening?: DecimalNullableFilter<"Maintenance"> | Decimal | DecimalJsLike | number | string | null
+    ttSystemAssignment?: DecimalNullableFilter<"Maintenance"> | Decimal | DecimalJsLike | number | string | null
+    ttWorkAssignment?: DecimalNullableFilter<"Maintenance"> | Decimal | DecimalJsLike | number | string | null
+    ttSystemExecution?: DecimalNullableFilter<"Maintenance"> | Decimal | DecimalJsLike | number | string | null
+    ttWorkExecution?: DecimalNullableFilter<"Maintenance"> | Decimal | DecimalJsLike | number | string | null
+    ttSysSuspension?: DecimalNullableFilter<"Maintenance"> | Decimal | DecimalJsLike | number | string | null
+    ttWorkSuspension?: DecimalNullableFilter<"Maintenance"> | Decimal | DecimalJsLike | number | string | null
+    ttEstimate?: DecimalNullableFilter<"Maintenance"> | Decimal | DecimalJsLike | number | string | null
+    prevMaintenanceConfigId?: StringNullableFilter<"Maintenance"> | string | null
+    automaticConfig?: BoolFilter<"Maintenance"> | boolean
+    jointAccounting?: BoolFilter<"Maintenance"> | boolean
+    hasTasks?: BoolFilter<"Maintenance"> | boolean
+    estimateStatus?: EnumStatusFilter<"Maintenance"> | $Enums.Status
+    delayNotification?: BoolFilter<"Maintenance"> | boolean
+    assigneeId?: StringNullableFilter<"Maintenance"> | string | null
+    assetId?: StringNullableFilter<"Maintenance"> | string | null
+    createdAt?: DateTimeFilter<"Maintenance"> | Date | string
+    updatedAt?: DateTimeFilter<"Maintenance"> | Date | string
+    performer?: XOR<EmployeeNullableScalarRelationFilter, EmployeeWhereInput> | null
+    requester?: XOR<EmployeeNullableScalarRelationFilter, EmployeeWhereInput> | null
+    site?: XOR<ComplexScalarRelationFilter, ComplexWhereInput>
+    team?: XOR<TeamNullableScalarRelationFilter, TeamWhereInput> | null
+    floor?: XOR<FloorNullableScalarRelationFilter, FloorWhereInput> | null
+    room?: XOR<RoomNullableScalarRelationFilter, RoomWhereInput> | null
+    assignee?: XOR<EmployeeNullableScalarRelationFilter, EmployeeWhereInput> | null
+    asset?: XOR<AssetNullableScalarRelationFilter, AssetWhereInput> | null
+    photos?: FileListRelationFilter
+  }
+
+  export type MaintenanceOrderByWithRelationInput = {
+    id?: SortOrder
+    type?: SortOrder
+    code?: SortOrder
+    description?: SortOrder
+    startDate?: SortOrderInput | SortOrder
+    endDate?: SortOrderInput | SortOrder
+    shortDescription?: SortOrderInput | SortOrder
+    action?: SortOrderInput | SortOrder
+    message?: SortOrderInput | SortOrder
+    processNotes?: SortOrderInput | SortOrder
+    performerId?: SortOrderInput | SortOrder
+    processStatus?: SortOrder
+    register?: SortOrderInput | SortOrder
+    activityIdTimer?: SortOrderInput | SortOrder
+    activityStartTime?: SortOrderInput | SortOrder
+    activityEndTime?: SortOrderInput | SortOrder
+    allDeadlines?: SortOrderInput | SortOrder
+    processType?: SortOrder
+    ttSysRunning?: SortOrderInput | SortOrder
+    ttWorkRunning?: SortOrderInput | SortOrder
+    sorting?: SortOrderInput | SortOrder
+    requesterId?: SortOrderInput | SortOrder
+    priority?: SortOrder
+    siteId?: SortOrder
+    outcome?: SortOrderInput | SortOrder
+    dueAssignedEnd?: SortOrderInput | SortOrder
+    execStart?: SortOrderInput | SortOrder
+    dueExecEndDate?: SortOrderInput | SortOrder
+    execEndDate?: SortOrderInput | SortOrder
+    dueClosuerDate?: SortOrderInput | SortOrder
+    totalExecTime?: SortOrderInput | SortOrder
+    expStartDate?: SortOrderInput | SortOrder
+    suspensionReason?: SortOrderInput | SortOrder
+    category?: SortOrderInput | SortOrder
+    subCategory?: SortOrderInput | SortOrder
+    company?: SortOrderInput | SortOrder
+    teamId?: SortOrderInput | SortOrder
+    floorId?: SortOrderInput | SortOrder
+    roomId?: SortOrderInput | SortOrder
+    ttSystemOpening?: SortOrderInput | SortOrder
+    ttWorkOpening?: SortOrderInput | SortOrder
+    ttSystemAssignment?: SortOrderInput | SortOrder
+    ttWorkAssignment?: SortOrderInput | SortOrder
+    ttSystemExecution?: SortOrderInput | SortOrder
+    ttWorkExecution?: SortOrderInput | SortOrder
+    ttSysSuspension?: SortOrderInput | SortOrder
+    ttWorkSuspension?: SortOrderInput | SortOrder
+    ttEstimate?: SortOrderInput | SortOrder
+    prevMaintenanceConfigId?: SortOrderInput | SortOrder
+    automaticConfig?: SortOrder
+    jointAccounting?: SortOrder
+    hasTasks?: SortOrder
+    estimateStatus?: SortOrder
+    delayNotification?: SortOrder
+    assigneeId?: SortOrderInput | SortOrder
+    assetId?: SortOrderInput | SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    performer?: EmployeeOrderByWithRelationInput
+    requester?: EmployeeOrderByWithRelationInput
+    site?: ComplexOrderByWithRelationInput
+    team?: TeamOrderByWithRelationInput
+    floor?: FloorOrderByWithRelationInput
+    room?: RoomOrderByWithRelationInput
+    assignee?: EmployeeOrderByWithRelationInput
+    asset?: AssetOrderByWithRelationInput
+    photos?: FileOrderByRelationAggregateInput
+  }
+
+  export type MaintenanceWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    code?: string
+    AND?: MaintenanceWhereInput | MaintenanceWhereInput[]
+    OR?: MaintenanceWhereInput[]
+    NOT?: MaintenanceWhereInput | MaintenanceWhereInput[]
+    type?: EnumMaintenanceTypeFilter<"Maintenance"> | $Enums.MaintenanceType
+    description?: StringFilter<"Maintenance"> | string
+    startDate?: DateTimeNullableFilter<"Maintenance"> | Date | string | null
+    endDate?: DateTimeNullableFilter<"Maintenance"> | Date | string | null
+    shortDescription?: StringNullableFilter<"Maintenance"> | string | null
+    action?: StringNullableFilter<"Maintenance"> | string | null
+    message?: StringNullableFilter<"Maintenance"> | string | null
+    processNotes?: StringNullableFilter<"Maintenance"> | string | null
+    performerId?: StringNullableFilter<"Maintenance"> | string | null
+    processStatus?: EnumStatusFilter<"Maintenance"> | $Enums.Status
+    register?: StringNullableFilter<"Maintenance"> | string | null
+    activityIdTimer?: StringNullableFilter<"Maintenance"> | string | null
+    activityStartTime?: DateTimeNullableFilter<"Maintenance"> | Date | string | null
+    activityEndTime?: DateTimeNullableFilter<"Maintenance"> | Date | string | null
+    allDeadlines?: StringNullableFilter<"Maintenance"> | string | null
+    processType?: EnumProcessTypeFilter<"Maintenance"> | $Enums.ProcessType
+    ttSysRunning?: DecimalNullableFilter<"Maintenance"> | Decimal | DecimalJsLike | number | string | null
+    ttWorkRunning?: DecimalNullableFilter<"Maintenance"> | Decimal | DecimalJsLike | number | string | null
+    sorting?: StringNullableFilter<"Maintenance"> | string | null
+    requesterId?: StringNullableFilter<"Maintenance"> | string | null
+    priority?: EnumPriorityFilter<"Maintenance"> | $Enums.Priority
+    siteId?: StringFilter<"Maintenance"> | string
+    outcome?: StringNullableFilter<"Maintenance"> | string | null
+    dueAssignedEnd?: DateTimeNullableFilter<"Maintenance"> | Date | string | null
+    execStart?: DateTimeNullableFilter<"Maintenance"> | Date | string | null
+    dueExecEndDate?: DateTimeNullableFilter<"Maintenance"> | Date | string | null
+    execEndDate?: DateTimeNullableFilter<"Maintenance"> | Date | string | null
+    dueClosuerDate?: DateTimeNullableFilter<"Maintenance"> | Date | string | null
+    totalExecTime?: DecimalNullableFilter<"Maintenance"> | Decimal | DecimalJsLike | number | string | null
+    expStartDate?: DateTimeNullableFilter<"Maintenance"> | Date | string | null
+    suspensionReason?: StringNullableFilter<"Maintenance"> | string | null
+    category?: StringNullableFilter<"Maintenance"> | string | null
+    subCategory?: StringNullableFilter<"Maintenance"> | string | null
+    company?: StringNullableFilter<"Maintenance"> | string | null
+    teamId?: StringNullableFilter<"Maintenance"> | string | null
+    floorId?: StringNullableFilter<"Maintenance"> | string | null
+    roomId?: StringNullableFilter<"Maintenance"> | string | null
+    ttSystemOpening?: DecimalNullableFilter<"Maintenance"> | Decimal | DecimalJsLike | number | string | null
+    ttWorkOpening?: DecimalNullableFilter<"Maintenance"> | Decimal | DecimalJsLike | number | string | null
+    ttSystemAssignment?: DecimalNullableFilter<"Maintenance"> | Decimal | DecimalJsLike | number | string | null
+    ttWorkAssignment?: DecimalNullableFilter<"Maintenance"> | Decimal | DecimalJsLike | number | string | null
+    ttSystemExecution?: DecimalNullableFilter<"Maintenance"> | Decimal | DecimalJsLike | number | string | null
+    ttWorkExecution?: DecimalNullableFilter<"Maintenance"> | Decimal | DecimalJsLike | number | string | null
+    ttSysSuspension?: DecimalNullableFilter<"Maintenance"> | Decimal | DecimalJsLike | number | string | null
+    ttWorkSuspension?: DecimalNullableFilter<"Maintenance"> | Decimal | DecimalJsLike | number | string | null
+    ttEstimate?: DecimalNullableFilter<"Maintenance"> | Decimal | DecimalJsLike | number | string | null
+    prevMaintenanceConfigId?: StringNullableFilter<"Maintenance"> | string | null
+    automaticConfig?: BoolFilter<"Maintenance"> | boolean
+    jointAccounting?: BoolFilter<"Maintenance"> | boolean
+    hasTasks?: BoolFilter<"Maintenance"> | boolean
+    estimateStatus?: EnumStatusFilter<"Maintenance"> | $Enums.Status
+    delayNotification?: BoolFilter<"Maintenance"> | boolean
+    assigneeId?: StringNullableFilter<"Maintenance"> | string | null
+    assetId?: StringNullableFilter<"Maintenance"> | string | null
+    createdAt?: DateTimeFilter<"Maintenance"> | Date | string
+    updatedAt?: DateTimeFilter<"Maintenance"> | Date | string
+    performer?: XOR<EmployeeNullableScalarRelationFilter, EmployeeWhereInput> | null
+    requester?: XOR<EmployeeNullableScalarRelationFilter, EmployeeWhereInput> | null
+    site?: XOR<ComplexScalarRelationFilter, ComplexWhereInput>
+    team?: XOR<TeamNullableScalarRelationFilter, TeamWhereInput> | null
+    floor?: XOR<FloorNullableScalarRelationFilter, FloorWhereInput> | null
+    room?: XOR<RoomNullableScalarRelationFilter, RoomWhereInput> | null
+    assignee?: XOR<EmployeeNullableScalarRelationFilter, EmployeeWhereInput> | null
+    asset?: XOR<AssetNullableScalarRelationFilter, AssetWhereInput> | null
+    photos?: FileListRelationFilter
+  }, "id" | "code">
+
+  export type MaintenanceOrderByWithAggregationInput = {
+    id?: SortOrder
+    type?: SortOrder
+    code?: SortOrder
+    description?: SortOrder
+    startDate?: SortOrderInput | SortOrder
+    endDate?: SortOrderInput | SortOrder
+    shortDescription?: SortOrderInput | SortOrder
+    action?: SortOrderInput | SortOrder
+    message?: SortOrderInput | SortOrder
+    processNotes?: SortOrderInput | SortOrder
+    performerId?: SortOrderInput | SortOrder
+    processStatus?: SortOrder
+    register?: SortOrderInput | SortOrder
+    activityIdTimer?: SortOrderInput | SortOrder
+    activityStartTime?: SortOrderInput | SortOrder
+    activityEndTime?: SortOrderInput | SortOrder
+    allDeadlines?: SortOrderInput | SortOrder
+    processType?: SortOrder
+    ttSysRunning?: SortOrderInput | SortOrder
+    ttWorkRunning?: SortOrderInput | SortOrder
+    sorting?: SortOrderInput | SortOrder
+    requesterId?: SortOrderInput | SortOrder
+    priority?: SortOrder
+    siteId?: SortOrder
+    outcome?: SortOrderInput | SortOrder
+    dueAssignedEnd?: SortOrderInput | SortOrder
+    execStart?: SortOrderInput | SortOrder
+    dueExecEndDate?: SortOrderInput | SortOrder
+    execEndDate?: SortOrderInput | SortOrder
+    dueClosuerDate?: SortOrderInput | SortOrder
+    totalExecTime?: SortOrderInput | SortOrder
+    expStartDate?: SortOrderInput | SortOrder
+    suspensionReason?: SortOrderInput | SortOrder
+    category?: SortOrderInput | SortOrder
+    subCategory?: SortOrderInput | SortOrder
+    company?: SortOrderInput | SortOrder
+    teamId?: SortOrderInput | SortOrder
+    floorId?: SortOrderInput | SortOrder
+    roomId?: SortOrderInput | SortOrder
+    ttSystemOpening?: SortOrderInput | SortOrder
+    ttWorkOpening?: SortOrderInput | SortOrder
+    ttSystemAssignment?: SortOrderInput | SortOrder
+    ttWorkAssignment?: SortOrderInput | SortOrder
+    ttSystemExecution?: SortOrderInput | SortOrder
+    ttWorkExecution?: SortOrderInput | SortOrder
+    ttSysSuspension?: SortOrderInput | SortOrder
+    ttWorkSuspension?: SortOrderInput | SortOrder
+    ttEstimate?: SortOrderInput | SortOrder
+    prevMaintenanceConfigId?: SortOrderInput | SortOrder
+    automaticConfig?: SortOrder
+    jointAccounting?: SortOrder
+    hasTasks?: SortOrder
+    estimateStatus?: SortOrder
+    delayNotification?: SortOrder
+    assigneeId?: SortOrderInput | SortOrder
+    assetId?: SortOrderInput | SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    _count?: MaintenanceCountOrderByAggregateInput
+    _avg?: MaintenanceAvgOrderByAggregateInput
+    _max?: MaintenanceMaxOrderByAggregateInput
+    _min?: MaintenanceMinOrderByAggregateInput
+    _sum?: MaintenanceSumOrderByAggregateInput
+  }
+
+  export type MaintenanceScalarWhereWithAggregatesInput = {
+    AND?: MaintenanceScalarWhereWithAggregatesInput | MaintenanceScalarWhereWithAggregatesInput[]
+    OR?: MaintenanceScalarWhereWithAggregatesInput[]
+    NOT?: MaintenanceScalarWhereWithAggregatesInput | MaintenanceScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"Maintenance"> | string
+    type?: EnumMaintenanceTypeWithAggregatesFilter<"Maintenance"> | $Enums.MaintenanceType
+    code?: StringWithAggregatesFilter<"Maintenance"> | string
+    description?: StringWithAggregatesFilter<"Maintenance"> | string
+    startDate?: DateTimeNullableWithAggregatesFilter<"Maintenance"> | Date | string | null
+    endDate?: DateTimeNullableWithAggregatesFilter<"Maintenance"> | Date | string | null
+    shortDescription?: StringNullableWithAggregatesFilter<"Maintenance"> | string | null
+    action?: StringNullableWithAggregatesFilter<"Maintenance"> | string | null
+    message?: StringNullableWithAggregatesFilter<"Maintenance"> | string | null
+    processNotes?: StringNullableWithAggregatesFilter<"Maintenance"> | string | null
+    performerId?: StringNullableWithAggregatesFilter<"Maintenance"> | string | null
+    processStatus?: EnumStatusWithAggregatesFilter<"Maintenance"> | $Enums.Status
+    register?: StringNullableWithAggregatesFilter<"Maintenance"> | string | null
+    activityIdTimer?: StringNullableWithAggregatesFilter<"Maintenance"> | string | null
+    activityStartTime?: DateTimeNullableWithAggregatesFilter<"Maintenance"> | Date | string | null
+    activityEndTime?: DateTimeNullableWithAggregatesFilter<"Maintenance"> | Date | string | null
+    allDeadlines?: StringNullableWithAggregatesFilter<"Maintenance"> | string | null
+    processType?: EnumProcessTypeWithAggregatesFilter<"Maintenance"> | $Enums.ProcessType
+    ttSysRunning?: DecimalNullableWithAggregatesFilter<"Maintenance"> | Decimal | DecimalJsLike | number | string | null
+    ttWorkRunning?: DecimalNullableWithAggregatesFilter<"Maintenance"> | Decimal | DecimalJsLike | number | string | null
+    sorting?: StringNullableWithAggregatesFilter<"Maintenance"> | string | null
+    requesterId?: StringNullableWithAggregatesFilter<"Maintenance"> | string | null
+    priority?: EnumPriorityWithAggregatesFilter<"Maintenance"> | $Enums.Priority
+    siteId?: StringWithAggregatesFilter<"Maintenance"> | string
+    outcome?: StringNullableWithAggregatesFilter<"Maintenance"> | string | null
+    dueAssignedEnd?: DateTimeNullableWithAggregatesFilter<"Maintenance"> | Date | string | null
+    execStart?: DateTimeNullableWithAggregatesFilter<"Maintenance"> | Date | string | null
+    dueExecEndDate?: DateTimeNullableWithAggregatesFilter<"Maintenance"> | Date | string | null
+    execEndDate?: DateTimeNullableWithAggregatesFilter<"Maintenance"> | Date | string | null
+    dueClosuerDate?: DateTimeNullableWithAggregatesFilter<"Maintenance"> | Date | string | null
+    totalExecTime?: DecimalNullableWithAggregatesFilter<"Maintenance"> | Decimal | DecimalJsLike | number | string | null
+    expStartDate?: DateTimeNullableWithAggregatesFilter<"Maintenance"> | Date | string | null
+    suspensionReason?: StringNullableWithAggregatesFilter<"Maintenance"> | string | null
+    category?: StringNullableWithAggregatesFilter<"Maintenance"> | string | null
+    subCategory?: StringNullableWithAggregatesFilter<"Maintenance"> | string | null
+    company?: StringNullableWithAggregatesFilter<"Maintenance"> | string | null
+    teamId?: StringNullableWithAggregatesFilter<"Maintenance"> | string | null
+    floorId?: StringNullableWithAggregatesFilter<"Maintenance"> | string | null
+    roomId?: StringNullableWithAggregatesFilter<"Maintenance"> | string | null
+    ttSystemOpening?: DecimalNullableWithAggregatesFilter<"Maintenance"> | Decimal | DecimalJsLike | number | string | null
+    ttWorkOpening?: DecimalNullableWithAggregatesFilter<"Maintenance"> | Decimal | DecimalJsLike | number | string | null
+    ttSystemAssignment?: DecimalNullableWithAggregatesFilter<"Maintenance"> | Decimal | DecimalJsLike | number | string | null
+    ttWorkAssignment?: DecimalNullableWithAggregatesFilter<"Maintenance"> | Decimal | DecimalJsLike | number | string | null
+    ttSystemExecution?: DecimalNullableWithAggregatesFilter<"Maintenance"> | Decimal | DecimalJsLike | number | string | null
+    ttWorkExecution?: DecimalNullableWithAggregatesFilter<"Maintenance"> | Decimal | DecimalJsLike | number | string | null
+    ttSysSuspension?: DecimalNullableWithAggregatesFilter<"Maintenance"> | Decimal | DecimalJsLike | number | string | null
+    ttWorkSuspension?: DecimalNullableWithAggregatesFilter<"Maintenance"> | Decimal | DecimalJsLike | number | string | null
+    ttEstimate?: DecimalNullableWithAggregatesFilter<"Maintenance"> | Decimal | DecimalJsLike | number | string | null
+    prevMaintenanceConfigId?: StringNullableWithAggregatesFilter<"Maintenance"> | string | null
+    automaticConfig?: BoolWithAggregatesFilter<"Maintenance"> | boolean
+    jointAccounting?: BoolWithAggregatesFilter<"Maintenance"> | boolean
+    hasTasks?: BoolWithAggregatesFilter<"Maintenance"> | boolean
+    estimateStatus?: EnumStatusWithAggregatesFilter<"Maintenance"> | $Enums.Status
+    delayNotification?: BoolWithAggregatesFilter<"Maintenance"> | boolean
+    assigneeId?: StringNullableWithAggregatesFilter<"Maintenance"> | string | null
+    assetId?: StringNullableWithAggregatesFilter<"Maintenance"> | string | null
+    createdAt?: DateTimeWithAggregatesFilter<"Maintenance"> | Date | string
+    updatedAt?: DateTimeWithAggregatesFilter<"Maintenance"> | Date | string
+  }
+
+  export type PreventiveWhereInput = {
+    AND?: PreventiveWhereInput | PreventiveWhereInput[]
+    OR?: PreventiveWhereInput[]
+    NOT?: PreventiveWhereInput | PreventiveWhereInput[]
+    id?: StringFilter<"Preventive"> | string
+    code?: StringFilter<"Preventive"> | string
+    name?: StringFilter<"Preventive"> | string
+    description?: StringFilter<"Preventive"> | string
+    frequency?: EnumFrequencyFilter<"Preventive"> | $Enums.Frequency
+    cronExpression?: StringNullableFilter<"Preventive"> | string | null
+    lastRun?: DateTimeNullableFilter<"Preventive"> | Date | string | null
+    nextRun?: DateTimeFilter<"Preventive"> | Date | string
+    priority?: EnumPriorityFilter<"Preventive"> | $Enums.Priority
+    duration?: IntNullableFilter<"Preventive"> | number | null
+    siteId?: StringFilter<"Preventive"> | string
+    buildingId?: StringNullableFilter<"Preventive"> | string | null
+    floorId?: StringNullableFilter<"Preventive"> | string | null
+    roomId?: StringNullableFilter<"Preventive"> | string | null
+    teamId?: StringNullableFilter<"Preventive"> | string | null
+    createdAt?: DateTimeFilter<"Preventive"> | Date | string
+    updatedAt?: DateTimeFilter<"Preventive"> | Date | string
+    site?: XOR<ComplexScalarRelationFilter, ComplexWhereInput>
+    building?: XOR<BuildingNullableScalarRelationFilter, BuildingWhereInput> | null
+    floor?: XOR<FloorNullableScalarRelationFilter, FloorWhereInput> | null
+    room?: XOR<RoomNullableScalarRelationFilter, RoomWhereInput> | null
+    team?: XOR<TeamNullableScalarRelationFilter, TeamWhereInput> | null
+  }
+
+  export type PreventiveOrderByWithRelationInput = {
+    id?: SortOrder
+    code?: SortOrder
+    name?: SortOrder
+    description?: SortOrder
+    frequency?: SortOrder
+    cronExpression?: SortOrderInput | SortOrder
+    lastRun?: SortOrderInput | SortOrder
+    nextRun?: SortOrder
+    priority?: SortOrder
+    duration?: SortOrderInput | SortOrder
+    siteId?: SortOrder
+    buildingId?: SortOrderInput | SortOrder
+    floorId?: SortOrderInput | SortOrder
+    roomId?: SortOrderInput | SortOrder
+    teamId?: SortOrderInput | SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    site?: ComplexOrderByWithRelationInput
+    building?: BuildingOrderByWithRelationInput
+    floor?: FloorOrderByWithRelationInput
+    room?: RoomOrderByWithRelationInput
+    team?: TeamOrderByWithRelationInput
+  }
+
+  export type PreventiveWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    code?: string
+    AND?: PreventiveWhereInput | PreventiveWhereInput[]
+    OR?: PreventiveWhereInput[]
+    NOT?: PreventiveWhereInput | PreventiveWhereInput[]
+    name?: StringFilter<"Preventive"> | string
+    description?: StringFilter<"Preventive"> | string
+    frequency?: EnumFrequencyFilter<"Preventive"> | $Enums.Frequency
+    cronExpression?: StringNullableFilter<"Preventive"> | string | null
+    lastRun?: DateTimeNullableFilter<"Preventive"> | Date | string | null
+    nextRun?: DateTimeFilter<"Preventive"> | Date | string
+    priority?: EnumPriorityFilter<"Preventive"> | $Enums.Priority
+    duration?: IntNullableFilter<"Preventive"> | number | null
+    siteId?: StringFilter<"Preventive"> | string
+    buildingId?: StringNullableFilter<"Preventive"> | string | null
+    floorId?: StringNullableFilter<"Preventive"> | string | null
+    roomId?: StringNullableFilter<"Preventive"> | string | null
+    teamId?: StringNullableFilter<"Preventive"> | string | null
+    createdAt?: DateTimeFilter<"Preventive"> | Date | string
+    updatedAt?: DateTimeFilter<"Preventive"> | Date | string
+    site?: XOR<ComplexScalarRelationFilter, ComplexWhereInput>
+    building?: XOR<BuildingNullableScalarRelationFilter, BuildingWhereInput> | null
+    floor?: XOR<FloorNullableScalarRelationFilter, FloorWhereInput> | null
+    room?: XOR<RoomNullableScalarRelationFilter, RoomWhereInput> | null
+    team?: XOR<TeamNullableScalarRelationFilter, TeamWhereInput> | null
+  }, "id" | "code">
+
+  export type PreventiveOrderByWithAggregationInput = {
+    id?: SortOrder
+    code?: SortOrder
+    name?: SortOrder
+    description?: SortOrder
+    frequency?: SortOrder
+    cronExpression?: SortOrderInput | SortOrder
+    lastRun?: SortOrderInput | SortOrder
+    nextRun?: SortOrder
+    priority?: SortOrder
+    duration?: SortOrderInput | SortOrder
+    siteId?: SortOrder
+    buildingId?: SortOrderInput | SortOrder
+    floorId?: SortOrderInput | SortOrder
+    roomId?: SortOrderInput | SortOrder
+    teamId?: SortOrderInput | SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    _count?: PreventiveCountOrderByAggregateInput
+    _avg?: PreventiveAvgOrderByAggregateInput
+    _max?: PreventiveMaxOrderByAggregateInput
+    _min?: PreventiveMinOrderByAggregateInput
+    _sum?: PreventiveSumOrderByAggregateInput
+  }
+
+  export type PreventiveScalarWhereWithAggregatesInput = {
+    AND?: PreventiveScalarWhereWithAggregatesInput | PreventiveScalarWhereWithAggregatesInput[]
+    OR?: PreventiveScalarWhereWithAggregatesInput[]
+    NOT?: PreventiveScalarWhereWithAggregatesInput | PreventiveScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"Preventive"> | string
+    code?: StringWithAggregatesFilter<"Preventive"> | string
+    name?: StringWithAggregatesFilter<"Preventive"> | string
+    description?: StringWithAggregatesFilter<"Preventive"> | string
+    frequency?: EnumFrequencyWithAggregatesFilter<"Preventive"> | $Enums.Frequency
+    cronExpression?: StringNullableWithAggregatesFilter<"Preventive"> | string | null
+    lastRun?: DateTimeNullableWithAggregatesFilter<"Preventive"> | Date | string | null
+    nextRun?: DateTimeWithAggregatesFilter<"Preventive"> | Date | string
+    priority?: EnumPriorityWithAggregatesFilter<"Preventive"> | $Enums.Priority
+    duration?: IntNullableWithAggregatesFilter<"Preventive"> | number | null
+    siteId?: StringWithAggregatesFilter<"Preventive"> | string
+    buildingId?: StringNullableWithAggregatesFilter<"Preventive"> | string | null
+    floorId?: StringNullableWithAggregatesFilter<"Preventive"> | string | null
+    roomId?: StringNullableWithAggregatesFilter<"Preventive"> | string | null
+    teamId?: StringNullableWithAggregatesFilter<"Preventive"> | string | null
+    createdAt?: DateTimeWithAggregatesFilter<"Preventive"> | Date | string
+    updatedAt?: DateTimeWithAggregatesFilter<"Preventive"> | Date | string
   }
 
   export type RefreshTokenWhereInput = {
@@ -26550,6 +32598,8 @@ export namespace Prisma {
     floors?: FloorCreateNestedManyWithoutComplexInput
     units?: UnitCreateNestedManyWithoutComplexInput
     rooms?: RoomCreateNestedManyWithoutComplexInput
+    maintenances?: MaintenanceCreateNestedManyWithoutSiteInput
+    preventives?: PreventiveCreateNestedManyWithoutSiteInput
   }
 
   export type ComplexUncheckedCreateInput = {
@@ -26582,6 +32632,8 @@ export namespace Prisma {
     floors?: FloorUncheckedCreateNestedManyWithoutComplexInput
     units?: UnitUncheckedCreateNestedManyWithoutComplexInput
     rooms?: RoomUncheckedCreateNestedManyWithoutComplexInput
+    maintenances?: MaintenanceUncheckedCreateNestedManyWithoutSiteInput
+    preventives?: PreventiveUncheckedCreateNestedManyWithoutSiteInput
   }
 
   export type ComplexUpdateInput = {
@@ -26614,6 +32666,8 @@ export namespace Prisma {
     floors?: FloorUpdateManyWithoutComplexNestedInput
     units?: UnitUpdateManyWithoutComplexNestedInput
     rooms?: RoomUpdateManyWithoutComplexNestedInput
+    maintenances?: MaintenanceUpdateManyWithoutSiteNestedInput
+    preventives?: PreventiveUpdateManyWithoutSiteNestedInput
   }
 
   export type ComplexUncheckedUpdateInput = {
@@ -26646,6 +32700,8 @@ export namespace Prisma {
     floors?: FloorUncheckedUpdateManyWithoutComplexNestedInput
     units?: UnitUncheckedUpdateManyWithoutComplexNestedInput
     rooms?: RoomUncheckedUpdateManyWithoutComplexNestedInput
+    maintenances?: MaintenanceUncheckedUpdateManyWithoutSiteNestedInput
+    preventives?: PreventiveUncheckedUpdateManyWithoutSiteNestedInput
   }
 
   export type ComplexCreateManyInput = {
@@ -26756,6 +32812,7 @@ export namespace Prisma {
     floors?: FloorCreateNestedManyWithoutBuildingInput
     units?: UnitCreateNestedManyWithoutBuildingInput
     rooms?: RoomCreateNestedManyWithoutBuildingInput
+    preventives?: PreventiveCreateNestedManyWithoutBuildingInput
   }
 
   export type BuildingUncheckedCreateInput = {
@@ -26786,6 +32843,7 @@ export namespace Prisma {
     floors?: FloorUncheckedCreateNestedManyWithoutBuildingInput
     units?: UnitUncheckedCreateNestedManyWithoutBuildingInput
     rooms?: RoomUncheckedCreateNestedManyWithoutBuildingInput
+    preventives?: PreventiveUncheckedCreateNestedManyWithoutBuildingInput
   }
 
   export type BuildingUpdateInput = {
@@ -26816,6 +32874,7 @@ export namespace Prisma {
     floors?: FloorUpdateManyWithoutBuildingNestedInput
     units?: UnitUpdateManyWithoutBuildingNestedInput
     rooms?: RoomUpdateManyWithoutBuildingNestedInput
+    preventives?: PreventiveUpdateManyWithoutBuildingNestedInput
   }
 
   export type BuildingUncheckedUpdateInput = {
@@ -26846,6 +32905,7 @@ export namespace Prisma {
     floors?: FloorUncheckedUpdateManyWithoutBuildingNestedInput
     units?: UnitUncheckedUpdateManyWithoutBuildingNestedInput
     rooms?: RoomUncheckedUpdateManyWithoutBuildingNestedInput
+    preventives?: PreventiveUncheckedUpdateManyWithoutBuildingNestedInput
   }
 
   export type BuildingCreateManyInput = {
@@ -26946,6 +33006,8 @@ export namespace Prisma {
     building: BuildingCreateNestedOneWithoutFloorsInput
     rooms?: RoomCreateNestedManyWithoutFloorInput
     units?: UnitCreateNestedManyWithoutFloorInput
+    maintenances?: MaintenanceCreateNestedManyWithoutFloorInput
+    preventives?: PreventiveCreateNestedManyWithoutFloorInput
   }
 
   export type FloorUncheckedCreateInput = {
@@ -26971,6 +33033,8 @@ export namespace Prisma {
     updatedAt?: Date | string
     rooms?: RoomUncheckedCreateNestedManyWithoutFloorInput
     units?: UnitUncheckedCreateNestedManyWithoutFloorInput
+    maintenances?: MaintenanceUncheckedCreateNestedManyWithoutFloorInput
+    preventives?: PreventiveUncheckedCreateNestedManyWithoutFloorInput
   }
 
   export type FloorUpdateInput = {
@@ -26996,6 +33060,8 @@ export namespace Prisma {
     building?: BuildingUpdateOneRequiredWithoutFloorsNestedInput
     rooms?: RoomUpdateManyWithoutFloorNestedInput
     units?: UnitUpdateManyWithoutFloorNestedInput
+    maintenances?: MaintenanceUpdateManyWithoutFloorNestedInput
+    preventives?: PreventiveUpdateManyWithoutFloorNestedInput
   }
 
   export type FloorUncheckedUpdateInput = {
@@ -27021,6 +33087,8 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     rooms?: RoomUncheckedUpdateManyWithoutFloorNestedInput
     units?: UnitUncheckedUpdateManyWithoutFloorNestedInput
+    maintenances?: MaintenanceUncheckedUpdateManyWithoutFloorNestedInput
+    preventives?: PreventiveUncheckedUpdateManyWithoutFloorNestedInput
   }
 
   export type FloorCreateManyInput = {
@@ -27370,6 +33438,8 @@ export namespace Prisma {
     floor: FloorCreateNestedOneWithoutRoomsInput
     unit?: UnitCreateNestedOneWithoutRoomsInput
     photos?: FileCreateNestedManyWithoutRoomsInput
+    maintenances?: MaintenanceCreateNestedManyWithoutRoomInput
+    preventives?: PreventiveCreateNestedManyWithoutRoomInput
   }
 
   export type RoomUncheckedCreateInput = {
@@ -27396,6 +33466,8 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     photos?: FileUncheckedCreateNestedManyWithoutRoomsInput
+    maintenances?: MaintenanceUncheckedCreateNestedManyWithoutRoomInput
+    preventives?: PreventiveUncheckedCreateNestedManyWithoutRoomInput
   }
 
   export type RoomUpdateInput = {
@@ -27422,6 +33494,8 @@ export namespace Prisma {
     floor?: FloorUpdateOneRequiredWithoutRoomsNestedInput
     unit?: UnitUpdateOneWithoutRoomsNestedInput
     photos?: FileUpdateManyWithoutRoomsNestedInput
+    maintenances?: MaintenanceUpdateManyWithoutRoomNestedInput
+    preventives?: PreventiveUpdateManyWithoutRoomNestedInput
   }
 
   export type RoomUncheckedUpdateInput = {
@@ -27448,6 +33522,8 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     photos?: FileUncheckedUpdateManyWithoutRoomsNestedInput
+    maintenances?: MaintenanceUncheckedUpdateManyWithoutRoomNestedInput
+    preventives?: PreventiveUncheckedUpdateManyWithoutRoomNestedInput
   }
 
   export type RoomCreateManyInput = {
@@ -27594,6 +33670,7 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     category: AssetCategoryCreateNestedOneWithoutAssetsInput
+    maintenances?: MaintenanceCreateNestedManyWithoutAssetInput
   }
 
   export type AssetUncheckedCreateInput = {
@@ -27603,6 +33680,7 @@ export namespace Prisma {
     categoryId: string
     createdAt?: Date | string
     updatedAt?: Date | string
+    maintenances?: MaintenanceUncheckedCreateNestedManyWithoutAssetInput
   }
 
   export type AssetUpdateInput = {
@@ -27612,6 +33690,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     category?: AssetCategoryUpdateOneRequiredWithoutAssetsNestedInput
+    maintenances?: MaintenanceUpdateManyWithoutAssetNestedInput
   }
 
   export type AssetUncheckedUpdateInput = {
@@ -27621,6 +33700,7 @@ export namespace Prisma {
     categoryId?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    maintenances?: MaintenanceUncheckedUpdateManyWithoutAssetNestedInput
   }
 
   export type AssetCreateManyInput = {
@@ -27656,11 +33736,13 @@ export namespace Prisma {
     units?: UnitCreateNestedManyWithoutPhotosInput
     buildings?: BuildingCreateNestedManyWithoutPhotosInput
     complexes?: ComplexCreateNestedManyWithoutPhotosInput
+    maintenance?: MaintenanceCreateNestedOneWithoutPhotosInput
   }
 
   export type FileUncheckedCreateInput = {
     id?: string
     url: string
+    maintenanceId?: string | null
     rooms?: RoomUncheckedCreateNestedManyWithoutPhotosInput
     units?: UnitUncheckedCreateNestedManyWithoutPhotosInput
     buildings?: BuildingUncheckedCreateNestedManyWithoutPhotosInput
@@ -27674,11 +33756,13 @@ export namespace Prisma {
     units?: UnitUpdateManyWithoutPhotosNestedInput
     buildings?: BuildingUpdateManyWithoutPhotosNestedInput
     complexes?: ComplexUpdateManyWithoutPhotosNestedInput
+    maintenance?: MaintenanceUpdateOneWithoutPhotosNestedInput
   }
 
   export type FileUncheckedUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
     url?: StringFieldUpdateOperationsInput | string
+    maintenanceId?: NullableStringFieldUpdateOperationsInput | string | null
     rooms?: RoomUncheckedUpdateManyWithoutPhotosNestedInput
     units?: UnitUncheckedUpdateManyWithoutPhotosNestedInput
     buildings?: BuildingUncheckedUpdateManyWithoutPhotosNestedInput
@@ -27688,6 +33772,7 @@ export namespace Prisma {
   export type FileCreateManyInput = {
     id?: string
     url: string
+    maintenanceId?: string | null
   }
 
   export type FileUpdateManyMutationInput = {
@@ -27698,6 +33783,7 @@ export namespace Prisma {
   export type FileUncheckedUpdateManyInput = {
     id?: StringFieldUpdateOperationsInput | string
     url?: StringFieldUpdateOperationsInput | string
+    maintenanceId?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type CompanyCreateInput = {
@@ -27817,6 +33903,9 @@ export namespace Prisma {
     company: CompanyCreateNestedOneWithoutEmployeesInput
     calenderEntity?: CalenderEntityCreateNestedOneWithoutEmployeesInput
     teams?: TeamCreateNestedManyWithoutSupervisorInput
+    performedMaintenances?: MaintenanceCreateNestedManyWithoutPerformerInput
+    requestedMaintenances?: MaintenanceCreateNestedManyWithoutRequesterInput
+    assignedMaintenances?: MaintenanceCreateNestedManyWithoutAssigneeInput
   }
 
   export type EmployeeUncheckedCreateInput = {
@@ -27828,6 +33917,9 @@ export namespace Prisma {
     status?: $Enums.ServiceStatus
     calenderEntityId?: string | null
     teams?: TeamUncheckedCreateNestedManyWithoutSupervisorInput
+    performedMaintenances?: MaintenanceUncheckedCreateNestedManyWithoutPerformerInput
+    requestedMaintenances?: MaintenanceUncheckedCreateNestedManyWithoutRequesterInput
+    assignedMaintenances?: MaintenanceUncheckedCreateNestedManyWithoutAssigneeInput
   }
 
   export type EmployeeUpdateInput = {
@@ -27839,6 +33931,9 @@ export namespace Prisma {
     company?: CompanyUpdateOneRequiredWithoutEmployeesNestedInput
     calenderEntity?: CalenderEntityUpdateOneWithoutEmployeesNestedInput
     teams?: TeamUpdateManyWithoutSupervisorNestedInput
+    performedMaintenances?: MaintenanceUpdateManyWithoutPerformerNestedInput
+    requestedMaintenances?: MaintenanceUpdateManyWithoutRequesterNestedInput
+    assignedMaintenances?: MaintenanceUpdateManyWithoutAssigneeNestedInput
   }
 
   export type EmployeeUncheckedUpdateInput = {
@@ -27850,6 +33945,9 @@ export namespace Prisma {
     status?: EnumServiceStatusFieldUpdateOperationsInput | $Enums.ServiceStatus
     calenderEntityId?: NullableStringFieldUpdateOperationsInput | string | null
     teams?: TeamUncheckedUpdateManyWithoutSupervisorNestedInput
+    performedMaintenances?: MaintenanceUncheckedUpdateManyWithoutPerformerNestedInput
+    requestedMaintenances?: MaintenanceUncheckedUpdateManyWithoutRequesterNestedInput
+    assignedMaintenances?: MaintenanceUncheckedUpdateManyWithoutAssigneeNestedInput
   }
 
   export type EmployeeCreateManyInput = {
@@ -27888,6 +33986,8 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     supervisor: EmployeeCreateNestedOneWithoutTeamsInput
+    maintenances?: MaintenanceCreateNestedManyWithoutTeamInput
+    preventives?: PreventiveCreateNestedManyWithoutTeamInput
   }
 
   export type TeamUncheckedCreateInput = {
@@ -27899,6 +33999,8 @@ export namespace Prisma {
     supervisorId: string
     createdAt?: Date | string
     updatedAt?: Date | string
+    maintenances?: MaintenanceUncheckedCreateNestedManyWithoutTeamInput
+    preventives?: PreventiveUncheckedCreateNestedManyWithoutTeamInput
   }
 
   export type TeamUpdateInput = {
@@ -27910,6 +34012,8 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     supervisor?: EmployeeUpdateOneRequiredWithoutTeamsNestedInput
+    maintenances?: MaintenanceUpdateManyWithoutTeamNestedInput
+    preventives?: PreventiveUpdateManyWithoutTeamNestedInput
   }
 
   export type TeamUncheckedUpdateInput = {
@@ -27921,6 +34025,8 @@ export namespace Prisma {
     supervisorId?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    maintenances?: MaintenanceUncheckedUpdateManyWithoutTeamNestedInput
+    preventives?: PreventiveUncheckedUpdateManyWithoutTeamNestedInput
   }
 
   export type TeamCreateManyInput = {
@@ -28019,6 +34125,48 @@ export namespace Prisma {
     zipCode?: StringFieldUpdateOperationsInput | string
   }
 
+  export type ContractCreateInput = {
+    id?: string
+    code: string
+    description: string
+  }
+
+  export type ContractUncheckedCreateInput = {
+    id?: string
+    code: string
+    description: string
+  }
+
+  export type ContractUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    code?: StringFieldUpdateOperationsInput | string
+    description?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type ContractUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    code?: StringFieldUpdateOperationsInput | string
+    description?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type ContractCreateManyInput = {
+    id?: string
+    code: string
+    description: string
+  }
+
+  export type ContractUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    code?: StringFieldUpdateOperationsInput | string
+    description?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type ContractUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    code?: StringFieldUpdateOperationsInput | string
+    description?: StringFieldUpdateOperationsInput | string
+  }
+
   export type CalenderEntityCreateInput = {
     id?: string
     name: string
@@ -28084,6 +34232,564 @@ export namespace Prisma {
   export type CalenderEntityUncheckedUpdateManyInput = {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type MaintenanceCreateInput = {
+    id?: string
+    type?: $Enums.MaintenanceType
+    code: string
+    description: string
+    startDate?: Date | string | null
+    endDate?: Date | string | null
+    shortDescription?: string | null
+    action?: string | null
+    message?: string | null
+    processNotes?: string | null
+    processStatus?: $Enums.Status
+    register?: string | null
+    activityIdTimer?: string | null
+    activityStartTime?: Date | string | null
+    activityEndTime?: Date | string | null
+    allDeadlines?: string | null
+    processType?: $Enums.ProcessType
+    ttSysRunning?: Decimal | DecimalJsLike | number | string | null
+    ttWorkRunning?: Decimal | DecimalJsLike | number | string | null
+    sorting?: string | null
+    priority?: $Enums.Priority
+    outcome?: string | null
+    dueAssignedEnd?: Date | string | null
+    execStart?: Date | string | null
+    dueExecEndDate?: Date | string | null
+    execEndDate?: Date | string | null
+    dueClosuerDate?: Date | string | null
+    totalExecTime?: Decimal | DecimalJsLike | number | string | null
+    expStartDate?: Date | string | null
+    suspensionReason?: string | null
+    category?: string | null
+    subCategory?: string | null
+    company?: string | null
+    ttSystemOpening?: Decimal | DecimalJsLike | number | string | null
+    ttWorkOpening?: Decimal | DecimalJsLike | number | string | null
+    ttSystemAssignment?: Decimal | DecimalJsLike | number | string | null
+    ttWorkAssignment?: Decimal | DecimalJsLike | number | string | null
+    ttSystemExecution?: Decimal | DecimalJsLike | number | string | null
+    ttWorkExecution?: Decimal | DecimalJsLike | number | string | null
+    ttSysSuspension?: Decimal | DecimalJsLike | number | string | null
+    ttWorkSuspension?: Decimal | DecimalJsLike | number | string | null
+    ttEstimate?: Decimal | DecimalJsLike | number | string | null
+    prevMaintenanceConfigId?: string | null
+    automaticConfig?: boolean
+    jointAccounting?: boolean
+    hasTasks?: boolean
+    estimateStatus?: $Enums.Status
+    delayNotification?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    performer?: EmployeeCreateNestedOneWithoutPerformedMaintenancesInput
+    requester?: EmployeeCreateNestedOneWithoutRequestedMaintenancesInput
+    site: ComplexCreateNestedOneWithoutMaintenancesInput
+    team?: TeamCreateNestedOneWithoutMaintenancesInput
+    floor?: FloorCreateNestedOneWithoutMaintenancesInput
+    room?: RoomCreateNestedOneWithoutMaintenancesInput
+    assignee?: EmployeeCreateNestedOneWithoutAssignedMaintenancesInput
+    asset?: AssetCreateNestedOneWithoutMaintenancesInput
+    photos?: FileCreateNestedManyWithoutMaintenanceInput
+  }
+
+  export type MaintenanceUncheckedCreateInput = {
+    id?: string
+    type?: $Enums.MaintenanceType
+    code: string
+    description: string
+    startDate?: Date | string | null
+    endDate?: Date | string | null
+    shortDescription?: string | null
+    action?: string | null
+    message?: string | null
+    processNotes?: string | null
+    performerId?: string | null
+    processStatus?: $Enums.Status
+    register?: string | null
+    activityIdTimer?: string | null
+    activityStartTime?: Date | string | null
+    activityEndTime?: Date | string | null
+    allDeadlines?: string | null
+    processType?: $Enums.ProcessType
+    ttSysRunning?: Decimal | DecimalJsLike | number | string | null
+    ttWorkRunning?: Decimal | DecimalJsLike | number | string | null
+    sorting?: string | null
+    requesterId?: string | null
+    priority?: $Enums.Priority
+    siteId: string
+    outcome?: string | null
+    dueAssignedEnd?: Date | string | null
+    execStart?: Date | string | null
+    dueExecEndDate?: Date | string | null
+    execEndDate?: Date | string | null
+    dueClosuerDate?: Date | string | null
+    totalExecTime?: Decimal | DecimalJsLike | number | string | null
+    expStartDate?: Date | string | null
+    suspensionReason?: string | null
+    category?: string | null
+    subCategory?: string | null
+    company?: string | null
+    teamId?: string | null
+    floorId?: string | null
+    roomId?: string | null
+    ttSystemOpening?: Decimal | DecimalJsLike | number | string | null
+    ttWorkOpening?: Decimal | DecimalJsLike | number | string | null
+    ttSystemAssignment?: Decimal | DecimalJsLike | number | string | null
+    ttWorkAssignment?: Decimal | DecimalJsLike | number | string | null
+    ttSystemExecution?: Decimal | DecimalJsLike | number | string | null
+    ttWorkExecution?: Decimal | DecimalJsLike | number | string | null
+    ttSysSuspension?: Decimal | DecimalJsLike | number | string | null
+    ttWorkSuspension?: Decimal | DecimalJsLike | number | string | null
+    ttEstimate?: Decimal | DecimalJsLike | number | string | null
+    prevMaintenanceConfigId?: string | null
+    automaticConfig?: boolean
+    jointAccounting?: boolean
+    hasTasks?: boolean
+    estimateStatus?: $Enums.Status
+    delayNotification?: boolean
+    assigneeId?: string | null
+    assetId?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    photos?: FileUncheckedCreateNestedManyWithoutMaintenanceInput
+  }
+
+  export type MaintenanceUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    type?: EnumMaintenanceTypeFieldUpdateOperationsInput | $Enums.MaintenanceType
+    code?: StringFieldUpdateOperationsInput | string
+    description?: StringFieldUpdateOperationsInput | string
+    startDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    endDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    shortDescription?: NullableStringFieldUpdateOperationsInput | string | null
+    action?: NullableStringFieldUpdateOperationsInput | string | null
+    message?: NullableStringFieldUpdateOperationsInput | string | null
+    processNotes?: NullableStringFieldUpdateOperationsInput | string | null
+    processStatus?: EnumStatusFieldUpdateOperationsInput | $Enums.Status
+    register?: NullableStringFieldUpdateOperationsInput | string | null
+    activityIdTimer?: NullableStringFieldUpdateOperationsInput | string | null
+    activityStartTime?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    activityEndTime?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    allDeadlines?: NullableStringFieldUpdateOperationsInput | string | null
+    processType?: EnumProcessTypeFieldUpdateOperationsInput | $Enums.ProcessType
+    ttSysRunning?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    ttWorkRunning?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    sorting?: NullableStringFieldUpdateOperationsInput | string | null
+    priority?: EnumPriorityFieldUpdateOperationsInput | $Enums.Priority
+    outcome?: NullableStringFieldUpdateOperationsInput | string | null
+    dueAssignedEnd?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    execStart?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    dueExecEndDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    execEndDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    dueClosuerDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    totalExecTime?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    expStartDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    suspensionReason?: NullableStringFieldUpdateOperationsInput | string | null
+    category?: NullableStringFieldUpdateOperationsInput | string | null
+    subCategory?: NullableStringFieldUpdateOperationsInput | string | null
+    company?: NullableStringFieldUpdateOperationsInput | string | null
+    ttSystemOpening?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    ttWorkOpening?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    ttSystemAssignment?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    ttWorkAssignment?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    ttSystemExecution?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    ttWorkExecution?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    ttSysSuspension?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    ttWorkSuspension?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    ttEstimate?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    prevMaintenanceConfigId?: NullableStringFieldUpdateOperationsInput | string | null
+    automaticConfig?: BoolFieldUpdateOperationsInput | boolean
+    jointAccounting?: BoolFieldUpdateOperationsInput | boolean
+    hasTasks?: BoolFieldUpdateOperationsInput | boolean
+    estimateStatus?: EnumStatusFieldUpdateOperationsInput | $Enums.Status
+    delayNotification?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    performer?: EmployeeUpdateOneWithoutPerformedMaintenancesNestedInput
+    requester?: EmployeeUpdateOneWithoutRequestedMaintenancesNestedInput
+    site?: ComplexUpdateOneRequiredWithoutMaintenancesNestedInput
+    team?: TeamUpdateOneWithoutMaintenancesNestedInput
+    floor?: FloorUpdateOneWithoutMaintenancesNestedInput
+    room?: RoomUpdateOneWithoutMaintenancesNestedInput
+    assignee?: EmployeeUpdateOneWithoutAssignedMaintenancesNestedInput
+    asset?: AssetUpdateOneWithoutMaintenancesNestedInput
+    photos?: FileUpdateManyWithoutMaintenanceNestedInput
+  }
+
+  export type MaintenanceUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    type?: EnumMaintenanceTypeFieldUpdateOperationsInput | $Enums.MaintenanceType
+    code?: StringFieldUpdateOperationsInput | string
+    description?: StringFieldUpdateOperationsInput | string
+    startDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    endDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    shortDescription?: NullableStringFieldUpdateOperationsInput | string | null
+    action?: NullableStringFieldUpdateOperationsInput | string | null
+    message?: NullableStringFieldUpdateOperationsInput | string | null
+    processNotes?: NullableStringFieldUpdateOperationsInput | string | null
+    performerId?: NullableStringFieldUpdateOperationsInput | string | null
+    processStatus?: EnumStatusFieldUpdateOperationsInput | $Enums.Status
+    register?: NullableStringFieldUpdateOperationsInput | string | null
+    activityIdTimer?: NullableStringFieldUpdateOperationsInput | string | null
+    activityStartTime?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    activityEndTime?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    allDeadlines?: NullableStringFieldUpdateOperationsInput | string | null
+    processType?: EnumProcessTypeFieldUpdateOperationsInput | $Enums.ProcessType
+    ttSysRunning?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    ttWorkRunning?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    sorting?: NullableStringFieldUpdateOperationsInput | string | null
+    requesterId?: NullableStringFieldUpdateOperationsInput | string | null
+    priority?: EnumPriorityFieldUpdateOperationsInput | $Enums.Priority
+    siteId?: StringFieldUpdateOperationsInput | string
+    outcome?: NullableStringFieldUpdateOperationsInput | string | null
+    dueAssignedEnd?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    execStart?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    dueExecEndDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    execEndDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    dueClosuerDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    totalExecTime?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    expStartDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    suspensionReason?: NullableStringFieldUpdateOperationsInput | string | null
+    category?: NullableStringFieldUpdateOperationsInput | string | null
+    subCategory?: NullableStringFieldUpdateOperationsInput | string | null
+    company?: NullableStringFieldUpdateOperationsInput | string | null
+    teamId?: NullableStringFieldUpdateOperationsInput | string | null
+    floorId?: NullableStringFieldUpdateOperationsInput | string | null
+    roomId?: NullableStringFieldUpdateOperationsInput | string | null
+    ttSystemOpening?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    ttWorkOpening?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    ttSystemAssignment?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    ttWorkAssignment?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    ttSystemExecution?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    ttWorkExecution?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    ttSysSuspension?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    ttWorkSuspension?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    ttEstimate?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    prevMaintenanceConfigId?: NullableStringFieldUpdateOperationsInput | string | null
+    automaticConfig?: BoolFieldUpdateOperationsInput | boolean
+    jointAccounting?: BoolFieldUpdateOperationsInput | boolean
+    hasTasks?: BoolFieldUpdateOperationsInput | boolean
+    estimateStatus?: EnumStatusFieldUpdateOperationsInput | $Enums.Status
+    delayNotification?: BoolFieldUpdateOperationsInput | boolean
+    assigneeId?: NullableStringFieldUpdateOperationsInput | string | null
+    assetId?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    photos?: FileUncheckedUpdateManyWithoutMaintenanceNestedInput
+  }
+
+  export type MaintenanceCreateManyInput = {
+    id?: string
+    type?: $Enums.MaintenanceType
+    code: string
+    description: string
+    startDate?: Date | string | null
+    endDate?: Date | string | null
+    shortDescription?: string | null
+    action?: string | null
+    message?: string | null
+    processNotes?: string | null
+    performerId?: string | null
+    processStatus?: $Enums.Status
+    register?: string | null
+    activityIdTimer?: string | null
+    activityStartTime?: Date | string | null
+    activityEndTime?: Date | string | null
+    allDeadlines?: string | null
+    processType?: $Enums.ProcessType
+    ttSysRunning?: Decimal | DecimalJsLike | number | string | null
+    ttWorkRunning?: Decimal | DecimalJsLike | number | string | null
+    sorting?: string | null
+    requesterId?: string | null
+    priority?: $Enums.Priority
+    siteId: string
+    outcome?: string | null
+    dueAssignedEnd?: Date | string | null
+    execStart?: Date | string | null
+    dueExecEndDate?: Date | string | null
+    execEndDate?: Date | string | null
+    dueClosuerDate?: Date | string | null
+    totalExecTime?: Decimal | DecimalJsLike | number | string | null
+    expStartDate?: Date | string | null
+    suspensionReason?: string | null
+    category?: string | null
+    subCategory?: string | null
+    company?: string | null
+    teamId?: string | null
+    floorId?: string | null
+    roomId?: string | null
+    ttSystemOpening?: Decimal | DecimalJsLike | number | string | null
+    ttWorkOpening?: Decimal | DecimalJsLike | number | string | null
+    ttSystemAssignment?: Decimal | DecimalJsLike | number | string | null
+    ttWorkAssignment?: Decimal | DecimalJsLike | number | string | null
+    ttSystemExecution?: Decimal | DecimalJsLike | number | string | null
+    ttWorkExecution?: Decimal | DecimalJsLike | number | string | null
+    ttSysSuspension?: Decimal | DecimalJsLike | number | string | null
+    ttWorkSuspension?: Decimal | DecimalJsLike | number | string | null
+    ttEstimate?: Decimal | DecimalJsLike | number | string | null
+    prevMaintenanceConfigId?: string | null
+    automaticConfig?: boolean
+    jointAccounting?: boolean
+    hasTasks?: boolean
+    estimateStatus?: $Enums.Status
+    delayNotification?: boolean
+    assigneeId?: string | null
+    assetId?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type MaintenanceUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    type?: EnumMaintenanceTypeFieldUpdateOperationsInput | $Enums.MaintenanceType
+    code?: StringFieldUpdateOperationsInput | string
+    description?: StringFieldUpdateOperationsInput | string
+    startDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    endDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    shortDescription?: NullableStringFieldUpdateOperationsInput | string | null
+    action?: NullableStringFieldUpdateOperationsInput | string | null
+    message?: NullableStringFieldUpdateOperationsInput | string | null
+    processNotes?: NullableStringFieldUpdateOperationsInput | string | null
+    processStatus?: EnumStatusFieldUpdateOperationsInput | $Enums.Status
+    register?: NullableStringFieldUpdateOperationsInput | string | null
+    activityIdTimer?: NullableStringFieldUpdateOperationsInput | string | null
+    activityStartTime?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    activityEndTime?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    allDeadlines?: NullableStringFieldUpdateOperationsInput | string | null
+    processType?: EnumProcessTypeFieldUpdateOperationsInput | $Enums.ProcessType
+    ttSysRunning?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    ttWorkRunning?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    sorting?: NullableStringFieldUpdateOperationsInput | string | null
+    priority?: EnumPriorityFieldUpdateOperationsInput | $Enums.Priority
+    outcome?: NullableStringFieldUpdateOperationsInput | string | null
+    dueAssignedEnd?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    execStart?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    dueExecEndDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    execEndDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    dueClosuerDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    totalExecTime?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    expStartDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    suspensionReason?: NullableStringFieldUpdateOperationsInput | string | null
+    category?: NullableStringFieldUpdateOperationsInput | string | null
+    subCategory?: NullableStringFieldUpdateOperationsInput | string | null
+    company?: NullableStringFieldUpdateOperationsInput | string | null
+    ttSystemOpening?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    ttWorkOpening?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    ttSystemAssignment?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    ttWorkAssignment?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    ttSystemExecution?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    ttWorkExecution?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    ttSysSuspension?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    ttWorkSuspension?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    ttEstimate?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    prevMaintenanceConfigId?: NullableStringFieldUpdateOperationsInput | string | null
+    automaticConfig?: BoolFieldUpdateOperationsInput | boolean
+    jointAccounting?: BoolFieldUpdateOperationsInput | boolean
+    hasTasks?: BoolFieldUpdateOperationsInput | boolean
+    estimateStatus?: EnumStatusFieldUpdateOperationsInput | $Enums.Status
+    delayNotification?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type MaintenanceUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    type?: EnumMaintenanceTypeFieldUpdateOperationsInput | $Enums.MaintenanceType
+    code?: StringFieldUpdateOperationsInput | string
+    description?: StringFieldUpdateOperationsInput | string
+    startDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    endDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    shortDescription?: NullableStringFieldUpdateOperationsInput | string | null
+    action?: NullableStringFieldUpdateOperationsInput | string | null
+    message?: NullableStringFieldUpdateOperationsInput | string | null
+    processNotes?: NullableStringFieldUpdateOperationsInput | string | null
+    performerId?: NullableStringFieldUpdateOperationsInput | string | null
+    processStatus?: EnumStatusFieldUpdateOperationsInput | $Enums.Status
+    register?: NullableStringFieldUpdateOperationsInput | string | null
+    activityIdTimer?: NullableStringFieldUpdateOperationsInput | string | null
+    activityStartTime?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    activityEndTime?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    allDeadlines?: NullableStringFieldUpdateOperationsInput | string | null
+    processType?: EnumProcessTypeFieldUpdateOperationsInput | $Enums.ProcessType
+    ttSysRunning?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    ttWorkRunning?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    sorting?: NullableStringFieldUpdateOperationsInput | string | null
+    requesterId?: NullableStringFieldUpdateOperationsInput | string | null
+    priority?: EnumPriorityFieldUpdateOperationsInput | $Enums.Priority
+    siteId?: StringFieldUpdateOperationsInput | string
+    outcome?: NullableStringFieldUpdateOperationsInput | string | null
+    dueAssignedEnd?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    execStart?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    dueExecEndDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    execEndDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    dueClosuerDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    totalExecTime?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    expStartDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    suspensionReason?: NullableStringFieldUpdateOperationsInput | string | null
+    category?: NullableStringFieldUpdateOperationsInput | string | null
+    subCategory?: NullableStringFieldUpdateOperationsInput | string | null
+    company?: NullableStringFieldUpdateOperationsInput | string | null
+    teamId?: NullableStringFieldUpdateOperationsInput | string | null
+    floorId?: NullableStringFieldUpdateOperationsInput | string | null
+    roomId?: NullableStringFieldUpdateOperationsInput | string | null
+    ttSystemOpening?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    ttWorkOpening?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    ttSystemAssignment?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    ttWorkAssignment?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    ttSystemExecution?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    ttWorkExecution?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    ttSysSuspension?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    ttWorkSuspension?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    ttEstimate?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    prevMaintenanceConfigId?: NullableStringFieldUpdateOperationsInput | string | null
+    automaticConfig?: BoolFieldUpdateOperationsInput | boolean
+    jointAccounting?: BoolFieldUpdateOperationsInput | boolean
+    hasTasks?: BoolFieldUpdateOperationsInput | boolean
+    estimateStatus?: EnumStatusFieldUpdateOperationsInput | $Enums.Status
+    delayNotification?: BoolFieldUpdateOperationsInput | boolean
+    assigneeId?: NullableStringFieldUpdateOperationsInput | string | null
+    assetId?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type PreventiveCreateInput = {
+    id?: string
+    code: string
+    name: string
+    description: string
+    frequency?: $Enums.Frequency
+    cronExpression?: string | null
+    lastRun?: Date | string | null
+    nextRun: Date | string
+    priority?: $Enums.Priority
+    duration?: number | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    site: ComplexCreateNestedOneWithoutPreventivesInput
+    building?: BuildingCreateNestedOneWithoutPreventivesInput
+    floor?: FloorCreateNestedOneWithoutPreventivesInput
+    room?: RoomCreateNestedOneWithoutPreventivesInput
+    team?: TeamCreateNestedOneWithoutPreventivesInput
+  }
+
+  export type PreventiveUncheckedCreateInput = {
+    id?: string
+    code: string
+    name: string
+    description: string
+    frequency?: $Enums.Frequency
+    cronExpression?: string | null
+    lastRun?: Date | string | null
+    nextRun: Date | string
+    priority?: $Enums.Priority
+    duration?: number | null
+    siteId: string
+    buildingId?: string | null
+    floorId?: string | null
+    roomId?: string | null
+    teamId?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type PreventiveUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    code?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    description?: StringFieldUpdateOperationsInput | string
+    frequency?: EnumFrequencyFieldUpdateOperationsInput | $Enums.Frequency
+    cronExpression?: NullableStringFieldUpdateOperationsInput | string | null
+    lastRun?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    nextRun?: DateTimeFieldUpdateOperationsInput | Date | string
+    priority?: EnumPriorityFieldUpdateOperationsInput | $Enums.Priority
+    duration?: NullableIntFieldUpdateOperationsInput | number | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    site?: ComplexUpdateOneRequiredWithoutPreventivesNestedInput
+    building?: BuildingUpdateOneWithoutPreventivesNestedInput
+    floor?: FloorUpdateOneWithoutPreventivesNestedInput
+    room?: RoomUpdateOneWithoutPreventivesNestedInput
+    team?: TeamUpdateOneWithoutPreventivesNestedInput
+  }
+
+  export type PreventiveUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    code?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    description?: StringFieldUpdateOperationsInput | string
+    frequency?: EnumFrequencyFieldUpdateOperationsInput | $Enums.Frequency
+    cronExpression?: NullableStringFieldUpdateOperationsInput | string | null
+    lastRun?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    nextRun?: DateTimeFieldUpdateOperationsInput | Date | string
+    priority?: EnumPriorityFieldUpdateOperationsInput | $Enums.Priority
+    duration?: NullableIntFieldUpdateOperationsInput | number | null
+    siteId?: StringFieldUpdateOperationsInput | string
+    buildingId?: NullableStringFieldUpdateOperationsInput | string | null
+    floorId?: NullableStringFieldUpdateOperationsInput | string | null
+    roomId?: NullableStringFieldUpdateOperationsInput | string | null
+    teamId?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type PreventiveCreateManyInput = {
+    id?: string
+    code: string
+    name: string
+    description: string
+    frequency?: $Enums.Frequency
+    cronExpression?: string | null
+    lastRun?: Date | string | null
+    nextRun: Date | string
+    priority?: $Enums.Priority
+    duration?: number | null
+    siteId: string
+    buildingId?: string | null
+    floorId?: string | null
+    roomId?: string | null
+    teamId?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type PreventiveUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    code?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    description?: StringFieldUpdateOperationsInput | string
+    frequency?: EnumFrequencyFieldUpdateOperationsInput | $Enums.Frequency
+    cronExpression?: NullableStringFieldUpdateOperationsInput | string | null
+    lastRun?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    nextRun?: DateTimeFieldUpdateOperationsInput | Date | string
+    priority?: EnumPriorityFieldUpdateOperationsInput | $Enums.Priority
+    duration?: NullableIntFieldUpdateOperationsInput | number | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type PreventiveUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    code?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    description?: StringFieldUpdateOperationsInput | string
+    frequency?: EnumFrequencyFieldUpdateOperationsInput | $Enums.Frequency
+    cronExpression?: NullableStringFieldUpdateOperationsInput | string | null
+    lastRun?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    nextRun?: DateTimeFieldUpdateOperationsInput | Date | string
+    priority?: EnumPriorityFieldUpdateOperationsInput | $Enums.Priority
+    duration?: NullableIntFieldUpdateOperationsInput | number | null
+    siteId?: StringFieldUpdateOperationsInput | string
+    buildingId?: NullableStringFieldUpdateOperationsInput | string | null
+    floorId?: NullableStringFieldUpdateOperationsInput | string | null
+    roomId?: NullableStringFieldUpdateOperationsInput | string | null
+    teamId?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -28553,6 +35259,18 @@ export namespace Prisma {
     none?: RoomWhereInput
   }
 
+  export type MaintenanceListRelationFilter = {
+    every?: MaintenanceWhereInput
+    some?: MaintenanceWhereInput
+    none?: MaintenanceWhereInput
+  }
+
+  export type PreventiveListRelationFilter = {
+    every?: PreventiveWhereInput
+    some?: PreventiveWhereInput
+    none?: PreventiveWhereInput
+  }
+
   export type BuildingOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
@@ -28570,6 +35288,14 @@ export namespace Prisma {
   }
 
   export type RoomOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type MaintenanceOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type PreventiveOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
 
@@ -29435,6 +36161,11 @@ export namespace Prisma {
     none?: ComplexWhereInput
   }
 
+  export type MaintenanceNullableScalarRelationFilter = {
+    is?: MaintenanceWhereInput | null
+    isNot?: MaintenanceWhereInput | null
+  }
+
   export type ComplexOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
@@ -29442,16 +36173,19 @@ export namespace Prisma {
   export type FileCountOrderByAggregateInput = {
     id?: SortOrder
     url?: SortOrder
+    maintenanceId?: SortOrder
   }
 
   export type FileMaxOrderByAggregateInput = {
     id?: SortOrder
     url?: SortOrder
+    maintenanceId?: SortOrder
   }
 
   export type FileMinOrderByAggregateInput = {
     id?: SortOrder
     url?: SortOrder
+    maintenanceId?: SortOrder
   }
 
   export type EnumCompanyTypeFilter<$PrismaModel = never> = {
@@ -29655,6 +36389,24 @@ export namespace Prisma {
     zipCode?: SortOrder
   }
 
+  export type ContractCountOrderByAggregateInput = {
+    id?: SortOrder
+    code?: SortOrder
+    description?: SortOrder
+  }
+
+  export type ContractMaxOrderByAggregateInput = {
+    id?: SortOrder
+    code?: SortOrder
+    description?: SortOrder
+  }
+
+  export type ContractMinOrderByAggregateInput = {
+    id?: SortOrder
+    code?: SortOrder
+    description?: SortOrder
+  }
+
   export type CalenderEntityCountOrderByAggregateInput = {
     id?: SortOrder
     name?: SortOrder
@@ -29674,6 +36426,397 @@ export namespace Prisma {
     name?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
+  }
+
+  export type EnumMaintenanceTypeFilter<$PrismaModel = never> = {
+    equals?: $Enums.MaintenanceType | EnumMaintenanceTypeFieldRefInput<$PrismaModel>
+    in?: $Enums.MaintenanceType[] | ListEnumMaintenanceTypeFieldRefInput<$PrismaModel>
+    notIn?: $Enums.MaintenanceType[] | ListEnumMaintenanceTypeFieldRefInput<$PrismaModel>
+    not?: NestedEnumMaintenanceTypeFilter<$PrismaModel> | $Enums.MaintenanceType
+  }
+
+  export type EnumStatusFilter<$PrismaModel = never> = {
+    equals?: $Enums.Status | EnumStatusFieldRefInput<$PrismaModel>
+    in?: $Enums.Status[] | ListEnumStatusFieldRefInput<$PrismaModel>
+    notIn?: $Enums.Status[] | ListEnumStatusFieldRefInput<$PrismaModel>
+    not?: NestedEnumStatusFilter<$PrismaModel> | $Enums.Status
+  }
+
+  export type EnumProcessTypeFilter<$PrismaModel = never> = {
+    equals?: $Enums.ProcessType | EnumProcessTypeFieldRefInput<$PrismaModel>
+    in?: $Enums.ProcessType[] | ListEnumProcessTypeFieldRefInput<$PrismaModel>
+    notIn?: $Enums.ProcessType[] | ListEnumProcessTypeFieldRefInput<$PrismaModel>
+    not?: NestedEnumProcessTypeFilter<$PrismaModel> | $Enums.ProcessType
+  }
+
+  export type EnumPriorityFilter<$PrismaModel = never> = {
+    equals?: $Enums.Priority | EnumPriorityFieldRefInput<$PrismaModel>
+    in?: $Enums.Priority[] | ListEnumPriorityFieldRefInput<$PrismaModel>
+    notIn?: $Enums.Priority[] | ListEnumPriorityFieldRefInput<$PrismaModel>
+    not?: NestedEnumPriorityFilter<$PrismaModel> | $Enums.Priority
+  }
+
+  export type EmployeeNullableScalarRelationFilter = {
+    is?: EmployeeWhereInput | null
+    isNot?: EmployeeWhereInput | null
+  }
+
+  export type TeamNullableScalarRelationFilter = {
+    is?: TeamWhereInput | null
+    isNot?: TeamWhereInput | null
+  }
+
+  export type FloorNullableScalarRelationFilter = {
+    is?: FloorWhereInput | null
+    isNot?: FloorWhereInput | null
+  }
+
+  export type RoomNullableScalarRelationFilter = {
+    is?: RoomWhereInput | null
+    isNot?: RoomWhereInput | null
+  }
+
+  export type AssetNullableScalarRelationFilter = {
+    is?: AssetWhereInput | null
+    isNot?: AssetWhereInput | null
+  }
+
+  export type MaintenanceCountOrderByAggregateInput = {
+    id?: SortOrder
+    type?: SortOrder
+    code?: SortOrder
+    description?: SortOrder
+    startDate?: SortOrder
+    endDate?: SortOrder
+    shortDescription?: SortOrder
+    action?: SortOrder
+    message?: SortOrder
+    processNotes?: SortOrder
+    performerId?: SortOrder
+    processStatus?: SortOrder
+    register?: SortOrder
+    activityIdTimer?: SortOrder
+    activityStartTime?: SortOrder
+    activityEndTime?: SortOrder
+    allDeadlines?: SortOrder
+    processType?: SortOrder
+    ttSysRunning?: SortOrder
+    ttWorkRunning?: SortOrder
+    sorting?: SortOrder
+    requesterId?: SortOrder
+    priority?: SortOrder
+    siteId?: SortOrder
+    outcome?: SortOrder
+    dueAssignedEnd?: SortOrder
+    execStart?: SortOrder
+    dueExecEndDate?: SortOrder
+    execEndDate?: SortOrder
+    dueClosuerDate?: SortOrder
+    totalExecTime?: SortOrder
+    expStartDate?: SortOrder
+    suspensionReason?: SortOrder
+    category?: SortOrder
+    subCategory?: SortOrder
+    company?: SortOrder
+    teamId?: SortOrder
+    floorId?: SortOrder
+    roomId?: SortOrder
+    ttSystemOpening?: SortOrder
+    ttWorkOpening?: SortOrder
+    ttSystemAssignment?: SortOrder
+    ttWorkAssignment?: SortOrder
+    ttSystemExecution?: SortOrder
+    ttWorkExecution?: SortOrder
+    ttSysSuspension?: SortOrder
+    ttWorkSuspension?: SortOrder
+    ttEstimate?: SortOrder
+    prevMaintenanceConfigId?: SortOrder
+    automaticConfig?: SortOrder
+    jointAccounting?: SortOrder
+    hasTasks?: SortOrder
+    estimateStatus?: SortOrder
+    delayNotification?: SortOrder
+    assigneeId?: SortOrder
+    assetId?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type MaintenanceAvgOrderByAggregateInput = {
+    ttSysRunning?: SortOrder
+    ttWorkRunning?: SortOrder
+    totalExecTime?: SortOrder
+    ttSystemOpening?: SortOrder
+    ttWorkOpening?: SortOrder
+    ttSystemAssignment?: SortOrder
+    ttWorkAssignment?: SortOrder
+    ttSystemExecution?: SortOrder
+    ttWorkExecution?: SortOrder
+    ttSysSuspension?: SortOrder
+    ttWorkSuspension?: SortOrder
+    ttEstimate?: SortOrder
+  }
+
+  export type MaintenanceMaxOrderByAggregateInput = {
+    id?: SortOrder
+    type?: SortOrder
+    code?: SortOrder
+    description?: SortOrder
+    startDate?: SortOrder
+    endDate?: SortOrder
+    shortDescription?: SortOrder
+    action?: SortOrder
+    message?: SortOrder
+    processNotes?: SortOrder
+    performerId?: SortOrder
+    processStatus?: SortOrder
+    register?: SortOrder
+    activityIdTimer?: SortOrder
+    activityStartTime?: SortOrder
+    activityEndTime?: SortOrder
+    allDeadlines?: SortOrder
+    processType?: SortOrder
+    ttSysRunning?: SortOrder
+    ttWorkRunning?: SortOrder
+    sorting?: SortOrder
+    requesterId?: SortOrder
+    priority?: SortOrder
+    siteId?: SortOrder
+    outcome?: SortOrder
+    dueAssignedEnd?: SortOrder
+    execStart?: SortOrder
+    dueExecEndDate?: SortOrder
+    execEndDate?: SortOrder
+    dueClosuerDate?: SortOrder
+    totalExecTime?: SortOrder
+    expStartDate?: SortOrder
+    suspensionReason?: SortOrder
+    category?: SortOrder
+    subCategory?: SortOrder
+    company?: SortOrder
+    teamId?: SortOrder
+    floorId?: SortOrder
+    roomId?: SortOrder
+    ttSystemOpening?: SortOrder
+    ttWorkOpening?: SortOrder
+    ttSystemAssignment?: SortOrder
+    ttWorkAssignment?: SortOrder
+    ttSystemExecution?: SortOrder
+    ttWorkExecution?: SortOrder
+    ttSysSuspension?: SortOrder
+    ttWorkSuspension?: SortOrder
+    ttEstimate?: SortOrder
+    prevMaintenanceConfigId?: SortOrder
+    automaticConfig?: SortOrder
+    jointAccounting?: SortOrder
+    hasTasks?: SortOrder
+    estimateStatus?: SortOrder
+    delayNotification?: SortOrder
+    assigneeId?: SortOrder
+    assetId?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type MaintenanceMinOrderByAggregateInput = {
+    id?: SortOrder
+    type?: SortOrder
+    code?: SortOrder
+    description?: SortOrder
+    startDate?: SortOrder
+    endDate?: SortOrder
+    shortDescription?: SortOrder
+    action?: SortOrder
+    message?: SortOrder
+    processNotes?: SortOrder
+    performerId?: SortOrder
+    processStatus?: SortOrder
+    register?: SortOrder
+    activityIdTimer?: SortOrder
+    activityStartTime?: SortOrder
+    activityEndTime?: SortOrder
+    allDeadlines?: SortOrder
+    processType?: SortOrder
+    ttSysRunning?: SortOrder
+    ttWorkRunning?: SortOrder
+    sorting?: SortOrder
+    requesterId?: SortOrder
+    priority?: SortOrder
+    siteId?: SortOrder
+    outcome?: SortOrder
+    dueAssignedEnd?: SortOrder
+    execStart?: SortOrder
+    dueExecEndDate?: SortOrder
+    execEndDate?: SortOrder
+    dueClosuerDate?: SortOrder
+    totalExecTime?: SortOrder
+    expStartDate?: SortOrder
+    suspensionReason?: SortOrder
+    category?: SortOrder
+    subCategory?: SortOrder
+    company?: SortOrder
+    teamId?: SortOrder
+    floorId?: SortOrder
+    roomId?: SortOrder
+    ttSystemOpening?: SortOrder
+    ttWorkOpening?: SortOrder
+    ttSystemAssignment?: SortOrder
+    ttWorkAssignment?: SortOrder
+    ttSystemExecution?: SortOrder
+    ttWorkExecution?: SortOrder
+    ttSysSuspension?: SortOrder
+    ttWorkSuspension?: SortOrder
+    ttEstimate?: SortOrder
+    prevMaintenanceConfigId?: SortOrder
+    automaticConfig?: SortOrder
+    jointAccounting?: SortOrder
+    hasTasks?: SortOrder
+    estimateStatus?: SortOrder
+    delayNotification?: SortOrder
+    assigneeId?: SortOrder
+    assetId?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type MaintenanceSumOrderByAggregateInput = {
+    ttSysRunning?: SortOrder
+    ttWorkRunning?: SortOrder
+    totalExecTime?: SortOrder
+    ttSystemOpening?: SortOrder
+    ttWorkOpening?: SortOrder
+    ttSystemAssignment?: SortOrder
+    ttWorkAssignment?: SortOrder
+    ttSystemExecution?: SortOrder
+    ttWorkExecution?: SortOrder
+    ttSysSuspension?: SortOrder
+    ttWorkSuspension?: SortOrder
+    ttEstimate?: SortOrder
+  }
+
+  export type EnumMaintenanceTypeWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.MaintenanceType | EnumMaintenanceTypeFieldRefInput<$PrismaModel>
+    in?: $Enums.MaintenanceType[] | ListEnumMaintenanceTypeFieldRefInput<$PrismaModel>
+    notIn?: $Enums.MaintenanceType[] | ListEnumMaintenanceTypeFieldRefInput<$PrismaModel>
+    not?: NestedEnumMaintenanceTypeWithAggregatesFilter<$PrismaModel> | $Enums.MaintenanceType
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumMaintenanceTypeFilter<$PrismaModel>
+    _max?: NestedEnumMaintenanceTypeFilter<$PrismaModel>
+  }
+
+  export type EnumStatusWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.Status | EnumStatusFieldRefInput<$PrismaModel>
+    in?: $Enums.Status[] | ListEnumStatusFieldRefInput<$PrismaModel>
+    notIn?: $Enums.Status[] | ListEnumStatusFieldRefInput<$PrismaModel>
+    not?: NestedEnumStatusWithAggregatesFilter<$PrismaModel> | $Enums.Status
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumStatusFilter<$PrismaModel>
+    _max?: NestedEnumStatusFilter<$PrismaModel>
+  }
+
+  export type EnumProcessTypeWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.ProcessType | EnumProcessTypeFieldRefInput<$PrismaModel>
+    in?: $Enums.ProcessType[] | ListEnumProcessTypeFieldRefInput<$PrismaModel>
+    notIn?: $Enums.ProcessType[] | ListEnumProcessTypeFieldRefInput<$PrismaModel>
+    not?: NestedEnumProcessTypeWithAggregatesFilter<$PrismaModel> | $Enums.ProcessType
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumProcessTypeFilter<$PrismaModel>
+    _max?: NestedEnumProcessTypeFilter<$PrismaModel>
+  }
+
+  export type EnumPriorityWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.Priority | EnumPriorityFieldRefInput<$PrismaModel>
+    in?: $Enums.Priority[] | ListEnumPriorityFieldRefInput<$PrismaModel>
+    notIn?: $Enums.Priority[] | ListEnumPriorityFieldRefInput<$PrismaModel>
+    not?: NestedEnumPriorityWithAggregatesFilter<$PrismaModel> | $Enums.Priority
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumPriorityFilter<$PrismaModel>
+    _max?: NestedEnumPriorityFilter<$PrismaModel>
+  }
+
+  export type EnumFrequencyFilter<$PrismaModel = never> = {
+    equals?: $Enums.Frequency | EnumFrequencyFieldRefInput<$PrismaModel>
+    in?: $Enums.Frequency[] | ListEnumFrequencyFieldRefInput<$PrismaModel>
+    notIn?: $Enums.Frequency[] | ListEnumFrequencyFieldRefInput<$PrismaModel>
+    not?: NestedEnumFrequencyFilter<$PrismaModel> | $Enums.Frequency
+  }
+
+  export type PreventiveCountOrderByAggregateInput = {
+    id?: SortOrder
+    code?: SortOrder
+    name?: SortOrder
+    description?: SortOrder
+    frequency?: SortOrder
+    cronExpression?: SortOrder
+    lastRun?: SortOrder
+    nextRun?: SortOrder
+    priority?: SortOrder
+    duration?: SortOrder
+    siteId?: SortOrder
+    buildingId?: SortOrder
+    floorId?: SortOrder
+    roomId?: SortOrder
+    teamId?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type PreventiveAvgOrderByAggregateInput = {
+    duration?: SortOrder
+  }
+
+  export type PreventiveMaxOrderByAggregateInput = {
+    id?: SortOrder
+    code?: SortOrder
+    name?: SortOrder
+    description?: SortOrder
+    frequency?: SortOrder
+    cronExpression?: SortOrder
+    lastRun?: SortOrder
+    nextRun?: SortOrder
+    priority?: SortOrder
+    duration?: SortOrder
+    siteId?: SortOrder
+    buildingId?: SortOrder
+    floorId?: SortOrder
+    roomId?: SortOrder
+    teamId?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type PreventiveMinOrderByAggregateInput = {
+    id?: SortOrder
+    code?: SortOrder
+    name?: SortOrder
+    description?: SortOrder
+    frequency?: SortOrder
+    cronExpression?: SortOrder
+    lastRun?: SortOrder
+    nextRun?: SortOrder
+    priority?: SortOrder
+    duration?: SortOrder
+    siteId?: SortOrder
+    buildingId?: SortOrder
+    floorId?: SortOrder
+    roomId?: SortOrder
+    teamId?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type PreventiveSumOrderByAggregateInput = {
+    duration?: SortOrder
+  }
+
+  export type EnumFrequencyWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.Frequency | EnumFrequencyFieldRefInput<$PrismaModel>
+    in?: $Enums.Frequency[] | ListEnumFrequencyFieldRefInput<$PrismaModel>
+    notIn?: $Enums.Frequency[] | ListEnumFrequencyFieldRefInput<$PrismaModel>
+    not?: NestedEnumFrequencyWithAggregatesFilter<$PrismaModel> | $Enums.Frequency
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumFrequencyFilter<$PrismaModel>
+    _max?: NestedEnumFrequencyFilter<$PrismaModel>
   }
 
   export type RefreshTokenCountOrderByAggregateInput = {
@@ -29967,6 +37110,20 @@ export namespace Prisma {
     connect?: RoomWhereUniqueInput | RoomWhereUniqueInput[]
   }
 
+  export type MaintenanceCreateNestedManyWithoutSiteInput = {
+    create?: XOR<MaintenanceCreateWithoutSiteInput, MaintenanceUncheckedCreateWithoutSiteInput> | MaintenanceCreateWithoutSiteInput[] | MaintenanceUncheckedCreateWithoutSiteInput[]
+    connectOrCreate?: MaintenanceCreateOrConnectWithoutSiteInput | MaintenanceCreateOrConnectWithoutSiteInput[]
+    createMany?: MaintenanceCreateManySiteInputEnvelope
+    connect?: MaintenanceWhereUniqueInput | MaintenanceWhereUniqueInput[]
+  }
+
+  export type PreventiveCreateNestedManyWithoutSiteInput = {
+    create?: XOR<PreventiveCreateWithoutSiteInput, PreventiveUncheckedCreateWithoutSiteInput> | PreventiveCreateWithoutSiteInput[] | PreventiveUncheckedCreateWithoutSiteInput[]
+    connectOrCreate?: PreventiveCreateOrConnectWithoutSiteInput | PreventiveCreateOrConnectWithoutSiteInput[]
+    createMany?: PreventiveCreateManySiteInputEnvelope
+    connect?: PreventiveWhereUniqueInput | PreventiveWhereUniqueInput[]
+  }
+
   export type BuildingUncheckedCreateNestedManyWithoutComplexInput = {
     create?: XOR<BuildingCreateWithoutComplexInput, BuildingUncheckedCreateWithoutComplexInput> | BuildingCreateWithoutComplexInput[] | BuildingUncheckedCreateWithoutComplexInput[]
     connectOrCreate?: BuildingCreateOrConnectWithoutComplexInput | BuildingCreateOrConnectWithoutComplexInput[]
@@ -29999,6 +37156,20 @@ export namespace Prisma {
     connectOrCreate?: RoomCreateOrConnectWithoutComplexInput | RoomCreateOrConnectWithoutComplexInput[]
     createMany?: RoomCreateManyComplexInputEnvelope
     connect?: RoomWhereUniqueInput | RoomWhereUniqueInput[]
+  }
+
+  export type MaintenanceUncheckedCreateNestedManyWithoutSiteInput = {
+    create?: XOR<MaintenanceCreateWithoutSiteInput, MaintenanceUncheckedCreateWithoutSiteInput> | MaintenanceCreateWithoutSiteInput[] | MaintenanceUncheckedCreateWithoutSiteInput[]
+    connectOrCreate?: MaintenanceCreateOrConnectWithoutSiteInput | MaintenanceCreateOrConnectWithoutSiteInput[]
+    createMany?: MaintenanceCreateManySiteInputEnvelope
+    connect?: MaintenanceWhereUniqueInput | MaintenanceWhereUniqueInput[]
+  }
+
+  export type PreventiveUncheckedCreateNestedManyWithoutSiteInput = {
+    create?: XOR<PreventiveCreateWithoutSiteInput, PreventiveUncheckedCreateWithoutSiteInput> | PreventiveCreateWithoutSiteInput[] | PreventiveUncheckedCreateWithoutSiteInput[]
+    connectOrCreate?: PreventiveCreateOrConnectWithoutSiteInput | PreventiveCreateOrConnectWithoutSiteInput[]
+    createMany?: PreventiveCreateManySiteInputEnvelope
+    connect?: PreventiveWhereUniqueInput | PreventiveWhereUniqueInput[]
   }
 
   export type EnumAvailabilityFieldUpdateOperationsInput = {
@@ -30112,6 +37283,34 @@ export namespace Prisma {
     deleteMany?: RoomScalarWhereInput | RoomScalarWhereInput[]
   }
 
+  export type MaintenanceUpdateManyWithoutSiteNestedInput = {
+    create?: XOR<MaintenanceCreateWithoutSiteInput, MaintenanceUncheckedCreateWithoutSiteInput> | MaintenanceCreateWithoutSiteInput[] | MaintenanceUncheckedCreateWithoutSiteInput[]
+    connectOrCreate?: MaintenanceCreateOrConnectWithoutSiteInput | MaintenanceCreateOrConnectWithoutSiteInput[]
+    upsert?: MaintenanceUpsertWithWhereUniqueWithoutSiteInput | MaintenanceUpsertWithWhereUniqueWithoutSiteInput[]
+    createMany?: MaintenanceCreateManySiteInputEnvelope
+    set?: MaintenanceWhereUniqueInput | MaintenanceWhereUniqueInput[]
+    disconnect?: MaintenanceWhereUniqueInput | MaintenanceWhereUniqueInput[]
+    delete?: MaintenanceWhereUniqueInput | MaintenanceWhereUniqueInput[]
+    connect?: MaintenanceWhereUniqueInput | MaintenanceWhereUniqueInput[]
+    update?: MaintenanceUpdateWithWhereUniqueWithoutSiteInput | MaintenanceUpdateWithWhereUniqueWithoutSiteInput[]
+    updateMany?: MaintenanceUpdateManyWithWhereWithoutSiteInput | MaintenanceUpdateManyWithWhereWithoutSiteInput[]
+    deleteMany?: MaintenanceScalarWhereInput | MaintenanceScalarWhereInput[]
+  }
+
+  export type PreventiveUpdateManyWithoutSiteNestedInput = {
+    create?: XOR<PreventiveCreateWithoutSiteInput, PreventiveUncheckedCreateWithoutSiteInput> | PreventiveCreateWithoutSiteInput[] | PreventiveUncheckedCreateWithoutSiteInput[]
+    connectOrCreate?: PreventiveCreateOrConnectWithoutSiteInput | PreventiveCreateOrConnectWithoutSiteInput[]
+    upsert?: PreventiveUpsertWithWhereUniqueWithoutSiteInput | PreventiveUpsertWithWhereUniqueWithoutSiteInput[]
+    createMany?: PreventiveCreateManySiteInputEnvelope
+    set?: PreventiveWhereUniqueInput | PreventiveWhereUniqueInput[]
+    disconnect?: PreventiveWhereUniqueInput | PreventiveWhereUniqueInput[]
+    delete?: PreventiveWhereUniqueInput | PreventiveWhereUniqueInput[]
+    connect?: PreventiveWhereUniqueInput | PreventiveWhereUniqueInput[]
+    update?: PreventiveUpdateWithWhereUniqueWithoutSiteInput | PreventiveUpdateWithWhereUniqueWithoutSiteInput[]
+    updateMany?: PreventiveUpdateManyWithWhereWithoutSiteInput | PreventiveUpdateManyWithWhereWithoutSiteInput[]
+    deleteMany?: PreventiveScalarWhereInput | PreventiveScalarWhereInput[]
+  }
+
   export type BuildingUncheckedUpdateManyWithoutComplexNestedInput = {
     create?: XOR<BuildingCreateWithoutComplexInput, BuildingUncheckedCreateWithoutComplexInput> | BuildingCreateWithoutComplexInput[] | BuildingUncheckedCreateWithoutComplexInput[]
     connectOrCreate?: BuildingCreateOrConnectWithoutComplexInput | BuildingCreateOrConnectWithoutComplexInput[]
@@ -30181,6 +37380,34 @@ export namespace Prisma {
     deleteMany?: RoomScalarWhereInput | RoomScalarWhereInput[]
   }
 
+  export type MaintenanceUncheckedUpdateManyWithoutSiteNestedInput = {
+    create?: XOR<MaintenanceCreateWithoutSiteInput, MaintenanceUncheckedCreateWithoutSiteInput> | MaintenanceCreateWithoutSiteInput[] | MaintenanceUncheckedCreateWithoutSiteInput[]
+    connectOrCreate?: MaintenanceCreateOrConnectWithoutSiteInput | MaintenanceCreateOrConnectWithoutSiteInput[]
+    upsert?: MaintenanceUpsertWithWhereUniqueWithoutSiteInput | MaintenanceUpsertWithWhereUniqueWithoutSiteInput[]
+    createMany?: MaintenanceCreateManySiteInputEnvelope
+    set?: MaintenanceWhereUniqueInput | MaintenanceWhereUniqueInput[]
+    disconnect?: MaintenanceWhereUniqueInput | MaintenanceWhereUniqueInput[]
+    delete?: MaintenanceWhereUniqueInput | MaintenanceWhereUniqueInput[]
+    connect?: MaintenanceWhereUniqueInput | MaintenanceWhereUniqueInput[]
+    update?: MaintenanceUpdateWithWhereUniqueWithoutSiteInput | MaintenanceUpdateWithWhereUniqueWithoutSiteInput[]
+    updateMany?: MaintenanceUpdateManyWithWhereWithoutSiteInput | MaintenanceUpdateManyWithWhereWithoutSiteInput[]
+    deleteMany?: MaintenanceScalarWhereInput | MaintenanceScalarWhereInput[]
+  }
+
+  export type PreventiveUncheckedUpdateManyWithoutSiteNestedInput = {
+    create?: XOR<PreventiveCreateWithoutSiteInput, PreventiveUncheckedCreateWithoutSiteInput> | PreventiveCreateWithoutSiteInput[] | PreventiveUncheckedCreateWithoutSiteInput[]
+    connectOrCreate?: PreventiveCreateOrConnectWithoutSiteInput | PreventiveCreateOrConnectWithoutSiteInput[]
+    upsert?: PreventiveUpsertWithWhereUniqueWithoutSiteInput | PreventiveUpsertWithWhereUniqueWithoutSiteInput[]
+    createMany?: PreventiveCreateManySiteInputEnvelope
+    set?: PreventiveWhereUniqueInput | PreventiveWhereUniqueInput[]
+    disconnect?: PreventiveWhereUniqueInput | PreventiveWhereUniqueInput[]
+    delete?: PreventiveWhereUniqueInput | PreventiveWhereUniqueInput[]
+    connect?: PreventiveWhereUniqueInput | PreventiveWhereUniqueInput[]
+    update?: PreventiveUpdateWithWhereUniqueWithoutSiteInput | PreventiveUpdateWithWhereUniqueWithoutSiteInput[]
+    updateMany?: PreventiveUpdateManyWithWhereWithoutSiteInput | PreventiveUpdateManyWithWhereWithoutSiteInput[]
+    deleteMany?: PreventiveScalarWhereInput | PreventiveScalarWhereInput[]
+  }
+
   export type AddressCreateNestedOneWithoutBuildingsInput = {
     create?: XOR<AddressCreateWithoutBuildingsInput, AddressUncheckedCreateWithoutBuildingsInput>
     connectOrCreate?: AddressCreateOrConnectWithoutBuildingsInput
@@ -30226,6 +37453,13 @@ export namespace Prisma {
     connect?: RoomWhereUniqueInput | RoomWhereUniqueInput[]
   }
 
+  export type PreventiveCreateNestedManyWithoutBuildingInput = {
+    create?: XOR<PreventiveCreateWithoutBuildingInput, PreventiveUncheckedCreateWithoutBuildingInput> | PreventiveCreateWithoutBuildingInput[] | PreventiveUncheckedCreateWithoutBuildingInput[]
+    connectOrCreate?: PreventiveCreateOrConnectWithoutBuildingInput | PreventiveCreateOrConnectWithoutBuildingInput[]
+    createMany?: PreventiveCreateManyBuildingInputEnvelope
+    connect?: PreventiveWhereUniqueInput | PreventiveWhereUniqueInput[]
+  }
+
   export type FileUncheckedCreateNestedManyWithoutBuildingsInput = {
     create?: XOR<FileCreateWithoutBuildingsInput, FileUncheckedCreateWithoutBuildingsInput> | FileCreateWithoutBuildingsInput[] | FileUncheckedCreateWithoutBuildingsInput[]
     connectOrCreate?: FileCreateOrConnectWithoutBuildingsInput | FileCreateOrConnectWithoutBuildingsInput[]
@@ -30251,6 +37485,13 @@ export namespace Prisma {
     connectOrCreate?: RoomCreateOrConnectWithoutBuildingInput | RoomCreateOrConnectWithoutBuildingInput[]
     createMany?: RoomCreateManyBuildingInputEnvelope
     connect?: RoomWhereUniqueInput | RoomWhereUniqueInput[]
+  }
+
+  export type PreventiveUncheckedCreateNestedManyWithoutBuildingInput = {
+    create?: XOR<PreventiveCreateWithoutBuildingInput, PreventiveUncheckedCreateWithoutBuildingInput> | PreventiveCreateWithoutBuildingInput[] | PreventiveUncheckedCreateWithoutBuildingInput[]
+    connectOrCreate?: PreventiveCreateOrConnectWithoutBuildingInput | PreventiveCreateOrConnectWithoutBuildingInput[]
+    createMany?: PreventiveCreateManyBuildingInputEnvelope
+    connect?: PreventiveWhereUniqueInput | PreventiveWhereUniqueInput[]
   }
 
   export type EnumMainUseFieldUpdateOperationsInput = {
@@ -30338,6 +37579,20 @@ export namespace Prisma {
     deleteMany?: RoomScalarWhereInput | RoomScalarWhereInput[]
   }
 
+  export type PreventiveUpdateManyWithoutBuildingNestedInput = {
+    create?: XOR<PreventiveCreateWithoutBuildingInput, PreventiveUncheckedCreateWithoutBuildingInput> | PreventiveCreateWithoutBuildingInput[] | PreventiveUncheckedCreateWithoutBuildingInput[]
+    connectOrCreate?: PreventiveCreateOrConnectWithoutBuildingInput | PreventiveCreateOrConnectWithoutBuildingInput[]
+    upsert?: PreventiveUpsertWithWhereUniqueWithoutBuildingInput | PreventiveUpsertWithWhereUniqueWithoutBuildingInput[]
+    createMany?: PreventiveCreateManyBuildingInputEnvelope
+    set?: PreventiveWhereUniqueInput | PreventiveWhereUniqueInput[]
+    disconnect?: PreventiveWhereUniqueInput | PreventiveWhereUniqueInput[]
+    delete?: PreventiveWhereUniqueInput | PreventiveWhereUniqueInput[]
+    connect?: PreventiveWhereUniqueInput | PreventiveWhereUniqueInput[]
+    update?: PreventiveUpdateWithWhereUniqueWithoutBuildingInput | PreventiveUpdateWithWhereUniqueWithoutBuildingInput[]
+    updateMany?: PreventiveUpdateManyWithWhereWithoutBuildingInput | PreventiveUpdateManyWithWhereWithoutBuildingInput[]
+    deleteMany?: PreventiveScalarWhereInput | PreventiveScalarWhereInput[]
+  }
+
   export type FileUncheckedUpdateManyWithoutBuildingsNestedInput = {
     create?: XOR<FileCreateWithoutBuildingsInput, FileUncheckedCreateWithoutBuildingsInput> | FileCreateWithoutBuildingsInput[] | FileUncheckedCreateWithoutBuildingsInput[]
     connectOrCreate?: FileCreateOrConnectWithoutBuildingsInput | FileCreateOrConnectWithoutBuildingsInput[]
@@ -30393,6 +37648,20 @@ export namespace Prisma {
     deleteMany?: RoomScalarWhereInput | RoomScalarWhereInput[]
   }
 
+  export type PreventiveUncheckedUpdateManyWithoutBuildingNestedInput = {
+    create?: XOR<PreventiveCreateWithoutBuildingInput, PreventiveUncheckedCreateWithoutBuildingInput> | PreventiveCreateWithoutBuildingInput[] | PreventiveUncheckedCreateWithoutBuildingInput[]
+    connectOrCreate?: PreventiveCreateOrConnectWithoutBuildingInput | PreventiveCreateOrConnectWithoutBuildingInput[]
+    upsert?: PreventiveUpsertWithWhereUniqueWithoutBuildingInput | PreventiveUpsertWithWhereUniqueWithoutBuildingInput[]
+    createMany?: PreventiveCreateManyBuildingInputEnvelope
+    set?: PreventiveWhereUniqueInput | PreventiveWhereUniqueInput[]
+    disconnect?: PreventiveWhereUniqueInput | PreventiveWhereUniqueInput[]
+    delete?: PreventiveWhereUniqueInput | PreventiveWhereUniqueInput[]
+    connect?: PreventiveWhereUniqueInput | PreventiveWhereUniqueInput[]
+    update?: PreventiveUpdateWithWhereUniqueWithoutBuildingInput | PreventiveUpdateWithWhereUniqueWithoutBuildingInput[]
+    updateMany?: PreventiveUpdateManyWithWhereWithoutBuildingInput | PreventiveUpdateManyWithWhereWithoutBuildingInput[]
+    deleteMany?: PreventiveScalarWhereInput | PreventiveScalarWhereInput[]
+  }
+
   export type ComplexCreateNestedOneWithoutFloorsInput = {
     create?: XOR<ComplexCreateWithoutFloorsInput, ComplexUncheckedCreateWithoutFloorsInput>
     connectOrCreate?: ComplexCreateOrConnectWithoutFloorsInput
@@ -30419,6 +37688,20 @@ export namespace Prisma {
     connect?: UnitWhereUniqueInput | UnitWhereUniqueInput[]
   }
 
+  export type MaintenanceCreateNestedManyWithoutFloorInput = {
+    create?: XOR<MaintenanceCreateWithoutFloorInput, MaintenanceUncheckedCreateWithoutFloorInput> | MaintenanceCreateWithoutFloorInput[] | MaintenanceUncheckedCreateWithoutFloorInput[]
+    connectOrCreate?: MaintenanceCreateOrConnectWithoutFloorInput | MaintenanceCreateOrConnectWithoutFloorInput[]
+    createMany?: MaintenanceCreateManyFloorInputEnvelope
+    connect?: MaintenanceWhereUniqueInput | MaintenanceWhereUniqueInput[]
+  }
+
+  export type PreventiveCreateNestedManyWithoutFloorInput = {
+    create?: XOR<PreventiveCreateWithoutFloorInput, PreventiveUncheckedCreateWithoutFloorInput> | PreventiveCreateWithoutFloorInput[] | PreventiveUncheckedCreateWithoutFloorInput[]
+    connectOrCreate?: PreventiveCreateOrConnectWithoutFloorInput | PreventiveCreateOrConnectWithoutFloorInput[]
+    createMany?: PreventiveCreateManyFloorInputEnvelope
+    connect?: PreventiveWhereUniqueInput | PreventiveWhereUniqueInput[]
+  }
+
   export type RoomUncheckedCreateNestedManyWithoutFloorInput = {
     create?: XOR<RoomCreateWithoutFloorInput, RoomUncheckedCreateWithoutFloorInput> | RoomCreateWithoutFloorInput[] | RoomUncheckedCreateWithoutFloorInput[]
     connectOrCreate?: RoomCreateOrConnectWithoutFloorInput | RoomCreateOrConnectWithoutFloorInput[]
@@ -30431,6 +37714,20 @@ export namespace Prisma {
     connectOrCreate?: UnitCreateOrConnectWithoutFloorInput | UnitCreateOrConnectWithoutFloorInput[]
     createMany?: UnitCreateManyFloorInputEnvelope
     connect?: UnitWhereUniqueInput | UnitWhereUniqueInput[]
+  }
+
+  export type MaintenanceUncheckedCreateNestedManyWithoutFloorInput = {
+    create?: XOR<MaintenanceCreateWithoutFloorInput, MaintenanceUncheckedCreateWithoutFloorInput> | MaintenanceCreateWithoutFloorInput[] | MaintenanceUncheckedCreateWithoutFloorInput[]
+    connectOrCreate?: MaintenanceCreateOrConnectWithoutFloorInput | MaintenanceCreateOrConnectWithoutFloorInput[]
+    createMany?: MaintenanceCreateManyFloorInputEnvelope
+    connect?: MaintenanceWhereUniqueInput | MaintenanceWhereUniqueInput[]
+  }
+
+  export type PreventiveUncheckedCreateNestedManyWithoutFloorInput = {
+    create?: XOR<PreventiveCreateWithoutFloorInput, PreventiveUncheckedCreateWithoutFloorInput> | PreventiveCreateWithoutFloorInput[] | PreventiveUncheckedCreateWithoutFloorInput[]
+    connectOrCreate?: PreventiveCreateOrConnectWithoutFloorInput | PreventiveCreateOrConnectWithoutFloorInput[]
+    createMany?: PreventiveCreateManyFloorInputEnvelope
+    connect?: PreventiveWhereUniqueInput | PreventiveWhereUniqueInput[]
   }
 
   export type IntFieldUpdateOperationsInput = {
@@ -30485,6 +37782,34 @@ export namespace Prisma {
     deleteMany?: UnitScalarWhereInput | UnitScalarWhereInput[]
   }
 
+  export type MaintenanceUpdateManyWithoutFloorNestedInput = {
+    create?: XOR<MaintenanceCreateWithoutFloorInput, MaintenanceUncheckedCreateWithoutFloorInput> | MaintenanceCreateWithoutFloorInput[] | MaintenanceUncheckedCreateWithoutFloorInput[]
+    connectOrCreate?: MaintenanceCreateOrConnectWithoutFloorInput | MaintenanceCreateOrConnectWithoutFloorInput[]
+    upsert?: MaintenanceUpsertWithWhereUniqueWithoutFloorInput | MaintenanceUpsertWithWhereUniqueWithoutFloorInput[]
+    createMany?: MaintenanceCreateManyFloorInputEnvelope
+    set?: MaintenanceWhereUniqueInput | MaintenanceWhereUniqueInput[]
+    disconnect?: MaintenanceWhereUniqueInput | MaintenanceWhereUniqueInput[]
+    delete?: MaintenanceWhereUniqueInput | MaintenanceWhereUniqueInput[]
+    connect?: MaintenanceWhereUniqueInput | MaintenanceWhereUniqueInput[]
+    update?: MaintenanceUpdateWithWhereUniqueWithoutFloorInput | MaintenanceUpdateWithWhereUniqueWithoutFloorInput[]
+    updateMany?: MaintenanceUpdateManyWithWhereWithoutFloorInput | MaintenanceUpdateManyWithWhereWithoutFloorInput[]
+    deleteMany?: MaintenanceScalarWhereInput | MaintenanceScalarWhereInput[]
+  }
+
+  export type PreventiveUpdateManyWithoutFloorNestedInput = {
+    create?: XOR<PreventiveCreateWithoutFloorInput, PreventiveUncheckedCreateWithoutFloorInput> | PreventiveCreateWithoutFloorInput[] | PreventiveUncheckedCreateWithoutFloorInput[]
+    connectOrCreate?: PreventiveCreateOrConnectWithoutFloorInput | PreventiveCreateOrConnectWithoutFloorInput[]
+    upsert?: PreventiveUpsertWithWhereUniqueWithoutFloorInput | PreventiveUpsertWithWhereUniqueWithoutFloorInput[]
+    createMany?: PreventiveCreateManyFloorInputEnvelope
+    set?: PreventiveWhereUniqueInput | PreventiveWhereUniqueInput[]
+    disconnect?: PreventiveWhereUniqueInput | PreventiveWhereUniqueInput[]
+    delete?: PreventiveWhereUniqueInput | PreventiveWhereUniqueInput[]
+    connect?: PreventiveWhereUniqueInput | PreventiveWhereUniqueInput[]
+    update?: PreventiveUpdateWithWhereUniqueWithoutFloorInput | PreventiveUpdateWithWhereUniqueWithoutFloorInput[]
+    updateMany?: PreventiveUpdateManyWithWhereWithoutFloorInput | PreventiveUpdateManyWithWhereWithoutFloorInput[]
+    deleteMany?: PreventiveScalarWhereInput | PreventiveScalarWhereInput[]
+  }
+
   export type RoomUncheckedUpdateManyWithoutFloorNestedInput = {
     create?: XOR<RoomCreateWithoutFloorInput, RoomUncheckedCreateWithoutFloorInput> | RoomCreateWithoutFloorInput[] | RoomUncheckedCreateWithoutFloorInput[]
     connectOrCreate?: RoomCreateOrConnectWithoutFloorInput | RoomCreateOrConnectWithoutFloorInput[]
@@ -30511,6 +37836,34 @@ export namespace Prisma {
     update?: UnitUpdateWithWhereUniqueWithoutFloorInput | UnitUpdateWithWhereUniqueWithoutFloorInput[]
     updateMany?: UnitUpdateManyWithWhereWithoutFloorInput | UnitUpdateManyWithWhereWithoutFloorInput[]
     deleteMany?: UnitScalarWhereInput | UnitScalarWhereInput[]
+  }
+
+  export type MaintenanceUncheckedUpdateManyWithoutFloorNestedInput = {
+    create?: XOR<MaintenanceCreateWithoutFloorInput, MaintenanceUncheckedCreateWithoutFloorInput> | MaintenanceCreateWithoutFloorInput[] | MaintenanceUncheckedCreateWithoutFloorInput[]
+    connectOrCreate?: MaintenanceCreateOrConnectWithoutFloorInput | MaintenanceCreateOrConnectWithoutFloorInput[]
+    upsert?: MaintenanceUpsertWithWhereUniqueWithoutFloorInput | MaintenanceUpsertWithWhereUniqueWithoutFloorInput[]
+    createMany?: MaintenanceCreateManyFloorInputEnvelope
+    set?: MaintenanceWhereUniqueInput | MaintenanceWhereUniqueInput[]
+    disconnect?: MaintenanceWhereUniqueInput | MaintenanceWhereUniqueInput[]
+    delete?: MaintenanceWhereUniqueInput | MaintenanceWhereUniqueInput[]
+    connect?: MaintenanceWhereUniqueInput | MaintenanceWhereUniqueInput[]
+    update?: MaintenanceUpdateWithWhereUniqueWithoutFloorInput | MaintenanceUpdateWithWhereUniqueWithoutFloorInput[]
+    updateMany?: MaintenanceUpdateManyWithWhereWithoutFloorInput | MaintenanceUpdateManyWithWhereWithoutFloorInput[]
+    deleteMany?: MaintenanceScalarWhereInput | MaintenanceScalarWhereInput[]
+  }
+
+  export type PreventiveUncheckedUpdateManyWithoutFloorNestedInput = {
+    create?: XOR<PreventiveCreateWithoutFloorInput, PreventiveUncheckedCreateWithoutFloorInput> | PreventiveCreateWithoutFloorInput[] | PreventiveUncheckedCreateWithoutFloorInput[]
+    connectOrCreate?: PreventiveCreateOrConnectWithoutFloorInput | PreventiveCreateOrConnectWithoutFloorInput[]
+    upsert?: PreventiveUpsertWithWhereUniqueWithoutFloorInput | PreventiveUpsertWithWhereUniqueWithoutFloorInput[]
+    createMany?: PreventiveCreateManyFloorInputEnvelope
+    set?: PreventiveWhereUniqueInput | PreventiveWhereUniqueInput[]
+    disconnect?: PreventiveWhereUniqueInput | PreventiveWhereUniqueInput[]
+    delete?: PreventiveWhereUniqueInput | PreventiveWhereUniqueInput[]
+    connect?: PreventiveWhereUniqueInput | PreventiveWhereUniqueInput[]
+    update?: PreventiveUpdateWithWhereUniqueWithoutFloorInput | PreventiveUpdateWithWhereUniqueWithoutFloorInput[]
+    updateMany?: PreventiveUpdateManyWithWhereWithoutFloorInput | PreventiveUpdateManyWithWhereWithoutFloorInput[]
+    deleteMany?: PreventiveScalarWhereInput | PreventiveScalarWhereInput[]
   }
 
   export type CalenderEntityCreateNestedOneWithoutUnitsInput = {
@@ -30699,10 +38052,38 @@ export namespace Prisma {
     connect?: FileWhereUniqueInput | FileWhereUniqueInput[]
   }
 
+  export type MaintenanceCreateNestedManyWithoutRoomInput = {
+    create?: XOR<MaintenanceCreateWithoutRoomInput, MaintenanceUncheckedCreateWithoutRoomInput> | MaintenanceCreateWithoutRoomInput[] | MaintenanceUncheckedCreateWithoutRoomInput[]
+    connectOrCreate?: MaintenanceCreateOrConnectWithoutRoomInput | MaintenanceCreateOrConnectWithoutRoomInput[]
+    createMany?: MaintenanceCreateManyRoomInputEnvelope
+    connect?: MaintenanceWhereUniqueInput | MaintenanceWhereUniqueInput[]
+  }
+
+  export type PreventiveCreateNestedManyWithoutRoomInput = {
+    create?: XOR<PreventiveCreateWithoutRoomInput, PreventiveUncheckedCreateWithoutRoomInput> | PreventiveCreateWithoutRoomInput[] | PreventiveUncheckedCreateWithoutRoomInput[]
+    connectOrCreate?: PreventiveCreateOrConnectWithoutRoomInput | PreventiveCreateOrConnectWithoutRoomInput[]
+    createMany?: PreventiveCreateManyRoomInputEnvelope
+    connect?: PreventiveWhereUniqueInput | PreventiveWhereUniqueInput[]
+  }
+
   export type FileUncheckedCreateNestedManyWithoutRoomsInput = {
     create?: XOR<FileCreateWithoutRoomsInput, FileUncheckedCreateWithoutRoomsInput> | FileCreateWithoutRoomsInput[] | FileUncheckedCreateWithoutRoomsInput[]
     connectOrCreate?: FileCreateOrConnectWithoutRoomsInput | FileCreateOrConnectWithoutRoomsInput[]
     connect?: FileWhereUniqueInput | FileWhereUniqueInput[]
+  }
+
+  export type MaintenanceUncheckedCreateNestedManyWithoutRoomInput = {
+    create?: XOR<MaintenanceCreateWithoutRoomInput, MaintenanceUncheckedCreateWithoutRoomInput> | MaintenanceCreateWithoutRoomInput[] | MaintenanceUncheckedCreateWithoutRoomInput[]
+    connectOrCreate?: MaintenanceCreateOrConnectWithoutRoomInput | MaintenanceCreateOrConnectWithoutRoomInput[]
+    createMany?: MaintenanceCreateManyRoomInputEnvelope
+    connect?: MaintenanceWhereUniqueInput | MaintenanceWhereUniqueInput[]
+  }
+
+  export type PreventiveUncheckedCreateNestedManyWithoutRoomInput = {
+    create?: XOR<PreventiveCreateWithoutRoomInput, PreventiveUncheckedCreateWithoutRoomInput> | PreventiveCreateWithoutRoomInput[] | PreventiveUncheckedCreateWithoutRoomInput[]
+    connectOrCreate?: PreventiveCreateOrConnectWithoutRoomInput | PreventiveCreateOrConnectWithoutRoomInput[]
+    createMany?: PreventiveCreateManyRoomInputEnvelope
+    connect?: PreventiveWhereUniqueInput | PreventiveWhereUniqueInput[]
   }
 
   export type EnumRoomUseFieldUpdateOperationsInput = {
@@ -30774,6 +38155,34 @@ export namespace Prisma {
     deleteMany?: FileScalarWhereInput | FileScalarWhereInput[]
   }
 
+  export type MaintenanceUpdateManyWithoutRoomNestedInput = {
+    create?: XOR<MaintenanceCreateWithoutRoomInput, MaintenanceUncheckedCreateWithoutRoomInput> | MaintenanceCreateWithoutRoomInput[] | MaintenanceUncheckedCreateWithoutRoomInput[]
+    connectOrCreate?: MaintenanceCreateOrConnectWithoutRoomInput | MaintenanceCreateOrConnectWithoutRoomInput[]
+    upsert?: MaintenanceUpsertWithWhereUniqueWithoutRoomInput | MaintenanceUpsertWithWhereUniqueWithoutRoomInput[]
+    createMany?: MaintenanceCreateManyRoomInputEnvelope
+    set?: MaintenanceWhereUniqueInput | MaintenanceWhereUniqueInput[]
+    disconnect?: MaintenanceWhereUniqueInput | MaintenanceWhereUniqueInput[]
+    delete?: MaintenanceWhereUniqueInput | MaintenanceWhereUniqueInput[]
+    connect?: MaintenanceWhereUniqueInput | MaintenanceWhereUniqueInput[]
+    update?: MaintenanceUpdateWithWhereUniqueWithoutRoomInput | MaintenanceUpdateWithWhereUniqueWithoutRoomInput[]
+    updateMany?: MaintenanceUpdateManyWithWhereWithoutRoomInput | MaintenanceUpdateManyWithWhereWithoutRoomInput[]
+    deleteMany?: MaintenanceScalarWhereInput | MaintenanceScalarWhereInput[]
+  }
+
+  export type PreventiveUpdateManyWithoutRoomNestedInput = {
+    create?: XOR<PreventiveCreateWithoutRoomInput, PreventiveUncheckedCreateWithoutRoomInput> | PreventiveCreateWithoutRoomInput[] | PreventiveUncheckedCreateWithoutRoomInput[]
+    connectOrCreate?: PreventiveCreateOrConnectWithoutRoomInput | PreventiveCreateOrConnectWithoutRoomInput[]
+    upsert?: PreventiveUpsertWithWhereUniqueWithoutRoomInput | PreventiveUpsertWithWhereUniqueWithoutRoomInput[]
+    createMany?: PreventiveCreateManyRoomInputEnvelope
+    set?: PreventiveWhereUniqueInput | PreventiveWhereUniqueInput[]
+    disconnect?: PreventiveWhereUniqueInput | PreventiveWhereUniqueInput[]
+    delete?: PreventiveWhereUniqueInput | PreventiveWhereUniqueInput[]
+    connect?: PreventiveWhereUniqueInput | PreventiveWhereUniqueInput[]
+    update?: PreventiveUpdateWithWhereUniqueWithoutRoomInput | PreventiveUpdateWithWhereUniqueWithoutRoomInput[]
+    updateMany?: PreventiveUpdateManyWithWhereWithoutRoomInput | PreventiveUpdateManyWithWhereWithoutRoomInput[]
+    deleteMany?: PreventiveScalarWhereInput | PreventiveScalarWhereInput[]
+  }
+
   export type FileUncheckedUpdateManyWithoutRoomsNestedInput = {
     create?: XOR<FileCreateWithoutRoomsInput, FileUncheckedCreateWithoutRoomsInput> | FileCreateWithoutRoomsInput[] | FileUncheckedCreateWithoutRoomsInput[]
     connectOrCreate?: FileCreateOrConnectWithoutRoomsInput | FileCreateOrConnectWithoutRoomsInput[]
@@ -30785,6 +38194,34 @@ export namespace Prisma {
     update?: FileUpdateWithWhereUniqueWithoutRoomsInput | FileUpdateWithWhereUniqueWithoutRoomsInput[]
     updateMany?: FileUpdateManyWithWhereWithoutRoomsInput | FileUpdateManyWithWhereWithoutRoomsInput[]
     deleteMany?: FileScalarWhereInput | FileScalarWhereInput[]
+  }
+
+  export type MaintenanceUncheckedUpdateManyWithoutRoomNestedInput = {
+    create?: XOR<MaintenanceCreateWithoutRoomInput, MaintenanceUncheckedCreateWithoutRoomInput> | MaintenanceCreateWithoutRoomInput[] | MaintenanceUncheckedCreateWithoutRoomInput[]
+    connectOrCreate?: MaintenanceCreateOrConnectWithoutRoomInput | MaintenanceCreateOrConnectWithoutRoomInput[]
+    upsert?: MaintenanceUpsertWithWhereUniqueWithoutRoomInput | MaintenanceUpsertWithWhereUniqueWithoutRoomInput[]
+    createMany?: MaintenanceCreateManyRoomInputEnvelope
+    set?: MaintenanceWhereUniqueInput | MaintenanceWhereUniqueInput[]
+    disconnect?: MaintenanceWhereUniqueInput | MaintenanceWhereUniqueInput[]
+    delete?: MaintenanceWhereUniqueInput | MaintenanceWhereUniqueInput[]
+    connect?: MaintenanceWhereUniqueInput | MaintenanceWhereUniqueInput[]
+    update?: MaintenanceUpdateWithWhereUniqueWithoutRoomInput | MaintenanceUpdateWithWhereUniqueWithoutRoomInput[]
+    updateMany?: MaintenanceUpdateManyWithWhereWithoutRoomInput | MaintenanceUpdateManyWithWhereWithoutRoomInput[]
+    deleteMany?: MaintenanceScalarWhereInput | MaintenanceScalarWhereInput[]
+  }
+
+  export type PreventiveUncheckedUpdateManyWithoutRoomNestedInput = {
+    create?: XOR<PreventiveCreateWithoutRoomInput, PreventiveUncheckedCreateWithoutRoomInput> | PreventiveCreateWithoutRoomInput[] | PreventiveUncheckedCreateWithoutRoomInput[]
+    connectOrCreate?: PreventiveCreateOrConnectWithoutRoomInput | PreventiveCreateOrConnectWithoutRoomInput[]
+    upsert?: PreventiveUpsertWithWhereUniqueWithoutRoomInput | PreventiveUpsertWithWhereUniqueWithoutRoomInput[]
+    createMany?: PreventiveCreateManyRoomInputEnvelope
+    set?: PreventiveWhereUniqueInput | PreventiveWhereUniqueInput[]
+    disconnect?: PreventiveWhereUniqueInput | PreventiveWhereUniqueInput[]
+    delete?: PreventiveWhereUniqueInput | PreventiveWhereUniqueInput[]
+    connect?: PreventiveWhereUniqueInput | PreventiveWhereUniqueInput[]
+    update?: PreventiveUpdateWithWhereUniqueWithoutRoomInput | PreventiveUpdateWithWhereUniqueWithoutRoomInput[]
+    updateMany?: PreventiveUpdateManyWithWhereWithoutRoomInput | PreventiveUpdateManyWithWhereWithoutRoomInput[]
+    deleteMany?: PreventiveScalarWhereInput | PreventiveScalarWhereInput[]
   }
 
   export type AssetCreateNestedManyWithoutCategoryInput = {
@@ -30839,12 +38276,54 @@ export namespace Prisma {
     connect?: AssetCategoryWhereUniqueInput
   }
 
+  export type MaintenanceCreateNestedManyWithoutAssetInput = {
+    create?: XOR<MaintenanceCreateWithoutAssetInput, MaintenanceUncheckedCreateWithoutAssetInput> | MaintenanceCreateWithoutAssetInput[] | MaintenanceUncheckedCreateWithoutAssetInput[]
+    connectOrCreate?: MaintenanceCreateOrConnectWithoutAssetInput | MaintenanceCreateOrConnectWithoutAssetInput[]
+    createMany?: MaintenanceCreateManyAssetInputEnvelope
+    connect?: MaintenanceWhereUniqueInput | MaintenanceWhereUniqueInput[]
+  }
+
+  export type MaintenanceUncheckedCreateNestedManyWithoutAssetInput = {
+    create?: XOR<MaintenanceCreateWithoutAssetInput, MaintenanceUncheckedCreateWithoutAssetInput> | MaintenanceCreateWithoutAssetInput[] | MaintenanceUncheckedCreateWithoutAssetInput[]
+    connectOrCreate?: MaintenanceCreateOrConnectWithoutAssetInput | MaintenanceCreateOrConnectWithoutAssetInput[]
+    createMany?: MaintenanceCreateManyAssetInputEnvelope
+    connect?: MaintenanceWhereUniqueInput | MaintenanceWhereUniqueInput[]
+  }
+
   export type AssetCategoryUpdateOneRequiredWithoutAssetsNestedInput = {
     create?: XOR<AssetCategoryCreateWithoutAssetsInput, AssetCategoryUncheckedCreateWithoutAssetsInput>
     connectOrCreate?: AssetCategoryCreateOrConnectWithoutAssetsInput
     upsert?: AssetCategoryUpsertWithoutAssetsInput
     connect?: AssetCategoryWhereUniqueInput
     update?: XOR<XOR<AssetCategoryUpdateToOneWithWhereWithoutAssetsInput, AssetCategoryUpdateWithoutAssetsInput>, AssetCategoryUncheckedUpdateWithoutAssetsInput>
+  }
+
+  export type MaintenanceUpdateManyWithoutAssetNestedInput = {
+    create?: XOR<MaintenanceCreateWithoutAssetInput, MaintenanceUncheckedCreateWithoutAssetInput> | MaintenanceCreateWithoutAssetInput[] | MaintenanceUncheckedCreateWithoutAssetInput[]
+    connectOrCreate?: MaintenanceCreateOrConnectWithoutAssetInput | MaintenanceCreateOrConnectWithoutAssetInput[]
+    upsert?: MaintenanceUpsertWithWhereUniqueWithoutAssetInput | MaintenanceUpsertWithWhereUniqueWithoutAssetInput[]
+    createMany?: MaintenanceCreateManyAssetInputEnvelope
+    set?: MaintenanceWhereUniqueInput | MaintenanceWhereUniqueInput[]
+    disconnect?: MaintenanceWhereUniqueInput | MaintenanceWhereUniqueInput[]
+    delete?: MaintenanceWhereUniqueInput | MaintenanceWhereUniqueInput[]
+    connect?: MaintenanceWhereUniqueInput | MaintenanceWhereUniqueInput[]
+    update?: MaintenanceUpdateWithWhereUniqueWithoutAssetInput | MaintenanceUpdateWithWhereUniqueWithoutAssetInput[]
+    updateMany?: MaintenanceUpdateManyWithWhereWithoutAssetInput | MaintenanceUpdateManyWithWhereWithoutAssetInput[]
+    deleteMany?: MaintenanceScalarWhereInput | MaintenanceScalarWhereInput[]
+  }
+
+  export type MaintenanceUncheckedUpdateManyWithoutAssetNestedInput = {
+    create?: XOR<MaintenanceCreateWithoutAssetInput, MaintenanceUncheckedCreateWithoutAssetInput> | MaintenanceCreateWithoutAssetInput[] | MaintenanceUncheckedCreateWithoutAssetInput[]
+    connectOrCreate?: MaintenanceCreateOrConnectWithoutAssetInput | MaintenanceCreateOrConnectWithoutAssetInput[]
+    upsert?: MaintenanceUpsertWithWhereUniqueWithoutAssetInput | MaintenanceUpsertWithWhereUniqueWithoutAssetInput[]
+    createMany?: MaintenanceCreateManyAssetInputEnvelope
+    set?: MaintenanceWhereUniqueInput | MaintenanceWhereUniqueInput[]
+    disconnect?: MaintenanceWhereUniqueInput | MaintenanceWhereUniqueInput[]
+    delete?: MaintenanceWhereUniqueInput | MaintenanceWhereUniqueInput[]
+    connect?: MaintenanceWhereUniqueInput | MaintenanceWhereUniqueInput[]
+    update?: MaintenanceUpdateWithWhereUniqueWithoutAssetInput | MaintenanceUpdateWithWhereUniqueWithoutAssetInput[]
+    updateMany?: MaintenanceUpdateManyWithWhereWithoutAssetInput | MaintenanceUpdateManyWithWhereWithoutAssetInput[]
+    deleteMany?: MaintenanceScalarWhereInput | MaintenanceScalarWhereInput[]
   }
 
   export type RoomCreateNestedManyWithoutPhotosInput = {
@@ -30869,6 +38348,12 @@ export namespace Prisma {
     create?: XOR<ComplexCreateWithoutPhotosInput, ComplexUncheckedCreateWithoutPhotosInput> | ComplexCreateWithoutPhotosInput[] | ComplexUncheckedCreateWithoutPhotosInput[]
     connectOrCreate?: ComplexCreateOrConnectWithoutPhotosInput | ComplexCreateOrConnectWithoutPhotosInput[]
     connect?: ComplexWhereUniqueInput | ComplexWhereUniqueInput[]
+  }
+
+  export type MaintenanceCreateNestedOneWithoutPhotosInput = {
+    create?: XOR<MaintenanceCreateWithoutPhotosInput, MaintenanceUncheckedCreateWithoutPhotosInput>
+    connectOrCreate?: MaintenanceCreateOrConnectWithoutPhotosInput
+    connect?: MaintenanceWhereUniqueInput
   }
 
   export type RoomUncheckedCreateNestedManyWithoutPhotosInput = {
@@ -30945,6 +38430,16 @@ export namespace Prisma {
     update?: ComplexUpdateWithWhereUniqueWithoutPhotosInput | ComplexUpdateWithWhereUniqueWithoutPhotosInput[]
     updateMany?: ComplexUpdateManyWithWhereWithoutPhotosInput | ComplexUpdateManyWithWhereWithoutPhotosInput[]
     deleteMany?: ComplexScalarWhereInput | ComplexScalarWhereInput[]
+  }
+
+  export type MaintenanceUpdateOneWithoutPhotosNestedInput = {
+    create?: XOR<MaintenanceCreateWithoutPhotosInput, MaintenanceUncheckedCreateWithoutPhotosInput>
+    connectOrCreate?: MaintenanceCreateOrConnectWithoutPhotosInput
+    upsert?: MaintenanceUpsertWithoutPhotosInput
+    disconnect?: MaintenanceWhereInput | boolean
+    delete?: MaintenanceWhereInput | boolean
+    connect?: MaintenanceWhereUniqueInput
+    update?: XOR<XOR<MaintenanceUpdateToOneWithWhereWithoutPhotosInput, MaintenanceUpdateWithoutPhotosInput>, MaintenanceUncheckedUpdateWithoutPhotosInput>
   }
 
   export type RoomUncheckedUpdateManyWithoutPhotosNestedInput = {
@@ -31084,11 +38579,53 @@ export namespace Prisma {
     connect?: TeamWhereUniqueInput | TeamWhereUniqueInput[]
   }
 
+  export type MaintenanceCreateNestedManyWithoutPerformerInput = {
+    create?: XOR<MaintenanceCreateWithoutPerformerInput, MaintenanceUncheckedCreateWithoutPerformerInput> | MaintenanceCreateWithoutPerformerInput[] | MaintenanceUncheckedCreateWithoutPerformerInput[]
+    connectOrCreate?: MaintenanceCreateOrConnectWithoutPerformerInput | MaintenanceCreateOrConnectWithoutPerformerInput[]
+    createMany?: MaintenanceCreateManyPerformerInputEnvelope
+    connect?: MaintenanceWhereUniqueInput | MaintenanceWhereUniqueInput[]
+  }
+
+  export type MaintenanceCreateNestedManyWithoutRequesterInput = {
+    create?: XOR<MaintenanceCreateWithoutRequesterInput, MaintenanceUncheckedCreateWithoutRequesterInput> | MaintenanceCreateWithoutRequesterInput[] | MaintenanceUncheckedCreateWithoutRequesterInput[]
+    connectOrCreate?: MaintenanceCreateOrConnectWithoutRequesterInput | MaintenanceCreateOrConnectWithoutRequesterInput[]
+    createMany?: MaintenanceCreateManyRequesterInputEnvelope
+    connect?: MaintenanceWhereUniqueInput | MaintenanceWhereUniqueInput[]
+  }
+
+  export type MaintenanceCreateNestedManyWithoutAssigneeInput = {
+    create?: XOR<MaintenanceCreateWithoutAssigneeInput, MaintenanceUncheckedCreateWithoutAssigneeInput> | MaintenanceCreateWithoutAssigneeInput[] | MaintenanceUncheckedCreateWithoutAssigneeInput[]
+    connectOrCreate?: MaintenanceCreateOrConnectWithoutAssigneeInput | MaintenanceCreateOrConnectWithoutAssigneeInput[]
+    createMany?: MaintenanceCreateManyAssigneeInputEnvelope
+    connect?: MaintenanceWhereUniqueInput | MaintenanceWhereUniqueInput[]
+  }
+
   export type TeamUncheckedCreateNestedManyWithoutSupervisorInput = {
     create?: XOR<TeamCreateWithoutSupervisorInput, TeamUncheckedCreateWithoutSupervisorInput> | TeamCreateWithoutSupervisorInput[] | TeamUncheckedCreateWithoutSupervisorInput[]
     connectOrCreate?: TeamCreateOrConnectWithoutSupervisorInput | TeamCreateOrConnectWithoutSupervisorInput[]
     createMany?: TeamCreateManySupervisorInputEnvelope
     connect?: TeamWhereUniqueInput | TeamWhereUniqueInput[]
+  }
+
+  export type MaintenanceUncheckedCreateNestedManyWithoutPerformerInput = {
+    create?: XOR<MaintenanceCreateWithoutPerformerInput, MaintenanceUncheckedCreateWithoutPerformerInput> | MaintenanceCreateWithoutPerformerInput[] | MaintenanceUncheckedCreateWithoutPerformerInput[]
+    connectOrCreate?: MaintenanceCreateOrConnectWithoutPerformerInput | MaintenanceCreateOrConnectWithoutPerformerInput[]
+    createMany?: MaintenanceCreateManyPerformerInputEnvelope
+    connect?: MaintenanceWhereUniqueInput | MaintenanceWhereUniqueInput[]
+  }
+
+  export type MaintenanceUncheckedCreateNestedManyWithoutRequesterInput = {
+    create?: XOR<MaintenanceCreateWithoutRequesterInput, MaintenanceUncheckedCreateWithoutRequesterInput> | MaintenanceCreateWithoutRequesterInput[] | MaintenanceUncheckedCreateWithoutRequesterInput[]
+    connectOrCreate?: MaintenanceCreateOrConnectWithoutRequesterInput | MaintenanceCreateOrConnectWithoutRequesterInput[]
+    createMany?: MaintenanceCreateManyRequesterInputEnvelope
+    connect?: MaintenanceWhereUniqueInput | MaintenanceWhereUniqueInput[]
+  }
+
+  export type MaintenanceUncheckedCreateNestedManyWithoutAssigneeInput = {
+    create?: XOR<MaintenanceCreateWithoutAssigneeInput, MaintenanceUncheckedCreateWithoutAssigneeInput> | MaintenanceCreateWithoutAssigneeInput[] | MaintenanceUncheckedCreateWithoutAssigneeInput[]
+    connectOrCreate?: MaintenanceCreateOrConnectWithoutAssigneeInput | MaintenanceCreateOrConnectWithoutAssigneeInput[]
+    createMany?: MaintenanceCreateManyAssigneeInputEnvelope
+    connect?: MaintenanceWhereUniqueInput | MaintenanceWhereUniqueInput[]
   }
 
   export type EnumEmployeeTypeFieldUpdateOperationsInput = {
@@ -31135,6 +38672,48 @@ export namespace Prisma {
     deleteMany?: TeamScalarWhereInput | TeamScalarWhereInput[]
   }
 
+  export type MaintenanceUpdateManyWithoutPerformerNestedInput = {
+    create?: XOR<MaintenanceCreateWithoutPerformerInput, MaintenanceUncheckedCreateWithoutPerformerInput> | MaintenanceCreateWithoutPerformerInput[] | MaintenanceUncheckedCreateWithoutPerformerInput[]
+    connectOrCreate?: MaintenanceCreateOrConnectWithoutPerformerInput | MaintenanceCreateOrConnectWithoutPerformerInput[]
+    upsert?: MaintenanceUpsertWithWhereUniqueWithoutPerformerInput | MaintenanceUpsertWithWhereUniqueWithoutPerformerInput[]
+    createMany?: MaintenanceCreateManyPerformerInputEnvelope
+    set?: MaintenanceWhereUniqueInput | MaintenanceWhereUniqueInput[]
+    disconnect?: MaintenanceWhereUniqueInput | MaintenanceWhereUniqueInput[]
+    delete?: MaintenanceWhereUniqueInput | MaintenanceWhereUniqueInput[]
+    connect?: MaintenanceWhereUniqueInput | MaintenanceWhereUniqueInput[]
+    update?: MaintenanceUpdateWithWhereUniqueWithoutPerformerInput | MaintenanceUpdateWithWhereUniqueWithoutPerformerInput[]
+    updateMany?: MaintenanceUpdateManyWithWhereWithoutPerformerInput | MaintenanceUpdateManyWithWhereWithoutPerformerInput[]
+    deleteMany?: MaintenanceScalarWhereInput | MaintenanceScalarWhereInput[]
+  }
+
+  export type MaintenanceUpdateManyWithoutRequesterNestedInput = {
+    create?: XOR<MaintenanceCreateWithoutRequesterInput, MaintenanceUncheckedCreateWithoutRequesterInput> | MaintenanceCreateWithoutRequesterInput[] | MaintenanceUncheckedCreateWithoutRequesterInput[]
+    connectOrCreate?: MaintenanceCreateOrConnectWithoutRequesterInput | MaintenanceCreateOrConnectWithoutRequesterInput[]
+    upsert?: MaintenanceUpsertWithWhereUniqueWithoutRequesterInput | MaintenanceUpsertWithWhereUniqueWithoutRequesterInput[]
+    createMany?: MaintenanceCreateManyRequesterInputEnvelope
+    set?: MaintenanceWhereUniqueInput | MaintenanceWhereUniqueInput[]
+    disconnect?: MaintenanceWhereUniqueInput | MaintenanceWhereUniqueInput[]
+    delete?: MaintenanceWhereUniqueInput | MaintenanceWhereUniqueInput[]
+    connect?: MaintenanceWhereUniqueInput | MaintenanceWhereUniqueInput[]
+    update?: MaintenanceUpdateWithWhereUniqueWithoutRequesterInput | MaintenanceUpdateWithWhereUniqueWithoutRequesterInput[]
+    updateMany?: MaintenanceUpdateManyWithWhereWithoutRequesterInput | MaintenanceUpdateManyWithWhereWithoutRequesterInput[]
+    deleteMany?: MaintenanceScalarWhereInput | MaintenanceScalarWhereInput[]
+  }
+
+  export type MaintenanceUpdateManyWithoutAssigneeNestedInput = {
+    create?: XOR<MaintenanceCreateWithoutAssigneeInput, MaintenanceUncheckedCreateWithoutAssigneeInput> | MaintenanceCreateWithoutAssigneeInput[] | MaintenanceUncheckedCreateWithoutAssigneeInput[]
+    connectOrCreate?: MaintenanceCreateOrConnectWithoutAssigneeInput | MaintenanceCreateOrConnectWithoutAssigneeInput[]
+    upsert?: MaintenanceUpsertWithWhereUniqueWithoutAssigneeInput | MaintenanceUpsertWithWhereUniqueWithoutAssigneeInput[]
+    createMany?: MaintenanceCreateManyAssigneeInputEnvelope
+    set?: MaintenanceWhereUniqueInput | MaintenanceWhereUniqueInput[]
+    disconnect?: MaintenanceWhereUniqueInput | MaintenanceWhereUniqueInput[]
+    delete?: MaintenanceWhereUniqueInput | MaintenanceWhereUniqueInput[]
+    connect?: MaintenanceWhereUniqueInput | MaintenanceWhereUniqueInput[]
+    update?: MaintenanceUpdateWithWhereUniqueWithoutAssigneeInput | MaintenanceUpdateWithWhereUniqueWithoutAssigneeInput[]
+    updateMany?: MaintenanceUpdateManyWithWhereWithoutAssigneeInput | MaintenanceUpdateManyWithWhereWithoutAssigneeInput[]
+    deleteMany?: MaintenanceScalarWhereInput | MaintenanceScalarWhereInput[]
+  }
+
   export type TeamUncheckedUpdateManyWithoutSupervisorNestedInput = {
     create?: XOR<TeamCreateWithoutSupervisorInput, TeamUncheckedCreateWithoutSupervisorInput> | TeamCreateWithoutSupervisorInput[] | TeamUncheckedCreateWithoutSupervisorInput[]
     connectOrCreate?: TeamCreateOrConnectWithoutSupervisorInput | TeamCreateOrConnectWithoutSupervisorInput[]
@@ -31149,10 +38728,80 @@ export namespace Prisma {
     deleteMany?: TeamScalarWhereInput | TeamScalarWhereInput[]
   }
 
+  export type MaintenanceUncheckedUpdateManyWithoutPerformerNestedInput = {
+    create?: XOR<MaintenanceCreateWithoutPerformerInput, MaintenanceUncheckedCreateWithoutPerformerInput> | MaintenanceCreateWithoutPerformerInput[] | MaintenanceUncheckedCreateWithoutPerformerInput[]
+    connectOrCreate?: MaintenanceCreateOrConnectWithoutPerformerInput | MaintenanceCreateOrConnectWithoutPerformerInput[]
+    upsert?: MaintenanceUpsertWithWhereUniqueWithoutPerformerInput | MaintenanceUpsertWithWhereUniqueWithoutPerformerInput[]
+    createMany?: MaintenanceCreateManyPerformerInputEnvelope
+    set?: MaintenanceWhereUniqueInput | MaintenanceWhereUniqueInput[]
+    disconnect?: MaintenanceWhereUniqueInput | MaintenanceWhereUniqueInput[]
+    delete?: MaintenanceWhereUniqueInput | MaintenanceWhereUniqueInput[]
+    connect?: MaintenanceWhereUniqueInput | MaintenanceWhereUniqueInput[]
+    update?: MaintenanceUpdateWithWhereUniqueWithoutPerformerInput | MaintenanceUpdateWithWhereUniqueWithoutPerformerInput[]
+    updateMany?: MaintenanceUpdateManyWithWhereWithoutPerformerInput | MaintenanceUpdateManyWithWhereWithoutPerformerInput[]
+    deleteMany?: MaintenanceScalarWhereInput | MaintenanceScalarWhereInput[]
+  }
+
+  export type MaintenanceUncheckedUpdateManyWithoutRequesterNestedInput = {
+    create?: XOR<MaintenanceCreateWithoutRequesterInput, MaintenanceUncheckedCreateWithoutRequesterInput> | MaintenanceCreateWithoutRequesterInput[] | MaintenanceUncheckedCreateWithoutRequesterInput[]
+    connectOrCreate?: MaintenanceCreateOrConnectWithoutRequesterInput | MaintenanceCreateOrConnectWithoutRequesterInput[]
+    upsert?: MaintenanceUpsertWithWhereUniqueWithoutRequesterInput | MaintenanceUpsertWithWhereUniqueWithoutRequesterInput[]
+    createMany?: MaintenanceCreateManyRequesterInputEnvelope
+    set?: MaintenanceWhereUniqueInput | MaintenanceWhereUniqueInput[]
+    disconnect?: MaintenanceWhereUniqueInput | MaintenanceWhereUniqueInput[]
+    delete?: MaintenanceWhereUniqueInput | MaintenanceWhereUniqueInput[]
+    connect?: MaintenanceWhereUniqueInput | MaintenanceWhereUniqueInput[]
+    update?: MaintenanceUpdateWithWhereUniqueWithoutRequesterInput | MaintenanceUpdateWithWhereUniqueWithoutRequesterInput[]
+    updateMany?: MaintenanceUpdateManyWithWhereWithoutRequesterInput | MaintenanceUpdateManyWithWhereWithoutRequesterInput[]
+    deleteMany?: MaintenanceScalarWhereInput | MaintenanceScalarWhereInput[]
+  }
+
+  export type MaintenanceUncheckedUpdateManyWithoutAssigneeNestedInput = {
+    create?: XOR<MaintenanceCreateWithoutAssigneeInput, MaintenanceUncheckedCreateWithoutAssigneeInput> | MaintenanceCreateWithoutAssigneeInput[] | MaintenanceUncheckedCreateWithoutAssigneeInput[]
+    connectOrCreate?: MaintenanceCreateOrConnectWithoutAssigneeInput | MaintenanceCreateOrConnectWithoutAssigneeInput[]
+    upsert?: MaintenanceUpsertWithWhereUniqueWithoutAssigneeInput | MaintenanceUpsertWithWhereUniqueWithoutAssigneeInput[]
+    createMany?: MaintenanceCreateManyAssigneeInputEnvelope
+    set?: MaintenanceWhereUniqueInput | MaintenanceWhereUniqueInput[]
+    disconnect?: MaintenanceWhereUniqueInput | MaintenanceWhereUniqueInput[]
+    delete?: MaintenanceWhereUniqueInput | MaintenanceWhereUniqueInput[]
+    connect?: MaintenanceWhereUniqueInput | MaintenanceWhereUniqueInput[]
+    update?: MaintenanceUpdateWithWhereUniqueWithoutAssigneeInput | MaintenanceUpdateWithWhereUniqueWithoutAssigneeInput[]
+    updateMany?: MaintenanceUpdateManyWithWhereWithoutAssigneeInput | MaintenanceUpdateManyWithWhereWithoutAssigneeInput[]
+    deleteMany?: MaintenanceScalarWhereInput | MaintenanceScalarWhereInput[]
+  }
+
   export type EmployeeCreateNestedOneWithoutTeamsInput = {
     create?: XOR<EmployeeCreateWithoutTeamsInput, EmployeeUncheckedCreateWithoutTeamsInput>
     connectOrCreate?: EmployeeCreateOrConnectWithoutTeamsInput
     connect?: EmployeeWhereUniqueInput
+  }
+
+  export type MaintenanceCreateNestedManyWithoutTeamInput = {
+    create?: XOR<MaintenanceCreateWithoutTeamInput, MaintenanceUncheckedCreateWithoutTeamInput> | MaintenanceCreateWithoutTeamInput[] | MaintenanceUncheckedCreateWithoutTeamInput[]
+    connectOrCreate?: MaintenanceCreateOrConnectWithoutTeamInput | MaintenanceCreateOrConnectWithoutTeamInput[]
+    createMany?: MaintenanceCreateManyTeamInputEnvelope
+    connect?: MaintenanceWhereUniqueInput | MaintenanceWhereUniqueInput[]
+  }
+
+  export type PreventiveCreateNestedManyWithoutTeamInput = {
+    create?: XOR<PreventiveCreateWithoutTeamInput, PreventiveUncheckedCreateWithoutTeamInput> | PreventiveCreateWithoutTeamInput[] | PreventiveUncheckedCreateWithoutTeamInput[]
+    connectOrCreate?: PreventiveCreateOrConnectWithoutTeamInput | PreventiveCreateOrConnectWithoutTeamInput[]
+    createMany?: PreventiveCreateManyTeamInputEnvelope
+    connect?: PreventiveWhereUniqueInput | PreventiveWhereUniqueInput[]
+  }
+
+  export type MaintenanceUncheckedCreateNestedManyWithoutTeamInput = {
+    create?: XOR<MaintenanceCreateWithoutTeamInput, MaintenanceUncheckedCreateWithoutTeamInput> | MaintenanceCreateWithoutTeamInput[] | MaintenanceUncheckedCreateWithoutTeamInput[]
+    connectOrCreate?: MaintenanceCreateOrConnectWithoutTeamInput | MaintenanceCreateOrConnectWithoutTeamInput[]
+    createMany?: MaintenanceCreateManyTeamInputEnvelope
+    connect?: MaintenanceWhereUniqueInput | MaintenanceWhereUniqueInput[]
+  }
+
+  export type PreventiveUncheckedCreateNestedManyWithoutTeamInput = {
+    create?: XOR<PreventiveCreateWithoutTeamInput, PreventiveUncheckedCreateWithoutTeamInput> | PreventiveCreateWithoutTeamInput[] | PreventiveUncheckedCreateWithoutTeamInput[]
+    connectOrCreate?: PreventiveCreateOrConnectWithoutTeamInput | PreventiveCreateOrConnectWithoutTeamInput[]
+    createMany?: PreventiveCreateManyTeamInputEnvelope
+    connect?: PreventiveWhereUniqueInput | PreventiveWhereUniqueInput[]
   }
 
   export type EmployeeUpdateOneRequiredWithoutTeamsNestedInput = {
@@ -31161,6 +38810,62 @@ export namespace Prisma {
     upsert?: EmployeeUpsertWithoutTeamsInput
     connect?: EmployeeWhereUniqueInput
     update?: XOR<XOR<EmployeeUpdateToOneWithWhereWithoutTeamsInput, EmployeeUpdateWithoutTeamsInput>, EmployeeUncheckedUpdateWithoutTeamsInput>
+  }
+
+  export type MaintenanceUpdateManyWithoutTeamNestedInput = {
+    create?: XOR<MaintenanceCreateWithoutTeamInput, MaintenanceUncheckedCreateWithoutTeamInput> | MaintenanceCreateWithoutTeamInput[] | MaintenanceUncheckedCreateWithoutTeamInput[]
+    connectOrCreate?: MaintenanceCreateOrConnectWithoutTeamInput | MaintenanceCreateOrConnectWithoutTeamInput[]
+    upsert?: MaintenanceUpsertWithWhereUniqueWithoutTeamInput | MaintenanceUpsertWithWhereUniqueWithoutTeamInput[]
+    createMany?: MaintenanceCreateManyTeamInputEnvelope
+    set?: MaintenanceWhereUniqueInput | MaintenanceWhereUniqueInput[]
+    disconnect?: MaintenanceWhereUniqueInput | MaintenanceWhereUniqueInput[]
+    delete?: MaintenanceWhereUniqueInput | MaintenanceWhereUniqueInput[]
+    connect?: MaintenanceWhereUniqueInput | MaintenanceWhereUniqueInput[]
+    update?: MaintenanceUpdateWithWhereUniqueWithoutTeamInput | MaintenanceUpdateWithWhereUniqueWithoutTeamInput[]
+    updateMany?: MaintenanceUpdateManyWithWhereWithoutTeamInput | MaintenanceUpdateManyWithWhereWithoutTeamInput[]
+    deleteMany?: MaintenanceScalarWhereInput | MaintenanceScalarWhereInput[]
+  }
+
+  export type PreventiveUpdateManyWithoutTeamNestedInput = {
+    create?: XOR<PreventiveCreateWithoutTeamInput, PreventiveUncheckedCreateWithoutTeamInput> | PreventiveCreateWithoutTeamInput[] | PreventiveUncheckedCreateWithoutTeamInput[]
+    connectOrCreate?: PreventiveCreateOrConnectWithoutTeamInput | PreventiveCreateOrConnectWithoutTeamInput[]
+    upsert?: PreventiveUpsertWithWhereUniqueWithoutTeamInput | PreventiveUpsertWithWhereUniqueWithoutTeamInput[]
+    createMany?: PreventiveCreateManyTeamInputEnvelope
+    set?: PreventiveWhereUniqueInput | PreventiveWhereUniqueInput[]
+    disconnect?: PreventiveWhereUniqueInput | PreventiveWhereUniqueInput[]
+    delete?: PreventiveWhereUniqueInput | PreventiveWhereUniqueInput[]
+    connect?: PreventiveWhereUniqueInput | PreventiveWhereUniqueInput[]
+    update?: PreventiveUpdateWithWhereUniqueWithoutTeamInput | PreventiveUpdateWithWhereUniqueWithoutTeamInput[]
+    updateMany?: PreventiveUpdateManyWithWhereWithoutTeamInput | PreventiveUpdateManyWithWhereWithoutTeamInput[]
+    deleteMany?: PreventiveScalarWhereInput | PreventiveScalarWhereInput[]
+  }
+
+  export type MaintenanceUncheckedUpdateManyWithoutTeamNestedInput = {
+    create?: XOR<MaintenanceCreateWithoutTeamInput, MaintenanceUncheckedCreateWithoutTeamInput> | MaintenanceCreateWithoutTeamInput[] | MaintenanceUncheckedCreateWithoutTeamInput[]
+    connectOrCreate?: MaintenanceCreateOrConnectWithoutTeamInput | MaintenanceCreateOrConnectWithoutTeamInput[]
+    upsert?: MaintenanceUpsertWithWhereUniqueWithoutTeamInput | MaintenanceUpsertWithWhereUniqueWithoutTeamInput[]
+    createMany?: MaintenanceCreateManyTeamInputEnvelope
+    set?: MaintenanceWhereUniqueInput | MaintenanceWhereUniqueInput[]
+    disconnect?: MaintenanceWhereUniqueInput | MaintenanceWhereUniqueInput[]
+    delete?: MaintenanceWhereUniqueInput | MaintenanceWhereUniqueInput[]
+    connect?: MaintenanceWhereUniqueInput | MaintenanceWhereUniqueInput[]
+    update?: MaintenanceUpdateWithWhereUniqueWithoutTeamInput | MaintenanceUpdateWithWhereUniqueWithoutTeamInput[]
+    updateMany?: MaintenanceUpdateManyWithWhereWithoutTeamInput | MaintenanceUpdateManyWithWhereWithoutTeamInput[]
+    deleteMany?: MaintenanceScalarWhereInput | MaintenanceScalarWhereInput[]
+  }
+
+  export type PreventiveUncheckedUpdateManyWithoutTeamNestedInput = {
+    create?: XOR<PreventiveCreateWithoutTeamInput, PreventiveUncheckedCreateWithoutTeamInput> | PreventiveCreateWithoutTeamInput[] | PreventiveUncheckedCreateWithoutTeamInput[]
+    connectOrCreate?: PreventiveCreateOrConnectWithoutTeamInput | PreventiveCreateOrConnectWithoutTeamInput[]
+    upsert?: PreventiveUpsertWithWhereUniqueWithoutTeamInput | PreventiveUpsertWithWhereUniqueWithoutTeamInput[]
+    createMany?: PreventiveCreateManyTeamInputEnvelope
+    set?: PreventiveWhereUniqueInput | PreventiveWhereUniqueInput[]
+    disconnect?: PreventiveWhereUniqueInput | PreventiveWhereUniqueInput[]
+    delete?: PreventiveWhereUniqueInput | PreventiveWhereUniqueInput[]
+    connect?: PreventiveWhereUniqueInput | PreventiveWhereUniqueInput[]
+    update?: PreventiveUpdateWithWhereUniqueWithoutTeamInput | PreventiveUpdateWithWhereUniqueWithoutTeamInput[]
+    updateMany?: PreventiveUpdateManyWithWhereWithoutTeamInput | PreventiveUpdateManyWithWhereWithoutTeamInput[]
+    deleteMany?: PreventiveScalarWhereInput | PreventiveScalarWhereInput[]
   }
 
   export type CompanyCreateNestedManyWithoutAddressInput = {
@@ -31455,6 +39160,272 @@ export namespace Prisma {
     update?: EmployeeUpdateWithWhereUniqueWithoutCalenderEntityInput | EmployeeUpdateWithWhereUniqueWithoutCalenderEntityInput[]
     updateMany?: EmployeeUpdateManyWithWhereWithoutCalenderEntityInput | EmployeeUpdateManyWithWhereWithoutCalenderEntityInput[]
     deleteMany?: EmployeeScalarWhereInput | EmployeeScalarWhereInput[]
+  }
+
+  export type EmployeeCreateNestedOneWithoutPerformedMaintenancesInput = {
+    create?: XOR<EmployeeCreateWithoutPerformedMaintenancesInput, EmployeeUncheckedCreateWithoutPerformedMaintenancesInput>
+    connectOrCreate?: EmployeeCreateOrConnectWithoutPerformedMaintenancesInput
+    connect?: EmployeeWhereUniqueInput
+  }
+
+  export type EmployeeCreateNestedOneWithoutRequestedMaintenancesInput = {
+    create?: XOR<EmployeeCreateWithoutRequestedMaintenancesInput, EmployeeUncheckedCreateWithoutRequestedMaintenancesInput>
+    connectOrCreate?: EmployeeCreateOrConnectWithoutRequestedMaintenancesInput
+    connect?: EmployeeWhereUniqueInput
+  }
+
+  export type ComplexCreateNestedOneWithoutMaintenancesInput = {
+    create?: XOR<ComplexCreateWithoutMaintenancesInput, ComplexUncheckedCreateWithoutMaintenancesInput>
+    connectOrCreate?: ComplexCreateOrConnectWithoutMaintenancesInput
+    connect?: ComplexWhereUniqueInput
+  }
+
+  export type TeamCreateNestedOneWithoutMaintenancesInput = {
+    create?: XOR<TeamCreateWithoutMaintenancesInput, TeamUncheckedCreateWithoutMaintenancesInput>
+    connectOrCreate?: TeamCreateOrConnectWithoutMaintenancesInput
+    connect?: TeamWhereUniqueInput
+  }
+
+  export type FloorCreateNestedOneWithoutMaintenancesInput = {
+    create?: XOR<FloorCreateWithoutMaintenancesInput, FloorUncheckedCreateWithoutMaintenancesInput>
+    connectOrCreate?: FloorCreateOrConnectWithoutMaintenancesInput
+    connect?: FloorWhereUniqueInput
+  }
+
+  export type RoomCreateNestedOneWithoutMaintenancesInput = {
+    create?: XOR<RoomCreateWithoutMaintenancesInput, RoomUncheckedCreateWithoutMaintenancesInput>
+    connectOrCreate?: RoomCreateOrConnectWithoutMaintenancesInput
+    connect?: RoomWhereUniqueInput
+  }
+
+  export type EmployeeCreateNestedOneWithoutAssignedMaintenancesInput = {
+    create?: XOR<EmployeeCreateWithoutAssignedMaintenancesInput, EmployeeUncheckedCreateWithoutAssignedMaintenancesInput>
+    connectOrCreate?: EmployeeCreateOrConnectWithoutAssignedMaintenancesInput
+    connect?: EmployeeWhereUniqueInput
+  }
+
+  export type AssetCreateNestedOneWithoutMaintenancesInput = {
+    create?: XOR<AssetCreateWithoutMaintenancesInput, AssetUncheckedCreateWithoutMaintenancesInput>
+    connectOrCreate?: AssetCreateOrConnectWithoutMaintenancesInput
+    connect?: AssetWhereUniqueInput
+  }
+
+  export type FileCreateNestedManyWithoutMaintenanceInput = {
+    create?: XOR<FileCreateWithoutMaintenanceInput, FileUncheckedCreateWithoutMaintenanceInput> | FileCreateWithoutMaintenanceInput[] | FileUncheckedCreateWithoutMaintenanceInput[]
+    connectOrCreate?: FileCreateOrConnectWithoutMaintenanceInput | FileCreateOrConnectWithoutMaintenanceInput[]
+    createMany?: FileCreateManyMaintenanceInputEnvelope
+    connect?: FileWhereUniqueInput | FileWhereUniqueInput[]
+  }
+
+  export type FileUncheckedCreateNestedManyWithoutMaintenanceInput = {
+    create?: XOR<FileCreateWithoutMaintenanceInput, FileUncheckedCreateWithoutMaintenanceInput> | FileCreateWithoutMaintenanceInput[] | FileUncheckedCreateWithoutMaintenanceInput[]
+    connectOrCreate?: FileCreateOrConnectWithoutMaintenanceInput | FileCreateOrConnectWithoutMaintenanceInput[]
+    createMany?: FileCreateManyMaintenanceInputEnvelope
+    connect?: FileWhereUniqueInput | FileWhereUniqueInput[]
+  }
+
+  export type EnumMaintenanceTypeFieldUpdateOperationsInput = {
+    set?: $Enums.MaintenanceType
+  }
+
+  export type EnumStatusFieldUpdateOperationsInput = {
+    set?: $Enums.Status
+  }
+
+  export type EnumProcessTypeFieldUpdateOperationsInput = {
+    set?: $Enums.ProcessType
+  }
+
+  export type EnumPriorityFieldUpdateOperationsInput = {
+    set?: $Enums.Priority
+  }
+
+  export type EmployeeUpdateOneWithoutPerformedMaintenancesNestedInput = {
+    create?: XOR<EmployeeCreateWithoutPerformedMaintenancesInput, EmployeeUncheckedCreateWithoutPerformedMaintenancesInput>
+    connectOrCreate?: EmployeeCreateOrConnectWithoutPerformedMaintenancesInput
+    upsert?: EmployeeUpsertWithoutPerformedMaintenancesInput
+    disconnect?: EmployeeWhereInput | boolean
+    delete?: EmployeeWhereInput | boolean
+    connect?: EmployeeWhereUniqueInput
+    update?: XOR<XOR<EmployeeUpdateToOneWithWhereWithoutPerformedMaintenancesInput, EmployeeUpdateWithoutPerformedMaintenancesInput>, EmployeeUncheckedUpdateWithoutPerformedMaintenancesInput>
+  }
+
+  export type EmployeeUpdateOneWithoutRequestedMaintenancesNestedInput = {
+    create?: XOR<EmployeeCreateWithoutRequestedMaintenancesInput, EmployeeUncheckedCreateWithoutRequestedMaintenancesInput>
+    connectOrCreate?: EmployeeCreateOrConnectWithoutRequestedMaintenancesInput
+    upsert?: EmployeeUpsertWithoutRequestedMaintenancesInput
+    disconnect?: EmployeeWhereInput | boolean
+    delete?: EmployeeWhereInput | boolean
+    connect?: EmployeeWhereUniqueInput
+    update?: XOR<XOR<EmployeeUpdateToOneWithWhereWithoutRequestedMaintenancesInput, EmployeeUpdateWithoutRequestedMaintenancesInput>, EmployeeUncheckedUpdateWithoutRequestedMaintenancesInput>
+  }
+
+  export type ComplexUpdateOneRequiredWithoutMaintenancesNestedInput = {
+    create?: XOR<ComplexCreateWithoutMaintenancesInput, ComplexUncheckedCreateWithoutMaintenancesInput>
+    connectOrCreate?: ComplexCreateOrConnectWithoutMaintenancesInput
+    upsert?: ComplexUpsertWithoutMaintenancesInput
+    connect?: ComplexWhereUniqueInput
+    update?: XOR<XOR<ComplexUpdateToOneWithWhereWithoutMaintenancesInput, ComplexUpdateWithoutMaintenancesInput>, ComplexUncheckedUpdateWithoutMaintenancesInput>
+  }
+
+  export type TeamUpdateOneWithoutMaintenancesNestedInput = {
+    create?: XOR<TeamCreateWithoutMaintenancesInput, TeamUncheckedCreateWithoutMaintenancesInput>
+    connectOrCreate?: TeamCreateOrConnectWithoutMaintenancesInput
+    upsert?: TeamUpsertWithoutMaintenancesInput
+    disconnect?: TeamWhereInput | boolean
+    delete?: TeamWhereInput | boolean
+    connect?: TeamWhereUniqueInput
+    update?: XOR<XOR<TeamUpdateToOneWithWhereWithoutMaintenancesInput, TeamUpdateWithoutMaintenancesInput>, TeamUncheckedUpdateWithoutMaintenancesInput>
+  }
+
+  export type FloorUpdateOneWithoutMaintenancesNestedInput = {
+    create?: XOR<FloorCreateWithoutMaintenancesInput, FloorUncheckedCreateWithoutMaintenancesInput>
+    connectOrCreate?: FloorCreateOrConnectWithoutMaintenancesInput
+    upsert?: FloorUpsertWithoutMaintenancesInput
+    disconnect?: FloorWhereInput | boolean
+    delete?: FloorWhereInput | boolean
+    connect?: FloorWhereUniqueInput
+    update?: XOR<XOR<FloorUpdateToOneWithWhereWithoutMaintenancesInput, FloorUpdateWithoutMaintenancesInput>, FloorUncheckedUpdateWithoutMaintenancesInput>
+  }
+
+  export type RoomUpdateOneWithoutMaintenancesNestedInput = {
+    create?: XOR<RoomCreateWithoutMaintenancesInput, RoomUncheckedCreateWithoutMaintenancesInput>
+    connectOrCreate?: RoomCreateOrConnectWithoutMaintenancesInput
+    upsert?: RoomUpsertWithoutMaintenancesInput
+    disconnect?: RoomWhereInput | boolean
+    delete?: RoomWhereInput | boolean
+    connect?: RoomWhereUniqueInput
+    update?: XOR<XOR<RoomUpdateToOneWithWhereWithoutMaintenancesInput, RoomUpdateWithoutMaintenancesInput>, RoomUncheckedUpdateWithoutMaintenancesInput>
+  }
+
+  export type EmployeeUpdateOneWithoutAssignedMaintenancesNestedInput = {
+    create?: XOR<EmployeeCreateWithoutAssignedMaintenancesInput, EmployeeUncheckedCreateWithoutAssignedMaintenancesInput>
+    connectOrCreate?: EmployeeCreateOrConnectWithoutAssignedMaintenancesInput
+    upsert?: EmployeeUpsertWithoutAssignedMaintenancesInput
+    disconnect?: EmployeeWhereInput | boolean
+    delete?: EmployeeWhereInput | boolean
+    connect?: EmployeeWhereUniqueInput
+    update?: XOR<XOR<EmployeeUpdateToOneWithWhereWithoutAssignedMaintenancesInput, EmployeeUpdateWithoutAssignedMaintenancesInput>, EmployeeUncheckedUpdateWithoutAssignedMaintenancesInput>
+  }
+
+  export type AssetUpdateOneWithoutMaintenancesNestedInput = {
+    create?: XOR<AssetCreateWithoutMaintenancesInput, AssetUncheckedCreateWithoutMaintenancesInput>
+    connectOrCreate?: AssetCreateOrConnectWithoutMaintenancesInput
+    upsert?: AssetUpsertWithoutMaintenancesInput
+    disconnect?: AssetWhereInput | boolean
+    delete?: AssetWhereInput | boolean
+    connect?: AssetWhereUniqueInput
+    update?: XOR<XOR<AssetUpdateToOneWithWhereWithoutMaintenancesInput, AssetUpdateWithoutMaintenancesInput>, AssetUncheckedUpdateWithoutMaintenancesInput>
+  }
+
+  export type FileUpdateManyWithoutMaintenanceNestedInput = {
+    create?: XOR<FileCreateWithoutMaintenanceInput, FileUncheckedCreateWithoutMaintenanceInput> | FileCreateWithoutMaintenanceInput[] | FileUncheckedCreateWithoutMaintenanceInput[]
+    connectOrCreate?: FileCreateOrConnectWithoutMaintenanceInput | FileCreateOrConnectWithoutMaintenanceInput[]
+    upsert?: FileUpsertWithWhereUniqueWithoutMaintenanceInput | FileUpsertWithWhereUniqueWithoutMaintenanceInput[]
+    createMany?: FileCreateManyMaintenanceInputEnvelope
+    set?: FileWhereUniqueInput | FileWhereUniqueInput[]
+    disconnect?: FileWhereUniqueInput | FileWhereUniqueInput[]
+    delete?: FileWhereUniqueInput | FileWhereUniqueInput[]
+    connect?: FileWhereUniqueInput | FileWhereUniqueInput[]
+    update?: FileUpdateWithWhereUniqueWithoutMaintenanceInput | FileUpdateWithWhereUniqueWithoutMaintenanceInput[]
+    updateMany?: FileUpdateManyWithWhereWithoutMaintenanceInput | FileUpdateManyWithWhereWithoutMaintenanceInput[]
+    deleteMany?: FileScalarWhereInput | FileScalarWhereInput[]
+  }
+
+  export type FileUncheckedUpdateManyWithoutMaintenanceNestedInput = {
+    create?: XOR<FileCreateWithoutMaintenanceInput, FileUncheckedCreateWithoutMaintenanceInput> | FileCreateWithoutMaintenanceInput[] | FileUncheckedCreateWithoutMaintenanceInput[]
+    connectOrCreate?: FileCreateOrConnectWithoutMaintenanceInput | FileCreateOrConnectWithoutMaintenanceInput[]
+    upsert?: FileUpsertWithWhereUniqueWithoutMaintenanceInput | FileUpsertWithWhereUniqueWithoutMaintenanceInput[]
+    createMany?: FileCreateManyMaintenanceInputEnvelope
+    set?: FileWhereUniqueInput | FileWhereUniqueInput[]
+    disconnect?: FileWhereUniqueInput | FileWhereUniqueInput[]
+    delete?: FileWhereUniqueInput | FileWhereUniqueInput[]
+    connect?: FileWhereUniqueInput | FileWhereUniqueInput[]
+    update?: FileUpdateWithWhereUniqueWithoutMaintenanceInput | FileUpdateWithWhereUniqueWithoutMaintenanceInput[]
+    updateMany?: FileUpdateManyWithWhereWithoutMaintenanceInput | FileUpdateManyWithWhereWithoutMaintenanceInput[]
+    deleteMany?: FileScalarWhereInput | FileScalarWhereInput[]
+  }
+
+  export type ComplexCreateNestedOneWithoutPreventivesInput = {
+    create?: XOR<ComplexCreateWithoutPreventivesInput, ComplexUncheckedCreateWithoutPreventivesInput>
+    connectOrCreate?: ComplexCreateOrConnectWithoutPreventivesInput
+    connect?: ComplexWhereUniqueInput
+  }
+
+  export type BuildingCreateNestedOneWithoutPreventivesInput = {
+    create?: XOR<BuildingCreateWithoutPreventivesInput, BuildingUncheckedCreateWithoutPreventivesInput>
+    connectOrCreate?: BuildingCreateOrConnectWithoutPreventivesInput
+    connect?: BuildingWhereUniqueInput
+  }
+
+  export type FloorCreateNestedOneWithoutPreventivesInput = {
+    create?: XOR<FloorCreateWithoutPreventivesInput, FloorUncheckedCreateWithoutPreventivesInput>
+    connectOrCreate?: FloorCreateOrConnectWithoutPreventivesInput
+    connect?: FloorWhereUniqueInput
+  }
+
+  export type RoomCreateNestedOneWithoutPreventivesInput = {
+    create?: XOR<RoomCreateWithoutPreventivesInput, RoomUncheckedCreateWithoutPreventivesInput>
+    connectOrCreate?: RoomCreateOrConnectWithoutPreventivesInput
+    connect?: RoomWhereUniqueInput
+  }
+
+  export type TeamCreateNestedOneWithoutPreventivesInput = {
+    create?: XOR<TeamCreateWithoutPreventivesInput, TeamUncheckedCreateWithoutPreventivesInput>
+    connectOrCreate?: TeamCreateOrConnectWithoutPreventivesInput
+    connect?: TeamWhereUniqueInput
+  }
+
+  export type EnumFrequencyFieldUpdateOperationsInput = {
+    set?: $Enums.Frequency
+  }
+
+  export type ComplexUpdateOneRequiredWithoutPreventivesNestedInput = {
+    create?: XOR<ComplexCreateWithoutPreventivesInput, ComplexUncheckedCreateWithoutPreventivesInput>
+    connectOrCreate?: ComplexCreateOrConnectWithoutPreventivesInput
+    upsert?: ComplexUpsertWithoutPreventivesInput
+    connect?: ComplexWhereUniqueInput
+    update?: XOR<XOR<ComplexUpdateToOneWithWhereWithoutPreventivesInput, ComplexUpdateWithoutPreventivesInput>, ComplexUncheckedUpdateWithoutPreventivesInput>
+  }
+
+  export type BuildingUpdateOneWithoutPreventivesNestedInput = {
+    create?: XOR<BuildingCreateWithoutPreventivesInput, BuildingUncheckedCreateWithoutPreventivesInput>
+    connectOrCreate?: BuildingCreateOrConnectWithoutPreventivesInput
+    upsert?: BuildingUpsertWithoutPreventivesInput
+    disconnect?: BuildingWhereInput | boolean
+    delete?: BuildingWhereInput | boolean
+    connect?: BuildingWhereUniqueInput
+    update?: XOR<XOR<BuildingUpdateToOneWithWhereWithoutPreventivesInput, BuildingUpdateWithoutPreventivesInput>, BuildingUncheckedUpdateWithoutPreventivesInput>
+  }
+
+  export type FloorUpdateOneWithoutPreventivesNestedInput = {
+    create?: XOR<FloorCreateWithoutPreventivesInput, FloorUncheckedCreateWithoutPreventivesInput>
+    connectOrCreate?: FloorCreateOrConnectWithoutPreventivesInput
+    upsert?: FloorUpsertWithoutPreventivesInput
+    disconnect?: FloorWhereInput | boolean
+    delete?: FloorWhereInput | boolean
+    connect?: FloorWhereUniqueInput
+    update?: XOR<XOR<FloorUpdateToOneWithWhereWithoutPreventivesInput, FloorUpdateWithoutPreventivesInput>, FloorUncheckedUpdateWithoutPreventivesInput>
+  }
+
+  export type RoomUpdateOneWithoutPreventivesNestedInput = {
+    create?: XOR<RoomCreateWithoutPreventivesInput, RoomUncheckedCreateWithoutPreventivesInput>
+    connectOrCreate?: RoomCreateOrConnectWithoutPreventivesInput
+    upsert?: RoomUpsertWithoutPreventivesInput
+    disconnect?: RoomWhereInput | boolean
+    delete?: RoomWhereInput | boolean
+    connect?: RoomWhereUniqueInput
+    update?: XOR<XOR<RoomUpdateToOneWithWhereWithoutPreventivesInput, RoomUpdateWithoutPreventivesInput>, RoomUncheckedUpdateWithoutPreventivesInput>
+  }
+
+  export type TeamUpdateOneWithoutPreventivesNestedInput = {
+    create?: XOR<TeamCreateWithoutPreventivesInput, TeamUncheckedCreateWithoutPreventivesInput>
+    connectOrCreate?: TeamCreateOrConnectWithoutPreventivesInput
+    upsert?: TeamUpsertWithoutPreventivesInput
+    disconnect?: TeamWhereInput | boolean
+    delete?: TeamWhereInput | boolean
+    connect?: TeamWhereUniqueInput
+    update?: XOR<XOR<TeamUpdateToOneWithWhereWithoutPreventivesInput, TeamUpdateWithoutPreventivesInput>, TeamUncheckedUpdateWithoutPreventivesInput>
   }
 
   export type UserCreateNestedOneWithoutRefreshTokensInput = {
@@ -31919,6 +39890,91 @@ export namespace Prisma {
     _max?: NestedEnumEmployeeTypeFilter<$PrismaModel>
   }
 
+  export type NestedEnumMaintenanceTypeFilter<$PrismaModel = never> = {
+    equals?: $Enums.MaintenanceType | EnumMaintenanceTypeFieldRefInput<$PrismaModel>
+    in?: $Enums.MaintenanceType[] | ListEnumMaintenanceTypeFieldRefInput<$PrismaModel>
+    notIn?: $Enums.MaintenanceType[] | ListEnumMaintenanceTypeFieldRefInput<$PrismaModel>
+    not?: NestedEnumMaintenanceTypeFilter<$PrismaModel> | $Enums.MaintenanceType
+  }
+
+  export type NestedEnumStatusFilter<$PrismaModel = never> = {
+    equals?: $Enums.Status | EnumStatusFieldRefInput<$PrismaModel>
+    in?: $Enums.Status[] | ListEnumStatusFieldRefInput<$PrismaModel>
+    notIn?: $Enums.Status[] | ListEnumStatusFieldRefInput<$PrismaModel>
+    not?: NestedEnumStatusFilter<$PrismaModel> | $Enums.Status
+  }
+
+  export type NestedEnumProcessTypeFilter<$PrismaModel = never> = {
+    equals?: $Enums.ProcessType | EnumProcessTypeFieldRefInput<$PrismaModel>
+    in?: $Enums.ProcessType[] | ListEnumProcessTypeFieldRefInput<$PrismaModel>
+    notIn?: $Enums.ProcessType[] | ListEnumProcessTypeFieldRefInput<$PrismaModel>
+    not?: NestedEnumProcessTypeFilter<$PrismaModel> | $Enums.ProcessType
+  }
+
+  export type NestedEnumPriorityFilter<$PrismaModel = never> = {
+    equals?: $Enums.Priority | EnumPriorityFieldRefInput<$PrismaModel>
+    in?: $Enums.Priority[] | ListEnumPriorityFieldRefInput<$PrismaModel>
+    notIn?: $Enums.Priority[] | ListEnumPriorityFieldRefInput<$PrismaModel>
+    not?: NestedEnumPriorityFilter<$PrismaModel> | $Enums.Priority
+  }
+
+  export type NestedEnumMaintenanceTypeWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.MaintenanceType | EnumMaintenanceTypeFieldRefInput<$PrismaModel>
+    in?: $Enums.MaintenanceType[] | ListEnumMaintenanceTypeFieldRefInput<$PrismaModel>
+    notIn?: $Enums.MaintenanceType[] | ListEnumMaintenanceTypeFieldRefInput<$PrismaModel>
+    not?: NestedEnumMaintenanceTypeWithAggregatesFilter<$PrismaModel> | $Enums.MaintenanceType
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumMaintenanceTypeFilter<$PrismaModel>
+    _max?: NestedEnumMaintenanceTypeFilter<$PrismaModel>
+  }
+
+  export type NestedEnumStatusWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.Status | EnumStatusFieldRefInput<$PrismaModel>
+    in?: $Enums.Status[] | ListEnumStatusFieldRefInput<$PrismaModel>
+    notIn?: $Enums.Status[] | ListEnumStatusFieldRefInput<$PrismaModel>
+    not?: NestedEnumStatusWithAggregatesFilter<$PrismaModel> | $Enums.Status
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumStatusFilter<$PrismaModel>
+    _max?: NestedEnumStatusFilter<$PrismaModel>
+  }
+
+  export type NestedEnumProcessTypeWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.ProcessType | EnumProcessTypeFieldRefInput<$PrismaModel>
+    in?: $Enums.ProcessType[] | ListEnumProcessTypeFieldRefInput<$PrismaModel>
+    notIn?: $Enums.ProcessType[] | ListEnumProcessTypeFieldRefInput<$PrismaModel>
+    not?: NestedEnumProcessTypeWithAggregatesFilter<$PrismaModel> | $Enums.ProcessType
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumProcessTypeFilter<$PrismaModel>
+    _max?: NestedEnumProcessTypeFilter<$PrismaModel>
+  }
+
+  export type NestedEnumPriorityWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.Priority | EnumPriorityFieldRefInput<$PrismaModel>
+    in?: $Enums.Priority[] | ListEnumPriorityFieldRefInput<$PrismaModel>
+    notIn?: $Enums.Priority[] | ListEnumPriorityFieldRefInput<$PrismaModel>
+    not?: NestedEnumPriorityWithAggregatesFilter<$PrismaModel> | $Enums.Priority
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumPriorityFilter<$PrismaModel>
+    _max?: NestedEnumPriorityFilter<$PrismaModel>
+  }
+
+  export type NestedEnumFrequencyFilter<$PrismaModel = never> = {
+    equals?: $Enums.Frequency | EnumFrequencyFieldRefInput<$PrismaModel>
+    in?: $Enums.Frequency[] | ListEnumFrequencyFieldRefInput<$PrismaModel>
+    notIn?: $Enums.Frequency[] | ListEnumFrequencyFieldRefInput<$PrismaModel>
+    not?: NestedEnumFrequencyFilter<$PrismaModel> | $Enums.Frequency
+  }
+
+  export type NestedEnumFrequencyWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.Frequency | EnumFrequencyFieldRefInput<$PrismaModel>
+    in?: $Enums.Frequency[] | ListEnumFrequencyFieldRefInput<$PrismaModel>
+    notIn?: $Enums.Frequency[] | ListEnumFrequencyFieldRefInput<$PrismaModel>
+    not?: NestedEnumFrequencyWithAggregatesFilter<$PrismaModel> | $Enums.Frequency
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumFrequencyFilter<$PrismaModel>
+    _max?: NestedEnumFrequencyFilter<$PrismaModel>
+  }
+
   export type RefreshTokenCreateWithoutUserInput = {
     id?: string
     token: string
@@ -31976,6 +40032,9 @@ export namespace Prisma {
     company: CompanyCreateNestedOneWithoutEmployeesInput
     calenderEntity?: CalenderEntityCreateNestedOneWithoutEmployeesInput
     teams?: TeamCreateNestedManyWithoutSupervisorInput
+    performedMaintenances?: MaintenanceCreateNestedManyWithoutPerformerInput
+    requestedMaintenances?: MaintenanceCreateNestedManyWithoutRequesterInput
+    assignedMaintenances?: MaintenanceCreateNestedManyWithoutAssigneeInput
   }
 
   export type EmployeeUncheckedCreateWithoutUserInput = {
@@ -31986,6 +40045,9 @@ export namespace Prisma {
     status?: $Enums.ServiceStatus
     calenderEntityId?: string | null
     teams?: TeamUncheckedCreateNestedManyWithoutSupervisorInput
+    performedMaintenances?: MaintenanceUncheckedCreateNestedManyWithoutPerformerInput
+    requestedMaintenances?: MaintenanceUncheckedCreateNestedManyWithoutRequesterInput
+    assignedMaintenances?: MaintenanceUncheckedCreateNestedManyWithoutAssigneeInput
   }
 
   export type EmployeeCreateOrConnectWithoutUserInput = {
@@ -32320,6 +40382,7 @@ export namespace Prisma {
     floors?: FloorCreateNestedManyWithoutBuildingInput
     units?: UnitCreateNestedManyWithoutBuildingInput
     rooms?: RoomCreateNestedManyWithoutBuildingInput
+    preventives?: PreventiveCreateNestedManyWithoutBuildingInput
   }
 
   export type BuildingUncheckedCreateWithoutComplexInput = {
@@ -32349,6 +40412,7 @@ export namespace Prisma {
     floors?: FloorUncheckedCreateNestedManyWithoutBuildingInput
     units?: UnitUncheckedCreateNestedManyWithoutBuildingInput
     rooms?: RoomUncheckedCreateNestedManyWithoutBuildingInput
+    preventives?: PreventiveUncheckedCreateNestedManyWithoutBuildingInput
   }
 
   export type BuildingCreateOrConnectWithoutComplexInput = {
@@ -32367,11 +40431,13 @@ export namespace Prisma {
     rooms?: RoomCreateNestedManyWithoutPhotosInput
     units?: UnitCreateNestedManyWithoutPhotosInput
     buildings?: BuildingCreateNestedManyWithoutPhotosInput
+    maintenance?: MaintenanceCreateNestedOneWithoutPhotosInput
   }
 
   export type FileUncheckedCreateWithoutComplexesInput = {
     id?: string
     url: string
+    maintenanceId?: string | null
     rooms?: RoomUncheckedCreateNestedManyWithoutPhotosInput
     units?: UnitUncheckedCreateNestedManyWithoutPhotosInput
     buildings?: BuildingUncheckedCreateNestedManyWithoutPhotosInput
@@ -32404,6 +40470,8 @@ export namespace Prisma {
     building: BuildingCreateNestedOneWithoutFloorsInput
     rooms?: RoomCreateNestedManyWithoutFloorInput
     units?: UnitCreateNestedManyWithoutFloorInput
+    maintenances?: MaintenanceCreateNestedManyWithoutFloorInput
+    preventives?: PreventiveCreateNestedManyWithoutFloorInput
   }
 
   export type FloorUncheckedCreateWithoutComplexInput = {
@@ -32428,6 +40496,8 @@ export namespace Prisma {
     updatedAt?: Date | string
     rooms?: RoomUncheckedCreateNestedManyWithoutFloorInput
     units?: UnitUncheckedCreateNestedManyWithoutFloorInput
+    maintenances?: MaintenanceUncheckedCreateNestedManyWithoutFloorInput
+    preventives?: PreventiveUncheckedCreateNestedManyWithoutFloorInput
   }
 
   export type FloorCreateOrConnectWithoutComplexInput = {
@@ -32547,6 +40617,8 @@ export namespace Prisma {
     floor: FloorCreateNestedOneWithoutRoomsInput
     unit?: UnitCreateNestedOneWithoutRoomsInput
     photos?: FileCreateNestedManyWithoutRoomsInput
+    maintenances?: MaintenanceCreateNestedManyWithoutRoomInput
+    preventives?: PreventiveCreateNestedManyWithoutRoomInput
   }
 
   export type RoomUncheckedCreateWithoutComplexInput = {
@@ -32572,6 +40644,8 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     photos?: FileUncheckedCreateNestedManyWithoutRoomsInput
+    maintenances?: MaintenanceUncheckedCreateNestedManyWithoutRoomInput
+    preventives?: PreventiveUncheckedCreateNestedManyWithoutRoomInput
   }
 
   export type RoomCreateOrConnectWithoutComplexInput = {
@@ -32581,6 +40655,186 @@ export namespace Prisma {
 
   export type RoomCreateManyComplexInputEnvelope = {
     data: RoomCreateManyComplexInput | RoomCreateManyComplexInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type MaintenanceCreateWithoutSiteInput = {
+    id?: string
+    type?: $Enums.MaintenanceType
+    code: string
+    description: string
+    startDate?: Date | string | null
+    endDate?: Date | string | null
+    shortDescription?: string | null
+    action?: string | null
+    message?: string | null
+    processNotes?: string | null
+    processStatus?: $Enums.Status
+    register?: string | null
+    activityIdTimer?: string | null
+    activityStartTime?: Date | string | null
+    activityEndTime?: Date | string | null
+    allDeadlines?: string | null
+    processType?: $Enums.ProcessType
+    ttSysRunning?: Decimal | DecimalJsLike | number | string | null
+    ttWorkRunning?: Decimal | DecimalJsLike | number | string | null
+    sorting?: string | null
+    priority?: $Enums.Priority
+    outcome?: string | null
+    dueAssignedEnd?: Date | string | null
+    execStart?: Date | string | null
+    dueExecEndDate?: Date | string | null
+    execEndDate?: Date | string | null
+    dueClosuerDate?: Date | string | null
+    totalExecTime?: Decimal | DecimalJsLike | number | string | null
+    expStartDate?: Date | string | null
+    suspensionReason?: string | null
+    category?: string | null
+    subCategory?: string | null
+    company?: string | null
+    ttSystemOpening?: Decimal | DecimalJsLike | number | string | null
+    ttWorkOpening?: Decimal | DecimalJsLike | number | string | null
+    ttSystemAssignment?: Decimal | DecimalJsLike | number | string | null
+    ttWorkAssignment?: Decimal | DecimalJsLike | number | string | null
+    ttSystemExecution?: Decimal | DecimalJsLike | number | string | null
+    ttWorkExecution?: Decimal | DecimalJsLike | number | string | null
+    ttSysSuspension?: Decimal | DecimalJsLike | number | string | null
+    ttWorkSuspension?: Decimal | DecimalJsLike | number | string | null
+    ttEstimate?: Decimal | DecimalJsLike | number | string | null
+    prevMaintenanceConfigId?: string | null
+    automaticConfig?: boolean
+    jointAccounting?: boolean
+    hasTasks?: boolean
+    estimateStatus?: $Enums.Status
+    delayNotification?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    performer?: EmployeeCreateNestedOneWithoutPerformedMaintenancesInput
+    requester?: EmployeeCreateNestedOneWithoutRequestedMaintenancesInput
+    team?: TeamCreateNestedOneWithoutMaintenancesInput
+    floor?: FloorCreateNestedOneWithoutMaintenancesInput
+    room?: RoomCreateNestedOneWithoutMaintenancesInput
+    assignee?: EmployeeCreateNestedOneWithoutAssignedMaintenancesInput
+    asset?: AssetCreateNestedOneWithoutMaintenancesInput
+    photos?: FileCreateNestedManyWithoutMaintenanceInput
+  }
+
+  export type MaintenanceUncheckedCreateWithoutSiteInput = {
+    id?: string
+    type?: $Enums.MaintenanceType
+    code: string
+    description: string
+    startDate?: Date | string | null
+    endDate?: Date | string | null
+    shortDescription?: string | null
+    action?: string | null
+    message?: string | null
+    processNotes?: string | null
+    performerId?: string | null
+    processStatus?: $Enums.Status
+    register?: string | null
+    activityIdTimer?: string | null
+    activityStartTime?: Date | string | null
+    activityEndTime?: Date | string | null
+    allDeadlines?: string | null
+    processType?: $Enums.ProcessType
+    ttSysRunning?: Decimal | DecimalJsLike | number | string | null
+    ttWorkRunning?: Decimal | DecimalJsLike | number | string | null
+    sorting?: string | null
+    requesterId?: string | null
+    priority?: $Enums.Priority
+    outcome?: string | null
+    dueAssignedEnd?: Date | string | null
+    execStart?: Date | string | null
+    dueExecEndDate?: Date | string | null
+    execEndDate?: Date | string | null
+    dueClosuerDate?: Date | string | null
+    totalExecTime?: Decimal | DecimalJsLike | number | string | null
+    expStartDate?: Date | string | null
+    suspensionReason?: string | null
+    category?: string | null
+    subCategory?: string | null
+    company?: string | null
+    teamId?: string | null
+    floorId?: string | null
+    roomId?: string | null
+    ttSystemOpening?: Decimal | DecimalJsLike | number | string | null
+    ttWorkOpening?: Decimal | DecimalJsLike | number | string | null
+    ttSystemAssignment?: Decimal | DecimalJsLike | number | string | null
+    ttWorkAssignment?: Decimal | DecimalJsLike | number | string | null
+    ttSystemExecution?: Decimal | DecimalJsLike | number | string | null
+    ttWorkExecution?: Decimal | DecimalJsLike | number | string | null
+    ttSysSuspension?: Decimal | DecimalJsLike | number | string | null
+    ttWorkSuspension?: Decimal | DecimalJsLike | number | string | null
+    ttEstimate?: Decimal | DecimalJsLike | number | string | null
+    prevMaintenanceConfigId?: string | null
+    automaticConfig?: boolean
+    jointAccounting?: boolean
+    hasTasks?: boolean
+    estimateStatus?: $Enums.Status
+    delayNotification?: boolean
+    assigneeId?: string | null
+    assetId?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    photos?: FileUncheckedCreateNestedManyWithoutMaintenanceInput
+  }
+
+  export type MaintenanceCreateOrConnectWithoutSiteInput = {
+    where: MaintenanceWhereUniqueInput
+    create: XOR<MaintenanceCreateWithoutSiteInput, MaintenanceUncheckedCreateWithoutSiteInput>
+  }
+
+  export type MaintenanceCreateManySiteInputEnvelope = {
+    data: MaintenanceCreateManySiteInput | MaintenanceCreateManySiteInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type PreventiveCreateWithoutSiteInput = {
+    id?: string
+    code: string
+    name: string
+    description: string
+    frequency?: $Enums.Frequency
+    cronExpression?: string | null
+    lastRun?: Date | string | null
+    nextRun: Date | string
+    priority?: $Enums.Priority
+    duration?: number | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    building?: BuildingCreateNestedOneWithoutPreventivesInput
+    floor?: FloorCreateNestedOneWithoutPreventivesInput
+    room?: RoomCreateNestedOneWithoutPreventivesInput
+    team?: TeamCreateNestedOneWithoutPreventivesInput
+  }
+
+  export type PreventiveUncheckedCreateWithoutSiteInput = {
+    id?: string
+    code: string
+    name: string
+    description: string
+    frequency?: $Enums.Frequency
+    cronExpression?: string | null
+    lastRun?: Date | string | null
+    nextRun: Date | string
+    priority?: $Enums.Priority
+    duration?: number | null
+    buildingId?: string | null
+    floorId?: string | null
+    roomId?: string | null
+    teamId?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type PreventiveCreateOrConnectWithoutSiteInput = {
+    where: PreventiveWhereUniqueInput
+    create: XOR<PreventiveCreateWithoutSiteInput, PreventiveUncheckedCreateWithoutSiteInput>
+  }
+
+  export type PreventiveCreateManySiteInputEnvelope = {
+    data: PreventiveCreateManySiteInput | PreventiveCreateManySiteInput[]
     skipDuplicates?: boolean
   }
 
@@ -32684,6 +40938,7 @@ export namespace Prisma {
     NOT?: FileScalarWhereInput | FileScalarWhereInput[]
     id?: StringFilter<"File"> | string
     url?: StringFilter<"File"> | string
+    maintenanceId?: StringNullableFilter<"File"> | string | null
   }
 
   export type FloorUpsertWithWhereUniqueWithoutComplexInput = {
@@ -32827,6 +41082,125 @@ export namespace Prisma {
     updatedAt?: DateTimeFilter<"Room"> | Date | string
   }
 
+  export type MaintenanceUpsertWithWhereUniqueWithoutSiteInput = {
+    where: MaintenanceWhereUniqueInput
+    update: XOR<MaintenanceUpdateWithoutSiteInput, MaintenanceUncheckedUpdateWithoutSiteInput>
+    create: XOR<MaintenanceCreateWithoutSiteInput, MaintenanceUncheckedCreateWithoutSiteInput>
+  }
+
+  export type MaintenanceUpdateWithWhereUniqueWithoutSiteInput = {
+    where: MaintenanceWhereUniqueInput
+    data: XOR<MaintenanceUpdateWithoutSiteInput, MaintenanceUncheckedUpdateWithoutSiteInput>
+  }
+
+  export type MaintenanceUpdateManyWithWhereWithoutSiteInput = {
+    where: MaintenanceScalarWhereInput
+    data: XOR<MaintenanceUpdateManyMutationInput, MaintenanceUncheckedUpdateManyWithoutSiteInput>
+  }
+
+  export type MaintenanceScalarWhereInput = {
+    AND?: MaintenanceScalarWhereInput | MaintenanceScalarWhereInput[]
+    OR?: MaintenanceScalarWhereInput[]
+    NOT?: MaintenanceScalarWhereInput | MaintenanceScalarWhereInput[]
+    id?: StringFilter<"Maintenance"> | string
+    type?: EnumMaintenanceTypeFilter<"Maintenance"> | $Enums.MaintenanceType
+    code?: StringFilter<"Maintenance"> | string
+    description?: StringFilter<"Maintenance"> | string
+    startDate?: DateTimeNullableFilter<"Maintenance"> | Date | string | null
+    endDate?: DateTimeNullableFilter<"Maintenance"> | Date | string | null
+    shortDescription?: StringNullableFilter<"Maintenance"> | string | null
+    action?: StringNullableFilter<"Maintenance"> | string | null
+    message?: StringNullableFilter<"Maintenance"> | string | null
+    processNotes?: StringNullableFilter<"Maintenance"> | string | null
+    performerId?: StringNullableFilter<"Maintenance"> | string | null
+    processStatus?: EnumStatusFilter<"Maintenance"> | $Enums.Status
+    register?: StringNullableFilter<"Maintenance"> | string | null
+    activityIdTimer?: StringNullableFilter<"Maintenance"> | string | null
+    activityStartTime?: DateTimeNullableFilter<"Maintenance"> | Date | string | null
+    activityEndTime?: DateTimeNullableFilter<"Maintenance"> | Date | string | null
+    allDeadlines?: StringNullableFilter<"Maintenance"> | string | null
+    processType?: EnumProcessTypeFilter<"Maintenance"> | $Enums.ProcessType
+    ttSysRunning?: DecimalNullableFilter<"Maintenance"> | Decimal | DecimalJsLike | number | string | null
+    ttWorkRunning?: DecimalNullableFilter<"Maintenance"> | Decimal | DecimalJsLike | number | string | null
+    sorting?: StringNullableFilter<"Maintenance"> | string | null
+    requesterId?: StringNullableFilter<"Maintenance"> | string | null
+    priority?: EnumPriorityFilter<"Maintenance"> | $Enums.Priority
+    siteId?: StringFilter<"Maintenance"> | string
+    outcome?: StringNullableFilter<"Maintenance"> | string | null
+    dueAssignedEnd?: DateTimeNullableFilter<"Maintenance"> | Date | string | null
+    execStart?: DateTimeNullableFilter<"Maintenance"> | Date | string | null
+    dueExecEndDate?: DateTimeNullableFilter<"Maintenance"> | Date | string | null
+    execEndDate?: DateTimeNullableFilter<"Maintenance"> | Date | string | null
+    dueClosuerDate?: DateTimeNullableFilter<"Maintenance"> | Date | string | null
+    totalExecTime?: DecimalNullableFilter<"Maintenance"> | Decimal | DecimalJsLike | number | string | null
+    expStartDate?: DateTimeNullableFilter<"Maintenance"> | Date | string | null
+    suspensionReason?: StringNullableFilter<"Maintenance"> | string | null
+    category?: StringNullableFilter<"Maintenance"> | string | null
+    subCategory?: StringNullableFilter<"Maintenance"> | string | null
+    company?: StringNullableFilter<"Maintenance"> | string | null
+    teamId?: StringNullableFilter<"Maintenance"> | string | null
+    floorId?: StringNullableFilter<"Maintenance"> | string | null
+    roomId?: StringNullableFilter<"Maintenance"> | string | null
+    ttSystemOpening?: DecimalNullableFilter<"Maintenance"> | Decimal | DecimalJsLike | number | string | null
+    ttWorkOpening?: DecimalNullableFilter<"Maintenance"> | Decimal | DecimalJsLike | number | string | null
+    ttSystemAssignment?: DecimalNullableFilter<"Maintenance"> | Decimal | DecimalJsLike | number | string | null
+    ttWorkAssignment?: DecimalNullableFilter<"Maintenance"> | Decimal | DecimalJsLike | number | string | null
+    ttSystemExecution?: DecimalNullableFilter<"Maintenance"> | Decimal | DecimalJsLike | number | string | null
+    ttWorkExecution?: DecimalNullableFilter<"Maintenance"> | Decimal | DecimalJsLike | number | string | null
+    ttSysSuspension?: DecimalNullableFilter<"Maintenance"> | Decimal | DecimalJsLike | number | string | null
+    ttWorkSuspension?: DecimalNullableFilter<"Maintenance"> | Decimal | DecimalJsLike | number | string | null
+    ttEstimate?: DecimalNullableFilter<"Maintenance"> | Decimal | DecimalJsLike | number | string | null
+    prevMaintenanceConfigId?: StringNullableFilter<"Maintenance"> | string | null
+    automaticConfig?: BoolFilter<"Maintenance"> | boolean
+    jointAccounting?: BoolFilter<"Maintenance"> | boolean
+    hasTasks?: BoolFilter<"Maintenance"> | boolean
+    estimateStatus?: EnumStatusFilter<"Maintenance"> | $Enums.Status
+    delayNotification?: BoolFilter<"Maintenance"> | boolean
+    assigneeId?: StringNullableFilter<"Maintenance"> | string | null
+    assetId?: StringNullableFilter<"Maintenance"> | string | null
+    createdAt?: DateTimeFilter<"Maintenance"> | Date | string
+    updatedAt?: DateTimeFilter<"Maintenance"> | Date | string
+  }
+
+  export type PreventiveUpsertWithWhereUniqueWithoutSiteInput = {
+    where: PreventiveWhereUniqueInput
+    update: XOR<PreventiveUpdateWithoutSiteInput, PreventiveUncheckedUpdateWithoutSiteInput>
+    create: XOR<PreventiveCreateWithoutSiteInput, PreventiveUncheckedCreateWithoutSiteInput>
+  }
+
+  export type PreventiveUpdateWithWhereUniqueWithoutSiteInput = {
+    where: PreventiveWhereUniqueInput
+    data: XOR<PreventiveUpdateWithoutSiteInput, PreventiveUncheckedUpdateWithoutSiteInput>
+  }
+
+  export type PreventiveUpdateManyWithWhereWithoutSiteInput = {
+    where: PreventiveScalarWhereInput
+    data: XOR<PreventiveUpdateManyMutationInput, PreventiveUncheckedUpdateManyWithoutSiteInput>
+  }
+
+  export type PreventiveScalarWhereInput = {
+    AND?: PreventiveScalarWhereInput | PreventiveScalarWhereInput[]
+    OR?: PreventiveScalarWhereInput[]
+    NOT?: PreventiveScalarWhereInput | PreventiveScalarWhereInput[]
+    id?: StringFilter<"Preventive"> | string
+    code?: StringFilter<"Preventive"> | string
+    name?: StringFilter<"Preventive"> | string
+    description?: StringFilter<"Preventive"> | string
+    frequency?: EnumFrequencyFilter<"Preventive"> | $Enums.Frequency
+    cronExpression?: StringNullableFilter<"Preventive"> | string | null
+    lastRun?: DateTimeNullableFilter<"Preventive"> | Date | string | null
+    nextRun?: DateTimeFilter<"Preventive"> | Date | string
+    priority?: EnumPriorityFilter<"Preventive"> | $Enums.Priority
+    duration?: IntNullableFilter<"Preventive"> | number | null
+    siteId?: StringFilter<"Preventive"> | string
+    buildingId?: StringNullableFilter<"Preventive"> | string | null
+    floorId?: StringNullableFilter<"Preventive"> | string | null
+    roomId?: StringNullableFilter<"Preventive"> | string | null
+    teamId?: StringNullableFilter<"Preventive"> | string | null
+    createdAt?: DateTimeFilter<"Preventive"> | Date | string
+    updatedAt?: DateTimeFilter<"Preventive"> | Date | string
+  }
+
   export type AddressCreateWithoutBuildingsInput = {
     id?: string
     street: string
@@ -32879,6 +41253,8 @@ export namespace Prisma {
     floors?: FloorCreateNestedManyWithoutComplexInput
     units?: UnitCreateNestedManyWithoutComplexInput
     rooms?: RoomCreateNestedManyWithoutComplexInput
+    maintenances?: MaintenanceCreateNestedManyWithoutSiteInput
+    preventives?: PreventiveCreateNestedManyWithoutSiteInput
   }
 
   export type ComplexUncheckedCreateWithoutBuildingsInput = {
@@ -32910,6 +41286,8 @@ export namespace Prisma {
     floors?: FloorUncheckedCreateNestedManyWithoutComplexInput
     units?: UnitUncheckedCreateNestedManyWithoutComplexInput
     rooms?: RoomUncheckedCreateNestedManyWithoutComplexInput
+    maintenances?: MaintenanceUncheckedCreateNestedManyWithoutSiteInput
+    preventives?: PreventiveUncheckedCreateNestedManyWithoutSiteInput
   }
 
   export type ComplexCreateOrConnectWithoutBuildingsInput = {
@@ -32950,11 +41328,13 @@ export namespace Prisma {
     rooms?: RoomCreateNestedManyWithoutPhotosInput
     units?: UnitCreateNestedManyWithoutPhotosInput
     complexes?: ComplexCreateNestedManyWithoutPhotosInput
+    maintenance?: MaintenanceCreateNestedOneWithoutPhotosInput
   }
 
   export type FileUncheckedCreateWithoutBuildingsInput = {
     id?: string
     url: string
+    maintenanceId?: string | null
     rooms?: RoomUncheckedCreateNestedManyWithoutPhotosInput
     units?: UnitUncheckedCreateNestedManyWithoutPhotosInput
     complexes?: ComplexUncheckedCreateNestedManyWithoutPhotosInput
@@ -32987,6 +41367,8 @@ export namespace Prisma {
     complex: ComplexCreateNestedOneWithoutFloorsInput
     rooms?: RoomCreateNestedManyWithoutFloorInput
     units?: UnitCreateNestedManyWithoutFloorInput
+    maintenances?: MaintenanceCreateNestedManyWithoutFloorInput
+    preventives?: PreventiveCreateNestedManyWithoutFloorInput
   }
 
   export type FloorUncheckedCreateWithoutBuildingInput = {
@@ -33011,6 +41393,8 @@ export namespace Prisma {
     updatedAt?: Date | string
     rooms?: RoomUncheckedCreateNestedManyWithoutFloorInput
     units?: UnitUncheckedCreateNestedManyWithoutFloorInput
+    maintenances?: MaintenanceUncheckedCreateNestedManyWithoutFloorInput
+    preventives?: PreventiveUncheckedCreateNestedManyWithoutFloorInput
   }
 
   export type FloorCreateOrConnectWithoutBuildingInput = {
@@ -33130,6 +41514,8 @@ export namespace Prisma {
     floor: FloorCreateNestedOneWithoutRoomsInput
     unit?: UnitCreateNestedOneWithoutRoomsInput
     photos?: FileCreateNestedManyWithoutRoomsInput
+    maintenances?: MaintenanceCreateNestedManyWithoutRoomInput
+    preventives?: PreventiveCreateNestedManyWithoutRoomInput
   }
 
   export type RoomUncheckedCreateWithoutBuildingInput = {
@@ -33155,6 +41541,8 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     photos?: FileUncheckedCreateNestedManyWithoutRoomsInput
+    maintenances?: MaintenanceUncheckedCreateNestedManyWithoutRoomInput
+    preventives?: PreventiveUncheckedCreateNestedManyWithoutRoomInput
   }
 
   export type RoomCreateOrConnectWithoutBuildingInput = {
@@ -33164,6 +41552,54 @@ export namespace Prisma {
 
   export type RoomCreateManyBuildingInputEnvelope = {
     data: RoomCreateManyBuildingInput | RoomCreateManyBuildingInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type PreventiveCreateWithoutBuildingInput = {
+    id?: string
+    code: string
+    name: string
+    description: string
+    frequency?: $Enums.Frequency
+    cronExpression?: string | null
+    lastRun?: Date | string | null
+    nextRun: Date | string
+    priority?: $Enums.Priority
+    duration?: number | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    site: ComplexCreateNestedOneWithoutPreventivesInput
+    floor?: FloorCreateNestedOneWithoutPreventivesInput
+    room?: RoomCreateNestedOneWithoutPreventivesInput
+    team?: TeamCreateNestedOneWithoutPreventivesInput
+  }
+
+  export type PreventiveUncheckedCreateWithoutBuildingInput = {
+    id?: string
+    code: string
+    name: string
+    description: string
+    frequency?: $Enums.Frequency
+    cronExpression?: string | null
+    lastRun?: Date | string | null
+    nextRun: Date | string
+    priority?: $Enums.Priority
+    duration?: number | null
+    siteId: string
+    floorId?: string | null
+    roomId?: string | null
+    teamId?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type PreventiveCreateOrConnectWithoutBuildingInput = {
+    where: PreventiveWhereUniqueInput
+    create: XOR<PreventiveCreateWithoutBuildingInput, PreventiveUncheckedCreateWithoutBuildingInput>
+  }
+
+  export type PreventiveCreateManyBuildingInputEnvelope = {
+    data: PreventiveCreateManyBuildingInput | PreventiveCreateManyBuildingInput[]
     skipDuplicates?: boolean
   }
 
@@ -33236,6 +41672,8 @@ export namespace Prisma {
     floors?: FloorUpdateManyWithoutComplexNestedInput
     units?: UnitUpdateManyWithoutComplexNestedInput
     rooms?: RoomUpdateManyWithoutComplexNestedInput
+    maintenances?: MaintenanceUpdateManyWithoutSiteNestedInput
+    preventives?: PreventiveUpdateManyWithoutSiteNestedInput
   }
 
   export type ComplexUncheckedUpdateWithoutBuildingsInput = {
@@ -33267,6 +41705,8 @@ export namespace Prisma {
     floors?: FloorUncheckedUpdateManyWithoutComplexNestedInput
     units?: UnitUncheckedUpdateManyWithoutComplexNestedInput
     rooms?: RoomUncheckedUpdateManyWithoutComplexNestedInput
+    maintenances?: MaintenanceUncheckedUpdateManyWithoutSiteNestedInput
+    preventives?: PreventiveUncheckedUpdateManyWithoutSiteNestedInput
   }
 
   export type CalenderEntityUpsertWithoutBuildingsInput = {
@@ -33366,6 +41806,22 @@ export namespace Prisma {
     data: XOR<RoomUpdateManyMutationInput, RoomUncheckedUpdateManyWithoutBuildingInput>
   }
 
+  export type PreventiveUpsertWithWhereUniqueWithoutBuildingInput = {
+    where: PreventiveWhereUniqueInput
+    update: XOR<PreventiveUpdateWithoutBuildingInput, PreventiveUncheckedUpdateWithoutBuildingInput>
+    create: XOR<PreventiveCreateWithoutBuildingInput, PreventiveUncheckedCreateWithoutBuildingInput>
+  }
+
+  export type PreventiveUpdateWithWhereUniqueWithoutBuildingInput = {
+    where: PreventiveWhereUniqueInput
+    data: XOR<PreventiveUpdateWithoutBuildingInput, PreventiveUncheckedUpdateWithoutBuildingInput>
+  }
+
+  export type PreventiveUpdateManyWithWhereWithoutBuildingInput = {
+    where: PreventiveScalarWhereInput
+    data: XOR<PreventiveUpdateManyMutationInput, PreventiveUncheckedUpdateManyWithoutBuildingInput>
+  }
+
   export type ComplexCreateWithoutFloorsInput = {
     id?: string
     code: string
@@ -33395,6 +41851,8 @@ export namespace Prisma {
     photos?: FileCreateNestedManyWithoutComplexesInput
     units?: UnitCreateNestedManyWithoutComplexInput
     rooms?: RoomCreateNestedManyWithoutComplexInput
+    maintenances?: MaintenanceCreateNestedManyWithoutSiteInput
+    preventives?: PreventiveCreateNestedManyWithoutSiteInput
   }
 
   export type ComplexUncheckedCreateWithoutFloorsInput = {
@@ -33426,6 +41884,8 @@ export namespace Prisma {
     photos?: FileUncheckedCreateNestedManyWithoutComplexesInput
     units?: UnitUncheckedCreateNestedManyWithoutComplexInput
     rooms?: RoomUncheckedCreateNestedManyWithoutComplexInput
+    maintenances?: MaintenanceUncheckedCreateNestedManyWithoutSiteInput
+    preventives?: PreventiveUncheckedCreateNestedManyWithoutSiteInput
   }
 
   export type ComplexCreateOrConnectWithoutFloorsInput = {
@@ -33460,6 +41920,7 @@ export namespace Prisma {
     photos?: FileCreateNestedManyWithoutBuildingsInput
     units?: UnitCreateNestedManyWithoutBuildingInput
     rooms?: RoomCreateNestedManyWithoutBuildingInput
+    preventives?: PreventiveCreateNestedManyWithoutBuildingInput
   }
 
   export type BuildingUncheckedCreateWithoutFloorsInput = {
@@ -33489,6 +41950,7 @@ export namespace Prisma {
     photos?: FileUncheckedCreateNestedManyWithoutBuildingsInput
     units?: UnitUncheckedCreateNestedManyWithoutBuildingInput
     rooms?: RoomUncheckedCreateNestedManyWithoutBuildingInput
+    preventives?: PreventiveUncheckedCreateNestedManyWithoutBuildingInput
   }
 
   export type BuildingCreateOrConnectWithoutFloorsInput = {
@@ -33519,6 +41981,8 @@ export namespace Prisma {
     building?: BuildingCreateNestedOneWithoutRoomsInput
     unit?: UnitCreateNestedOneWithoutRoomsInput
     photos?: FileCreateNestedManyWithoutRoomsInput
+    maintenances?: MaintenanceCreateNestedManyWithoutRoomInput
+    preventives?: PreventiveCreateNestedManyWithoutRoomInput
   }
 
   export type RoomUncheckedCreateWithoutFloorInput = {
@@ -33544,6 +42008,8 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     photos?: FileUncheckedCreateNestedManyWithoutRoomsInput
+    maintenances?: MaintenanceUncheckedCreateNestedManyWithoutRoomInput
+    preventives?: PreventiveUncheckedCreateNestedManyWithoutRoomInput
   }
 
   export type RoomCreateOrConnectWithoutFloorInput = {
@@ -33640,6 +42106,186 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
+  export type MaintenanceCreateWithoutFloorInput = {
+    id?: string
+    type?: $Enums.MaintenanceType
+    code: string
+    description: string
+    startDate?: Date | string | null
+    endDate?: Date | string | null
+    shortDescription?: string | null
+    action?: string | null
+    message?: string | null
+    processNotes?: string | null
+    processStatus?: $Enums.Status
+    register?: string | null
+    activityIdTimer?: string | null
+    activityStartTime?: Date | string | null
+    activityEndTime?: Date | string | null
+    allDeadlines?: string | null
+    processType?: $Enums.ProcessType
+    ttSysRunning?: Decimal | DecimalJsLike | number | string | null
+    ttWorkRunning?: Decimal | DecimalJsLike | number | string | null
+    sorting?: string | null
+    priority?: $Enums.Priority
+    outcome?: string | null
+    dueAssignedEnd?: Date | string | null
+    execStart?: Date | string | null
+    dueExecEndDate?: Date | string | null
+    execEndDate?: Date | string | null
+    dueClosuerDate?: Date | string | null
+    totalExecTime?: Decimal | DecimalJsLike | number | string | null
+    expStartDate?: Date | string | null
+    suspensionReason?: string | null
+    category?: string | null
+    subCategory?: string | null
+    company?: string | null
+    ttSystemOpening?: Decimal | DecimalJsLike | number | string | null
+    ttWorkOpening?: Decimal | DecimalJsLike | number | string | null
+    ttSystemAssignment?: Decimal | DecimalJsLike | number | string | null
+    ttWorkAssignment?: Decimal | DecimalJsLike | number | string | null
+    ttSystemExecution?: Decimal | DecimalJsLike | number | string | null
+    ttWorkExecution?: Decimal | DecimalJsLike | number | string | null
+    ttSysSuspension?: Decimal | DecimalJsLike | number | string | null
+    ttWorkSuspension?: Decimal | DecimalJsLike | number | string | null
+    ttEstimate?: Decimal | DecimalJsLike | number | string | null
+    prevMaintenanceConfigId?: string | null
+    automaticConfig?: boolean
+    jointAccounting?: boolean
+    hasTasks?: boolean
+    estimateStatus?: $Enums.Status
+    delayNotification?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    performer?: EmployeeCreateNestedOneWithoutPerformedMaintenancesInput
+    requester?: EmployeeCreateNestedOneWithoutRequestedMaintenancesInput
+    site: ComplexCreateNestedOneWithoutMaintenancesInput
+    team?: TeamCreateNestedOneWithoutMaintenancesInput
+    room?: RoomCreateNestedOneWithoutMaintenancesInput
+    assignee?: EmployeeCreateNestedOneWithoutAssignedMaintenancesInput
+    asset?: AssetCreateNestedOneWithoutMaintenancesInput
+    photos?: FileCreateNestedManyWithoutMaintenanceInput
+  }
+
+  export type MaintenanceUncheckedCreateWithoutFloorInput = {
+    id?: string
+    type?: $Enums.MaintenanceType
+    code: string
+    description: string
+    startDate?: Date | string | null
+    endDate?: Date | string | null
+    shortDescription?: string | null
+    action?: string | null
+    message?: string | null
+    processNotes?: string | null
+    performerId?: string | null
+    processStatus?: $Enums.Status
+    register?: string | null
+    activityIdTimer?: string | null
+    activityStartTime?: Date | string | null
+    activityEndTime?: Date | string | null
+    allDeadlines?: string | null
+    processType?: $Enums.ProcessType
+    ttSysRunning?: Decimal | DecimalJsLike | number | string | null
+    ttWorkRunning?: Decimal | DecimalJsLike | number | string | null
+    sorting?: string | null
+    requesterId?: string | null
+    priority?: $Enums.Priority
+    siteId: string
+    outcome?: string | null
+    dueAssignedEnd?: Date | string | null
+    execStart?: Date | string | null
+    dueExecEndDate?: Date | string | null
+    execEndDate?: Date | string | null
+    dueClosuerDate?: Date | string | null
+    totalExecTime?: Decimal | DecimalJsLike | number | string | null
+    expStartDate?: Date | string | null
+    suspensionReason?: string | null
+    category?: string | null
+    subCategory?: string | null
+    company?: string | null
+    teamId?: string | null
+    roomId?: string | null
+    ttSystemOpening?: Decimal | DecimalJsLike | number | string | null
+    ttWorkOpening?: Decimal | DecimalJsLike | number | string | null
+    ttSystemAssignment?: Decimal | DecimalJsLike | number | string | null
+    ttWorkAssignment?: Decimal | DecimalJsLike | number | string | null
+    ttSystemExecution?: Decimal | DecimalJsLike | number | string | null
+    ttWorkExecution?: Decimal | DecimalJsLike | number | string | null
+    ttSysSuspension?: Decimal | DecimalJsLike | number | string | null
+    ttWorkSuspension?: Decimal | DecimalJsLike | number | string | null
+    ttEstimate?: Decimal | DecimalJsLike | number | string | null
+    prevMaintenanceConfigId?: string | null
+    automaticConfig?: boolean
+    jointAccounting?: boolean
+    hasTasks?: boolean
+    estimateStatus?: $Enums.Status
+    delayNotification?: boolean
+    assigneeId?: string | null
+    assetId?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    photos?: FileUncheckedCreateNestedManyWithoutMaintenanceInput
+  }
+
+  export type MaintenanceCreateOrConnectWithoutFloorInput = {
+    where: MaintenanceWhereUniqueInput
+    create: XOR<MaintenanceCreateWithoutFloorInput, MaintenanceUncheckedCreateWithoutFloorInput>
+  }
+
+  export type MaintenanceCreateManyFloorInputEnvelope = {
+    data: MaintenanceCreateManyFloorInput | MaintenanceCreateManyFloorInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type PreventiveCreateWithoutFloorInput = {
+    id?: string
+    code: string
+    name: string
+    description: string
+    frequency?: $Enums.Frequency
+    cronExpression?: string | null
+    lastRun?: Date | string | null
+    nextRun: Date | string
+    priority?: $Enums.Priority
+    duration?: number | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    site: ComplexCreateNestedOneWithoutPreventivesInput
+    building?: BuildingCreateNestedOneWithoutPreventivesInput
+    room?: RoomCreateNestedOneWithoutPreventivesInput
+    team?: TeamCreateNestedOneWithoutPreventivesInput
+  }
+
+  export type PreventiveUncheckedCreateWithoutFloorInput = {
+    id?: string
+    code: string
+    name: string
+    description: string
+    frequency?: $Enums.Frequency
+    cronExpression?: string | null
+    lastRun?: Date | string | null
+    nextRun: Date | string
+    priority?: $Enums.Priority
+    duration?: number | null
+    siteId: string
+    buildingId?: string | null
+    roomId?: string | null
+    teamId?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type PreventiveCreateOrConnectWithoutFloorInput = {
+    where: PreventiveWhereUniqueInput
+    create: XOR<PreventiveCreateWithoutFloorInput, PreventiveUncheckedCreateWithoutFloorInput>
+  }
+
+  export type PreventiveCreateManyFloorInputEnvelope = {
+    data: PreventiveCreateManyFloorInput | PreventiveCreateManyFloorInput[]
+    skipDuplicates?: boolean
+  }
+
   export type ComplexUpsertWithoutFloorsInput = {
     update: XOR<ComplexUpdateWithoutFloorsInput, ComplexUncheckedUpdateWithoutFloorsInput>
     create: XOR<ComplexCreateWithoutFloorsInput, ComplexUncheckedCreateWithoutFloorsInput>
@@ -33680,6 +42326,8 @@ export namespace Prisma {
     photos?: FileUpdateManyWithoutComplexesNestedInput
     units?: UnitUpdateManyWithoutComplexNestedInput
     rooms?: RoomUpdateManyWithoutComplexNestedInput
+    maintenances?: MaintenanceUpdateManyWithoutSiteNestedInput
+    preventives?: PreventiveUpdateManyWithoutSiteNestedInput
   }
 
   export type ComplexUncheckedUpdateWithoutFloorsInput = {
@@ -33711,6 +42359,8 @@ export namespace Prisma {
     photos?: FileUncheckedUpdateManyWithoutComplexesNestedInput
     units?: UnitUncheckedUpdateManyWithoutComplexNestedInput
     rooms?: RoomUncheckedUpdateManyWithoutComplexNestedInput
+    maintenances?: MaintenanceUncheckedUpdateManyWithoutSiteNestedInput
+    preventives?: PreventiveUncheckedUpdateManyWithoutSiteNestedInput
   }
 
   export type BuildingUpsertWithoutFloorsInput = {
@@ -33751,6 +42401,7 @@ export namespace Prisma {
     photos?: FileUpdateManyWithoutBuildingsNestedInput
     units?: UnitUpdateManyWithoutBuildingNestedInput
     rooms?: RoomUpdateManyWithoutBuildingNestedInput
+    preventives?: PreventiveUpdateManyWithoutBuildingNestedInput
   }
 
   export type BuildingUncheckedUpdateWithoutFloorsInput = {
@@ -33780,6 +42431,7 @@ export namespace Prisma {
     photos?: FileUncheckedUpdateManyWithoutBuildingsNestedInput
     units?: UnitUncheckedUpdateManyWithoutBuildingNestedInput
     rooms?: RoomUncheckedUpdateManyWithoutBuildingNestedInput
+    preventives?: PreventiveUncheckedUpdateManyWithoutBuildingNestedInput
   }
 
   export type RoomUpsertWithWhereUniqueWithoutFloorInput = {
@@ -33812,6 +42464,38 @@ export namespace Prisma {
   export type UnitUpdateManyWithWhereWithoutFloorInput = {
     where: UnitScalarWhereInput
     data: XOR<UnitUpdateManyMutationInput, UnitUncheckedUpdateManyWithoutFloorInput>
+  }
+
+  export type MaintenanceUpsertWithWhereUniqueWithoutFloorInput = {
+    where: MaintenanceWhereUniqueInput
+    update: XOR<MaintenanceUpdateWithoutFloorInput, MaintenanceUncheckedUpdateWithoutFloorInput>
+    create: XOR<MaintenanceCreateWithoutFloorInput, MaintenanceUncheckedCreateWithoutFloorInput>
+  }
+
+  export type MaintenanceUpdateWithWhereUniqueWithoutFloorInput = {
+    where: MaintenanceWhereUniqueInput
+    data: XOR<MaintenanceUpdateWithoutFloorInput, MaintenanceUncheckedUpdateWithoutFloorInput>
+  }
+
+  export type MaintenanceUpdateManyWithWhereWithoutFloorInput = {
+    where: MaintenanceScalarWhereInput
+    data: XOR<MaintenanceUpdateManyMutationInput, MaintenanceUncheckedUpdateManyWithoutFloorInput>
+  }
+
+  export type PreventiveUpsertWithWhereUniqueWithoutFloorInput = {
+    where: PreventiveWhereUniqueInput
+    update: XOR<PreventiveUpdateWithoutFloorInput, PreventiveUncheckedUpdateWithoutFloorInput>
+    create: XOR<PreventiveCreateWithoutFloorInput, PreventiveUncheckedCreateWithoutFloorInput>
+  }
+
+  export type PreventiveUpdateWithWhereUniqueWithoutFloorInput = {
+    where: PreventiveWhereUniqueInput
+    data: XOR<PreventiveUpdateWithoutFloorInput, PreventiveUncheckedUpdateWithoutFloorInput>
+  }
+
+  export type PreventiveUpdateManyWithWhereWithoutFloorInput = {
+    where: PreventiveScalarWhereInput
+    data: XOR<PreventiveUpdateManyMutationInput, PreventiveUncheckedUpdateManyWithoutFloorInput>
   }
 
   export type CalenderEntityCreateWithoutUnitsInput = {
@@ -33870,6 +42554,8 @@ export namespace Prisma {
     photos?: FileCreateNestedManyWithoutComplexesInput
     floors?: FloorCreateNestedManyWithoutComplexInput
     rooms?: RoomCreateNestedManyWithoutComplexInput
+    maintenances?: MaintenanceCreateNestedManyWithoutSiteInput
+    preventives?: PreventiveCreateNestedManyWithoutSiteInput
   }
 
   export type ComplexUncheckedCreateWithoutUnitsInput = {
@@ -33901,6 +42587,8 @@ export namespace Prisma {
     photos?: FileUncheckedCreateNestedManyWithoutComplexesInput
     floors?: FloorUncheckedCreateNestedManyWithoutComplexInput
     rooms?: RoomUncheckedCreateNestedManyWithoutComplexInput
+    maintenances?: MaintenanceUncheckedCreateNestedManyWithoutSiteInput
+    preventives?: PreventiveUncheckedCreateNestedManyWithoutSiteInput
   }
 
   export type ComplexCreateOrConnectWithoutUnitsInput = {
@@ -33935,6 +42623,7 @@ export namespace Prisma {
     photos?: FileCreateNestedManyWithoutBuildingsInput
     floors?: FloorCreateNestedManyWithoutBuildingInput
     rooms?: RoomCreateNestedManyWithoutBuildingInput
+    preventives?: PreventiveCreateNestedManyWithoutBuildingInput
   }
 
   export type BuildingUncheckedCreateWithoutUnitsInput = {
@@ -33964,6 +42653,7 @@ export namespace Prisma {
     photos?: FileUncheckedCreateNestedManyWithoutBuildingsInput
     floors?: FloorUncheckedCreateNestedManyWithoutBuildingInput
     rooms?: RoomUncheckedCreateNestedManyWithoutBuildingInput
+    preventives?: PreventiveUncheckedCreateNestedManyWithoutBuildingInput
   }
 
   export type BuildingCreateOrConnectWithoutUnitsInput = {
@@ -33993,6 +42683,8 @@ export namespace Prisma {
     complex: ComplexCreateNestedOneWithoutFloorsInput
     building: BuildingCreateNestedOneWithoutFloorsInput
     rooms?: RoomCreateNestedManyWithoutFloorInput
+    maintenances?: MaintenanceCreateNestedManyWithoutFloorInput
+    preventives?: PreventiveCreateNestedManyWithoutFloorInput
   }
 
   export type FloorUncheckedCreateWithoutUnitsInput = {
@@ -34017,6 +42709,8 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     rooms?: RoomUncheckedCreateNestedManyWithoutFloorInput
+    maintenances?: MaintenanceUncheckedCreateNestedManyWithoutFloorInput
+    preventives?: PreventiveUncheckedCreateNestedManyWithoutFloorInput
   }
 
   export type FloorCreateOrConnectWithoutUnitsInput = {
@@ -34047,6 +42741,8 @@ export namespace Prisma {
     building?: BuildingCreateNestedOneWithoutRoomsInput
     floor: FloorCreateNestedOneWithoutRoomsInput
     photos?: FileCreateNestedManyWithoutRoomsInput
+    maintenances?: MaintenanceCreateNestedManyWithoutRoomInput
+    preventives?: PreventiveCreateNestedManyWithoutRoomInput
   }
 
   export type RoomUncheckedCreateWithoutUnitInput = {
@@ -34072,6 +42768,8 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     photos?: FileUncheckedCreateNestedManyWithoutRoomsInput
+    maintenances?: MaintenanceUncheckedCreateNestedManyWithoutRoomInput
+    preventives?: PreventiveUncheckedCreateNestedManyWithoutRoomInput
   }
 
   export type RoomCreateOrConnectWithoutUnitInput = {
@@ -34090,11 +42788,13 @@ export namespace Prisma {
     rooms?: RoomCreateNestedManyWithoutPhotosInput
     buildings?: BuildingCreateNestedManyWithoutPhotosInput
     complexes?: ComplexCreateNestedManyWithoutPhotosInput
+    maintenance?: MaintenanceCreateNestedOneWithoutPhotosInput
   }
 
   export type FileUncheckedCreateWithoutUnitsInput = {
     id?: string
     url: string
+    maintenanceId?: string | null
     rooms?: RoomUncheckedCreateNestedManyWithoutPhotosInput
     buildings?: BuildingUncheckedCreateNestedManyWithoutPhotosInput
     complexes?: ComplexUncheckedCreateNestedManyWithoutPhotosInput
@@ -34178,6 +42878,8 @@ export namespace Prisma {
     photos?: FileUpdateManyWithoutComplexesNestedInput
     floors?: FloorUpdateManyWithoutComplexNestedInput
     rooms?: RoomUpdateManyWithoutComplexNestedInput
+    maintenances?: MaintenanceUpdateManyWithoutSiteNestedInput
+    preventives?: PreventiveUpdateManyWithoutSiteNestedInput
   }
 
   export type ComplexUncheckedUpdateWithoutUnitsInput = {
@@ -34209,6 +42911,8 @@ export namespace Prisma {
     photos?: FileUncheckedUpdateManyWithoutComplexesNestedInput
     floors?: FloorUncheckedUpdateManyWithoutComplexNestedInput
     rooms?: RoomUncheckedUpdateManyWithoutComplexNestedInput
+    maintenances?: MaintenanceUncheckedUpdateManyWithoutSiteNestedInput
+    preventives?: PreventiveUncheckedUpdateManyWithoutSiteNestedInput
   }
 
   export type BuildingUpsertWithoutUnitsInput = {
@@ -34249,6 +42953,7 @@ export namespace Prisma {
     photos?: FileUpdateManyWithoutBuildingsNestedInput
     floors?: FloorUpdateManyWithoutBuildingNestedInput
     rooms?: RoomUpdateManyWithoutBuildingNestedInput
+    preventives?: PreventiveUpdateManyWithoutBuildingNestedInput
   }
 
   export type BuildingUncheckedUpdateWithoutUnitsInput = {
@@ -34278,6 +42983,7 @@ export namespace Prisma {
     photos?: FileUncheckedUpdateManyWithoutBuildingsNestedInput
     floors?: FloorUncheckedUpdateManyWithoutBuildingNestedInput
     rooms?: RoomUncheckedUpdateManyWithoutBuildingNestedInput
+    preventives?: PreventiveUncheckedUpdateManyWithoutBuildingNestedInput
   }
 
   export type FloorUpsertWithoutUnitsInput = {
@@ -34313,6 +43019,8 @@ export namespace Prisma {
     complex?: ComplexUpdateOneRequiredWithoutFloorsNestedInput
     building?: BuildingUpdateOneRequiredWithoutFloorsNestedInput
     rooms?: RoomUpdateManyWithoutFloorNestedInput
+    maintenances?: MaintenanceUpdateManyWithoutFloorNestedInput
+    preventives?: PreventiveUpdateManyWithoutFloorNestedInput
   }
 
   export type FloorUncheckedUpdateWithoutUnitsInput = {
@@ -34337,6 +43045,8 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     rooms?: RoomUncheckedUpdateManyWithoutFloorNestedInput
+    maintenances?: MaintenanceUncheckedUpdateManyWithoutFloorNestedInput
+    preventives?: PreventiveUncheckedUpdateManyWithoutFloorNestedInput
   }
 
   export type RoomUpsertWithWhereUniqueWithoutUnitInput = {
@@ -34427,6 +43137,8 @@ export namespace Prisma {
     photos?: FileCreateNestedManyWithoutComplexesInput
     floors?: FloorCreateNestedManyWithoutComplexInput
     units?: UnitCreateNestedManyWithoutComplexInput
+    maintenances?: MaintenanceCreateNestedManyWithoutSiteInput
+    preventives?: PreventiveCreateNestedManyWithoutSiteInput
   }
 
   export type ComplexUncheckedCreateWithoutRoomsInput = {
@@ -34458,6 +43170,8 @@ export namespace Prisma {
     photos?: FileUncheckedCreateNestedManyWithoutComplexesInput
     floors?: FloorUncheckedCreateNestedManyWithoutComplexInput
     units?: UnitUncheckedCreateNestedManyWithoutComplexInput
+    maintenances?: MaintenanceUncheckedCreateNestedManyWithoutSiteInput
+    preventives?: PreventiveUncheckedCreateNestedManyWithoutSiteInput
   }
 
   export type ComplexCreateOrConnectWithoutRoomsInput = {
@@ -34492,6 +43206,7 @@ export namespace Prisma {
     photos?: FileCreateNestedManyWithoutBuildingsInput
     floors?: FloorCreateNestedManyWithoutBuildingInput
     units?: UnitCreateNestedManyWithoutBuildingInput
+    preventives?: PreventiveCreateNestedManyWithoutBuildingInput
   }
 
   export type BuildingUncheckedCreateWithoutRoomsInput = {
@@ -34521,6 +43236,7 @@ export namespace Prisma {
     photos?: FileUncheckedCreateNestedManyWithoutBuildingsInput
     floors?: FloorUncheckedCreateNestedManyWithoutBuildingInput
     units?: UnitUncheckedCreateNestedManyWithoutBuildingInput
+    preventives?: PreventiveUncheckedCreateNestedManyWithoutBuildingInput
   }
 
   export type BuildingCreateOrConnectWithoutRoomsInput = {
@@ -34550,6 +43266,8 @@ export namespace Prisma {
     complex: ComplexCreateNestedOneWithoutFloorsInput
     building: BuildingCreateNestedOneWithoutFloorsInput
     units?: UnitCreateNestedManyWithoutFloorInput
+    maintenances?: MaintenanceCreateNestedManyWithoutFloorInput
+    preventives?: PreventiveCreateNestedManyWithoutFloorInput
   }
 
   export type FloorUncheckedCreateWithoutRoomsInput = {
@@ -34574,6 +43292,8 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     units?: UnitUncheckedCreateNestedManyWithoutFloorInput
+    maintenances?: MaintenanceUncheckedCreateNestedManyWithoutFloorInput
+    preventives?: PreventiveUncheckedCreateNestedManyWithoutFloorInput
   }
 
   export type FloorCreateOrConnectWithoutRoomsInput = {
@@ -34666,11 +43386,13 @@ export namespace Prisma {
     units?: UnitCreateNestedManyWithoutPhotosInput
     buildings?: BuildingCreateNestedManyWithoutPhotosInput
     complexes?: ComplexCreateNestedManyWithoutPhotosInput
+    maintenance?: MaintenanceCreateNestedOneWithoutPhotosInput
   }
 
   export type FileUncheckedCreateWithoutRoomsInput = {
     id?: string
     url: string
+    maintenanceId?: string | null
     units?: UnitUncheckedCreateNestedManyWithoutPhotosInput
     buildings?: BuildingUncheckedCreateNestedManyWithoutPhotosInput
     complexes?: ComplexUncheckedCreateNestedManyWithoutPhotosInput
@@ -34679,6 +43401,186 @@ export namespace Prisma {
   export type FileCreateOrConnectWithoutRoomsInput = {
     where: FileWhereUniqueInput
     create: XOR<FileCreateWithoutRoomsInput, FileUncheckedCreateWithoutRoomsInput>
+  }
+
+  export type MaintenanceCreateWithoutRoomInput = {
+    id?: string
+    type?: $Enums.MaintenanceType
+    code: string
+    description: string
+    startDate?: Date | string | null
+    endDate?: Date | string | null
+    shortDescription?: string | null
+    action?: string | null
+    message?: string | null
+    processNotes?: string | null
+    processStatus?: $Enums.Status
+    register?: string | null
+    activityIdTimer?: string | null
+    activityStartTime?: Date | string | null
+    activityEndTime?: Date | string | null
+    allDeadlines?: string | null
+    processType?: $Enums.ProcessType
+    ttSysRunning?: Decimal | DecimalJsLike | number | string | null
+    ttWorkRunning?: Decimal | DecimalJsLike | number | string | null
+    sorting?: string | null
+    priority?: $Enums.Priority
+    outcome?: string | null
+    dueAssignedEnd?: Date | string | null
+    execStart?: Date | string | null
+    dueExecEndDate?: Date | string | null
+    execEndDate?: Date | string | null
+    dueClosuerDate?: Date | string | null
+    totalExecTime?: Decimal | DecimalJsLike | number | string | null
+    expStartDate?: Date | string | null
+    suspensionReason?: string | null
+    category?: string | null
+    subCategory?: string | null
+    company?: string | null
+    ttSystemOpening?: Decimal | DecimalJsLike | number | string | null
+    ttWorkOpening?: Decimal | DecimalJsLike | number | string | null
+    ttSystemAssignment?: Decimal | DecimalJsLike | number | string | null
+    ttWorkAssignment?: Decimal | DecimalJsLike | number | string | null
+    ttSystemExecution?: Decimal | DecimalJsLike | number | string | null
+    ttWorkExecution?: Decimal | DecimalJsLike | number | string | null
+    ttSysSuspension?: Decimal | DecimalJsLike | number | string | null
+    ttWorkSuspension?: Decimal | DecimalJsLike | number | string | null
+    ttEstimate?: Decimal | DecimalJsLike | number | string | null
+    prevMaintenanceConfigId?: string | null
+    automaticConfig?: boolean
+    jointAccounting?: boolean
+    hasTasks?: boolean
+    estimateStatus?: $Enums.Status
+    delayNotification?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    performer?: EmployeeCreateNestedOneWithoutPerformedMaintenancesInput
+    requester?: EmployeeCreateNestedOneWithoutRequestedMaintenancesInput
+    site: ComplexCreateNestedOneWithoutMaintenancesInput
+    team?: TeamCreateNestedOneWithoutMaintenancesInput
+    floor?: FloorCreateNestedOneWithoutMaintenancesInput
+    assignee?: EmployeeCreateNestedOneWithoutAssignedMaintenancesInput
+    asset?: AssetCreateNestedOneWithoutMaintenancesInput
+    photos?: FileCreateNestedManyWithoutMaintenanceInput
+  }
+
+  export type MaintenanceUncheckedCreateWithoutRoomInput = {
+    id?: string
+    type?: $Enums.MaintenanceType
+    code: string
+    description: string
+    startDate?: Date | string | null
+    endDate?: Date | string | null
+    shortDescription?: string | null
+    action?: string | null
+    message?: string | null
+    processNotes?: string | null
+    performerId?: string | null
+    processStatus?: $Enums.Status
+    register?: string | null
+    activityIdTimer?: string | null
+    activityStartTime?: Date | string | null
+    activityEndTime?: Date | string | null
+    allDeadlines?: string | null
+    processType?: $Enums.ProcessType
+    ttSysRunning?: Decimal | DecimalJsLike | number | string | null
+    ttWorkRunning?: Decimal | DecimalJsLike | number | string | null
+    sorting?: string | null
+    requesterId?: string | null
+    priority?: $Enums.Priority
+    siteId: string
+    outcome?: string | null
+    dueAssignedEnd?: Date | string | null
+    execStart?: Date | string | null
+    dueExecEndDate?: Date | string | null
+    execEndDate?: Date | string | null
+    dueClosuerDate?: Date | string | null
+    totalExecTime?: Decimal | DecimalJsLike | number | string | null
+    expStartDate?: Date | string | null
+    suspensionReason?: string | null
+    category?: string | null
+    subCategory?: string | null
+    company?: string | null
+    teamId?: string | null
+    floorId?: string | null
+    ttSystemOpening?: Decimal | DecimalJsLike | number | string | null
+    ttWorkOpening?: Decimal | DecimalJsLike | number | string | null
+    ttSystemAssignment?: Decimal | DecimalJsLike | number | string | null
+    ttWorkAssignment?: Decimal | DecimalJsLike | number | string | null
+    ttSystemExecution?: Decimal | DecimalJsLike | number | string | null
+    ttWorkExecution?: Decimal | DecimalJsLike | number | string | null
+    ttSysSuspension?: Decimal | DecimalJsLike | number | string | null
+    ttWorkSuspension?: Decimal | DecimalJsLike | number | string | null
+    ttEstimate?: Decimal | DecimalJsLike | number | string | null
+    prevMaintenanceConfigId?: string | null
+    automaticConfig?: boolean
+    jointAccounting?: boolean
+    hasTasks?: boolean
+    estimateStatus?: $Enums.Status
+    delayNotification?: boolean
+    assigneeId?: string | null
+    assetId?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    photos?: FileUncheckedCreateNestedManyWithoutMaintenanceInput
+  }
+
+  export type MaintenanceCreateOrConnectWithoutRoomInput = {
+    where: MaintenanceWhereUniqueInput
+    create: XOR<MaintenanceCreateWithoutRoomInput, MaintenanceUncheckedCreateWithoutRoomInput>
+  }
+
+  export type MaintenanceCreateManyRoomInputEnvelope = {
+    data: MaintenanceCreateManyRoomInput | MaintenanceCreateManyRoomInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type PreventiveCreateWithoutRoomInput = {
+    id?: string
+    code: string
+    name: string
+    description: string
+    frequency?: $Enums.Frequency
+    cronExpression?: string | null
+    lastRun?: Date | string | null
+    nextRun: Date | string
+    priority?: $Enums.Priority
+    duration?: number | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    site: ComplexCreateNestedOneWithoutPreventivesInput
+    building?: BuildingCreateNestedOneWithoutPreventivesInput
+    floor?: FloorCreateNestedOneWithoutPreventivesInput
+    team?: TeamCreateNestedOneWithoutPreventivesInput
+  }
+
+  export type PreventiveUncheckedCreateWithoutRoomInput = {
+    id?: string
+    code: string
+    name: string
+    description: string
+    frequency?: $Enums.Frequency
+    cronExpression?: string | null
+    lastRun?: Date | string | null
+    nextRun: Date | string
+    priority?: $Enums.Priority
+    duration?: number | null
+    siteId: string
+    buildingId?: string | null
+    floorId?: string | null
+    teamId?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type PreventiveCreateOrConnectWithoutRoomInput = {
+    where: PreventiveWhereUniqueInput
+    create: XOR<PreventiveCreateWithoutRoomInput, PreventiveUncheckedCreateWithoutRoomInput>
+  }
+
+  export type PreventiveCreateManyRoomInputEnvelope = {
+    data: PreventiveCreateManyRoomInput | PreventiveCreateManyRoomInput[]
+    skipDuplicates?: boolean
   }
 
   export type CalenderEntityUpsertWithoutRoomsInput = {
@@ -34754,6 +43656,8 @@ export namespace Prisma {
     photos?: FileUpdateManyWithoutComplexesNestedInput
     floors?: FloorUpdateManyWithoutComplexNestedInput
     units?: UnitUpdateManyWithoutComplexNestedInput
+    maintenances?: MaintenanceUpdateManyWithoutSiteNestedInput
+    preventives?: PreventiveUpdateManyWithoutSiteNestedInput
   }
 
   export type ComplexUncheckedUpdateWithoutRoomsInput = {
@@ -34785,6 +43689,8 @@ export namespace Prisma {
     photos?: FileUncheckedUpdateManyWithoutComplexesNestedInput
     floors?: FloorUncheckedUpdateManyWithoutComplexNestedInput
     units?: UnitUncheckedUpdateManyWithoutComplexNestedInput
+    maintenances?: MaintenanceUncheckedUpdateManyWithoutSiteNestedInput
+    preventives?: PreventiveUncheckedUpdateManyWithoutSiteNestedInput
   }
 
   export type BuildingUpsertWithoutRoomsInput = {
@@ -34825,6 +43731,7 @@ export namespace Prisma {
     photos?: FileUpdateManyWithoutBuildingsNestedInput
     floors?: FloorUpdateManyWithoutBuildingNestedInput
     units?: UnitUpdateManyWithoutBuildingNestedInput
+    preventives?: PreventiveUpdateManyWithoutBuildingNestedInput
   }
 
   export type BuildingUncheckedUpdateWithoutRoomsInput = {
@@ -34854,6 +43761,7 @@ export namespace Prisma {
     photos?: FileUncheckedUpdateManyWithoutBuildingsNestedInput
     floors?: FloorUncheckedUpdateManyWithoutBuildingNestedInput
     units?: UnitUncheckedUpdateManyWithoutBuildingNestedInput
+    preventives?: PreventiveUncheckedUpdateManyWithoutBuildingNestedInput
   }
 
   export type FloorUpsertWithoutRoomsInput = {
@@ -34889,6 +43797,8 @@ export namespace Prisma {
     complex?: ComplexUpdateOneRequiredWithoutFloorsNestedInput
     building?: BuildingUpdateOneRequiredWithoutFloorsNestedInput
     units?: UnitUpdateManyWithoutFloorNestedInput
+    maintenances?: MaintenanceUpdateManyWithoutFloorNestedInput
+    preventives?: PreventiveUpdateManyWithoutFloorNestedInput
   }
 
   export type FloorUncheckedUpdateWithoutRoomsInput = {
@@ -34913,6 +43823,8 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     units?: UnitUncheckedUpdateManyWithoutFloorNestedInput
+    maintenances?: MaintenanceUncheckedUpdateManyWithoutFloorNestedInput
+    preventives?: PreventiveUncheckedUpdateManyWithoutFloorNestedInput
   }
 
   export type UnitUpsertWithoutRoomsInput = {
@@ -35016,12 +43928,45 @@ export namespace Prisma {
     data: XOR<FileUpdateManyMutationInput, FileUncheckedUpdateManyWithoutRoomsInput>
   }
 
+  export type MaintenanceUpsertWithWhereUniqueWithoutRoomInput = {
+    where: MaintenanceWhereUniqueInput
+    update: XOR<MaintenanceUpdateWithoutRoomInput, MaintenanceUncheckedUpdateWithoutRoomInput>
+    create: XOR<MaintenanceCreateWithoutRoomInput, MaintenanceUncheckedCreateWithoutRoomInput>
+  }
+
+  export type MaintenanceUpdateWithWhereUniqueWithoutRoomInput = {
+    where: MaintenanceWhereUniqueInput
+    data: XOR<MaintenanceUpdateWithoutRoomInput, MaintenanceUncheckedUpdateWithoutRoomInput>
+  }
+
+  export type MaintenanceUpdateManyWithWhereWithoutRoomInput = {
+    where: MaintenanceScalarWhereInput
+    data: XOR<MaintenanceUpdateManyMutationInput, MaintenanceUncheckedUpdateManyWithoutRoomInput>
+  }
+
+  export type PreventiveUpsertWithWhereUniqueWithoutRoomInput = {
+    where: PreventiveWhereUniqueInput
+    update: XOR<PreventiveUpdateWithoutRoomInput, PreventiveUncheckedUpdateWithoutRoomInput>
+    create: XOR<PreventiveCreateWithoutRoomInput, PreventiveUncheckedCreateWithoutRoomInput>
+  }
+
+  export type PreventiveUpdateWithWhereUniqueWithoutRoomInput = {
+    where: PreventiveWhereUniqueInput
+    data: XOR<PreventiveUpdateWithoutRoomInput, PreventiveUncheckedUpdateWithoutRoomInput>
+  }
+
+  export type PreventiveUpdateManyWithWhereWithoutRoomInput = {
+    where: PreventiveScalarWhereInput
+    data: XOR<PreventiveUpdateManyMutationInput, PreventiveUncheckedUpdateManyWithoutRoomInput>
+  }
+
   export type AssetCreateWithoutCategoryInput = {
     id?: string
     name: string
     description?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
+    maintenances?: MaintenanceCreateNestedManyWithoutAssetInput
   }
 
   export type AssetUncheckedCreateWithoutCategoryInput = {
@@ -35030,6 +43975,7 @@ export namespace Prisma {
     description?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
+    maintenances?: MaintenanceUncheckedCreateNestedManyWithoutAssetInput
   }
 
   export type AssetCreateOrConnectWithoutCategoryInput = {
@@ -35093,6 +44039,138 @@ export namespace Prisma {
     create: XOR<AssetCategoryCreateWithoutAssetsInput, AssetCategoryUncheckedCreateWithoutAssetsInput>
   }
 
+  export type MaintenanceCreateWithoutAssetInput = {
+    id?: string
+    type?: $Enums.MaintenanceType
+    code: string
+    description: string
+    startDate?: Date | string | null
+    endDate?: Date | string | null
+    shortDescription?: string | null
+    action?: string | null
+    message?: string | null
+    processNotes?: string | null
+    processStatus?: $Enums.Status
+    register?: string | null
+    activityIdTimer?: string | null
+    activityStartTime?: Date | string | null
+    activityEndTime?: Date | string | null
+    allDeadlines?: string | null
+    processType?: $Enums.ProcessType
+    ttSysRunning?: Decimal | DecimalJsLike | number | string | null
+    ttWorkRunning?: Decimal | DecimalJsLike | number | string | null
+    sorting?: string | null
+    priority?: $Enums.Priority
+    outcome?: string | null
+    dueAssignedEnd?: Date | string | null
+    execStart?: Date | string | null
+    dueExecEndDate?: Date | string | null
+    execEndDate?: Date | string | null
+    dueClosuerDate?: Date | string | null
+    totalExecTime?: Decimal | DecimalJsLike | number | string | null
+    expStartDate?: Date | string | null
+    suspensionReason?: string | null
+    category?: string | null
+    subCategory?: string | null
+    company?: string | null
+    ttSystemOpening?: Decimal | DecimalJsLike | number | string | null
+    ttWorkOpening?: Decimal | DecimalJsLike | number | string | null
+    ttSystemAssignment?: Decimal | DecimalJsLike | number | string | null
+    ttWorkAssignment?: Decimal | DecimalJsLike | number | string | null
+    ttSystemExecution?: Decimal | DecimalJsLike | number | string | null
+    ttWorkExecution?: Decimal | DecimalJsLike | number | string | null
+    ttSysSuspension?: Decimal | DecimalJsLike | number | string | null
+    ttWorkSuspension?: Decimal | DecimalJsLike | number | string | null
+    ttEstimate?: Decimal | DecimalJsLike | number | string | null
+    prevMaintenanceConfigId?: string | null
+    automaticConfig?: boolean
+    jointAccounting?: boolean
+    hasTasks?: boolean
+    estimateStatus?: $Enums.Status
+    delayNotification?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    performer?: EmployeeCreateNestedOneWithoutPerformedMaintenancesInput
+    requester?: EmployeeCreateNestedOneWithoutRequestedMaintenancesInput
+    site: ComplexCreateNestedOneWithoutMaintenancesInput
+    team?: TeamCreateNestedOneWithoutMaintenancesInput
+    floor?: FloorCreateNestedOneWithoutMaintenancesInput
+    room?: RoomCreateNestedOneWithoutMaintenancesInput
+    assignee?: EmployeeCreateNestedOneWithoutAssignedMaintenancesInput
+    photos?: FileCreateNestedManyWithoutMaintenanceInput
+  }
+
+  export type MaintenanceUncheckedCreateWithoutAssetInput = {
+    id?: string
+    type?: $Enums.MaintenanceType
+    code: string
+    description: string
+    startDate?: Date | string | null
+    endDate?: Date | string | null
+    shortDescription?: string | null
+    action?: string | null
+    message?: string | null
+    processNotes?: string | null
+    performerId?: string | null
+    processStatus?: $Enums.Status
+    register?: string | null
+    activityIdTimer?: string | null
+    activityStartTime?: Date | string | null
+    activityEndTime?: Date | string | null
+    allDeadlines?: string | null
+    processType?: $Enums.ProcessType
+    ttSysRunning?: Decimal | DecimalJsLike | number | string | null
+    ttWorkRunning?: Decimal | DecimalJsLike | number | string | null
+    sorting?: string | null
+    requesterId?: string | null
+    priority?: $Enums.Priority
+    siteId: string
+    outcome?: string | null
+    dueAssignedEnd?: Date | string | null
+    execStart?: Date | string | null
+    dueExecEndDate?: Date | string | null
+    execEndDate?: Date | string | null
+    dueClosuerDate?: Date | string | null
+    totalExecTime?: Decimal | DecimalJsLike | number | string | null
+    expStartDate?: Date | string | null
+    suspensionReason?: string | null
+    category?: string | null
+    subCategory?: string | null
+    company?: string | null
+    teamId?: string | null
+    floorId?: string | null
+    roomId?: string | null
+    ttSystemOpening?: Decimal | DecimalJsLike | number | string | null
+    ttWorkOpening?: Decimal | DecimalJsLike | number | string | null
+    ttSystemAssignment?: Decimal | DecimalJsLike | number | string | null
+    ttWorkAssignment?: Decimal | DecimalJsLike | number | string | null
+    ttSystemExecution?: Decimal | DecimalJsLike | number | string | null
+    ttWorkExecution?: Decimal | DecimalJsLike | number | string | null
+    ttSysSuspension?: Decimal | DecimalJsLike | number | string | null
+    ttWorkSuspension?: Decimal | DecimalJsLike | number | string | null
+    ttEstimate?: Decimal | DecimalJsLike | number | string | null
+    prevMaintenanceConfigId?: string | null
+    automaticConfig?: boolean
+    jointAccounting?: boolean
+    hasTasks?: boolean
+    estimateStatus?: $Enums.Status
+    delayNotification?: boolean
+    assigneeId?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    photos?: FileUncheckedCreateNestedManyWithoutMaintenanceInput
+  }
+
+  export type MaintenanceCreateOrConnectWithoutAssetInput = {
+    where: MaintenanceWhereUniqueInput
+    create: XOR<MaintenanceCreateWithoutAssetInput, MaintenanceUncheckedCreateWithoutAssetInput>
+  }
+
+  export type MaintenanceCreateManyAssetInputEnvelope = {
+    data: MaintenanceCreateManyAssetInput | MaintenanceCreateManyAssetInput[]
+    skipDuplicates?: boolean
+  }
+
   export type AssetCategoryUpsertWithoutAssetsInput = {
     update: XOR<AssetCategoryUpdateWithoutAssetsInput, AssetCategoryUncheckedUpdateWithoutAssetsInput>
     create: XOR<AssetCategoryCreateWithoutAssetsInput, AssetCategoryUncheckedCreateWithoutAssetsInput>
@@ -35122,6 +44200,22 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
+  export type MaintenanceUpsertWithWhereUniqueWithoutAssetInput = {
+    where: MaintenanceWhereUniqueInput
+    update: XOR<MaintenanceUpdateWithoutAssetInput, MaintenanceUncheckedUpdateWithoutAssetInput>
+    create: XOR<MaintenanceCreateWithoutAssetInput, MaintenanceUncheckedCreateWithoutAssetInput>
+  }
+
+  export type MaintenanceUpdateWithWhereUniqueWithoutAssetInput = {
+    where: MaintenanceWhereUniqueInput
+    data: XOR<MaintenanceUpdateWithoutAssetInput, MaintenanceUncheckedUpdateWithoutAssetInput>
+  }
+
+  export type MaintenanceUpdateManyWithWhereWithoutAssetInput = {
+    where: MaintenanceScalarWhereInput
+    data: XOR<MaintenanceUpdateManyMutationInput, MaintenanceUncheckedUpdateManyWithoutAssetInput>
+  }
+
   export type RoomCreateWithoutPhotosInput = {
     id?: string
     name: string
@@ -35145,6 +44239,8 @@ export namespace Prisma {
     building?: BuildingCreateNestedOneWithoutRoomsInput
     floor: FloorCreateNestedOneWithoutRoomsInput
     unit?: UnitCreateNestedOneWithoutRoomsInput
+    maintenances?: MaintenanceCreateNestedManyWithoutRoomInput
+    preventives?: PreventiveCreateNestedManyWithoutRoomInput
   }
 
   export type RoomUncheckedCreateWithoutPhotosInput = {
@@ -35170,6 +44266,8 @@ export namespace Prisma {
     totalVolume?: number | null
     createdAt?: Date | string
     updatedAt?: Date | string
+    maintenances?: MaintenanceUncheckedCreateNestedManyWithoutRoomInput
+    preventives?: PreventiveUncheckedCreateNestedManyWithoutRoomInput
   }
 
   export type RoomCreateOrConnectWithoutPhotosInput = {
@@ -35283,6 +44381,7 @@ export namespace Prisma {
     floors?: FloorCreateNestedManyWithoutBuildingInput
     units?: UnitCreateNestedManyWithoutBuildingInput
     rooms?: RoomCreateNestedManyWithoutBuildingInput
+    preventives?: PreventiveCreateNestedManyWithoutBuildingInput
   }
 
   export type BuildingUncheckedCreateWithoutPhotosInput = {
@@ -35312,6 +44411,7 @@ export namespace Prisma {
     floors?: FloorUncheckedCreateNestedManyWithoutBuildingInput
     units?: UnitUncheckedCreateNestedManyWithoutBuildingInput
     rooms?: RoomUncheckedCreateNestedManyWithoutBuildingInput
+    preventives?: PreventiveUncheckedCreateNestedManyWithoutBuildingInput
   }
 
   export type BuildingCreateOrConnectWithoutPhotosInput = {
@@ -35348,6 +44448,8 @@ export namespace Prisma {
     floors?: FloorCreateNestedManyWithoutComplexInput
     units?: UnitCreateNestedManyWithoutComplexInput
     rooms?: RoomCreateNestedManyWithoutComplexInput
+    maintenances?: MaintenanceCreateNestedManyWithoutSiteInput
+    preventives?: PreventiveCreateNestedManyWithoutSiteInput
   }
 
   export type ComplexUncheckedCreateWithoutPhotosInput = {
@@ -35379,11 +44481,140 @@ export namespace Prisma {
     floors?: FloorUncheckedCreateNestedManyWithoutComplexInput
     units?: UnitUncheckedCreateNestedManyWithoutComplexInput
     rooms?: RoomUncheckedCreateNestedManyWithoutComplexInput
+    maintenances?: MaintenanceUncheckedCreateNestedManyWithoutSiteInput
+    preventives?: PreventiveUncheckedCreateNestedManyWithoutSiteInput
   }
 
   export type ComplexCreateOrConnectWithoutPhotosInput = {
     where: ComplexWhereUniqueInput
     create: XOR<ComplexCreateWithoutPhotosInput, ComplexUncheckedCreateWithoutPhotosInput>
+  }
+
+  export type MaintenanceCreateWithoutPhotosInput = {
+    id?: string
+    type?: $Enums.MaintenanceType
+    code: string
+    description: string
+    startDate?: Date | string | null
+    endDate?: Date | string | null
+    shortDescription?: string | null
+    action?: string | null
+    message?: string | null
+    processNotes?: string | null
+    processStatus?: $Enums.Status
+    register?: string | null
+    activityIdTimer?: string | null
+    activityStartTime?: Date | string | null
+    activityEndTime?: Date | string | null
+    allDeadlines?: string | null
+    processType?: $Enums.ProcessType
+    ttSysRunning?: Decimal | DecimalJsLike | number | string | null
+    ttWorkRunning?: Decimal | DecimalJsLike | number | string | null
+    sorting?: string | null
+    priority?: $Enums.Priority
+    outcome?: string | null
+    dueAssignedEnd?: Date | string | null
+    execStart?: Date | string | null
+    dueExecEndDate?: Date | string | null
+    execEndDate?: Date | string | null
+    dueClosuerDate?: Date | string | null
+    totalExecTime?: Decimal | DecimalJsLike | number | string | null
+    expStartDate?: Date | string | null
+    suspensionReason?: string | null
+    category?: string | null
+    subCategory?: string | null
+    company?: string | null
+    ttSystemOpening?: Decimal | DecimalJsLike | number | string | null
+    ttWorkOpening?: Decimal | DecimalJsLike | number | string | null
+    ttSystemAssignment?: Decimal | DecimalJsLike | number | string | null
+    ttWorkAssignment?: Decimal | DecimalJsLike | number | string | null
+    ttSystemExecution?: Decimal | DecimalJsLike | number | string | null
+    ttWorkExecution?: Decimal | DecimalJsLike | number | string | null
+    ttSysSuspension?: Decimal | DecimalJsLike | number | string | null
+    ttWorkSuspension?: Decimal | DecimalJsLike | number | string | null
+    ttEstimate?: Decimal | DecimalJsLike | number | string | null
+    prevMaintenanceConfigId?: string | null
+    automaticConfig?: boolean
+    jointAccounting?: boolean
+    hasTasks?: boolean
+    estimateStatus?: $Enums.Status
+    delayNotification?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    performer?: EmployeeCreateNestedOneWithoutPerformedMaintenancesInput
+    requester?: EmployeeCreateNestedOneWithoutRequestedMaintenancesInput
+    site: ComplexCreateNestedOneWithoutMaintenancesInput
+    team?: TeamCreateNestedOneWithoutMaintenancesInput
+    floor?: FloorCreateNestedOneWithoutMaintenancesInput
+    room?: RoomCreateNestedOneWithoutMaintenancesInput
+    assignee?: EmployeeCreateNestedOneWithoutAssignedMaintenancesInput
+    asset?: AssetCreateNestedOneWithoutMaintenancesInput
+  }
+
+  export type MaintenanceUncheckedCreateWithoutPhotosInput = {
+    id?: string
+    type?: $Enums.MaintenanceType
+    code: string
+    description: string
+    startDate?: Date | string | null
+    endDate?: Date | string | null
+    shortDescription?: string | null
+    action?: string | null
+    message?: string | null
+    processNotes?: string | null
+    performerId?: string | null
+    processStatus?: $Enums.Status
+    register?: string | null
+    activityIdTimer?: string | null
+    activityStartTime?: Date | string | null
+    activityEndTime?: Date | string | null
+    allDeadlines?: string | null
+    processType?: $Enums.ProcessType
+    ttSysRunning?: Decimal | DecimalJsLike | number | string | null
+    ttWorkRunning?: Decimal | DecimalJsLike | number | string | null
+    sorting?: string | null
+    requesterId?: string | null
+    priority?: $Enums.Priority
+    siteId: string
+    outcome?: string | null
+    dueAssignedEnd?: Date | string | null
+    execStart?: Date | string | null
+    dueExecEndDate?: Date | string | null
+    execEndDate?: Date | string | null
+    dueClosuerDate?: Date | string | null
+    totalExecTime?: Decimal | DecimalJsLike | number | string | null
+    expStartDate?: Date | string | null
+    suspensionReason?: string | null
+    category?: string | null
+    subCategory?: string | null
+    company?: string | null
+    teamId?: string | null
+    floorId?: string | null
+    roomId?: string | null
+    ttSystemOpening?: Decimal | DecimalJsLike | number | string | null
+    ttWorkOpening?: Decimal | DecimalJsLike | number | string | null
+    ttSystemAssignment?: Decimal | DecimalJsLike | number | string | null
+    ttWorkAssignment?: Decimal | DecimalJsLike | number | string | null
+    ttSystemExecution?: Decimal | DecimalJsLike | number | string | null
+    ttWorkExecution?: Decimal | DecimalJsLike | number | string | null
+    ttSysSuspension?: Decimal | DecimalJsLike | number | string | null
+    ttWorkSuspension?: Decimal | DecimalJsLike | number | string | null
+    ttEstimate?: Decimal | DecimalJsLike | number | string | null
+    prevMaintenanceConfigId?: string | null
+    automaticConfig?: boolean
+    jointAccounting?: boolean
+    hasTasks?: boolean
+    estimateStatus?: $Enums.Status
+    delayNotification?: boolean
+    assigneeId?: string | null
+    assetId?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type MaintenanceCreateOrConnectWithoutPhotosInput = {
+    where: MaintenanceWhereUniqueInput
+    create: XOR<MaintenanceCreateWithoutPhotosInput, MaintenanceUncheckedCreateWithoutPhotosInput>
   }
 
   export type RoomUpsertWithWhereUniqueWithoutPhotosInput = {
@@ -35480,6 +44711,139 @@ export namespace Prisma {
     updatedAt?: DateTimeFilter<"Complex"> | Date | string
   }
 
+  export type MaintenanceUpsertWithoutPhotosInput = {
+    update: XOR<MaintenanceUpdateWithoutPhotosInput, MaintenanceUncheckedUpdateWithoutPhotosInput>
+    create: XOR<MaintenanceCreateWithoutPhotosInput, MaintenanceUncheckedCreateWithoutPhotosInput>
+    where?: MaintenanceWhereInput
+  }
+
+  export type MaintenanceUpdateToOneWithWhereWithoutPhotosInput = {
+    where?: MaintenanceWhereInput
+    data: XOR<MaintenanceUpdateWithoutPhotosInput, MaintenanceUncheckedUpdateWithoutPhotosInput>
+  }
+
+  export type MaintenanceUpdateWithoutPhotosInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    type?: EnumMaintenanceTypeFieldUpdateOperationsInput | $Enums.MaintenanceType
+    code?: StringFieldUpdateOperationsInput | string
+    description?: StringFieldUpdateOperationsInput | string
+    startDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    endDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    shortDescription?: NullableStringFieldUpdateOperationsInput | string | null
+    action?: NullableStringFieldUpdateOperationsInput | string | null
+    message?: NullableStringFieldUpdateOperationsInput | string | null
+    processNotes?: NullableStringFieldUpdateOperationsInput | string | null
+    processStatus?: EnumStatusFieldUpdateOperationsInput | $Enums.Status
+    register?: NullableStringFieldUpdateOperationsInput | string | null
+    activityIdTimer?: NullableStringFieldUpdateOperationsInput | string | null
+    activityStartTime?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    activityEndTime?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    allDeadlines?: NullableStringFieldUpdateOperationsInput | string | null
+    processType?: EnumProcessTypeFieldUpdateOperationsInput | $Enums.ProcessType
+    ttSysRunning?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    ttWorkRunning?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    sorting?: NullableStringFieldUpdateOperationsInput | string | null
+    priority?: EnumPriorityFieldUpdateOperationsInput | $Enums.Priority
+    outcome?: NullableStringFieldUpdateOperationsInput | string | null
+    dueAssignedEnd?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    execStart?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    dueExecEndDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    execEndDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    dueClosuerDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    totalExecTime?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    expStartDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    suspensionReason?: NullableStringFieldUpdateOperationsInput | string | null
+    category?: NullableStringFieldUpdateOperationsInput | string | null
+    subCategory?: NullableStringFieldUpdateOperationsInput | string | null
+    company?: NullableStringFieldUpdateOperationsInput | string | null
+    ttSystemOpening?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    ttWorkOpening?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    ttSystemAssignment?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    ttWorkAssignment?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    ttSystemExecution?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    ttWorkExecution?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    ttSysSuspension?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    ttWorkSuspension?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    ttEstimate?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    prevMaintenanceConfigId?: NullableStringFieldUpdateOperationsInput | string | null
+    automaticConfig?: BoolFieldUpdateOperationsInput | boolean
+    jointAccounting?: BoolFieldUpdateOperationsInput | boolean
+    hasTasks?: BoolFieldUpdateOperationsInput | boolean
+    estimateStatus?: EnumStatusFieldUpdateOperationsInput | $Enums.Status
+    delayNotification?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    performer?: EmployeeUpdateOneWithoutPerformedMaintenancesNestedInput
+    requester?: EmployeeUpdateOneWithoutRequestedMaintenancesNestedInput
+    site?: ComplexUpdateOneRequiredWithoutMaintenancesNestedInput
+    team?: TeamUpdateOneWithoutMaintenancesNestedInput
+    floor?: FloorUpdateOneWithoutMaintenancesNestedInput
+    room?: RoomUpdateOneWithoutMaintenancesNestedInput
+    assignee?: EmployeeUpdateOneWithoutAssignedMaintenancesNestedInput
+    asset?: AssetUpdateOneWithoutMaintenancesNestedInput
+  }
+
+  export type MaintenanceUncheckedUpdateWithoutPhotosInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    type?: EnumMaintenanceTypeFieldUpdateOperationsInput | $Enums.MaintenanceType
+    code?: StringFieldUpdateOperationsInput | string
+    description?: StringFieldUpdateOperationsInput | string
+    startDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    endDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    shortDescription?: NullableStringFieldUpdateOperationsInput | string | null
+    action?: NullableStringFieldUpdateOperationsInput | string | null
+    message?: NullableStringFieldUpdateOperationsInput | string | null
+    processNotes?: NullableStringFieldUpdateOperationsInput | string | null
+    performerId?: NullableStringFieldUpdateOperationsInput | string | null
+    processStatus?: EnumStatusFieldUpdateOperationsInput | $Enums.Status
+    register?: NullableStringFieldUpdateOperationsInput | string | null
+    activityIdTimer?: NullableStringFieldUpdateOperationsInput | string | null
+    activityStartTime?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    activityEndTime?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    allDeadlines?: NullableStringFieldUpdateOperationsInput | string | null
+    processType?: EnumProcessTypeFieldUpdateOperationsInput | $Enums.ProcessType
+    ttSysRunning?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    ttWorkRunning?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    sorting?: NullableStringFieldUpdateOperationsInput | string | null
+    requesterId?: NullableStringFieldUpdateOperationsInput | string | null
+    priority?: EnumPriorityFieldUpdateOperationsInput | $Enums.Priority
+    siteId?: StringFieldUpdateOperationsInput | string
+    outcome?: NullableStringFieldUpdateOperationsInput | string | null
+    dueAssignedEnd?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    execStart?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    dueExecEndDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    execEndDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    dueClosuerDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    totalExecTime?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    expStartDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    suspensionReason?: NullableStringFieldUpdateOperationsInput | string | null
+    category?: NullableStringFieldUpdateOperationsInput | string | null
+    subCategory?: NullableStringFieldUpdateOperationsInput | string | null
+    company?: NullableStringFieldUpdateOperationsInput | string | null
+    teamId?: NullableStringFieldUpdateOperationsInput | string | null
+    floorId?: NullableStringFieldUpdateOperationsInput | string | null
+    roomId?: NullableStringFieldUpdateOperationsInput | string | null
+    ttSystemOpening?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    ttWorkOpening?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    ttSystemAssignment?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    ttWorkAssignment?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    ttSystemExecution?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    ttWorkExecution?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    ttSysSuspension?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    ttWorkSuspension?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    ttEstimate?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    prevMaintenanceConfigId?: NullableStringFieldUpdateOperationsInput | string | null
+    automaticConfig?: BoolFieldUpdateOperationsInput | boolean
+    jointAccounting?: BoolFieldUpdateOperationsInput | boolean
+    hasTasks?: BoolFieldUpdateOperationsInput | boolean
+    estimateStatus?: EnumStatusFieldUpdateOperationsInput | $Enums.Status
+    delayNotification?: BoolFieldUpdateOperationsInput | boolean
+    assigneeId?: NullableStringFieldUpdateOperationsInput | string | null
+    assetId?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
   export type AddressCreateWithoutCompaniesInput = {
     id?: string
     street: string
@@ -35511,6 +44875,9 @@ export namespace Prisma {
     user: UserCreateNestedOneWithoutEmployeesInput
     calenderEntity?: CalenderEntityCreateNestedOneWithoutEmployeesInput
     teams?: TeamCreateNestedManyWithoutSupervisorInput
+    performedMaintenances?: MaintenanceCreateNestedManyWithoutPerformerInput
+    requestedMaintenances?: MaintenanceCreateNestedManyWithoutRequesterInput
+    assignedMaintenances?: MaintenanceCreateNestedManyWithoutAssigneeInput
   }
 
   export type EmployeeUncheckedCreateWithoutCompanyInput = {
@@ -35521,6 +44888,9 @@ export namespace Prisma {
     status?: $Enums.ServiceStatus
     calenderEntityId?: string | null
     teams?: TeamUncheckedCreateNestedManyWithoutSupervisorInput
+    performedMaintenances?: MaintenanceUncheckedCreateNestedManyWithoutPerformerInput
+    requestedMaintenances?: MaintenanceUncheckedCreateNestedManyWithoutRequesterInput
+    assignedMaintenances?: MaintenanceUncheckedCreateNestedManyWithoutAssigneeInput
   }
 
   export type EmployeeCreateOrConnectWithoutCompanyInput = {
@@ -35685,6 +45055,8 @@ export namespace Prisma {
     status?: $Enums.ServiceStatus
     createdAt?: Date | string
     updatedAt?: Date | string
+    maintenances?: MaintenanceCreateNestedManyWithoutTeamInput
+    preventives?: PreventiveCreateNestedManyWithoutTeamInput
   }
 
   export type TeamUncheckedCreateWithoutSupervisorInput = {
@@ -35695,6 +45067,8 @@ export namespace Prisma {
     status?: $Enums.ServiceStatus
     createdAt?: Date | string
     updatedAt?: Date | string
+    maintenances?: MaintenanceUncheckedCreateNestedManyWithoutTeamInput
+    preventives?: PreventiveUncheckedCreateNestedManyWithoutTeamInput
   }
 
   export type TeamCreateOrConnectWithoutSupervisorInput = {
@@ -35704,6 +45078,402 @@ export namespace Prisma {
 
   export type TeamCreateManySupervisorInputEnvelope = {
     data: TeamCreateManySupervisorInput | TeamCreateManySupervisorInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type MaintenanceCreateWithoutPerformerInput = {
+    id?: string
+    type?: $Enums.MaintenanceType
+    code: string
+    description: string
+    startDate?: Date | string | null
+    endDate?: Date | string | null
+    shortDescription?: string | null
+    action?: string | null
+    message?: string | null
+    processNotes?: string | null
+    processStatus?: $Enums.Status
+    register?: string | null
+    activityIdTimer?: string | null
+    activityStartTime?: Date | string | null
+    activityEndTime?: Date | string | null
+    allDeadlines?: string | null
+    processType?: $Enums.ProcessType
+    ttSysRunning?: Decimal | DecimalJsLike | number | string | null
+    ttWorkRunning?: Decimal | DecimalJsLike | number | string | null
+    sorting?: string | null
+    priority?: $Enums.Priority
+    outcome?: string | null
+    dueAssignedEnd?: Date | string | null
+    execStart?: Date | string | null
+    dueExecEndDate?: Date | string | null
+    execEndDate?: Date | string | null
+    dueClosuerDate?: Date | string | null
+    totalExecTime?: Decimal | DecimalJsLike | number | string | null
+    expStartDate?: Date | string | null
+    suspensionReason?: string | null
+    category?: string | null
+    subCategory?: string | null
+    company?: string | null
+    ttSystemOpening?: Decimal | DecimalJsLike | number | string | null
+    ttWorkOpening?: Decimal | DecimalJsLike | number | string | null
+    ttSystemAssignment?: Decimal | DecimalJsLike | number | string | null
+    ttWorkAssignment?: Decimal | DecimalJsLike | number | string | null
+    ttSystemExecution?: Decimal | DecimalJsLike | number | string | null
+    ttWorkExecution?: Decimal | DecimalJsLike | number | string | null
+    ttSysSuspension?: Decimal | DecimalJsLike | number | string | null
+    ttWorkSuspension?: Decimal | DecimalJsLike | number | string | null
+    ttEstimate?: Decimal | DecimalJsLike | number | string | null
+    prevMaintenanceConfigId?: string | null
+    automaticConfig?: boolean
+    jointAccounting?: boolean
+    hasTasks?: boolean
+    estimateStatus?: $Enums.Status
+    delayNotification?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    requester?: EmployeeCreateNestedOneWithoutRequestedMaintenancesInput
+    site: ComplexCreateNestedOneWithoutMaintenancesInput
+    team?: TeamCreateNestedOneWithoutMaintenancesInput
+    floor?: FloorCreateNestedOneWithoutMaintenancesInput
+    room?: RoomCreateNestedOneWithoutMaintenancesInput
+    assignee?: EmployeeCreateNestedOneWithoutAssignedMaintenancesInput
+    asset?: AssetCreateNestedOneWithoutMaintenancesInput
+    photos?: FileCreateNestedManyWithoutMaintenanceInput
+  }
+
+  export type MaintenanceUncheckedCreateWithoutPerformerInput = {
+    id?: string
+    type?: $Enums.MaintenanceType
+    code: string
+    description: string
+    startDate?: Date | string | null
+    endDate?: Date | string | null
+    shortDescription?: string | null
+    action?: string | null
+    message?: string | null
+    processNotes?: string | null
+    processStatus?: $Enums.Status
+    register?: string | null
+    activityIdTimer?: string | null
+    activityStartTime?: Date | string | null
+    activityEndTime?: Date | string | null
+    allDeadlines?: string | null
+    processType?: $Enums.ProcessType
+    ttSysRunning?: Decimal | DecimalJsLike | number | string | null
+    ttWorkRunning?: Decimal | DecimalJsLike | number | string | null
+    sorting?: string | null
+    requesterId?: string | null
+    priority?: $Enums.Priority
+    siteId: string
+    outcome?: string | null
+    dueAssignedEnd?: Date | string | null
+    execStart?: Date | string | null
+    dueExecEndDate?: Date | string | null
+    execEndDate?: Date | string | null
+    dueClosuerDate?: Date | string | null
+    totalExecTime?: Decimal | DecimalJsLike | number | string | null
+    expStartDate?: Date | string | null
+    suspensionReason?: string | null
+    category?: string | null
+    subCategory?: string | null
+    company?: string | null
+    teamId?: string | null
+    floorId?: string | null
+    roomId?: string | null
+    ttSystemOpening?: Decimal | DecimalJsLike | number | string | null
+    ttWorkOpening?: Decimal | DecimalJsLike | number | string | null
+    ttSystemAssignment?: Decimal | DecimalJsLike | number | string | null
+    ttWorkAssignment?: Decimal | DecimalJsLike | number | string | null
+    ttSystemExecution?: Decimal | DecimalJsLike | number | string | null
+    ttWorkExecution?: Decimal | DecimalJsLike | number | string | null
+    ttSysSuspension?: Decimal | DecimalJsLike | number | string | null
+    ttWorkSuspension?: Decimal | DecimalJsLike | number | string | null
+    ttEstimate?: Decimal | DecimalJsLike | number | string | null
+    prevMaintenanceConfigId?: string | null
+    automaticConfig?: boolean
+    jointAccounting?: boolean
+    hasTasks?: boolean
+    estimateStatus?: $Enums.Status
+    delayNotification?: boolean
+    assigneeId?: string | null
+    assetId?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    photos?: FileUncheckedCreateNestedManyWithoutMaintenanceInput
+  }
+
+  export type MaintenanceCreateOrConnectWithoutPerformerInput = {
+    where: MaintenanceWhereUniqueInput
+    create: XOR<MaintenanceCreateWithoutPerformerInput, MaintenanceUncheckedCreateWithoutPerformerInput>
+  }
+
+  export type MaintenanceCreateManyPerformerInputEnvelope = {
+    data: MaintenanceCreateManyPerformerInput | MaintenanceCreateManyPerformerInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type MaintenanceCreateWithoutRequesterInput = {
+    id?: string
+    type?: $Enums.MaintenanceType
+    code: string
+    description: string
+    startDate?: Date | string | null
+    endDate?: Date | string | null
+    shortDescription?: string | null
+    action?: string | null
+    message?: string | null
+    processNotes?: string | null
+    processStatus?: $Enums.Status
+    register?: string | null
+    activityIdTimer?: string | null
+    activityStartTime?: Date | string | null
+    activityEndTime?: Date | string | null
+    allDeadlines?: string | null
+    processType?: $Enums.ProcessType
+    ttSysRunning?: Decimal | DecimalJsLike | number | string | null
+    ttWorkRunning?: Decimal | DecimalJsLike | number | string | null
+    sorting?: string | null
+    priority?: $Enums.Priority
+    outcome?: string | null
+    dueAssignedEnd?: Date | string | null
+    execStart?: Date | string | null
+    dueExecEndDate?: Date | string | null
+    execEndDate?: Date | string | null
+    dueClosuerDate?: Date | string | null
+    totalExecTime?: Decimal | DecimalJsLike | number | string | null
+    expStartDate?: Date | string | null
+    suspensionReason?: string | null
+    category?: string | null
+    subCategory?: string | null
+    company?: string | null
+    ttSystemOpening?: Decimal | DecimalJsLike | number | string | null
+    ttWorkOpening?: Decimal | DecimalJsLike | number | string | null
+    ttSystemAssignment?: Decimal | DecimalJsLike | number | string | null
+    ttWorkAssignment?: Decimal | DecimalJsLike | number | string | null
+    ttSystemExecution?: Decimal | DecimalJsLike | number | string | null
+    ttWorkExecution?: Decimal | DecimalJsLike | number | string | null
+    ttSysSuspension?: Decimal | DecimalJsLike | number | string | null
+    ttWorkSuspension?: Decimal | DecimalJsLike | number | string | null
+    ttEstimate?: Decimal | DecimalJsLike | number | string | null
+    prevMaintenanceConfigId?: string | null
+    automaticConfig?: boolean
+    jointAccounting?: boolean
+    hasTasks?: boolean
+    estimateStatus?: $Enums.Status
+    delayNotification?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    performer?: EmployeeCreateNestedOneWithoutPerformedMaintenancesInput
+    site: ComplexCreateNestedOneWithoutMaintenancesInput
+    team?: TeamCreateNestedOneWithoutMaintenancesInput
+    floor?: FloorCreateNestedOneWithoutMaintenancesInput
+    room?: RoomCreateNestedOneWithoutMaintenancesInput
+    assignee?: EmployeeCreateNestedOneWithoutAssignedMaintenancesInput
+    asset?: AssetCreateNestedOneWithoutMaintenancesInput
+    photos?: FileCreateNestedManyWithoutMaintenanceInput
+  }
+
+  export type MaintenanceUncheckedCreateWithoutRequesterInput = {
+    id?: string
+    type?: $Enums.MaintenanceType
+    code: string
+    description: string
+    startDate?: Date | string | null
+    endDate?: Date | string | null
+    shortDescription?: string | null
+    action?: string | null
+    message?: string | null
+    processNotes?: string | null
+    performerId?: string | null
+    processStatus?: $Enums.Status
+    register?: string | null
+    activityIdTimer?: string | null
+    activityStartTime?: Date | string | null
+    activityEndTime?: Date | string | null
+    allDeadlines?: string | null
+    processType?: $Enums.ProcessType
+    ttSysRunning?: Decimal | DecimalJsLike | number | string | null
+    ttWorkRunning?: Decimal | DecimalJsLike | number | string | null
+    sorting?: string | null
+    priority?: $Enums.Priority
+    siteId: string
+    outcome?: string | null
+    dueAssignedEnd?: Date | string | null
+    execStart?: Date | string | null
+    dueExecEndDate?: Date | string | null
+    execEndDate?: Date | string | null
+    dueClosuerDate?: Date | string | null
+    totalExecTime?: Decimal | DecimalJsLike | number | string | null
+    expStartDate?: Date | string | null
+    suspensionReason?: string | null
+    category?: string | null
+    subCategory?: string | null
+    company?: string | null
+    teamId?: string | null
+    floorId?: string | null
+    roomId?: string | null
+    ttSystemOpening?: Decimal | DecimalJsLike | number | string | null
+    ttWorkOpening?: Decimal | DecimalJsLike | number | string | null
+    ttSystemAssignment?: Decimal | DecimalJsLike | number | string | null
+    ttWorkAssignment?: Decimal | DecimalJsLike | number | string | null
+    ttSystemExecution?: Decimal | DecimalJsLike | number | string | null
+    ttWorkExecution?: Decimal | DecimalJsLike | number | string | null
+    ttSysSuspension?: Decimal | DecimalJsLike | number | string | null
+    ttWorkSuspension?: Decimal | DecimalJsLike | number | string | null
+    ttEstimate?: Decimal | DecimalJsLike | number | string | null
+    prevMaintenanceConfigId?: string | null
+    automaticConfig?: boolean
+    jointAccounting?: boolean
+    hasTasks?: boolean
+    estimateStatus?: $Enums.Status
+    delayNotification?: boolean
+    assigneeId?: string | null
+    assetId?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    photos?: FileUncheckedCreateNestedManyWithoutMaintenanceInput
+  }
+
+  export type MaintenanceCreateOrConnectWithoutRequesterInput = {
+    where: MaintenanceWhereUniqueInput
+    create: XOR<MaintenanceCreateWithoutRequesterInput, MaintenanceUncheckedCreateWithoutRequesterInput>
+  }
+
+  export type MaintenanceCreateManyRequesterInputEnvelope = {
+    data: MaintenanceCreateManyRequesterInput | MaintenanceCreateManyRequesterInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type MaintenanceCreateWithoutAssigneeInput = {
+    id?: string
+    type?: $Enums.MaintenanceType
+    code: string
+    description: string
+    startDate?: Date | string | null
+    endDate?: Date | string | null
+    shortDescription?: string | null
+    action?: string | null
+    message?: string | null
+    processNotes?: string | null
+    processStatus?: $Enums.Status
+    register?: string | null
+    activityIdTimer?: string | null
+    activityStartTime?: Date | string | null
+    activityEndTime?: Date | string | null
+    allDeadlines?: string | null
+    processType?: $Enums.ProcessType
+    ttSysRunning?: Decimal | DecimalJsLike | number | string | null
+    ttWorkRunning?: Decimal | DecimalJsLike | number | string | null
+    sorting?: string | null
+    priority?: $Enums.Priority
+    outcome?: string | null
+    dueAssignedEnd?: Date | string | null
+    execStart?: Date | string | null
+    dueExecEndDate?: Date | string | null
+    execEndDate?: Date | string | null
+    dueClosuerDate?: Date | string | null
+    totalExecTime?: Decimal | DecimalJsLike | number | string | null
+    expStartDate?: Date | string | null
+    suspensionReason?: string | null
+    category?: string | null
+    subCategory?: string | null
+    company?: string | null
+    ttSystemOpening?: Decimal | DecimalJsLike | number | string | null
+    ttWorkOpening?: Decimal | DecimalJsLike | number | string | null
+    ttSystemAssignment?: Decimal | DecimalJsLike | number | string | null
+    ttWorkAssignment?: Decimal | DecimalJsLike | number | string | null
+    ttSystemExecution?: Decimal | DecimalJsLike | number | string | null
+    ttWorkExecution?: Decimal | DecimalJsLike | number | string | null
+    ttSysSuspension?: Decimal | DecimalJsLike | number | string | null
+    ttWorkSuspension?: Decimal | DecimalJsLike | number | string | null
+    ttEstimate?: Decimal | DecimalJsLike | number | string | null
+    prevMaintenanceConfigId?: string | null
+    automaticConfig?: boolean
+    jointAccounting?: boolean
+    hasTasks?: boolean
+    estimateStatus?: $Enums.Status
+    delayNotification?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    performer?: EmployeeCreateNestedOneWithoutPerformedMaintenancesInput
+    requester?: EmployeeCreateNestedOneWithoutRequestedMaintenancesInput
+    site: ComplexCreateNestedOneWithoutMaintenancesInput
+    team?: TeamCreateNestedOneWithoutMaintenancesInput
+    floor?: FloorCreateNestedOneWithoutMaintenancesInput
+    room?: RoomCreateNestedOneWithoutMaintenancesInput
+    asset?: AssetCreateNestedOneWithoutMaintenancesInput
+    photos?: FileCreateNestedManyWithoutMaintenanceInput
+  }
+
+  export type MaintenanceUncheckedCreateWithoutAssigneeInput = {
+    id?: string
+    type?: $Enums.MaintenanceType
+    code: string
+    description: string
+    startDate?: Date | string | null
+    endDate?: Date | string | null
+    shortDescription?: string | null
+    action?: string | null
+    message?: string | null
+    processNotes?: string | null
+    performerId?: string | null
+    processStatus?: $Enums.Status
+    register?: string | null
+    activityIdTimer?: string | null
+    activityStartTime?: Date | string | null
+    activityEndTime?: Date | string | null
+    allDeadlines?: string | null
+    processType?: $Enums.ProcessType
+    ttSysRunning?: Decimal | DecimalJsLike | number | string | null
+    ttWorkRunning?: Decimal | DecimalJsLike | number | string | null
+    sorting?: string | null
+    requesterId?: string | null
+    priority?: $Enums.Priority
+    siteId: string
+    outcome?: string | null
+    dueAssignedEnd?: Date | string | null
+    execStart?: Date | string | null
+    dueExecEndDate?: Date | string | null
+    execEndDate?: Date | string | null
+    dueClosuerDate?: Date | string | null
+    totalExecTime?: Decimal | DecimalJsLike | number | string | null
+    expStartDate?: Date | string | null
+    suspensionReason?: string | null
+    category?: string | null
+    subCategory?: string | null
+    company?: string | null
+    teamId?: string | null
+    floorId?: string | null
+    roomId?: string | null
+    ttSystemOpening?: Decimal | DecimalJsLike | number | string | null
+    ttWorkOpening?: Decimal | DecimalJsLike | number | string | null
+    ttSystemAssignment?: Decimal | DecimalJsLike | number | string | null
+    ttWorkAssignment?: Decimal | DecimalJsLike | number | string | null
+    ttSystemExecution?: Decimal | DecimalJsLike | number | string | null
+    ttWorkExecution?: Decimal | DecimalJsLike | number | string | null
+    ttSysSuspension?: Decimal | DecimalJsLike | number | string | null
+    ttWorkSuspension?: Decimal | DecimalJsLike | number | string | null
+    ttEstimate?: Decimal | DecimalJsLike | number | string | null
+    prevMaintenanceConfigId?: string | null
+    automaticConfig?: boolean
+    jointAccounting?: boolean
+    hasTasks?: boolean
+    estimateStatus?: $Enums.Status
+    delayNotification?: boolean
+    assetId?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    photos?: FileUncheckedCreateNestedManyWithoutMaintenanceInput
+  }
+
+  export type MaintenanceCreateOrConnectWithoutAssigneeInput = {
+    where: MaintenanceWhereUniqueInput
+    create: XOR<MaintenanceCreateWithoutAssigneeInput, MaintenanceUncheckedCreateWithoutAssigneeInput>
+  }
+
+  export type MaintenanceCreateManyAssigneeInputEnvelope = {
+    data: MaintenanceCreateManyAssigneeInput | MaintenanceCreateManyAssigneeInput[]
     skipDuplicates?: boolean
   }
 
@@ -35854,6 +45624,54 @@ export namespace Prisma {
     updatedAt?: DateTimeFilter<"Team"> | Date | string
   }
 
+  export type MaintenanceUpsertWithWhereUniqueWithoutPerformerInput = {
+    where: MaintenanceWhereUniqueInput
+    update: XOR<MaintenanceUpdateWithoutPerformerInput, MaintenanceUncheckedUpdateWithoutPerformerInput>
+    create: XOR<MaintenanceCreateWithoutPerformerInput, MaintenanceUncheckedCreateWithoutPerformerInput>
+  }
+
+  export type MaintenanceUpdateWithWhereUniqueWithoutPerformerInput = {
+    where: MaintenanceWhereUniqueInput
+    data: XOR<MaintenanceUpdateWithoutPerformerInput, MaintenanceUncheckedUpdateWithoutPerformerInput>
+  }
+
+  export type MaintenanceUpdateManyWithWhereWithoutPerformerInput = {
+    where: MaintenanceScalarWhereInput
+    data: XOR<MaintenanceUpdateManyMutationInput, MaintenanceUncheckedUpdateManyWithoutPerformerInput>
+  }
+
+  export type MaintenanceUpsertWithWhereUniqueWithoutRequesterInput = {
+    where: MaintenanceWhereUniqueInput
+    update: XOR<MaintenanceUpdateWithoutRequesterInput, MaintenanceUncheckedUpdateWithoutRequesterInput>
+    create: XOR<MaintenanceCreateWithoutRequesterInput, MaintenanceUncheckedCreateWithoutRequesterInput>
+  }
+
+  export type MaintenanceUpdateWithWhereUniqueWithoutRequesterInput = {
+    where: MaintenanceWhereUniqueInput
+    data: XOR<MaintenanceUpdateWithoutRequesterInput, MaintenanceUncheckedUpdateWithoutRequesterInput>
+  }
+
+  export type MaintenanceUpdateManyWithWhereWithoutRequesterInput = {
+    where: MaintenanceScalarWhereInput
+    data: XOR<MaintenanceUpdateManyMutationInput, MaintenanceUncheckedUpdateManyWithoutRequesterInput>
+  }
+
+  export type MaintenanceUpsertWithWhereUniqueWithoutAssigneeInput = {
+    where: MaintenanceWhereUniqueInput
+    update: XOR<MaintenanceUpdateWithoutAssigneeInput, MaintenanceUncheckedUpdateWithoutAssigneeInput>
+    create: XOR<MaintenanceCreateWithoutAssigneeInput, MaintenanceUncheckedCreateWithoutAssigneeInput>
+  }
+
+  export type MaintenanceUpdateWithWhereUniqueWithoutAssigneeInput = {
+    where: MaintenanceWhereUniqueInput
+    data: XOR<MaintenanceUpdateWithoutAssigneeInput, MaintenanceUncheckedUpdateWithoutAssigneeInput>
+  }
+
+  export type MaintenanceUpdateManyWithWhereWithoutAssigneeInput = {
+    where: MaintenanceScalarWhereInput
+    data: XOR<MaintenanceUpdateManyMutationInput, MaintenanceUncheckedUpdateManyWithoutAssigneeInput>
+  }
+
   export type EmployeeCreateWithoutTeamsInput = {
     id?: string
     code: string
@@ -35862,6 +45680,9 @@ export namespace Prisma {
     user: UserCreateNestedOneWithoutEmployeesInput
     company: CompanyCreateNestedOneWithoutEmployeesInput
     calenderEntity?: CalenderEntityCreateNestedOneWithoutEmployeesInput
+    performedMaintenances?: MaintenanceCreateNestedManyWithoutPerformerInput
+    requestedMaintenances?: MaintenanceCreateNestedManyWithoutRequesterInput
+    assignedMaintenances?: MaintenanceCreateNestedManyWithoutAssigneeInput
   }
 
   export type EmployeeUncheckedCreateWithoutTeamsInput = {
@@ -35872,11 +45693,194 @@ export namespace Prisma {
     companyId: string
     status?: $Enums.ServiceStatus
     calenderEntityId?: string | null
+    performedMaintenances?: MaintenanceUncheckedCreateNestedManyWithoutPerformerInput
+    requestedMaintenances?: MaintenanceUncheckedCreateNestedManyWithoutRequesterInput
+    assignedMaintenances?: MaintenanceUncheckedCreateNestedManyWithoutAssigneeInput
   }
 
   export type EmployeeCreateOrConnectWithoutTeamsInput = {
     where: EmployeeWhereUniqueInput
     create: XOR<EmployeeCreateWithoutTeamsInput, EmployeeUncheckedCreateWithoutTeamsInput>
+  }
+
+  export type MaintenanceCreateWithoutTeamInput = {
+    id?: string
+    type?: $Enums.MaintenanceType
+    code: string
+    description: string
+    startDate?: Date | string | null
+    endDate?: Date | string | null
+    shortDescription?: string | null
+    action?: string | null
+    message?: string | null
+    processNotes?: string | null
+    processStatus?: $Enums.Status
+    register?: string | null
+    activityIdTimer?: string | null
+    activityStartTime?: Date | string | null
+    activityEndTime?: Date | string | null
+    allDeadlines?: string | null
+    processType?: $Enums.ProcessType
+    ttSysRunning?: Decimal | DecimalJsLike | number | string | null
+    ttWorkRunning?: Decimal | DecimalJsLike | number | string | null
+    sorting?: string | null
+    priority?: $Enums.Priority
+    outcome?: string | null
+    dueAssignedEnd?: Date | string | null
+    execStart?: Date | string | null
+    dueExecEndDate?: Date | string | null
+    execEndDate?: Date | string | null
+    dueClosuerDate?: Date | string | null
+    totalExecTime?: Decimal | DecimalJsLike | number | string | null
+    expStartDate?: Date | string | null
+    suspensionReason?: string | null
+    category?: string | null
+    subCategory?: string | null
+    company?: string | null
+    ttSystemOpening?: Decimal | DecimalJsLike | number | string | null
+    ttWorkOpening?: Decimal | DecimalJsLike | number | string | null
+    ttSystemAssignment?: Decimal | DecimalJsLike | number | string | null
+    ttWorkAssignment?: Decimal | DecimalJsLike | number | string | null
+    ttSystemExecution?: Decimal | DecimalJsLike | number | string | null
+    ttWorkExecution?: Decimal | DecimalJsLike | number | string | null
+    ttSysSuspension?: Decimal | DecimalJsLike | number | string | null
+    ttWorkSuspension?: Decimal | DecimalJsLike | number | string | null
+    ttEstimate?: Decimal | DecimalJsLike | number | string | null
+    prevMaintenanceConfigId?: string | null
+    automaticConfig?: boolean
+    jointAccounting?: boolean
+    hasTasks?: boolean
+    estimateStatus?: $Enums.Status
+    delayNotification?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    performer?: EmployeeCreateNestedOneWithoutPerformedMaintenancesInput
+    requester?: EmployeeCreateNestedOneWithoutRequestedMaintenancesInput
+    site: ComplexCreateNestedOneWithoutMaintenancesInput
+    floor?: FloorCreateNestedOneWithoutMaintenancesInput
+    room?: RoomCreateNestedOneWithoutMaintenancesInput
+    assignee?: EmployeeCreateNestedOneWithoutAssignedMaintenancesInput
+    asset?: AssetCreateNestedOneWithoutMaintenancesInput
+    photos?: FileCreateNestedManyWithoutMaintenanceInput
+  }
+
+  export type MaintenanceUncheckedCreateWithoutTeamInput = {
+    id?: string
+    type?: $Enums.MaintenanceType
+    code: string
+    description: string
+    startDate?: Date | string | null
+    endDate?: Date | string | null
+    shortDescription?: string | null
+    action?: string | null
+    message?: string | null
+    processNotes?: string | null
+    performerId?: string | null
+    processStatus?: $Enums.Status
+    register?: string | null
+    activityIdTimer?: string | null
+    activityStartTime?: Date | string | null
+    activityEndTime?: Date | string | null
+    allDeadlines?: string | null
+    processType?: $Enums.ProcessType
+    ttSysRunning?: Decimal | DecimalJsLike | number | string | null
+    ttWorkRunning?: Decimal | DecimalJsLike | number | string | null
+    sorting?: string | null
+    requesterId?: string | null
+    priority?: $Enums.Priority
+    siteId: string
+    outcome?: string | null
+    dueAssignedEnd?: Date | string | null
+    execStart?: Date | string | null
+    dueExecEndDate?: Date | string | null
+    execEndDate?: Date | string | null
+    dueClosuerDate?: Date | string | null
+    totalExecTime?: Decimal | DecimalJsLike | number | string | null
+    expStartDate?: Date | string | null
+    suspensionReason?: string | null
+    category?: string | null
+    subCategory?: string | null
+    company?: string | null
+    floorId?: string | null
+    roomId?: string | null
+    ttSystemOpening?: Decimal | DecimalJsLike | number | string | null
+    ttWorkOpening?: Decimal | DecimalJsLike | number | string | null
+    ttSystemAssignment?: Decimal | DecimalJsLike | number | string | null
+    ttWorkAssignment?: Decimal | DecimalJsLike | number | string | null
+    ttSystemExecution?: Decimal | DecimalJsLike | number | string | null
+    ttWorkExecution?: Decimal | DecimalJsLike | number | string | null
+    ttSysSuspension?: Decimal | DecimalJsLike | number | string | null
+    ttWorkSuspension?: Decimal | DecimalJsLike | number | string | null
+    ttEstimate?: Decimal | DecimalJsLike | number | string | null
+    prevMaintenanceConfigId?: string | null
+    automaticConfig?: boolean
+    jointAccounting?: boolean
+    hasTasks?: boolean
+    estimateStatus?: $Enums.Status
+    delayNotification?: boolean
+    assigneeId?: string | null
+    assetId?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    photos?: FileUncheckedCreateNestedManyWithoutMaintenanceInput
+  }
+
+  export type MaintenanceCreateOrConnectWithoutTeamInput = {
+    where: MaintenanceWhereUniqueInput
+    create: XOR<MaintenanceCreateWithoutTeamInput, MaintenanceUncheckedCreateWithoutTeamInput>
+  }
+
+  export type MaintenanceCreateManyTeamInputEnvelope = {
+    data: MaintenanceCreateManyTeamInput | MaintenanceCreateManyTeamInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type PreventiveCreateWithoutTeamInput = {
+    id?: string
+    code: string
+    name: string
+    description: string
+    frequency?: $Enums.Frequency
+    cronExpression?: string | null
+    lastRun?: Date | string | null
+    nextRun: Date | string
+    priority?: $Enums.Priority
+    duration?: number | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    site: ComplexCreateNestedOneWithoutPreventivesInput
+    building?: BuildingCreateNestedOneWithoutPreventivesInput
+    floor?: FloorCreateNestedOneWithoutPreventivesInput
+    room?: RoomCreateNestedOneWithoutPreventivesInput
+  }
+
+  export type PreventiveUncheckedCreateWithoutTeamInput = {
+    id?: string
+    code: string
+    name: string
+    description: string
+    frequency?: $Enums.Frequency
+    cronExpression?: string | null
+    lastRun?: Date | string | null
+    nextRun: Date | string
+    priority?: $Enums.Priority
+    duration?: number | null
+    siteId: string
+    buildingId?: string | null
+    floorId?: string | null
+    roomId?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type PreventiveCreateOrConnectWithoutTeamInput = {
+    where: PreventiveWhereUniqueInput
+    create: XOR<PreventiveCreateWithoutTeamInput, PreventiveUncheckedCreateWithoutTeamInput>
+  }
+
+  export type PreventiveCreateManyTeamInputEnvelope = {
+    data: PreventiveCreateManyTeamInput | PreventiveCreateManyTeamInput[]
+    skipDuplicates?: boolean
   }
 
   export type EmployeeUpsertWithoutTeamsInput = {
@@ -35898,6 +45902,9 @@ export namespace Prisma {
     user?: UserUpdateOneRequiredWithoutEmployeesNestedInput
     company?: CompanyUpdateOneRequiredWithoutEmployeesNestedInput
     calenderEntity?: CalenderEntityUpdateOneWithoutEmployeesNestedInput
+    performedMaintenances?: MaintenanceUpdateManyWithoutPerformerNestedInput
+    requestedMaintenances?: MaintenanceUpdateManyWithoutRequesterNestedInput
+    assignedMaintenances?: MaintenanceUpdateManyWithoutAssigneeNestedInput
   }
 
   export type EmployeeUncheckedUpdateWithoutTeamsInput = {
@@ -35908,6 +45915,41 @@ export namespace Prisma {
     companyId?: StringFieldUpdateOperationsInput | string
     status?: EnumServiceStatusFieldUpdateOperationsInput | $Enums.ServiceStatus
     calenderEntityId?: NullableStringFieldUpdateOperationsInput | string | null
+    performedMaintenances?: MaintenanceUncheckedUpdateManyWithoutPerformerNestedInput
+    requestedMaintenances?: MaintenanceUncheckedUpdateManyWithoutRequesterNestedInput
+    assignedMaintenances?: MaintenanceUncheckedUpdateManyWithoutAssigneeNestedInput
+  }
+
+  export type MaintenanceUpsertWithWhereUniqueWithoutTeamInput = {
+    where: MaintenanceWhereUniqueInput
+    update: XOR<MaintenanceUpdateWithoutTeamInput, MaintenanceUncheckedUpdateWithoutTeamInput>
+    create: XOR<MaintenanceCreateWithoutTeamInput, MaintenanceUncheckedCreateWithoutTeamInput>
+  }
+
+  export type MaintenanceUpdateWithWhereUniqueWithoutTeamInput = {
+    where: MaintenanceWhereUniqueInput
+    data: XOR<MaintenanceUpdateWithoutTeamInput, MaintenanceUncheckedUpdateWithoutTeamInput>
+  }
+
+  export type MaintenanceUpdateManyWithWhereWithoutTeamInput = {
+    where: MaintenanceScalarWhereInput
+    data: XOR<MaintenanceUpdateManyMutationInput, MaintenanceUncheckedUpdateManyWithoutTeamInput>
+  }
+
+  export type PreventiveUpsertWithWhereUniqueWithoutTeamInput = {
+    where: PreventiveWhereUniqueInput
+    update: XOR<PreventiveUpdateWithoutTeamInput, PreventiveUncheckedUpdateWithoutTeamInput>
+    create: XOR<PreventiveCreateWithoutTeamInput, PreventiveUncheckedCreateWithoutTeamInput>
+  }
+
+  export type PreventiveUpdateWithWhereUniqueWithoutTeamInput = {
+    where: PreventiveWhereUniqueInput
+    data: XOR<PreventiveUpdateWithoutTeamInput, PreventiveUncheckedUpdateWithoutTeamInput>
+  }
+
+  export type PreventiveUpdateManyWithWhereWithoutTeamInput = {
+    where: PreventiveScalarWhereInput
+    data: XOR<PreventiveUpdateManyMutationInput, PreventiveUncheckedUpdateManyWithoutTeamInput>
   }
 
   export type CompanyCreateWithoutAddressInput = {
@@ -35977,6 +46019,7 @@ export namespace Prisma {
     floors?: FloorCreateNestedManyWithoutBuildingInput
     units?: UnitCreateNestedManyWithoutBuildingInput
     rooms?: RoomCreateNestedManyWithoutBuildingInput
+    preventives?: PreventiveCreateNestedManyWithoutBuildingInput
   }
 
   export type BuildingUncheckedCreateWithoutAddressInput = {
@@ -36006,6 +46049,7 @@ export namespace Prisma {
     floors?: FloorUncheckedCreateNestedManyWithoutBuildingInput
     units?: UnitUncheckedCreateNestedManyWithoutBuildingInput
     rooms?: RoomUncheckedCreateNestedManyWithoutBuildingInput
+    preventives?: PreventiveUncheckedCreateNestedManyWithoutBuildingInput
   }
 
   export type BuildingCreateOrConnectWithoutAddressInput = {
@@ -36095,6 +46139,7 @@ export namespace Prisma {
     floors?: FloorCreateNestedManyWithoutBuildingInput
     units?: UnitCreateNestedManyWithoutBuildingInput
     rooms?: RoomCreateNestedManyWithoutBuildingInput
+    preventives?: PreventiveCreateNestedManyWithoutBuildingInput
   }
 
   export type BuildingUncheckedCreateWithoutCalenderEntityInput = {
@@ -36124,6 +46169,7 @@ export namespace Prisma {
     floors?: FloorUncheckedCreateNestedManyWithoutBuildingInput
     units?: UnitUncheckedCreateNestedManyWithoutBuildingInput
     rooms?: RoomUncheckedCreateNestedManyWithoutBuildingInput
+    preventives?: PreventiveUncheckedCreateNestedManyWithoutBuildingInput
   }
 
   export type BuildingCreateOrConnectWithoutCalenderEntityInput = {
@@ -36165,6 +46211,8 @@ export namespace Prisma {
     floors?: FloorCreateNestedManyWithoutComplexInput
     units?: UnitCreateNestedManyWithoutComplexInput
     rooms?: RoomCreateNestedManyWithoutComplexInput
+    maintenances?: MaintenanceCreateNestedManyWithoutSiteInput
+    preventives?: PreventiveCreateNestedManyWithoutSiteInput
   }
 
   export type ComplexUncheckedCreateWithoutCalenderEntityInput = {
@@ -36196,6 +46244,8 @@ export namespace Prisma {
     floors?: FloorUncheckedCreateNestedManyWithoutComplexInput
     units?: UnitUncheckedCreateNestedManyWithoutComplexInput
     rooms?: RoomUncheckedCreateNestedManyWithoutComplexInput
+    maintenances?: MaintenanceUncheckedCreateNestedManyWithoutSiteInput
+    preventives?: PreventiveUncheckedCreateNestedManyWithoutSiteInput
   }
 
   export type ComplexCreateOrConnectWithoutCalenderEntityInput = {
@@ -36315,6 +46365,8 @@ export namespace Prisma {
     floor: FloorCreateNestedOneWithoutRoomsInput
     unit?: UnitCreateNestedOneWithoutRoomsInput
     photos?: FileCreateNestedManyWithoutRoomsInput
+    maintenances?: MaintenanceCreateNestedManyWithoutRoomInput
+    preventives?: PreventiveCreateNestedManyWithoutRoomInput
   }
 
   export type RoomUncheckedCreateWithoutCalenderEntityInput = {
@@ -36340,6 +46392,8 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     photos?: FileUncheckedCreateNestedManyWithoutRoomsInput
+    maintenances?: MaintenanceUncheckedCreateNestedManyWithoutRoomInput
+    preventives?: PreventiveUncheckedCreateNestedManyWithoutRoomInput
   }
 
   export type RoomCreateOrConnectWithoutCalenderEntityInput = {
@@ -36360,6 +46414,9 @@ export namespace Prisma {
     user: UserCreateNestedOneWithoutEmployeesInput
     company: CompanyCreateNestedOneWithoutEmployeesInput
     teams?: TeamCreateNestedManyWithoutSupervisorInput
+    performedMaintenances?: MaintenanceCreateNestedManyWithoutPerformerInput
+    requestedMaintenances?: MaintenanceCreateNestedManyWithoutRequesterInput
+    assignedMaintenances?: MaintenanceCreateNestedManyWithoutAssigneeInput
   }
 
   export type EmployeeUncheckedCreateWithoutCalenderEntityInput = {
@@ -36370,6 +46427,9 @@ export namespace Prisma {
     companyId: string
     status?: $Enums.ServiceStatus
     teams?: TeamUncheckedCreateNestedManyWithoutSupervisorInput
+    performedMaintenances?: MaintenanceUncheckedCreateNestedManyWithoutPerformerInput
+    requestedMaintenances?: MaintenanceUncheckedCreateNestedManyWithoutRequesterInput
+    assignedMaintenances?: MaintenanceUncheckedCreateNestedManyWithoutAssigneeInput
   }
 
   export type EmployeeCreateOrConnectWithoutCalenderEntityInput = {
@@ -36460,6 +46520,1354 @@ export namespace Prisma {
   export type EmployeeUpdateManyWithWhereWithoutCalenderEntityInput = {
     where: EmployeeScalarWhereInput
     data: XOR<EmployeeUpdateManyMutationInput, EmployeeUncheckedUpdateManyWithoutCalenderEntityInput>
+  }
+
+  export type EmployeeCreateWithoutPerformedMaintenancesInput = {
+    id?: string
+    code: string
+    type?: $Enums.EmployeeType
+    status?: $Enums.ServiceStatus
+    user: UserCreateNestedOneWithoutEmployeesInput
+    company: CompanyCreateNestedOneWithoutEmployeesInput
+    calenderEntity?: CalenderEntityCreateNestedOneWithoutEmployeesInput
+    teams?: TeamCreateNestedManyWithoutSupervisorInput
+    requestedMaintenances?: MaintenanceCreateNestedManyWithoutRequesterInput
+    assignedMaintenances?: MaintenanceCreateNestedManyWithoutAssigneeInput
+  }
+
+  export type EmployeeUncheckedCreateWithoutPerformedMaintenancesInput = {
+    id?: string
+    code: string
+    type?: $Enums.EmployeeType
+    userId: string
+    companyId: string
+    status?: $Enums.ServiceStatus
+    calenderEntityId?: string | null
+    teams?: TeamUncheckedCreateNestedManyWithoutSupervisorInput
+    requestedMaintenances?: MaintenanceUncheckedCreateNestedManyWithoutRequesterInput
+    assignedMaintenances?: MaintenanceUncheckedCreateNestedManyWithoutAssigneeInput
+  }
+
+  export type EmployeeCreateOrConnectWithoutPerformedMaintenancesInput = {
+    where: EmployeeWhereUniqueInput
+    create: XOR<EmployeeCreateWithoutPerformedMaintenancesInput, EmployeeUncheckedCreateWithoutPerformedMaintenancesInput>
+  }
+
+  export type EmployeeCreateWithoutRequestedMaintenancesInput = {
+    id?: string
+    code: string
+    type?: $Enums.EmployeeType
+    status?: $Enums.ServiceStatus
+    user: UserCreateNestedOneWithoutEmployeesInput
+    company: CompanyCreateNestedOneWithoutEmployeesInput
+    calenderEntity?: CalenderEntityCreateNestedOneWithoutEmployeesInput
+    teams?: TeamCreateNestedManyWithoutSupervisorInput
+    performedMaintenances?: MaintenanceCreateNestedManyWithoutPerformerInput
+    assignedMaintenances?: MaintenanceCreateNestedManyWithoutAssigneeInput
+  }
+
+  export type EmployeeUncheckedCreateWithoutRequestedMaintenancesInput = {
+    id?: string
+    code: string
+    type?: $Enums.EmployeeType
+    userId: string
+    companyId: string
+    status?: $Enums.ServiceStatus
+    calenderEntityId?: string | null
+    teams?: TeamUncheckedCreateNestedManyWithoutSupervisorInput
+    performedMaintenances?: MaintenanceUncheckedCreateNestedManyWithoutPerformerInput
+    assignedMaintenances?: MaintenanceUncheckedCreateNestedManyWithoutAssigneeInput
+  }
+
+  export type EmployeeCreateOrConnectWithoutRequestedMaintenancesInput = {
+    where: EmployeeWhereUniqueInput
+    create: XOR<EmployeeCreateWithoutRequestedMaintenancesInput, EmployeeUncheckedCreateWithoutRequestedMaintenancesInput>
+  }
+
+  export type ComplexCreateWithoutMaintenancesInput = {
+    id?: string
+    code: string
+    name: string
+    availability?: $Enums.Availability
+    status?: $Enums.ServiceStatus
+    address?: string | null
+    city?: string | null
+    zipCode?: string | null
+    condition?: $Enums.Condition
+    criticality?: $Enums.Criticality
+    totalBuildings?: number | null
+    totalFloors?: number | null
+    totalUnits?: number | null
+    totalRooms?: number | null
+    glazedArea?: number | null
+    cleanableArea?: number | null
+    coveredArea?: number | null
+    totalNetArea?: number | null
+    totalGrossArea?: number | null
+    totalHeatedVolume?: number | null
+    totalVolume?: number | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    calenderEntity?: CalenderEntityCreateNestedOneWithoutComplexesInput
+    buildings?: BuildingCreateNestedManyWithoutComplexInput
+    photos?: FileCreateNestedManyWithoutComplexesInput
+    floors?: FloorCreateNestedManyWithoutComplexInput
+    units?: UnitCreateNestedManyWithoutComplexInput
+    rooms?: RoomCreateNestedManyWithoutComplexInput
+    preventives?: PreventiveCreateNestedManyWithoutSiteInput
+  }
+
+  export type ComplexUncheckedCreateWithoutMaintenancesInput = {
+    id?: string
+    code: string
+    name: string
+    availability?: $Enums.Availability
+    status?: $Enums.ServiceStatus
+    calenderEntityId?: string | null
+    address?: string | null
+    city?: string | null
+    zipCode?: string | null
+    condition?: $Enums.Condition
+    criticality?: $Enums.Criticality
+    totalBuildings?: number | null
+    totalFloors?: number | null
+    totalUnits?: number | null
+    totalRooms?: number | null
+    glazedArea?: number | null
+    cleanableArea?: number | null
+    coveredArea?: number | null
+    totalNetArea?: number | null
+    totalGrossArea?: number | null
+    totalHeatedVolume?: number | null
+    totalVolume?: number | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    buildings?: BuildingUncheckedCreateNestedManyWithoutComplexInput
+    photos?: FileUncheckedCreateNestedManyWithoutComplexesInput
+    floors?: FloorUncheckedCreateNestedManyWithoutComplexInput
+    units?: UnitUncheckedCreateNestedManyWithoutComplexInput
+    rooms?: RoomUncheckedCreateNestedManyWithoutComplexInput
+    preventives?: PreventiveUncheckedCreateNestedManyWithoutSiteInput
+  }
+
+  export type ComplexCreateOrConnectWithoutMaintenancesInput = {
+    where: ComplexWhereUniqueInput
+    create: XOR<ComplexCreateWithoutMaintenancesInput, ComplexUncheckedCreateWithoutMaintenancesInput>
+  }
+
+  export type TeamCreateWithoutMaintenancesInput = {
+    id?: string
+    code: string
+    name: string
+    description?: string | null
+    status?: $Enums.ServiceStatus
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    supervisor: EmployeeCreateNestedOneWithoutTeamsInput
+    preventives?: PreventiveCreateNestedManyWithoutTeamInput
+  }
+
+  export type TeamUncheckedCreateWithoutMaintenancesInput = {
+    id?: string
+    code: string
+    name: string
+    description?: string | null
+    status?: $Enums.ServiceStatus
+    supervisorId: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    preventives?: PreventiveUncheckedCreateNestedManyWithoutTeamInput
+  }
+
+  export type TeamCreateOrConnectWithoutMaintenancesInput = {
+    where: TeamWhereUniqueInput
+    create: XOR<TeamCreateWithoutMaintenancesInput, TeamUncheckedCreateWithoutMaintenancesInput>
+  }
+
+  export type FloorCreateWithoutMaintenancesInput = {
+    id?: string
+    code: string
+    name: string
+    level: number
+    status?: $Enums.ServiceStatus
+    condition?: $Enums.Condition
+    criticality?: $Enums.Criticality
+    totalUnits?: number | null
+    totalRooms?: number | null
+    glazedArea?: number | null
+    cleanableArea?: number | null
+    coveredArea?: number | null
+    totalNetArea?: number | null
+    totalGrossArea?: number | null
+    totalHeatedVolume?: number | null
+    totalVolume?: number | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    complex: ComplexCreateNestedOneWithoutFloorsInput
+    building: BuildingCreateNestedOneWithoutFloorsInput
+    rooms?: RoomCreateNestedManyWithoutFloorInput
+    units?: UnitCreateNestedManyWithoutFloorInput
+    preventives?: PreventiveCreateNestedManyWithoutFloorInput
+  }
+
+  export type FloorUncheckedCreateWithoutMaintenancesInput = {
+    id?: string
+    code: string
+    name: string
+    level: number
+    status?: $Enums.ServiceStatus
+    condition?: $Enums.Condition
+    criticality?: $Enums.Criticality
+    complexId: string
+    buildingId: string
+    totalUnits?: number | null
+    totalRooms?: number | null
+    glazedArea?: number | null
+    cleanableArea?: number | null
+    coveredArea?: number | null
+    totalNetArea?: number | null
+    totalGrossArea?: number | null
+    totalHeatedVolume?: number | null
+    totalVolume?: number | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    rooms?: RoomUncheckedCreateNestedManyWithoutFloorInput
+    units?: UnitUncheckedCreateNestedManyWithoutFloorInput
+    preventives?: PreventiveUncheckedCreateNestedManyWithoutFloorInput
+  }
+
+  export type FloorCreateOrConnectWithoutMaintenancesInput = {
+    where: FloorWhereUniqueInput
+    create: XOR<FloorCreateWithoutMaintenancesInput, FloorUncheckedCreateWithoutMaintenancesInput>
+  }
+
+  export type RoomCreateWithoutMaintenancesInput = {
+    id?: string
+    name: string
+    code: string
+    use?: $Enums.RoomUse
+    status?: $Enums.ServiceStatus
+    condition?: $Enums.Condition
+    criticality?: $Enums.Criticality
+    glazedArea?: number | null
+    cleanableArea?: number | null
+    coveredArea?: number | null
+    totalNetArea?: number | null
+    totalGrossArea?: number | null
+    height?: number | null
+    heated?: boolean
+    totalVolume?: number | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    calenderEntity?: CalenderEntityCreateNestedOneWithoutRoomsInput
+    complex?: ComplexCreateNestedOneWithoutRoomsInput
+    building?: BuildingCreateNestedOneWithoutRoomsInput
+    floor: FloorCreateNestedOneWithoutRoomsInput
+    unit?: UnitCreateNestedOneWithoutRoomsInput
+    photos?: FileCreateNestedManyWithoutRoomsInput
+    preventives?: PreventiveCreateNestedManyWithoutRoomInput
+  }
+
+  export type RoomUncheckedCreateWithoutMaintenancesInput = {
+    id?: string
+    name: string
+    code: string
+    use?: $Enums.RoomUse
+    status?: $Enums.ServiceStatus
+    calenderEntityId?: string | null
+    complexId?: string | null
+    buildingId?: string | null
+    floorId: string
+    unitId?: string | null
+    condition?: $Enums.Condition
+    criticality?: $Enums.Criticality
+    glazedArea?: number | null
+    cleanableArea?: number | null
+    coveredArea?: number | null
+    totalNetArea?: number | null
+    totalGrossArea?: number | null
+    height?: number | null
+    heated?: boolean
+    totalVolume?: number | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    photos?: FileUncheckedCreateNestedManyWithoutRoomsInput
+    preventives?: PreventiveUncheckedCreateNestedManyWithoutRoomInput
+  }
+
+  export type RoomCreateOrConnectWithoutMaintenancesInput = {
+    where: RoomWhereUniqueInput
+    create: XOR<RoomCreateWithoutMaintenancesInput, RoomUncheckedCreateWithoutMaintenancesInput>
+  }
+
+  export type EmployeeCreateWithoutAssignedMaintenancesInput = {
+    id?: string
+    code: string
+    type?: $Enums.EmployeeType
+    status?: $Enums.ServiceStatus
+    user: UserCreateNestedOneWithoutEmployeesInput
+    company: CompanyCreateNestedOneWithoutEmployeesInput
+    calenderEntity?: CalenderEntityCreateNestedOneWithoutEmployeesInput
+    teams?: TeamCreateNestedManyWithoutSupervisorInput
+    performedMaintenances?: MaintenanceCreateNestedManyWithoutPerformerInput
+    requestedMaintenances?: MaintenanceCreateNestedManyWithoutRequesterInput
+  }
+
+  export type EmployeeUncheckedCreateWithoutAssignedMaintenancesInput = {
+    id?: string
+    code: string
+    type?: $Enums.EmployeeType
+    userId: string
+    companyId: string
+    status?: $Enums.ServiceStatus
+    calenderEntityId?: string | null
+    teams?: TeamUncheckedCreateNestedManyWithoutSupervisorInput
+    performedMaintenances?: MaintenanceUncheckedCreateNestedManyWithoutPerformerInput
+    requestedMaintenances?: MaintenanceUncheckedCreateNestedManyWithoutRequesterInput
+  }
+
+  export type EmployeeCreateOrConnectWithoutAssignedMaintenancesInput = {
+    where: EmployeeWhereUniqueInput
+    create: XOR<EmployeeCreateWithoutAssignedMaintenancesInput, EmployeeUncheckedCreateWithoutAssignedMaintenancesInput>
+  }
+
+  export type AssetCreateWithoutMaintenancesInput = {
+    id?: string
+    name: string
+    description?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    category: AssetCategoryCreateNestedOneWithoutAssetsInput
+  }
+
+  export type AssetUncheckedCreateWithoutMaintenancesInput = {
+    id?: string
+    name: string
+    description?: string | null
+    categoryId: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type AssetCreateOrConnectWithoutMaintenancesInput = {
+    where: AssetWhereUniqueInput
+    create: XOR<AssetCreateWithoutMaintenancesInput, AssetUncheckedCreateWithoutMaintenancesInput>
+  }
+
+  export type FileCreateWithoutMaintenanceInput = {
+    id?: string
+    url: string
+    rooms?: RoomCreateNestedManyWithoutPhotosInput
+    units?: UnitCreateNestedManyWithoutPhotosInput
+    buildings?: BuildingCreateNestedManyWithoutPhotosInput
+    complexes?: ComplexCreateNestedManyWithoutPhotosInput
+  }
+
+  export type FileUncheckedCreateWithoutMaintenanceInput = {
+    id?: string
+    url: string
+    rooms?: RoomUncheckedCreateNestedManyWithoutPhotosInput
+    units?: UnitUncheckedCreateNestedManyWithoutPhotosInput
+    buildings?: BuildingUncheckedCreateNestedManyWithoutPhotosInput
+    complexes?: ComplexUncheckedCreateNestedManyWithoutPhotosInput
+  }
+
+  export type FileCreateOrConnectWithoutMaintenanceInput = {
+    where: FileWhereUniqueInput
+    create: XOR<FileCreateWithoutMaintenanceInput, FileUncheckedCreateWithoutMaintenanceInput>
+  }
+
+  export type FileCreateManyMaintenanceInputEnvelope = {
+    data: FileCreateManyMaintenanceInput | FileCreateManyMaintenanceInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type EmployeeUpsertWithoutPerformedMaintenancesInput = {
+    update: XOR<EmployeeUpdateWithoutPerformedMaintenancesInput, EmployeeUncheckedUpdateWithoutPerformedMaintenancesInput>
+    create: XOR<EmployeeCreateWithoutPerformedMaintenancesInput, EmployeeUncheckedCreateWithoutPerformedMaintenancesInput>
+    where?: EmployeeWhereInput
+  }
+
+  export type EmployeeUpdateToOneWithWhereWithoutPerformedMaintenancesInput = {
+    where?: EmployeeWhereInput
+    data: XOR<EmployeeUpdateWithoutPerformedMaintenancesInput, EmployeeUncheckedUpdateWithoutPerformedMaintenancesInput>
+  }
+
+  export type EmployeeUpdateWithoutPerformedMaintenancesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    code?: StringFieldUpdateOperationsInput | string
+    type?: EnumEmployeeTypeFieldUpdateOperationsInput | $Enums.EmployeeType
+    status?: EnumServiceStatusFieldUpdateOperationsInput | $Enums.ServiceStatus
+    user?: UserUpdateOneRequiredWithoutEmployeesNestedInput
+    company?: CompanyUpdateOneRequiredWithoutEmployeesNestedInput
+    calenderEntity?: CalenderEntityUpdateOneWithoutEmployeesNestedInput
+    teams?: TeamUpdateManyWithoutSupervisorNestedInput
+    requestedMaintenances?: MaintenanceUpdateManyWithoutRequesterNestedInput
+    assignedMaintenances?: MaintenanceUpdateManyWithoutAssigneeNestedInput
+  }
+
+  export type EmployeeUncheckedUpdateWithoutPerformedMaintenancesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    code?: StringFieldUpdateOperationsInput | string
+    type?: EnumEmployeeTypeFieldUpdateOperationsInput | $Enums.EmployeeType
+    userId?: StringFieldUpdateOperationsInput | string
+    companyId?: StringFieldUpdateOperationsInput | string
+    status?: EnumServiceStatusFieldUpdateOperationsInput | $Enums.ServiceStatus
+    calenderEntityId?: NullableStringFieldUpdateOperationsInput | string | null
+    teams?: TeamUncheckedUpdateManyWithoutSupervisorNestedInput
+    requestedMaintenances?: MaintenanceUncheckedUpdateManyWithoutRequesterNestedInput
+    assignedMaintenances?: MaintenanceUncheckedUpdateManyWithoutAssigneeNestedInput
+  }
+
+  export type EmployeeUpsertWithoutRequestedMaintenancesInput = {
+    update: XOR<EmployeeUpdateWithoutRequestedMaintenancesInput, EmployeeUncheckedUpdateWithoutRequestedMaintenancesInput>
+    create: XOR<EmployeeCreateWithoutRequestedMaintenancesInput, EmployeeUncheckedCreateWithoutRequestedMaintenancesInput>
+    where?: EmployeeWhereInput
+  }
+
+  export type EmployeeUpdateToOneWithWhereWithoutRequestedMaintenancesInput = {
+    where?: EmployeeWhereInput
+    data: XOR<EmployeeUpdateWithoutRequestedMaintenancesInput, EmployeeUncheckedUpdateWithoutRequestedMaintenancesInput>
+  }
+
+  export type EmployeeUpdateWithoutRequestedMaintenancesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    code?: StringFieldUpdateOperationsInput | string
+    type?: EnumEmployeeTypeFieldUpdateOperationsInput | $Enums.EmployeeType
+    status?: EnumServiceStatusFieldUpdateOperationsInput | $Enums.ServiceStatus
+    user?: UserUpdateOneRequiredWithoutEmployeesNestedInput
+    company?: CompanyUpdateOneRequiredWithoutEmployeesNestedInput
+    calenderEntity?: CalenderEntityUpdateOneWithoutEmployeesNestedInput
+    teams?: TeamUpdateManyWithoutSupervisorNestedInput
+    performedMaintenances?: MaintenanceUpdateManyWithoutPerformerNestedInput
+    assignedMaintenances?: MaintenanceUpdateManyWithoutAssigneeNestedInput
+  }
+
+  export type EmployeeUncheckedUpdateWithoutRequestedMaintenancesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    code?: StringFieldUpdateOperationsInput | string
+    type?: EnumEmployeeTypeFieldUpdateOperationsInput | $Enums.EmployeeType
+    userId?: StringFieldUpdateOperationsInput | string
+    companyId?: StringFieldUpdateOperationsInput | string
+    status?: EnumServiceStatusFieldUpdateOperationsInput | $Enums.ServiceStatus
+    calenderEntityId?: NullableStringFieldUpdateOperationsInput | string | null
+    teams?: TeamUncheckedUpdateManyWithoutSupervisorNestedInput
+    performedMaintenances?: MaintenanceUncheckedUpdateManyWithoutPerformerNestedInput
+    assignedMaintenances?: MaintenanceUncheckedUpdateManyWithoutAssigneeNestedInput
+  }
+
+  export type ComplexUpsertWithoutMaintenancesInput = {
+    update: XOR<ComplexUpdateWithoutMaintenancesInput, ComplexUncheckedUpdateWithoutMaintenancesInput>
+    create: XOR<ComplexCreateWithoutMaintenancesInput, ComplexUncheckedCreateWithoutMaintenancesInput>
+    where?: ComplexWhereInput
+  }
+
+  export type ComplexUpdateToOneWithWhereWithoutMaintenancesInput = {
+    where?: ComplexWhereInput
+    data: XOR<ComplexUpdateWithoutMaintenancesInput, ComplexUncheckedUpdateWithoutMaintenancesInput>
+  }
+
+  export type ComplexUpdateWithoutMaintenancesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    code?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    availability?: EnumAvailabilityFieldUpdateOperationsInput | $Enums.Availability
+    status?: EnumServiceStatusFieldUpdateOperationsInput | $Enums.ServiceStatus
+    address?: NullableStringFieldUpdateOperationsInput | string | null
+    city?: NullableStringFieldUpdateOperationsInput | string | null
+    zipCode?: NullableStringFieldUpdateOperationsInput | string | null
+    condition?: EnumConditionFieldUpdateOperationsInput | $Enums.Condition
+    criticality?: EnumCriticalityFieldUpdateOperationsInput | $Enums.Criticality
+    totalBuildings?: NullableIntFieldUpdateOperationsInput | number | null
+    totalFloors?: NullableIntFieldUpdateOperationsInput | number | null
+    totalUnits?: NullableIntFieldUpdateOperationsInput | number | null
+    totalRooms?: NullableIntFieldUpdateOperationsInput | number | null
+    glazedArea?: NullableFloatFieldUpdateOperationsInput | number | null
+    cleanableArea?: NullableFloatFieldUpdateOperationsInput | number | null
+    coveredArea?: NullableFloatFieldUpdateOperationsInput | number | null
+    totalNetArea?: NullableFloatFieldUpdateOperationsInput | number | null
+    totalGrossArea?: NullableFloatFieldUpdateOperationsInput | number | null
+    totalHeatedVolume?: NullableFloatFieldUpdateOperationsInput | number | null
+    totalVolume?: NullableFloatFieldUpdateOperationsInput | number | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    calenderEntity?: CalenderEntityUpdateOneWithoutComplexesNestedInput
+    buildings?: BuildingUpdateManyWithoutComplexNestedInput
+    photos?: FileUpdateManyWithoutComplexesNestedInput
+    floors?: FloorUpdateManyWithoutComplexNestedInput
+    units?: UnitUpdateManyWithoutComplexNestedInput
+    rooms?: RoomUpdateManyWithoutComplexNestedInput
+    preventives?: PreventiveUpdateManyWithoutSiteNestedInput
+  }
+
+  export type ComplexUncheckedUpdateWithoutMaintenancesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    code?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    availability?: EnumAvailabilityFieldUpdateOperationsInput | $Enums.Availability
+    status?: EnumServiceStatusFieldUpdateOperationsInput | $Enums.ServiceStatus
+    calenderEntityId?: NullableStringFieldUpdateOperationsInput | string | null
+    address?: NullableStringFieldUpdateOperationsInput | string | null
+    city?: NullableStringFieldUpdateOperationsInput | string | null
+    zipCode?: NullableStringFieldUpdateOperationsInput | string | null
+    condition?: EnumConditionFieldUpdateOperationsInput | $Enums.Condition
+    criticality?: EnumCriticalityFieldUpdateOperationsInput | $Enums.Criticality
+    totalBuildings?: NullableIntFieldUpdateOperationsInput | number | null
+    totalFloors?: NullableIntFieldUpdateOperationsInput | number | null
+    totalUnits?: NullableIntFieldUpdateOperationsInput | number | null
+    totalRooms?: NullableIntFieldUpdateOperationsInput | number | null
+    glazedArea?: NullableFloatFieldUpdateOperationsInput | number | null
+    cleanableArea?: NullableFloatFieldUpdateOperationsInput | number | null
+    coveredArea?: NullableFloatFieldUpdateOperationsInput | number | null
+    totalNetArea?: NullableFloatFieldUpdateOperationsInput | number | null
+    totalGrossArea?: NullableFloatFieldUpdateOperationsInput | number | null
+    totalHeatedVolume?: NullableFloatFieldUpdateOperationsInput | number | null
+    totalVolume?: NullableFloatFieldUpdateOperationsInput | number | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    buildings?: BuildingUncheckedUpdateManyWithoutComplexNestedInput
+    photos?: FileUncheckedUpdateManyWithoutComplexesNestedInput
+    floors?: FloorUncheckedUpdateManyWithoutComplexNestedInput
+    units?: UnitUncheckedUpdateManyWithoutComplexNestedInput
+    rooms?: RoomUncheckedUpdateManyWithoutComplexNestedInput
+    preventives?: PreventiveUncheckedUpdateManyWithoutSiteNestedInput
+  }
+
+  export type TeamUpsertWithoutMaintenancesInput = {
+    update: XOR<TeamUpdateWithoutMaintenancesInput, TeamUncheckedUpdateWithoutMaintenancesInput>
+    create: XOR<TeamCreateWithoutMaintenancesInput, TeamUncheckedCreateWithoutMaintenancesInput>
+    where?: TeamWhereInput
+  }
+
+  export type TeamUpdateToOneWithWhereWithoutMaintenancesInput = {
+    where?: TeamWhereInput
+    data: XOR<TeamUpdateWithoutMaintenancesInput, TeamUncheckedUpdateWithoutMaintenancesInput>
+  }
+
+  export type TeamUpdateWithoutMaintenancesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    code?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: EnumServiceStatusFieldUpdateOperationsInput | $Enums.ServiceStatus
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    supervisor?: EmployeeUpdateOneRequiredWithoutTeamsNestedInput
+    preventives?: PreventiveUpdateManyWithoutTeamNestedInput
+  }
+
+  export type TeamUncheckedUpdateWithoutMaintenancesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    code?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: EnumServiceStatusFieldUpdateOperationsInput | $Enums.ServiceStatus
+    supervisorId?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    preventives?: PreventiveUncheckedUpdateManyWithoutTeamNestedInput
+  }
+
+  export type FloorUpsertWithoutMaintenancesInput = {
+    update: XOR<FloorUpdateWithoutMaintenancesInput, FloorUncheckedUpdateWithoutMaintenancesInput>
+    create: XOR<FloorCreateWithoutMaintenancesInput, FloorUncheckedCreateWithoutMaintenancesInput>
+    where?: FloorWhereInput
+  }
+
+  export type FloorUpdateToOneWithWhereWithoutMaintenancesInput = {
+    where?: FloorWhereInput
+    data: XOR<FloorUpdateWithoutMaintenancesInput, FloorUncheckedUpdateWithoutMaintenancesInput>
+  }
+
+  export type FloorUpdateWithoutMaintenancesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    code?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    level?: IntFieldUpdateOperationsInput | number
+    status?: EnumServiceStatusFieldUpdateOperationsInput | $Enums.ServiceStatus
+    condition?: EnumConditionFieldUpdateOperationsInput | $Enums.Condition
+    criticality?: EnumCriticalityFieldUpdateOperationsInput | $Enums.Criticality
+    totalUnits?: NullableIntFieldUpdateOperationsInput | number | null
+    totalRooms?: NullableIntFieldUpdateOperationsInput | number | null
+    glazedArea?: NullableFloatFieldUpdateOperationsInput | number | null
+    cleanableArea?: NullableFloatFieldUpdateOperationsInput | number | null
+    coveredArea?: NullableFloatFieldUpdateOperationsInput | number | null
+    totalNetArea?: NullableFloatFieldUpdateOperationsInput | number | null
+    totalGrossArea?: NullableFloatFieldUpdateOperationsInput | number | null
+    totalHeatedVolume?: NullableFloatFieldUpdateOperationsInput | number | null
+    totalVolume?: NullableFloatFieldUpdateOperationsInput | number | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    complex?: ComplexUpdateOneRequiredWithoutFloorsNestedInput
+    building?: BuildingUpdateOneRequiredWithoutFloorsNestedInput
+    rooms?: RoomUpdateManyWithoutFloorNestedInput
+    units?: UnitUpdateManyWithoutFloorNestedInput
+    preventives?: PreventiveUpdateManyWithoutFloorNestedInput
+  }
+
+  export type FloorUncheckedUpdateWithoutMaintenancesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    code?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    level?: IntFieldUpdateOperationsInput | number
+    status?: EnumServiceStatusFieldUpdateOperationsInput | $Enums.ServiceStatus
+    condition?: EnumConditionFieldUpdateOperationsInput | $Enums.Condition
+    criticality?: EnumCriticalityFieldUpdateOperationsInput | $Enums.Criticality
+    complexId?: StringFieldUpdateOperationsInput | string
+    buildingId?: StringFieldUpdateOperationsInput | string
+    totalUnits?: NullableIntFieldUpdateOperationsInput | number | null
+    totalRooms?: NullableIntFieldUpdateOperationsInput | number | null
+    glazedArea?: NullableFloatFieldUpdateOperationsInput | number | null
+    cleanableArea?: NullableFloatFieldUpdateOperationsInput | number | null
+    coveredArea?: NullableFloatFieldUpdateOperationsInput | number | null
+    totalNetArea?: NullableFloatFieldUpdateOperationsInput | number | null
+    totalGrossArea?: NullableFloatFieldUpdateOperationsInput | number | null
+    totalHeatedVolume?: NullableFloatFieldUpdateOperationsInput | number | null
+    totalVolume?: NullableFloatFieldUpdateOperationsInput | number | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    rooms?: RoomUncheckedUpdateManyWithoutFloorNestedInput
+    units?: UnitUncheckedUpdateManyWithoutFloorNestedInput
+    preventives?: PreventiveUncheckedUpdateManyWithoutFloorNestedInput
+  }
+
+  export type RoomUpsertWithoutMaintenancesInput = {
+    update: XOR<RoomUpdateWithoutMaintenancesInput, RoomUncheckedUpdateWithoutMaintenancesInput>
+    create: XOR<RoomCreateWithoutMaintenancesInput, RoomUncheckedCreateWithoutMaintenancesInput>
+    where?: RoomWhereInput
+  }
+
+  export type RoomUpdateToOneWithWhereWithoutMaintenancesInput = {
+    where?: RoomWhereInput
+    data: XOR<RoomUpdateWithoutMaintenancesInput, RoomUncheckedUpdateWithoutMaintenancesInput>
+  }
+
+  export type RoomUpdateWithoutMaintenancesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    code?: StringFieldUpdateOperationsInput | string
+    use?: EnumRoomUseFieldUpdateOperationsInput | $Enums.RoomUse
+    status?: EnumServiceStatusFieldUpdateOperationsInput | $Enums.ServiceStatus
+    condition?: EnumConditionFieldUpdateOperationsInput | $Enums.Condition
+    criticality?: EnumCriticalityFieldUpdateOperationsInput | $Enums.Criticality
+    glazedArea?: NullableFloatFieldUpdateOperationsInput | number | null
+    cleanableArea?: NullableFloatFieldUpdateOperationsInput | number | null
+    coveredArea?: NullableFloatFieldUpdateOperationsInput | number | null
+    totalNetArea?: NullableFloatFieldUpdateOperationsInput | number | null
+    totalGrossArea?: NullableFloatFieldUpdateOperationsInput | number | null
+    height?: NullableIntFieldUpdateOperationsInput | number | null
+    heated?: BoolFieldUpdateOperationsInput | boolean
+    totalVolume?: NullableFloatFieldUpdateOperationsInput | number | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    calenderEntity?: CalenderEntityUpdateOneWithoutRoomsNestedInput
+    complex?: ComplexUpdateOneWithoutRoomsNestedInput
+    building?: BuildingUpdateOneWithoutRoomsNestedInput
+    floor?: FloorUpdateOneRequiredWithoutRoomsNestedInput
+    unit?: UnitUpdateOneWithoutRoomsNestedInput
+    photos?: FileUpdateManyWithoutRoomsNestedInput
+    preventives?: PreventiveUpdateManyWithoutRoomNestedInput
+  }
+
+  export type RoomUncheckedUpdateWithoutMaintenancesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    code?: StringFieldUpdateOperationsInput | string
+    use?: EnumRoomUseFieldUpdateOperationsInput | $Enums.RoomUse
+    status?: EnumServiceStatusFieldUpdateOperationsInput | $Enums.ServiceStatus
+    calenderEntityId?: NullableStringFieldUpdateOperationsInput | string | null
+    complexId?: NullableStringFieldUpdateOperationsInput | string | null
+    buildingId?: NullableStringFieldUpdateOperationsInput | string | null
+    floorId?: StringFieldUpdateOperationsInput | string
+    unitId?: NullableStringFieldUpdateOperationsInput | string | null
+    condition?: EnumConditionFieldUpdateOperationsInput | $Enums.Condition
+    criticality?: EnumCriticalityFieldUpdateOperationsInput | $Enums.Criticality
+    glazedArea?: NullableFloatFieldUpdateOperationsInput | number | null
+    cleanableArea?: NullableFloatFieldUpdateOperationsInput | number | null
+    coveredArea?: NullableFloatFieldUpdateOperationsInput | number | null
+    totalNetArea?: NullableFloatFieldUpdateOperationsInput | number | null
+    totalGrossArea?: NullableFloatFieldUpdateOperationsInput | number | null
+    height?: NullableIntFieldUpdateOperationsInput | number | null
+    heated?: BoolFieldUpdateOperationsInput | boolean
+    totalVolume?: NullableFloatFieldUpdateOperationsInput | number | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    photos?: FileUncheckedUpdateManyWithoutRoomsNestedInput
+    preventives?: PreventiveUncheckedUpdateManyWithoutRoomNestedInput
+  }
+
+  export type EmployeeUpsertWithoutAssignedMaintenancesInput = {
+    update: XOR<EmployeeUpdateWithoutAssignedMaintenancesInput, EmployeeUncheckedUpdateWithoutAssignedMaintenancesInput>
+    create: XOR<EmployeeCreateWithoutAssignedMaintenancesInput, EmployeeUncheckedCreateWithoutAssignedMaintenancesInput>
+    where?: EmployeeWhereInput
+  }
+
+  export type EmployeeUpdateToOneWithWhereWithoutAssignedMaintenancesInput = {
+    where?: EmployeeWhereInput
+    data: XOR<EmployeeUpdateWithoutAssignedMaintenancesInput, EmployeeUncheckedUpdateWithoutAssignedMaintenancesInput>
+  }
+
+  export type EmployeeUpdateWithoutAssignedMaintenancesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    code?: StringFieldUpdateOperationsInput | string
+    type?: EnumEmployeeTypeFieldUpdateOperationsInput | $Enums.EmployeeType
+    status?: EnumServiceStatusFieldUpdateOperationsInput | $Enums.ServiceStatus
+    user?: UserUpdateOneRequiredWithoutEmployeesNestedInput
+    company?: CompanyUpdateOneRequiredWithoutEmployeesNestedInput
+    calenderEntity?: CalenderEntityUpdateOneWithoutEmployeesNestedInput
+    teams?: TeamUpdateManyWithoutSupervisorNestedInput
+    performedMaintenances?: MaintenanceUpdateManyWithoutPerformerNestedInput
+    requestedMaintenances?: MaintenanceUpdateManyWithoutRequesterNestedInput
+  }
+
+  export type EmployeeUncheckedUpdateWithoutAssignedMaintenancesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    code?: StringFieldUpdateOperationsInput | string
+    type?: EnumEmployeeTypeFieldUpdateOperationsInput | $Enums.EmployeeType
+    userId?: StringFieldUpdateOperationsInput | string
+    companyId?: StringFieldUpdateOperationsInput | string
+    status?: EnumServiceStatusFieldUpdateOperationsInput | $Enums.ServiceStatus
+    calenderEntityId?: NullableStringFieldUpdateOperationsInput | string | null
+    teams?: TeamUncheckedUpdateManyWithoutSupervisorNestedInput
+    performedMaintenances?: MaintenanceUncheckedUpdateManyWithoutPerformerNestedInput
+    requestedMaintenances?: MaintenanceUncheckedUpdateManyWithoutRequesterNestedInput
+  }
+
+  export type AssetUpsertWithoutMaintenancesInput = {
+    update: XOR<AssetUpdateWithoutMaintenancesInput, AssetUncheckedUpdateWithoutMaintenancesInput>
+    create: XOR<AssetCreateWithoutMaintenancesInput, AssetUncheckedCreateWithoutMaintenancesInput>
+    where?: AssetWhereInput
+  }
+
+  export type AssetUpdateToOneWithWhereWithoutMaintenancesInput = {
+    where?: AssetWhereInput
+    data: XOR<AssetUpdateWithoutMaintenancesInput, AssetUncheckedUpdateWithoutMaintenancesInput>
+  }
+
+  export type AssetUpdateWithoutMaintenancesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    category?: AssetCategoryUpdateOneRequiredWithoutAssetsNestedInput
+  }
+
+  export type AssetUncheckedUpdateWithoutMaintenancesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    categoryId?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type FileUpsertWithWhereUniqueWithoutMaintenanceInput = {
+    where: FileWhereUniqueInput
+    update: XOR<FileUpdateWithoutMaintenanceInput, FileUncheckedUpdateWithoutMaintenanceInput>
+    create: XOR<FileCreateWithoutMaintenanceInput, FileUncheckedCreateWithoutMaintenanceInput>
+  }
+
+  export type FileUpdateWithWhereUniqueWithoutMaintenanceInput = {
+    where: FileWhereUniqueInput
+    data: XOR<FileUpdateWithoutMaintenanceInput, FileUncheckedUpdateWithoutMaintenanceInput>
+  }
+
+  export type FileUpdateManyWithWhereWithoutMaintenanceInput = {
+    where: FileScalarWhereInput
+    data: XOR<FileUpdateManyMutationInput, FileUncheckedUpdateManyWithoutMaintenanceInput>
+  }
+
+  export type ComplexCreateWithoutPreventivesInput = {
+    id?: string
+    code: string
+    name: string
+    availability?: $Enums.Availability
+    status?: $Enums.ServiceStatus
+    address?: string | null
+    city?: string | null
+    zipCode?: string | null
+    condition?: $Enums.Condition
+    criticality?: $Enums.Criticality
+    totalBuildings?: number | null
+    totalFloors?: number | null
+    totalUnits?: number | null
+    totalRooms?: number | null
+    glazedArea?: number | null
+    cleanableArea?: number | null
+    coveredArea?: number | null
+    totalNetArea?: number | null
+    totalGrossArea?: number | null
+    totalHeatedVolume?: number | null
+    totalVolume?: number | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    calenderEntity?: CalenderEntityCreateNestedOneWithoutComplexesInput
+    buildings?: BuildingCreateNestedManyWithoutComplexInput
+    photos?: FileCreateNestedManyWithoutComplexesInput
+    floors?: FloorCreateNestedManyWithoutComplexInput
+    units?: UnitCreateNestedManyWithoutComplexInput
+    rooms?: RoomCreateNestedManyWithoutComplexInput
+    maintenances?: MaintenanceCreateNestedManyWithoutSiteInput
+  }
+
+  export type ComplexUncheckedCreateWithoutPreventivesInput = {
+    id?: string
+    code: string
+    name: string
+    availability?: $Enums.Availability
+    status?: $Enums.ServiceStatus
+    calenderEntityId?: string | null
+    address?: string | null
+    city?: string | null
+    zipCode?: string | null
+    condition?: $Enums.Condition
+    criticality?: $Enums.Criticality
+    totalBuildings?: number | null
+    totalFloors?: number | null
+    totalUnits?: number | null
+    totalRooms?: number | null
+    glazedArea?: number | null
+    cleanableArea?: number | null
+    coveredArea?: number | null
+    totalNetArea?: number | null
+    totalGrossArea?: number | null
+    totalHeatedVolume?: number | null
+    totalVolume?: number | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    buildings?: BuildingUncheckedCreateNestedManyWithoutComplexInput
+    photos?: FileUncheckedCreateNestedManyWithoutComplexesInput
+    floors?: FloorUncheckedCreateNestedManyWithoutComplexInput
+    units?: UnitUncheckedCreateNestedManyWithoutComplexInput
+    rooms?: RoomUncheckedCreateNestedManyWithoutComplexInput
+    maintenances?: MaintenanceUncheckedCreateNestedManyWithoutSiteInput
+  }
+
+  export type ComplexCreateOrConnectWithoutPreventivesInput = {
+    where: ComplexWhereUniqueInput
+    create: XOR<ComplexCreateWithoutPreventivesInput, ComplexUncheckedCreateWithoutPreventivesInput>
+  }
+
+  export type BuildingCreateWithoutPreventivesInput = {
+    id?: string
+    name: string
+    code: string
+    mainUse?: $Enums.MainUse
+    availability?: $Enums.Availability
+    status?: $Enums.ServiceStatus
+    condition?: $Enums.Condition
+    criticality?: $Enums.Criticality
+    totalFloors?: number | null
+    totalUnits?: number | null
+    totalRooms?: number | null
+    glazedArea?: number | null
+    cleanableArea?: number | null
+    coveredArea?: number | null
+    totalNetArea?: number | null
+    totalGrossArea?: number | null
+    totalHeatedVolume?: number | null
+    totalVolume?: number | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    address: AddressCreateNestedOneWithoutBuildingsInput
+    complex: ComplexCreateNestedOneWithoutBuildingsInput
+    calenderEntity?: CalenderEntityCreateNestedOneWithoutBuildingsInput
+    photos?: FileCreateNestedManyWithoutBuildingsInput
+    floors?: FloorCreateNestedManyWithoutBuildingInput
+    units?: UnitCreateNestedManyWithoutBuildingInput
+    rooms?: RoomCreateNestedManyWithoutBuildingInput
+  }
+
+  export type BuildingUncheckedCreateWithoutPreventivesInput = {
+    id?: string
+    name: string
+    code: string
+    mainUse?: $Enums.MainUse
+    availability?: $Enums.Availability
+    status?: $Enums.ServiceStatus
+    condition?: $Enums.Condition
+    criticality?: $Enums.Criticality
+    totalFloors?: number | null
+    totalUnits?: number | null
+    totalRooms?: number | null
+    glazedArea?: number | null
+    cleanableArea?: number | null
+    coveredArea?: number | null
+    totalNetArea?: number | null
+    totalGrossArea?: number | null
+    totalHeatedVolume?: number | null
+    totalVolume?: number | null
+    addressId: string
+    complexId: string
+    calenderEntityId?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    photos?: FileUncheckedCreateNestedManyWithoutBuildingsInput
+    floors?: FloorUncheckedCreateNestedManyWithoutBuildingInput
+    units?: UnitUncheckedCreateNestedManyWithoutBuildingInput
+    rooms?: RoomUncheckedCreateNestedManyWithoutBuildingInput
+  }
+
+  export type BuildingCreateOrConnectWithoutPreventivesInput = {
+    where: BuildingWhereUniqueInput
+    create: XOR<BuildingCreateWithoutPreventivesInput, BuildingUncheckedCreateWithoutPreventivesInput>
+  }
+
+  export type FloorCreateWithoutPreventivesInput = {
+    id?: string
+    code: string
+    name: string
+    level: number
+    status?: $Enums.ServiceStatus
+    condition?: $Enums.Condition
+    criticality?: $Enums.Criticality
+    totalUnits?: number | null
+    totalRooms?: number | null
+    glazedArea?: number | null
+    cleanableArea?: number | null
+    coveredArea?: number | null
+    totalNetArea?: number | null
+    totalGrossArea?: number | null
+    totalHeatedVolume?: number | null
+    totalVolume?: number | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    complex: ComplexCreateNestedOneWithoutFloorsInput
+    building: BuildingCreateNestedOneWithoutFloorsInput
+    rooms?: RoomCreateNestedManyWithoutFloorInput
+    units?: UnitCreateNestedManyWithoutFloorInput
+    maintenances?: MaintenanceCreateNestedManyWithoutFloorInput
+  }
+
+  export type FloorUncheckedCreateWithoutPreventivesInput = {
+    id?: string
+    code: string
+    name: string
+    level: number
+    status?: $Enums.ServiceStatus
+    condition?: $Enums.Condition
+    criticality?: $Enums.Criticality
+    complexId: string
+    buildingId: string
+    totalUnits?: number | null
+    totalRooms?: number | null
+    glazedArea?: number | null
+    cleanableArea?: number | null
+    coveredArea?: number | null
+    totalNetArea?: number | null
+    totalGrossArea?: number | null
+    totalHeatedVolume?: number | null
+    totalVolume?: number | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    rooms?: RoomUncheckedCreateNestedManyWithoutFloorInput
+    units?: UnitUncheckedCreateNestedManyWithoutFloorInput
+    maintenances?: MaintenanceUncheckedCreateNestedManyWithoutFloorInput
+  }
+
+  export type FloorCreateOrConnectWithoutPreventivesInput = {
+    where: FloorWhereUniqueInput
+    create: XOR<FloorCreateWithoutPreventivesInput, FloorUncheckedCreateWithoutPreventivesInput>
+  }
+
+  export type RoomCreateWithoutPreventivesInput = {
+    id?: string
+    name: string
+    code: string
+    use?: $Enums.RoomUse
+    status?: $Enums.ServiceStatus
+    condition?: $Enums.Condition
+    criticality?: $Enums.Criticality
+    glazedArea?: number | null
+    cleanableArea?: number | null
+    coveredArea?: number | null
+    totalNetArea?: number | null
+    totalGrossArea?: number | null
+    height?: number | null
+    heated?: boolean
+    totalVolume?: number | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    calenderEntity?: CalenderEntityCreateNestedOneWithoutRoomsInput
+    complex?: ComplexCreateNestedOneWithoutRoomsInput
+    building?: BuildingCreateNestedOneWithoutRoomsInput
+    floor: FloorCreateNestedOneWithoutRoomsInput
+    unit?: UnitCreateNestedOneWithoutRoomsInput
+    photos?: FileCreateNestedManyWithoutRoomsInput
+    maintenances?: MaintenanceCreateNestedManyWithoutRoomInput
+  }
+
+  export type RoomUncheckedCreateWithoutPreventivesInput = {
+    id?: string
+    name: string
+    code: string
+    use?: $Enums.RoomUse
+    status?: $Enums.ServiceStatus
+    calenderEntityId?: string | null
+    complexId?: string | null
+    buildingId?: string | null
+    floorId: string
+    unitId?: string | null
+    condition?: $Enums.Condition
+    criticality?: $Enums.Criticality
+    glazedArea?: number | null
+    cleanableArea?: number | null
+    coveredArea?: number | null
+    totalNetArea?: number | null
+    totalGrossArea?: number | null
+    height?: number | null
+    heated?: boolean
+    totalVolume?: number | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    photos?: FileUncheckedCreateNestedManyWithoutRoomsInput
+    maintenances?: MaintenanceUncheckedCreateNestedManyWithoutRoomInput
+  }
+
+  export type RoomCreateOrConnectWithoutPreventivesInput = {
+    where: RoomWhereUniqueInput
+    create: XOR<RoomCreateWithoutPreventivesInput, RoomUncheckedCreateWithoutPreventivesInput>
+  }
+
+  export type TeamCreateWithoutPreventivesInput = {
+    id?: string
+    code: string
+    name: string
+    description?: string | null
+    status?: $Enums.ServiceStatus
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    supervisor: EmployeeCreateNestedOneWithoutTeamsInput
+    maintenances?: MaintenanceCreateNestedManyWithoutTeamInput
+  }
+
+  export type TeamUncheckedCreateWithoutPreventivesInput = {
+    id?: string
+    code: string
+    name: string
+    description?: string | null
+    status?: $Enums.ServiceStatus
+    supervisorId: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    maintenances?: MaintenanceUncheckedCreateNestedManyWithoutTeamInput
+  }
+
+  export type TeamCreateOrConnectWithoutPreventivesInput = {
+    where: TeamWhereUniqueInput
+    create: XOR<TeamCreateWithoutPreventivesInput, TeamUncheckedCreateWithoutPreventivesInput>
+  }
+
+  export type ComplexUpsertWithoutPreventivesInput = {
+    update: XOR<ComplexUpdateWithoutPreventivesInput, ComplexUncheckedUpdateWithoutPreventivesInput>
+    create: XOR<ComplexCreateWithoutPreventivesInput, ComplexUncheckedCreateWithoutPreventivesInput>
+    where?: ComplexWhereInput
+  }
+
+  export type ComplexUpdateToOneWithWhereWithoutPreventivesInput = {
+    where?: ComplexWhereInput
+    data: XOR<ComplexUpdateWithoutPreventivesInput, ComplexUncheckedUpdateWithoutPreventivesInput>
+  }
+
+  export type ComplexUpdateWithoutPreventivesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    code?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    availability?: EnumAvailabilityFieldUpdateOperationsInput | $Enums.Availability
+    status?: EnumServiceStatusFieldUpdateOperationsInput | $Enums.ServiceStatus
+    address?: NullableStringFieldUpdateOperationsInput | string | null
+    city?: NullableStringFieldUpdateOperationsInput | string | null
+    zipCode?: NullableStringFieldUpdateOperationsInput | string | null
+    condition?: EnumConditionFieldUpdateOperationsInput | $Enums.Condition
+    criticality?: EnumCriticalityFieldUpdateOperationsInput | $Enums.Criticality
+    totalBuildings?: NullableIntFieldUpdateOperationsInput | number | null
+    totalFloors?: NullableIntFieldUpdateOperationsInput | number | null
+    totalUnits?: NullableIntFieldUpdateOperationsInput | number | null
+    totalRooms?: NullableIntFieldUpdateOperationsInput | number | null
+    glazedArea?: NullableFloatFieldUpdateOperationsInput | number | null
+    cleanableArea?: NullableFloatFieldUpdateOperationsInput | number | null
+    coveredArea?: NullableFloatFieldUpdateOperationsInput | number | null
+    totalNetArea?: NullableFloatFieldUpdateOperationsInput | number | null
+    totalGrossArea?: NullableFloatFieldUpdateOperationsInput | number | null
+    totalHeatedVolume?: NullableFloatFieldUpdateOperationsInput | number | null
+    totalVolume?: NullableFloatFieldUpdateOperationsInput | number | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    calenderEntity?: CalenderEntityUpdateOneWithoutComplexesNestedInput
+    buildings?: BuildingUpdateManyWithoutComplexNestedInput
+    photos?: FileUpdateManyWithoutComplexesNestedInput
+    floors?: FloorUpdateManyWithoutComplexNestedInput
+    units?: UnitUpdateManyWithoutComplexNestedInput
+    rooms?: RoomUpdateManyWithoutComplexNestedInput
+    maintenances?: MaintenanceUpdateManyWithoutSiteNestedInput
+  }
+
+  export type ComplexUncheckedUpdateWithoutPreventivesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    code?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    availability?: EnumAvailabilityFieldUpdateOperationsInput | $Enums.Availability
+    status?: EnumServiceStatusFieldUpdateOperationsInput | $Enums.ServiceStatus
+    calenderEntityId?: NullableStringFieldUpdateOperationsInput | string | null
+    address?: NullableStringFieldUpdateOperationsInput | string | null
+    city?: NullableStringFieldUpdateOperationsInput | string | null
+    zipCode?: NullableStringFieldUpdateOperationsInput | string | null
+    condition?: EnumConditionFieldUpdateOperationsInput | $Enums.Condition
+    criticality?: EnumCriticalityFieldUpdateOperationsInput | $Enums.Criticality
+    totalBuildings?: NullableIntFieldUpdateOperationsInput | number | null
+    totalFloors?: NullableIntFieldUpdateOperationsInput | number | null
+    totalUnits?: NullableIntFieldUpdateOperationsInput | number | null
+    totalRooms?: NullableIntFieldUpdateOperationsInput | number | null
+    glazedArea?: NullableFloatFieldUpdateOperationsInput | number | null
+    cleanableArea?: NullableFloatFieldUpdateOperationsInput | number | null
+    coveredArea?: NullableFloatFieldUpdateOperationsInput | number | null
+    totalNetArea?: NullableFloatFieldUpdateOperationsInput | number | null
+    totalGrossArea?: NullableFloatFieldUpdateOperationsInput | number | null
+    totalHeatedVolume?: NullableFloatFieldUpdateOperationsInput | number | null
+    totalVolume?: NullableFloatFieldUpdateOperationsInput | number | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    buildings?: BuildingUncheckedUpdateManyWithoutComplexNestedInput
+    photos?: FileUncheckedUpdateManyWithoutComplexesNestedInput
+    floors?: FloorUncheckedUpdateManyWithoutComplexNestedInput
+    units?: UnitUncheckedUpdateManyWithoutComplexNestedInput
+    rooms?: RoomUncheckedUpdateManyWithoutComplexNestedInput
+    maintenances?: MaintenanceUncheckedUpdateManyWithoutSiteNestedInput
+  }
+
+  export type BuildingUpsertWithoutPreventivesInput = {
+    update: XOR<BuildingUpdateWithoutPreventivesInput, BuildingUncheckedUpdateWithoutPreventivesInput>
+    create: XOR<BuildingCreateWithoutPreventivesInput, BuildingUncheckedCreateWithoutPreventivesInput>
+    where?: BuildingWhereInput
+  }
+
+  export type BuildingUpdateToOneWithWhereWithoutPreventivesInput = {
+    where?: BuildingWhereInput
+    data: XOR<BuildingUpdateWithoutPreventivesInput, BuildingUncheckedUpdateWithoutPreventivesInput>
+  }
+
+  export type BuildingUpdateWithoutPreventivesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    code?: StringFieldUpdateOperationsInput | string
+    mainUse?: EnumMainUseFieldUpdateOperationsInput | $Enums.MainUse
+    availability?: EnumAvailabilityFieldUpdateOperationsInput | $Enums.Availability
+    status?: EnumServiceStatusFieldUpdateOperationsInput | $Enums.ServiceStatus
+    condition?: EnumConditionFieldUpdateOperationsInput | $Enums.Condition
+    criticality?: EnumCriticalityFieldUpdateOperationsInput | $Enums.Criticality
+    totalFloors?: NullableIntFieldUpdateOperationsInput | number | null
+    totalUnits?: NullableIntFieldUpdateOperationsInput | number | null
+    totalRooms?: NullableIntFieldUpdateOperationsInput | number | null
+    glazedArea?: NullableFloatFieldUpdateOperationsInput | number | null
+    cleanableArea?: NullableFloatFieldUpdateOperationsInput | number | null
+    coveredArea?: NullableFloatFieldUpdateOperationsInput | number | null
+    totalNetArea?: NullableFloatFieldUpdateOperationsInput | number | null
+    totalGrossArea?: NullableFloatFieldUpdateOperationsInput | number | null
+    totalHeatedVolume?: NullableFloatFieldUpdateOperationsInput | number | null
+    totalVolume?: NullableFloatFieldUpdateOperationsInput | number | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    address?: AddressUpdateOneRequiredWithoutBuildingsNestedInput
+    complex?: ComplexUpdateOneRequiredWithoutBuildingsNestedInput
+    calenderEntity?: CalenderEntityUpdateOneWithoutBuildingsNestedInput
+    photos?: FileUpdateManyWithoutBuildingsNestedInput
+    floors?: FloorUpdateManyWithoutBuildingNestedInput
+    units?: UnitUpdateManyWithoutBuildingNestedInput
+    rooms?: RoomUpdateManyWithoutBuildingNestedInput
+  }
+
+  export type BuildingUncheckedUpdateWithoutPreventivesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    code?: StringFieldUpdateOperationsInput | string
+    mainUse?: EnumMainUseFieldUpdateOperationsInput | $Enums.MainUse
+    availability?: EnumAvailabilityFieldUpdateOperationsInput | $Enums.Availability
+    status?: EnumServiceStatusFieldUpdateOperationsInput | $Enums.ServiceStatus
+    condition?: EnumConditionFieldUpdateOperationsInput | $Enums.Condition
+    criticality?: EnumCriticalityFieldUpdateOperationsInput | $Enums.Criticality
+    totalFloors?: NullableIntFieldUpdateOperationsInput | number | null
+    totalUnits?: NullableIntFieldUpdateOperationsInput | number | null
+    totalRooms?: NullableIntFieldUpdateOperationsInput | number | null
+    glazedArea?: NullableFloatFieldUpdateOperationsInput | number | null
+    cleanableArea?: NullableFloatFieldUpdateOperationsInput | number | null
+    coveredArea?: NullableFloatFieldUpdateOperationsInput | number | null
+    totalNetArea?: NullableFloatFieldUpdateOperationsInput | number | null
+    totalGrossArea?: NullableFloatFieldUpdateOperationsInput | number | null
+    totalHeatedVolume?: NullableFloatFieldUpdateOperationsInput | number | null
+    totalVolume?: NullableFloatFieldUpdateOperationsInput | number | null
+    addressId?: StringFieldUpdateOperationsInput | string
+    complexId?: StringFieldUpdateOperationsInput | string
+    calenderEntityId?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    photos?: FileUncheckedUpdateManyWithoutBuildingsNestedInput
+    floors?: FloorUncheckedUpdateManyWithoutBuildingNestedInput
+    units?: UnitUncheckedUpdateManyWithoutBuildingNestedInput
+    rooms?: RoomUncheckedUpdateManyWithoutBuildingNestedInput
+  }
+
+  export type FloorUpsertWithoutPreventivesInput = {
+    update: XOR<FloorUpdateWithoutPreventivesInput, FloorUncheckedUpdateWithoutPreventivesInput>
+    create: XOR<FloorCreateWithoutPreventivesInput, FloorUncheckedCreateWithoutPreventivesInput>
+    where?: FloorWhereInput
+  }
+
+  export type FloorUpdateToOneWithWhereWithoutPreventivesInput = {
+    where?: FloorWhereInput
+    data: XOR<FloorUpdateWithoutPreventivesInput, FloorUncheckedUpdateWithoutPreventivesInput>
+  }
+
+  export type FloorUpdateWithoutPreventivesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    code?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    level?: IntFieldUpdateOperationsInput | number
+    status?: EnumServiceStatusFieldUpdateOperationsInput | $Enums.ServiceStatus
+    condition?: EnumConditionFieldUpdateOperationsInput | $Enums.Condition
+    criticality?: EnumCriticalityFieldUpdateOperationsInput | $Enums.Criticality
+    totalUnits?: NullableIntFieldUpdateOperationsInput | number | null
+    totalRooms?: NullableIntFieldUpdateOperationsInput | number | null
+    glazedArea?: NullableFloatFieldUpdateOperationsInput | number | null
+    cleanableArea?: NullableFloatFieldUpdateOperationsInput | number | null
+    coveredArea?: NullableFloatFieldUpdateOperationsInput | number | null
+    totalNetArea?: NullableFloatFieldUpdateOperationsInput | number | null
+    totalGrossArea?: NullableFloatFieldUpdateOperationsInput | number | null
+    totalHeatedVolume?: NullableFloatFieldUpdateOperationsInput | number | null
+    totalVolume?: NullableFloatFieldUpdateOperationsInput | number | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    complex?: ComplexUpdateOneRequiredWithoutFloorsNestedInput
+    building?: BuildingUpdateOneRequiredWithoutFloorsNestedInput
+    rooms?: RoomUpdateManyWithoutFloorNestedInput
+    units?: UnitUpdateManyWithoutFloorNestedInput
+    maintenances?: MaintenanceUpdateManyWithoutFloorNestedInput
+  }
+
+  export type FloorUncheckedUpdateWithoutPreventivesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    code?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    level?: IntFieldUpdateOperationsInput | number
+    status?: EnumServiceStatusFieldUpdateOperationsInput | $Enums.ServiceStatus
+    condition?: EnumConditionFieldUpdateOperationsInput | $Enums.Condition
+    criticality?: EnumCriticalityFieldUpdateOperationsInput | $Enums.Criticality
+    complexId?: StringFieldUpdateOperationsInput | string
+    buildingId?: StringFieldUpdateOperationsInput | string
+    totalUnits?: NullableIntFieldUpdateOperationsInput | number | null
+    totalRooms?: NullableIntFieldUpdateOperationsInput | number | null
+    glazedArea?: NullableFloatFieldUpdateOperationsInput | number | null
+    cleanableArea?: NullableFloatFieldUpdateOperationsInput | number | null
+    coveredArea?: NullableFloatFieldUpdateOperationsInput | number | null
+    totalNetArea?: NullableFloatFieldUpdateOperationsInput | number | null
+    totalGrossArea?: NullableFloatFieldUpdateOperationsInput | number | null
+    totalHeatedVolume?: NullableFloatFieldUpdateOperationsInput | number | null
+    totalVolume?: NullableFloatFieldUpdateOperationsInput | number | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    rooms?: RoomUncheckedUpdateManyWithoutFloorNestedInput
+    units?: UnitUncheckedUpdateManyWithoutFloorNestedInput
+    maintenances?: MaintenanceUncheckedUpdateManyWithoutFloorNestedInput
+  }
+
+  export type RoomUpsertWithoutPreventivesInput = {
+    update: XOR<RoomUpdateWithoutPreventivesInput, RoomUncheckedUpdateWithoutPreventivesInput>
+    create: XOR<RoomCreateWithoutPreventivesInput, RoomUncheckedCreateWithoutPreventivesInput>
+    where?: RoomWhereInput
+  }
+
+  export type RoomUpdateToOneWithWhereWithoutPreventivesInput = {
+    where?: RoomWhereInput
+    data: XOR<RoomUpdateWithoutPreventivesInput, RoomUncheckedUpdateWithoutPreventivesInput>
+  }
+
+  export type RoomUpdateWithoutPreventivesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    code?: StringFieldUpdateOperationsInput | string
+    use?: EnumRoomUseFieldUpdateOperationsInput | $Enums.RoomUse
+    status?: EnumServiceStatusFieldUpdateOperationsInput | $Enums.ServiceStatus
+    condition?: EnumConditionFieldUpdateOperationsInput | $Enums.Condition
+    criticality?: EnumCriticalityFieldUpdateOperationsInput | $Enums.Criticality
+    glazedArea?: NullableFloatFieldUpdateOperationsInput | number | null
+    cleanableArea?: NullableFloatFieldUpdateOperationsInput | number | null
+    coveredArea?: NullableFloatFieldUpdateOperationsInput | number | null
+    totalNetArea?: NullableFloatFieldUpdateOperationsInput | number | null
+    totalGrossArea?: NullableFloatFieldUpdateOperationsInput | number | null
+    height?: NullableIntFieldUpdateOperationsInput | number | null
+    heated?: BoolFieldUpdateOperationsInput | boolean
+    totalVolume?: NullableFloatFieldUpdateOperationsInput | number | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    calenderEntity?: CalenderEntityUpdateOneWithoutRoomsNestedInput
+    complex?: ComplexUpdateOneWithoutRoomsNestedInput
+    building?: BuildingUpdateOneWithoutRoomsNestedInput
+    floor?: FloorUpdateOneRequiredWithoutRoomsNestedInput
+    unit?: UnitUpdateOneWithoutRoomsNestedInput
+    photos?: FileUpdateManyWithoutRoomsNestedInput
+    maintenances?: MaintenanceUpdateManyWithoutRoomNestedInput
+  }
+
+  export type RoomUncheckedUpdateWithoutPreventivesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    code?: StringFieldUpdateOperationsInput | string
+    use?: EnumRoomUseFieldUpdateOperationsInput | $Enums.RoomUse
+    status?: EnumServiceStatusFieldUpdateOperationsInput | $Enums.ServiceStatus
+    calenderEntityId?: NullableStringFieldUpdateOperationsInput | string | null
+    complexId?: NullableStringFieldUpdateOperationsInput | string | null
+    buildingId?: NullableStringFieldUpdateOperationsInput | string | null
+    floorId?: StringFieldUpdateOperationsInput | string
+    unitId?: NullableStringFieldUpdateOperationsInput | string | null
+    condition?: EnumConditionFieldUpdateOperationsInput | $Enums.Condition
+    criticality?: EnumCriticalityFieldUpdateOperationsInput | $Enums.Criticality
+    glazedArea?: NullableFloatFieldUpdateOperationsInput | number | null
+    cleanableArea?: NullableFloatFieldUpdateOperationsInput | number | null
+    coveredArea?: NullableFloatFieldUpdateOperationsInput | number | null
+    totalNetArea?: NullableFloatFieldUpdateOperationsInput | number | null
+    totalGrossArea?: NullableFloatFieldUpdateOperationsInput | number | null
+    height?: NullableIntFieldUpdateOperationsInput | number | null
+    heated?: BoolFieldUpdateOperationsInput | boolean
+    totalVolume?: NullableFloatFieldUpdateOperationsInput | number | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    photos?: FileUncheckedUpdateManyWithoutRoomsNestedInput
+    maintenances?: MaintenanceUncheckedUpdateManyWithoutRoomNestedInput
+  }
+
+  export type TeamUpsertWithoutPreventivesInput = {
+    update: XOR<TeamUpdateWithoutPreventivesInput, TeamUncheckedUpdateWithoutPreventivesInput>
+    create: XOR<TeamCreateWithoutPreventivesInput, TeamUncheckedCreateWithoutPreventivesInput>
+    where?: TeamWhereInput
+  }
+
+  export type TeamUpdateToOneWithWhereWithoutPreventivesInput = {
+    where?: TeamWhereInput
+    data: XOR<TeamUpdateWithoutPreventivesInput, TeamUncheckedUpdateWithoutPreventivesInput>
+  }
+
+  export type TeamUpdateWithoutPreventivesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    code?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: EnumServiceStatusFieldUpdateOperationsInput | $Enums.ServiceStatus
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    supervisor?: EmployeeUpdateOneRequiredWithoutTeamsNestedInput
+    maintenances?: MaintenanceUpdateManyWithoutTeamNestedInput
+  }
+
+  export type TeamUncheckedUpdateWithoutPreventivesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    code?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: EnumServiceStatusFieldUpdateOperationsInput | $Enums.ServiceStatus
+    supervisorId?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    maintenances?: MaintenanceUncheckedUpdateManyWithoutTeamNestedInput
   }
 
   export type UserCreateWithoutRefreshTokensInput = {
@@ -36591,6 +47999,9 @@ export namespace Prisma {
     company?: CompanyUpdateOneRequiredWithoutEmployeesNestedInput
     calenderEntity?: CalenderEntityUpdateOneWithoutEmployeesNestedInput
     teams?: TeamUpdateManyWithoutSupervisorNestedInput
+    performedMaintenances?: MaintenanceUpdateManyWithoutPerformerNestedInput
+    requestedMaintenances?: MaintenanceUpdateManyWithoutRequesterNestedInput
+    assignedMaintenances?: MaintenanceUpdateManyWithoutAssigneeNestedInput
   }
 
   export type EmployeeUncheckedUpdateWithoutUserInput = {
@@ -36601,6 +48012,9 @@ export namespace Prisma {
     status?: EnumServiceStatusFieldUpdateOperationsInput | $Enums.ServiceStatus
     calenderEntityId?: NullableStringFieldUpdateOperationsInput | string | null
     teams?: TeamUncheckedUpdateManyWithoutSupervisorNestedInput
+    performedMaintenances?: MaintenanceUncheckedUpdateManyWithoutPerformerNestedInput
+    requestedMaintenances?: MaintenanceUncheckedUpdateManyWithoutRequesterNestedInput
+    assignedMaintenances?: MaintenanceUncheckedUpdateManyWithoutAssigneeNestedInput
   }
 
   export type EmployeeUncheckedUpdateManyWithoutUserInput = {
@@ -36810,6 +48224,85 @@ export namespace Prisma {
     updatedAt?: Date | string
   }
 
+  export type MaintenanceCreateManySiteInput = {
+    id?: string
+    type?: $Enums.MaintenanceType
+    code: string
+    description: string
+    startDate?: Date | string | null
+    endDate?: Date | string | null
+    shortDescription?: string | null
+    action?: string | null
+    message?: string | null
+    processNotes?: string | null
+    performerId?: string | null
+    processStatus?: $Enums.Status
+    register?: string | null
+    activityIdTimer?: string | null
+    activityStartTime?: Date | string | null
+    activityEndTime?: Date | string | null
+    allDeadlines?: string | null
+    processType?: $Enums.ProcessType
+    ttSysRunning?: Decimal | DecimalJsLike | number | string | null
+    ttWorkRunning?: Decimal | DecimalJsLike | number | string | null
+    sorting?: string | null
+    requesterId?: string | null
+    priority?: $Enums.Priority
+    outcome?: string | null
+    dueAssignedEnd?: Date | string | null
+    execStart?: Date | string | null
+    dueExecEndDate?: Date | string | null
+    execEndDate?: Date | string | null
+    dueClosuerDate?: Date | string | null
+    totalExecTime?: Decimal | DecimalJsLike | number | string | null
+    expStartDate?: Date | string | null
+    suspensionReason?: string | null
+    category?: string | null
+    subCategory?: string | null
+    company?: string | null
+    teamId?: string | null
+    floorId?: string | null
+    roomId?: string | null
+    ttSystemOpening?: Decimal | DecimalJsLike | number | string | null
+    ttWorkOpening?: Decimal | DecimalJsLike | number | string | null
+    ttSystemAssignment?: Decimal | DecimalJsLike | number | string | null
+    ttWorkAssignment?: Decimal | DecimalJsLike | number | string | null
+    ttSystemExecution?: Decimal | DecimalJsLike | number | string | null
+    ttWorkExecution?: Decimal | DecimalJsLike | number | string | null
+    ttSysSuspension?: Decimal | DecimalJsLike | number | string | null
+    ttWorkSuspension?: Decimal | DecimalJsLike | number | string | null
+    ttEstimate?: Decimal | DecimalJsLike | number | string | null
+    prevMaintenanceConfigId?: string | null
+    automaticConfig?: boolean
+    jointAccounting?: boolean
+    hasTasks?: boolean
+    estimateStatus?: $Enums.Status
+    delayNotification?: boolean
+    assigneeId?: string | null
+    assetId?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type PreventiveCreateManySiteInput = {
+    id?: string
+    code: string
+    name: string
+    description: string
+    frequency?: $Enums.Frequency
+    cronExpression?: string | null
+    lastRun?: Date | string | null
+    nextRun: Date | string
+    priority?: $Enums.Priority
+    duration?: number | null
+    buildingId?: string | null
+    floorId?: string | null
+    roomId?: string | null
+    teamId?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
   export type BuildingUpdateWithoutComplexInput = {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
@@ -36837,6 +48330,7 @@ export namespace Prisma {
     floors?: FloorUpdateManyWithoutBuildingNestedInput
     units?: UnitUpdateManyWithoutBuildingNestedInput
     rooms?: RoomUpdateManyWithoutBuildingNestedInput
+    preventives?: PreventiveUpdateManyWithoutBuildingNestedInput
   }
 
   export type BuildingUncheckedUpdateWithoutComplexInput = {
@@ -36866,6 +48360,7 @@ export namespace Prisma {
     floors?: FloorUncheckedUpdateManyWithoutBuildingNestedInput
     units?: UnitUncheckedUpdateManyWithoutBuildingNestedInput
     rooms?: RoomUncheckedUpdateManyWithoutBuildingNestedInput
+    preventives?: PreventiveUncheckedUpdateManyWithoutBuildingNestedInput
   }
 
   export type BuildingUncheckedUpdateManyWithoutComplexInput = {
@@ -36899,11 +48394,13 @@ export namespace Prisma {
     rooms?: RoomUpdateManyWithoutPhotosNestedInput
     units?: UnitUpdateManyWithoutPhotosNestedInput
     buildings?: BuildingUpdateManyWithoutPhotosNestedInput
+    maintenance?: MaintenanceUpdateOneWithoutPhotosNestedInput
   }
 
   export type FileUncheckedUpdateWithoutComplexesInput = {
     id?: StringFieldUpdateOperationsInput | string
     url?: StringFieldUpdateOperationsInput | string
+    maintenanceId?: NullableStringFieldUpdateOperationsInput | string | null
     rooms?: RoomUncheckedUpdateManyWithoutPhotosNestedInput
     units?: UnitUncheckedUpdateManyWithoutPhotosNestedInput
     buildings?: BuildingUncheckedUpdateManyWithoutPhotosNestedInput
@@ -36912,6 +48409,7 @@ export namespace Prisma {
   export type FileUncheckedUpdateManyWithoutComplexesInput = {
     id?: StringFieldUpdateOperationsInput | string
     url?: StringFieldUpdateOperationsInput | string
+    maintenanceId?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type FloorUpdateWithoutComplexInput = {
@@ -36936,6 +48434,8 @@ export namespace Prisma {
     building?: BuildingUpdateOneRequiredWithoutFloorsNestedInput
     rooms?: RoomUpdateManyWithoutFloorNestedInput
     units?: UnitUpdateManyWithoutFloorNestedInput
+    maintenances?: MaintenanceUpdateManyWithoutFloorNestedInput
+    preventives?: PreventiveUpdateManyWithoutFloorNestedInput
   }
 
   export type FloorUncheckedUpdateWithoutComplexInput = {
@@ -36960,6 +48460,8 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     rooms?: RoomUncheckedUpdateManyWithoutFloorNestedInput
     units?: UnitUncheckedUpdateManyWithoutFloorNestedInput
+    maintenances?: MaintenanceUncheckedUpdateManyWithoutFloorNestedInput
+    preventives?: PreventiveUncheckedUpdateManyWithoutFloorNestedInput
   }
 
   export type FloorUncheckedUpdateManyWithoutComplexInput = {
@@ -37116,6 +48618,8 @@ export namespace Prisma {
     floor?: FloorUpdateOneRequiredWithoutRoomsNestedInput
     unit?: UnitUpdateOneWithoutRoomsNestedInput
     photos?: FileUpdateManyWithoutRoomsNestedInput
+    maintenances?: MaintenanceUpdateManyWithoutRoomNestedInput
+    preventives?: PreventiveUpdateManyWithoutRoomNestedInput
   }
 
   export type RoomUncheckedUpdateWithoutComplexInput = {
@@ -37141,6 +48645,8 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     photos?: FileUncheckedUpdateManyWithoutRoomsNestedInput
+    maintenances?: MaintenanceUncheckedUpdateManyWithoutRoomNestedInput
+    preventives?: PreventiveUncheckedUpdateManyWithoutRoomNestedInput
   }
 
   export type RoomUncheckedUpdateManyWithoutComplexInput = {
@@ -37163,6 +48669,245 @@ export namespace Prisma {
     height?: NullableIntFieldUpdateOperationsInput | number | null
     heated?: BoolFieldUpdateOperationsInput | boolean
     totalVolume?: NullableFloatFieldUpdateOperationsInput | number | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type MaintenanceUpdateWithoutSiteInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    type?: EnumMaintenanceTypeFieldUpdateOperationsInput | $Enums.MaintenanceType
+    code?: StringFieldUpdateOperationsInput | string
+    description?: StringFieldUpdateOperationsInput | string
+    startDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    endDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    shortDescription?: NullableStringFieldUpdateOperationsInput | string | null
+    action?: NullableStringFieldUpdateOperationsInput | string | null
+    message?: NullableStringFieldUpdateOperationsInput | string | null
+    processNotes?: NullableStringFieldUpdateOperationsInput | string | null
+    processStatus?: EnumStatusFieldUpdateOperationsInput | $Enums.Status
+    register?: NullableStringFieldUpdateOperationsInput | string | null
+    activityIdTimer?: NullableStringFieldUpdateOperationsInput | string | null
+    activityStartTime?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    activityEndTime?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    allDeadlines?: NullableStringFieldUpdateOperationsInput | string | null
+    processType?: EnumProcessTypeFieldUpdateOperationsInput | $Enums.ProcessType
+    ttSysRunning?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    ttWorkRunning?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    sorting?: NullableStringFieldUpdateOperationsInput | string | null
+    priority?: EnumPriorityFieldUpdateOperationsInput | $Enums.Priority
+    outcome?: NullableStringFieldUpdateOperationsInput | string | null
+    dueAssignedEnd?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    execStart?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    dueExecEndDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    execEndDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    dueClosuerDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    totalExecTime?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    expStartDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    suspensionReason?: NullableStringFieldUpdateOperationsInput | string | null
+    category?: NullableStringFieldUpdateOperationsInput | string | null
+    subCategory?: NullableStringFieldUpdateOperationsInput | string | null
+    company?: NullableStringFieldUpdateOperationsInput | string | null
+    ttSystemOpening?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    ttWorkOpening?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    ttSystemAssignment?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    ttWorkAssignment?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    ttSystemExecution?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    ttWorkExecution?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    ttSysSuspension?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    ttWorkSuspension?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    ttEstimate?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    prevMaintenanceConfigId?: NullableStringFieldUpdateOperationsInput | string | null
+    automaticConfig?: BoolFieldUpdateOperationsInput | boolean
+    jointAccounting?: BoolFieldUpdateOperationsInput | boolean
+    hasTasks?: BoolFieldUpdateOperationsInput | boolean
+    estimateStatus?: EnumStatusFieldUpdateOperationsInput | $Enums.Status
+    delayNotification?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    performer?: EmployeeUpdateOneWithoutPerformedMaintenancesNestedInput
+    requester?: EmployeeUpdateOneWithoutRequestedMaintenancesNestedInput
+    team?: TeamUpdateOneWithoutMaintenancesNestedInput
+    floor?: FloorUpdateOneWithoutMaintenancesNestedInput
+    room?: RoomUpdateOneWithoutMaintenancesNestedInput
+    assignee?: EmployeeUpdateOneWithoutAssignedMaintenancesNestedInput
+    asset?: AssetUpdateOneWithoutMaintenancesNestedInput
+    photos?: FileUpdateManyWithoutMaintenanceNestedInput
+  }
+
+  export type MaintenanceUncheckedUpdateWithoutSiteInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    type?: EnumMaintenanceTypeFieldUpdateOperationsInput | $Enums.MaintenanceType
+    code?: StringFieldUpdateOperationsInput | string
+    description?: StringFieldUpdateOperationsInput | string
+    startDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    endDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    shortDescription?: NullableStringFieldUpdateOperationsInput | string | null
+    action?: NullableStringFieldUpdateOperationsInput | string | null
+    message?: NullableStringFieldUpdateOperationsInput | string | null
+    processNotes?: NullableStringFieldUpdateOperationsInput | string | null
+    performerId?: NullableStringFieldUpdateOperationsInput | string | null
+    processStatus?: EnumStatusFieldUpdateOperationsInput | $Enums.Status
+    register?: NullableStringFieldUpdateOperationsInput | string | null
+    activityIdTimer?: NullableStringFieldUpdateOperationsInput | string | null
+    activityStartTime?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    activityEndTime?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    allDeadlines?: NullableStringFieldUpdateOperationsInput | string | null
+    processType?: EnumProcessTypeFieldUpdateOperationsInput | $Enums.ProcessType
+    ttSysRunning?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    ttWorkRunning?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    sorting?: NullableStringFieldUpdateOperationsInput | string | null
+    requesterId?: NullableStringFieldUpdateOperationsInput | string | null
+    priority?: EnumPriorityFieldUpdateOperationsInput | $Enums.Priority
+    outcome?: NullableStringFieldUpdateOperationsInput | string | null
+    dueAssignedEnd?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    execStart?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    dueExecEndDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    execEndDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    dueClosuerDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    totalExecTime?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    expStartDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    suspensionReason?: NullableStringFieldUpdateOperationsInput | string | null
+    category?: NullableStringFieldUpdateOperationsInput | string | null
+    subCategory?: NullableStringFieldUpdateOperationsInput | string | null
+    company?: NullableStringFieldUpdateOperationsInput | string | null
+    teamId?: NullableStringFieldUpdateOperationsInput | string | null
+    floorId?: NullableStringFieldUpdateOperationsInput | string | null
+    roomId?: NullableStringFieldUpdateOperationsInput | string | null
+    ttSystemOpening?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    ttWorkOpening?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    ttSystemAssignment?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    ttWorkAssignment?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    ttSystemExecution?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    ttWorkExecution?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    ttSysSuspension?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    ttWorkSuspension?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    ttEstimate?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    prevMaintenanceConfigId?: NullableStringFieldUpdateOperationsInput | string | null
+    automaticConfig?: BoolFieldUpdateOperationsInput | boolean
+    jointAccounting?: BoolFieldUpdateOperationsInput | boolean
+    hasTasks?: BoolFieldUpdateOperationsInput | boolean
+    estimateStatus?: EnumStatusFieldUpdateOperationsInput | $Enums.Status
+    delayNotification?: BoolFieldUpdateOperationsInput | boolean
+    assigneeId?: NullableStringFieldUpdateOperationsInput | string | null
+    assetId?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    photos?: FileUncheckedUpdateManyWithoutMaintenanceNestedInput
+  }
+
+  export type MaintenanceUncheckedUpdateManyWithoutSiteInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    type?: EnumMaintenanceTypeFieldUpdateOperationsInput | $Enums.MaintenanceType
+    code?: StringFieldUpdateOperationsInput | string
+    description?: StringFieldUpdateOperationsInput | string
+    startDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    endDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    shortDescription?: NullableStringFieldUpdateOperationsInput | string | null
+    action?: NullableStringFieldUpdateOperationsInput | string | null
+    message?: NullableStringFieldUpdateOperationsInput | string | null
+    processNotes?: NullableStringFieldUpdateOperationsInput | string | null
+    performerId?: NullableStringFieldUpdateOperationsInput | string | null
+    processStatus?: EnumStatusFieldUpdateOperationsInput | $Enums.Status
+    register?: NullableStringFieldUpdateOperationsInput | string | null
+    activityIdTimer?: NullableStringFieldUpdateOperationsInput | string | null
+    activityStartTime?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    activityEndTime?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    allDeadlines?: NullableStringFieldUpdateOperationsInput | string | null
+    processType?: EnumProcessTypeFieldUpdateOperationsInput | $Enums.ProcessType
+    ttSysRunning?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    ttWorkRunning?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    sorting?: NullableStringFieldUpdateOperationsInput | string | null
+    requesterId?: NullableStringFieldUpdateOperationsInput | string | null
+    priority?: EnumPriorityFieldUpdateOperationsInput | $Enums.Priority
+    outcome?: NullableStringFieldUpdateOperationsInput | string | null
+    dueAssignedEnd?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    execStart?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    dueExecEndDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    execEndDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    dueClosuerDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    totalExecTime?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    expStartDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    suspensionReason?: NullableStringFieldUpdateOperationsInput | string | null
+    category?: NullableStringFieldUpdateOperationsInput | string | null
+    subCategory?: NullableStringFieldUpdateOperationsInput | string | null
+    company?: NullableStringFieldUpdateOperationsInput | string | null
+    teamId?: NullableStringFieldUpdateOperationsInput | string | null
+    floorId?: NullableStringFieldUpdateOperationsInput | string | null
+    roomId?: NullableStringFieldUpdateOperationsInput | string | null
+    ttSystemOpening?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    ttWorkOpening?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    ttSystemAssignment?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    ttWorkAssignment?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    ttSystemExecution?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    ttWorkExecution?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    ttSysSuspension?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    ttWorkSuspension?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    ttEstimate?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    prevMaintenanceConfigId?: NullableStringFieldUpdateOperationsInput | string | null
+    automaticConfig?: BoolFieldUpdateOperationsInput | boolean
+    jointAccounting?: BoolFieldUpdateOperationsInput | boolean
+    hasTasks?: BoolFieldUpdateOperationsInput | boolean
+    estimateStatus?: EnumStatusFieldUpdateOperationsInput | $Enums.Status
+    delayNotification?: BoolFieldUpdateOperationsInput | boolean
+    assigneeId?: NullableStringFieldUpdateOperationsInput | string | null
+    assetId?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type PreventiveUpdateWithoutSiteInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    code?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    description?: StringFieldUpdateOperationsInput | string
+    frequency?: EnumFrequencyFieldUpdateOperationsInput | $Enums.Frequency
+    cronExpression?: NullableStringFieldUpdateOperationsInput | string | null
+    lastRun?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    nextRun?: DateTimeFieldUpdateOperationsInput | Date | string
+    priority?: EnumPriorityFieldUpdateOperationsInput | $Enums.Priority
+    duration?: NullableIntFieldUpdateOperationsInput | number | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    building?: BuildingUpdateOneWithoutPreventivesNestedInput
+    floor?: FloorUpdateOneWithoutPreventivesNestedInput
+    room?: RoomUpdateOneWithoutPreventivesNestedInput
+    team?: TeamUpdateOneWithoutPreventivesNestedInput
+  }
+
+  export type PreventiveUncheckedUpdateWithoutSiteInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    code?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    description?: StringFieldUpdateOperationsInput | string
+    frequency?: EnumFrequencyFieldUpdateOperationsInput | $Enums.Frequency
+    cronExpression?: NullableStringFieldUpdateOperationsInput | string | null
+    lastRun?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    nextRun?: DateTimeFieldUpdateOperationsInput | Date | string
+    priority?: EnumPriorityFieldUpdateOperationsInput | $Enums.Priority
+    duration?: NullableIntFieldUpdateOperationsInput | number | null
+    buildingId?: NullableStringFieldUpdateOperationsInput | string | null
+    floorId?: NullableStringFieldUpdateOperationsInput | string | null
+    roomId?: NullableStringFieldUpdateOperationsInput | string | null
+    teamId?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type PreventiveUncheckedUpdateManyWithoutSiteInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    code?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    description?: StringFieldUpdateOperationsInput | string
+    frequency?: EnumFrequencyFieldUpdateOperationsInput | $Enums.Frequency
+    cronExpression?: NullableStringFieldUpdateOperationsInput | string | null
+    lastRun?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    nextRun?: DateTimeFieldUpdateOperationsInput | Date | string
+    priority?: EnumPriorityFieldUpdateOperationsInput | $Enums.Priority
+    duration?: NullableIntFieldUpdateOperationsInput | number | null
+    buildingId?: NullableStringFieldUpdateOperationsInput | string | null
+    floorId?: NullableStringFieldUpdateOperationsInput | string | null
+    roomId?: NullableStringFieldUpdateOperationsInput | string | null
+    teamId?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -37248,17 +48993,38 @@ export namespace Prisma {
     updatedAt?: Date | string
   }
 
+  export type PreventiveCreateManyBuildingInput = {
+    id?: string
+    code: string
+    name: string
+    description: string
+    frequency?: $Enums.Frequency
+    cronExpression?: string | null
+    lastRun?: Date | string | null
+    nextRun: Date | string
+    priority?: $Enums.Priority
+    duration?: number | null
+    siteId: string
+    floorId?: string | null
+    roomId?: string | null
+    teamId?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
   export type FileUpdateWithoutBuildingsInput = {
     id?: StringFieldUpdateOperationsInput | string
     url?: StringFieldUpdateOperationsInput | string
     rooms?: RoomUpdateManyWithoutPhotosNestedInput
     units?: UnitUpdateManyWithoutPhotosNestedInput
     complexes?: ComplexUpdateManyWithoutPhotosNestedInput
+    maintenance?: MaintenanceUpdateOneWithoutPhotosNestedInput
   }
 
   export type FileUncheckedUpdateWithoutBuildingsInput = {
     id?: StringFieldUpdateOperationsInput | string
     url?: StringFieldUpdateOperationsInput | string
+    maintenanceId?: NullableStringFieldUpdateOperationsInput | string | null
     rooms?: RoomUncheckedUpdateManyWithoutPhotosNestedInput
     units?: UnitUncheckedUpdateManyWithoutPhotosNestedInput
     complexes?: ComplexUncheckedUpdateManyWithoutPhotosNestedInput
@@ -37267,6 +49033,7 @@ export namespace Prisma {
   export type FileUncheckedUpdateManyWithoutBuildingsInput = {
     id?: StringFieldUpdateOperationsInput | string
     url?: StringFieldUpdateOperationsInput | string
+    maintenanceId?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type FloorUpdateWithoutBuildingInput = {
@@ -37291,6 +49058,8 @@ export namespace Prisma {
     complex?: ComplexUpdateOneRequiredWithoutFloorsNestedInput
     rooms?: RoomUpdateManyWithoutFloorNestedInput
     units?: UnitUpdateManyWithoutFloorNestedInput
+    maintenances?: MaintenanceUpdateManyWithoutFloorNestedInput
+    preventives?: PreventiveUpdateManyWithoutFloorNestedInput
   }
 
   export type FloorUncheckedUpdateWithoutBuildingInput = {
@@ -37315,6 +49084,8 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     rooms?: RoomUncheckedUpdateManyWithoutFloorNestedInput
     units?: UnitUncheckedUpdateManyWithoutFloorNestedInput
+    maintenances?: MaintenanceUncheckedUpdateManyWithoutFloorNestedInput
+    preventives?: PreventiveUncheckedUpdateManyWithoutFloorNestedInput
   }
 
   export type FloorUncheckedUpdateManyWithoutBuildingInput = {
@@ -37471,6 +49242,8 @@ export namespace Prisma {
     floor?: FloorUpdateOneRequiredWithoutRoomsNestedInput
     unit?: UnitUpdateOneWithoutRoomsNestedInput
     photos?: FileUpdateManyWithoutRoomsNestedInput
+    maintenances?: MaintenanceUpdateManyWithoutRoomNestedInput
+    preventives?: PreventiveUpdateManyWithoutRoomNestedInput
   }
 
   export type RoomUncheckedUpdateWithoutBuildingInput = {
@@ -37496,6 +49269,8 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     photos?: FileUncheckedUpdateManyWithoutRoomsNestedInput
+    maintenances?: MaintenanceUncheckedUpdateManyWithoutRoomNestedInput
+    preventives?: PreventiveUncheckedUpdateManyWithoutRoomNestedInput
   }
 
   export type RoomUncheckedUpdateManyWithoutBuildingInput = {
@@ -37518,6 +49293,63 @@ export namespace Prisma {
     height?: NullableIntFieldUpdateOperationsInput | number | null
     heated?: BoolFieldUpdateOperationsInput | boolean
     totalVolume?: NullableFloatFieldUpdateOperationsInput | number | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type PreventiveUpdateWithoutBuildingInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    code?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    description?: StringFieldUpdateOperationsInput | string
+    frequency?: EnumFrequencyFieldUpdateOperationsInput | $Enums.Frequency
+    cronExpression?: NullableStringFieldUpdateOperationsInput | string | null
+    lastRun?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    nextRun?: DateTimeFieldUpdateOperationsInput | Date | string
+    priority?: EnumPriorityFieldUpdateOperationsInput | $Enums.Priority
+    duration?: NullableIntFieldUpdateOperationsInput | number | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    site?: ComplexUpdateOneRequiredWithoutPreventivesNestedInput
+    floor?: FloorUpdateOneWithoutPreventivesNestedInput
+    room?: RoomUpdateOneWithoutPreventivesNestedInput
+    team?: TeamUpdateOneWithoutPreventivesNestedInput
+  }
+
+  export type PreventiveUncheckedUpdateWithoutBuildingInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    code?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    description?: StringFieldUpdateOperationsInput | string
+    frequency?: EnumFrequencyFieldUpdateOperationsInput | $Enums.Frequency
+    cronExpression?: NullableStringFieldUpdateOperationsInput | string | null
+    lastRun?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    nextRun?: DateTimeFieldUpdateOperationsInput | Date | string
+    priority?: EnumPriorityFieldUpdateOperationsInput | $Enums.Priority
+    duration?: NullableIntFieldUpdateOperationsInput | number | null
+    siteId?: StringFieldUpdateOperationsInput | string
+    floorId?: NullableStringFieldUpdateOperationsInput | string | null
+    roomId?: NullableStringFieldUpdateOperationsInput | string | null
+    teamId?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type PreventiveUncheckedUpdateManyWithoutBuildingInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    code?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    description?: StringFieldUpdateOperationsInput | string
+    frequency?: EnumFrequencyFieldUpdateOperationsInput | $Enums.Frequency
+    cronExpression?: NullableStringFieldUpdateOperationsInput | string | null
+    lastRun?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    nextRun?: DateTimeFieldUpdateOperationsInput | Date | string
+    priority?: EnumPriorityFieldUpdateOperationsInput | $Enums.Priority
+    duration?: NullableIntFieldUpdateOperationsInput | number | null
+    siteId?: StringFieldUpdateOperationsInput | string
+    floorId?: NullableStringFieldUpdateOperationsInput | string | null
+    roomId?: NullableStringFieldUpdateOperationsInput | string | null
+    teamId?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -37581,6 +49413,85 @@ export namespace Prisma {
     updatedAt?: Date | string
   }
 
+  export type MaintenanceCreateManyFloorInput = {
+    id?: string
+    type?: $Enums.MaintenanceType
+    code: string
+    description: string
+    startDate?: Date | string | null
+    endDate?: Date | string | null
+    shortDescription?: string | null
+    action?: string | null
+    message?: string | null
+    processNotes?: string | null
+    performerId?: string | null
+    processStatus?: $Enums.Status
+    register?: string | null
+    activityIdTimer?: string | null
+    activityStartTime?: Date | string | null
+    activityEndTime?: Date | string | null
+    allDeadlines?: string | null
+    processType?: $Enums.ProcessType
+    ttSysRunning?: Decimal | DecimalJsLike | number | string | null
+    ttWorkRunning?: Decimal | DecimalJsLike | number | string | null
+    sorting?: string | null
+    requesterId?: string | null
+    priority?: $Enums.Priority
+    siteId: string
+    outcome?: string | null
+    dueAssignedEnd?: Date | string | null
+    execStart?: Date | string | null
+    dueExecEndDate?: Date | string | null
+    execEndDate?: Date | string | null
+    dueClosuerDate?: Date | string | null
+    totalExecTime?: Decimal | DecimalJsLike | number | string | null
+    expStartDate?: Date | string | null
+    suspensionReason?: string | null
+    category?: string | null
+    subCategory?: string | null
+    company?: string | null
+    teamId?: string | null
+    roomId?: string | null
+    ttSystemOpening?: Decimal | DecimalJsLike | number | string | null
+    ttWorkOpening?: Decimal | DecimalJsLike | number | string | null
+    ttSystemAssignment?: Decimal | DecimalJsLike | number | string | null
+    ttWorkAssignment?: Decimal | DecimalJsLike | number | string | null
+    ttSystemExecution?: Decimal | DecimalJsLike | number | string | null
+    ttWorkExecution?: Decimal | DecimalJsLike | number | string | null
+    ttSysSuspension?: Decimal | DecimalJsLike | number | string | null
+    ttWorkSuspension?: Decimal | DecimalJsLike | number | string | null
+    ttEstimate?: Decimal | DecimalJsLike | number | string | null
+    prevMaintenanceConfigId?: string | null
+    automaticConfig?: boolean
+    jointAccounting?: boolean
+    hasTasks?: boolean
+    estimateStatus?: $Enums.Status
+    delayNotification?: boolean
+    assigneeId?: string | null
+    assetId?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type PreventiveCreateManyFloorInput = {
+    id?: string
+    code: string
+    name: string
+    description: string
+    frequency?: $Enums.Frequency
+    cronExpression?: string | null
+    lastRun?: Date | string | null
+    nextRun: Date | string
+    priority?: $Enums.Priority
+    duration?: number | null
+    siteId: string
+    buildingId?: string | null
+    roomId?: string | null
+    teamId?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
   export type RoomUpdateWithoutFloorInput = {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
@@ -37604,6 +49515,8 @@ export namespace Prisma {
     building?: BuildingUpdateOneWithoutRoomsNestedInput
     unit?: UnitUpdateOneWithoutRoomsNestedInput
     photos?: FileUpdateManyWithoutRoomsNestedInput
+    maintenances?: MaintenanceUpdateManyWithoutRoomNestedInput
+    preventives?: PreventiveUpdateManyWithoutRoomNestedInput
   }
 
   export type RoomUncheckedUpdateWithoutFloorInput = {
@@ -37629,6 +49542,8 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     photos?: FileUncheckedUpdateManyWithoutRoomsNestedInput
+    maintenances?: MaintenanceUncheckedUpdateManyWithoutRoomNestedInput
+    preventives?: PreventiveUncheckedUpdateManyWithoutRoomNestedInput
   }
 
   export type RoomUncheckedUpdateManyWithoutFloorInput = {
@@ -37764,6 +49679,245 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
+  export type MaintenanceUpdateWithoutFloorInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    type?: EnumMaintenanceTypeFieldUpdateOperationsInput | $Enums.MaintenanceType
+    code?: StringFieldUpdateOperationsInput | string
+    description?: StringFieldUpdateOperationsInput | string
+    startDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    endDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    shortDescription?: NullableStringFieldUpdateOperationsInput | string | null
+    action?: NullableStringFieldUpdateOperationsInput | string | null
+    message?: NullableStringFieldUpdateOperationsInput | string | null
+    processNotes?: NullableStringFieldUpdateOperationsInput | string | null
+    processStatus?: EnumStatusFieldUpdateOperationsInput | $Enums.Status
+    register?: NullableStringFieldUpdateOperationsInput | string | null
+    activityIdTimer?: NullableStringFieldUpdateOperationsInput | string | null
+    activityStartTime?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    activityEndTime?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    allDeadlines?: NullableStringFieldUpdateOperationsInput | string | null
+    processType?: EnumProcessTypeFieldUpdateOperationsInput | $Enums.ProcessType
+    ttSysRunning?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    ttWorkRunning?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    sorting?: NullableStringFieldUpdateOperationsInput | string | null
+    priority?: EnumPriorityFieldUpdateOperationsInput | $Enums.Priority
+    outcome?: NullableStringFieldUpdateOperationsInput | string | null
+    dueAssignedEnd?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    execStart?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    dueExecEndDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    execEndDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    dueClosuerDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    totalExecTime?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    expStartDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    suspensionReason?: NullableStringFieldUpdateOperationsInput | string | null
+    category?: NullableStringFieldUpdateOperationsInput | string | null
+    subCategory?: NullableStringFieldUpdateOperationsInput | string | null
+    company?: NullableStringFieldUpdateOperationsInput | string | null
+    ttSystemOpening?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    ttWorkOpening?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    ttSystemAssignment?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    ttWorkAssignment?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    ttSystemExecution?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    ttWorkExecution?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    ttSysSuspension?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    ttWorkSuspension?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    ttEstimate?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    prevMaintenanceConfigId?: NullableStringFieldUpdateOperationsInput | string | null
+    automaticConfig?: BoolFieldUpdateOperationsInput | boolean
+    jointAccounting?: BoolFieldUpdateOperationsInput | boolean
+    hasTasks?: BoolFieldUpdateOperationsInput | boolean
+    estimateStatus?: EnumStatusFieldUpdateOperationsInput | $Enums.Status
+    delayNotification?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    performer?: EmployeeUpdateOneWithoutPerformedMaintenancesNestedInput
+    requester?: EmployeeUpdateOneWithoutRequestedMaintenancesNestedInput
+    site?: ComplexUpdateOneRequiredWithoutMaintenancesNestedInput
+    team?: TeamUpdateOneWithoutMaintenancesNestedInput
+    room?: RoomUpdateOneWithoutMaintenancesNestedInput
+    assignee?: EmployeeUpdateOneWithoutAssignedMaintenancesNestedInput
+    asset?: AssetUpdateOneWithoutMaintenancesNestedInput
+    photos?: FileUpdateManyWithoutMaintenanceNestedInput
+  }
+
+  export type MaintenanceUncheckedUpdateWithoutFloorInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    type?: EnumMaintenanceTypeFieldUpdateOperationsInput | $Enums.MaintenanceType
+    code?: StringFieldUpdateOperationsInput | string
+    description?: StringFieldUpdateOperationsInput | string
+    startDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    endDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    shortDescription?: NullableStringFieldUpdateOperationsInput | string | null
+    action?: NullableStringFieldUpdateOperationsInput | string | null
+    message?: NullableStringFieldUpdateOperationsInput | string | null
+    processNotes?: NullableStringFieldUpdateOperationsInput | string | null
+    performerId?: NullableStringFieldUpdateOperationsInput | string | null
+    processStatus?: EnumStatusFieldUpdateOperationsInput | $Enums.Status
+    register?: NullableStringFieldUpdateOperationsInput | string | null
+    activityIdTimer?: NullableStringFieldUpdateOperationsInput | string | null
+    activityStartTime?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    activityEndTime?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    allDeadlines?: NullableStringFieldUpdateOperationsInput | string | null
+    processType?: EnumProcessTypeFieldUpdateOperationsInput | $Enums.ProcessType
+    ttSysRunning?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    ttWorkRunning?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    sorting?: NullableStringFieldUpdateOperationsInput | string | null
+    requesterId?: NullableStringFieldUpdateOperationsInput | string | null
+    priority?: EnumPriorityFieldUpdateOperationsInput | $Enums.Priority
+    siteId?: StringFieldUpdateOperationsInput | string
+    outcome?: NullableStringFieldUpdateOperationsInput | string | null
+    dueAssignedEnd?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    execStart?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    dueExecEndDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    execEndDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    dueClosuerDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    totalExecTime?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    expStartDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    suspensionReason?: NullableStringFieldUpdateOperationsInput | string | null
+    category?: NullableStringFieldUpdateOperationsInput | string | null
+    subCategory?: NullableStringFieldUpdateOperationsInput | string | null
+    company?: NullableStringFieldUpdateOperationsInput | string | null
+    teamId?: NullableStringFieldUpdateOperationsInput | string | null
+    roomId?: NullableStringFieldUpdateOperationsInput | string | null
+    ttSystemOpening?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    ttWorkOpening?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    ttSystemAssignment?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    ttWorkAssignment?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    ttSystemExecution?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    ttWorkExecution?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    ttSysSuspension?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    ttWorkSuspension?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    ttEstimate?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    prevMaintenanceConfigId?: NullableStringFieldUpdateOperationsInput | string | null
+    automaticConfig?: BoolFieldUpdateOperationsInput | boolean
+    jointAccounting?: BoolFieldUpdateOperationsInput | boolean
+    hasTasks?: BoolFieldUpdateOperationsInput | boolean
+    estimateStatus?: EnumStatusFieldUpdateOperationsInput | $Enums.Status
+    delayNotification?: BoolFieldUpdateOperationsInput | boolean
+    assigneeId?: NullableStringFieldUpdateOperationsInput | string | null
+    assetId?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    photos?: FileUncheckedUpdateManyWithoutMaintenanceNestedInput
+  }
+
+  export type MaintenanceUncheckedUpdateManyWithoutFloorInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    type?: EnumMaintenanceTypeFieldUpdateOperationsInput | $Enums.MaintenanceType
+    code?: StringFieldUpdateOperationsInput | string
+    description?: StringFieldUpdateOperationsInput | string
+    startDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    endDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    shortDescription?: NullableStringFieldUpdateOperationsInput | string | null
+    action?: NullableStringFieldUpdateOperationsInput | string | null
+    message?: NullableStringFieldUpdateOperationsInput | string | null
+    processNotes?: NullableStringFieldUpdateOperationsInput | string | null
+    performerId?: NullableStringFieldUpdateOperationsInput | string | null
+    processStatus?: EnumStatusFieldUpdateOperationsInput | $Enums.Status
+    register?: NullableStringFieldUpdateOperationsInput | string | null
+    activityIdTimer?: NullableStringFieldUpdateOperationsInput | string | null
+    activityStartTime?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    activityEndTime?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    allDeadlines?: NullableStringFieldUpdateOperationsInput | string | null
+    processType?: EnumProcessTypeFieldUpdateOperationsInput | $Enums.ProcessType
+    ttSysRunning?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    ttWorkRunning?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    sorting?: NullableStringFieldUpdateOperationsInput | string | null
+    requesterId?: NullableStringFieldUpdateOperationsInput | string | null
+    priority?: EnumPriorityFieldUpdateOperationsInput | $Enums.Priority
+    siteId?: StringFieldUpdateOperationsInput | string
+    outcome?: NullableStringFieldUpdateOperationsInput | string | null
+    dueAssignedEnd?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    execStart?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    dueExecEndDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    execEndDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    dueClosuerDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    totalExecTime?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    expStartDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    suspensionReason?: NullableStringFieldUpdateOperationsInput | string | null
+    category?: NullableStringFieldUpdateOperationsInput | string | null
+    subCategory?: NullableStringFieldUpdateOperationsInput | string | null
+    company?: NullableStringFieldUpdateOperationsInput | string | null
+    teamId?: NullableStringFieldUpdateOperationsInput | string | null
+    roomId?: NullableStringFieldUpdateOperationsInput | string | null
+    ttSystemOpening?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    ttWorkOpening?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    ttSystemAssignment?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    ttWorkAssignment?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    ttSystemExecution?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    ttWorkExecution?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    ttSysSuspension?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    ttWorkSuspension?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    ttEstimate?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    prevMaintenanceConfigId?: NullableStringFieldUpdateOperationsInput | string | null
+    automaticConfig?: BoolFieldUpdateOperationsInput | boolean
+    jointAccounting?: BoolFieldUpdateOperationsInput | boolean
+    hasTasks?: BoolFieldUpdateOperationsInput | boolean
+    estimateStatus?: EnumStatusFieldUpdateOperationsInput | $Enums.Status
+    delayNotification?: BoolFieldUpdateOperationsInput | boolean
+    assigneeId?: NullableStringFieldUpdateOperationsInput | string | null
+    assetId?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type PreventiveUpdateWithoutFloorInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    code?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    description?: StringFieldUpdateOperationsInput | string
+    frequency?: EnumFrequencyFieldUpdateOperationsInput | $Enums.Frequency
+    cronExpression?: NullableStringFieldUpdateOperationsInput | string | null
+    lastRun?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    nextRun?: DateTimeFieldUpdateOperationsInput | Date | string
+    priority?: EnumPriorityFieldUpdateOperationsInput | $Enums.Priority
+    duration?: NullableIntFieldUpdateOperationsInput | number | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    site?: ComplexUpdateOneRequiredWithoutPreventivesNestedInput
+    building?: BuildingUpdateOneWithoutPreventivesNestedInput
+    room?: RoomUpdateOneWithoutPreventivesNestedInput
+    team?: TeamUpdateOneWithoutPreventivesNestedInput
+  }
+
+  export type PreventiveUncheckedUpdateWithoutFloorInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    code?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    description?: StringFieldUpdateOperationsInput | string
+    frequency?: EnumFrequencyFieldUpdateOperationsInput | $Enums.Frequency
+    cronExpression?: NullableStringFieldUpdateOperationsInput | string | null
+    lastRun?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    nextRun?: DateTimeFieldUpdateOperationsInput | Date | string
+    priority?: EnumPriorityFieldUpdateOperationsInput | $Enums.Priority
+    duration?: NullableIntFieldUpdateOperationsInput | number | null
+    siteId?: StringFieldUpdateOperationsInput | string
+    buildingId?: NullableStringFieldUpdateOperationsInput | string | null
+    roomId?: NullableStringFieldUpdateOperationsInput | string | null
+    teamId?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type PreventiveUncheckedUpdateManyWithoutFloorInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    code?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    description?: StringFieldUpdateOperationsInput | string
+    frequency?: EnumFrequencyFieldUpdateOperationsInput | $Enums.Frequency
+    cronExpression?: NullableStringFieldUpdateOperationsInput | string | null
+    lastRun?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    nextRun?: DateTimeFieldUpdateOperationsInput | Date | string
+    priority?: EnumPriorityFieldUpdateOperationsInput | $Enums.Priority
+    duration?: NullableIntFieldUpdateOperationsInput | number | null
+    siteId?: StringFieldUpdateOperationsInput | string
+    buildingId?: NullableStringFieldUpdateOperationsInput | string | null
+    roomId?: NullableStringFieldUpdateOperationsInput | string | null
+    teamId?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
   export type RoomCreateManyUnitInput = {
     id?: string
     name: string
@@ -37811,6 +49965,8 @@ export namespace Prisma {
     building?: BuildingUpdateOneWithoutRoomsNestedInput
     floor?: FloorUpdateOneRequiredWithoutRoomsNestedInput
     photos?: FileUpdateManyWithoutRoomsNestedInput
+    maintenances?: MaintenanceUpdateManyWithoutRoomNestedInput
+    preventives?: PreventiveUpdateManyWithoutRoomNestedInput
   }
 
   export type RoomUncheckedUpdateWithoutUnitInput = {
@@ -37836,6 +49992,8 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     photos?: FileUncheckedUpdateManyWithoutRoomsNestedInput
+    maintenances?: MaintenanceUncheckedUpdateManyWithoutRoomNestedInput
+    preventives?: PreventiveUncheckedUpdateManyWithoutRoomNestedInput
   }
 
   export type RoomUncheckedUpdateManyWithoutUnitInput = {
@@ -37868,11 +50026,13 @@ export namespace Prisma {
     rooms?: RoomUpdateManyWithoutPhotosNestedInput
     buildings?: BuildingUpdateManyWithoutPhotosNestedInput
     complexes?: ComplexUpdateManyWithoutPhotosNestedInput
+    maintenance?: MaintenanceUpdateOneWithoutPhotosNestedInput
   }
 
   export type FileUncheckedUpdateWithoutUnitsInput = {
     id?: StringFieldUpdateOperationsInput | string
     url?: StringFieldUpdateOperationsInput | string
+    maintenanceId?: NullableStringFieldUpdateOperationsInput | string | null
     rooms?: RoomUncheckedUpdateManyWithoutPhotosNestedInput
     buildings?: BuildingUncheckedUpdateManyWithoutPhotosNestedInput
     complexes?: ComplexUncheckedUpdateManyWithoutPhotosNestedInput
@@ -37881,6 +50041,86 @@ export namespace Prisma {
   export type FileUncheckedUpdateManyWithoutUnitsInput = {
     id?: StringFieldUpdateOperationsInput | string
     url?: StringFieldUpdateOperationsInput | string
+    maintenanceId?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
+  export type MaintenanceCreateManyRoomInput = {
+    id?: string
+    type?: $Enums.MaintenanceType
+    code: string
+    description: string
+    startDate?: Date | string | null
+    endDate?: Date | string | null
+    shortDescription?: string | null
+    action?: string | null
+    message?: string | null
+    processNotes?: string | null
+    performerId?: string | null
+    processStatus?: $Enums.Status
+    register?: string | null
+    activityIdTimer?: string | null
+    activityStartTime?: Date | string | null
+    activityEndTime?: Date | string | null
+    allDeadlines?: string | null
+    processType?: $Enums.ProcessType
+    ttSysRunning?: Decimal | DecimalJsLike | number | string | null
+    ttWorkRunning?: Decimal | DecimalJsLike | number | string | null
+    sorting?: string | null
+    requesterId?: string | null
+    priority?: $Enums.Priority
+    siteId: string
+    outcome?: string | null
+    dueAssignedEnd?: Date | string | null
+    execStart?: Date | string | null
+    dueExecEndDate?: Date | string | null
+    execEndDate?: Date | string | null
+    dueClosuerDate?: Date | string | null
+    totalExecTime?: Decimal | DecimalJsLike | number | string | null
+    expStartDate?: Date | string | null
+    suspensionReason?: string | null
+    category?: string | null
+    subCategory?: string | null
+    company?: string | null
+    teamId?: string | null
+    floorId?: string | null
+    ttSystemOpening?: Decimal | DecimalJsLike | number | string | null
+    ttWorkOpening?: Decimal | DecimalJsLike | number | string | null
+    ttSystemAssignment?: Decimal | DecimalJsLike | number | string | null
+    ttWorkAssignment?: Decimal | DecimalJsLike | number | string | null
+    ttSystemExecution?: Decimal | DecimalJsLike | number | string | null
+    ttWorkExecution?: Decimal | DecimalJsLike | number | string | null
+    ttSysSuspension?: Decimal | DecimalJsLike | number | string | null
+    ttWorkSuspension?: Decimal | DecimalJsLike | number | string | null
+    ttEstimate?: Decimal | DecimalJsLike | number | string | null
+    prevMaintenanceConfigId?: string | null
+    automaticConfig?: boolean
+    jointAccounting?: boolean
+    hasTasks?: boolean
+    estimateStatus?: $Enums.Status
+    delayNotification?: boolean
+    assigneeId?: string | null
+    assetId?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type PreventiveCreateManyRoomInput = {
+    id?: string
+    code: string
+    name: string
+    description: string
+    frequency?: $Enums.Frequency
+    cronExpression?: string | null
+    lastRun?: Date | string | null
+    nextRun: Date | string
+    priority?: $Enums.Priority
+    duration?: number | null
+    siteId: string
+    buildingId?: string | null
+    floorId?: string | null
+    teamId?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
   }
 
   export type FileUpdateWithoutRoomsInput = {
@@ -37889,11 +50129,13 @@ export namespace Prisma {
     units?: UnitUpdateManyWithoutPhotosNestedInput
     buildings?: BuildingUpdateManyWithoutPhotosNestedInput
     complexes?: ComplexUpdateManyWithoutPhotosNestedInput
+    maintenance?: MaintenanceUpdateOneWithoutPhotosNestedInput
   }
 
   export type FileUncheckedUpdateWithoutRoomsInput = {
     id?: StringFieldUpdateOperationsInput | string
     url?: StringFieldUpdateOperationsInput | string
+    maintenanceId?: NullableStringFieldUpdateOperationsInput | string | null
     units?: UnitUncheckedUpdateManyWithoutPhotosNestedInput
     buildings?: BuildingUncheckedUpdateManyWithoutPhotosNestedInput
     complexes?: ComplexUncheckedUpdateManyWithoutPhotosNestedInput
@@ -37902,6 +50144,246 @@ export namespace Prisma {
   export type FileUncheckedUpdateManyWithoutRoomsInput = {
     id?: StringFieldUpdateOperationsInput | string
     url?: StringFieldUpdateOperationsInput | string
+    maintenanceId?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
+  export type MaintenanceUpdateWithoutRoomInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    type?: EnumMaintenanceTypeFieldUpdateOperationsInput | $Enums.MaintenanceType
+    code?: StringFieldUpdateOperationsInput | string
+    description?: StringFieldUpdateOperationsInput | string
+    startDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    endDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    shortDescription?: NullableStringFieldUpdateOperationsInput | string | null
+    action?: NullableStringFieldUpdateOperationsInput | string | null
+    message?: NullableStringFieldUpdateOperationsInput | string | null
+    processNotes?: NullableStringFieldUpdateOperationsInput | string | null
+    processStatus?: EnumStatusFieldUpdateOperationsInput | $Enums.Status
+    register?: NullableStringFieldUpdateOperationsInput | string | null
+    activityIdTimer?: NullableStringFieldUpdateOperationsInput | string | null
+    activityStartTime?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    activityEndTime?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    allDeadlines?: NullableStringFieldUpdateOperationsInput | string | null
+    processType?: EnumProcessTypeFieldUpdateOperationsInput | $Enums.ProcessType
+    ttSysRunning?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    ttWorkRunning?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    sorting?: NullableStringFieldUpdateOperationsInput | string | null
+    priority?: EnumPriorityFieldUpdateOperationsInput | $Enums.Priority
+    outcome?: NullableStringFieldUpdateOperationsInput | string | null
+    dueAssignedEnd?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    execStart?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    dueExecEndDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    execEndDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    dueClosuerDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    totalExecTime?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    expStartDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    suspensionReason?: NullableStringFieldUpdateOperationsInput | string | null
+    category?: NullableStringFieldUpdateOperationsInput | string | null
+    subCategory?: NullableStringFieldUpdateOperationsInput | string | null
+    company?: NullableStringFieldUpdateOperationsInput | string | null
+    ttSystemOpening?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    ttWorkOpening?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    ttSystemAssignment?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    ttWorkAssignment?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    ttSystemExecution?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    ttWorkExecution?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    ttSysSuspension?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    ttWorkSuspension?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    ttEstimate?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    prevMaintenanceConfigId?: NullableStringFieldUpdateOperationsInput | string | null
+    automaticConfig?: BoolFieldUpdateOperationsInput | boolean
+    jointAccounting?: BoolFieldUpdateOperationsInput | boolean
+    hasTasks?: BoolFieldUpdateOperationsInput | boolean
+    estimateStatus?: EnumStatusFieldUpdateOperationsInput | $Enums.Status
+    delayNotification?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    performer?: EmployeeUpdateOneWithoutPerformedMaintenancesNestedInput
+    requester?: EmployeeUpdateOneWithoutRequestedMaintenancesNestedInput
+    site?: ComplexUpdateOneRequiredWithoutMaintenancesNestedInput
+    team?: TeamUpdateOneWithoutMaintenancesNestedInput
+    floor?: FloorUpdateOneWithoutMaintenancesNestedInput
+    assignee?: EmployeeUpdateOneWithoutAssignedMaintenancesNestedInput
+    asset?: AssetUpdateOneWithoutMaintenancesNestedInput
+    photos?: FileUpdateManyWithoutMaintenanceNestedInput
+  }
+
+  export type MaintenanceUncheckedUpdateWithoutRoomInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    type?: EnumMaintenanceTypeFieldUpdateOperationsInput | $Enums.MaintenanceType
+    code?: StringFieldUpdateOperationsInput | string
+    description?: StringFieldUpdateOperationsInput | string
+    startDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    endDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    shortDescription?: NullableStringFieldUpdateOperationsInput | string | null
+    action?: NullableStringFieldUpdateOperationsInput | string | null
+    message?: NullableStringFieldUpdateOperationsInput | string | null
+    processNotes?: NullableStringFieldUpdateOperationsInput | string | null
+    performerId?: NullableStringFieldUpdateOperationsInput | string | null
+    processStatus?: EnumStatusFieldUpdateOperationsInput | $Enums.Status
+    register?: NullableStringFieldUpdateOperationsInput | string | null
+    activityIdTimer?: NullableStringFieldUpdateOperationsInput | string | null
+    activityStartTime?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    activityEndTime?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    allDeadlines?: NullableStringFieldUpdateOperationsInput | string | null
+    processType?: EnumProcessTypeFieldUpdateOperationsInput | $Enums.ProcessType
+    ttSysRunning?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    ttWorkRunning?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    sorting?: NullableStringFieldUpdateOperationsInput | string | null
+    requesterId?: NullableStringFieldUpdateOperationsInput | string | null
+    priority?: EnumPriorityFieldUpdateOperationsInput | $Enums.Priority
+    siteId?: StringFieldUpdateOperationsInput | string
+    outcome?: NullableStringFieldUpdateOperationsInput | string | null
+    dueAssignedEnd?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    execStart?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    dueExecEndDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    execEndDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    dueClosuerDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    totalExecTime?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    expStartDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    suspensionReason?: NullableStringFieldUpdateOperationsInput | string | null
+    category?: NullableStringFieldUpdateOperationsInput | string | null
+    subCategory?: NullableStringFieldUpdateOperationsInput | string | null
+    company?: NullableStringFieldUpdateOperationsInput | string | null
+    teamId?: NullableStringFieldUpdateOperationsInput | string | null
+    floorId?: NullableStringFieldUpdateOperationsInput | string | null
+    ttSystemOpening?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    ttWorkOpening?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    ttSystemAssignment?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    ttWorkAssignment?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    ttSystemExecution?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    ttWorkExecution?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    ttSysSuspension?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    ttWorkSuspension?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    ttEstimate?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    prevMaintenanceConfigId?: NullableStringFieldUpdateOperationsInput | string | null
+    automaticConfig?: BoolFieldUpdateOperationsInput | boolean
+    jointAccounting?: BoolFieldUpdateOperationsInput | boolean
+    hasTasks?: BoolFieldUpdateOperationsInput | boolean
+    estimateStatus?: EnumStatusFieldUpdateOperationsInput | $Enums.Status
+    delayNotification?: BoolFieldUpdateOperationsInput | boolean
+    assigneeId?: NullableStringFieldUpdateOperationsInput | string | null
+    assetId?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    photos?: FileUncheckedUpdateManyWithoutMaintenanceNestedInput
+  }
+
+  export type MaintenanceUncheckedUpdateManyWithoutRoomInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    type?: EnumMaintenanceTypeFieldUpdateOperationsInput | $Enums.MaintenanceType
+    code?: StringFieldUpdateOperationsInput | string
+    description?: StringFieldUpdateOperationsInput | string
+    startDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    endDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    shortDescription?: NullableStringFieldUpdateOperationsInput | string | null
+    action?: NullableStringFieldUpdateOperationsInput | string | null
+    message?: NullableStringFieldUpdateOperationsInput | string | null
+    processNotes?: NullableStringFieldUpdateOperationsInput | string | null
+    performerId?: NullableStringFieldUpdateOperationsInput | string | null
+    processStatus?: EnumStatusFieldUpdateOperationsInput | $Enums.Status
+    register?: NullableStringFieldUpdateOperationsInput | string | null
+    activityIdTimer?: NullableStringFieldUpdateOperationsInput | string | null
+    activityStartTime?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    activityEndTime?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    allDeadlines?: NullableStringFieldUpdateOperationsInput | string | null
+    processType?: EnumProcessTypeFieldUpdateOperationsInput | $Enums.ProcessType
+    ttSysRunning?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    ttWorkRunning?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    sorting?: NullableStringFieldUpdateOperationsInput | string | null
+    requesterId?: NullableStringFieldUpdateOperationsInput | string | null
+    priority?: EnumPriorityFieldUpdateOperationsInput | $Enums.Priority
+    siteId?: StringFieldUpdateOperationsInput | string
+    outcome?: NullableStringFieldUpdateOperationsInput | string | null
+    dueAssignedEnd?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    execStart?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    dueExecEndDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    execEndDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    dueClosuerDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    totalExecTime?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    expStartDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    suspensionReason?: NullableStringFieldUpdateOperationsInput | string | null
+    category?: NullableStringFieldUpdateOperationsInput | string | null
+    subCategory?: NullableStringFieldUpdateOperationsInput | string | null
+    company?: NullableStringFieldUpdateOperationsInput | string | null
+    teamId?: NullableStringFieldUpdateOperationsInput | string | null
+    floorId?: NullableStringFieldUpdateOperationsInput | string | null
+    ttSystemOpening?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    ttWorkOpening?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    ttSystemAssignment?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    ttWorkAssignment?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    ttSystemExecution?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    ttWorkExecution?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    ttSysSuspension?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    ttWorkSuspension?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    ttEstimate?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    prevMaintenanceConfigId?: NullableStringFieldUpdateOperationsInput | string | null
+    automaticConfig?: BoolFieldUpdateOperationsInput | boolean
+    jointAccounting?: BoolFieldUpdateOperationsInput | boolean
+    hasTasks?: BoolFieldUpdateOperationsInput | boolean
+    estimateStatus?: EnumStatusFieldUpdateOperationsInput | $Enums.Status
+    delayNotification?: BoolFieldUpdateOperationsInput | boolean
+    assigneeId?: NullableStringFieldUpdateOperationsInput | string | null
+    assetId?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type PreventiveUpdateWithoutRoomInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    code?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    description?: StringFieldUpdateOperationsInput | string
+    frequency?: EnumFrequencyFieldUpdateOperationsInput | $Enums.Frequency
+    cronExpression?: NullableStringFieldUpdateOperationsInput | string | null
+    lastRun?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    nextRun?: DateTimeFieldUpdateOperationsInput | Date | string
+    priority?: EnumPriorityFieldUpdateOperationsInput | $Enums.Priority
+    duration?: NullableIntFieldUpdateOperationsInput | number | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    site?: ComplexUpdateOneRequiredWithoutPreventivesNestedInput
+    building?: BuildingUpdateOneWithoutPreventivesNestedInput
+    floor?: FloorUpdateOneWithoutPreventivesNestedInput
+    team?: TeamUpdateOneWithoutPreventivesNestedInput
+  }
+
+  export type PreventiveUncheckedUpdateWithoutRoomInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    code?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    description?: StringFieldUpdateOperationsInput | string
+    frequency?: EnumFrequencyFieldUpdateOperationsInput | $Enums.Frequency
+    cronExpression?: NullableStringFieldUpdateOperationsInput | string | null
+    lastRun?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    nextRun?: DateTimeFieldUpdateOperationsInput | Date | string
+    priority?: EnumPriorityFieldUpdateOperationsInput | $Enums.Priority
+    duration?: NullableIntFieldUpdateOperationsInput | number | null
+    siteId?: StringFieldUpdateOperationsInput | string
+    buildingId?: NullableStringFieldUpdateOperationsInput | string | null
+    floorId?: NullableStringFieldUpdateOperationsInput | string | null
+    teamId?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type PreventiveUncheckedUpdateManyWithoutRoomInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    code?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    description?: StringFieldUpdateOperationsInput | string
+    frequency?: EnumFrequencyFieldUpdateOperationsInput | $Enums.Frequency
+    cronExpression?: NullableStringFieldUpdateOperationsInput | string | null
+    lastRun?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    nextRun?: DateTimeFieldUpdateOperationsInput | Date | string
+    priority?: EnumPriorityFieldUpdateOperationsInput | $Enums.Priority
+    duration?: NullableIntFieldUpdateOperationsInput | number | null
+    siteId?: StringFieldUpdateOperationsInput | string
+    buildingId?: NullableStringFieldUpdateOperationsInput | string | null
+    floorId?: NullableStringFieldUpdateOperationsInput | string | null
+    teamId?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type AssetCreateManyCategoryInput = {
@@ -37918,6 +50400,7 @@ export namespace Prisma {
     description?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    maintenances?: MaintenanceUpdateManyWithoutAssetNestedInput
   }
 
   export type AssetUncheckedUpdateWithoutCategoryInput = {
@@ -37926,12 +50409,255 @@ export namespace Prisma {
     description?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    maintenances?: MaintenanceUncheckedUpdateManyWithoutAssetNestedInput
   }
 
   export type AssetUncheckedUpdateManyWithoutCategoryInput = {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type MaintenanceCreateManyAssetInput = {
+    id?: string
+    type?: $Enums.MaintenanceType
+    code: string
+    description: string
+    startDate?: Date | string | null
+    endDate?: Date | string | null
+    shortDescription?: string | null
+    action?: string | null
+    message?: string | null
+    processNotes?: string | null
+    performerId?: string | null
+    processStatus?: $Enums.Status
+    register?: string | null
+    activityIdTimer?: string | null
+    activityStartTime?: Date | string | null
+    activityEndTime?: Date | string | null
+    allDeadlines?: string | null
+    processType?: $Enums.ProcessType
+    ttSysRunning?: Decimal | DecimalJsLike | number | string | null
+    ttWorkRunning?: Decimal | DecimalJsLike | number | string | null
+    sorting?: string | null
+    requesterId?: string | null
+    priority?: $Enums.Priority
+    siteId: string
+    outcome?: string | null
+    dueAssignedEnd?: Date | string | null
+    execStart?: Date | string | null
+    dueExecEndDate?: Date | string | null
+    execEndDate?: Date | string | null
+    dueClosuerDate?: Date | string | null
+    totalExecTime?: Decimal | DecimalJsLike | number | string | null
+    expStartDate?: Date | string | null
+    suspensionReason?: string | null
+    category?: string | null
+    subCategory?: string | null
+    company?: string | null
+    teamId?: string | null
+    floorId?: string | null
+    roomId?: string | null
+    ttSystemOpening?: Decimal | DecimalJsLike | number | string | null
+    ttWorkOpening?: Decimal | DecimalJsLike | number | string | null
+    ttSystemAssignment?: Decimal | DecimalJsLike | number | string | null
+    ttWorkAssignment?: Decimal | DecimalJsLike | number | string | null
+    ttSystemExecution?: Decimal | DecimalJsLike | number | string | null
+    ttWorkExecution?: Decimal | DecimalJsLike | number | string | null
+    ttSysSuspension?: Decimal | DecimalJsLike | number | string | null
+    ttWorkSuspension?: Decimal | DecimalJsLike | number | string | null
+    ttEstimate?: Decimal | DecimalJsLike | number | string | null
+    prevMaintenanceConfigId?: string | null
+    automaticConfig?: boolean
+    jointAccounting?: boolean
+    hasTasks?: boolean
+    estimateStatus?: $Enums.Status
+    delayNotification?: boolean
+    assigneeId?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type MaintenanceUpdateWithoutAssetInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    type?: EnumMaintenanceTypeFieldUpdateOperationsInput | $Enums.MaintenanceType
+    code?: StringFieldUpdateOperationsInput | string
+    description?: StringFieldUpdateOperationsInput | string
+    startDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    endDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    shortDescription?: NullableStringFieldUpdateOperationsInput | string | null
+    action?: NullableStringFieldUpdateOperationsInput | string | null
+    message?: NullableStringFieldUpdateOperationsInput | string | null
+    processNotes?: NullableStringFieldUpdateOperationsInput | string | null
+    processStatus?: EnumStatusFieldUpdateOperationsInput | $Enums.Status
+    register?: NullableStringFieldUpdateOperationsInput | string | null
+    activityIdTimer?: NullableStringFieldUpdateOperationsInput | string | null
+    activityStartTime?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    activityEndTime?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    allDeadlines?: NullableStringFieldUpdateOperationsInput | string | null
+    processType?: EnumProcessTypeFieldUpdateOperationsInput | $Enums.ProcessType
+    ttSysRunning?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    ttWorkRunning?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    sorting?: NullableStringFieldUpdateOperationsInput | string | null
+    priority?: EnumPriorityFieldUpdateOperationsInput | $Enums.Priority
+    outcome?: NullableStringFieldUpdateOperationsInput | string | null
+    dueAssignedEnd?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    execStart?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    dueExecEndDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    execEndDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    dueClosuerDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    totalExecTime?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    expStartDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    suspensionReason?: NullableStringFieldUpdateOperationsInput | string | null
+    category?: NullableStringFieldUpdateOperationsInput | string | null
+    subCategory?: NullableStringFieldUpdateOperationsInput | string | null
+    company?: NullableStringFieldUpdateOperationsInput | string | null
+    ttSystemOpening?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    ttWorkOpening?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    ttSystemAssignment?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    ttWorkAssignment?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    ttSystemExecution?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    ttWorkExecution?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    ttSysSuspension?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    ttWorkSuspension?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    ttEstimate?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    prevMaintenanceConfigId?: NullableStringFieldUpdateOperationsInput | string | null
+    automaticConfig?: BoolFieldUpdateOperationsInput | boolean
+    jointAccounting?: BoolFieldUpdateOperationsInput | boolean
+    hasTasks?: BoolFieldUpdateOperationsInput | boolean
+    estimateStatus?: EnumStatusFieldUpdateOperationsInput | $Enums.Status
+    delayNotification?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    performer?: EmployeeUpdateOneWithoutPerformedMaintenancesNestedInput
+    requester?: EmployeeUpdateOneWithoutRequestedMaintenancesNestedInput
+    site?: ComplexUpdateOneRequiredWithoutMaintenancesNestedInput
+    team?: TeamUpdateOneWithoutMaintenancesNestedInput
+    floor?: FloorUpdateOneWithoutMaintenancesNestedInput
+    room?: RoomUpdateOneWithoutMaintenancesNestedInput
+    assignee?: EmployeeUpdateOneWithoutAssignedMaintenancesNestedInput
+    photos?: FileUpdateManyWithoutMaintenanceNestedInput
+  }
+
+  export type MaintenanceUncheckedUpdateWithoutAssetInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    type?: EnumMaintenanceTypeFieldUpdateOperationsInput | $Enums.MaintenanceType
+    code?: StringFieldUpdateOperationsInput | string
+    description?: StringFieldUpdateOperationsInput | string
+    startDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    endDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    shortDescription?: NullableStringFieldUpdateOperationsInput | string | null
+    action?: NullableStringFieldUpdateOperationsInput | string | null
+    message?: NullableStringFieldUpdateOperationsInput | string | null
+    processNotes?: NullableStringFieldUpdateOperationsInput | string | null
+    performerId?: NullableStringFieldUpdateOperationsInput | string | null
+    processStatus?: EnumStatusFieldUpdateOperationsInput | $Enums.Status
+    register?: NullableStringFieldUpdateOperationsInput | string | null
+    activityIdTimer?: NullableStringFieldUpdateOperationsInput | string | null
+    activityStartTime?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    activityEndTime?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    allDeadlines?: NullableStringFieldUpdateOperationsInput | string | null
+    processType?: EnumProcessTypeFieldUpdateOperationsInput | $Enums.ProcessType
+    ttSysRunning?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    ttWorkRunning?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    sorting?: NullableStringFieldUpdateOperationsInput | string | null
+    requesterId?: NullableStringFieldUpdateOperationsInput | string | null
+    priority?: EnumPriorityFieldUpdateOperationsInput | $Enums.Priority
+    siteId?: StringFieldUpdateOperationsInput | string
+    outcome?: NullableStringFieldUpdateOperationsInput | string | null
+    dueAssignedEnd?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    execStart?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    dueExecEndDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    execEndDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    dueClosuerDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    totalExecTime?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    expStartDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    suspensionReason?: NullableStringFieldUpdateOperationsInput | string | null
+    category?: NullableStringFieldUpdateOperationsInput | string | null
+    subCategory?: NullableStringFieldUpdateOperationsInput | string | null
+    company?: NullableStringFieldUpdateOperationsInput | string | null
+    teamId?: NullableStringFieldUpdateOperationsInput | string | null
+    floorId?: NullableStringFieldUpdateOperationsInput | string | null
+    roomId?: NullableStringFieldUpdateOperationsInput | string | null
+    ttSystemOpening?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    ttWorkOpening?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    ttSystemAssignment?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    ttWorkAssignment?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    ttSystemExecution?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    ttWorkExecution?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    ttSysSuspension?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    ttWorkSuspension?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    ttEstimate?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    prevMaintenanceConfigId?: NullableStringFieldUpdateOperationsInput | string | null
+    automaticConfig?: BoolFieldUpdateOperationsInput | boolean
+    jointAccounting?: BoolFieldUpdateOperationsInput | boolean
+    hasTasks?: BoolFieldUpdateOperationsInput | boolean
+    estimateStatus?: EnumStatusFieldUpdateOperationsInput | $Enums.Status
+    delayNotification?: BoolFieldUpdateOperationsInput | boolean
+    assigneeId?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    photos?: FileUncheckedUpdateManyWithoutMaintenanceNestedInput
+  }
+
+  export type MaintenanceUncheckedUpdateManyWithoutAssetInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    type?: EnumMaintenanceTypeFieldUpdateOperationsInput | $Enums.MaintenanceType
+    code?: StringFieldUpdateOperationsInput | string
+    description?: StringFieldUpdateOperationsInput | string
+    startDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    endDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    shortDescription?: NullableStringFieldUpdateOperationsInput | string | null
+    action?: NullableStringFieldUpdateOperationsInput | string | null
+    message?: NullableStringFieldUpdateOperationsInput | string | null
+    processNotes?: NullableStringFieldUpdateOperationsInput | string | null
+    performerId?: NullableStringFieldUpdateOperationsInput | string | null
+    processStatus?: EnumStatusFieldUpdateOperationsInput | $Enums.Status
+    register?: NullableStringFieldUpdateOperationsInput | string | null
+    activityIdTimer?: NullableStringFieldUpdateOperationsInput | string | null
+    activityStartTime?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    activityEndTime?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    allDeadlines?: NullableStringFieldUpdateOperationsInput | string | null
+    processType?: EnumProcessTypeFieldUpdateOperationsInput | $Enums.ProcessType
+    ttSysRunning?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    ttWorkRunning?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    sorting?: NullableStringFieldUpdateOperationsInput | string | null
+    requesterId?: NullableStringFieldUpdateOperationsInput | string | null
+    priority?: EnumPriorityFieldUpdateOperationsInput | $Enums.Priority
+    siteId?: StringFieldUpdateOperationsInput | string
+    outcome?: NullableStringFieldUpdateOperationsInput | string | null
+    dueAssignedEnd?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    execStart?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    dueExecEndDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    execEndDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    dueClosuerDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    totalExecTime?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    expStartDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    suspensionReason?: NullableStringFieldUpdateOperationsInput | string | null
+    category?: NullableStringFieldUpdateOperationsInput | string | null
+    subCategory?: NullableStringFieldUpdateOperationsInput | string | null
+    company?: NullableStringFieldUpdateOperationsInput | string | null
+    teamId?: NullableStringFieldUpdateOperationsInput | string | null
+    floorId?: NullableStringFieldUpdateOperationsInput | string | null
+    roomId?: NullableStringFieldUpdateOperationsInput | string | null
+    ttSystemOpening?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    ttWorkOpening?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    ttSystemAssignment?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    ttWorkAssignment?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    ttSystemExecution?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    ttWorkExecution?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    ttSysSuspension?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    ttWorkSuspension?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    ttEstimate?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    prevMaintenanceConfigId?: NullableStringFieldUpdateOperationsInput | string | null
+    automaticConfig?: BoolFieldUpdateOperationsInput | boolean
+    jointAccounting?: BoolFieldUpdateOperationsInput | boolean
+    hasTasks?: BoolFieldUpdateOperationsInput | boolean
+    estimateStatus?: EnumStatusFieldUpdateOperationsInput | $Enums.Status
+    delayNotification?: BoolFieldUpdateOperationsInput | boolean
+    assigneeId?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -37959,6 +50685,8 @@ export namespace Prisma {
     building?: BuildingUpdateOneWithoutRoomsNestedInput
     floor?: FloorUpdateOneRequiredWithoutRoomsNestedInput
     unit?: UnitUpdateOneWithoutRoomsNestedInput
+    maintenances?: MaintenanceUpdateManyWithoutRoomNestedInput
+    preventives?: PreventiveUpdateManyWithoutRoomNestedInput
   }
 
   export type RoomUncheckedUpdateWithoutPhotosInput = {
@@ -37984,6 +50712,8 @@ export namespace Prisma {
     totalVolume?: NullableFloatFieldUpdateOperationsInput | number | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    maintenances?: MaintenanceUncheckedUpdateManyWithoutRoomNestedInput
+    preventives?: PreventiveUncheckedUpdateManyWithoutRoomNestedInput
   }
 
   export type RoomUncheckedUpdateManyWithoutPhotosInput = {
@@ -38148,6 +50878,7 @@ export namespace Prisma {
     floors?: FloorUpdateManyWithoutBuildingNestedInput
     units?: UnitUpdateManyWithoutBuildingNestedInput
     rooms?: RoomUpdateManyWithoutBuildingNestedInput
+    preventives?: PreventiveUpdateManyWithoutBuildingNestedInput
   }
 
   export type BuildingUncheckedUpdateWithoutPhotosInput = {
@@ -38177,6 +50908,7 @@ export namespace Prisma {
     floors?: FloorUncheckedUpdateManyWithoutBuildingNestedInput
     units?: UnitUncheckedUpdateManyWithoutBuildingNestedInput
     rooms?: RoomUncheckedUpdateManyWithoutBuildingNestedInput
+    preventives?: PreventiveUncheckedUpdateManyWithoutBuildingNestedInput
   }
 
   export type BuildingUncheckedUpdateManyWithoutPhotosInput = {
@@ -38234,6 +50966,8 @@ export namespace Prisma {
     floors?: FloorUpdateManyWithoutComplexNestedInput
     units?: UnitUpdateManyWithoutComplexNestedInput
     rooms?: RoomUpdateManyWithoutComplexNestedInput
+    maintenances?: MaintenanceUpdateManyWithoutSiteNestedInput
+    preventives?: PreventiveUpdateManyWithoutSiteNestedInput
   }
 
   export type ComplexUncheckedUpdateWithoutPhotosInput = {
@@ -38265,6 +50999,8 @@ export namespace Prisma {
     floors?: FloorUncheckedUpdateManyWithoutComplexNestedInput
     units?: UnitUncheckedUpdateManyWithoutComplexNestedInput
     rooms?: RoomUncheckedUpdateManyWithoutComplexNestedInput
+    maintenances?: MaintenanceUncheckedUpdateManyWithoutSiteNestedInput
+    preventives?: PreventiveUncheckedUpdateManyWithoutSiteNestedInput
   }
 
   export type ComplexUncheckedUpdateManyWithoutPhotosInput = {
@@ -38311,6 +51047,9 @@ export namespace Prisma {
     user?: UserUpdateOneRequiredWithoutEmployeesNestedInput
     calenderEntity?: CalenderEntityUpdateOneWithoutEmployeesNestedInput
     teams?: TeamUpdateManyWithoutSupervisorNestedInput
+    performedMaintenances?: MaintenanceUpdateManyWithoutPerformerNestedInput
+    requestedMaintenances?: MaintenanceUpdateManyWithoutRequesterNestedInput
+    assignedMaintenances?: MaintenanceUpdateManyWithoutAssigneeNestedInput
   }
 
   export type EmployeeUncheckedUpdateWithoutCompanyInput = {
@@ -38321,6 +51060,9 @@ export namespace Prisma {
     status?: EnumServiceStatusFieldUpdateOperationsInput | $Enums.ServiceStatus
     calenderEntityId?: NullableStringFieldUpdateOperationsInput | string | null
     teams?: TeamUncheckedUpdateManyWithoutSupervisorNestedInput
+    performedMaintenances?: MaintenanceUncheckedUpdateManyWithoutPerformerNestedInput
+    requestedMaintenances?: MaintenanceUncheckedUpdateManyWithoutRequesterNestedInput
+    assignedMaintenances?: MaintenanceUncheckedUpdateManyWithoutAssigneeNestedInput
   }
 
   export type EmployeeUncheckedUpdateManyWithoutCompanyInput = {
@@ -38342,6 +51084,186 @@ export namespace Prisma {
     updatedAt?: Date | string
   }
 
+  export type MaintenanceCreateManyPerformerInput = {
+    id?: string
+    type?: $Enums.MaintenanceType
+    code: string
+    description: string
+    startDate?: Date | string | null
+    endDate?: Date | string | null
+    shortDescription?: string | null
+    action?: string | null
+    message?: string | null
+    processNotes?: string | null
+    processStatus?: $Enums.Status
+    register?: string | null
+    activityIdTimer?: string | null
+    activityStartTime?: Date | string | null
+    activityEndTime?: Date | string | null
+    allDeadlines?: string | null
+    processType?: $Enums.ProcessType
+    ttSysRunning?: Decimal | DecimalJsLike | number | string | null
+    ttWorkRunning?: Decimal | DecimalJsLike | number | string | null
+    sorting?: string | null
+    requesterId?: string | null
+    priority?: $Enums.Priority
+    siteId: string
+    outcome?: string | null
+    dueAssignedEnd?: Date | string | null
+    execStart?: Date | string | null
+    dueExecEndDate?: Date | string | null
+    execEndDate?: Date | string | null
+    dueClosuerDate?: Date | string | null
+    totalExecTime?: Decimal | DecimalJsLike | number | string | null
+    expStartDate?: Date | string | null
+    suspensionReason?: string | null
+    category?: string | null
+    subCategory?: string | null
+    company?: string | null
+    teamId?: string | null
+    floorId?: string | null
+    roomId?: string | null
+    ttSystemOpening?: Decimal | DecimalJsLike | number | string | null
+    ttWorkOpening?: Decimal | DecimalJsLike | number | string | null
+    ttSystemAssignment?: Decimal | DecimalJsLike | number | string | null
+    ttWorkAssignment?: Decimal | DecimalJsLike | number | string | null
+    ttSystemExecution?: Decimal | DecimalJsLike | number | string | null
+    ttWorkExecution?: Decimal | DecimalJsLike | number | string | null
+    ttSysSuspension?: Decimal | DecimalJsLike | number | string | null
+    ttWorkSuspension?: Decimal | DecimalJsLike | number | string | null
+    ttEstimate?: Decimal | DecimalJsLike | number | string | null
+    prevMaintenanceConfigId?: string | null
+    automaticConfig?: boolean
+    jointAccounting?: boolean
+    hasTasks?: boolean
+    estimateStatus?: $Enums.Status
+    delayNotification?: boolean
+    assigneeId?: string | null
+    assetId?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type MaintenanceCreateManyRequesterInput = {
+    id?: string
+    type?: $Enums.MaintenanceType
+    code: string
+    description: string
+    startDate?: Date | string | null
+    endDate?: Date | string | null
+    shortDescription?: string | null
+    action?: string | null
+    message?: string | null
+    processNotes?: string | null
+    performerId?: string | null
+    processStatus?: $Enums.Status
+    register?: string | null
+    activityIdTimer?: string | null
+    activityStartTime?: Date | string | null
+    activityEndTime?: Date | string | null
+    allDeadlines?: string | null
+    processType?: $Enums.ProcessType
+    ttSysRunning?: Decimal | DecimalJsLike | number | string | null
+    ttWorkRunning?: Decimal | DecimalJsLike | number | string | null
+    sorting?: string | null
+    priority?: $Enums.Priority
+    siteId: string
+    outcome?: string | null
+    dueAssignedEnd?: Date | string | null
+    execStart?: Date | string | null
+    dueExecEndDate?: Date | string | null
+    execEndDate?: Date | string | null
+    dueClosuerDate?: Date | string | null
+    totalExecTime?: Decimal | DecimalJsLike | number | string | null
+    expStartDate?: Date | string | null
+    suspensionReason?: string | null
+    category?: string | null
+    subCategory?: string | null
+    company?: string | null
+    teamId?: string | null
+    floorId?: string | null
+    roomId?: string | null
+    ttSystemOpening?: Decimal | DecimalJsLike | number | string | null
+    ttWorkOpening?: Decimal | DecimalJsLike | number | string | null
+    ttSystemAssignment?: Decimal | DecimalJsLike | number | string | null
+    ttWorkAssignment?: Decimal | DecimalJsLike | number | string | null
+    ttSystemExecution?: Decimal | DecimalJsLike | number | string | null
+    ttWorkExecution?: Decimal | DecimalJsLike | number | string | null
+    ttSysSuspension?: Decimal | DecimalJsLike | number | string | null
+    ttWorkSuspension?: Decimal | DecimalJsLike | number | string | null
+    ttEstimate?: Decimal | DecimalJsLike | number | string | null
+    prevMaintenanceConfigId?: string | null
+    automaticConfig?: boolean
+    jointAccounting?: boolean
+    hasTasks?: boolean
+    estimateStatus?: $Enums.Status
+    delayNotification?: boolean
+    assigneeId?: string | null
+    assetId?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type MaintenanceCreateManyAssigneeInput = {
+    id?: string
+    type?: $Enums.MaintenanceType
+    code: string
+    description: string
+    startDate?: Date | string | null
+    endDate?: Date | string | null
+    shortDescription?: string | null
+    action?: string | null
+    message?: string | null
+    processNotes?: string | null
+    performerId?: string | null
+    processStatus?: $Enums.Status
+    register?: string | null
+    activityIdTimer?: string | null
+    activityStartTime?: Date | string | null
+    activityEndTime?: Date | string | null
+    allDeadlines?: string | null
+    processType?: $Enums.ProcessType
+    ttSysRunning?: Decimal | DecimalJsLike | number | string | null
+    ttWorkRunning?: Decimal | DecimalJsLike | number | string | null
+    sorting?: string | null
+    requesterId?: string | null
+    priority?: $Enums.Priority
+    siteId: string
+    outcome?: string | null
+    dueAssignedEnd?: Date | string | null
+    execStart?: Date | string | null
+    dueExecEndDate?: Date | string | null
+    execEndDate?: Date | string | null
+    dueClosuerDate?: Date | string | null
+    totalExecTime?: Decimal | DecimalJsLike | number | string | null
+    expStartDate?: Date | string | null
+    suspensionReason?: string | null
+    category?: string | null
+    subCategory?: string | null
+    company?: string | null
+    teamId?: string | null
+    floorId?: string | null
+    roomId?: string | null
+    ttSystemOpening?: Decimal | DecimalJsLike | number | string | null
+    ttWorkOpening?: Decimal | DecimalJsLike | number | string | null
+    ttSystemAssignment?: Decimal | DecimalJsLike | number | string | null
+    ttWorkAssignment?: Decimal | DecimalJsLike | number | string | null
+    ttSystemExecution?: Decimal | DecimalJsLike | number | string | null
+    ttWorkExecution?: Decimal | DecimalJsLike | number | string | null
+    ttSysSuspension?: Decimal | DecimalJsLike | number | string | null
+    ttWorkSuspension?: Decimal | DecimalJsLike | number | string | null
+    ttEstimate?: Decimal | DecimalJsLike | number | string | null
+    prevMaintenanceConfigId?: string | null
+    automaticConfig?: boolean
+    jointAccounting?: boolean
+    hasTasks?: boolean
+    estimateStatus?: $Enums.Status
+    delayNotification?: boolean
+    assetId?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
   export type TeamUpdateWithoutSupervisorInput = {
     id?: StringFieldUpdateOperationsInput | string
     code?: StringFieldUpdateOperationsInput | string
@@ -38350,6 +51272,8 @@ export namespace Prisma {
     status?: EnumServiceStatusFieldUpdateOperationsInput | $Enums.ServiceStatus
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    maintenances?: MaintenanceUpdateManyWithoutTeamNestedInput
+    preventives?: PreventiveUpdateManyWithoutTeamNestedInput
   }
 
   export type TeamUncheckedUpdateWithoutSupervisorInput = {
@@ -38360,6 +51284,8 @@ export namespace Prisma {
     status?: EnumServiceStatusFieldUpdateOperationsInput | $Enums.ServiceStatus
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    maintenances?: MaintenanceUncheckedUpdateManyWithoutTeamNestedInput
+    preventives?: PreventiveUncheckedUpdateManyWithoutTeamNestedInput
   }
 
   export type TeamUncheckedUpdateManyWithoutSupervisorInput = {
@@ -38368,6 +51294,870 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
     status?: EnumServiceStatusFieldUpdateOperationsInput | $Enums.ServiceStatus
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type MaintenanceUpdateWithoutPerformerInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    type?: EnumMaintenanceTypeFieldUpdateOperationsInput | $Enums.MaintenanceType
+    code?: StringFieldUpdateOperationsInput | string
+    description?: StringFieldUpdateOperationsInput | string
+    startDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    endDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    shortDescription?: NullableStringFieldUpdateOperationsInput | string | null
+    action?: NullableStringFieldUpdateOperationsInput | string | null
+    message?: NullableStringFieldUpdateOperationsInput | string | null
+    processNotes?: NullableStringFieldUpdateOperationsInput | string | null
+    processStatus?: EnumStatusFieldUpdateOperationsInput | $Enums.Status
+    register?: NullableStringFieldUpdateOperationsInput | string | null
+    activityIdTimer?: NullableStringFieldUpdateOperationsInput | string | null
+    activityStartTime?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    activityEndTime?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    allDeadlines?: NullableStringFieldUpdateOperationsInput | string | null
+    processType?: EnumProcessTypeFieldUpdateOperationsInput | $Enums.ProcessType
+    ttSysRunning?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    ttWorkRunning?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    sorting?: NullableStringFieldUpdateOperationsInput | string | null
+    priority?: EnumPriorityFieldUpdateOperationsInput | $Enums.Priority
+    outcome?: NullableStringFieldUpdateOperationsInput | string | null
+    dueAssignedEnd?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    execStart?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    dueExecEndDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    execEndDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    dueClosuerDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    totalExecTime?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    expStartDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    suspensionReason?: NullableStringFieldUpdateOperationsInput | string | null
+    category?: NullableStringFieldUpdateOperationsInput | string | null
+    subCategory?: NullableStringFieldUpdateOperationsInput | string | null
+    company?: NullableStringFieldUpdateOperationsInput | string | null
+    ttSystemOpening?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    ttWorkOpening?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    ttSystemAssignment?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    ttWorkAssignment?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    ttSystemExecution?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    ttWorkExecution?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    ttSysSuspension?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    ttWorkSuspension?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    ttEstimate?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    prevMaintenanceConfigId?: NullableStringFieldUpdateOperationsInput | string | null
+    automaticConfig?: BoolFieldUpdateOperationsInput | boolean
+    jointAccounting?: BoolFieldUpdateOperationsInput | boolean
+    hasTasks?: BoolFieldUpdateOperationsInput | boolean
+    estimateStatus?: EnumStatusFieldUpdateOperationsInput | $Enums.Status
+    delayNotification?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    requester?: EmployeeUpdateOneWithoutRequestedMaintenancesNestedInput
+    site?: ComplexUpdateOneRequiredWithoutMaintenancesNestedInput
+    team?: TeamUpdateOneWithoutMaintenancesNestedInput
+    floor?: FloorUpdateOneWithoutMaintenancesNestedInput
+    room?: RoomUpdateOneWithoutMaintenancesNestedInput
+    assignee?: EmployeeUpdateOneWithoutAssignedMaintenancesNestedInput
+    asset?: AssetUpdateOneWithoutMaintenancesNestedInput
+    photos?: FileUpdateManyWithoutMaintenanceNestedInput
+  }
+
+  export type MaintenanceUncheckedUpdateWithoutPerformerInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    type?: EnumMaintenanceTypeFieldUpdateOperationsInput | $Enums.MaintenanceType
+    code?: StringFieldUpdateOperationsInput | string
+    description?: StringFieldUpdateOperationsInput | string
+    startDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    endDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    shortDescription?: NullableStringFieldUpdateOperationsInput | string | null
+    action?: NullableStringFieldUpdateOperationsInput | string | null
+    message?: NullableStringFieldUpdateOperationsInput | string | null
+    processNotes?: NullableStringFieldUpdateOperationsInput | string | null
+    processStatus?: EnumStatusFieldUpdateOperationsInput | $Enums.Status
+    register?: NullableStringFieldUpdateOperationsInput | string | null
+    activityIdTimer?: NullableStringFieldUpdateOperationsInput | string | null
+    activityStartTime?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    activityEndTime?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    allDeadlines?: NullableStringFieldUpdateOperationsInput | string | null
+    processType?: EnumProcessTypeFieldUpdateOperationsInput | $Enums.ProcessType
+    ttSysRunning?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    ttWorkRunning?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    sorting?: NullableStringFieldUpdateOperationsInput | string | null
+    requesterId?: NullableStringFieldUpdateOperationsInput | string | null
+    priority?: EnumPriorityFieldUpdateOperationsInput | $Enums.Priority
+    siteId?: StringFieldUpdateOperationsInput | string
+    outcome?: NullableStringFieldUpdateOperationsInput | string | null
+    dueAssignedEnd?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    execStart?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    dueExecEndDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    execEndDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    dueClosuerDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    totalExecTime?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    expStartDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    suspensionReason?: NullableStringFieldUpdateOperationsInput | string | null
+    category?: NullableStringFieldUpdateOperationsInput | string | null
+    subCategory?: NullableStringFieldUpdateOperationsInput | string | null
+    company?: NullableStringFieldUpdateOperationsInput | string | null
+    teamId?: NullableStringFieldUpdateOperationsInput | string | null
+    floorId?: NullableStringFieldUpdateOperationsInput | string | null
+    roomId?: NullableStringFieldUpdateOperationsInput | string | null
+    ttSystemOpening?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    ttWorkOpening?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    ttSystemAssignment?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    ttWorkAssignment?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    ttSystemExecution?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    ttWorkExecution?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    ttSysSuspension?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    ttWorkSuspension?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    ttEstimate?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    prevMaintenanceConfigId?: NullableStringFieldUpdateOperationsInput | string | null
+    automaticConfig?: BoolFieldUpdateOperationsInput | boolean
+    jointAccounting?: BoolFieldUpdateOperationsInput | boolean
+    hasTasks?: BoolFieldUpdateOperationsInput | boolean
+    estimateStatus?: EnumStatusFieldUpdateOperationsInput | $Enums.Status
+    delayNotification?: BoolFieldUpdateOperationsInput | boolean
+    assigneeId?: NullableStringFieldUpdateOperationsInput | string | null
+    assetId?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    photos?: FileUncheckedUpdateManyWithoutMaintenanceNestedInput
+  }
+
+  export type MaintenanceUncheckedUpdateManyWithoutPerformerInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    type?: EnumMaintenanceTypeFieldUpdateOperationsInput | $Enums.MaintenanceType
+    code?: StringFieldUpdateOperationsInput | string
+    description?: StringFieldUpdateOperationsInput | string
+    startDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    endDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    shortDescription?: NullableStringFieldUpdateOperationsInput | string | null
+    action?: NullableStringFieldUpdateOperationsInput | string | null
+    message?: NullableStringFieldUpdateOperationsInput | string | null
+    processNotes?: NullableStringFieldUpdateOperationsInput | string | null
+    processStatus?: EnumStatusFieldUpdateOperationsInput | $Enums.Status
+    register?: NullableStringFieldUpdateOperationsInput | string | null
+    activityIdTimer?: NullableStringFieldUpdateOperationsInput | string | null
+    activityStartTime?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    activityEndTime?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    allDeadlines?: NullableStringFieldUpdateOperationsInput | string | null
+    processType?: EnumProcessTypeFieldUpdateOperationsInput | $Enums.ProcessType
+    ttSysRunning?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    ttWorkRunning?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    sorting?: NullableStringFieldUpdateOperationsInput | string | null
+    requesterId?: NullableStringFieldUpdateOperationsInput | string | null
+    priority?: EnumPriorityFieldUpdateOperationsInput | $Enums.Priority
+    siteId?: StringFieldUpdateOperationsInput | string
+    outcome?: NullableStringFieldUpdateOperationsInput | string | null
+    dueAssignedEnd?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    execStart?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    dueExecEndDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    execEndDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    dueClosuerDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    totalExecTime?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    expStartDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    suspensionReason?: NullableStringFieldUpdateOperationsInput | string | null
+    category?: NullableStringFieldUpdateOperationsInput | string | null
+    subCategory?: NullableStringFieldUpdateOperationsInput | string | null
+    company?: NullableStringFieldUpdateOperationsInput | string | null
+    teamId?: NullableStringFieldUpdateOperationsInput | string | null
+    floorId?: NullableStringFieldUpdateOperationsInput | string | null
+    roomId?: NullableStringFieldUpdateOperationsInput | string | null
+    ttSystemOpening?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    ttWorkOpening?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    ttSystemAssignment?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    ttWorkAssignment?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    ttSystemExecution?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    ttWorkExecution?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    ttSysSuspension?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    ttWorkSuspension?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    ttEstimate?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    prevMaintenanceConfigId?: NullableStringFieldUpdateOperationsInput | string | null
+    automaticConfig?: BoolFieldUpdateOperationsInput | boolean
+    jointAccounting?: BoolFieldUpdateOperationsInput | boolean
+    hasTasks?: BoolFieldUpdateOperationsInput | boolean
+    estimateStatus?: EnumStatusFieldUpdateOperationsInput | $Enums.Status
+    delayNotification?: BoolFieldUpdateOperationsInput | boolean
+    assigneeId?: NullableStringFieldUpdateOperationsInput | string | null
+    assetId?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type MaintenanceUpdateWithoutRequesterInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    type?: EnumMaintenanceTypeFieldUpdateOperationsInput | $Enums.MaintenanceType
+    code?: StringFieldUpdateOperationsInput | string
+    description?: StringFieldUpdateOperationsInput | string
+    startDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    endDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    shortDescription?: NullableStringFieldUpdateOperationsInput | string | null
+    action?: NullableStringFieldUpdateOperationsInput | string | null
+    message?: NullableStringFieldUpdateOperationsInput | string | null
+    processNotes?: NullableStringFieldUpdateOperationsInput | string | null
+    processStatus?: EnumStatusFieldUpdateOperationsInput | $Enums.Status
+    register?: NullableStringFieldUpdateOperationsInput | string | null
+    activityIdTimer?: NullableStringFieldUpdateOperationsInput | string | null
+    activityStartTime?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    activityEndTime?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    allDeadlines?: NullableStringFieldUpdateOperationsInput | string | null
+    processType?: EnumProcessTypeFieldUpdateOperationsInput | $Enums.ProcessType
+    ttSysRunning?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    ttWorkRunning?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    sorting?: NullableStringFieldUpdateOperationsInput | string | null
+    priority?: EnumPriorityFieldUpdateOperationsInput | $Enums.Priority
+    outcome?: NullableStringFieldUpdateOperationsInput | string | null
+    dueAssignedEnd?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    execStart?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    dueExecEndDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    execEndDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    dueClosuerDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    totalExecTime?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    expStartDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    suspensionReason?: NullableStringFieldUpdateOperationsInput | string | null
+    category?: NullableStringFieldUpdateOperationsInput | string | null
+    subCategory?: NullableStringFieldUpdateOperationsInput | string | null
+    company?: NullableStringFieldUpdateOperationsInput | string | null
+    ttSystemOpening?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    ttWorkOpening?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    ttSystemAssignment?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    ttWorkAssignment?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    ttSystemExecution?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    ttWorkExecution?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    ttSysSuspension?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    ttWorkSuspension?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    ttEstimate?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    prevMaintenanceConfigId?: NullableStringFieldUpdateOperationsInput | string | null
+    automaticConfig?: BoolFieldUpdateOperationsInput | boolean
+    jointAccounting?: BoolFieldUpdateOperationsInput | boolean
+    hasTasks?: BoolFieldUpdateOperationsInput | boolean
+    estimateStatus?: EnumStatusFieldUpdateOperationsInput | $Enums.Status
+    delayNotification?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    performer?: EmployeeUpdateOneWithoutPerformedMaintenancesNestedInput
+    site?: ComplexUpdateOneRequiredWithoutMaintenancesNestedInput
+    team?: TeamUpdateOneWithoutMaintenancesNestedInput
+    floor?: FloorUpdateOneWithoutMaintenancesNestedInput
+    room?: RoomUpdateOneWithoutMaintenancesNestedInput
+    assignee?: EmployeeUpdateOneWithoutAssignedMaintenancesNestedInput
+    asset?: AssetUpdateOneWithoutMaintenancesNestedInput
+    photos?: FileUpdateManyWithoutMaintenanceNestedInput
+  }
+
+  export type MaintenanceUncheckedUpdateWithoutRequesterInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    type?: EnumMaintenanceTypeFieldUpdateOperationsInput | $Enums.MaintenanceType
+    code?: StringFieldUpdateOperationsInput | string
+    description?: StringFieldUpdateOperationsInput | string
+    startDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    endDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    shortDescription?: NullableStringFieldUpdateOperationsInput | string | null
+    action?: NullableStringFieldUpdateOperationsInput | string | null
+    message?: NullableStringFieldUpdateOperationsInput | string | null
+    processNotes?: NullableStringFieldUpdateOperationsInput | string | null
+    performerId?: NullableStringFieldUpdateOperationsInput | string | null
+    processStatus?: EnumStatusFieldUpdateOperationsInput | $Enums.Status
+    register?: NullableStringFieldUpdateOperationsInput | string | null
+    activityIdTimer?: NullableStringFieldUpdateOperationsInput | string | null
+    activityStartTime?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    activityEndTime?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    allDeadlines?: NullableStringFieldUpdateOperationsInput | string | null
+    processType?: EnumProcessTypeFieldUpdateOperationsInput | $Enums.ProcessType
+    ttSysRunning?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    ttWorkRunning?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    sorting?: NullableStringFieldUpdateOperationsInput | string | null
+    priority?: EnumPriorityFieldUpdateOperationsInput | $Enums.Priority
+    siteId?: StringFieldUpdateOperationsInput | string
+    outcome?: NullableStringFieldUpdateOperationsInput | string | null
+    dueAssignedEnd?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    execStart?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    dueExecEndDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    execEndDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    dueClosuerDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    totalExecTime?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    expStartDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    suspensionReason?: NullableStringFieldUpdateOperationsInput | string | null
+    category?: NullableStringFieldUpdateOperationsInput | string | null
+    subCategory?: NullableStringFieldUpdateOperationsInput | string | null
+    company?: NullableStringFieldUpdateOperationsInput | string | null
+    teamId?: NullableStringFieldUpdateOperationsInput | string | null
+    floorId?: NullableStringFieldUpdateOperationsInput | string | null
+    roomId?: NullableStringFieldUpdateOperationsInput | string | null
+    ttSystemOpening?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    ttWorkOpening?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    ttSystemAssignment?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    ttWorkAssignment?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    ttSystemExecution?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    ttWorkExecution?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    ttSysSuspension?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    ttWorkSuspension?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    ttEstimate?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    prevMaintenanceConfigId?: NullableStringFieldUpdateOperationsInput | string | null
+    automaticConfig?: BoolFieldUpdateOperationsInput | boolean
+    jointAccounting?: BoolFieldUpdateOperationsInput | boolean
+    hasTasks?: BoolFieldUpdateOperationsInput | boolean
+    estimateStatus?: EnumStatusFieldUpdateOperationsInput | $Enums.Status
+    delayNotification?: BoolFieldUpdateOperationsInput | boolean
+    assigneeId?: NullableStringFieldUpdateOperationsInput | string | null
+    assetId?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    photos?: FileUncheckedUpdateManyWithoutMaintenanceNestedInput
+  }
+
+  export type MaintenanceUncheckedUpdateManyWithoutRequesterInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    type?: EnumMaintenanceTypeFieldUpdateOperationsInput | $Enums.MaintenanceType
+    code?: StringFieldUpdateOperationsInput | string
+    description?: StringFieldUpdateOperationsInput | string
+    startDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    endDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    shortDescription?: NullableStringFieldUpdateOperationsInput | string | null
+    action?: NullableStringFieldUpdateOperationsInput | string | null
+    message?: NullableStringFieldUpdateOperationsInput | string | null
+    processNotes?: NullableStringFieldUpdateOperationsInput | string | null
+    performerId?: NullableStringFieldUpdateOperationsInput | string | null
+    processStatus?: EnumStatusFieldUpdateOperationsInput | $Enums.Status
+    register?: NullableStringFieldUpdateOperationsInput | string | null
+    activityIdTimer?: NullableStringFieldUpdateOperationsInput | string | null
+    activityStartTime?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    activityEndTime?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    allDeadlines?: NullableStringFieldUpdateOperationsInput | string | null
+    processType?: EnumProcessTypeFieldUpdateOperationsInput | $Enums.ProcessType
+    ttSysRunning?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    ttWorkRunning?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    sorting?: NullableStringFieldUpdateOperationsInput | string | null
+    priority?: EnumPriorityFieldUpdateOperationsInput | $Enums.Priority
+    siteId?: StringFieldUpdateOperationsInput | string
+    outcome?: NullableStringFieldUpdateOperationsInput | string | null
+    dueAssignedEnd?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    execStart?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    dueExecEndDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    execEndDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    dueClosuerDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    totalExecTime?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    expStartDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    suspensionReason?: NullableStringFieldUpdateOperationsInput | string | null
+    category?: NullableStringFieldUpdateOperationsInput | string | null
+    subCategory?: NullableStringFieldUpdateOperationsInput | string | null
+    company?: NullableStringFieldUpdateOperationsInput | string | null
+    teamId?: NullableStringFieldUpdateOperationsInput | string | null
+    floorId?: NullableStringFieldUpdateOperationsInput | string | null
+    roomId?: NullableStringFieldUpdateOperationsInput | string | null
+    ttSystemOpening?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    ttWorkOpening?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    ttSystemAssignment?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    ttWorkAssignment?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    ttSystemExecution?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    ttWorkExecution?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    ttSysSuspension?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    ttWorkSuspension?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    ttEstimate?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    prevMaintenanceConfigId?: NullableStringFieldUpdateOperationsInput | string | null
+    automaticConfig?: BoolFieldUpdateOperationsInput | boolean
+    jointAccounting?: BoolFieldUpdateOperationsInput | boolean
+    hasTasks?: BoolFieldUpdateOperationsInput | boolean
+    estimateStatus?: EnumStatusFieldUpdateOperationsInput | $Enums.Status
+    delayNotification?: BoolFieldUpdateOperationsInput | boolean
+    assigneeId?: NullableStringFieldUpdateOperationsInput | string | null
+    assetId?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type MaintenanceUpdateWithoutAssigneeInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    type?: EnumMaintenanceTypeFieldUpdateOperationsInput | $Enums.MaintenanceType
+    code?: StringFieldUpdateOperationsInput | string
+    description?: StringFieldUpdateOperationsInput | string
+    startDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    endDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    shortDescription?: NullableStringFieldUpdateOperationsInput | string | null
+    action?: NullableStringFieldUpdateOperationsInput | string | null
+    message?: NullableStringFieldUpdateOperationsInput | string | null
+    processNotes?: NullableStringFieldUpdateOperationsInput | string | null
+    processStatus?: EnumStatusFieldUpdateOperationsInput | $Enums.Status
+    register?: NullableStringFieldUpdateOperationsInput | string | null
+    activityIdTimer?: NullableStringFieldUpdateOperationsInput | string | null
+    activityStartTime?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    activityEndTime?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    allDeadlines?: NullableStringFieldUpdateOperationsInput | string | null
+    processType?: EnumProcessTypeFieldUpdateOperationsInput | $Enums.ProcessType
+    ttSysRunning?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    ttWorkRunning?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    sorting?: NullableStringFieldUpdateOperationsInput | string | null
+    priority?: EnumPriorityFieldUpdateOperationsInput | $Enums.Priority
+    outcome?: NullableStringFieldUpdateOperationsInput | string | null
+    dueAssignedEnd?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    execStart?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    dueExecEndDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    execEndDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    dueClosuerDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    totalExecTime?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    expStartDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    suspensionReason?: NullableStringFieldUpdateOperationsInput | string | null
+    category?: NullableStringFieldUpdateOperationsInput | string | null
+    subCategory?: NullableStringFieldUpdateOperationsInput | string | null
+    company?: NullableStringFieldUpdateOperationsInput | string | null
+    ttSystemOpening?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    ttWorkOpening?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    ttSystemAssignment?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    ttWorkAssignment?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    ttSystemExecution?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    ttWorkExecution?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    ttSysSuspension?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    ttWorkSuspension?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    ttEstimate?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    prevMaintenanceConfigId?: NullableStringFieldUpdateOperationsInput | string | null
+    automaticConfig?: BoolFieldUpdateOperationsInput | boolean
+    jointAccounting?: BoolFieldUpdateOperationsInput | boolean
+    hasTasks?: BoolFieldUpdateOperationsInput | boolean
+    estimateStatus?: EnumStatusFieldUpdateOperationsInput | $Enums.Status
+    delayNotification?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    performer?: EmployeeUpdateOneWithoutPerformedMaintenancesNestedInput
+    requester?: EmployeeUpdateOneWithoutRequestedMaintenancesNestedInput
+    site?: ComplexUpdateOneRequiredWithoutMaintenancesNestedInput
+    team?: TeamUpdateOneWithoutMaintenancesNestedInput
+    floor?: FloorUpdateOneWithoutMaintenancesNestedInput
+    room?: RoomUpdateOneWithoutMaintenancesNestedInput
+    asset?: AssetUpdateOneWithoutMaintenancesNestedInput
+    photos?: FileUpdateManyWithoutMaintenanceNestedInput
+  }
+
+  export type MaintenanceUncheckedUpdateWithoutAssigneeInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    type?: EnumMaintenanceTypeFieldUpdateOperationsInput | $Enums.MaintenanceType
+    code?: StringFieldUpdateOperationsInput | string
+    description?: StringFieldUpdateOperationsInput | string
+    startDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    endDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    shortDescription?: NullableStringFieldUpdateOperationsInput | string | null
+    action?: NullableStringFieldUpdateOperationsInput | string | null
+    message?: NullableStringFieldUpdateOperationsInput | string | null
+    processNotes?: NullableStringFieldUpdateOperationsInput | string | null
+    performerId?: NullableStringFieldUpdateOperationsInput | string | null
+    processStatus?: EnumStatusFieldUpdateOperationsInput | $Enums.Status
+    register?: NullableStringFieldUpdateOperationsInput | string | null
+    activityIdTimer?: NullableStringFieldUpdateOperationsInput | string | null
+    activityStartTime?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    activityEndTime?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    allDeadlines?: NullableStringFieldUpdateOperationsInput | string | null
+    processType?: EnumProcessTypeFieldUpdateOperationsInput | $Enums.ProcessType
+    ttSysRunning?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    ttWorkRunning?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    sorting?: NullableStringFieldUpdateOperationsInput | string | null
+    requesterId?: NullableStringFieldUpdateOperationsInput | string | null
+    priority?: EnumPriorityFieldUpdateOperationsInput | $Enums.Priority
+    siteId?: StringFieldUpdateOperationsInput | string
+    outcome?: NullableStringFieldUpdateOperationsInput | string | null
+    dueAssignedEnd?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    execStart?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    dueExecEndDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    execEndDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    dueClosuerDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    totalExecTime?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    expStartDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    suspensionReason?: NullableStringFieldUpdateOperationsInput | string | null
+    category?: NullableStringFieldUpdateOperationsInput | string | null
+    subCategory?: NullableStringFieldUpdateOperationsInput | string | null
+    company?: NullableStringFieldUpdateOperationsInput | string | null
+    teamId?: NullableStringFieldUpdateOperationsInput | string | null
+    floorId?: NullableStringFieldUpdateOperationsInput | string | null
+    roomId?: NullableStringFieldUpdateOperationsInput | string | null
+    ttSystemOpening?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    ttWorkOpening?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    ttSystemAssignment?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    ttWorkAssignment?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    ttSystemExecution?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    ttWorkExecution?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    ttSysSuspension?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    ttWorkSuspension?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    ttEstimate?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    prevMaintenanceConfigId?: NullableStringFieldUpdateOperationsInput | string | null
+    automaticConfig?: BoolFieldUpdateOperationsInput | boolean
+    jointAccounting?: BoolFieldUpdateOperationsInput | boolean
+    hasTasks?: BoolFieldUpdateOperationsInput | boolean
+    estimateStatus?: EnumStatusFieldUpdateOperationsInput | $Enums.Status
+    delayNotification?: BoolFieldUpdateOperationsInput | boolean
+    assetId?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    photos?: FileUncheckedUpdateManyWithoutMaintenanceNestedInput
+  }
+
+  export type MaintenanceUncheckedUpdateManyWithoutAssigneeInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    type?: EnumMaintenanceTypeFieldUpdateOperationsInput | $Enums.MaintenanceType
+    code?: StringFieldUpdateOperationsInput | string
+    description?: StringFieldUpdateOperationsInput | string
+    startDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    endDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    shortDescription?: NullableStringFieldUpdateOperationsInput | string | null
+    action?: NullableStringFieldUpdateOperationsInput | string | null
+    message?: NullableStringFieldUpdateOperationsInput | string | null
+    processNotes?: NullableStringFieldUpdateOperationsInput | string | null
+    performerId?: NullableStringFieldUpdateOperationsInput | string | null
+    processStatus?: EnumStatusFieldUpdateOperationsInput | $Enums.Status
+    register?: NullableStringFieldUpdateOperationsInput | string | null
+    activityIdTimer?: NullableStringFieldUpdateOperationsInput | string | null
+    activityStartTime?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    activityEndTime?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    allDeadlines?: NullableStringFieldUpdateOperationsInput | string | null
+    processType?: EnumProcessTypeFieldUpdateOperationsInput | $Enums.ProcessType
+    ttSysRunning?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    ttWorkRunning?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    sorting?: NullableStringFieldUpdateOperationsInput | string | null
+    requesterId?: NullableStringFieldUpdateOperationsInput | string | null
+    priority?: EnumPriorityFieldUpdateOperationsInput | $Enums.Priority
+    siteId?: StringFieldUpdateOperationsInput | string
+    outcome?: NullableStringFieldUpdateOperationsInput | string | null
+    dueAssignedEnd?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    execStart?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    dueExecEndDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    execEndDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    dueClosuerDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    totalExecTime?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    expStartDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    suspensionReason?: NullableStringFieldUpdateOperationsInput | string | null
+    category?: NullableStringFieldUpdateOperationsInput | string | null
+    subCategory?: NullableStringFieldUpdateOperationsInput | string | null
+    company?: NullableStringFieldUpdateOperationsInput | string | null
+    teamId?: NullableStringFieldUpdateOperationsInput | string | null
+    floorId?: NullableStringFieldUpdateOperationsInput | string | null
+    roomId?: NullableStringFieldUpdateOperationsInput | string | null
+    ttSystemOpening?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    ttWorkOpening?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    ttSystemAssignment?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    ttWorkAssignment?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    ttSystemExecution?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    ttWorkExecution?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    ttSysSuspension?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    ttWorkSuspension?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    ttEstimate?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    prevMaintenanceConfigId?: NullableStringFieldUpdateOperationsInput | string | null
+    automaticConfig?: BoolFieldUpdateOperationsInput | boolean
+    jointAccounting?: BoolFieldUpdateOperationsInput | boolean
+    hasTasks?: BoolFieldUpdateOperationsInput | boolean
+    estimateStatus?: EnumStatusFieldUpdateOperationsInput | $Enums.Status
+    delayNotification?: BoolFieldUpdateOperationsInput | boolean
+    assetId?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type MaintenanceCreateManyTeamInput = {
+    id?: string
+    type?: $Enums.MaintenanceType
+    code: string
+    description: string
+    startDate?: Date | string | null
+    endDate?: Date | string | null
+    shortDescription?: string | null
+    action?: string | null
+    message?: string | null
+    processNotes?: string | null
+    performerId?: string | null
+    processStatus?: $Enums.Status
+    register?: string | null
+    activityIdTimer?: string | null
+    activityStartTime?: Date | string | null
+    activityEndTime?: Date | string | null
+    allDeadlines?: string | null
+    processType?: $Enums.ProcessType
+    ttSysRunning?: Decimal | DecimalJsLike | number | string | null
+    ttWorkRunning?: Decimal | DecimalJsLike | number | string | null
+    sorting?: string | null
+    requesterId?: string | null
+    priority?: $Enums.Priority
+    siteId: string
+    outcome?: string | null
+    dueAssignedEnd?: Date | string | null
+    execStart?: Date | string | null
+    dueExecEndDate?: Date | string | null
+    execEndDate?: Date | string | null
+    dueClosuerDate?: Date | string | null
+    totalExecTime?: Decimal | DecimalJsLike | number | string | null
+    expStartDate?: Date | string | null
+    suspensionReason?: string | null
+    category?: string | null
+    subCategory?: string | null
+    company?: string | null
+    floorId?: string | null
+    roomId?: string | null
+    ttSystemOpening?: Decimal | DecimalJsLike | number | string | null
+    ttWorkOpening?: Decimal | DecimalJsLike | number | string | null
+    ttSystemAssignment?: Decimal | DecimalJsLike | number | string | null
+    ttWorkAssignment?: Decimal | DecimalJsLike | number | string | null
+    ttSystemExecution?: Decimal | DecimalJsLike | number | string | null
+    ttWorkExecution?: Decimal | DecimalJsLike | number | string | null
+    ttSysSuspension?: Decimal | DecimalJsLike | number | string | null
+    ttWorkSuspension?: Decimal | DecimalJsLike | number | string | null
+    ttEstimate?: Decimal | DecimalJsLike | number | string | null
+    prevMaintenanceConfigId?: string | null
+    automaticConfig?: boolean
+    jointAccounting?: boolean
+    hasTasks?: boolean
+    estimateStatus?: $Enums.Status
+    delayNotification?: boolean
+    assigneeId?: string | null
+    assetId?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type PreventiveCreateManyTeamInput = {
+    id?: string
+    code: string
+    name: string
+    description: string
+    frequency?: $Enums.Frequency
+    cronExpression?: string | null
+    lastRun?: Date | string | null
+    nextRun: Date | string
+    priority?: $Enums.Priority
+    duration?: number | null
+    siteId: string
+    buildingId?: string | null
+    floorId?: string | null
+    roomId?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type MaintenanceUpdateWithoutTeamInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    type?: EnumMaintenanceTypeFieldUpdateOperationsInput | $Enums.MaintenanceType
+    code?: StringFieldUpdateOperationsInput | string
+    description?: StringFieldUpdateOperationsInput | string
+    startDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    endDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    shortDescription?: NullableStringFieldUpdateOperationsInput | string | null
+    action?: NullableStringFieldUpdateOperationsInput | string | null
+    message?: NullableStringFieldUpdateOperationsInput | string | null
+    processNotes?: NullableStringFieldUpdateOperationsInput | string | null
+    processStatus?: EnumStatusFieldUpdateOperationsInput | $Enums.Status
+    register?: NullableStringFieldUpdateOperationsInput | string | null
+    activityIdTimer?: NullableStringFieldUpdateOperationsInput | string | null
+    activityStartTime?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    activityEndTime?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    allDeadlines?: NullableStringFieldUpdateOperationsInput | string | null
+    processType?: EnumProcessTypeFieldUpdateOperationsInput | $Enums.ProcessType
+    ttSysRunning?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    ttWorkRunning?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    sorting?: NullableStringFieldUpdateOperationsInput | string | null
+    priority?: EnumPriorityFieldUpdateOperationsInput | $Enums.Priority
+    outcome?: NullableStringFieldUpdateOperationsInput | string | null
+    dueAssignedEnd?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    execStart?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    dueExecEndDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    execEndDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    dueClosuerDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    totalExecTime?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    expStartDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    suspensionReason?: NullableStringFieldUpdateOperationsInput | string | null
+    category?: NullableStringFieldUpdateOperationsInput | string | null
+    subCategory?: NullableStringFieldUpdateOperationsInput | string | null
+    company?: NullableStringFieldUpdateOperationsInput | string | null
+    ttSystemOpening?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    ttWorkOpening?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    ttSystemAssignment?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    ttWorkAssignment?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    ttSystemExecution?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    ttWorkExecution?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    ttSysSuspension?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    ttWorkSuspension?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    ttEstimate?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    prevMaintenanceConfigId?: NullableStringFieldUpdateOperationsInput | string | null
+    automaticConfig?: BoolFieldUpdateOperationsInput | boolean
+    jointAccounting?: BoolFieldUpdateOperationsInput | boolean
+    hasTasks?: BoolFieldUpdateOperationsInput | boolean
+    estimateStatus?: EnumStatusFieldUpdateOperationsInput | $Enums.Status
+    delayNotification?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    performer?: EmployeeUpdateOneWithoutPerformedMaintenancesNestedInput
+    requester?: EmployeeUpdateOneWithoutRequestedMaintenancesNestedInput
+    site?: ComplexUpdateOneRequiredWithoutMaintenancesNestedInput
+    floor?: FloorUpdateOneWithoutMaintenancesNestedInput
+    room?: RoomUpdateOneWithoutMaintenancesNestedInput
+    assignee?: EmployeeUpdateOneWithoutAssignedMaintenancesNestedInput
+    asset?: AssetUpdateOneWithoutMaintenancesNestedInput
+    photos?: FileUpdateManyWithoutMaintenanceNestedInput
+  }
+
+  export type MaintenanceUncheckedUpdateWithoutTeamInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    type?: EnumMaintenanceTypeFieldUpdateOperationsInput | $Enums.MaintenanceType
+    code?: StringFieldUpdateOperationsInput | string
+    description?: StringFieldUpdateOperationsInput | string
+    startDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    endDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    shortDescription?: NullableStringFieldUpdateOperationsInput | string | null
+    action?: NullableStringFieldUpdateOperationsInput | string | null
+    message?: NullableStringFieldUpdateOperationsInput | string | null
+    processNotes?: NullableStringFieldUpdateOperationsInput | string | null
+    performerId?: NullableStringFieldUpdateOperationsInput | string | null
+    processStatus?: EnumStatusFieldUpdateOperationsInput | $Enums.Status
+    register?: NullableStringFieldUpdateOperationsInput | string | null
+    activityIdTimer?: NullableStringFieldUpdateOperationsInput | string | null
+    activityStartTime?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    activityEndTime?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    allDeadlines?: NullableStringFieldUpdateOperationsInput | string | null
+    processType?: EnumProcessTypeFieldUpdateOperationsInput | $Enums.ProcessType
+    ttSysRunning?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    ttWorkRunning?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    sorting?: NullableStringFieldUpdateOperationsInput | string | null
+    requesterId?: NullableStringFieldUpdateOperationsInput | string | null
+    priority?: EnumPriorityFieldUpdateOperationsInput | $Enums.Priority
+    siteId?: StringFieldUpdateOperationsInput | string
+    outcome?: NullableStringFieldUpdateOperationsInput | string | null
+    dueAssignedEnd?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    execStart?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    dueExecEndDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    execEndDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    dueClosuerDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    totalExecTime?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    expStartDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    suspensionReason?: NullableStringFieldUpdateOperationsInput | string | null
+    category?: NullableStringFieldUpdateOperationsInput | string | null
+    subCategory?: NullableStringFieldUpdateOperationsInput | string | null
+    company?: NullableStringFieldUpdateOperationsInput | string | null
+    floorId?: NullableStringFieldUpdateOperationsInput | string | null
+    roomId?: NullableStringFieldUpdateOperationsInput | string | null
+    ttSystemOpening?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    ttWorkOpening?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    ttSystemAssignment?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    ttWorkAssignment?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    ttSystemExecution?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    ttWorkExecution?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    ttSysSuspension?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    ttWorkSuspension?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    ttEstimate?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    prevMaintenanceConfigId?: NullableStringFieldUpdateOperationsInput | string | null
+    automaticConfig?: BoolFieldUpdateOperationsInput | boolean
+    jointAccounting?: BoolFieldUpdateOperationsInput | boolean
+    hasTasks?: BoolFieldUpdateOperationsInput | boolean
+    estimateStatus?: EnumStatusFieldUpdateOperationsInput | $Enums.Status
+    delayNotification?: BoolFieldUpdateOperationsInput | boolean
+    assigneeId?: NullableStringFieldUpdateOperationsInput | string | null
+    assetId?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    photos?: FileUncheckedUpdateManyWithoutMaintenanceNestedInput
+  }
+
+  export type MaintenanceUncheckedUpdateManyWithoutTeamInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    type?: EnumMaintenanceTypeFieldUpdateOperationsInput | $Enums.MaintenanceType
+    code?: StringFieldUpdateOperationsInput | string
+    description?: StringFieldUpdateOperationsInput | string
+    startDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    endDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    shortDescription?: NullableStringFieldUpdateOperationsInput | string | null
+    action?: NullableStringFieldUpdateOperationsInput | string | null
+    message?: NullableStringFieldUpdateOperationsInput | string | null
+    processNotes?: NullableStringFieldUpdateOperationsInput | string | null
+    performerId?: NullableStringFieldUpdateOperationsInput | string | null
+    processStatus?: EnumStatusFieldUpdateOperationsInput | $Enums.Status
+    register?: NullableStringFieldUpdateOperationsInput | string | null
+    activityIdTimer?: NullableStringFieldUpdateOperationsInput | string | null
+    activityStartTime?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    activityEndTime?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    allDeadlines?: NullableStringFieldUpdateOperationsInput | string | null
+    processType?: EnumProcessTypeFieldUpdateOperationsInput | $Enums.ProcessType
+    ttSysRunning?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    ttWorkRunning?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    sorting?: NullableStringFieldUpdateOperationsInput | string | null
+    requesterId?: NullableStringFieldUpdateOperationsInput | string | null
+    priority?: EnumPriorityFieldUpdateOperationsInput | $Enums.Priority
+    siteId?: StringFieldUpdateOperationsInput | string
+    outcome?: NullableStringFieldUpdateOperationsInput | string | null
+    dueAssignedEnd?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    execStart?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    dueExecEndDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    execEndDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    dueClosuerDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    totalExecTime?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    expStartDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    suspensionReason?: NullableStringFieldUpdateOperationsInput | string | null
+    category?: NullableStringFieldUpdateOperationsInput | string | null
+    subCategory?: NullableStringFieldUpdateOperationsInput | string | null
+    company?: NullableStringFieldUpdateOperationsInput | string | null
+    floorId?: NullableStringFieldUpdateOperationsInput | string | null
+    roomId?: NullableStringFieldUpdateOperationsInput | string | null
+    ttSystemOpening?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    ttWorkOpening?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    ttSystemAssignment?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    ttWorkAssignment?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    ttSystemExecution?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    ttWorkExecution?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    ttSysSuspension?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    ttWorkSuspension?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    ttEstimate?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    prevMaintenanceConfigId?: NullableStringFieldUpdateOperationsInput | string | null
+    automaticConfig?: BoolFieldUpdateOperationsInput | boolean
+    jointAccounting?: BoolFieldUpdateOperationsInput | boolean
+    hasTasks?: BoolFieldUpdateOperationsInput | boolean
+    estimateStatus?: EnumStatusFieldUpdateOperationsInput | $Enums.Status
+    delayNotification?: BoolFieldUpdateOperationsInput | boolean
+    assigneeId?: NullableStringFieldUpdateOperationsInput | string | null
+    assetId?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type PreventiveUpdateWithoutTeamInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    code?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    description?: StringFieldUpdateOperationsInput | string
+    frequency?: EnumFrequencyFieldUpdateOperationsInput | $Enums.Frequency
+    cronExpression?: NullableStringFieldUpdateOperationsInput | string | null
+    lastRun?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    nextRun?: DateTimeFieldUpdateOperationsInput | Date | string
+    priority?: EnumPriorityFieldUpdateOperationsInput | $Enums.Priority
+    duration?: NullableIntFieldUpdateOperationsInput | number | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    site?: ComplexUpdateOneRequiredWithoutPreventivesNestedInput
+    building?: BuildingUpdateOneWithoutPreventivesNestedInput
+    floor?: FloorUpdateOneWithoutPreventivesNestedInput
+    room?: RoomUpdateOneWithoutPreventivesNestedInput
+  }
+
+  export type PreventiveUncheckedUpdateWithoutTeamInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    code?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    description?: StringFieldUpdateOperationsInput | string
+    frequency?: EnumFrequencyFieldUpdateOperationsInput | $Enums.Frequency
+    cronExpression?: NullableStringFieldUpdateOperationsInput | string | null
+    lastRun?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    nextRun?: DateTimeFieldUpdateOperationsInput | Date | string
+    priority?: EnumPriorityFieldUpdateOperationsInput | $Enums.Priority
+    duration?: NullableIntFieldUpdateOperationsInput | number | null
+    siteId?: StringFieldUpdateOperationsInput | string
+    buildingId?: NullableStringFieldUpdateOperationsInput | string | null
+    floorId?: NullableStringFieldUpdateOperationsInput | string | null
+    roomId?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type PreventiveUncheckedUpdateManyWithoutTeamInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    code?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    description?: StringFieldUpdateOperationsInput | string
+    frequency?: EnumFrequencyFieldUpdateOperationsInput | $Enums.Frequency
+    cronExpression?: NullableStringFieldUpdateOperationsInput | string | null
+    lastRun?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    nextRun?: DateTimeFieldUpdateOperationsInput | Date | string
+    priority?: EnumPriorityFieldUpdateOperationsInput | $Enums.Priority
+    duration?: NullableIntFieldUpdateOperationsInput | number | null
+    siteId?: StringFieldUpdateOperationsInput | string
+    buildingId?: NullableStringFieldUpdateOperationsInput | string | null
+    floorId?: NullableStringFieldUpdateOperationsInput | string | null
+    roomId?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -38482,6 +52272,7 @@ export namespace Prisma {
     floors?: FloorUpdateManyWithoutBuildingNestedInput
     units?: UnitUpdateManyWithoutBuildingNestedInput
     rooms?: RoomUpdateManyWithoutBuildingNestedInput
+    preventives?: PreventiveUpdateManyWithoutBuildingNestedInput
   }
 
   export type BuildingUncheckedUpdateWithoutAddressInput = {
@@ -38511,6 +52302,7 @@ export namespace Prisma {
     floors?: FloorUncheckedUpdateManyWithoutBuildingNestedInput
     units?: UnitUncheckedUpdateManyWithoutBuildingNestedInput
     rooms?: RoomUncheckedUpdateManyWithoutBuildingNestedInput
+    preventives?: PreventiveUncheckedUpdateManyWithoutBuildingNestedInput
   }
 
   export type BuildingUncheckedUpdateManyWithoutAddressInput = {
@@ -38684,6 +52476,7 @@ export namespace Prisma {
     floors?: FloorUpdateManyWithoutBuildingNestedInput
     units?: UnitUpdateManyWithoutBuildingNestedInput
     rooms?: RoomUpdateManyWithoutBuildingNestedInput
+    preventives?: PreventiveUpdateManyWithoutBuildingNestedInput
   }
 
   export type BuildingUncheckedUpdateWithoutCalenderEntityInput = {
@@ -38713,6 +52506,7 @@ export namespace Prisma {
     floors?: FloorUncheckedUpdateManyWithoutBuildingNestedInput
     units?: UnitUncheckedUpdateManyWithoutBuildingNestedInput
     rooms?: RoomUncheckedUpdateManyWithoutBuildingNestedInput
+    preventives?: PreventiveUncheckedUpdateManyWithoutBuildingNestedInput
   }
 
   export type BuildingUncheckedUpdateManyWithoutCalenderEntityInput = {
@@ -38769,6 +52563,8 @@ export namespace Prisma {
     floors?: FloorUpdateManyWithoutComplexNestedInput
     units?: UnitUpdateManyWithoutComplexNestedInput
     rooms?: RoomUpdateManyWithoutComplexNestedInput
+    maintenances?: MaintenanceUpdateManyWithoutSiteNestedInput
+    preventives?: PreventiveUpdateManyWithoutSiteNestedInput
   }
 
   export type ComplexUncheckedUpdateWithoutCalenderEntityInput = {
@@ -38800,6 +52596,8 @@ export namespace Prisma {
     floors?: FloorUncheckedUpdateManyWithoutComplexNestedInput
     units?: UnitUncheckedUpdateManyWithoutComplexNestedInput
     rooms?: RoomUncheckedUpdateManyWithoutComplexNestedInput
+    maintenances?: MaintenanceUncheckedUpdateManyWithoutSiteNestedInput
+    preventives?: PreventiveUncheckedUpdateManyWithoutSiteNestedInput
   }
 
   export type ComplexUncheckedUpdateManyWithoutCalenderEntityInput = {
@@ -38960,6 +52758,8 @@ export namespace Prisma {
     floor?: FloorUpdateOneRequiredWithoutRoomsNestedInput
     unit?: UnitUpdateOneWithoutRoomsNestedInput
     photos?: FileUpdateManyWithoutRoomsNestedInput
+    maintenances?: MaintenanceUpdateManyWithoutRoomNestedInput
+    preventives?: PreventiveUpdateManyWithoutRoomNestedInput
   }
 
   export type RoomUncheckedUpdateWithoutCalenderEntityInput = {
@@ -38985,6 +52785,8 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     photos?: FileUncheckedUpdateManyWithoutRoomsNestedInput
+    maintenances?: MaintenanceUncheckedUpdateManyWithoutRoomNestedInput
+    preventives?: PreventiveUncheckedUpdateManyWithoutRoomNestedInput
   }
 
   export type RoomUncheckedUpdateManyWithoutCalenderEntityInput = {
@@ -39019,6 +52821,9 @@ export namespace Prisma {
     user?: UserUpdateOneRequiredWithoutEmployeesNestedInput
     company?: CompanyUpdateOneRequiredWithoutEmployeesNestedInput
     teams?: TeamUpdateManyWithoutSupervisorNestedInput
+    performedMaintenances?: MaintenanceUpdateManyWithoutPerformerNestedInput
+    requestedMaintenances?: MaintenanceUpdateManyWithoutRequesterNestedInput
+    assignedMaintenances?: MaintenanceUpdateManyWithoutAssigneeNestedInput
   }
 
   export type EmployeeUncheckedUpdateWithoutCalenderEntityInput = {
@@ -39029,6 +52834,9 @@ export namespace Prisma {
     companyId?: StringFieldUpdateOperationsInput | string
     status?: EnumServiceStatusFieldUpdateOperationsInput | $Enums.ServiceStatus
     teams?: TeamUncheckedUpdateManyWithoutSupervisorNestedInput
+    performedMaintenances?: MaintenanceUncheckedUpdateManyWithoutPerformerNestedInput
+    requestedMaintenances?: MaintenanceUncheckedUpdateManyWithoutRequesterNestedInput
+    assignedMaintenances?: MaintenanceUncheckedUpdateManyWithoutAssigneeNestedInput
   }
 
   export type EmployeeUncheckedUpdateManyWithoutCalenderEntityInput = {
@@ -39038,6 +52846,34 @@ export namespace Prisma {
     userId?: StringFieldUpdateOperationsInput | string
     companyId?: StringFieldUpdateOperationsInput | string
     status?: EnumServiceStatusFieldUpdateOperationsInput | $Enums.ServiceStatus
+  }
+
+  export type FileCreateManyMaintenanceInput = {
+    id?: string
+    url: string
+  }
+
+  export type FileUpdateWithoutMaintenanceInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    url?: StringFieldUpdateOperationsInput | string
+    rooms?: RoomUpdateManyWithoutPhotosNestedInput
+    units?: UnitUpdateManyWithoutPhotosNestedInput
+    buildings?: BuildingUpdateManyWithoutPhotosNestedInput
+    complexes?: ComplexUpdateManyWithoutPhotosNestedInput
+  }
+
+  export type FileUncheckedUpdateWithoutMaintenanceInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    url?: StringFieldUpdateOperationsInput | string
+    rooms?: RoomUncheckedUpdateManyWithoutPhotosNestedInput
+    units?: UnitUncheckedUpdateManyWithoutPhotosNestedInput
+    buildings?: BuildingUncheckedUpdateManyWithoutPhotosNestedInput
+    complexes?: ComplexUncheckedUpdateManyWithoutPhotosNestedInput
+  }
+
+  export type FileUncheckedUpdateManyWithoutMaintenanceInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    url?: StringFieldUpdateOperationsInput | string
   }
 
 

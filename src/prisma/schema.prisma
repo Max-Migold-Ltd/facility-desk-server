@@ -101,6 +101,30 @@ enum EmployeeType {
   SUPPLIER_EMPLOYEE
 }
 
+enum MaintenanceType {
+  PREVENTIVE
+  CORRECTIVE
+}
+
+enum Status {
+  PENDING
+  IN_PROGRESS
+  COMPLETED
+}
+
+enum ProcessType {
+  MAINTENANCE
+  CORRECTIVE
+}
+
+enum Priority {
+  LOW
+  MEDIUM
+  HIGH
+}
+
+// ========================  MODELS =================================== //
+
 model User {
   id            String         @id @default(uuid())
   email         String         @unique
@@ -193,11 +217,13 @@ model Complex {
   buildings Building[]
   photos    File[]
 
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-  floors    Floor[]
-  units     Unit[]
-  rooms     Room[]
+  createdAt    DateTime      @default(now())
+  updatedAt    DateTime      @updatedAt
+  floors       Floor[]
+  units        Unit[]
+  rooms        Room[]
+  maintenances Maintenance[]
+  preventives  Preventive[]
 
   @@map("complexes")
 }
@@ -240,10 +266,11 @@ model Building {
   photos File[]
   floors Floor[]
 
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-  units     Unit[]
-  rooms     Room[]
+  createdAt   DateTime     @default(now())
+  updatedAt   DateTime     @updatedAt
+  units       Unit[]
+  rooms       Room[]
+  preventives Preventive[]
 
   @@unique([complexId, code])
   @@map("buildings")
@@ -279,8 +306,10 @@ model Floor {
   rooms Room[]
   units Unit[]
 
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  createdAt    DateTime      @default(now())
+  updatedAt    DateTime      @updatedAt
+  maintenances Maintenance[]
+  preventives  Preventive[]
 
   @@unique([buildingId, code])
   @@map("floors")
@@ -377,8 +406,10 @@ model Room {
 
   photos File[]
 
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  createdAt    DateTime      @default(now())
+  updatedAt    DateTime      @updatedAt
+  maintenances Maintenance[]
+  preventives  Preventive[]
 
   @@unique([floorId, buildingId, code])
   @@map("rooms")
@@ -409,8 +440,9 @@ model Asset {
   categoryId  String
   category    AssetCategory @relation(fields: [categoryId], references: [id], onDelete: Cascade)
 
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  createdAt    DateTime      @default(now())
+  updatedAt    DateTime      @updatedAt
+  maintenances Maintenance[]
 
   @@index([name])
   @@map("assets")
@@ -420,10 +452,12 @@ model File {
   id  String @id @default(uuid())
   url String @unique
 
-  rooms     Room[]
-  units     Unit[]
-  buildings Building[]
-  complexes Complex[]
+  rooms         Room[]
+  units         Unit[]
+  buildings     Building[]
+  complexes     Complex[]
+  maintenance   Maintenance? @relation(fields: [maintenanceId], references: [id])
+  maintenanceId String?
 
   @@map("files")
 }
@@ -446,6 +480,8 @@ model Company {
   createdAt DateTime   @default(now())
   updatedAt DateTime   @updatedAt
   employees Employee[]
+
+  @@map("companies")
 }
 
 model Employee {
@@ -459,9 +495,15 @@ model Employee {
   company   Company       @relation(fields: [companyId], references: [id], onDelete: Cascade)
   status    ServiceStatus @default(ACTIVE)
 
-  calenderEntityId String?
-  calenderEntity   CalenderEntity? @relation(fields: [calenderEntityId], references: [id], onDelete: Cascade)
-  teams            Team[]
+  calenderEntityId      String?
+  calenderEntity        CalenderEntity? @relation(fields: [calenderEntityId], references: [id], onDelete: Cascade)
+  teams                 Team[]
+  // correntives      correntive[]
+  performedMaintenances Maintenance[]   @relation("MaintenancePerformer")
+  requestedMaintenances Maintenance[]   @relation("MaintenanceRequester")
+  assignedMaintenances  Maintenance[]   @relation("MaintenanceAssignee")
+
+  @@map("employees")
 }
 
 model Team {
@@ -475,8 +517,12 @@ model Team {
   supervisorId String
   supervisor   Employee @relation(fields: [supervisorId], references: [id], onDelete: Cascade)
 
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  createdAt    DateTime      @default(now())
+  updatedAt    DateTime      @updatedAt
+  maintenances Maintenance[]
+  preventives  Preventive[]
+
+  @@map("teams")
 }
 
 model Address {
@@ -487,6 +533,14 @@ model Address {
   zipCode   String
   companies Company[]
   buildings Building[]
+
+  @@map("addresses")
+}
+
+model Contract {
+  id          String @id @default(uuid())
+  code        String @unique
+  description String
 }
 
 model CalenderEntity {
@@ -503,6 +557,141 @@ model CalenderEntity {
   employees Employee[]
 
   @@map("calender_entities")
+}
+
+model Maintenance {
+  id               String          @id @default(uuid())
+  type             MaintenanceType @default(PREVENTIVE)
+  code             String          @unique
+  description      String
+  startDate        DateTime?
+  endDate          DateTime?
+  shortDescription String?
+  action           String? // Lookup
+  message          String?
+  processNotes     String?
+
+  performerId String? // Team or employee
+  performer   Employee? @relation("MaintenancePerformer", fields: [performerId], references: [id], onDelete: Cascade)
+  // parentProcessId String?
+
+  processStatus     Status      @default(PENDING)
+  register          String?
+  activityIdTimer   String?
+  activityStartTime DateTime?
+  activityEndTime   DateTime?
+  allDeadlines      String?
+  processType       ProcessType @default(CORRECTIVE)
+  ttSysRunning      Decimal?
+  ttWorkRunning     Decimal?
+  sorting           String?
+
+  requesterId String?
+  requester   Employee? @relation("MaintenanceRequester", fields: [requesterId], references: [id], onDelete: Cascade)
+
+  priority Priority @default(LOW)
+
+  siteId String
+  site   Complex @relation(fields: [siteId], references: [id], onDelete: Cascade)
+
+  outcome        String? // Lookup
+  dueAssignedEnd DateTime? // Execution end date
+  execStart      DateTime? // Execution start date
+  dueExecEndDate DateTime? // Due execution end date
+  execEndDate    DateTime? // Execution end date
+  dueClosuerDate DateTime? // Due closure date
+  totalExecTime  Decimal? // Total execution time
+
+  expStartDate DateTime?
+
+  suspensionReason String? // Lookup
+
+  category    String? //Reference
+  subCategory String? //Reference
+  company     String? //Reference
+
+  teamId String?
+  team   Team?   @relation(fields: [teamId], references: [id], onDelete: Cascade)
+
+  floorId            String?
+  floor              Floor?   @relation(fields: [floorId], references: [id], onDelete: Cascade)
+  roomId             String?
+  room               Room?    @relation(fields: [roomId], references: [id], onDelete: Cascade)
+  ttSystemOpening    Decimal?
+  ttWorkOpening      Decimal?
+  ttSystemAssignment Decimal?
+  ttWorkAssignment   Decimal?
+  ttSystemExecution  Decimal?
+  ttWorkExecution    Decimal?
+  ttSysSuspension    Decimal?
+  ttWorkSuspension   Decimal?
+  ttEstimate         Decimal?
+
+  // For preventive
+  prevMaintenanceConfigId String? // For Preventive
+  automaticConfig         Boolean @default(true)
+  jointAccounting         Boolean @default(false)
+  hasTasks                Boolean @default(false)
+
+  estimateStatus Status @default(PENDING)
+
+  delayNotification Boolean   @default(false)
+  assigneeId        String?
+  assignee          Employee? @relation("MaintenanceAssignee", fields: [assigneeId], references: [id], onDelete: Cascade)
+
+  assetId String?
+  asset   Asset?  @relation(fields: [assetId], references: [id])
+
+  photos File[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+enum Frequency {
+  DAILY
+  WEEKLY
+  MONTHLY
+  YEARLY
+  CUSTOM
+}
+
+model Preventive {
+  id             String    @id @default(uuid())
+  code           String    @unique
+  name           String
+  description    String
+  frequency      Frequency @default(MONTHLY)
+  cronExpression String? // For CUSTOM frequency
+
+  // Scheduling
+  lastRun DateTime?
+  nextRun DateTime
+
+  // Template Data for created Maintenance tasks
+  priority Priority @default(MEDIUM)
+  duration Int? // Estimated duration in minutes
+
+  // Relations (Template targets)
+  siteId String
+  site   Complex @relation(fields: [siteId], references: [id], onDelete: Cascade)
+
+  buildingId String?
+  building   Building? @relation(fields: [buildingId], references: [id])
+
+  floorId String?
+  floor   Floor?  @relation(fields: [floorId], references: [id])
+
+  roomId String?
+  room   Room?   @relation(fields: [roomId], references: [id])
+
+  teamId String?
+  team   Team?   @relation(fields: [teamId], references: [id])
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@map("preventives")
 }
 
 model RefreshToken {

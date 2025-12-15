@@ -24,6 +24,7 @@ import assetRoutes from "./modules/assets/routes/asset.routes";
 import companiesRoutes from "./modules/companies/companies.routes";
 import employeesRoutes from "./modules/employees/employees.routes";
 import teamsRoutes from "./modules/teams/teams.routes";
+import maintenanceRoutes from "./modules/maintenance/maintenance.routes";
 
 const app: Application = express();
 
@@ -79,6 +80,7 @@ app.use(
 app.use(`/api/${API_VERSION}/companies`, apiRateLimiter, companiesRoutes);
 app.use(`/api/${API_VERSION}/employees`, apiRateLimiter, employeesRoutes);
 app.use(`/api/${API_VERSION}/teams`, apiRateLimiter, teamsRoutes);
+app.use(`/api/${API_VERSION}/maintenance`, apiRateLimiter, maintenanceRoutes);
 // SITES
 app.use(`/api/${API_VERSION}/complexes`, apiRateLimiter, complexesRoutes);
 app.use(`/api/${API_VERSION}/buildings`, apiRateLimiter, buildingsRoutes);

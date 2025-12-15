@@ -309,7 +309,8 @@ exports.Prisma.AssetScalarFieldEnum = {
 
 exports.Prisma.FileScalarFieldEnum = {
   id: 'id',
-  url: 'url'
+  url: 'url',
+  maintenanceId: 'maintenanceId'
 };
 
 exports.Prisma.CompanyScalarFieldEnum = {
@@ -356,9 +357,96 @@ exports.Prisma.AddressScalarFieldEnum = {
   zipCode: 'zipCode'
 };
 
+exports.Prisma.ContractScalarFieldEnum = {
+  id: 'id',
+  code: 'code',
+  description: 'description'
+};
+
 exports.Prisma.CalenderEntityScalarFieldEnum = {
   id: 'id',
   name: 'name',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.MaintenanceScalarFieldEnum = {
+  id: 'id',
+  type: 'type',
+  code: 'code',
+  description: 'description',
+  startDate: 'startDate',
+  endDate: 'endDate',
+  shortDescription: 'shortDescription',
+  action: 'action',
+  message: 'message',
+  processNotes: 'processNotes',
+  performerId: 'performerId',
+  processStatus: 'processStatus',
+  register: 'register',
+  activityIdTimer: 'activityIdTimer',
+  activityStartTime: 'activityStartTime',
+  activityEndTime: 'activityEndTime',
+  allDeadlines: 'allDeadlines',
+  processType: 'processType',
+  ttSysRunning: 'ttSysRunning',
+  ttWorkRunning: 'ttWorkRunning',
+  sorting: 'sorting',
+  requesterId: 'requesterId',
+  priority: 'priority',
+  siteId: 'siteId',
+  outcome: 'outcome',
+  dueAssignedEnd: 'dueAssignedEnd',
+  execStart: 'execStart',
+  dueExecEndDate: 'dueExecEndDate',
+  execEndDate: 'execEndDate',
+  dueClosuerDate: 'dueClosuerDate',
+  totalExecTime: 'totalExecTime',
+  expStartDate: 'expStartDate',
+  suspensionReason: 'suspensionReason',
+  category: 'category',
+  subCategory: 'subCategory',
+  company: 'company',
+  teamId: 'teamId',
+  floorId: 'floorId',
+  roomId: 'roomId',
+  ttSystemOpening: 'ttSystemOpening',
+  ttWorkOpening: 'ttWorkOpening',
+  ttSystemAssignment: 'ttSystemAssignment',
+  ttWorkAssignment: 'ttWorkAssignment',
+  ttSystemExecution: 'ttSystemExecution',
+  ttWorkExecution: 'ttWorkExecution',
+  ttSysSuspension: 'ttSysSuspension',
+  ttWorkSuspension: 'ttWorkSuspension',
+  ttEstimate: 'ttEstimate',
+  prevMaintenanceConfigId: 'prevMaintenanceConfigId',
+  automaticConfig: 'automaticConfig',
+  jointAccounting: 'jointAccounting',
+  hasTasks: 'hasTasks',
+  estimateStatus: 'estimateStatus',
+  delayNotification: 'delayNotification',
+  assigneeId: 'assigneeId',
+  assetId: 'assetId',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.PreventiveScalarFieldEnum = {
+  id: 'id',
+  code: 'code',
+  name: 'name',
+  description: 'description',
+  frequency: 'frequency',
+  cronExpression: 'cronExpression',
+  lastRun: 'lastRun',
+  nextRun: 'nextRun',
+  priority: 'priority',
+  duration: 'duration',
+  siteId: 'siteId',
+  buildingId: 'buildingId',
+  floorId: 'floorId',
+  roomId: 'roomId',
+  teamId: 'teamId',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 };
@@ -470,6 +558,36 @@ exports.EmployeeType = exports.$Enums.EmployeeType = {
   SUPPLIER_EMPLOYEE: 'SUPPLIER_EMPLOYEE'
 };
 
+exports.MaintenanceType = exports.$Enums.MaintenanceType = {
+  PREVENTIVE: 'PREVENTIVE',
+  CORRECTIVE: 'CORRECTIVE'
+};
+
+exports.Status = exports.$Enums.Status = {
+  PENDING: 'PENDING',
+  IN_PROGRESS: 'IN_PROGRESS',
+  COMPLETED: 'COMPLETED'
+};
+
+exports.ProcessType = exports.$Enums.ProcessType = {
+  MAINTENANCE: 'MAINTENANCE',
+  CORRECTIVE: 'CORRECTIVE'
+};
+
+exports.Priority = exports.$Enums.Priority = {
+  LOW: 'LOW',
+  MEDIUM: 'MEDIUM',
+  HIGH: 'HIGH'
+};
+
+exports.Frequency = exports.$Enums.Frequency = {
+  DAILY: 'DAILY',
+  WEEKLY: 'WEEKLY',
+  MONTHLY: 'MONTHLY',
+  YEARLY: 'YEARLY',
+  CUSTOM: 'CUSTOM'
+};
+
 exports.Prisma.ModelName = {
   User: 'User',
   Role: 'Role',
@@ -486,7 +604,10 @@ exports.Prisma.ModelName = {
   Employee: 'Employee',
   Team: 'Team',
   Address: 'Address',
+  Contract: 'Contract',
   CalenderEntity: 'CalenderEntity',
+  Maintenance: 'Maintenance',
+  Preventive: 'Preventive',
   RefreshToken: 'RefreshToken'
 };
 
