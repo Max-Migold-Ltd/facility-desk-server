@@ -6,14 +6,14 @@ import { ForbiddenError } from "../errors";
 export const requireRole = (roles: string[]) => {
   return (req: Request, res: Response, next: NextFunction) => {
     try {
-      // Check if user exists 
+      // Check if user exists
       if (!req.user) {
         throw new ForbiddenError("User not authenticated");
       }
 
-      // Check if user has ANY of the required roles
-      const userRoleNames = req.user.roles.map((r: any) => r.name);
-      const hasRole = roles.some((role) => userRoleNames.includes(role));
+      // Check if user has required role
+      const userRoleName = req.user.role.name;
+      const hasRole = roles.includes(userRoleName);
 
       if (!hasRole) {
         throw new ForbiddenError(

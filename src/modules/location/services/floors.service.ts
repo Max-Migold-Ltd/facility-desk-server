@@ -54,14 +54,14 @@ export class FloorsService {
               name: true,
             },
           },
-          rooms: {
+          spaces: {
             select: {
               id: true,
               code: true,
               name: true,
             },
           },
-          units: {
+          zones: {
             select: {
               id: true,
               code: true,
@@ -94,14 +94,14 @@ export class FloorsService {
             name: true,
           },
         },
-        rooms: {
+        spaces: {
           select: {
             id: true,
             code: true,
             name: true,
           },
         },
-        units: {
+        zones: {
           select: {
             id: true,
             code: true,
@@ -144,14 +144,14 @@ export class FloorsService {
             name: true,
           },
         },
-        rooms: {
+        spaces: {
           select: {
             id: true,
             code: true,
             name: true,
           },
         },
-        units: {
+        zones: {
           select: {
             id: true,
             code: true,

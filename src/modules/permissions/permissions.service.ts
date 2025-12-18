@@ -3,18 +3,7 @@ import { AccessLevel } from "../../generated/prisma";
 import { NotFoundError } from "../../errors";
 
 export class PermissionsService {
-  async findByRoles(roleIds: string[]) {
-    // Logic changed: Fetch permissions for MULTIPLE roles and merge them?
-    // Or just fetch all. Merging logic usually happens in middleware/checker.
-
-    const permissions = await prisma.permission.findMany({
-      where: { roleId: { in: roleIds } },
-      include: { role: true }, // Optional: include role info
-      orderBy: { resource: "asc" },
-    });
-
-    return permissions;
-  }
+  // Method removed: findByRoles (M:N refactor reverted)
 
   // Previous `findByRole` (singular) kept for admin usage/single role editing
   async findByRole(roleId: string) {

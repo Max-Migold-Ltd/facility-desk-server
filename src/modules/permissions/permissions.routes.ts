@@ -3,7 +3,6 @@ import { PermissionsController } from './permissions.controller';
 import { authenticate } from '../../middleware/auth.middleware';
 import { requireRole } from '../../middleware/rbac.middleware';
 import { requirePermission } from '../../middleware/permission.middleware';
-import { RoleName } from '../../generated/prisma';
 
 const router = Router();
 const permissionsController = new PermissionsController();
@@ -65,7 +64,7 @@ router.use(authenticate);
  */
 router.get(
   '/:roleId/permissions',
-  requireRole([RoleName.ADMIN]),
+  requireRole(["ADMIN"]),
   requirePermission('Permission', 'READ'),
   permissionsController.getRolePermissions
 );
@@ -135,9 +134,9 @@ router.get(
  *         description: Role not found
  */
 router.put(
-  '/:roleId/permissions',
-  requireRole([RoleName.ADMIN]),
-  requirePermission('Permission', 'WRITE'),
+  "/:roleId/permissions",
+  requireRole(["ADMIN"]),
+  requirePermission("Permission", "WRITE"),
   permissionsController.updateRolePermissions
 );
 

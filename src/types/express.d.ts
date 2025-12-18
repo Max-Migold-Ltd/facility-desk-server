@@ -9,11 +9,16 @@ declare global {
         firstName: string;
         lastName: string;
         status: string;
-        roles: {
+        role: {
           id: string;
           name: string;
           isSystem: boolean;
           description: string | null;
+        };
+        permissions: {
+          id: string;
+          resource: string;
+          accessLevel: string; // Using string to avoid enum import issues, or import AccessLevel
         }[];
       };
     }

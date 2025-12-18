@@ -1,9 +1,8 @@
-import { Router } from 'express';
-import { RolesController } from './roles.controller';
-import { authenticate } from '../../middleware/auth.middleware';
-import { requireRole } from '../../middleware/rbac.middleware';
-import { requirePermission } from '../../middleware/permission.middleware';
-import { RoleName } from '../../generated/prisma';
+import { Router } from "express";
+import { RolesController } from "./roles.controller";
+import { authenticate } from "../../middleware/auth.middleware";
+import { requireRole } from "../../middleware/rbac.middleware";
+import { requirePermission } from "../../middleware/permission.middleware";
 
 const router = Router();
 const rolesController = new RolesController();
@@ -55,9 +54,9 @@ router.use(authenticate);
  *         description: Insufficient permissions
  */
 router.get(
-  '/',
-  requireRole([RoleName.ADMIN]),
-  requirePermission('Role', 'READ'),
+  "/",
+  requireRole(["ADMIN"]),
+  requirePermission("Role", "READ"),
   rolesController.getAll
 );
 
@@ -112,9 +111,9 @@ router.get(
  *         description: Role not found
  */
 router.get(
-  '/:id',
-  requireRole([RoleName.ADMIN]),
-  requirePermission('Role', 'READ'),
+  "/:id",
+  requireRole(["ADMIN"]),
+  requirePermission("Role", "READ"),
   rolesController.getById
 );
 

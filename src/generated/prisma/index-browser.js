@@ -126,6 +126,7 @@ exports.Prisma.UserScalarFieldEnum = {
   password: 'password',
   firstName: 'firstName',
   lastName: 'lastName',
+  roleId: 'roleId',
   status: 'status',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt',
@@ -146,6 +147,15 @@ exports.Prisma.RoleScalarFieldEnum = {
 exports.Prisma.PermissionScalarFieldEnum = {
   id: 'id',
   roleId: 'roleId',
+  resource: 'resource',
+  accessLevel: 'accessLevel',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.UserPermissionScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
   resource: 'resource',
   accessLevel: 'accessLevel',
   createdAt: 'createdAt',
@@ -300,6 +310,11 @@ exports.Prisma.SpaceScalarFieldEnum = {
   totalVolume: 'totalVolume',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
+};
+
+exports.Prisma.AssetTypeScalarFieldEnum = {
+  id: 'id',
+  name: 'name'
 };
 
 exports.Prisma.AssetCategoryScalarFieldEnum = {
@@ -621,12 +636,14 @@ exports.Prisma.ModelName = {
   User: 'User',
   Role: 'Role',
   Permission: 'Permission',
+  UserPermission: 'UserPermission',
   Site: 'Site',
   Complex: 'Complex',
   Building: 'Building',
   Floor: 'Floor',
   Zone: 'Zone',
   Space: 'Space',
+  AssetType: 'AssetType',
   AssetCategory: 'AssetCategory',
   Asset: 'Asset',
   File: 'File',

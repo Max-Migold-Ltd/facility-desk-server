@@ -24,7 +24,8 @@ export const authenticate = async (
     const user = await prisma.user.findUnique({
       where: { id: payload.userId },
       include: {
-        roles: true,
+        role: true,
+        permissions: true, // Fetch direct user permissions
       },
     });
 

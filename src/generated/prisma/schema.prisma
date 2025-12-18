@@ -147,18 +147,18 @@ enum Priority {
 // ========================  MODELS =================================== //
 
 model User {
-  id            String         @id @default(uuid())
-  email         String         @unique
+  id            String           @id @default(uuid())
+  email         String           @unique
   password      String
   firstName     String
   lastName      String
-  // roleId        String // Removed for M:N
-  status        UserStatus     @default(ACTIVE)
-  createdAt     DateTime       @default(now())
-  updatedAt     DateTime       @updatedAt
+  roleId        String
+  status        UserStatus       @default(ACTIVE)
+  createdAt     DateTime         @default(now())
+  updatedAt     DateTime         @updatedAt
   refreshTokens RefreshToken[]
-  // role          Role           @relation(fields: [roleId], references: [id])
-  roles         Role[]
+  role          Role             @relation(fields: [roleId], references: [id])
+  permissions   UserPermission[] // Direct permissions
 
   passwordResetToken String?
   passwordExpiresAt  DateTime?
@@ -166,7 +166,7 @@ model User {
   employees          Employee[]
 
   @@index([email])
-  // @@index([roleId])
+  @@index([roleId])
   @@map("users")
 }
 
@@ -196,6 +196,20 @@ model Permission {
   @@unique([roleId, resource])
   @@index([roleId])
   @@map("permissions")
+}
+
+model UserPermission {
+  id          String      @id @default(uuid())
+  userId      String
+  resource    String
+  accessLevel AccessLevel @default(NONE)
+  createdAt   DateTime    @default(now())
+  updatedAt   DateTime    @updatedAt
+  user        User        @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, resource])
+  @@index([userId])
+  @@map("user_permissions")
 }
 
 model Site {
@@ -457,6 +471,12 @@ model Space {
 // categories - devices, finishings, items, machineries
 // subcategories - devices: burglar devices, electrical devices, climate control devices etc.
 // asset - door, window, siren, etc.
+
+model AssetType {
+  id   String @id @default(uuid())
+  name String @unique
+}
+
 model AssetCategory {
   id          String            @id @default(uuid())
   name        String            @unique

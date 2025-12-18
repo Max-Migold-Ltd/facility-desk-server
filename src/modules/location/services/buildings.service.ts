@@ -13,7 +13,9 @@ import { ComplexesService } from "./complexes.service";
 const complexesService = new ComplexesService();
 
 export class BuildingsService {
-  async findAll(query: QueryBuildingDto): Promise<PaginatedBuildingResponseDto> {
+  async findAll(
+    query: QueryBuildingDto
+  ): Promise<PaginatedBuildingResponseDto> {
     const {
       complexId,
       mainUse,
@@ -39,7 +41,7 @@ export class BuildingsService {
       whereClause.OR = [
         { code: { contains: search, mode: "insensitive" } },
         { name: { contains: search, mode: "insensitive" } },
-        { address: { contains: search, mode: "insensitive" } },
+        { address: { street: { contains: search, mode: "insensitive" } } },
       ];
     }
 
@@ -50,6 +52,9 @@ export class BuildingsService {
         take: limit,
         skip: (page - 1) * limit,
         orderBy: { [sortBy]: sortOrder },
+        include: {
+          address: true,
+        },
       }),
     ]);
 
@@ -68,6 +73,7 @@ export class BuildingsService {
     const building = await prisma.building.findUnique({
       where: { id },
       include: {
+        address: true,
         complex: {
           select: {
             id: true,
@@ -104,44 +110,82 @@ export class BuildingsService {
   }
 
   async create(data: CreateBuildingDto): Promise<BuildingResponseDto> {
-    const { photoIds, ...buildingData } = data;
+    const { photoIds, address, complexId, calenderEntityId, ...buildingData } =
+      data;
 
     // Check if complex exists
-    const complex = await complexesService.exists(data.complexId);
-    if(!complex) {
+    const complex = await complexesService.exists(complexId);
+    if (!complex) {
       throw new NotFoundError("Complex");
     }
 
     const building = await prisma.building.create({
       data: {
         ...buildingData,
+        complex: {
+          connect: { id: complexId },
+        },
+        address: {
+          create: address,
+        },
+        ...(calenderEntityId && {
+          calenderEntity: {
+            connect: { id: calenderEntityId },
+          },
+        }),
         ...(photoIds && {
           photos: {
             connect: photoIds.map((id) => ({ id })),
           },
         }),
       },
+      include: {
+        address: true,
+      },
     });
 
     return building as BuildingResponseDto;
   }
 
-  async update(id: string, data: UpdateBuildingDto): Promise<BuildingResponseDto> {
+  async update(
+    id: string,
+    data: UpdateBuildingDto
+  ): Promise<BuildingResponseDto> {
     const building = await prisma.building.findUnique({ where: { id } });
     if (!building) throw new NotFoundError("Building");
 
     // Check if complex exists
-    if(data?.complexId) {
+    if (data?.complexId) {
       const complex = await complexesService.exists(data.complexId);
-      if(!complex) {
+      if (!complex) {
         throw new NotFoundError("Complex");
       }
     }
 
+    const { address, complexId, calenderEntityId, ...rest } = data;
+
     const updated = await prisma.building.update({
       where: { id },
-      data,
+      data: {
+        ...rest,
+        ...(complexId && {
+          complex: {
+            connect: { id: complexId },
+          },
+        }),
+        ...(calenderEntityId && {
+          calenderEntity: {
+            connect: { id: calenderEntityId },
+          },
+        }),
+        ...(address && {
+          address: {
+            update: address,
+          },
+        }),
+      },
       include: {
+        address: true,
         complex: {
           select: {
             id: true,

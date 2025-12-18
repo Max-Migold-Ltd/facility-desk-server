@@ -41,12 +41,11 @@ export class AuthService {
         password: hashedPassword,
         firstName: data.firstName,
         lastName: data.lastName,
-        roles: {
-          connect: [{ id: role.id }],
-        },
+        roleId: role.id,
       },
       include: {
-        roles: true,
+        role: true,
+        permissions: true,
       },
     });
 
@@ -72,7 +71,7 @@ export class AuthService {
     // Find user
     const user = await prisma.user.findUnique({
       where: { email: data.email },
-      include: { roles: true },
+      include: { role: true, permissions: true },
     });
 
     if (!user) {
@@ -115,7 +114,7 @@ export class AuthService {
       where: { token: refreshToken },
       include: {
         user: {
-          include: { roles: true },
+          include: { role: true, permissions: true },
         },
       },
     });
@@ -151,7 +150,7 @@ export class AuthService {
   async me(userId: string): Promise<AuthResponse & { refreshToken: string }> {
     const user = await prisma.user.findUnique({
       where: { id: userId },
-      include: { roles: true },
+      include: { role: true, permissions: true },
     });
 
     if (!user) {

@@ -80,20 +80,7 @@ export class AssetService {
             id: true,
             name: true,
             type: true,
-            category: {
-          select: {
-            id: true,
-            name: true,
-            type: true,
           },
-        },
-        space: {
-          select: {
-            id: true,
-            code: true,
-            name: true,
-          },
-        },
         },
         space: {
           select: {

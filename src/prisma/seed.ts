@@ -108,9 +108,7 @@ async function main() {
     await prisma.user.update({
       where: { id: existingAdmin.id },
       data: {
-        roles: {
-          connect: [{ id: rolesMap.get(ROLES.SUPER_ADMIN) }],
-        },
+        roleId: rolesMap.get(ROLES.SUPER_ADMIN),
       },
     });
   } else {
@@ -121,9 +119,7 @@ async function main() {
         firstName: "System",
         lastName: "Administrator",
         status: "ACTIVE",
-        roles: {
-          connect: [{ id: rolesMap.get(ROLES.SUPER_ADMIN) }],
-        },
+        roleId: rolesMap.get(ROLES.SUPER_ADMIN)!,
       },
     });
   }

@@ -1,19 +1,31 @@
-import { Availability, Condition, Criticality, MainUse, ServiceStatus } from "../../../generated/prisma";
+import {
+  Availability,
+  Condition,
+  Criticality,
+  MainUse,
+  ServiceStatus,
+} from "../../../generated/prisma";
 
 /**
  * DTO for creating a new building
  */
+
+export interface AddressDto {
+  street: string;
+  city: string;
+  state: string;
+  zipCode: string;
+  latitude?: number;
+  longitude?: number;
+}
 export interface CreateBuildingDto {
   name: string;
   code: string;
   mainUse?: MainUse;
   availability?: Availability;
   status?: ServiceStatus;
-  address?: string;
-  latitude?: number;
-  longitude?: number;
-  city?: string;
-  zipCode?: string;
+
+  address: AddressDto;
 
   condition?: Condition;
   criticality?: Criticality;
@@ -42,11 +54,7 @@ export interface UpdateBuildingDto {
   mainUse?: MainUse;
   availability?: Availability;
   status?: ServiceStatus;
-  address?: string;
-  latitude?: number;
-  longitude?: number;
-  city?: string;
-  zipCode?: string;
+  address: AddressDto;
 
   condition?: Condition;
   criticality?: Criticality;
@@ -76,11 +84,8 @@ export interface BuildingResponseDto {
   mainUse?: MainUse;
   availability?: Availability;
   status?: ServiceStatus;
-  address?: string;
-  latitude?: number;
-  longitude?: number;
-  city?: string;
-  zipCode?: string;
+ 
+  address: AddressDto;
 
   condition?: Condition;
   criticality?: Criticality;
@@ -121,8 +126,14 @@ export interface BuildingResponseDto {
 export interface QueryBuildingDto {
   page?: number;
   limit?: number;
-  sortBy?: 'name' | 'code' | 'createdAt' | 'mainUse' | 'condition' | 'criticality';
-  sortOrder?: 'asc' | 'desc';
+  sortBy?:
+    | "name"
+    | "code"
+    | "createdAt"
+    | "mainUse"
+    | "condition"
+    | "criticality";
+  sortOrder?: "asc" | "desc";
   complexId?: string;
   mainUse?: MainUse;
   condition?: Condition;
