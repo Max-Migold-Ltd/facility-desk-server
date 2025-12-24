@@ -25434,8 +25434,20 @@ export namespace Prisma {
 
   export type AggregateAddress = {
     _count: AddressCountAggregateOutputType | null
+    _avg: AddressAvgAggregateOutputType | null
+    _sum: AddressSumAggregateOutputType | null
     _min: AddressMinAggregateOutputType | null
     _max: AddressMaxAggregateOutputType | null
+  }
+
+  export type AddressAvgAggregateOutputType = {
+    latitude: number | null
+    longitude: number | null
+  }
+
+  export type AddressSumAggregateOutputType = {
+    latitude: number | null
+    longitude: number | null
   }
 
   export type AddressMinAggregateOutputType = {
@@ -25444,6 +25456,8 @@ export namespace Prisma {
     city: string | null
     state: string | null
     zipCode: string | null
+    latitude: number | null
+    longitude: number | null
   }
 
   export type AddressMaxAggregateOutputType = {
@@ -25452,6 +25466,8 @@ export namespace Prisma {
     city: string | null
     state: string | null
     zipCode: string | null
+    latitude: number | null
+    longitude: number | null
   }
 
   export type AddressCountAggregateOutputType = {
@@ -25460,9 +25476,21 @@ export namespace Prisma {
     city: number
     state: number
     zipCode: number
+    latitude: number
+    longitude: number
     _all: number
   }
 
+
+  export type AddressAvgAggregateInputType = {
+    latitude?: true
+    longitude?: true
+  }
+
+  export type AddressSumAggregateInputType = {
+    latitude?: true
+    longitude?: true
+  }
 
   export type AddressMinAggregateInputType = {
     id?: true
@@ -25470,6 +25498,8 @@ export namespace Prisma {
     city?: true
     state?: true
     zipCode?: true
+    latitude?: true
+    longitude?: true
   }
 
   export type AddressMaxAggregateInputType = {
@@ -25478,6 +25508,8 @@ export namespace Prisma {
     city?: true
     state?: true
     zipCode?: true
+    latitude?: true
+    longitude?: true
   }
 
   export type AddressCountAggregateInputType = {
@@ -25486,6 +25518,8 @@ export namespace Prisma {
     city?: true
     state?: true
     zipCode?: true
+    latitude?: true
+    longitude?: true
     _all?: true
   }
 
@@ -25527,6 +25561,18 @@ export namespace Prisma {
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
      * 
+     * Select which fields to average
+    **/
+    _avg?: AddressAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: AddressSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
      * Select which fields to find the minimum value
     **/
     _min?: AddressMinAggregateInputType
@@ -25557,6 +25603,8 @@ export namespace Prisma {
     take?: number
     skip?: number
     _count?: AddressCountAggregateInputType | true
+    _avg?: AddressAvgAggregateInputType
+    _sum?: AddressSumAggregateInputType
     _min?: AddressMinAggregateInputType
     _max?: AddressMaxAggregateInputType
   }
@@ -25567,7 +25615,11 @@ export namespace Prisma {
     city: string
     state: string
     zipCode: string
+    latitude: number | null
+    longitude: number | null
     _count: AddressCountAggregateOutputType | null
+    _avg: AddressAvgAggregateOutputType | null
+    _sum: AddressSumAggregateOutputType | null
     _min: AddressMinAggregateOutputType | null
     _max: AddressMaxAggregateOutputType | null
   }
@@ -25592,6 +25644,8 @@ export namespace Prisma {
     city?: boolean
     state?: boolean
     zipCode?: boolean
+    latitude?: boolean
+    longitude?: boolean
     companies?: boolean | Address$companiesArgs<ExtArgs>
     buildings?: boolean | Address$buildingsArgs<ExtArgs>
     _count?: boolean | AddressCountOutputTypeDefaultArgs<ExtArgs>
@@ -25603,6 +25657,8 @@ export namespace Prisma {
     city?: boolean
     state?: boolean
     zipCode?: boolean
+    latitude?: boolean
+    longitude?: boolean
   }, ExtArgs["result"]["address"]>
 
   export type AddressSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
@@ -25611,6 +25667,8 @@ export namespace Prisma {
     city?: boolean
     state?: boolean
     zipCode?: boolean
+    latitude?: boolean
+    longitude?: boolean
   }, ExtArgs["result"]["address"]>
 
   export type AddressSelectScalar = {
@@ -25619,9 +25677,11 @@ export namespace Prisma {
     city?: boolean
     state?: boolean
     zipCode?: boolean
+    latitude?: boolean
+    longitude?: boolean
   }
 
-  export type AddressOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "street" | "city" | "state" | "zipCode", ExtArgs["result"]["address"]>
+  export type AddressOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "street" | "city" | "state" | "zipCode" | "latitude" | "longitude", ExtArgs["result"]["address"]>
   export type AddressInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     companies?: boolean | Address$companiesArgs<ExtArgs>
     buildings?: boolean | Address$buildingsArgs<ExtArgs>
@@ -25642,6 +25702,8 @@ export namespace Prisma {
       city: string
       state: string
       zipCode: string
+      latitude: number | null
+      longitude: number | null
     }, ExtArgs["result"]["address"]>
     composites: {}
   }
@@ -26072,6 +26134,8 @@ export namespace Prisma {
     readonly city: FieldRef<"Address", 'String'>
     readonly state: FieldRef<"Address", 'String'>
     readonly zipCode: FieldRef<"Address", 'String'>
+    readonly latitude: FieldRef<"Address", 'Float'>
+    readonly longitude: FieldRef<"Address", 'Float'>
   }
     
 
@@ -33541,7 +33605,9 @@ export namespace Prisma {
     street: 'street',
     city: 'city',
     state: 'state',
-    zipCode: 'zipCode'
+    zipCode: 'zipCode',
+    latitude: 'latitude',
+    longitude: 'longitude'
   };
 
   export type AddressScalarFieldEnum = (typeof AddressScalarFieldEnum)[keyof typeof AddressScalarFieldEnum]
@@ -35776,6 +35842,8 @@ export namespace Prisma {
     city?: StringFilter<"Address"> | string
     state?: StringFilter<"Address"> | string
     zipCode?: StringFilter<"Address"> | string
+    latitude?: FloatNullableFilter<"Address"> | number | null
+    longitude?: FloatNullableFilter<"Address"> | number | null
     companies?: CompanyListRelationFilter
     buildings?: BuildingListRelationFilter
   }
@@ -35786,6 +35854,8 @@ export namespace Prisma {
     city?: SortOrder
     state?: SortOrder
     zipCode?: SortOrder
+    latitude?: SortOrderInput | SortOrder
+    longitude?: SortOrderInput | SortOrder
     companies?: CompanyOrderByRelationAggregateInput
     buildings?: BuildingOrderByRelationAggregateInput
   }
@@ -35799,6 +35869,8 @@ export namespace Prisma {
     city?: StringFilter<"Address"> | string
     state?: StringFilter<"Address"> | string
     zipCode?: StringFilter<"Address"> | string
+    latitude?: FloatNullableFilter<"Address"> | number | null
+    longitude?: FloatNullableFilter<"Address"> | number | null
     companies?: CompanyListRelationFilter
     buildings?: BuildingListRelationFilter
   }, "id">
@@ -35809,9 +35881,13 @@ export namespace Prisma {
     city?: SortOrder
     state?: SortOrder
     zipCode?: SortOrder
+    latitude?: SortOrderInput | SortOrder
+    longitude?: SortOrderInput | SortOrder
     _count?: AddressCountOrderByAggregateInput
+    _avg?: AddressAvgOrderByAggregateInput
     _max?: AddressMaxOrderByAggregateInput
     _min?: AddressMinOrderByAggregateInput
+    _sum?: AddressSumOrderByAggregateInput
   }
 
   export type AddressScalarWhereWithAggregatesInput = {
@@ -35823,6 +35899,8 @@ export namespace Prisma {
     city?: StringWithAggregatesFilter<"Address"> | string
     state?: StringWithAggregatesFilter<"Address"> | string
     zipCode?: StringWithAggregatesFilter<"Address"> | string
+    latitude?: FloatNullableWithAggregatesFilter<"Address"> | number | null
+    longitude?: FloatNullableWithAggregatesFilter<"Address"> | number | null
   }
 
   export type ContractWhereInput = {
@@ -38454,6 +38532,8 @@ export namespace Prisma {
     city: string
     state: string
     zipCode: string
+    latitude?: number | null
+    longitude?: number | null
     companies?: CompanyCreateNestedManyWithoutAddressInput
     buildings?: BuildingCreateNestedManyWithoutAddressInput
   }
@@ -38464,6 +38544,8 @@ export namespace Prisma {
     city: string
     state: string
     zipCode: string
+    latitude?: number | null
+    longitude?: number | null
     companies?: CompanyUncheckedCreateNestedManyWithoutAddressInput
     buildings?: BuildingUncheckedCreateNestedManyWithoutAddressInput
   }
@@ -38474,6 +38556,8 @@ export namespace Prisma {
     city?: StringFieldUpdateOperationsInput | string
     state?: StringFieldUpdateOperationsInput | string
     zipCode?: StringFieldUpdateOperationsInput | string
+    latitude?: NullableFloatFieldUpdateOperationsInput | number | null
+    longitude?: NullableFloatFieldUpdateOperationsInput | number | null
     companies?: CompanyUpdateManyWithoutAddressNestedInput
     buildings?: BuildingUpdateManyWithoutAddressNestedInput
   }
@@ -38484,6 +38568,8 @@ export namespace Prisma {
     city?: StringFieldUpdateOperationsInput | string
     state?: StringFieldUpdateOperationsInput | string
     zipCode?: StringFieldUpdateOperationsInput | string
+    latitude?: NullableFloatFieldUpdateOperationsInput | number | null
+    longitude?: NullableFloatFieldUpdateOperationsInput | number | null
     companies?: CompanyUncheckedUpdateManyWithoutAddressNestedInput
     buildings?: BuildingUncheckedUpdateManyWithoutAddressNestedInput
   }
@@ -38494,6 +38580,8 @@ export namespace Prisma {
     city: string
     state: string
     zipCode: string
+    latitude?: number | null
+    longitude?: number | null
   }
 
   export type AddressUpdateManyMutationInput = {
@@ -38502,6 +38590,8 @@ export namespace Prisma {
     city?: StringFieldUpdateOperationsInput | string
     state?: StringFieldUpdateOperationsInput | string
     zipCode?: StringFieldUpdateOperationsInput | string
+    latitude?: NullableFloatFieldUpdateOperationsInput | number | null
+    longitude?: NullableFloatFieldUpdateOperationsInput | number | null
   }
 
   export type AddressUncheckedUpdateManyInput = {
@@ -38510,6 +38600,8 @@ export namespace Prisma {
     city?: StringFieldUpdateOperationsInput | string
     state?: StringFieldUpdateOperationsInput | string
     zipCode?: StringFieldUpdateOperationsInput | string
+    latitude?: NullableFloatFieldUpdateOperationsInput | number | null
+    longitude?: NullableFloatFieldUpdateOperationsInput | number | null
   }
 
   export type ContractCreateInput = {
@@ -40876,6 +40968,13 @@ export namespace Prisma {
     city?: SortOrder
     state?: SortOrder
     zipCode?: SortOrder
+    latitude?: SortOrder
+    longitude?: SortOrder
+  }
+
+  export type AddressAvgOrderByAggregateInput = {
+    latitude?: SortOrder
+    longitude?: SortOrder
   }
 
   export type AddressMaxOrderByAggregateInput = {
@@ -40884,6 +40983,8 @@ export namespace Prisma {
     city?: SortOrder
     state?: SortOrder
     zipCode?: SortOrder
+    latitude?: SortOrder
+    longitude?: SortOrder
   }
 
   export type AddressMinOrderByAggregateInput = {
@@ -40892,6 +40993,13 @@ export namespace Prisma {
     city?: SortOrder
     state?: SortOrder
     zipCode?: SortOrder
+    latitude?: SortOrder
+    longitude?: SortOrder
+  }
+
+  export type AddressSumOrderByAggregateInput = {
+    latitude?: SortOrder
+    longitude?: SortOrder
   }
 
   export type ContractCountOrderByAggregateInput = {
@@ -46451,6 +46559,8 @@ export namespace Prisma {
     city: string
     state: string
     zipCode: string
+    latitude?: number | null
+    longitude?: number | null
     companies?: CompanyCreateNestedManyWithoutAddressInput
   }
 
@@ -46460,6 +46570,8 @@ export namespace Prisma {
     city: string
     state: string
     zipCode: string
+    latitude?: number | null
+    longitude?: number | null
     companies?: CompanyUncheckedCreateNestedManyWithoutAddressInput
   }
 
@@ -46874,6 +46986,8 @@ export namespace Prisma {
     city?: StringFieldUpdateOperationsInput | string
     state?: StringFieldUpdateOperationsInput | string
     zipCode?: StringFieldUpdateOperationsInput | string
+    latitude?: NullableFloatFieldUpdateOperationsInput | number | null
+    longitude?: NullableFloatFieldUpdateOperationsInput | number | null
     companies?: CompanyUpdateManyWithoutAddressNestedInput
   }
 
@@ -46883,6 +46997,8 @@ export namespace Prisma {
     city?: StringFieldUpdateOperationsInput | string
     state?: StringFieldUpdateOperationsInput | string
     zipCode?: StringFieldUpdateOperationsInput | string
+    latitude?: NullableFloatFieldUpdateOperationsInput | number | null
+    longitude?: NullableFloatFieldUpdateOperationsInput | number | null
     companies?: CompanyUncheckedUpdateManyWithoutAddressNestedInput
   }
 
@@ -50513,6 +50629,8 @@ export namespace Prisma {
     city: string
     state: string
     zipCode: string
+    latitude?: number | null
+    longitude?: number | null
     buildings?: BuildingCreateNestedManyWithoutAddressInput
   }
 
@@ -50522,6 +50640,8 @@ export namespace Prisma {
     city: string
     state: string
     zipCode: string
+    latitude?: number | null
+    longitude?: number | null
     buildings?: BuildingUncheckedCreateNestedManyWithoutAddressInput
   }
 
@@ -50717,6 +50837,8 @@ export namespace Prisma {
     city?: StringFieldUpdateOperationsInput | string
     state?: StringFieldUpdateOperationsInput | string
     zipCode?: StringFieldUpdateOperationsInput | string
+    latitude?: NullableFloatFieldUpdateOperationsInput | number | null
+    longitude?: NullableFloatFieldUpdateOperationsInput | number | null
     buildings?: BuildingUpdateManyWithoutAddressNestedInput
   }
 
@@ -50726,6 +50848,8 @@ export namespace Prisma {
     city?: StringFieldUpdateOperationsInput | string
     state?: StringFieldUpdateOperationsInput | string
     zipCode?: StringFieldUpdateOperationsInput | string
+    latitude?: NullableFloatFieldUpdateOperationsInput | number | null
+    longitude?: NullableFloatFieldUpdateOperationsInput | number | null
     buildings?: BuildingUncheckedUpdateManyWithoutAddressNestedInput
   }
 
