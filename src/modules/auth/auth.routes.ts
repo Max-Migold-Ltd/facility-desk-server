@@ -1,9 +1,9 @@
-import { Router } from 'express';
-import { AuthController } from './auth.controller';
-import { registerValidation, loginValidation } from './auth.validation';
-import { validate } from '../../middleware/validate.middleware';
-import { authRateLimiter } from '../../middleware/rate-limit.middleware';
-import { authenticate } from '../../middleware/auth.middleware';
+import { Router } from "express";
+import { AuthController } from "./auth.controller";
+import { registerValidation, loginValidation } from "./auth.validation";
+import { validate } from "../../middleware/validate.middleware";
+import { authRateLimiter } from "../../middleware/rate-limit.middleware";
+import { authenticate } from "../../middleware/auth.middleware";
 
 const router = Router();
 const authController = new AuthController();
@@ -26,7 +26,7 @@ const authController = new AuthController();
  *               - password
  *               - firstName
  *               - lastName
- *               - roleName
+ *               - roleId
  *             properties:
  *               email:
  *                 type: string
@@ -43,10 +43,10 @@ const authController = new AuthController();
  *               lastName:
  *                 type: string
  *                 example: Doe
- *               roleName:
+ *               roleId:
  *                 type: string
- *                 enum: [ADMIN, MANAGER, TECHNICIAN, VIEWER]
- *                 example: VIEWER
+ *                 format: uuid
+ *                 example: "123e4567-e89b-12d3-a456-426614174000"
  *     responses:
  *       201:
  *         description: User successfully registered
@@ -98,7 +98,7 @@ const authController = new AuthController();
  *         description: Too many requests
  */
 router.post(
-  '/register',
+  "/register",
   authRateLimiter,
   validate(registerValidation),
   authController.register
@@ -170,7 +170,7 @@ router.post(
  *         description: Too many requests
  */
 router.post(
-  '/login',
+  "/login",
   authRateLimiter,
   validate(loginValidation),
   authController.login
@@ -206,10 +206,7 @@ router.post(
  *             schema:
  *               $ref: '#/components/schemas/Error'
  */
-router.post(
-  '/refresh',
-  authController.refresh
-);
+router.post("/refresh", authController.refresh);
 
 /**
  * @swagger
@@ -287,9 +284,6 @@ router.get("/me", authenticate, authController.me);
  *                   type: string
  *                   example: Logged out successfully
  */
-router.post(
-  '/logout',
-  authController.logout
-);
+router.post("/logout", authController.logout);
 
 export default router;
