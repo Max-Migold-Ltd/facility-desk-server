@@ -97,13 +97,10 @@ export class TeamsService {
       data,
       include: {
         supervisor: {
-          include: {
-            user: {
-              select: {
-                firstName: true,
-                lastName: true,
-              },
-            },
+          select: {
+            firstName: true,
+            lastName: true,
+            email: true,
           },
         },
       },
@@ -136,13 +133,10 @@ export class TeamsService {
       data,
       include: {
         supervisor: {
-          include: {
-            user: {
-              select: {
-                firstName: true,
-                lastName: true,
-              },
-            },
+          select: {
+            firstName: true,
+            lastName: true,
+            email: true,
           },
         },
       },

@@ -3265,6 +3265,7 @@ export namespace Prisma {
     spaces: number
     zones: number
     preventives: number
+    maintenances: number
   }
 
   export type BuildingCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -3273,6 +3274,7 @@ export namespace Prisma {
     spaces?: boolean | BuildingCountOutputTypeCountSpacesArgs
     zones?: boolean | BuildingCountOutputTypeCountZonesArgs
     preventives?: boolean | BuildingCountOutputTypeCountPreventivesArgs
+    maintenances?: boolean | BuildingCountOutputTypeCountMaintenancesArgs
   }
 
   // Custom InputTypes
@@ -3319,6 +3321,13 @@ export namespace Prisma {
    */
   export type BuildingCountOutputTypeCountPreventivesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: PreventiveWhereInput
+  }
+
+  /**
+   * BuildingCountOutputType without action
+   */
+  export type BuildingCountOutputTypeCountMaintenancesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: MaintenanceWhereInput
   }
 
 
@@ -11684,6 +11693,7 @@ export namespace Prisma {
     spaces?: boolean | Building$spacesArgs<ExtArgs>
     zones?: boolean | Building$zonesArgs<ExtArgs>
     preventives?: boolean | Building$preventivesArgs<ExtArgs>
+    maintenances?: boolean | Building$maintenancesArgs<ExtArgs>
     _count?: boolean | BuildingCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["building"]>
 
@@ -11781,6 +11791,7 @@ export namespace Prisma {
     spaces?: boolean | Building$spacesArgs<ExtArgs>
     zones?: boolean | Building$zonesArgs<ExtArgs>
     preventives?: boolean | Building$preventivesArgs<ExtArgs>
+    maintenances?: boolean | Building$maintenancesArgs<ExtArgs>
     _count?: boolean | BuildingCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type BuildingIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -11805,6 +11816,7 @@ export namespace Prisma {
       spaces: Prisma.$SpacePayload<ExtArgs>[]
       zones: Prisma.$ZonePayload<ExtArgs>[]
       preventives: Prisma.$PreventivePayload<ExtArgs>[]
+      maintenances: Prisma.$MaintenancePayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -12232,6 +12244,7 @@ export namespace Prisma {
     spaces<T extends Building$spacesArgs<ExtArgs> = {}>(args?: Subset<T, Building$spacesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$SpacePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     zones<T extends Building$zonesArgs<ExtArgs> = {}>(args?: Subset<T, Building$zonesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ZonePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     preventives<T extends Building$preventivesArgs<ExtArgs> = {}>(args?: Subset<T, Building$preventivesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PreventivePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    maintenances<T extends Building$maintenancesArgs<ExtArgs> = {}>(args?: Subset<T, Building$maintenancesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$MaintenancePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -12816,6 +12829,30 @@ export namespace Prisma {
     take?: number
     skip?: number
     distinct?: PreventiveScalarFieldEnum | PreventiveScalarFieldEnum[]
+  }
+
+  /**
+   * Building.maintenances
+   */
+  export type Building$maintenancesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Maintenance
+     */
+    select?: MaintenanceSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Maintenance
+     */
+    omit?: MaintenanceOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MaintenanceInclude<ExtArgs> | null
+    where?: MaintenanceWhereInput
+    orderBy?: MaintenanceOrderByWithRelationInput | MaintenanceOrderByWithRelationInput[]
+    cursor?: MaintenanceWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: MaintenanceScalarFieldEnum | MaintenanceScalarFieldEnum[]
   }
 
   /**
@@ -27729,6 +27766,7 @@ export namespace Prisma {
     category: string | null
     subCategory: string | null
     companyId: string | null
+    buildingId: string | null
     teamId: string | null
     floorId: string | null
     spaceId: string | null
@@ -27790,6 +27828,7 @@ export namespace Prisma {
     category: string | null
     subCategory: string | null
     companyId: string | null
+    buildingId: string | null
     teamId: string | null
     floorId: string | null
     spaceId: string | null
@@ -27852,6 +27891,7 @@ export namespace Prisma {
     category: number
     subCategory: number
     companyId: number
+    buildingId: number
     teamId: number
     floorId: number
     spaceId: number
@@ -27945,6 +27985,7 @@ export namespace Prisma {
     category?: true
     subCategory?: true
     companyId?: true
+    buildingId?: true
     teamId?: true
     floorId?: true
     spaceId?: true
@@ -28006,6 +28047,7 @@ export namespace Prisma {
     category?: true
     subCategory?: true
     companyId?: true
+    buildingId?: true
     teamId?: true
     floorId?: true
     spaceId?: true
@@ -28068,6 +28110,7 @@ export namespace Prisma {
     category?: true
     subCategory?: true
     companyId?: true
+    buildingId?: true
     teamId?: true
     floorId?: true
     spaceId?: true
@@ -28217,6 +28260,7 @@ export namespace Prisma {
     category: string | null
     subCategory: string | null
     companyId: string | null
+    buildingId: string | null
     teamId: string | null
     floorId: string | null
     spaceId: string | null
@@ -28298,6 +28342,7 @@ export namespace Prisma {
     category?: boolean
     subCategory?: boolean
     companyId?: boolean
+    buildingId?: boolean
     teamId?: boolean
     floorId?: boolean
     spaceId?: boolean
@@ -28324,6 +28369,7 @@ export namespace Prisma {
     requester?: boolean | Maintenance$requesterArgs<ExtArgs>
     site?: boolean | ComplexDefaultArgs<ExtArgs>
     company?: boolean | Maintenance$companyArgs<ExtArgs>
+    building?: boolean | Maintenance$buildingArgs<ExtArgs>
     team?: boolean | Maintenance$teamArgs<ExtArgs>
     floor?: boolean | Maintenance$floorArgs<ExtArgs>
     space?: boolean | Maintenance$spaceArgs<ExtArgs>
@@ -28371,6 +28417,7 @@ export namespace Prisma {
     category?: boolean
     subCategory?: boolean
     companyId?: boolean
+    buildingId?: boolean
     teamId?: boolean
     floorId?: boolean
     spaceId?: boolean
@@ -28397,6 +28444,7 @@ export namespace Prisma {
     requester?: boolean | Maintenance$requesterArgs<ExtArgs>
     site?: boolean | ComplexDefaultArgs<ExtArgs>
     company?: boolean | Maintenance$companyArgs<ExtArgs>
+    building?: boolean | Maintenance$buildingArgs<ExtArgs>
     team?: boolean | Maintenance$teamArgs<ExtArgs>
     floor?: boolean | Maintenance$floorArgs<ExtArgs>
     space?: boolean | Maintenance$spaceArgs<ExtArgs>
@@ -28442,6 +28490,7 @@ export namespace Prisma {
     category?: boolean
     subCategory?: boolean
     companyId?: boolean
+    buildingId?: boolean
     teamId?: boolean
     floorId?: boolean
     spaceId?: boolean
@@ -28468,6 +28517,7 @@ export namespace Prisma {
     requester?: boolean | Maintenance$requesterArgs<ExtArgs>
     site?: boolean | ComplexDefaultArgs<ExtArgs>
     company?: boolean | Maintenance$companyArgs<ExtArgs>
+    building?: boolean | Maintenance$buildingArgs<ExtArgs>
     team?: boolean | Maintenance$teamArgs<ExtArgs>
     floor?: boolean | Maintenance$floorArgs<ExtArgs>
     space?: boolean | Maintenance$spaceArgs<ExtArgs>
@@ -28513,6 +28563,7 @@ export namespace Prisma {
     category?: boolean
     subCategory?: boolean
     companyId?: boolean
+    buildingId?: boolean
     teamId?: boolean
     floorId?: boolean
     spaceId?: boolean
@@ -28537,12 +28588,13 @@ export namespace Prisma {
     updatedAt?: boolean
   }
 
-  export type MaintenanceOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "type" | "code" | "description" | "startDate" | "endDate" | "shortDescription" | "action" | "message" | "processNotes" | "metadata" | "performerId" | "processStatus" | "register" | "activityIdTimer" | "activityStartTime" | "activityEndTime" | "allDeadlines" | "processType" | "ttSysRunning" | "ttWorkRunning" | "sorting" | "requesterId" | "priority" | "siteId" | "outcome" | "dueAssignedEnd" | "execStart" | "dueExecEndDate" | "execEndDate" | "dueClosuerDate" | "totalExecTime" | "expStartDate" | "suspensionReason" | "category" | "subCategory" | "companyId" | "teamId" | "floorId" | "spaceId" | "ttSystemOpening" | "ttWorkOpening" | "ttSystemAssignment" | "ttWorkAssignment" | "ttSystemExecution" | "ttWorkExecution" | "ttSysSuspension" | "ttWorkSuspension" | "ttEstimate" | "prevMaintenanceConfigId" | "automaticConfig" | "jointAccounting" | "hasTasks" | "estimateStatus" | "delayNotification" | "assigneeId" | "assetId" | "createdAt" | "updatedAt", ExtArgs["result"]["maintenance"]>
+  export type MaintenanceOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "type" | "code" | "description" | "startDate" | "endDate" | "shortDescription" | "action" | "message" | "processNotes" | "metadata" | "performerId" | "processStatus" | "register" | "activityIdTimer" | "activityStartTime" | "activityEndTime" | "allDeadlines" | "processType" | "ttSysRunning" | "ttWorkRunning" | "sorting" | "requesterId" | "priority" | "siteId" | "outcome" | "dueAssignedEnd" | "execStart" | "dueExecEndDate" | "execEndDate" | "dueClosuerDate" | "totalExecTime" | "expStartDate" | "suspensionReason" | "category" | "subCategory" | "companyId" | "buildingId" | "teamId" | "floorId" | "spaceId" | "ttSystemOpening" | "ttWorkOpening" | "ttSystemAssignment" | "ttWorkAssignment" | "ttSystemExecution" | "ttWorkExecution" | "ttSysSuspension" | "ttWorkSuspension" | "ttEstimate" | "prevMaintenanceConfigId" | "automaticConfig" | "jointAccounting" | "hasTasks" | "estimateStatus" | "delayNotification" | "assigneeId" | "assetId" | "createdAt" | "updatedAt", ExtArgs["result"]["maintenance"]>
   export type MaintenanceInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     performer?: boolean | Maintenance$performerArgs<ExtArgs>
     requester?: boolean | Maintenance$requesterArgs<ExtArgs>
     site?: boolean | ComplexDefaultArgs<ExtArgs>
     company?: boolean | Maintenance$companyArgs<ExtArgs>
+    building?: boolean | Maintenance$buildingArgs<ExtArgs>
     team?: boolean | Maintenance$teamArgs<ExtArgs>
     floor?: boolean | Maintenance$floorArgs<ExtArgs>
     space?: boolean | Maintenance$spaceArgs<ExtArgs>
@@ -28556,6 +28608,7 @@ export namespace Prisma {
     requester?: boolean | Maintenance$requesterArgs<ExtArgs>
     site?: boolean | ComplexDefaultArgs<ExtArgs>
     company?: boolean | Maintenance$companyArgs<ExtArgs>
+    building?: boolean | Maintenance$buildingArgs<ExtArgs>
     team?: boolean | Maintenance$teamArgs<ExtArgs>
     floor?: boolean | Maintenance$floorArgs<ExtArgs>
     space?: boolean | Maintenance$spaceArgs<ExtArgs>
@@ -28567,6 +28620,7 @@ export namespace Prisma {
     requester?: boolean | Maintenance$requesterArgs<ExtArgs>
     site?: boolean | ComplexDefaultArgs<ExtArgs>
     company?: boolean | Maintenance$companyArgs<ExtArgs>
+    building?: boolean | Maintenance$buildingArgs<ExtArgs>
     team?: boolean | Maintenance$teamArgs<ExtArgs>
     floor?: boolean | Maintenance$floorArgs<ExtArgs>
     space?: boolean | Maintenance$spaceArgs<ExtArgs>
@@ -28581,6 +28635,7 @@ export namespace Prisma {
       requester: Prisma.$UserPayload<ExtArgs> | null
       site: Prisma.$ComplexPayload<ExtArgs>
       company: Prisma.$CompanyPayload<ExtArgs> | null
+      building: Prisma.$BuildingPayload<ExtArgs> | null
       team: Prisma.$TeamPayload<ExtArgs> | null
       floor: Prisma.$FloorPayload<ExtArgs> | null
       space: Prisma.$SpacePayload<ExtArgs> | null
@@ -28626,6 +28681,7 @@ export namespace Prisma {
       category: string | null
       subCategory: string | null
       companyId: string | null
+      buildingId: string | null
       teamId: string | null
       floorId: string | null
       spaceId: string | null
@@ -29046,6 +29102,7 @@ export namespace Prisma {
     requester<T extends Maintenance$requesterArgs<ExtArgs> = {}>(args?: Subset<T, Maintenance$requesterArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
     site<T extends ComplexDefaultArgs<ExtArgs> = {}>(args?: Subset<T, ComplexDefaultArgs<ExtArgs>>): Prisma__ComplexClient<$Result.GetResult<Prisma.$ComplexPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
     company<T extends Maintenance$companyArgs<ExtArgs> = {}>(args?: Subset<T, Maintenance$companyArgs<ExtArgs>>): Prisma__CompanyClient<$Result.GetResult<Prisma.$CompanyPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+    building<T extends Maintenance$buildingArgs<ExtArgs> = {}>(args?: Subset<T, Maintenance$buildingArgs<ExtArgs>>): Prisma__BuildingClient<$Result.GetResult<Prisma.$BuildingPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
     team<T extends Maintenance$teamArgs<ExtArgs> = {}>(args?: Subset<T, Maintenance$teamArgs<ExtArgs>>): Prisma__TeamClient<$Result.GetResult<Prisma.$TeamPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
     floor<T extends Maintenance$floorArgs<ExtArgs> = {}>(args?: Subset<T, Maintenance$floorArgs<ExtArgs>>): Prisma__FloorClient<$Result.GetResult<Prisma.$FloorPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
     space<T extends Maintenance$spaceArgs<ExtArgs> = {}>(args?: Subset<T, Maintenance$spaceArgs<ExtArgs>>): Prisma__SpaceClient<$Result.GetResult<Prisma.$SpacePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
@@ -29118,6 +29175,7 @@ export namespace Prisma {
     readonly category: FieldRef<"Maintenance", 'String'>
     readonly subCategory: FieldRef<"Maintenance", 'String'>
     readonly companyId: FieldRef<"Maintenance", 'String'>
+    readonly buildingId: FieldRef<"Maintenance", 'String'>
     readonly teamId: FieldRef<"Maintenance", 'String'>
     readonly floorId: FieldRef<"Maintenance", 'String'>
     readonly spaceId: FieldRef<"Maintenance", 'String'>
@@ -29590,6 +29648,25 @@ export namespace Prisma {
      */
     include?: CompanyInclude<ExtArgs> | null
     where?: CompanyWhereInput
+  }
+
+  /**
+   * Maintenance.building
+   */
+  export type Maintenance$buildingArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Building
+     */
+    select?: BuildingSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Building
+     */
+    omit?: BuildingOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: BuildingInclude<ExtArgs> | null
+    where?: BuildingWhereInput
   }
 
   /**
@@ -32584,6 +32661,7 @@ export namespace Prisma {
     category: 'category',
     subCategory: 'subCategory',
     companyId: 'companyId',
+    buildingId: 'buildingId',
     teamId: 'teamId',
     floorId: 'floorId',
     spaceId: 'spaceId',
@@ -33619,6 +33697,7 @@ export namespace Prisma {
     spaces?: SpaceListRelationFilter
     zones?: ZoneListRelationFilter
     preventives?: PreventiveListRelationFilter
+    maintenances?: MaintenanceListRelationFilter
   }
 
   export type BuildingOrderByWithRelationInput = {
@@ -33653,6 +33732,7 @@ export namespace Prisma {
     spaces?: SpaceOrderByRelationAggregateInput
     zones?: ZoneOrderByRelationAggregateInput
     preventives?: PreventiveOrderByRelationAggregateInput
+    maintenances?: MaintenanceOrderByRelationAggregateInput
   }
 
   export type BuildingWhereUniqueInput = Prisma.AtLeast<{
@@ -33691,6 +33771,7 @@ export namespace Prisma {
     spaces?: SpaceListRelationFilter
     zones?: ZoneListRelationFilter
     preventives?: PreventiveListRelationFilter
+    maintenances?: MaintenanceListRelationFilter
   }, "id" | "complexId_code">
 
   export type BuildingOrderByWithAggregationInput = {
@@ -34925,6 +35006,7 @@ export namespace Prisma {
     category?: StringNullableFilter<"Maintenance"> | string | null
     subCategory?: StringNullableFilter<"Maintenance"> | string | null
     companyId?: StringNullableFilter<"Maintenance"> | string | null
+    buildingId?: StringNullableFilter<"Maintenance"> | string | null
     teamId?: StringNullableFilter<"Maintenance"> | string | null
     floorId?: StringNullableFilter<"Maintenance"> | string | null
     spaceId?: StringNullableFilter<"Maintenance"> | string | null
@@ -34951,6 +35033,7 @@ export namespace Prisma {
     requester?: XOR<UserNullableScalarRelationFilter, UserWhereInput> | null
     site?: XOR<ComplexScalarRelationFilter, ComplexWhereInput>
     company?: XOR<CompanyNullableScalarRelationFilter, CompanyWhereInput> | null
+    building?: XOR<BuildingNullableScalarRelationFilter, BuildingWhereInput> | null
     team?: XOR<TeamNullableScalarRelationFilter, TeamWhereInput> | null
     floor?: XOR<FloorNullableScalarRelationFilter, FloorWhereInput> | null
     space?: XOR<SpaceNullableScalarRelationFilter, SpaceWhereInput> | null
@@ -34997,6 +35080,7 @@ export namespace Prisma {
     category?: SortOrderInput | SortOrder
     subCategory?: SortOrderInput | SortOrder
     companyId?: SortOrderInput | SortOrder
+    buildingId?: SortOrderInput | SortOrder
     teamId?: SortOrderInput | SortOrder
     floorId?: SortOrderInput | SortOrder
     spaceId?: SortOrderInput | SortOrder
@@ -35023,6 +35107,7 @@ export namespace Prisma {
     requester?: UserOrderByWithRelationInput
     site?: ComplexOrderByWithRelationInput
     company?: CompanyOrderByWithRelationInput
+    building?: BuildingOrderByWithRelationInput
     team?: TeamOrderByWithRelationInput
     floor?: FloorOrderByWithRelationInput
     space?: SpaceOrderByWithRelationInput
@@ -35072,6 +35157,7 @@ export namespace Prisma {
     category?: StringNullableFilter<"Maintenance"> | string | null
     subCategory?: StringNullableFilter<"Maintenance"> | string | null
     companyId?: StringNullableFilter<"Maintenance"> | string | null
+    buildingId?: StringNullableFilter<"Maintenance"> | string | null
     teamId?: StringNullableFilter<"Maintenance"> | string | null
     floorId?: StringNullableFilter<"Maintenance"> | string | null
     spaceId?: StringNullableFilter<"Maintenance"> | string | null
@@ -35098,6 +35184,7 @@ export namespace Prisma {
     requester?: XOR<UserNullableScalarRelationFilter, UserWhereInput> | null
     site?: XOR<ComplexScalarRelationFilter, ComplexWhereInput>
     company?: XOR<CompanyNullableScalarRelationFilter, CompanyWhereInput> | null
+    building?: XOR<BuildingNullableScalarRelationFilter, BuildingWhereInput> | null
     team?: XOR<TeamNullableScalarRelationFilter, TeamWhereInput> | null
     floor?: XOR<FloorNullableScalarRelationFilter, FloorWhereInput> | null
     space?: XOR<SpaceNullableScalarRelationFilter, SpaceWhereInput> | null
@@ -35144,6 +35231,7 @@ export namespace Prisma {
     category?: SortOrderInput | SortOrder
     subCategory?: SortOrderInput | SortOrder
     companyId?: SortOrderInput | SortOrder
+    buildingId?: SortOrderInput | SortOrder
     teamId?: SortOrderInput | SortOrder
     floorId?: SortOrderInput | SortOrder
     spaceId?: SortOrderInput | SortOrder
@@ -35214,6 +35302,7 @@ export namespace Prisma {
     category?: StringNullableWithAggregatesFilter<"Maintenance"> | string | null
     subCategory?: StringNullableWithAggregatesFilter<"Maintenance"> | string | null
     companyId?: StringNullableWithAggregatesFilter<"Maintenance"> | string | null
+    buildingId?: StringNullableWithAggregatesFilter<"Maintenance"> | string | null
     teamId?: StringNullableWithAggregatesFilter<"Maintenance"> | string | null
     floorId?: StringNullableWithAggregatesFilter<"Maintenance"> | string | null
     spaceId?: StringNullableWithAggregatesFilter<"Maintenance"> | string | null
@@ -36120,6 +36209,7 @@ export namespace Prisma {
     spaces?: SpaceCreateNestedManyWithoutBuildingInput
     zones?: ZoneCreateNestedManyWithoutBuildingInput
     preventives?: PreventiveCreateNestedManyWithoutBuildingInput
+    maintenances?: MaintenanceCreateNestedManyWithoutBuildingInput
   }
 
   export type BuildingUncheckedCreateInput = {
@@ -36151,6 +36241,7 @@ export namespace Prisma {
     spaces?: SpaceUncheckedCreateNestedManyWithoutBuildingInput
     zones?: ZoneUncheckedCreateNestedManyWithoutBuildingInput
     preventives?: PreventiveUncheckedCreateNestedManyWithoutBuildingInput
+    maintenances?: MaintenanceUncheckedCreateNestedManyWithoutBuildingInput
   }
 
   export type BuildingUpdateInput = {
@@ -36182,6 +36273,7 @@ export namespace Prisma {
     spaces?: SpaceUpdateManyWithoutBuildingNestedInput
     zones?: ZoneUpdateManyWithoutBuildingNestedInput
     preventives?: PreventiveUpdateManyWithoutBuildingNestedInput
+    maintenances?: MaintenanceUpdateManyWithoutBuildingNestedInput
   }
 
   export type BuildingUncheckedUpdateInput = {
@@ -36213,6 +36305,7 @@ export namespace Prisma {
     spaces?: SpaceUncheckedUpdateManyWithoutBuildingNestedInput
     zones?: ZoneUncheckedUpdateManyWithoutBuildingNestedInput
     preventives?: PreventiveUncheckedUpdateManyWithoutBuildingNestedInput
+    maintenances?: MaintenanceUncheckedUpdateManyWithoutBuildingNestedInput
   }
 
   export type BuildingCreateManyInput = {
@@ -37617,6 +37710,7 @@ export namespace Prisma {
     requester?: UserCreateNestedOneWithoutRequestedMaintenancesInput
     site: ComplexCreateNestedOneWithoutMaintenancesInput
     company?: CompanyCreateNestedOneWithoutMaintenancesInput
+    building?: BuildingCreateNestedOneWithoutMaintenancesInput
     team?: TeamCreateNestedOneWithoutMaintenancesInput
     floor?: FloorCreateNestedOneWithoutMaintenancesInput
     space?: SpaceCreateNestedOneWithoutMaintenancesInput
@@ -37663,6 +37757,7 @@ export namespace Prisma {
     category?: string | null
     subCategory?: string | null
     companyId?: string | null
+    buildingId?: string | null
     teamId?: string | null
     floorId?: string | null
     spaceId?: string | null
@@ -37743,6 +37838,7 @@ export namespace Prisma {
     requester?: UserUpdateOneWithoutRequestedMaintenancesNestedInput
     site?: ComplexUpdateOneRequiredWithoutMaintenancesNestedInput
     company?: CompanyUpdateOneWithoutMaintenancesNestedInput
+    building?: BuildingUpdateOneWithoutMaintenancesNestedInput
     team?: TeamUpdateOneWithoutMaintenancesNestedInput
     floor?: FloorUpdateOneWithoutMaintenancesNestedInput
     space?: SpaceUpdateOneWithoutMaintenancesNestedInput
@@ -37789,6 +37885,7 @@ export namespace Prisma {
     category?: NullableStringFieldUpdateOperationsInput | string | null
     subCategory?: NullableStringFieldUpdateOperationsInput | string | null
     companyId?: NullableStringFieldUpdateOperationsInput | string | null
+    buildingId?: NullableStringFieldUpdateOperationsInput | string | null
     teamId?: NullableStringFieldUpdateOperationsInput | string | null
     floorId?: NullableStringFieldUpdateOperationsInput | string | null
     spaceId?: NullableStringFieldUpdateOperationsInput | string | null
@@ -37852,6 +37949,7 @@ export namespace Prisma {
     category?: string | null
     subCategory?: string | null
     companyId?: string | null
+    buildingId?: string | null
     teamId?: string | null
     floorId?: string | null
     spaceId?: string | null
@@ -37967,6 +38065,7 @@ export namespace Prisma {
     category?: NullableStringFieldUpdateOperationsInput | string | null
     subCategory?: NullableStringFieldUpdateOperationsInput | string | null
     companyId?: NullableStringFieldUpdateOperationsInput | string | null
+    buildingId?: NullableStringFieldUpdateOperationsInput | string | null
     teamId?: NullableStringFieldUpdateOperationsInput | string | null
     floorId?: NullableStringFieldUpdateOperationsInput | string | null
     spaceId?: NullableStringFieldUpdateOperationsInput | string | null
@@ -39962,6 +40061,7 @@ export namespace Prisma {
     category?: SortOrder
     subCategory?: SortOrder
     companyId?: SortOrder
+    buildingId?: SortOrder
     teamId?: SortOrder
     floorId?: SortOrder
     spaceId?: SortOrder
@@ -40038,6 +40138,7 @@ export namespace Prisma {
     category?: SortOrder
     subCategory?: SortOrder
     companyId?: SortOrder
+    buildingId?: SortOrder
     teamId?: SortOrder
     floorId?: SortOrder
     spaceId?: SortOrder
@@ -40099,6 +40200,7 @@ export namespace Prisma {
     category?: SortOrder
     subCategory?: SortOrder
     companyId?: SortOrder
+    buildingId?: SortOrder
     teamId?: SortOrder
     floorId?: SortOrder
     spaceId?: SortOrder
@@ -41247,6 +41349,13 @@ export namespace Prisma {
     connect?: PreventiveWhereUniqueInput | PreventiveWhereUniqueInput[]
   }
 
+  export type MaintenanceCreateNestedManyWithoutBuildingInput = {
+    create?: XOR<MaintenanceCreateWithoutBuildingInput, MaintenanceUncheckedCreateWithoutBuildingInput> | MaintenanceCreateWithoutBuildingInput[] | MaintenanceUncheckedCreateWithoutBuildingInput[]
+    connectOrCreate?: MaintenanceCreateOrConnectWithoutBuildingInput | MaintenanceCreateOrConnectWithoutBuildingInput[]
+    createMany?: MaintenanceCreateManyBuildingInputEnvelope
+    connect?: MaintenanceWhereUniqueInput | MaintenanceWhereUniqueInput[]
+  }
+
   export type FileUncheckedCreateNestedManyWithoutBuildingsInput = {
     create?: XOR<FileCreateWithoutBuildingsInput, FileUncheckedCreateWithoutBuildingsInput> | FileCreateWithoutBuildingsInput[] | FileUncheckedCreateWithoutBuildingsInput[]
     connectOrCreate?: FileCreateOrConnectWithoutBuildingsInput | FileCreateOrConnectWithoutBuildingsInput[]
@@ -41279,6 +41388,13 @@ export namespace Prisma {
     connectOrCreate?: PreventiveCreateOrConnectWithoutBuildingInput | PreventiveCreateOrConnectWithoutBuildingInput[]
     createMany?: PreventiveCreateManyBuildingInputEnvelope
     connect?: PreventiveWhereUniqueInput | PreventiveWhereUniqueInput[]
+  }
+
+  export type MaintenanceUncheckedCreateNestedManyWithoutBuildingInput = {
+    create?: XOR<MaintenanceCreateWithoutBuildingInput, MaintenanceUncheckedCreateWithoutBuildingInput> | MaintenanceCreateWithoutBuildingInput[] | MaintenanceUncheckedCreateWithoutBuildingInput[]
+    connectOrCreate?: MaintenanceCreateOrConnectWithoutBuildingInput | MaintenanceCreateOrConnectWithoutBuildingInput[]
+    createMany?: MaintenanceCreateManyBuildingInputEnvelope
+    connect?: MaintenanceWhereUniqueInput | MaintenanceWhereUniqueInput[]
   }
 
   export type EnumMainUseFieldUpdateOperationsInput = {
@@ -41380,6 +41496,20 @@ export namespace Prisma {
     deleteMany?: PreventiveScalarWhereInput | PreventiveScalarWhereInput[]
   }
 
+  export type MaintenanceUpdateManyWithoutBuildingNestedInput = {
+    create?: XOR<MaintenanceCreateWithoutBuildingInput, MaintenanceUncheckedCreateWithoutBuildingInput> | MaintenanceCreateWithoutBuildingInput[] | MaintenanceUncheckedCreateWithoutBuildingInput[]
+    connectOrCreate?: MaintenanceCreateOrConnectWithoutBuildingInput | MaintenanceCreateOrConnectWithoutBuildingInput[]
+    upsert?: MaintenanceUpsertWithWhereUniqueWithoutBuildingInput | MaintenanceUpsertWithWhereUniqueWithoutBuildingInput[]
+    createMany?: MaintenanceCreateManyBuildingInputEnvelope
+    set?: MaintenanceWhereUniqueInput | MaintenanceWhereUniqueInput[]
+    disconnect?: MaintenanceWhereUniqueInput | MaintenanceWhereUniqueInput[]
+    delete?: MaintenanceWhereUniqueInput | MaintenanceWhereUniqueInput[]
+    connect?: MaintenanceWhereUniqueInput | MaintenanceWhereUniqueInput[]
+    update?: MaintenanceUpdateWithWhereUniqueWithoutBuildingInput | MaintenanceUpdateWithWhereUniqueWithoutBuildingInput[]
+    updateMany?: MaintenanceUpdateManyWithWhereWithoutBuildingInput | MaintenanceUpdateManyWithWhereWithoutBuildingInput[]
+    deleteMany?: MaintenanceScalarWhereInput | MaintenanceScalarWhereInput[]
+  }
+
   export type FileUncheckedUpdateManyWithoutBuildingsNestedInput = {
     create?: XOR<FileCreateWithoutBuildingsInput, FileUncheckedCreateWithoutBuildingsInput> | FileCreateWithoutBuildingsInput[] | FileUncheckedCreateWithoutBuildingsInput[]
     connectOrCreate?: FileCreateOrConnectWithoutBuildingsInput | FileCreateOrConnectWithoutBuildingsInput[]
@@ -41447,6 +41577,20 @@ export namespace Prisma {
     update?: PreventiveUpdateWithWhereUniqueWithoutBuildingInput | PreventiveUpdateWithWhereUniqueWithoutBuildingInput[]
     updateMany?: PreventiveUpdateManyWithWhereWithoutBuildingInput | PreventiveUpdateManyWithWhereWithoutBuildingInput[]
     deleteMany?: PreventiveScalarWhereInput | PreventiveScalarWhereInput[]
+  }
+
+  export type MaintenanceUncheckedUpdateManyWithoutBuildingNestedInput = {
+    create?: XOR<MaintenanceCreateWithoutBuildingInput, MaintenanceUncheckedCreateWithoutBuildingInput> | MaintenanceCreateWithoutBuildingInput[] | MaintenanceUncheckedCreateWithoutBuildingInput[]
+    connectOrCreate?: MaintenanceCreateOrConnectWithoutBuildingInput | MaintenanceCreateOrConnectWithoutBuildingInput[]
+    upsert?: MaintenanceUpsertWithWhereUniqueWithoutBuildingInput | MaintenanceUpsertWithWhereUniqueWithoutBuildingInput[]
+    createMany?: MaintenanceCreateManyBuildingInputEnvelope
+    set?: MaintenanceWhereUniqueInput | MaintenanceWhereUniqueInput[]
+    disconnect?: MaintenanceWhereUniqueInput | MaintenanceWhereUniqueInput[]
+    delete?: MaintenanceWhereUniqueInput | MaintenanceWhereUniqueInput[]
+    connect?: MaintenanceWhereUniqueInput | MaintenanceWhereUniqueInput[]
+    update?: MaintenanceUpdateWithWhereUniqueWithoutBuildingInput | MaintenanceUpdateWithWhereUniqueWithoutBuildingInput[]
+    updateMany?: MaintenanceUpdateManyWithWhereWithoutBuildingInput | MaintenanceUpdateManyWithWhereWithoutBuildingInput[]
+    deleteMany?: MaintenanceScalarWhereInput | MaintenanceScalarWhereInput[]
   }
 
   export type ComplexCreateNestedOneWithoutFloorsInput = {
@@ -42991,6 +43135,12 @@ export namespace Prisma {
     connect?: CompanyWhereUniqueInput
   }
 
+  export type BuildingCreateNestedOneWithoutMaintenancesInput = {
+    create?: XOR<BuildingCreateWithoutMaintenancesInput, BuildingUncheckedCreateWithoutMaintenancesInput>
+    connectOrCreate?: BuildingCreateOrConnectWithoutMaintenancesInput
+    connect?: BuildingWhereUniqueInput
+  }
+
   export type TeamCreateNestedOneWithoutMaintenancesInput = {
     create?: XOR<TeamCreateWithoutMaintenancesInput, TeamUncheckedCreateWithoutMaintenancesInput>
     connectOrCreate?: TeamCreateOrConnectWithoutMaintenancesInput
@@ -43087,6 +43237,16 @@ export namespace Prisma {
     delete?: CompanyWhereInput | boolean
     connect?: CompanyWhereUniqueInput
     update?: XOR<XOR<CompanyUpdateToOneWithWhereWithoutMaintenancesInput, CompanyUpdateWithoutMaintenancesInput>, CompanyUncheckedUpdateWithoutMaintenancesInput>
+  }
+
+  export type BuildingUpdateOneWithoutMaintenancesNestedInput = {
+    create?: XOR<BuildingCreateWithoutMaintenancesInput, BuildingUncheckedCreateWithoutMaintenancesInput>
+    connectOrCreate?: BuildingCreateOrConnectWithoutMaintenancesInput
+    upsert?: BuildingUpsertWithoutMaintenancesInput
+    disconnect?: BuildingWhereInput | boolean
+    delete?: BuildingWhereInput | boolean
+    connect?: BuildingWhereUniqueInput
+    update?: XOR<XOR<BuildingUpdateToOneWithWhereWithoutMaintenancesInput, BuildingUpdateWithoutMaintenancesInput>, BuildingUncheckedUpdateWithoutMaintenancesInput>
   }
 
   export type TeamUpdateOneWithoutMaintenancesNestedInput = {
@@ -44044,6 +44204,7 @@ export namespace Prisma {
     requester?: UserCreateNestedOneWithoutRequestedMaintenancesInput
     site: ComplexCreateNestedOneWithoutMaintenancesInput
     company?: CompanyCreateNestedOneWithoutMaintenancesInput
+    building?: BuildingCreateNestedOneWithoutMaintenancesInput
     team?: TeamCreateNestedOneWithoutMaintenancesInput
     floor?: FloorCreateNestedOneWithoutMaintenancesInput
     space?: SpaceCreateNestedOneWithoutMaintenancesInput
@@ -44089,6 +44250,7 @@ export namespace Prisma {
     category?: string | null
     subCategory?: string | null
     companyId?: string | null
+    buildingId?: string | null
     teamId?: string | null
     floorId?: string | null
     spaceId?: string | null
@@ -44178,6 +44340,7 @@ export namespace Prisma {
     performer?: UserCreateNestedOneWithoutPerformedMaintenancesInput
     site: ComplexCreateNestedOneWithoutMaintenancesInput
     company?: CompanyCreateNestedOneWithoutMaintenancesInput
+    building?: BuildingCreateNestedOneWithoutMaintenancesInput
     team?: TeamCreateNestedOneWithoutMaintenancesInput
     floor?: FloorCreateNestedOneWithoutMaintenancesInput
     space?: SpaceCreateNestedOneWithoutMaintenancesInput
@@ -44223,6 +44386,7 @@ export namespace Prisma {
     category?: string | null
     subCategory?: string | null
     companyId?: string | null
+    buildingId?: string | null
     teamId?: string | null
     floorId?: string | null
     spaceId?: string | null
@@ -44313,6 +44477,7 @@ export namespace Prisma {
     requester?: UserCreateNestedOneWithoutRequestedMaintenancesInput
     site: ComplexCreateNestedOneWithoutMaintenancesInput
     company?: CompanyCreateNestedOneWithoutMaintenancesInput
+    building?: BuildingCreateNestedOneWithoutMaintenancesInput
     team?: TeamCreateNestedOneWithoutMaintenancesInput
     floor?: FloorCreateNestedOneWithoutMaintenancesInput
     space?: SpaceCreateNestedOneWithoutMaintenancesInput
@@ -44358,6 +44523,7 @@ export namespace Prisma {
     category?: string | null
     subCategory?: string | null
     companyId?: string | null
+    buildingId?: string | null
     teamId?: string | null
     floorId?: string | null
     spaceId?: string | null
@@ -44678,6 +44844,7 @@ export namespace Prisma {
     category?: StringNullableFilter<"Maintenance"> | string | null
     subCategory?: StringNullableFilter<"Maintenance"> | string | null
     companyId?: StringNullableFilter<"Maintenance"> | string | null
+    buildingId?: StringNullableFilter<"Maintenance"> | string | null
     teamId?: StringNullableFilter<"Maintenance"> | string | null
     floorId?: StringNullableFilter<"Maintenance"> | string | null
     spaceId?: StringNullableFilter<"Maintenance"> | string | null
@@ -45261,6 +45428,7 @@ export namespace Prisma {
     spaces?: SpaceCreateNestedManyWithoutBuildingInput
     zones?: ZoneCreateNestedManyWithoutBuildingInput
     preventives?: PreventiveCreateNestedManyWithoutBuildingInput
+    maintenances?: MaintenanceCreateNestedManyWithoutBuildingInput
   }
 
   export type BuildingUncheckedCreateWithoutComplexInput = {
@@ -45291,6 +45459,7 @@ export namespace Prisma {
     spaces?: SpaceUncheckedCreateNestedManyWithoutBuildingInput
     zones?: ZoneUncheckedCreateNestedManyWithoutBuildingInput
     preventives?: PreventiveUncheckedCreateNestedManyWithoutBuildingInput
+    maintenances?: MaintenanceUncheckedCreateNestedManyWithoutBuildingInput
   }
 
   export type BuildingCreateOrConnectWithoutComplexInput = {
@@ -45596,6 +45765,7 @@ export namespace Prisma {
     performer?: UserCreateNestedOneWithoutPerformedMaintenancesInput
     requester?: UserCreateNestedOneWithoutRequestedMaintenancesInput
     company?: CompanyCreateNestedOneWithoutMaintenancesInput
+    building?: BuildingCreateNestedOneWithoutMaintenancesInput
     team?: TeamCreateNestedOneWithoutMaintenancesInput
     floor?: FloorCreateNestedOneWithoutMaintenancesInput
     space?: SpaceCreateNestedOneWithoutMaintenancesInput
@@ -45641,6 +45811,7 @@ export namespace Prisma {
     category?: string | null
     subCategory?: string | null
     companyId?: string | null
+    buildingId?: string | null
     teamId?: string | null
     floorId?: string | null
     spaceId?: string | null
@@ -46500,6 +46671,142 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
+  export type MaintenanceCreateWithoutBuildingInput = {
+    id?: string
+    type?: $Enums.MaintenanceType
+    code: string
+    description: string
+    startDate?: Date | string | null
+    endDate?: Date | string | null
+    shortDescription?: string | null
+    action?: string | null
+    message?: string | null
+    processNotes?: string | null
+    metadata?: NullableJsonNullValueInput | InputJsonValue
+    processStatus?: $Enums.Status
+    register?: string | null
+    activityIdTimer?: string | null
+    activityStartTime?: Date | string | null
+    activityEndTime?: Date | string | null
+    allDeadlines?: string | null
+    processType?: $Enums.ProcessType
+    ttSysRunning?: Decimal | DecimalJsLike | number | string | null
+    ttWorkRunning?: Decimal | DecimalJsLike | number | string | null
+    sorting?: string | null
+    priority?: $Enums.Priority
+    outcome?: string | null
+    dueAssignedEnd?: Date | string | null
+    execStart?: Date | string | null
+    dueExecEndDate?: Date | string | null
+    execEndDate?: Date | string | null
+    dueClosuerDate?: Date | string | null
+    totalExecTime?: Decimal | DecimalJsLike | number | string | null
+    expStartDate?: Date | string | null
+    suspensionReason?: string | null
+    category?: string | null
+    subCategory?: string | null
+    ttSystemOpening?: Decimal | DecimalJsLike | number | string | null
+    ttWorkOpening?: Decimal | DecimalJsLike | number | string | null
+    ttSystemAssignment?: Decimal | DecimalJsLike | number | string | null
+    ttWorkAssignment?: Decimal | DecimalJsLike | number | string | null
+    ttSystemExecution?: Decimal | DecimalJsLike | number | string | null
+    ttWorkExecution?: Decimal | DecimalJsLike | number | string | null
+    ttSysSuspension?: Decimal | DecimalJsLike | number | string | null
+    ttWorkSuspension?: Decimal | DecimalJsLike | number | string | null
+    ttEstimate?: Decimal | DecimalJsLike | number | string | null
+    prevMaintenanceConfigId?: string | null
+    automaticConfig?: boolean
+    jointAccounting?: boolean
+    hasTasks?: boolean
+    estimateStatus?: $Enums.Status
+    delayNotification?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    performer?: UserCreateNestedOneWithoutPerformedMaintenancesInput
+    requester?: UserCreateNestedOneWithoutRequestedMaintenancesInput
+    site: ComplexCreateNestedOneWithoutMaintenancesInput
+    company?: CompanyCreateNestedOneWithoutMaintenancesInput
+    team?: TeamCreateNestedOneWithoutMaintenancesInput
+    floor?: FloorCreateNestedOneWithoutMaintenancesInput
+    space?: SpaceCreateNestedOneWithoutMaintenancesInput
+    assignee?: UserCreateNestedOneWithoutAssignedMaintenancesInput
+    asset?: AssetCreateNestedOneWithoutMaintenancesInput
+    photos?: FileCreateNestedManyWithoutMaintenanceInput
+  }
+
+  export type MaintenanceUncheckedCreateWithoutBuildingInput = {
+    id?: string
+    type?: $Enums.MaintenanceType
+    code: string
+    description: string
+    startDate?: Date | string | null
+    endDate?: Date | string | null
+    shortDescription?: string | null
+    action?: string | null
+    message?: string | null
+    processNotes?: string | null
+    metadata?: NullableJsonNullValueInput | InputJsonValue
+    performerId?: string | null
+    processStatus?: $Enums.Status
+    register?: string | null
+    activityIdTimer?: string | null
+    activityStartTime?: Date | string | null
+    activityEndTime?: Date | string | null
+    allDeadlines?: string | null
+    processType?: $Enums.ProcessType
+    ttSysRunning?: Decimal | DecimalJsLike | number | string | null
+    ttWorkRunning?: Decimal | DecimalJsLike | number | string | null
+    sorting?: string | null
+    requesterId?: string | null
+    priority?: $Enums.Priority
+    siteId: string
+    outcome?: string | null
+    dueAssignedEnd?: Date | string | null
+    execStart?: Date | string | null
+    dueExecEndDate?: Date | string | null
+    execEndDate?: Date | string | null
+    dueClosuerDate?: Date | string | null
+    totalExecTime?: Decimal | DecimalJsLike | number | string | null
+    expStartDate?: Date | string | null
+    suspensionReason?: string | null
+    category?: string | null
+    subCategory?: string | null
+    companyId?: string | null
+    teamId?: string | null
+    floorId?: string | null
+    spaceId?: string | null
+    ttSystemOpening?: Decimal | DecimalJsLike | number | string | null
+    ttWorkOpening?: Decimal | DecimalJsLike | number | string | null
+    ttSystemAssignment?: Decimal | DecimalJsLike | number | string | null
+    ttWorkAssignment?: Decimal | DecimalJsLike | number | string | null
+    ttSystemExecution?: Decimal | DecimalJsLike | number | string | null
+    ttWorkExecution?: Decimal | DecimalJsLike | number | string | null
+    ttSysSuspension?: Decimal | DecimalJsLike | number | string | null
+    ttWorkSuspension?: Decimal | DecimalJsLike | number | string | null
+    ttEstimate?: Decimal | DecimalJsLike | number | string | null
+    prevMaintenanceConfigId?: string | null
+    automaticConfig?: boolean
+    jointAccounting?: boolean
+    hasTasks?: boolean
+    estimateStatus?: $Enums.Status
+    delayNotification?: boolean
+    assigneeId?: string | null
+    assetId?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    photos?: FileUncheckedCreateNestedManyWithoutMaintenanceInput
+  }
+
+  export type MaintenanceCreateOrConnectWithoutBuildingInput = {
+    where: MaintenanceWhereUniqueInput
+    create: XOR<MaintenanceCreateWithoutBuildingInput, MaintenanceUncheckedCreateWithoutBuildingInput>
+  }
+
+  export type MaintenanceCreateManyBuildingInputEnvelope = {
+    data: MaintenanceCreateManyBuildingInput | MaintenanceCreateManyBuildingInput[]
+    skipDuplicates?: boolean
+  }
+
   export type AddressUpsertWithoutBuildingsInput = {
     update: XOR<AddressUpdateWithoutBuildingsInput, AddressUncheckedUpdateWithoutBuildingsInput>
     create: XOR<AddressCreateWithoutBuildingsInput, AddressUncheckedCreateWithoutBuildingsInput>
@@ -46725,6 +47032,22 @@ export namespace Prisma {
     data: XOR<PreventiveUpdateManyMutationInput, PreventiveUncheckedUpdateManyWithoutBuildingInput>
   }
 
+  export type MaintenanceUpsertWithWhereUniqueWithoutBuildingInput = {
+    where: MaintenanceWhereUniqueInput
+    update: XOR<MaintenanceUpdateWithoutBuildingInput, MaintenanceUncheckedUpdateWithoutBuildingInput>
+    create: XOR<MaintenanceCreateWithoutBuildingInput, MaintenanceUncheckedCreateWithoutBuildingInput>
+  }
+
+  export type MaintenanceUpdateWithWhereUniqueWithoutBuildingInput = {
+    where: MaintenanceWhereUniqueInput
+    data: XOR<MaintenanceUpdateWithoutBuildingInput, MaintenanceUncheckedUpdateWithoutBuildingInput>
+  }
+
+  export type MaintenanceUpdateManyWithWhereWithoutBuildingInput = {
+    where: MaintenanceScalarWhereInput
+    data: XOR<MaintenanceUpdateManyMutationInput, MaintenanceUncheckedUpdateManyWithoutBuildingInput>
+  }
+
   export type ComplexCreateWithoutFloorsInput = {
     id?: string
     code: string
@@ -46826,6 +47149,7 @@ export namespace Prisma {
     spaces?: SpaceCreateNestedManyWithoutBuildingInput
     zones?: ZoneCreateNestedManyWithoutBuildingInput
     preventives?: PreventiveCreateNestedManyWithoutBuildingInput
+    maintenances?: MaintenanceCreateNestedManyWithoutBuildingInput
   }
 
   export type BuildingUncheckedCreateWithoutFloorsInput = {
@@ -46856,6 +47180,7 @@ export namespace Prisma {
     spaces?: SpaceUncheckedCreateNestedManyWithoutBuildingInput
     zones?: ZoneUncheckedCreateNestedManyWithoutBuildingInput
     preventives?: PreventiveUncheckedCreateNestedManyWithoutBuildingInput
+    maintenances?: MaintenanceUncheckedCreateNestedManyWithoutBuildingInput
   }
 
   export type BuildingCreateOrConnectWithoutFloorsInput = {
@@ -47070,6 +47395,7 @@ export namespace Prisma {
     requester?: UserCreateNestedOneWithoutRequestedMaintenancesInput
     site: ComplexCreateNestedOneWithoutMaintenancesInput
     company?: CompanyCreateNestedOneWithoutMaintenancesInput
+    building?: BuildingCreateNestedOneWithoutMaintenancesInput
     team?: TeamCreateNestedOneWithoutMaintenancesInput
     space?: SpaceCreateNestedOneWithoutMaintenancesInput
     assignee?: UserCreateNestedOneWithoutAssignedMaintenancesInput
@@ -47115,6 +47441,7 @@ export namespace Prisma {
     category?: string | null
     subCategory?: string | null
     companyId?: string | null
+    buildingId?: string | null
     teamId?: string | null
     spaceId?: string | null
     ttSystemOpening?: Decimal | DecimalJsLike | number | string | null
@@ -47317,6 +47644,7 @@ export namespace Prisma {
     spaces?: SpaceUpdateManyWithoutBuildingNestedInput
     zones?: ZoneUpdateManyWithoutBuildingNestedInput
     preventives?: PreventiveUpdateManyWithoutBuildingNestedInput
+    maintenances?: MaintenanceUpdateManyWithoutBuildingNestedInput
   }
 
   export type BuildingUncheckedUpdateWithoutFloorsInput = {
@@ -47347,6 +47675,7 @@ export namespace Prisma {
     spaces?: SpaceUncheckedUpdateManyWithoutBuildingNestedInput
     zones?: ZoneUncheckedUpdateManyWithoutBuildingNestedInput
     preventives?: PreventiveUncheckedUpdateManyWithoutBuildingNestedInput
+    maintenances?: MaintenanceUncheckedUpdateManyWithoutBuildingNestedInput
   }
 
   export type SpaceUpsertWithWhereUniqueWithoutFloorInput = {
@@ -47541,6 +47870,7 @@ export namespace Prisma {
     floors?: FloorCreateNestedManyWithoutBuildingInput
     spaces?: SpaceCreateNestedManyWithoutBuildingInput
     preventives?: PreventiveCreateNestedManyWithoutBuildingInput
+    maintenances?: MaintenanceCreateNestedManyWithoutBuildingInput
   }
 
   export type BuildingUncheckedCreateWithoutZonesInput = {
@@ -47571,6 +47901,7 @@ export namespace Prisma {
     floors?: FloorUncheckedCreateNestedManyWithoutBuildingInput
     spaces?: SpaceUncheckedCreateNestedManyWithoutBuildingInput
     preventives?: PreventiveUncheckedCreateNestedManyWithoutBuildingInput
+    maintenances?: MaintenanceUncheckedCreateNestedManyWithoutBuildingInput
   }
 
   export type BuildingCreateOrConnectWithoutZonesInput = {
@@ -47877,6 +48208,7 @@ export namespace Prisma {
     floors?: FloorUpdateManyWithoutBuildingNestedInput
     spaces?: SpaceUpdateManyWithoutBuildingNestedInput
     preventives?: PreventiveUpdateManyWithoutBuildingNestedInput
+    maintenances?: MaintenanceUpdateManyWithoutBuildingNestedInput
   }
 
   export type BuildingUncheckedUpdateWithoutZonesInput = {
@@ -47907,6 +48239,7 @@ export namespace Prisma {
     floors?: FloorUncheckedUpdateManyWithoutBuildingNestedInput
     spaces?: SpaceUncheckedUpdateManyWithoutBuildingNestedInput
     preventives?: PreventiveUncheckedUpdateManyWithoutBuildingNestedInput
+    maintenances?: MaintenanceUncheckedUpdateManyWithoutBuildingNestedInput
   }
 
   export type FloorUpsertWithoutZonesInput = {
@@ -48134,6 +48467,7 @@ export namespace Prisma {
     floors?: FloorCreateNestedManyWithoutBuildingInput
     zones?: ZoneCreateNestedManyWithoutBuildingInput
     preventives?: PreventiveCreateNestedManyWithoutBuildingInput
+    maintenances?: MaintenanceCreateNestedManyWithoutBuildingInput
   }
 
   export type BuildingUncheckedCreateWithoutSpacesInput = {
@@ -48164,6 +48498,7 @@ export namespace Prisma {
     floors?: FloorUncheckedCreateNestedManyWithoutBuildingInput
     zones?: ZoneUncheckedCreateNestedManyWithoutBuildingInput
     preventives?: PreventiveUncheckedCreateNestedManyWithoutBuildingInput
+    maintenances?: MaintenanceUncheckedCreateNestedManyWithoutBuildingInput
   }
 
   export type BuildingCreateOrConnectWithoutSpacesInput = {
@@ -48389,6 +48724,7 @@ export namespace Prisma {
     requester?: UserCreateNestedOneWithoutRequestedMaintenancesInput
     site: ComplexCreateNestedOneWithoutMaintenancesInput
     company?: CompanyCreateNestedOneWithoutMaintenancesInput
+    building?: BuildingCreateNestedOneWithoutMaintenancesInput
     team?: TeamCreateNestedOneWithoutMaintenancesInput
     floor?: FloorCreateNestedOneWithoutMaintenancesInput
     assignee?: UserCreateNestedOneWithoutAssignedMaintenancesInput
@@ -48434,6 +48770,7 @@ export namespace Prisma {
     category?: string | null
     subCategory?: string | null
     companyId?: string | null
+    buildingId?: string | null
     teamId?: string | null
     floorId?: string | null
     ttSystemOpening?: Decimal | DecimalJsLike | number | string | null
@@ -48707,6 +49044,7 @@ export namespace Prisma {
     floors?: FloorUpdateManyWithoutBuildingNestedInput
     zones?: ZoneUpdateManyWithoutBuildingNestedInput
     preventives?: PreventiveUpdateManyWithoutBuildingNestedInput
+    maintenances?: MaintenanceUpdateManyWithoutBuildingNestedInput
   }
 
   export type BuildingUncheckedUpdateWithoutSpacesInput = {
@@ -48737,6 +49075,7 @@ export namespace Prisma {
     floors?: FloorUncheckedUpdateManyWithoutBuildingNestedInput
     zones?: ZoneUncheckedUpdateManyWithoutBuildingNestedInput
     preventives?: PreventiveUncheckedUpdateManyWithoutBuildingNestedInput
+    maintenances?: MaintenanceUncheckedUpdateManyWithoutBuildingNestedInput
   }
 
   export type FloorUpsertWithoutSpacesInput = {
@@ -49234,6 +49573,7 @@ export namespace Prisma {
     requester?: UserCreateNestedOneWithoutRequestedMaintenancesInput
     site: ComplexCreateNestedOneWithoutMaintenancesInput
     company?: CompanyCreateNestedOneWithoutMaintenancesInput
+    building?: BuildingCreateNestedOneWithoutMaintenancesInput
     team?: TeamCreateNestedOneWithoutMaintenancesInput
     floor?: FloorCreateNestedOneWithoutMaintenancesInput
     space?: SpaceCreateNestedOneWithoutMaintenancesInput
@@ -49279,6 +49619,7 @@ export namespace Prisma {
     category?: string | null
     subCategory?: string | null
     companyId?: string | null
+    buildingId?: string | null
     teamId?: string | null
     floorId?: string | null
     spaceId?: string | null
@@ -49716,6 +50057,7 @@ export namespace Prisma {
     spaces?: SpaceCreateNestedManyWithoutBuildingInput
     zones?: ZoneCreateNestedManyWithoutBuildingInput
     preventives?: PreventiveCreateNestedManyWithoutBuildingInput
+    maintenances?: MaintenanceCreateNestedManyWithoutBuildingInput
   }
 
   export type BuildingUncheckedCreateWithoutPhotosInput = {
@@ -49746,6 +50088,7 @@ export namespace Prisma {
     spaces?: SpaceUncheckedCreateNestedManyWithoutBuildingInput
     zones?: ZoneUncheckedCreateNestedManyWithoutBuildingInput
     preventives?: PreventiveUncheckedCreateNestedManyWithoutBuildingInput
+    maintenances?: MaintenanceUncheckedCreateNestedManyWithoutBuildingInput
   }
 
   export type BuildingCreateOrConnectWithoutPhotosInput = {
@@ -49881,6 +50224,7 @@ export namespace Prisma {
     requester?: UserCreateNestedOneWithoutRequestedMaintenancesInput
     site: ComplexCreateNestedOneWithoutMaintenancesInput
     company?: CompanyCreateNestedOneWithoutMaintenancesInput
+    building?: BuildingCreateNestedOneWithoutMaintenancesInput
     team?: TeamCreateNestedOneWithoutMaintenancesInput
     floor?: FloorCreateNestedOneWithoutMaintenancesInput
     space?: SpaceCreateNestedOneWithoutMaintenancesInput
@@ -49926,6 +50270,7 @@ export namespace Prisma {
     category?: string | null
     subCategory?: string | null
     companyId?: string | null
+    buildingId?: string | null
     teamId?: string | null
     floorId?: string | null
     spaceId?: string | null
@@ -50085,6 +50430,7 @@ export namespace Prisma {
     requester?: UserUpdateOneWithoutRequestedMaintenancesNestedInput
     site?: ComplexUpdateOneRequiredWithoutMaintenancesNestedInput
     company?: CompanyUpdateOneWithoutMaintenancesNestedInput
+    building?: BuildingUpdateOneWithoutMaintenancesNestedInput
     team?: TeamUpdateOneWithoutMaintenancesNestedInput
     floor?: FloorUpdateOneWithoutMaintenancesNestedInput
     space?: SpaceUpdateOneWithoutMaintenancesNestedInput
@@ -50130,6 +50476,7 @@ export namespace Prisma {
     category?: NullableStringFieldUpdateOperationsInput | string | null
     subCategory?: NullableStringFieldUpdateOperationsInput | string | null
     companyId?: NullableStringFieldUpdateOperationsInput | string | null
+    buildingId?: NullableStringFieldUpdateOperationsInput | string | null
     teamId?: NullableStringFieldUpdateOperationsInput | string | null
     floorId?: NullableStringFieldUpdateOperationsInput | string | null
     spaceId?: NullableStringFieldUpdateOperationsInput | string | null
@@ -50297,6 +50644,7 @@ export namespace Prisma {
     performer?: UserCreateNestedOneWithoutPerformedMaintenancesInput
     requester?: UserCreateNestedOneWithoutRequestedMaintenancesInput
     site: ComplexCreateNestedOneWithoutMaintenancesInput
+    building?: BuildingCreateNestedOneWithoutMaintenancesInput
     team?: TeamCreateNestedOneWithoutMaintenancesInput
     floor?: FloorCreateNestedOneWithoutMaintenancesInput
     space?: SpaceCreateNestedOneWithoutMaintenancesInput
@@ -50342,6 +50690,7 @@ export namespace Prisma {
     suspensionReason?: string | null
     category?: string | null
     subCategory?: string | null
+    buildingId?: string | null
     teamId?: string | null
     floorId?: string | null
     spaceId?: string | null
@@ -50554,6 +50903,7 @@ export namespace Prisma {
     requester?: UserCreateNestedOneWithoutRequestedMaintenancesInput
     site: ComplexCreateNestedOneWithoutMaintenancesInput
     company?: CompanyCreateNestedOneWithoutMaintenancesInput
+    building?: BuildingCreateNestedOneWithoutMaintenancesInput
     floor?: FloorCreateNestedOneWithoutMaintenancesInput
     space?: SpaceCreateNestedOneWithoutMaintenancesInput
     assignee?: UserCreateNestedOneWithoutAssignedMaintenancesInput
@@ -50599,6 +50949,7 @@ export namespace Prisma {
     category?: string | null
     subCategory?: string | null
     companyId?: string | null
+    buildingId?: string | null
     floorId?: string | null
     spaceId?: string | null
     ttSystemOpening?: Decimal | DecimalJsLike | number | string | null
@@ -50921,6 +51272,7 @@ export namespace Prisma {
     spaces?: SpaceCreateNestedManyWithoutBuildingInput
     zones?: ZoneCreateNestedManyWithoutBuildingInput
     preventives?: PreventiveCreateNestedManyWithoutBuildingInput
+    maintenances?: MaintenanceCreateNestedManyWithoutBuildingInput
   }
 
   export type BuildingUncheckedCreateWithoutAddressInput = {
@@ -50951,6 +51303,7 @@ export namespace Prisma {
     spaces?: SpaceUncheckedCreateNestedManyWithoutBuildingInput
     zones?: ZoneUncheckedCreateNestedManyWithoutBuildingInput
     preventives?: PreventiveUncheckedCreateNestedManyWithoutBuildingInput
+    maintenances?: MaintenanceUncheckedCreateNestedManyWithoutBuildingInput
   }
 
   export type BuildingCreateOrConnectWithoutAddressInput = {
@@ -51041,6 +51394,7 @@ export namespace Prisma {
     spaces?: SpaceCreateNestedManyWithoutBuildingInput
     zones?: ZoneCreateNestedManyWithoutBuildingInput
     preventives?: PreventiveCreateNestedManyWithoutBuildingInput
+    maintenances?: MaintenanceCreateNestedManyWithoutBuildingInput
   }
 
   export type BuildingUncheckedCreateWithoutCalenderEntityInput = {
@@ -51071,6 +51425,7 @@ export namespace Prisma {
     spaces?: SpaceUncheckedCreateNestedManyWithoutBuildingInput
     zones?: ZoneUncheckedCreateNestedManyWithoutBuildingInput
     preventives?: PreventiveUncheckedCreateNestedManyWithoutBuildingInput
+    maintenances?: MaintenanceUncheckedCreateNestedManyWithoutBuildingInput
   }
 
   export type BuildingCreateOrConnectWithoutCalenderEntityInput = {
@@ -51679,6 +52034,73 @@ export namespace Prisma {
     create: XOR<CompanyCreateWithoutMaintenancesInput, CompanyUncheckedCreateWithoutMaintenancesInput>
   }
 
+  export type BuildingCreateWithoutMaintenancesInput = {
+    id?: string
+    name: string
+    code: string
+    mainUse?: $Enums.MainUse
+    availability?: $Enums.Availability
+    status?: $Enums.ServiceStatus
+    condition?: $Enums.Condition
+    criticality?: $Enums.Criticality
+    totalFloors?: number | null
+    totalUnits?: number | null
+    totalRooms?: number | null
+    glazedArea?: number | null
+    cleanableArea?: number | null
+    coveredArea?: number | null
+    totalNetArea?: number | null
+    totalGrossArea?: number | null
+    totalHeatedVolume?: number | null
+    totalVolume?: number | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    address: AddressCreateNestedOneWithoutBuildingsInput
+    complex: ComplexCreateNestedOneWithoutBuildingsInput
+    calenderEntity?: CalenderEntityCreateNestedOneWithoutBuildingsInput
+    photos?: FileCreateNestedManyWithoutBuildingsInput
+    floors?: FloorCreateNestedManyWithoutBuildingInput
+    spaces?: SpaceCreateNestedManyWithoutBuildingInput
+    zones?: ZoneCreateNestedManyWithoutBuildingInput
+    preventives?: PreventiveCreateNestedManyWithoutBuildingInput
+  }
+
+  export type BuildingUncheckedCreateWithoutMaintenancesInput = {
+    id?: string
+    name: string
+    code: string
+    mainUse?: $Enums.MainUse
+    availability?: $Enums.Availability
+    status?: $Enums.ServiceStatus
+    condition?: $Enums.Condition
+    criticality?: $Enums.Criticality
+    totalFloors?: number | null
+    totalUnits?: number | null
+    totalRooms?: number | null
+    glazedArea?: number | null
+    cleanableArea?: number | null
+    coveredArea?: number | null
+    totalNetArea?: number | null
+    totalGrossArea?: number | null
+    totalHeatedVolume?: number | null
+    totalVolume?: number | null
+    addressId: string
+    complexId: string
+    calenderEntityId?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    photos?: FileUncheckedCreateNestedManyWithoutBuildingsInput
+    floors?: FloorUncheckedCreateNestedManyWithoutBuildingInput
+    spaces?: SpaceUncheckedCreateNestedManyWithoutBuildingInput
+    zones?: ZoneUncheckedCreateNestedManyWithoutBuildingInput
+    preventives?: PreventiveUncheckedCreateNestedManyWithoutBuildingInput
+  }
+
+  export type BuildingCreateOrConnectWithoutMaintenancesInput = {
+    where: BuildingWhereUniqueInput
+    create: XOR<BuildingCreateWithoutMaintenancesInput, BuildingUncheckedCreateWithoutMaintenancesInput>
+  }
+
   export type TeamCreateWithoutMaintenancesInput = {
     id?: string
     code: string
@@ -52196,6 +52618,79 @@ export namespace Prisma {
     employees?: UserUncheckedUpdateManyWithoutCompanyNestedInput
   }
 
+  export type BuildingUpsertWithoutMaintenancesInput = {
+    update: XOR<BuildingUpdateWithoutMaintenancesInput, BuildingUncheckedUpdateWithoutMaintenancesInput>
+    create: XOR<BuildingCreateWithoutMaintenancesInput, BuildingUncheckedCreateWithoutMaintenancesInput>
+    where?: BuildingWhereInput
+  }
+
+  export type BuildingUpdateToOneWithWhereWithoutMaintenancesInput = {
+    where?: BuildingWhereInput
+    data: XOR<BuildingUpdateWithoutMaintenancesInput, BuildingUncheckedUpdateWithoutMaintenancesInput>
+  }
+
+  export type BuildingUpdateWithoutMaintenancesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    code?: StringFieldUpdateOperationsInput | string
+    mainUse?: EnumMainUseFieldUpdateOperationsInput | $Enums.MainUse
+    availability?: EnumAvailabilityFieldUpdateOperationsInput | $Enums.Availability
+    status?: EnumServiceStatusFieldUpdateOperationsInput | $Enums.ServiceStatus
+    condition?: EnumConditionFieldUpdateOperationsInput | $Enums.Condition
+    criticality?: EnumCriticalityFieldUpdateOperationsInput | $Enums.Criticality
+    totalFloors?: NullableIntFieldUpdateOperationsInput | number | null
+    totalUnits?: NullableIntFieldUpdateOperationsInput | number | null
+    totalRooms?: NullableIntFieldUpdateOperationsInput | number | null
+    glazedArea?: NullableFloatFieldUpdateOperationsInput | number | null
+    cleanableArea?: NullableFloatFieldUpdateOperationsInput | number | null
+    coveredArea?: NullableFloatFieldUpdateOperationsInput | number | null
+    totalNetArea?: NullableFloatFieldUpdateOperationsInput | number | null
+    totalGrossArea?: NullableFloatFieldUpdateOperationsInput | number | null
+    totalHeatedVolume?: NullableFloatFieldUpdateOperationsInput | number | null
+    totalVolume?: NullableFloatFieldUpdateOperationsInput | number | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    address?: AddressUpdateOneRequiredWithoutBuildingsNestedInput
+    complex?: ComplexUpdateOneRequiredWithoutBuildingsNestedInput
+    calenderEntity?: CalenderEntityUpdateOneWithoutBuildingsNestedInput
+    photos?: FileUpdateManyWithoutBuildingsNestedInput
+    floors?: FloorUpdateManyWithoutBuildingNestedInput
+    spaces?: SpaceUpdateManyWithoutBuildingNestedInput
+    zones?: ZoneUpdateManyWithoutBuildingNestedInput
+    preventives?: PreventiveUpdateManyWithoutBuildingNestedInput
+  }
+
+  export type BuildingUncheckedUpdateWithoutMaintenancesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    code?: StringFieldUpdateOperationsInput | string
+    mainUse?: EnumMainUseFieldUpdateOperationsInput | $Enums.MainUse
+    availability?: EnumAvailabilityFieldUpdateOperationsInput | $Enums.Availability
+    status?: EnumServiceStatusFieldUpdateOperationsInput | $Enums.ServiceStatus
+    condition?: EnumConditionFieldUpdateOperationsInput | $Enums.Condition
+    criticality?: EnumCriticalityFieldUpdateOperationsInput | $Enums.Criticality
+    totalFloors?: NullableIntFieldUpdateOperationsInput | number | null
+    totalUnits?: NullableIntFieldUpdateOperationsInput | number | null
+    totalRooms?: NullableIntFieldUpdateOperationsInput | number | null
+    glazedArea?: NullableFloatFieldUpdateOperationsInput | number | null
+    cleanableArea?: NullableFloatFieldUpdateOperationsInput | number | null
+    coveredArea?: NullableFloatFieldUpdateOperationsInput | number | null
+    totalNetArea?: NullableFloatFieldUpdateOperationsInput | number | null
+    totalGrossArea?: NullableFloatFieldUpdateOperationsInput | number | null
+    totalHeatedVolume?: NullableFloatFieldUpdateOperationsInput | number | null
+    totalVolume?: NullableFloatFieldUpdateOperationsInput | number | null
+    addressId?: StringFieldUpdateOperationsInput | string
+    complexId?: StringFieldUpdateOperationsInput | string
+    calenderEntityId?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    photos?: FileUncheckedUpdateManyWithoutBuildingsNestedInput
+    floors?: FloorUncheckedUpdateManyWithoutBuildingNestedInput
+    spaces?: SpaceUncheckedUpdateManyWithoutBuildingNestedInput
+    zones?: ZoneUncheckedUpdateManyWithoutBuildingNestedInput
+    preventives?: PreventiveUncheckedUpdateManyWithoutBuildingNestedInput
+  }
+
   export type TeamUpsertWithoutMaintenancesInput = {
     update: XOR<TeamUpdateWithoutMaintenancesInput, TeamUncheckedUpdateWithoutMaintenancesInput>
     create: XOR<TeamCreateWithoutMaintenancesInput, TeamUncheckedCreateWithoutMaintenancesInput>
@@ -52617,6 +53112,7 @@ export namespace Prisma {
     floors?: FloorCreateNestedManyWithoutBuildingInput
     spaces?: SpaceCreateNestedManyWithoutBuildingInput
     zones?: ZoneCreateNestedManyWithoutBuildingInput
+    maintenances?: MaintenanceCreateNestedManyWithoutBuildingInput
   }
 
   export type BuildingUncheckedCreateWithoutPreventivesInput = {
@@ -52647,6 +53143,7 @@ export namespace Prisma {
     floors?: FloorUncheckedCreateNestedManyWithoutBuildingInput
     spaces?: SpaceUncheckedCreateNestedManyWithoutBuildingInput
     zones?: ZoneUncheckedCreateNestedManyWithoutBuildingInput
+    maintenances?: MaintenanceUncheckedCreateNestedManyWithoutBuildingInput
   }
 
   export type BuildingCreateOrConnectWithoutPreventivesInput = {
@@ -52962,6 +53459,7 @@ export namespace Prisma {
     floors?: FloorUpdateManyWithoutBuildingNestedInput
     spaces?: SpaceUpdateManyWithoutBuildingNestedInput
     zones?: ZoneUpdateManyWithoutBuildingNestedInput
+    maintenances?: MaintenanceUpdateManyWithoutBuildingNestedInput
   }
 
   export type BuildingUncheckedUpdateWithoutPreventivesInput = {
@@ -52992,6 +53490,7 @@ export namespace Prisma {
     floors?: FloorUncheckedUpdateManyWithoutBuildingNestedInput
     spaces?: SpaceUncheckedUpdateManyWithoutBuildingNestedInput
     zones?: ZoneUncheckedUpdateManyWithoutBuildingNestedInput
+    maintenances?: MaintenanceUncheckedUpdateManyWithoutBuildingNestedInput
   }
 
   export type FloorUpsertWithoutPreventivesInput = {
@@ -53336,6 +53835,7 @@ export namespace Prisma {
     category?: string | null
     subCategory?: string | null
     companyId?: string | null
+    buildingId?: string | null
     teamId?: string | null
     floorId?: string | null
     spaceId?: string | null
@@ -53397,6 +53897,7 @@ export namespace Prisma {
     category?: string | null
     subCategory?: string | null
     companyId?: string | null
+    buildingId?: string | null
     teamId?: string | null
     floorId?: string | null
     spaceId?: string | null
@@ -53459,6 +53960,7 @@ export namespace Prisma {
     category?: string | null
     subCategory?: string | null
     companyId?: string | null
+    buildingId?: string | null
     teamId?: string | null
     floorId?: string | null
     spaceId?: string | null
@@ -53631,6 +54133,7 @@ export namespace Prisma {
     requester?: UserUpdateOneWithoutRequestedMaintenancesNestedInput
     site?: ComplexUpdateOneRequiredWithoutMaintenancesNestedInput
     company?: CompanyUpdateOneWithoutMaintenancesNestedInput
+    building?: BuildingUpdateOneWithoutMaintenancesNestedInput
     team?: TeamUpdateOneWithoutMaintenancesNestedInput
     floor?: FloorUpdateOneWithoutMaintenancesNestedInput
     space?: SpaceUpdateOneWithoutMaintenancesNestedInput
@@ -53676,6 +54179,7 @@ export namespace Prisma {
     category?: NullableStringFieldUpdateOperationsInput | string | null
     subCategory?: NullableStringFieldUpdateOperationsInput | string | null
     companyId?: NullableStringFieldUpdateOperationsInput | string | null
+    buildingId?: NullableStringFieldUpdateOperationsInput | string | null
     teamId?: NullableStringFieldUpdateOperationsInput | string | null
     floorId?: NullableStringFieldUpdateOperationsInput | string | null
     spaceId?: NullableStringFieldUpdateOperationsInput | string | null
@@ -53738,6 +54242,7 @@ export namespace Prisma {
     category?: NullableStringFieldUpdateOperationsInput | string | null
     subCategory?: NullableStringFieldUpdateOperationsInput | string | null
     companyId?: NullableStringFieldUpdateOperationsInput | string | null
+    buildingId?: NullableStringFieldUpdateOperationsInput | string | null
     teamId?: NullableStringFieldUpdateOperationsInput | string | null
     floorId?: NullableStringFieldUpdateOperationsInput | string | null
     spaceId?: NullableStringFieldUpdateOperationsInput | string | null
@@ -53816,6 +54321,7 @@ export namespace Prisma {
     performer?: UserUpdateOneWithoutPerformedMaintenancesNestedInput
     site?: ComplexUpdateOneRequiredWithoutMaintenancesNestedInput
     company?: CompanyUpdateOneWithoutMaintenancesNestedInput
+    building?: BuildingUpdateOneWithoutMaintenancesNestedInput
     team?: TeamUpdateOneWithoutMaintenancesNestedInput
     floor?: FloorUpdateOneWithoutMaintenancesNestedInput
     space?: SpaceUpdateOneWithoutMaintenancesNestedInput
@@ -53861,6 +54367,7 @@ export namespace Prisma {
     category?: NullableStringFieldUpdateOperationsInput | string | null
     subCategory?: NullableStringFieldUpdateOperationsInput | string | null
     companyId?: NullableStringFieldUpdateOperationsInput | string | null
+    buildingId?: NullableStringFieldUpdateOperationsInput | string | null
     teamId?: NullableStringFieldUpdateOperationsInput | string | null
     floorId?: NullableStringFieldUpdateOperationsInput | string | null
     spaceId?: NullableStringFieldUpdateOperationsInput | string | null
@@ -53923,6 +54430,7 @@ export namespace Prisma {
     category?: NullableStringFieldUpdateOperationsInput | string | null
     subCategory?: NullableStringFieldUpdateOperationsInput | string | null
     companyId?: NullableStringFieldUpdateOperationsInput | string | null
+    buildingId?: NullableStringFieldUpdateOperationsInput | string | null
     teamId?: NullableStringFieldUpdateOperationsInput | string | null
     floorId?: NullableStringFieldUpdateOperationsInput | string | null
     spaceId?: NullableStringFieldUpdateOperationsInput | string | null
@@ -54002,6 +54510,7 @@ export namespace Prisma {
     requester?: UserUpdateOneWithoutRequestedMaintenancesNestedInput
     site?: ComplexUpdateOneRequiredWithoutMaintenancesNestedInput
     company?: CompanyUpdateOneWithoutMaintenancesNestedInput
+    building?: BuildingUpdateOneWithoutMaintenancesNestedInput
     team?: TeamUpdateOneWithoutMaintenancesNestedInput
     floor?: FloorUpdateOneWithoutMaintenancesNestedInput
     space?: SpaceUpdateOneWithoutMaintenancesNestedInput
@@ -54047,6 +54556,7 @@ export namespace Prisma {
     category?: NullableStringFieldUpdateOperationsInput | string | null
     subCategory?: NullableStringFieldUpdateOperationsInput | string | null
     companyId?: NullableStringFieldUpdateOperationsInput | string | null
+    buildingId?: NullableStringFieldUpdateOperationsInput | string | null
     teamId?: NullableStringFieldUpdateOperationsInput | string | null
     floorId?: NullableStringFieldUpdateOperationsInput | string | null
     spaceId?: NullableStringFieldUpdateOperationsInput | string | null
@@ -54109,6 +54619,7 @@ export namespace Prisma {
     category?: NullableStringFieldUpdateOperationsInput | string | null
     subCategory?: NullableStringFieldUpdateOperationsInput | string | null
     companyId?: NullableStringFieldUpdateOperationsInput | string | null
+    buildingId?: NullableStringFieldUpdateOperationsInput | string | null
     teamId?: NullableStringFieldUpdateOperationsInput | string | null
     floorId?: NullableStringFieldUpdateOperationsInput | string | null
     spaceId?: NullableStringFieldUpdateOperationsInput | string | null
@@ -54557,6 +55068,7 @@ export namespace Prisma {
     category?: string | null
     subCategory?: string | null
     companyId?: string | null
+    buildingId?: string | null
     teamId?: string | null
     floorId?: string | null
     spaceId?: string | null
@@ -54629,6 +55141,7 @@ export namespace Prisma {
     spaces?: SpaceUpdateManyWithoutBuildingNestedInput
     zones?: ZoneUpdateManyWithoutBuildingNestedInput
     preventives?: PreventiveUpdateManyWithoutBuildingNestedInput
+    maintenances?: MaintenanceUpdateManyWithoutBuildingNestedInput
   }
 
   export type BuildingUncheckedUpdateWithoutComplexInput = {
@@ -54659,6 +55172,7 @@ export namespace Prisma {
     spaces?: SpaceUncheckedUpdateManyWithoutBuildingNestedInput
     zones?: ZoneUncheckedUpdateManyWithoutBuildingNestedInput
     preventives?: PreventiveUncheckedUpdateManyWithoutBuildingNestedInput
+    maintenances?: MaintenanceUncheckedUpdateManyWithoutBuildingNestedInput
   }
 
   export type BuildingUncheckedUpdateManyWithoutComplexInput = {
@@ -55033,6 +55547,7 @@ export namespace Prisma {
     performer?: UserUpdateOneWithoutPerformedMaintenancesNestedInput
     requester?: UserUpdateOneWithoutRequestedMaintenancesNestedInput
     company?: CompanyUpdateOneWithoutMaintenancesNestedInput
+    building?: BuildingUpdateOneWithoutMaintenancesNestedInput
     team?: TeamUpdateOneWithoutMaintenancesNestedInput
     floor?: FloorUpdateOneWithoutMaintenancesNestedInput
     space?: SpaceUpdateOneWithoutMaintenancesNestedInput
@@ -55078,6 +55593,7 @@ export namespace Prisma {
     category?: NullableStringFieldUpdateOperationsInput | string | null
     subCategory?: NullableStringFieldUpdateOperationsInput | string | null
     companyId?: NullableStringFieldUpdateOperationsInput | string | null
+    buildingId?: NullableStringFieldUpdateOperationsInput | string | null
     teamId?: NullableStringFieldUpdateOperationsInput | string | null
     floorId?: NullableStringFieldUpdateOperationsInput | string | null
     spaceId?: NullableStringFieldUpdateOperationsInput | string | null
@@ -55140,6 +55656,7 @@ export namespace Prisma {
     category?: NullableStringFieldUpdateOperationsInput | string | null
     subCategory?: NullableStringFieldUpdateOperationsInput | string | null
     companyId?: NullableStringFieldUpdateOperationsInput | string | null
+    buildingId?: NullableStringFieldUpdateOperationsInput | string | null
     teamId?: NullableStringFieldUpdateOperationsInput | string | null
     floorId?: NullableStringFieldUpdateOperationsInput | string | null
     spaceId?: NullableStringFieldUpdateOperationsInput | string | null
@@ -55323,6 +55840,68 @@ export namespace Prisma {
     floorId?: string | null
     spaceId?: string | null
     teamId?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type MaintenanceCreateManyBuildingInput = {
+    id?: string
+    type?: $Enums.MaintenanceType
+    code: string
+    description: string
+    startDate?: Date | string | null
+    endDate?: Date | string | null
+    shortDescription?: string | null
+    action?: string | null
+    message?: string | null
+    processNotes?: string | null
+    metadata?: NullableJsonNullValueInput | InputJsonValue
+    performerId?: string | null
+    processStatus?: $Enums.Status
+    register?: string | null
+    activityIdTimer?: string | null
+    activityStartTime?: Date | string | null
+    activityEndTime?: Date | string | null
+    allDeadlines?: string | null
+    processType?: $Enums.ProcessType
+    ttSysRunning?: Decimal | DecimalJsLike | number | string | null
+    ttWorkRunning?: Decimal | DecimalJsLike | number | string | null
+    sorting?: string | null
+    requesterId?: string | null
+    priority?: $Enums.Priority
+    siteId: string
+    outcome?: string | null
+    dueAssignedEnd?: Date | string | null
+    execStart?: Date | string | null
+    dueExecEndDate?: Date | string | null
+    execEndDate?: Date | string | null
+    dueClosuerDate?: Date | string | null
+    totalExecTime?: Decimal | DecimalJsLike | number | string | null
+    expStartDate?: Date | string | null
+    suspensionReason?: string | null
+    category?: string | null
+    subCategory?: string | null
+    companyId?: string | null
+    teamId?: string | null
+    floorId?: string | null
+    spaceId?: string | null
+    ttSystemOpening?: Decimal | DecimalJsLike | number | string | null
+    ttWorkOpening?: Decimal | DecimalJsLike | number | string | null
+    ttSystemAssignment?: Decimal | DecimalJsLike | number | string | null
+    ttWorkAssignment?: Decimal | DecimalJsLike | number | string | null
+    ttSystemExecution?: Decimal | DecimalJsLike | number | string | null
+    ttWorkExecution?: Decimal | DecimalJsLike | number | string | null
+    ttSysSuspension?: Decimal | DecimalJsLike | number | string | null
+    ttWorkSuspension?: Decimal | DecimalJsLike | number | string | null
+    ttEstimate?: Decimal | DecimalJsLike | number | string | null
+    prevMaintenanceConfigId?: string | null
+    automaticConfig?: boolean
+    jointAccounting?: boolean
+    hasTasks?: boolean
+    estimateStatus?: $Enums.Status
+    delayNotification?: boolean
+    assigneeId?: string | null
+    assetId?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -55680,6 +56259,194 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
+  export type MaintenanceUpdateWithoutBuildingInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    type?: EnumMaintenanceTypeFieldUpdateOperationsInput | $Enums.MaintenanceType
+    code?: StringFieldUpdateOperationsInput | string
+    description?: StringFieldUpdateOperationsInput | string
+    startDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    endDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    shortDescription?: NullableStringFieldUpdateOperationsInput | string | null
+    action?: NullableStringFieldUpdateOperationsInput | string | null
+    message?: NullableStringFieldUpdateOperationsInput | string | null
+    processNotes?: NullableStringFieldUpdateOperationsInput | string | null
+    metadata?: NullableJsonNullValueInput | InputJsonValue
+    processStatus?: EnumStatusFieldUpdateOperationsInput | $Enums.Status
+    register?: NullableStringFieldUpdateOperationsInput | string | null
+    activityIdTimer?: NullableStringFieldUpdateOperationsInput | string | null
+    activityStartTime?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    activityEndTime?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    allDeadlines?: NullableStringFieldUpdateOperationsInput | string | null
+    processType?: EnumProcessTypeFieldUpdateOperationsInput | $Enums.ProcessType
+    ttSysRunning?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    ttWorkRunning?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    sorting?: NullableStringFieldUpdateOperationsInput | string | null
+    priority?: EnumPriorityFieldUpdateOperationsInput | $Enums.Priority
+    outcome?: NullableStringFieldUpdateOperationsInput | string | null
+    dueAssignedEnd?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    execStart?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    dueExecEndDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    execEndDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    dueClosuerDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    totalExecTime?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    expStartDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    suspensionReason?: NullableStringFieldUpdateOperationsInput | string | null
+    category?: NullableStringFieldUpdateOperationsInput | string | null
+    subCategory?: NullableStringFieldUpdateOperationsInput | string | null
+    ttSystemOpening?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    ttWorkOpening?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    ttSystemAssignment?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    ttWorkAssignment?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    ttSystemExecution?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    ttWorkExecution?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    ttSysSuspension?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    ttWorkSuspension?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    ttEstimate?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    prevMaintenanceConfigId?: NullableStringFieldUpdateOperationsInput | string | null
+    automaticConfig?: BoolFieldUpdateOperationsInput | boolean
+    jointAccounting?: BoolFieldUpdateOperationsInput | boolean
+    hasTasks?: BoolFieldUpdateOperationsInput | boolean
+    estimateStatus?: EnumStatusFieldUpdateOperationsInput | $Enums.Status
+    delayNotification?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    performer?: UserUpdateOneWithoutPerformedMaintenancesNestedInput
+    requester?: UserUpdateOneWithoutRequestedMaintenancesNestedInput
+    site?: ComplexUpdateOneRequiredWithoutMaintenancesNestedInput
+    company?: CompanyUpdateOneWithoutMaintenancesNestedInput
+    team?: TeamUpdateOneWithoutMaintenancesNestedInput
+    floor?: FloorUpdateOneWithoutMaintenancesNestedInput
+    space?: SpaceUpdateOneWithoutMaintenancesNestedInput
+    assignee?: UserUpdateOneWithoutAssignedMaintenancesNestedInput
+    asset?: AssetUpdateOneWithoutMaintenancesNestedInput
+    photos?: FileUpdateManyWithoutMaintenanceNestedInput
+  }
+
+  export type MaintenanceUncheckedUpdateWithoutBuildingInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    type?: EnumMaintenanceTypeFieldUpdateOperationsInput | $Enums.MaintenanceType
+    code?: StringFieldUpdateOperationsInput | string
+    description?: StringFieldUpdateOperationsInput | string
+    startDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    endDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    shortDescription?: NullableStringFieldUpdateOperationsInput | string | null
+    action?: NullableStringFieldUpdateOperationsInput | string | null
+    message?: NullableStringFieldUpdateOperationsInput | string | null
+    processNotes?: NullableStringFieldUpdateOperationsInput | string | null
+    metadata?: NullableJsonNullValueInput | InputJsonValue
+    performerId?: NullableStringFieldUpdateOperationsInput | string | null
+    processStatus?: EnumStatusFieldUpdateOperationsInput | $Enums.Status
+    register?: NullableStringFieldUpdateOperationsInput | string | null
+    activityIdTimer?: NullableStringFieldUpdateOperationsInput | string | null
+    activityStartTime?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    activityEndTime?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    allDeadlines?: NullableStringFieldUpdateOperationsInput | string | null
+    processType?: EnumProcessTypeFieldUpdateOperationsInput | $Enums.ProcessType
+    ttSysRunning?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    ttWorkRunning?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    sorting?: NullableStringFieldUpdateOperationsInput | string | null
+    requesterId?: NullableStringFieldUpdateOperationsInput | string | null
+    priority?: EnumPriorityFieldUpdateOperationsInput | $Enums.Priority
+    siteId?: StringFieldUpdateOperationsInput | string
+    outcome?: NullableStringFieldUpdateOperationsInput | string | null
+    dueAssignedEnd?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    execStart?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    dueExecEndDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    execEndDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    dueClosuerDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    totalExecTime?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    expStartDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    suspensionReason?: NullableStringFieldUpdateOperationsInput | string | null
+    category?: NullableStringFieldUpdateOperationsInput | string | null
+    subCategory?: NullableStringFieldUpdateOperationsInput | string | null
+    companyId?: NullableStringFieldUpdateOperationsInput | string | null
+    teamId?: NullableStringFieldUpdateOperationsInput | string | null
+    floorId?: NullableStringFieldUpdateOperationsInput | string | null
+    spaceId?: NullableStringFieldUpdateOperationsInput | string | null
+    ttSystemOpening?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    ttWorkOpening?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    ttSystemAssignment?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    ttWorkAssignment?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    ttSystemExecution?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    ttWorkExecution?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    ttSysSuspension?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    ttWorkSuspension?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    ttEstimate?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    prevMaintenanceConfigId?: NullableStringFieldUpdateOperationsInput | string | null
+    automaticConfig?: BoolFieldUpdateOperationsInput | boolean
+    jointAccounting?: BoolFieldUpdateOperationsInput | boolean
+    hasTasks?: BoolFieldUpdateOperationsInput | boolean
+    estimateStatus?: EnumStatusFieldUpdateOperationsInput | $Enums.Status
+    delayNotification?: BoolFieldUpdateOperationsInput | boolean
+    assigneeId?: NullableStringFieldUpdateOperationsInput | string | null
+    assetId?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    photos?: FileUncheckedUpdateManyWithoutMaintenanceNestedInput
+  }
+
+  export type MaintenanceUncheckedUpdateManyWithoutBuildingInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    type?: EnumMaintenanceTypeFieldUpdateOperationsInput | $Enums.MaintenanceType
+    code?: StringFieldUpdateOperationsInput | string
+    description?: StringFieldUpdateOperationsInput | string
+    startDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    endDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    shortDescription?: NullableStringFieldUpdateOperationsInput | string | null
+    action?: NullableStringFieldUpdateOperationsInput | string | null
+    message?: NullableStringFieldUpdateOperationsInput | string | null
+    processNotes?: NullableStringFieldUpdateOperationsInput | string | null
+    metadata?: NullableJsonNullValueInput | InputJsonValue
+    performerId?: NullableStringFieldUpdateOperationsInput | string | null
+    processStatus?: EnumStatusFieldUpdateOperationsInput | $Enums.Status
+    register?: NullableStringFieldUpdateOperationsInput | string | null
+    activityIdTimer?: NullableStringFieldUpdateOperationsInput | string | null
+    activityStartTime?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    activityEndTime?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    allDeadlines?: NullableStringFieldUpdateOperationsInput | string | null
+    processType?: EnumProcessTypeFieldUpdateOperationsInput | $Enums.ProcessType
+    ttSysRunning?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    ttWorkRunning?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    sorting?: NullableStringFieldUpdateOperationsInput | string | null
+    requesterId?: NullableStringFieldUpdateOperationsInput | string | null
+    priority?: EnumPriorityFieldUpdateOperationsInput | $Enums.Priority
+    siteId?: StringFieldUpdateOperationsInput | string
+    outcome?: NullableStringFieldUpdateOperationsInput | string | null
+    dueAssignedEnd?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    execStart?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    dueExecEndDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    execEndDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    dueClosuerDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    totalExecTime?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    expStartDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    suspensionReason?: NullableStringFieldUpdateOperationsInput | string | null
+    category?: NullableStringFieldUpdateOperationsInput | string | null
+    subCategory?: NullableStringFieldUpdateOperationsInput | string | null
+    companyId?: NullableStringFieldUpdateOperationsInput | string | null
+    teamId?: NullableStringFieldUpdateOperationsInput | string | null
+    floorId?: NullableStringFieldUpdateOperationsInput | string | null
+    spaceId?: NullableStringFieldUpdateOperationsInput | string | null
+    ttSystemOpening?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    ttWorkOpening?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    ttSystemAssignment?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    ttWorkAssignment?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    ttSystemExecution?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    ttWorkExecution?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    ttSysSuspension?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    ttWorkSuspension?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    ttEstimate?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    prevMaintenanceConfigId?: NullableStringFieldUpdateOperationsInput | string | null
+    automaticConfig?: BoolFieldUpdateOperationsInput | boolean
+    jointAccounting?: BoolFieldUpdateOperationsInput | boolean
+    hasTasks?: BoolFieldUpdateOperationsInput | boolean
+    estimateStatus?: EnumStatusFieldUpdateOperationsInput | $Enums.Status
+    delayNotification?: BoolFieldUpdateOperationsInput | boolean
+    assigneeId?: NullableStringFieldUpdateOperationsInput | string | null
+    assetId?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
   export type SpaceCreateManyFloorInput = {
     id?: string
     name: string
@@ -55778,6 +56545,7 @@ export namespace Prisma {
     category?: string | null
     subCategory?: string | null
     companyId?: string | null
+    buildingId?: string | null
     teamId?: string | null
     spaceId?: string | null
     ttSystemOpening?: Decimal | DecimalJsLike | number | string | null
@@ -56068,6 +56836,7 @@ export namespace Prisma {
     requester?: UserUpdateOneWithoutRequestedMaintenancesNestedInput
     site?: ComplexUpdateOneRequiredWithoutMaintenancesNestedInput
     company?: CompanyUpdateOneWithoutMaintenancesNestedInput
+    building?: BuildingUpdateOneWithoutMaintenancesNestedInput
     team?: TeamUpdateOneWithoutMaintenancesNestedInput
     space?: SpaceUpdateOneWithoutMaintenancesNestedInput
     assignee?: UserUpdateOneWithoutAssignedMaintenancesNestedInput
@@ -56113,6 +56882,7 @@ export namespace Prisma {
     category?: NullableStringFieldUpdateOperationsInput | string | null
     subCategory?: NullableStringFieldUpdateOperationsInput | string | null
     companyId?: NullableStringFieldUpdateOperationsInput | string | null
+    buildingId?: NullableStringFieldUpdateOperationsInput | string | null
     teamId?: NullableStringFieldUpdateOperationsInput | string | null
     spaceId?: NullableStringFieldUpdateOperationsInput | string | null
     ttSystemOpening?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
@@ -56175,6 +56945,7 @@ export namespace Prisma {
     category?: NullableStringFieldUpdateOperationsInput | string | null
     subCategory?: NullableStringFieldUpdateOperationsInput | string | null
     companyId?: NullableStringFieldUpdateOperationsInput | string | null
+    buildingId?: NullableStringFieldUpdateOperationsInput | string | null
     teamId?: NullableStringFieldUpdateOperationsInput | string | null
     spaceId?: NullableStringFieldUpdateOperationsInput | string | null
     ttSystemOpening?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
@@ -56424,6 +57195,7 @@ export namespace Prisma {
     category?: string | null
     subCategory?: string | null
     companyId?: string | null
+    buildingId?: string | null
     teamId?: string | null
     floorId?: string | null
     ttSystemOpening?: Decimal | DecimalJsLike | number | string | null
@@ -56557,6 +57329,7 @@ export namespace Prisma {
     requester?: UserUpdateOneWithoutRequestedMaintenancesNestedInput
     site?: ComplexUpdateOneRequiredWithoutMaintenancesNestedInput
     company?: CompanyUpdateOneWithoutMaintenancesNestedInput
+    building?: BuildingUpdateOneWithoutMaintenancesNestedInput
     team?: TeamUpdateOneWithoutMaintenancesNestedInput
     floor?: FloorUpdateOneWithoutMaintenancesNestedInput
     assignee?: UserUpdateOneWithoutAssignedMaintenancesNestedInput
@@ -56602,6 +57375,7 @@ export namespace Prisma {
     category?: NullableStringFieldUpdateOperationsInput | string | null
     subCategory?: NullableStringFieldUpdateOperationsInput | string | null
     companyId?: NullableStringFieldUpdateOperationsInput | string | null
+    buildingId?: NullableStringFieldUpdateOperationsInput | string | null
     teamId?: NullableStringFieldUpdateOperationsInput | string | null
     floorId?: NullableStringFieldUpdateOperationsInput | string | null
     ttSystemOpening?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
@@ -56664,6 +57438,7 @@ export namespace Prisma {
     category?: NullableStringFieldUpdateOperationsInput | string | null
     subCategory?: NullableStringFieldUpdateOperationsInput | string | null
     companyId?: NullableStringFieldUpdateOperationsInput | string | null
+    buildingId?: NullableStringFieldUpdateOperationsInput | string | null
     teamId?: NullableStringFieldUpdateOperationsInput | string | null
     floorId?: NullableStringFieldUpdateOperationsInput | string | null
     ttSystemOpening?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
@@ -56885,6 +57660,7 @@ export namespace Prisma {
     category?: string | null
     subCategory?: string | null
     companyId?: string | null
+    buildingId?: string | null
     teamId?: string | null
     floorId?: string | null
     spaceId?: string | null
@@ -57022,6 +57798,7 @@ export namespace Prisma {
     requester?: UserUpdateOneWithoutRequestedMaintenancesNestedInput
     site?: ComplexUpdateOneRequiredWithoutMaintenancesNestedInput
     company?: CompanyUpdateOneWithoutMaintenancesNestedInput
+    building?: BuildingUpdateOneWithoutMaintenancesNestedInput
     team?: TeamUpdateOneWithoutMaintenancesNestedInput
     floor?: FloorUpdateOneWithoutMaintenancesNestedInput
     space?: SpaceUpdateOneWithoutMaintenancesNestedInput
@@ -57067,6 +57844,7 @@ export namespace Prisma {
     category?: NullableStringFieldUpdateOperationsInput | string | null
     subCategory?: NullableStringFieldUpdateOperationsInput | string | null
     companyId?: NullableStringFieldUpdateOperationsInput | string | null
+    buildingId?: NullableStringFieldUpdateOperationsInput | string | null
     teamId?: NullableStringFieldUpdateOperationsInput | string | null
     floorId?: NullableStringFieldUpdateOperationsInput | string | null
     spaceId?: NullableStringFieldUpdateOperationsInput | string | null
@@ -57129,6 +57907,7 @@ export namespace Prisma {
     category?: NullableStringFieldUpdateOperationsInput | string | null
     subCategory?: NullableStringFieldUpdateOperationsInput | string | null
     companyId?: NullableStringFieldUpdateOperationsInput | string | null
+    buildingId?: NullableStringFieldUpdateOperationsInput | string | null
     teamId?: NullableStringFieldUpdateOperationsInput | string | null
     floorId?: NullableStringFieldUpdateOperationsInput | string | null
     spaceId?: NullableStringFieldUpdateOperationsInput | string | null
@@ -57434,6 +58213,7 @@ export namespace Prisma {
     spaces?: SpaceUpdateManyWithoutBuildingNestedInput
     zones?: ZoneUpdateManyWithoutBuildingNestedInput
     preventives?: PreventiveUpdateManyWithoutBuildingNestedInput
+    maintenances?: MaintenanceUpdateManyWithoutBuildingNestedInput
   }
 
   export type BuildingUncheckedUpdateWithoutPhotosInput = {
@@ -57464,6 +58244,7 @@ export namespace Prisma {
     spaces?: SpaceUncheckedUpdateManyWithoutBuildingNestedInput
     zones?: ZoneUncheckedUpdateManyWithoutBuildingNestedInput
     preventives?: PreventiveUncheckedUpdateManyWithoutBuildingNestedInput
+    maintenances?: MaintenanceUncheckedUpdateManyWithoutBuildingNestedInput
   }
 
   export type BuildingUncheckedUpdateManyWithoutPhotosInput = {
@@ -57644,6 +58425,7 @@ export namespace Prisma {
     suspensionReason?: string | null
     category?: string | null
     subCategory?: string | null
+    buildingId?: string | null
     teamId?: string | null
     floorId?: string | null
     spaceId?: string | null
@@ -57793,6 +58575,7 @@ export namespace Prisma {
     performer?: UserUpdateOneWithoutPerformedMaintenancesNestedInput
     requester?: UserUpdateOneWithoutRequestedMaintenancesNestedInput
     site?: ComplexUpdateOneRequiredWithoutMaintenancesNestedInput
+    building?: BuildingUpdateOneWithoutMaintenancesNestedInput
     team?: TeamUpdateOneWithoutMaintenancesNestedInput
     floor?: FloorUpdateOneWithoutMaintenancesNestedInput
     space?: SpaceUpdateOneWithoutMaintenancesNestedInput
@@ -57838,6 +58621,7 @@ export namespace Prisma {
     suspensionReason?: NullableStringFieldUpdateOperationsInput | string | null
     category?: NullableStringFieldUpdateOperationsInput | string | null
     subCategory?: NullableStringFieldUpdateOperationsInput | string | null
+    buildingId?: NullableStringFieldUpdateOperationsInput | string | null
     teamId?: NullableStringFieldUpdateOperationsInput | string | null
     floorId?: NullableStringFieldUpdateOperationsInput | string | null
     spaceId?: NullableStringFieldUpdateOperationsInput | string | null
@@ -57900,6 +58684,7 @@ export namespace Prisma {
     suspensionReason?: NullableStringFieldUpdateOperationsInput | string | null
     category?: NullableStringFieldUpdateOperationsInput | string | null
     subCategory?: NullableStringFieldUpdateOperationsInput | string | null
+    buildingId?: NullableStringFieldUpdateOperationsInput | string | null
     teamId?: NullableStringFieldUpdateOperationsInput | string | null
     floorId?: NullableStringFieldUpdateOperationsInput | string | null
     spaceId?: NullableStringFieldUpdateOperationsInput | string | null
@@ -57962,6 +58747,7 @@ export namespace Prisma {
     category?: string | null
     subCategory?: string | null
     companyId?: string | null
+    buildingId?: string | null
     floorId?: string | null
     spaceId?: string | null
     ttSystemOpening?: Decimal | DecimalJsLike | number | string | null
@@ -58060,6 +58846,7 @@ export namespace Prisma {
     requester?: UserUpdateOneWithoutRequestedMaintenancesNestedInput
     site?: ComplexUpdateOneRequiredWithoutMaintenancesNestedInput
     company?: CompanyUpdateOneWithoutMaintenancesNestedInput
+    building?: BuildingUpdateOneWithoutMaintenancesNestedInput
     floor?: FloorUpdateOneWithoutMaintenancesNestedInput
     space?: SpaceUpdateOneWithoutMaintenancesNestedInput
     assignee?: UserUpdateOneWithoutAssignedMaintenancesNestedInput
@@ -58105,6 +58892,7 @@ export namespace Prisma {
     category?: NullableStringFieldUpdateOperationsInput | string | null
     subCategory?: NullableStringFieldUpdateOperationsInput | string | null
     companyId?: NullableStringFieldUpdateOperationsInput | string | null
+    buildingId?: NullableStringFieldUpdateOperationsInput | string | null
     floorId?: NullableStringFieldUpdateOperationsInput | string | null
     spaceId?: NullableStringFieldUpdateOperationsInput | string | null
     ttSystemOpening?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
@@ -58167,6 +58955,7 @@ export namespace Prisma {
     category?: NullableStringFieldUpdateOperationsInput | string | null
     subCategory?: NullableStringFieldUpdateOperationsInput | string | null
     companyId?: NullableStringFieldUpdateOperationsInput | string | null
+    buildingId?: NullableStringFieldUpdateOperationsInput | string | null
     floorId?: NullableStringFieldUpdateOperationsInput | string | null
     spaceId?: NullableStringFieldUpdateOperationsInput | string | null
     ttSystemOpening?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
@@ -58435,6 +59224,7 @@ export namespace Prisma {
     spaces?: SpaceUpdateManyWithoutBuildingNestedInput
     zones?: ZoneUpdateManyWithoutBuildingNestedInput
     preventives?: PreventiveUpdateManyWithoutBuildingNestedInput
+    maintenances?: MaintenanceUpdateManyWithoutBuildingNestedInput
   }
 
   export type BuildingUncheckedUpdateWithoutAddressInput = {
@@ -58465,6 +59255,7 @@ export namespace Prisma {
     spaces?: SpaceUncheckedUpdateManyWithoutBuildingNestedInput
     zones?: ZoneUncheckedUpdateManyWithoutBuildingNestedInput
     preventives?: PreventiveUncheckedUpdateManyWithoutBuildingNestedInput
+    maintenances?: MaintenanceUncheckedUpdateManyWithoutBuildingNestedInput
   }
 
   export type BuildingUncheckedUpdateManyWithoutAddressInput = {
@@ -58651,6 +59442,7 @@ export namespace Prisma {
     spaces?: SpaceUpdateManyWithoutBuildingNestedInput
     zones?: ZoneUpdateManyWithoutBuildingNestedInput
     preventives?: PreventiveUpdateManyWithoutBuildingNestedInput
+    maintenances?: MaintenanceUpdateManyWithoutBuildingNestedInput
   }
 
   export type BuildingUncheckedUpdateWithoutCalenderEntityInput = {
@@ -58681,6 +59473,7 @@ export namespace Prisma {
     spaces?: SpaceUncheckedUpdateManyWithoutBuildingNestedInput
     zones?: ZoneUncheckedUpdateManyWithoutBuildingNestedInput
     preventives?: PreventiveUncheckedUpdateManyWithoutBuildingNestedInput
+    maintenances?: MaintenanceUncheckedUpdateManyWithoutBuildingNestedInput
   }
 
   export type BuildingUncheckedUpdateManyWithoutCalenderEntityInput = {

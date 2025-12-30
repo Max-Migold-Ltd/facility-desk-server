@@ -331,11 +331,12 @@ model Building {
   photos File[]
   floors Floor[]
 
-  createdAt   DateTime     @default(now())
-  updatedAt   DateTime     @updatedAt
-  spaces      Space[]
-  zones       Zone[]
-  preventives Preventive[]
+  createdAt    DateTime      @default(now())
+  updatedAt    DateTime      @updatedAt
+  spaces       Space[]
+  zones        Zone[]
+  preventives  Preventive[]
+  maintenances Maintenance[]
 
   @@unique([complexId, code])
   @@map("buildings")
@@ -678,6 +679,9 @@ model Maintenance {
 
   companyId String? // Reference
   company   Company? @relation(fields: [companyId], references: [id])
+
+  buildingId String?
+  building   Building? @relation(fields: [buildingId], references: [id])
 
   teamId  String?
   team    Team?   @relation(fields: [teamId], references: [id], onDelete: Cascade)

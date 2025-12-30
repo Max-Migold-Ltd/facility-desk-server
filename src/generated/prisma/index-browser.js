@@ -436,6 +436,7 @@ exports.Prisma.MaintenanceScalarFieldEnum = {
   category: 'category',
   subCategory: 'subCategory',
   companyId: 'companyId',
+  buildingId: 'buildingId',
   teamId: 'teamId',
   floorId: 'floorId',
   spaceId: 'spaceId',
