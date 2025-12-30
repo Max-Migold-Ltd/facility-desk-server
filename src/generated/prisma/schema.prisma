@@ -163,7 +163,23 @@ model User {
   passwordResetToken String?
   passwordExpiresAt  DateTime?
   passwordResetAt    DateTime?
-  employees          Employee[]
+
+  // Employee Fields
+  employeeCode  String?       @unique
+  employeeType  EmployeeType? @default(CUSTOMER_EMPLOYEE)
+  companyId     String?
+  company       Company?      @relation(fields: [companyId], references: [id])
+  serviceStatus ServiceStatus @default(ACTIVE)
+
+  calenderEntityId String?
+  calenderEntity   CalenderEntity? @relation(fields: [calenderEntityId], references: [id], onDelete: SetNull)
+
+  // Relations
+  teams                 Team[]
+  performedMaintenances Maintenance[] @relation("MaintenancePerformer")
+  requestedMaintenances Maintenance[] @relation("MaintenanceRequester")
+  assignedMaintenances  Maintenance[] @relation("MaintenanceAssignee")
+  supervisedTeams       Team[]        @relation("TeamSupervisor")
 
   @@index([email])
   @@index([roleId])
@@ -548,32 +564,10 @@ model Company {
 
   createdAt    DateTime      @default(now())
   updatedAt    DateTime      @updatedAt
-  employees    Employee[]
+  employees    User[]
   maintenances Maintenance[]
 
   @@map("companies")
-}
-
-model Employee {
-  id     String       @id @default(uuid())
-  code   String       @unique
-  type   EmployeeType @default(CUSTOMER_EMPLOYEE)
-  userId String
-  user   User         @relation(fields: [userId], references: [id], onDelete: Cascade)
-
-  companyId String
-  company   Company       @relation(fields: [companyId], references: [id], onDelete: Cascade)
-  status    ServiceStatus @default(ACTIVE)
-
-  calenderEntityId      String?
-  calenderEntity        CalenderEntity? @relation(fields: [calenderEntityId], references: [id], onDelete: Cascade)
-  teams                 Team[]
-  // correntives      correntive[]
-  performedMaintenances Maintenance[]   @relation("MaintenancePerformer")
-  requestedMaintenances Maintenance[]   @relation("MaintenanceRequester")
-  assignedMaintenances  Maintenance[]   @relation("MaintenanceAssignee")
-
-  @@map("employees")
 }
 
 model Team {
@@ -585,12 +579,13 @@ model Team {
   status ServiceStatus @default(ACTIVE)
 
   supervisorId String
-  supervisor   Employee @relation(fields: [supervisorId], references: [id], onDelete: Cascade)
+  supervisor   User   @relation("TeamSupervisor", fields: [supervisorId], references: [id], onDelete: Cascade)
 
   createdAt    DateTime      @default(now())
   updatedAt    DateTime      @updatedAt
   maintenances Maintenance[]
   preventives  Preventive[]
+  members      User[]
 
   @@map("teams")
 }
@@ -622,11 +617,11 @@ model CalenderEntity {
   buildings Building[]
   complexes Complex[]
 
-  createdAt DateTime   @default(now())
-  updatedAt DateTime   @updatedAt
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
   spaces    Space[]
   zones     Zone[]
-  employees Employee[]
+  employees User[]
 
   @@map("calender_entities")
 }
@@ -645,7 +640,7 @@ model Maintenance {
   metadata         Json? // Use Zod schema to validate based on type
 
   performerId String?
-  performer   Employee? @relation("MaintenancePerformer", fields: [performerId], references: [id], onDelete: Cascade)
+  performer   User?   @relation("MaintenancePerformer", fields: [performerId], references: [id], onDelete: Cascade)
 
   processStatus     Status      @default(PENDING)
   register          String?
@@ -659,7 +654,7 @@ model Maintenance {
   sorting           String?
 
   requesterId String?
-  requester   Employee? @relation("MaintenanceRequester", fields: [requesterId], references: [id], onDelete: Cascade)
+  requester   User?   @relation("MaintenanceRequester", fields: [requesterId], references: [id], onDelete: Cascade)
 
   priority Priority @default(LOW)
 
@@ -709,9 +704,9 @@ model Maintenance {
 
   estimateStatus Status @default(PENDING)
 
-  delayNotification Boolean   @default(false)
+  delayNotification Boolean @default(false)
   assigneeId        String?
-  assignee          Employee? @relation("MaintenanceAssignee", fields: [assigneeId], references: [id], onDelete: Cascade)
+  assignee          User?   @relation("MaintenanceAssignee", fields: [assigneeId], references: [id], onDelete: Cascade)
 
   assetId String?
   asset   Asset?  @relation(fields: [assetId], references: [id])

@@ -101,14 +101,16 @@ export class MaintenanceService {
           site: { select: { name: true, code: true } },
           requester: {
             select: {
-              code: true,
-              user: { select: { firstName: true, lastName: true } },
+              employeeCode: true,
+              firstName: true,
+              lastName: true,
             },
           },
           assignee: {
             select: {
-              code: true,
-              user: { select: { firstName: true, lastName: true } },
+              employeeCode: true,
+              firstName: true,
+              lastName: true,
             },
           },
         },
@@ -140,9 +142,9 @@ export class MaintenanceService {
         site: true,
         floor: true,
         space: true,
-        requester: { include: { user: true } },
-        assignee: { include: { user: true } },
-        performer: { include: { user: true } },
+        requester: true,
+        assignee: true,
+        performer: true,
         team: true,
       },
     });

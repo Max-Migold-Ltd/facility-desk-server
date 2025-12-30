@@ -41,7 +41,7 @@ export const initPreventiveScheduler = () => {
             ...(preventive.assetId && { assetId: preventive.assetId }),
             ...(preventive.buildingId && { buildingId: preventive.buildingId }),
             ...(preventive.floorId && { floorId: preventive.floorId }),
-            ...(preventive.spaceId && { roomId: preventive.spaceId }),
+            ...(preventive.spaceId && { spaceId: preventive.spaceId }),
 
             startDate: now,
             endDate: new Date(

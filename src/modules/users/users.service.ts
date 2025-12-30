@@ -1,6 +1,10 @@
 import prisma from "../../lib/prisma";
 import { NotFoundError } from "../../errors";
-import { UserStatus } from "../../generated/prisma";
+import {
+  UserStatus,
+  EmployeeType,
+  ServiceStatus,
+} from "../../generated/prisma";
 
 export class UsersService {
   async findAll(options: {
@@ -65,6 +69,11 @@ export class UsersService {
       status?: UserStatus;
       roleId?: string; // Role ID
       permissions?: { resource: string; accessLevel: string }[];
+      // Employee Fields
+      employeeCode?: string;
+      employeeType?: EmployeeType;
+      companyId?: string;
+      serviceStatus?: ServiceStatus;
     }
   ) {
     const { roleId, permissions, ...userData } = data;
@@ -87,7 +96,7 @@ export class UsersService {
     const user = await prisma.user.update({
       where: { id },
       data: updateData,
-      include: { role: true, permissions: true },
+      include: { role: true, permissions: true, company: true },
     });
 
     const { password, ...userWithoutPassword } = user;

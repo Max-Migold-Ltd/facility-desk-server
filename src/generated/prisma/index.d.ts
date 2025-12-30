@@ -89,11 +89,6 @@ export type File = $Result.DefaultSelection<Prisma.$FilePayload>
  */
 export type Company = $Result.DefaultSelection<Prisma.$CompanyPayload>
 /**
- * Model Employee
- * 
- */
-export type Employee = $Result.DefaultSelection<Prisma.$EmployeePayload>
-/**
  * Model Team
  * 
  */
@@ -659,16 +654,6 @@ export class PrismaClient<
   get company(): Prisma.CompanyDelegate<ExtArgs, ClientOptions>;
 
   /**
-   * `prisma.employee`: Exposes CRUD operations for the **Employee** model.
-    * Example usage:
-    * ```ts
-    * // Fetch zero or more Employees
-    * const employees = await prisma.employee.findMany()
-    * ```
-    */
-  get employee(): Prisma.EmployeeDelegate<ExtArgs, ClientOptions>;
-
-  /**
    * `prisma.team`: Exposes CRUD operations for the **Team** model.
     * Example usage:
     * ```ts
@@ -1186,7 +1171,6 @@ export namespace Prisma {
     Asset: 'Asset',
     File: 'File',
     Company: 'Company',
-    Employee: 'Employee',
     Team: 'Team',
     Address: 'Address',
     Contract: 'Contract',
@@ -1209,7 +1193,7 @@ export namespace Prisma {
       omit: GlobalOmitOptions
     }
     meta: {
-      modelProps: "user" | "role" | "permission" | "userPermission" | "site" | "complex" | "building" | "floor" | "zone" | "space" | "assetType" | "assetCategory" | "asset" | "file" | "company" | "employee" | "team" | "address" | "contract" | "calenderEntity" | "maintenance" | "preventive" | "refreshToken"
+      modelProps: "user" | "role" | "permission" | "userPermission" | "site" | "complex" | "building" | "floor" | "zone" | "space" | "assetType" | "assetCategory" | "asset" | "file" | "company" | "team" | "address" | "contract" | "calenderEntity" | "maintenance" | "preventive" | "refreshToken"
       txIsolationLevel: Prisma.TransactionIsolationLevel
     }
     model: {
@@ -2323,80 +2307,6 @@ export namespace Prisma {
           }
         }
       }
-      Employee: {
-        payload: Prisma.$EmployeePayload<ExtArgs>
-        fields: Prisma.EmployeeFieldRefs
-        operations: {
-          findUnique: {
-            args: Prisma.EmployeeFindUniqueArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$EmployeePayload> | null
-          }
-          findUniqueOrThrow: {
-            args: Prisma.EmployeeFindUniqueOrThrowArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$EmployeePayload>
-          }
-          findFirst: {
-            args: Prisma.EmployeeFindFirstArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$EmployeePayload> | null
-          }
-          findFirstOrThrow: {
-            args: Prisma.EmployeeFindFirstOrThrowArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$EmployeePayload>
-          }
-          findMany: {
-            args: Prisma.EmployeeFindManyArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$EmployeePayload>[]
-          }
-          create: {
-            args: Prisma.EmployeeCreateArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$EmployeePayload>
-          }
-          createMany: {
-            args: Prisma.EmployeeCreateManyArgs<ExtArgs>
-            result: BatchPayload
-          }
-          createManyAndReturn: {
-            args: Prisma.EmployeeCreateManyAndReturnArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$EmployeePayload>[]
-          }
-          delete: {
-            args: Prisma.EmployeeDeleteArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$EmployeePayload>
-          }
-          update: {
-            args: Prisma.EmployeeUpdateArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$EmployeePayload>
-          }
-          deleteMany: {
-            args: Prisma.EmployeeDeleteManyArgs<ExtArgs>
-            result: BatchPayload
-          }
-          updateMany: {
-            args: Prisma.EmployeeUpdateManyArgs<ExtArgs>
-            result: BatchPayload
-          }
-          updateManyAndReturn: {
-            args: Prisma.EmployeeUpdateManyAndReturnArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$EmployeePayload>[]
-          }
-          upsert: {
-            args: Prisma.EmployeeUpsertArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$EmployeePayload>
-          }
-          aggregate: {
-            args: Prisma.EmployeeAggregateArgs<ExtArgs>
-            result: $Utils.Optional<AggregateEmployee>
-          }
-          groupBy: {
-            args: Prisma.EmployeeGroupByArgs<ExtArgs>
-            result: $Utils.Optional<EmployeeGroupByOutputType>[]
-          }
-          count: {
-            args: Prisma.EmployeeCountArgs<ExtArgs>
-            result: $Utils.Optional<EmployeeCountAggregateOutputType> | number
-          }
-        }
-      }
       Team: {
         payload: Prisma.$TeamPayload<ExtArgs>
         fields: Prisma.TeamFieldRefs
@@ -3022,7 +2932,6 @@ export namespace Prisma {
     asset?: AssetOmit
     file?: FileOmit
     company?: CompanyOmit
-    employee?: EmployeeOmit
     team?: TeamOmit
     address?: AddressOmit
     contract?: ContractOmit
@@ -3112,13 +3021,21 @@ export namespace Prisma {
   export type UserCountOutputType = {
     refreshTokens: number
     permissions: number
-    employees: number
+    teams: number
+    performedMaintenances: number
+    requestedMaintenances: number
+    assignedMaintenances: number
+    supervisedTeams: number
   }
 
   export type UserCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     refreshTokens?: boolean | UserCountOutputTypeCountRefreshTokensArgs
     permissions?: boolean | UserCountOutputTypeCountPermissionsArgs
-    employees?: boolean | UserCountOutputTypeCountEmployeesArgs
+    teams?: boolean | UserCountOutputTypeCountTeamsArgs
+    performedMaintenances?: boolean | UserCountOutputTypeCountPerformedMaintenancesArgs
+    requestedMaintenances?: boolean | UserCountOutputTypeCountRequestedMaintenancesArgs
+    assignedMaintenances?: boolean | UserCountOutputTypeCountAssignedMaintenancesArgs
+    supervisedTeams?: boolean | UserCountOutputTypeCountSupervisedTeamsArgs
   }
 
   // Custom InputTypes
@@ -3149,8 +3066,36 @@ export namespace Prisma {
   /**
    * UserCountOutputType without action
    */
-  export type UserCountOutputTypeCountEmployeesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    where?: EmployeeWhereInput
+  export type UserCountOutputTypeCountTeamsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: TeamWhereInput
+  }
+
+  /**
+   * UserCountOutputType without action
+   */
+  export type UserCountOutputTypeCountPerformedMaintenancesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: MaintenanceWhereInput
+  }
+
+  /**
+   * UserCountOutputType without action
+   */
+  export type UserCountOutputTypeCountRequestedMaintenancesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: MaintenanceWhereInput
+  }
+
+  /**
+   * UserCountOutputType without action
+   */
+  export type UserCountOutputTypeCountAssignedMaintenancesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: MaintenanceWhereInput
+  }
+
+  /**
+   * UserCountOutputType without action
+   */
+  export type UserCountOutputTypeCountSupervisedTeamsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: TeamWhereInput
   }
 
 
@@ -3700,7 +3645,7 @@ export namespace Prisma {
    * CompanyCountOutputType without action
    */
   export type CompanyCountOutputTypeCountEmployeesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    where?: EmployeeWhereInput
+    where?: UserWhereInput
   }
 
   /**
@@ -3712,75 +3657,19 @@ export namespace Prisma {
 
 
   /**
-   * Count Type EmployeeCountOutputType
-   */
-
-  export type EmployeeCountOutputType = {
-    teams: number
-    performedMaintenances: number
-    requestedMaintenances: number
-    assignedMaintenances: number
-  }
-
-  export type EmployeeCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    teams?: boolean | EmployeeCountOutputTypeCountTeamsArgs
-    performedMaintenances?: boolean | EmployeeCountOutputTypeCountPerformedMaintenancesArgs
-    requestedMaintenances?: boolean | EmployeeCountOutputTypeCountRequestedMaintenancesArgs
-    assignedMaintenances?: boolean | EmployeeCountOutputTypeCountAssignedMaintenancesArgs
-  }
-
-  // Custom InputTypes
-  /**
-   * EmployeeCountOutputType without action
-   */
-  export type EmployeeCountOutputTypeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the EmployeeCountOutputType
-     */
-    select?: EmployeeCountOutputTypeSelect<ExtArgs> | null
-  }
-
-  /**
-   * EmployeeCountOutputType without action
-   */
-  export type EmployeeCountOutputTypeCountTeamsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    where?: TeamWhereInput
-  }
-
-  /**
-   * EmployeeCountOutputType without action
-   */
-  export type EmployeeCountOutputTypeCountPerformedMaintenancesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    where?: MaintenanceWhereInput
-  }
-
-  /**
-   * EmployeeCountOutputType without action
-   */
-  export type EmployeeCountOutputTypeCountRequestedMaintenancesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    where?: MaintenanceWhereInput
-  }
-
-  /**
-   * EmployeeCountOutputType without action
-   */
-  export type EmployeeCountOutputTypeCountAssignedMaintenancesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    where?: MaintenanceWhereInput
-  }
-
-
-  /**
    * Count Type TeamCountOutputType
    */
 
   export type TeamCountOutputType = {
     maintenances: number
     preventives: number
+    members: number
   }
 
   export type TeamCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     maintenances?: boolean | TeamCountOutputTypeCountMaintenancesArgs
     preventives?: boolean | TeamCountOutputTypeCountPreventivesArgs
+    members?: boolean | TeamCountOutputTypeCountMembersArgs
   }
 
   // Custom InputTypes
@@ -3806,6 +3695,13 @@ export namespace Prisma {
    */
   export type TeamCountOutputTypeCountPreventivesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: PreventiveWhereInput
+  }
+
+  /**
+   * TeamCountOutputType without action
+   */
+  export type TeamCountOutputTypeCountMembersArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: UserWhereInput
   }
 
 
@@ -3912,7 +3808,7 @@ export namespace Prisma {
    * CalenderEntityCountOutputType without action
    */
   export type CalenderEntityCountOutputTypeCountEmployeesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    where?: EmployeeWhereInput
+    where?: UserWhereInput
   }
 
 
@@ -3974,6 +3870,11 @@ export namespace Prisma {
     passwordResetToken: string | null
     passwordExpiresAt: Date | null
     passwordResetAt: Date | null
+    employeeCode: string | null
+    employeeType: $Enums.EmployeeType | null
+    companyId: string | null
+    serviceStatus: $Enums.ServiceStatus | null
+    calenderEntityId: string | null
   }
 
   export type UserMaxAggregateOutputType = {
@@ -3989,6 +3890,11 @@ export namespace Prisma {
     passwordResetToken: string | null
     passwordExpiresAt: Date | null
     passwordResetAt: Date | null
+    employeeCode: string | null
+    employeeType: $Enums.EmployeeType | null
+    companyId: string | null
+    serviceStatus: $Enums.ServiceStatus | null
+    calenderEntityId: string | null
   }
 
   export type UserCountAggregateOutputType = {
@@ -4004,6 +3910,11 @@ export namespace Prisma {
     passwordResetToken: number
     passwordExpiresAt: number
     passwordResetAt: number
+    employeeCode: number
+    employeeType: number
+    companyId: number
+    serviceStatus: number
+    calenderEntityId: number
     _all: number
   }
 
@@ -4021,6 +3932,11 @@ export namespace Prisma {
     passwordResetToken?: true
     passwordExpiresAt?: true
     passwordResetAt?: true
+    employeeCode?: true
+    employeeType?: true
+    companyId?: true
+    serviceStatus?: true
+    calenderEntityId?: true
   }
 
   export type UserMaxAggregateInputType = {
@@ -4036,6 +3952,11 @@ export namespace Prisma {
     passwordResetToken?: true
     passwordExpiresAt?: true
     passwordResetAt?: true
+    employeeCode?: true
+    employeeType?: true
+    companyId?: true
+    serviceStatus?: true
+    calenderEntityId?: true
   }
 
   export type UserCountAggregateInputType = {
@@ -4051,6 +3972,11 @@ export namespace Prisma {
     passwordResetToken?: true
     passwordExpiresAt?: true
     passwordResetAt?: true
+    employeeCode?: true
+    employeeType?: true
+    companyId?: true
+    serviceStatus?: true
+    calenderEntityId?: true
     _all?: true
   }
 
@@ -4139,6 +4065,11 @@ export namespace Prisma {
     passwordResetToken: string | null
     passwordExpiresAt: Date | null
     passwordResetAt: Date | null
+    employeeCode: string | null
+    employeeType: $Enums.EmployeeType | null
+    companyId: string | null
+    serviceStatus: $Enums.ServiceStatus
+    calenderEntityId: string | null
     _count: UserCountAggregateOutputType | null
     _min: UserMinAggregateOutputType | null
     _max: UserMaxAggregateOutputType | null
@@ -4171,10 +4102,21 @@ export namespace Prisma {
     passwordResetToken?: boolean
     passwordExpiresAt?: boolean
     passwordResetAt?: boolean
+    employeeCode?: boolean
+    employeeType?: boolean
+    companyId?: boolean
+    serviceStatus?: boolean
+    calenderEntityId?: boolean
     refreshTokens?: boolean | User$refreshTokensArgs<ExtArgs>
     role?: boolean | RoleDefaultArgs<ExtArgs>
     permissions?: boolean | User$permissionsArgs<ExtArgs>
-    employees?: boolean | User$employeesArgs<ExtArgs>
+    company?: boolean | User$companyArgs<ExtArgs>
+    calenderEntity?: boolean | User$calenderEntityArgs<ExtArgs>
+    teams?: boolean | User$teamsArgs<ExtArgs>
+    performedMaintenances?: boolean | User$performedMaintenancesArgs<ExtArgs>
+    requestedMaintenances?: boolean | User$requestedMaintenancesArgs<ExtArgs>
+    assignedMaintenances?: boolean | User$assignedMaintenancesArgs<ExtArgs>
+    supervisedTeams?: boolean | User$supervisedTeamsArgs<ExtArgs>
     _count?: boolean | UserCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["user"]>
 
@@ -4191,7 +4133,14 @@ export namespace Prisma {
     passwordResetToken?: boolean
     passwordExpiresAt?: boolean
     passwordResetAt?: boolean
+    employeeCode?: boolean
+    employeeType?: boolean
+    companyId?: boolean
+    serviceStatus?: boolean
+    calenderEntityId?: boolean
     role?: boolean | RoleDefaultArgs<ExtArgs>
+    company?: boolean | User$companyArgs<ExtArgs>
+    calenderEntity?: boolean | User$calenderEntityArgs<ExtArgs>
   }, ExtArgs["result"]["user"]>
 
   export type UserSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
@@ -4207,7 +4156,14 @@ export namespace Prisma {
     passwordResetToken?: boolean
     passwordExpiresAt?: boolean
     passwordResetAt?: boolean
+    employeeCode?: boolean
+    employeeType?: boolean
+    companyId?: boolean
+    serviceStatus?: boolean
+    calenderEntityId?: boolean
     role?: boolean | RoleDefaultArgs<ExtArgs>
+    company?: boolean | User$companyArgs<ExtArgs>
+    calenderEntity?: boolean | User$calenderEntityArgs<ExtArgs>
   }, ExtArgs["result"]["user"]>
 
   export type UserSelectScalar = {
@@ -4223,21 +4179,36 @@ export namespace Prisma {
     passwordResetToken?: boolean
     passwordExpiresAt?: boolean
     passwordResetAt?: boolean
+    employeeCode?: boolean
+    employeeType?: boolean
+    companyId?: boolean
+    serviceStatus?: boolean
+    calenderEntityId?: boolean
   }
 
-  export type UserOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "email" | "password" | "firstName" | "lastName" | "roleId" | "status" | "createdAt" | "updatedAt" | "passwordResetToken" | "passwordExpiresAt" | "passwordResetAt", ExtArgs["result"]["user"]>
+  export type UserOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "email" | "password" | "firstName" | "lastName" | "roleId" | "status" | "createdAt" | "updatedAt" | "passwordResetToken" | "passwordExpiresAt" | "passwordResetAt" | "employeeCode" | "employeeType" | "companyId" | "serviceStatus" | "calenderEntityId", ExtArgs["result"]["user"]>
   export type UserInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     refreshTokens?: boolean | User$refreshTokensArgs<ExtArgs>
     role?: boolean | RoleDefaultArgs<ExtArgs>
     permissions?: boolean | User$permissionsArgs<ExtArgs>
-    employees?: boolean | User$employeesArgs<ExtArgs>
+    company?: boolean | User$companyArgs<ExtArgs>
+    calenderEntity?: boolean | User$calenderEntityArgs<ExtArgs>
+    teams?: boolean | User$teamsArgs<ExtArgs>
+    performedMaintenances?: boolean | User$performedMaintenancesArgs<ExtArgs>
+    requestedMaintenances?: boolean | User$requestedMaintenancesArgs<ExtArgs>
+    assignedMaintenances?: boolean | User$assignedMaintenancesArgs<ExtArgs>
+    supervisedTeams?: boolean | User$supervisedTeamsArgs<ExtArgs>
     _count?: boolean | UserCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type UserIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     role?: boolean | RoleDefaultArgs<ExtArgs>
+    company?: boolean | User$companyArgs<ExtArgs>
+    calenderEntity?: boolean | User$calenderEntityArgs<ExtArgs>
   }
   export type UserIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     role?: boolean | RoleDefaultArgs<ExtArgs>
+    company?: boolean | User$companyArgs<ExtArgs>
+    calenderEntity?: boolean | User$calenderEntityArgs<ExtArgs>
   }
 
   export type $UserPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -4246,7 +4217,13 @@ export namespace Prisma {
       refreshTokens: Prisma.$RefreshTokenPayload<ExtArgs>[]
       role: Prisma.$RolePayload<ExtArgs>
       permissions: Prisma.$UserPermissionPayload<ExtArgs>[]
-      employees: Prisma.$EmployeePayload<ExtArgs>[]
+      company: Prisma.$CompanyPayload<ExtArgs> | null
+      calenderEntity: Prisma.$CalenderEntityPayload<ExtArgs> | null
+      teams: Prisma.$TeamPayload<ExtArgs>[]
+      performedMaintenances: Prisma.$MaintenancePayload<ExtArgs>[]
+      requestedMaintenances: Prisma.$MaintenancePayload<ExtArgs>[]
+      assignedMaintenances: Prisma.$MaintenancePayload<ExtArgs>[]
+      supervisedTeams: Prisma.$TeamPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -4261,6 +4238,11 @@ export namespace Prisma {
       passwordResetToken: string | null
       passwordExpiresAt: Date | null
       passwordResetAt: Date | null
+      employeeCode: string | null
+      employeeType: $Enums.EmployeeType | null
+      companyId: string | null
+      serviceStatus: $Enums.ServiceStatus
+      calenderEntityId: string | null
     }, ExtArgs["result"]["user"]>
     composites: {}
   }
@@ -4658,7 +4640,13 @@ export namespace Prisma {
     refreshTokens<T extends User$refreshTokensArgs<ExtArgs> = {}>(args?: Subset<T, User$refreshTokensArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$RefreshTokenPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     role<T extends RoleDefaultArgs<ExtArgs> = {}>(args?: Subset<T, RoleDefaultArgs<ExtArgs>>): Prisma__RoleClient<$Result.GetResult<Prisma.$RolePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
     permissions<T extends User$permissionsArgs<ExtArgs> = {}>(args?: Subset<T, User$permissionsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$UserPermissionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
-    employees<T extends User$employeesArgs<ExtArgs> = {}>(args?: Subset<T, User$employeesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$EmployeePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    company<T extends User$companyArgs<ExtArgs> = {}>(args?: Subset<T, User$companyArgs<ExtArgs>>): Prisma__CompanyClient<$Result.GetResult<Prisma.$CompanyPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+    calenderEntity<T extends User$calenderEntityArgs<ExtArgs> = {}>(args?: Subset<T, User$calenderEntityArgs<ExtArgs>>): Prisma__CalenderEntityClient<$Result.GetResult<Prisma.$CalenderEntityPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+    teams<T extends User$teamsArgs<ExtArgs> = {}>(args?: Subset<T, User$teamsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$TeamPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    performedMaintenances<T extends User$performedMaintenancesArgs<ExtArgs> = {}>(args?: Subset<T, User$performedMaintenancesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$MaintenancePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    requestedMaintenances<T extends User$requestedMaintenancesArgs<ExtArgs> = {}>(args?: Subset<T, User$requestedMaintenancesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$MaintenancePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    assignedMaintenances<T extends User$assignedMaintenancesArgs<ExtArgs> = {}>(args?: Subset<T, User$assignedMaintenancesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$MaintenancePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    supervisedTeams<T extends User$supervisedTeamsArgs<ExtArgs> = {}>(args?: Subset<T, User$supervisedTeamsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$TeamPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -4700,6 +4688,11 @@ export namespace Prisma {
     readonly passwordResetToken: FieldRef<"User", 'String'>
     readonly passwordExpiresAt: FieldRef<"User", 'DateTime'>
     readonly passwordResetAt: FieldRef<"User", 'DateTime'>
+    readonly employeeCode: FieldRef<"User", 'String'>
+    readonly employeeType: FieldRef<"User", 'EmployeeType'>
+    readonly companyId: FieldRef<"User", 'String'>
+    readonly serviceStatus: FieldRef<"User", 'ServiceStatus'>
+    readonly calenderEntityId: FieldRef<"User", 'String'>
   }
     
 
@@ -5144,27 +5137,161 @@ export namespace Prisma {
   }
 
   /**
-   * User.employees
+   * User.company
    */
-  export type User$employeesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type User$companyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the Employee
+     * Select specific fields to fetch from the Company
      */
-    select?: EmployeeSelect<ExtArgs> | null
+    select?: CompanySelect<ExtArgs> | null
     /**
-     * Omit specific fields from the Employee
+     * Omit specific fields from the Company
      */
-    omit?: EmployeeOmit<ExtArgs> | null
+    omit?: CompanyOmit<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: EmployeeInclude<ExtArgs> | null
-    where?: EmployeeWhereInput
-    orderBy?: EmployeeOrderByWithRelationInput | EmployeeOrderByWithRelationInput[]
-    cursor?: EmployeeWhereUniqueInput
+    include?: CompanyInclude<ExtArgs> | null
+    where?: CompanyWhereInput
+  }
+
+  /**
+   * User.calenderEntity
+   */
+  export type User$calenderEntityArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CalenderEntity
+     */
+    select?: CalenderEntitySelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the CalenderEntity
+     */
+    omit?: CalenderEntityOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CalenderEntityInclude<ExtArgs> | null
+    where?: CalenderEntityWhereInput
+  }
+
+  /**
+   * User.teams
+   */
+  export type User$teamsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Team
+     */
+    select?: TeamSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Team
+     */
+    omit?: TeamOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TeamInclude<ExtArgs> | null
+    where?: TeamWhereInput
+    orderBy?: TeamOrderByWithRelationInput | TeamOrderByWithRelationInput[]
+    cursor?: TeamWhereUniqueInput
     take?: number
     skip?: number
-    distinct?: EmployeeScalarFieldEnum | EmployeeScalarFieldEnum[]
+    distinct?: TeamScalarFieldEnum | TeamScalarFieldEnum[]
+  }
+
+  /**
+   * User.performedMaintenances
+   */
+  export type User$performedMaintenancesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Maintenance
+     */
+    select?: MaintenanceSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Maintenance
+     */
+    omit?: MaintenanceOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MaintenanceInclude<ExtArgs> | null
+    where?: MaintenanceWhereInput
+    orderBy?: MaintenanceOrderByWithRelationInput | MaintenanceOrderByWithRelationInput[]
+    cursor?: MaintenanceWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: MaintenanceScalarFieldEnum | MaintenanceScalarFieldEnum[]
+  }
+
+  /**
+   * User.requestedMaintenances
+   */
+  export type User$requestedMaintenancesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Maintenance
+     */
+    select?: MaintenanceSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Maintenance
+     */
+    omit?: MaintenanceOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MaintenanceInclude<ExtArgs> | null
+    where?: MaintenanceWhereInput
+    orderBy?: MaintenanceOrderByWithRelationInput | MaintenanceOrderByWithRelationInput[]
+    cursor?: MaintenanceWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: MaintenanceScalarFieldEnum | MaintenanceScalarFieldEnum[]
+  }
+
+  /**
+   * User.assignedMaintenances
+   */
+  export type User$assignedMaintenancesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Maintenance
+     */
+    select?: MaintenanceSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Maintenance
+     */
+    omit?: MaintenanceOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MaintenanceInclude<ExtArgs> | null
+    where?: MaintenanceWhereInput
+    orderBy?: MaintenanceOrderByWithRelationInput | MaintenanceOrderByWithRelationInput[]
+    cursor?: MaintenanceWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: MaintenanceScalarFieldEnum | MaintenanceScalarFieldEnum[]
+  }
+
+  /**
+   * User.supervisedTeams
+   */
+  export type User$supervisedTeamsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Team
+     */
+    select?: TeamSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Team
+     */
+    omit?: TeamOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TeamInclude<ExtArgs> | null
+    where?: TeamWhereInput
+    orderBy?: TeamOrderByWithRelationInput | TeamOrderByWithRelationInput[]
+    cursor?: TeamWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: TeamScalarFieldEnum | TeamScalarFieldEnum[]
   }
 
   /**
@@ -22124,7 +22251,7 @@ export namespace Prisma {
     name: "Company"
     objects: {
       address: Prisma.$AddressPayload<ExtArgs>
-      employees: Prisma.$EmployeePayload<ExtArgs>[]
+      employees: Prisma.$UserPayload<ExtArgs>[]
       maintenances: Prisma.$MaintenancePayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
@@ -22535,7 +22662,7 @@ export namespace Prisma {
   export interface Prisma__CompanyClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
     address<T extends AddressDefaultArgs<ExtArgs> = {}>(args?: Subset<T, AddressDefaultArgs<ExtArgs>>): Prisma__AddressClient<$Result.GetResult<Prisma.$AddressPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
-    employees<T extends Company$employeesArgs<ExtArgs> = {}>(args?: Subset<T, Company$employeesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$EmployeePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    employees<T extends Company$employeesArgs<ExtArgs> = {}>(args?: Subset<T, Company$employeesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     maintenances<T extends Company$maintenancesArgs<ExtArgs> = {}>(args?: Subset<T, Company$maintenancesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$MaintenancePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
@@ -22978,23 +23105,23 @@ export namespace Prisma {
    */
   export type Company$employeesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the Employee
+     * Select specific fields to fetch from the User
      */
-    select?: EmployeeSelect<ExtArgs> | null
+    select?: UserSelect<ExtArgs> | null
     /**
-     * Omit specific fields from the Employee
+     * Omit specific fields from the User
      */
-    omit?: EmployeeOmit<ExtArgs> | null
+    omit?: UserOmit<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: EmployeeInclude<ExtArgs> | null
-    where?: EmployeeWhereInput
-    orderBy?: EmployeeOrderByWithRelationInput | EmployeeOrderByWithRelationInput[]
-    cursor?: EmployeeWhereUniqueInput
+    include?: UserInclude<ExtArgs> | null
+    where?: UserWhereInput
+    orderBy?: UserOrderByWithRelationInput | UserOrderByWithRelationInput[]
+    cursor?: UserWhereUniqueInput
     take?: number
     skip?: number
-    distinct?: EmployeeScalarFieldEnum | EmployeeScalarFieldEnum[]
+    distinct?: UserScalarFieldEnum | UserScalarFieldEnum[]
   }
 
   /**
@@ -23037,1239 +23164,6 @@ export namespace Prisma {
      * Choose, which related nodes to fetch as well
      */
     include?: CompanyInclude<ExtArgs> | null
-  }
-
-
-  /**
-   * Model Employee
-   */
-
-  export type AggregateEmployee = {
-    _count: EmployeeCountAggregateOutputType | null
-    _min: EmployeeMinAggregateOutputType | null
-    _max: EmployeeMaxAggregateOutputType | null
-  }
-
-  export type EmployeeMinAggregateOutputType = {
-    id: string | null
-    code: string | null
-    type: $Enums.EmployeeType | null
-    userId: string | null
-    companyId: string | null
-    status: $Enums.ServiceStatus | null
-    calenderEntityId: string | null
-  }
-
-  export type EmployeeMaxAggregateOutputType = {
-    id: string | null
-    code: string | null
-    type: $Enums.EmployeeType | null
-    userId: string | null
-    companyId: string | null
-    status: $Enums.ServiceStatus | null
-    calenderEntityId: string | null
-  }
-
-  export type EmployeeCountAggregateOutputType = {
-    id: number
-    code: number
-    type: number
-    userId: number
-    companyId: number
-    status: number
-    calenderEntityId: number
-    _all: number
-  }
-
-
-  export type EmployeeMinAggregateInputType = {
-    id?: true
-    code?: true
-    type?: true
-    userId?: true
-    companyId?: true
-    status?: true
-    calenderEntityId?: true
-  }
-
-  export type EmployeeMaxAggregateInputType = {
-    id?: true
-    code?: true
-    type?: true
-    userId?: true
-    companyId?: true
-    status?: true
-    calenderEntityId?: true
-  }
-
-  export type EmployeeCountAggregateInputType = {
-    id?: true
-    code?: true
-    type?: true
-    userId?: true
-    companyId?: true
-    status?: true
-    calenderEntityId?: true
-    _all?: true
-  }
-
-  export type EmployeeAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Filter which Employee to aggregate.
-     */
-    where?: EmployeeWhereInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     * 
-     * Determine the order of Employees to fetch.
-     */
-    orderBy?: EmployeeOrderByWithRelationInput | EmployeeOrderByWithRelationInput[]
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     * 
-     * Sets the start position
-     */
-    cursor?: EmployeeWhereUniqueInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Take `±n` Employees from the position of the cursor.
-     */
-    take?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Skip the first `n` Employees.
-     */
-    skip?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
-     * Count returned Employees
-    **/
-    _count?: true | EmployeeCountAggregateInputType
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
-     * Select which fields to find the minimum value
-    **/
-    _min?: EmployeeMinAggregateInputType
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
-     * Select which fields to find the maximum value
-    **/
-    _max?: EmployeeMaxAggregateInputType
-  }
-
-  export type GetEmployeeAggregateType<T extends EmployeeAggregateArgs> = {
-        [P in keyof T & keyof AggregateEmployee]: P extends '_count' | 'count'
-      ? T[P] extends true
-        ? number
-        : GetScalarType<T[P], AggregateEmployee[P]>
-      : GetScalarType<T[P], AggregateEmployee[P]>
-  }
-
-
-
-
-  export type EmployeeGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    where?: EmployeeWhereInput
-    orderBy?: EmployeeOrderByWithAggregationInput | EmployeeOrderByWithAggregationInput[]
-    by: EmployeeScalarFieldEnum[] | EmployeeScalarFieldEnum
-    having?: EmployeeScalarWhereWithAggregatesInput
-    take?: number
-    skip?: number
-    _count?: EmployeeCountAggregateInputType | true
-    _min?: EmployeeMinAggregateInputType
-    _max?: EmployeeMaxAggregateInputType
-  }
-
-  export type EmployeeGroupByOutputType = {
-    id: string
-    code: string
-    type: $Enums.EmployeeType
-    userId: string
-    companyId: string
-    status: $Enums.ServiceStatus
-    calenderEntityId: string | null
-    _count: EmployeeCountAggregateOutputType | null
-    _min: EmployeeMinAggregateOutputType | null
-    _max: EmployeeMaxAggregateOutputType | null
-  }
-
-  type GetEmployeeGroupByPayload<T extends EmployeeGroupByArgs> = Prisma.PrismaPromise<
-    Array<
-      PickEnumerable<EmployeeGroupByOutputType, T['by']> &
-        {
-          [P in ((keyof T) & (keyof EmployeeGroupByOutputType))]: P extends '_count'
-            ? T[P] extends boolean
-              ? number
-              : GetScalarType<T[P], EmployeeGroupByOutputType[P]>
-            : GetScalarType<T[P], EmployeeGroupByOutputType[P]>
-        }
-      >
-    >
-
-
-  export type EmployeeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
-    id?: boolean
-    code?: boolean
-    type?: boolean
-    userId?: boolean
-    companyId?: boolean
-    status?: boolean
-    calenderEntityId?: boolean
-    user?: boolean | UserDefaultArgs<ExtArgs>
-    company?: boolean | CompanyDefaultArgs<ExtArgs>
-    calenderEntity?: boolean | Employee$calenderEntityArgs<ExtArgs>
-    teams?: boolean | Employee$teamsArgs<ExtArgs>
-    performedMaintenances?: boolean | Employee$performedMaintenancesArgs<ExtArgs>
-    requestedMaintenances?: boolean | Employee$requestedMaintenancesArgs<ExtArgs>
-    assignedMaintenances?: boolean | Employee$assignedMaintenancesArgs<ExtArgs>
-    _count?: boolean | EmployeeCountOutputTypeDefaultArgs<ExtArgs>
-  }, ExtArgs["result"]["employee"]>
-
-  export type EmployeeSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
-    id?: boolean
-    code?: boolean
-    type?: boolean
-    userId?: boolean
-    companyId?: boolean
-    status?: boolean
-    calenderEntityId?: boolean
-    user?: boolean | UserDefaultArgs<ExtArgs>
-    company?: boolean | CompanyDefaultArgs<ExtArgs>
-    calenderEntity?: boolean | Employee$calenderEntityArgs<ExtArgs>
-  }, ExtArgs["result"]["employee"]>
-
-  export type EmployeeSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
-    id?: boolean
-    code?: boolean
-    type?: boolean
-    userId?: boolean
-    companyId?: boolean
-    status?: boolean
-    calenderEntityId?: boolean
-    user?: boolean | UserDefaultArgs<ExtArgs>
-    company?: boolean | CompanyDefaultArgs<ExtArgs>
-    calenderEntity?: boolean | Employee$calenderEntityArgs<ExtArgs>
-  }, ExtArgs["result"]["employee"]>
-
-  export type EmployeeSelectScalar = {
-    id?: boolean
-    code?: boolean
-    type?: boolean
-    userId?: boolean
-    companyId?: boolean
-    status?: boolean
-    calenderEntityId?: boolean
-  }
-
-  export type EmployeeOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "code" | "type" | "userId" | "companyId" | "status" | "calenderEntityId", ExtArgs["result"]["employee"]>
-  export type EmployeeInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    user?: boolean | UserDefaultArgs<ExtArgs>
-    company?: boolean | CompanyDefaultArgs<ExtArgs>
-    calenderEntity?: boolean | Employee$calenderEntityArgs<ExtArgs>
-    teams?: boolean | Employee$teamsArgs<ExtArgs>
-    performedMaintenances?: boolean | Employee$performedMaintenancesArgs<ExtArgs>
-    requestedMaintenances?: boolean | Employee$requestedMaintenancesArgs<ExtArgs>
-    assignedMaintenances?: boolean | Employee$assignedMaintenancesArgs<ExtArgs>
-    _count?: boolean | EmployeeCountOutputTypeDefaultArgs<ExtArgs>
-  }
-  export type EmployeeIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    user?: boolean | UserDefaultArgs<ExtArgs>
-    company?: boolean | CompanyDefaultArgs<ExtArgs>
-    calenderEntity?: boolean | Employee$calenderEntityArgs<ExtArgs>
-  }
-  export type EmployeeIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    user?: boolean | UserDefaultArgs<ExtArgs>
-    company?: boolean | CompanyDefaultArgs<ExtArgs>
-    calenderEntity?: boolean | Employee$calenderEntityArgs<ExtArgs>
-  }
-
-  export type $EmployeePayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    name: "Employee"
-    objects: {
-      user: Prisma.$UserPayload<ExtArgs>
-      company: Prisma.$CompanyPayload<ExtArgs>
-      calenderEntity: Prisma.$CalenderEntityPayload<ExtArgs> | null
-      teams: Prisma.$TeamPayload<ExtArgs>[]
-      performedMaintenances: Prisma.$MaintenancePayload<ExtArgs>[]
-      requestedMaintenances: Prisma.$MaintenancePayload<ExtArgs>[]
-      assignedMaintenances: Prisma.$MaintenancePayload<ExtArgs>[]
-    }
-    scalars: $Extensions.GetPayloadResult<{
-      id: string
-      code: string
-      type: $Enums.EmployeeType
-      userId: string
-      companyId: string
-      status: $Enums.ServiceStatus
-      calenderEntityId: string | null
-    }, ExtArgs["result"]["employee"]>
-    composites: {}
-  }
-
-  type EmployeeGetPayload<S extends boolean | null | undefined | EmployeeDefaultArgs> = $Result.GetResult<Prisma.$EmployeePayload, S>
-
-  type EmployeeCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
-    Omit<EmployeeFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
-      select?: EmployeeCountAggregateInputType | true
-    }
-
-  export interface EmployeeDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
-    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['Employee'], meta: { name: 'Employee' } }
-    /**
-     * Find zero or one Employee that matches the filter.
-     * @param {EmployeeFindUniqueArgs} args - Arguments to find a Employee
-     * @example
-     * // Get one Employee
-     * const employee = await prisma.employee.findUnique({
-     *   where: {
-     *     // ... provide filter here
-     *   }
-     * })
-     */
-    findUnique<T extends EmployeeFindUniqueArgs>(args: SelectSubset<T, EmployeeFindUniqueArgs<ExtArgs>>): Prisma__EmployeeClient<$Result.GetResult<Prisma.$EmployeePayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
-
-    /**
-     * Find one Employee that matches the filter or throw an error with `error.code='P2025'`
-     * if no matches were found.
-     * @param {EmployeeFindUniqueOrThrowArgs} args - Arguments to find a Employee
-     * @example
-     * // Get one Employee
-     * const employee = await prisma.employee.findUniqueOrThrow({
-     *   where: {
-     *     // ... provide filter here
-     *   }
-     * })
-     */
-    findUniqueOrThrow<T extends EmployeeFindUniqueOrThrowArgs>(args: SelectSubset<T, EmployeeFindUniqueOrThrowArgs<ExtArgs>>): Prisma__EmployeeClient<$Result.GetResult<Prisma.$EmployeePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
-
-    /**
-     * Find the first Employee that matches the filter.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {EmployeeFindFirstArgs} args - Arguments to find a Employee
-     * @example
-     * // Get one Employee
-     * const employee = await prisma.employee.findFirst({
-     *   where: {
-     *     // ... provide filter here
-     *   }
-     * })
-     */
-    findFirst<T extends EmployeeFindFirstArgs>(args?: SelectSubset<T, EmployeeFindFirstArgs<ExtArgs>>): Prisma__EmployeeClient<$Result.GetResult<Prisma.$EmployeePayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
-
-    /**
-     * Find the first Employee that matches the filter or
-     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {EmployeeFindFirstOrThrowArgs} args - Arguments to find a Employee
-     * @example
-     * // Get one Employee
-     * const employee = await prisma.employee.findFirstOrThrow({
-     *   where: {
-     *     // ... provide filter here
-     *   }
-     * })
-     */
-    findFirstOrThrow<T extends EmployeeFindFirstOrThrowArgs>(args?: SelectSubset<T, EmployeeFindFirstOrThrowArgs<ExtArgs>>): Prisma__EmployeeClient<$Result.GetResult<Prisma.$EmployeePayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
-
-    /**
-     * Find zero or more Employees that matches the filter.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {EmployeeFindManyArgs} args - Arguments to filter and select certain fields only.
-     * @example
-     * // Get all Employees
-     * const employees = await prisma.employee.findMany()
-     * 
-     * // Get first 10 Employees
-     * const employees = await prisma.employee.findMany({ take: 10 })
-     * 
-     * // Only select the `id`
-     * const employeeWithIdOnly = await prisma.employee.findMany({ select: { id: true } })
-     * 
-     */
-    findMany<T extends EmployeeFindManyArgs>(args?: SelectSubset<T, EmployeeFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$EmployeePayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
-
-    /**
-     * Create a Employee.
-     * @param {EmployeeCreateArgs} args - Arguments to create a Employee.
-     * @example
-     * // Create one Employee
-     * const Employee = await prisma.employee.create({
-     *   data: {
-     *     // ... data to create a Employee
-     *   }
-     * })
-     * 
-     */
-    create<T extends EmployeeCreateArgs>(args: SelectSubset<T, EmployeeCreateArgs<ExtArgs>>): Prisma__EmployeeClient<$Result.GetResult<Prisma.$EmployeePayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
-
-    /**
-     * Create many Employees.
-     * @param {EmployeeCreateManyArgs} args - Arguments to create many Employees.
-     * @example
-     * // Create many Employees
-     * const employee = await prisma.employee.createMany({
-     *   data: [
-     *     // ... provide data here
-     *   ]
-     * })
-     *     
-     */
-    createMany<T extends EmployeeCreateManyArgs>(args?: SelectSubset<T, EmployeeCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
-
-    /**
-     * Create many Employees and returns the data saved in the database.
-     * @param {EmployeeCreateManyAndReturnArgs} args - Arguments to create many Employees.
-     * @example
-     * // Create many Employees
-     * const employee = await prisma.employee.createManyAndReturn({
-     *   data: [
-     *     // ... provide data here
-     *   ]
-     * })
-     * 
-     * // Create many Employees and only return the `id`
-     * const employeeWithIdOnly = await prisma.employee.createManyAndReturn({
-     *   select: { id: true },
-     *   data: [
-     *     // ... provide data here
-     *   ]
-     * })
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * 
-     */
-    createManyAndReturn<T extends EmployeeCreateManyAndReturnArgs>(args?: SelectSubset<T, EmployeeCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$EmployeePayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
-
-    /**
-     * Delete a Employee.
-     * @param {EmployeeDeleteArgs} args - Arguments to delete one Employee.
-     * @example
-     * // Delete one Employee
-     * const Employee = await prisma.employee.delete({
-     *   where: {
-     *     // ... filter to delete one Employee
-     *   }
-     * })
-     * 
-     */
-    delete<T extends EmployeeDeleteArgs>(args: SelectSubset<T, EmployeeDeleteArgs<ExtArgs>>): Prisma__EmployeeClient<$Result.GetResult<Prisma.$EmployeePayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
-
-    /**
-     * Update one Employee.
-     * @param {EmployeeUpdateArgs} args - Arguments to update one Employee.
-     * @example
-     * // Update one Employee
-     * const employee = await prisma.employee.update({
-     *   where: {
-     *     // ... provide filter here
-     *   },
-     *   data: {
-     *     // ... provide data here
-     *   }
-     * })
-     * 
-     */
-    update<T extends EmployeeUpdateArgs>(args: SelectSubset<T, EmployeeUpdateArgs<ExtArgs>>): Prisma__EmployeeClient<$Result.GetResult<Prisma.$EmployeePayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
-
-    /**
-     * Delete zero or more Employees.
-     * @param {EmployeeDeleteManyArgs} args - Arguments to filter Employees to delete.
-     * @example
-     * // Delete a few Employees
-     * const { count } = await prisma.employee.deleteMany({
-     *   where: {
-     *     // ... provide filter here
-     *   }
-     * })
-     * 
-     */
-    deleteMany<T extends EmployeeDeleteManyArgs>(args?: SelectSubset<T, EmployeeDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
-
-    /**
-     * Update zero or more Employees.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {EmployeeUpdateManyArgs} args - Arguments to update one or more rows.
-     * @example
-     * // Update many Employees
-     * const employee = await prisma.employee.updateMany({
-     *   where: {
-     *     // ... provide filter here
-     *   },
-     *   data: {
-     *     // ... provide data here
-     *   }
-     * })
-     * 
-     */
-    updateMany<T extends EmployeeUpdateManyArgs>(args: SelectSubset<T, EmployeeUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
-
-    /**
-     * Update zero or more Employees and returns the data updated in the database.
-     * @param {EmployeeUpdateManyAndReturnArgs} args - Arguments to update many Employees.
-     * @example
-     * // Update many Employees
-     * const employee = await prisma.employee.updateManyAndReturn({
-     *   where: {
-     *     // ... provide filter here
-     *   },
-     *   data: [
-     *     // ... provide data here
-     *   ]
-     * })
-     * 
-     * // Update zero or more Employees and only return the `id`
-     * const employeeWithIdOnly = await prisma.employee.updateManyAndReturn({
-     *   select: { id: true },
-     *   where: {
-     *     // ... provide filter here
-     *   },
-     *   data: [
-     *     // ... provide data here
-     *   ]
-     * })
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * 
-     */
-    updateManyAndReturn<T extends EmployeeUpdateManyAndReturnArgs>(args: SelectSubset<T, EmployeeUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$EmployeePayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
-
-    /**
-     * Create or update one Employee.
-     * @param {EmployeeUpsertArgs} args - Arguments to update or create a Employee.
-     * @example
-     * // Update or create a Employee
-     * const employee = await prisma.employee.upsert({
-     *   create: {
-     *     // ... data to create a Employee
-     *   },
-     *   update: {
-     *     // ... in case it already exists, update
-     *   },
-     *   where: {
-     *     // ... the filter for the Employee we want to update
-     *   }
-     * })
-     */
-    upsert<T extends EmployeeUpsertArgs>(args: SelectSubset<T, EmployeeUpsertArgs<ExtArgs>>): Prisma__EmployeeClient<$Result.GetResult<Prisma.$EmployeePayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
-
-
-    /**
-     * Count the number of Employees.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {EmployeeCountArgs} args - Arguments to filter Employees to count.
-     * @example
-     * // Count the number of Employees
-     * const count = await prisma.employee.count({
-     *   where: {
-     *     // ... the filter for the Employees we want to count
-     *   }
-     * })
-    **/
-    count<T extends EmployeeCountArgs>(
-      args?: Subset<T, EmployeeCountArgs>,
-    ): Prisma.PrismaPromise<
-      T extends $Utils.Record<'select', any>
-        ? T['select'] extends true
-          ? number
-          : GetScalarType<T['select'], EmployeeCountAggregateOutputType>
-        : number
-    >
-
-    /**
-     * Allows you to perform aggregations operations on a Employee.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {EmployeeAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
-     * @example
-     * // Ordered by age ascending
-     * // Where email contains prisma.io
-     * // Limited to the 10 users
-     * const aggregations = await prisma.user.aggregate({
-     *   _avg: {
-     *     age: true,
-     *   },
-     *   where: {
-     *     email: {
-     *       contains: "prisma.io",
-     *     },
-     *   },
-     *   orderBy: {
-     *     age: "asc",
-     *   },
-     *   take: 10,
-     * })
-    **/
-    aggregate<T extends EmployeeAggregateArgs>(args: Subset<T, EmployeeAggregateArgs>): Prisma.PrismaPromise<GetEmployeeAggregateType<T>>
-
-    /**
-     * Group by Employee.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {EmployeeGroupByArgs} args - Group by arguments.
-     * @example
-     * // Group by city, order by createdAt, get count
-     * const result = await prisma.user.groupBy({
-     *   by: ['city', 'createdAt'],
-     *   orderBy: {
-     *     createdAt: true
-     *   },
-     *   _count: {
-     *     _all: true
-     *   },
-     * })
-     * 
-    **/
-    groupBy<
-      T extends EmployeeGroupByArgs,
-      HasSelectOrTake extends Or<
-        Extends<'skip', Keys<T>>,
-        Extends<'take', Keys<T>>
-      >,
-      OrderByArg extends True extends HasSelectOrTake
-        ? { orderBy: EmployeeGroupByArgs['orderBy'] }
-        : { orderBy?: EmployeeGroupByArgs['orderBy'] },
-      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
-      ByFields extends MaybeTupleToUnion<T['by']>,
-      ByValid extends Has<ByFields, OrderFields>,
-      HavingFields extends GetHavingFields<T['having']>,
-      HavingValid extends Has<ByFields, HavingFields>,
-      ByEmpty extends T['by'] extends never[] ? True : False,
-      InputErrors extends ByEmpty extends True
-      ? `Error: "by" must not be empty.`
-      : HavingValid extends False
-      ? {
-          [P in HavingFields]: P extends ByFields
-            ? never
-            : P extends string
-            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
-            : [
-                Error,
-                'Field ',
-                P,
-                ` in "having" needs to be provided in "by"`,
-              ]
-        }[HavingFields]
-      : 'take' extends Keys<T>
-      ? 'orderBy' extends Keys<T>
-        ? ByValid extends True
-          ? {}
-          : {
-              [P in OrderFields]: P extends ByFields
-                ? never
-                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
-            }[OrderFields]
-        : 'Error: If you provide "take", you also need to provide "orderBy"'
-      : 'skip' extends Keys<T>
-      ? 'orderBy' extends Keys<T>
-        ? ByValid extends True
-          ? {}
-          : {
-              [P in OrderFields]: P extends ByFields
-                ? never
-                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
-            }[OrderFields]
-        : 'Error: If you provide "skip", you also need to provide "orderBy"'
-      : ByValid extends True
-      ? {}
-      : {
-          [P in OrderFields]: P extends ByFields
-            ? never
-            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
-        }[OrderFields]
-    >(args: SubsetIntersection<T, EmployeeGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetEmployeeGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
-  /**
-   * Fields of the Employee model
-   */
-  readonly fields: EmployeeFieldRefs;
-  }
-
-  /**
-   * The delegate class that acts as a "Promise-like" for Employee.
-   * Why is this prefixed with `Prisma__`?
-   * Because we want to prevent naming conflicts as mentioned in
-   * https://github.com/prisma/prisma-client-js/issues/707
-   */
-  export interface Prisma__EmployeeClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
-    readonly [Symbol.toStringTag]: "PrismaPromise"
-    user<T extends UserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserDefaultArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
-    company<T extends CompanyDefaultArgs<ExtArgs> = {}>(args?: Subset<T, CompanyDefaultArgs<ExtArgs>>): Prisma__CompanyClient<$Result.GetResult<Prisma.$CompanyPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
-    calenderEntity<T extends Employee$calenderEntityArgs<ExtArgs> = {}>(args?: Subset<T, Employee$calenderEntityArgs<ExtArgs>>): Prisma__CalenderEntityClient<$Result.GetResult<Prisma.$CalenderEntityPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
-    teams<T extends Employee$teamsArgs<ExtArgs> = {}>(args?: Subset<T, Employee$teamsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$TeamPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
-    performedMaintenances<T extends Employee$performedMaintenancesArgs<ExtArgs> = {}>(args?: Subset<T, Employee$performedMaintenancesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$MaintenancePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
-    requestedMaintenances<T extends Employee$requestedMaintenancesArgs<ExtArgs> = {}>(args?: Subset<T, Employee$requestedMaintenancesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$MaintenancePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
-    assignedMaintenances<T extends Employee$assignedMaintenancesArgs<ExtArgs> = {}>(args?: Subset<T, Employee$assignedMaintenancesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$MaintenancePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
-    /**
-     * Attaches callbacks for the resolution and/or rejection of the Promise.
-     * @param onfulfilled The callback to execute when the Promise is resolved.
-     * @param onrejected The callback to execute when the Promise is rejected.
-     * @returns A Promise for the completion of which ever callback is executed.
-     */
-    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
-    /**
-     * Attaches a callback for only the rejection of the Promise.
-     * @param onrejected The callback to execute when the Promise is rejected.
-     * @returns A Promise for the completion of the callback.
-     */
-    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
-    /**
-     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
-     * resolved value cannot be modified from the callback.
-     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
-     * @returns A Promise for the completion of the callback.
-     */
-    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
-  }
-
-
-
-
-  /**
-   * Fields of the Employee model
-   */
-  interface EmployeeFieldRefs {
-    readonly id: FieldRef<"Employee", 'String'>
-    readonly code: FieldRef<"Employee", 'String'>
-    readonly type: FieldRef<"Employee", 'EmployeeType'>
-    readonly userId: FieldRef<"Employee", 'String'>
-    readonly companyId: FieldRef<"Employee", 'String'>
-    readonly status: FieldRef<"Employee", 'ServiceStatus'>
-    readonly calenderEntityId: FieldRef<"Employee", 'String'>
-  }
-    
-
-  // Custom InputTypes
-  /**
-   * Employee findUnique
-   */
-  export type EmployeeFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the Employee
-     */
-    select?: EmployeeSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the Employee
-     */
-    omit?: EmployeeOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: EmployeeInclude<ExtArgs> | null
-    /**
-     * Filter, which Employee to fetch.
-     */
-    where: EmployeeWhereUniqueInput
-  }
-
-  /**
-   * Employee findUniqueOrThrow
-   */
-  export type EmployeeFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the Employee
-     */
-    select?: EmployeeSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the Employee
-     */
-    omit?: EmployeeOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: EmployeeInclude<ExtArgs> | null
-    /**
-     * Filter, which Employee to fetch.
-     */
-    where: EmployeeWhereUniqueInput
-  }
-
-  /**
-   * Employee findFirst
-   */
-  export type EmployeeFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the Employee
-     */
-    select?: EmployeeSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the Employee
-     */
-    omit?: EmployeeOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: EmployeeInclude<ExtArgs> | null
-    /**
-     * Filter, which Employee to fetch.
-     */
-    where?: EmployeeWhereInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     * 
-     * Determine the order of Employees to fetch.
-     */
-    orderBy?: EmployeeOrderByWithRelationInput | EmployeeOrderByWithRelationInput[]
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     * 
-     * Sets the position for searching for Employees.
-     */
-    cursor?: EmployeeWhereUniqueInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Take `±n` Employees from the position of the cursor.
-     */
-    take?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Skip the first `n` Employees.
-     */
-    skip?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
-     * 
-     * Filter by unique combinations of Employees.
-     */
-    distinct?: EmployeeScalarFieldEnum | EmployeeScalarFieldEnum[]
-  }
-
-  /**
-   * Employee findFirstOrThrow
-   */
-  export type EmployeeFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the Employee
-     */
-    select?: EmployeeSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the Employee
-     */
-    omit?: EmployeeOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: EmployeeInclude<ExtArgs> | null
-    /**
-     * Filter, which Employee to fetch.
-     */
-    where?: EmployeeWhereInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     * 
-     * Determine the order of Employees to fetch.
-     */
-    orderBy?: EmployeeOrderByWithRelationInput | EmployeeOrderByWithRelationInput[]
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     * 
-     * Sets the position for searching for Employees.
-     */
-    cursor?: EmployeeWhereUniqueInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Take `±n` Employees from the position of the cursor.
-     */
-    take?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Skip the first `n` Employees.
-     */
-    skip?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
-     * 
-     * Filter by unique combinations of Employees.
-     */
-    distinct?: EmployeeScalarFieldEnum | EmployeeScalarFieldEnum[]
-  }
-
-  /**
-   * Employee findMany
-   */
-  export type EmployeeFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the Employee
-     */
-    select?: EmployeeSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the Employee
-     */
-    omit?: EmployeeOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: EmployeeInclude<ExtArgs> | null
-    /**
-     * Filter, which Employees to fetch.
-     */
-    where?: EmployeeWhereInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     * 
-     * Determine the order of Employees to fetch.
-     */
-    orderBy?: EmployeeOrderByWithRelationInput | EmployeeOrderByWithRelationInput[]
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     * 
-     * Sets the position for listing Employees.
-     */
-    cursor?: EmployeeWhereUniqueInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Take `±n` Employees from the position of the cursor.
-     */
-    take?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Skip the first `n` Employees.
-     */
-    skip?: number
-    distinct?: EmployeeScalarFieldEnum | EmployeeScalarFieldEnum[]
-  }
-
-  /**
-   * Employee create
-   */
-  export type EmployeeCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the Employee
-     */
-    select?: EmployeeSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the Employee
-     */
-    omit?: EmployeeOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: EmployeeInclude<ExtArgs> | null
-    /**
-     * The data needed to create a Employee.
-     */
-    data: XOR<EmployeeCreateInput, EmployeeUncheckedCreateInput>
-  }
-
-  /**
-   * Employee createMany
-   */
-  export type EmployeeCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * The data used to create many Employees.
-     */
-    data: EmployeeCreateManyInput | EmployeeCreateManyInput[]
-    skipDuplicates?: boolean
-  }
-
-  /**
-   * Employee createManyAndReturn
-   */
-  export type EmployeeCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the Employee
-     */
-    select?: EmployeeSelectCreateManyAndReturn<ExtArgs> | null
-    /**
-     * Omit specific fields from the Employee
-     */
-    omit?: EmployeeOmit<ExtArgs> | null
-    /**
-     * The data used to create many Employees.
-     */
-    data: EmployeeCreateManyInput | EmployeeCreateManyInput[]
-    skipDuplicates?: boolean
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: EmployeeIncludeCreateManyAndReturn<ExtArgs> | null
-  }
-
-  /**
-   * Employee update
-   */
-  export type EmployeeUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the Employee
-     */
-    select?: EmployeeSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the Employee
-     */
-    omit?: EmployeeOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: EmployeeInclude<ExtArgs> | null
-    /**
-     * The data needed to update a Employee.
-     */
-    data: XOR<EmployeeUpdateInput, EmployeeUncheckedUpdateInput>
-    /**
-     * Choose, which Employee to update.
-     */
-    where: EmployeeWhereUniqueInput
-  }
-
-  /**
-   * Employee updateMany
-   */
-  export type EmployeeUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * The data used to update Employees.
-     */
-    data: XOR<EmployeeUpdateManyMutationInput, EmployeeUncheckedUpdateManyInput>
-    /**
-     * Filter which Employees to update
-     */
-    where?: EmployeeWhereInput
-    /**
-     * Limit how many Employees to update.
-     */
-    limit?: number
-  }
-
-  /**
-   * Employee updateManyAndReturn
-   */
-  export type EmployeeUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the Employee
-     */
-    select?: EmployeeSelectUpdateManyAndReturn<ExtArgs> | null
-    /**
-     * Omit specific fields from the Employee
-     */
-    omit?: EmployeeOmit<ExtArgs> | null
-    /**
-     * The data used to update Employees.
-     */
-    data: XOR<EmployeeUpdateManyMutationInput, EmployeeUncheckedUpdateManyInput>
-    /**
-     * Filter which Employees to update
-     */
-    where?: EmployeeWhereInput
-    /**
-     * Limit how many Employees to update.
-     */
-    limit?: number
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: EmployeeIncludeUpdateManyAndReturn<ExtArgs> | null
-  }
-
-  /**
-   * Employee upsert
-   */
-  export type EmployeeUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the Employee
-     */
-    select?: EmployeeSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the Employee
-     */
-    omit?: EmployeeOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: EmployeeInclude<ExtArgs> | null
-    /**
-     * The filter to search for the Employee to update in case it exists.
-     */
-    where: EmployeeWhereUniqueInput
-    /**
-     * In case the Employee found by the `where` argument doesn't exist, create a new Employee with this data.
-     */
-    create: XOR<EmployeeCreateInput, EmployeeUncheckedCreateInput>
-    /**
-     * In case the Employee was found with the provided `where` argument, update it with this data.
-     */
-    update: XOR<EmployeeUpdateInput, EmployeeUncheckedUpdateInput>
-  }
-
-  /**
-   * Employee delete
-   */
-  export type EmployeeDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the Employee
-     */
-    select?: EmployeeSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the Employee
-     */
-    omit?: EmployeeOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: EmployeeInclude<ExtArgs> | null
-    /**
-     * Filter which Employee to delete.
-     */
-    where: EmployeeWhereUniqueInput
-  }
-
-  /**
-   * Employee deleteMany
-   */
-  export type EmployeeDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Filter which Employees to delete
-     */
-    where?: EmployeeWhereInput
-    /**
-     * Limit how many Employees to delete.
-     */
-    limit?: number
-  }
-
-  /**
-   * Employee.calenderEntity
-   */
-  export type Employee$calenderEntityArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the CalenderEntity
-     */
-    select?: CalenderEntitySelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the CalenderEntity
-     */
-    omit?: CalenderEntityOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: CalenderEntityInclude<ExtArgs> | null
-    where?: CalenderEntityWhereInput
-  }
-
-  /**
-   * Employee.teams
-   */
-  export type Employee$teamsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the Team
-     */
-    select?: TeamSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the Team
-     */
-    omit?: TeamOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: TeamInclude<ExtArgs> | null
-    where?: TeamWhereInput
-    orderBy?: TeamOrderByWithRelationInput | TeamOrderByWithRelationInput[]
-    cursor?: TeamWhereUniqueInput
-    take?: number
-    skip?: number
-    distinct?: TeamScalarFieldEnum | TeamScalarFieldEnum[]
-  }
-
-  /**
-   * Employee.performedMaintenances
-   */
-  export type Employee$performedMaintenancesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the Maintenance
-     */
-    select?: MaintenanceSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the Maintenance
-     */
-    omit?: MaintenanceOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: MaintenanceInclude<ExtArgs> | null
-    where?: MaintenanceWhereInput
-    orderBy?: MaintenanceOrderByWithRelationInput | MaintenanceOrderByWithRelationInput[]
-    cursor?: MaintenanceWhereUniqueInput
-    take?: number
-    skip?: number
-    distinct?: MaintenanceScalarFieldEnum | MaintenanceScalarFieldEnum[]
-  }
-
-  /**
-   * Employee.requestedMaintenances
-   */
-  export type Employee$requestedMaintenancesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the Maintenance
-     */
-    select?: MaintenanceSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the Maintenance
-     */
-    omit?: MaintenanceOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: MaintenanceInclude<ExtArgs> | null
-    where?: MaintenanceWhereInput
-    orderBy?: MaintenanceOrderByWithRelationInput | MaintenanceOrderByWithRelationInput[]
-    cursor?: MaintenanceWhereUniqueInput
-    take?: number
-    skip?: number
-    distinct?: MaintenanceScalarFieldEnum | MaintenanceScalarFieldEnum[]
-  }
-
-  /**
-   * Employee.assignedMaintenances
-   */
-  export type Employee$assignedMaintenancesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the Maintenance
-     */
-    select?: MaintenanceSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the Maintenance
-     */
-    omit?: MaintenanceOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: MaintenanceInclude<ExtArgs> | null
-    where?: MaintenanceWhereInput
-    orderBy?: MaintenanceOrderByWithRelationInput | MaintenanceOrderByWithRelationInput[]
-    cursor?: MaintenanceWhereUniqueInput
-    take?: number
-    skip?: number
-    distinct?: MaintenanceScalarFieldEnum | MaintenanceScalarFieldEnum[]
-  }
-
-  /**
-   * Employee without action
-   */
-  export type EmployeeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the Employee
-     */
-    select?: EmployeeSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the Employee
-     */
-    omit?: EmployeeOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: EmployeeInclude<ExtArgs> | null
   }
 
 
@@ -24461,9 +23355,10 @@ export namespace Prisma {
     supervisorId?: boolean
     createdAt?: boolean
     updatedAt?: boolean
-    supervisor?: boolean | EmployeeDefaultArgs<ExtArgs>
+    supervisor?: boolean | UserDefaultArgs<ExtArgs>
     maintenances?: boolean | Team$maintenancesArgs<ExtArgs>
     preventives?: boolean | Team$preventivesArgs<ExtArgs>
+    members?: boolean | Team$membersArgs<ExtArgs>
     _count?: boolean | TeamCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["team"]>
 
@@ -24476,7 +23371,7 @@ export namespace Prisma {
     supervisorId?: boolean
     createdAt?: boolean
     updatedAt?: boolean
-    supervisor?: boolean | EmployeeDefaultArgs<ExtArgs>
+    supervisor?: boolean | UserDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["team"]>
 
   export type TeamSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
@@ -24488,7 +23383,7 @@ export namespace Prisma {
     supervisorId?: boolean
     createdAt?: boolean
     updatedAt?: boolean
-    supervisor?: boolean | EmployeeDefaultArgs<ExtArgs>
+    supervisor?: boolean | UserDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["team"]>
 
   export type TeamSelectScalar = {
@@ -24504,24 +23399,26 @@ export namespace Prisma {
 
   export type TeamOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "code" | "name" | "description" | "status" | "supervisorId" | "createdAt" | "updatedAt", ExtArgs["result"]["team"]>
   export type TeamInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    supervisor?: boolean | EmployeeDefaultArgs<ExtArgs>
+    supervisor?: boolean | UserDefaultArgs<ExtArgs>
     maintenances?: boolean | Team$maintenancesArgs<ExtArgs>
     preventives?: boolean | Team$preventivesArgs<ExtArgs>
+    members?: boolean | Team$membersArgs<ExtArgs>
     _count?: boolean | TeamCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type TeamIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    supervisor?: boolean | EmployeeDefaultArgs<ExtArgs>
+    supervisor?: boolean | UserDefaultArgs<ExtArgs>
   }
   export type TeamIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    supervisor?: boolean | EmployeeDefaultArgs<ExtArgs>
+    supervisor?: boolean | UserDefaultArgs<ExtArgs>
   }
 
   export type $TeamPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "Team"
     objects: {
-      supervisor: Prisma.$EmployeePayload<ExtArgs>
+      supervisor: Prisma.$UserPayload<ExtArgs>
       maintenances: Prisma.$MaintenancePayload<ExtArgs>[]
       preventives: Prisma.$PreventivePayload<ExtArgs>[]
+      members: Prisma.$UserPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -24926,9 +23823,10 @@ export namespace Prisma {
    */
   export interface Prisma__TeamClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
-    supervisor<T extends EmployeeDefaultArgs<ExtArgs> = {}>(args?: Subset<T, EmployeeDefaultArgs<ExtArgs>>): Prisma__EmployeeClient<$Result.GetResult<Prisma.$EmployeePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    supervisor<T extends UserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserDefaultArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
     maintenances<T extends Team$maintenancesArgs<ExtArgs> = {}>(args?: Subset<T, Team$maintenancesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$MaintenancePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     preventives<T extends Team$preventivesArgs<ExtArgs> = {}>(args?: Subset<T, Team$preventivesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PreventivePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    members<T extends Team$membersArgs<ExtArgs> = {}>(args?: Subset<T, Team$membersArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -25407,6 +24305,30 @@ export namespace Prisma {
     take?: number
     skip?: number
     distinct?: PreventiveScalarFieldEnum | PreventiveScalarFieldEnum[]
+  }
+
+  /**
+   * Team.members
+   */
+  export type Team$membersArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the User
+     */
+    select?: UserSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the User
+     */
+    omit?: UserOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserInclude<ExtArgs> | null
+    where?: UserWhereInput
+    orderBy?: UserOrderByWithRelationInput | UserOrderByWithRelationInput[]
+    cursor?: UserWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: UserScalarFieldEnum | UserScalarFieldEnum[]
   }
 
   /**
@@ -27763,7 +26685,7 @@ export namespace Prisma {
       complexes: Prisma.$ComplexPayload<ExtArgs>[]
       spaces: Prisma.$SpacePayload<ExtArgs>[]
       zones: Prisma.$ZonePayload<ExtArgs>[]
-      employees: Prisma.$EmployeePayload<ExtArgs>[]
+      employees: Prisma.$UserPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -28168,7 +27090,7 @@ export namespace Prisma {
     complexes<T extends CalenderEntity$complexesArgs<ExtArgs> = {}>(args?: Subset<T, CalenderEntity$complexesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ComplexPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     spaces<T extends CalenderEntity$spacesArgs<ExtArgs> = {}>(args?: Subset<T, CalenderEntity$spacesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$SpacePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     zones<T extends CalenderEntity$zonesArgs<ExtArgs> = {}>(args?: Subset<T, CalenderEntity$zonesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ZonePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
-    employees<T extends CalenderEntity$employeesArgs<ExtArgs> = {}>(args?: Subset<T, CalenderEntity$employeesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$EmployeePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    employees<T extends CalenderEntity$employeesArgs<ExtArgs> = {}>(args?: Subset<T, CalenderEntity$employeesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -28690,23 +27612,23 @@ export namespace Prisma {
    */
   export type CalenderEntity$employeesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the Employee
+     * Select specific fields to fetch from the User
      */
-    select?: EmployeeSelect<ExtArgs> | null
+    select?: UserSelect<ExtArgs> | null
     /**
-     * Omit specific fields from the Employee
+     * Omit specific fields from the User
      */
-    omit?: EmployeeOmit<ExtArgs> | null
+    omit?: UserOmit<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: EmployeeInclude<ExtArgs> | null
-    where?: EmployeeWhereInput
-    orderBy?: EmployeeOrderByWithRelationInput | EmployeeOrderByWithRelationInput[]
-    cursor?: EmployeeWhereUniqueInput
+    include?: UserInclude<ExtArgs> | null
+    where?: UserWhereInput
+    orderBy?: UserOrderByWithRelationInput | UserOrderByWithRelationInput[]
+    cursor?: UserWhereUniqueInput
     take?: number
     skip?: number
-    distinct?: EmployeeScalarFieldEnum | EmployeeScalarFieldEnum[]
+    distinct?: UserScalarFieldEnum | UserScalarFieldEnum[]
   }
 
   /**
@@ -29655,14 +28577,14 @@ export namespace Prisma {
   export type $MaintenancePayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "Maintenance"
     objects: {
-      performer: Prisma.$EmployeePayload<ExtArgs> | null
-      requester: Prisma.$EmployeePayload<ExtArgs> | null
+      performer: Prisma.$UserPayload<ExtArgs> | null
+      requester: Prisma.$UserPayload<ExtArgs> | null
       site: Prisma.$ComplexPayload<ExtArgs>
       company: Prisma.$CompanyPayload<ExtArgs> | null
       team: Prisma.$TeamPayload<ExtArgs> | null
       floor: Prisma.$FloorPayload<ExtArgs> | null
       space: Prisma.$SpacePayload<ExtArgs> | null
-      assignee: Prisma.$EmployeePayload<ExtArgs> | null
+      assignee: Prisma.$UserPayload<ExtArgs> | null
       asset: Prisma.$AssetPayload<ExtArgs> | null
       photos: Prisma.$FilePayload<ExtArgs>[]
     }
@@ -30120,14 +29042,14 @@ export namespace Prisma {
    */
   export interface Prisma__MaintenanceClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
-    performer<T extends Maintenance$performerArgs<ExtArgs> = {}>(args?: Subset<T, Maintenance$performerArgs<ExtArgs>>): Prisma__EmployeeClient<$Result.GetResult<Prisma.$EmployeePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
-    requester<T extends Maintenance$requesterArgs<ExtArgs> = {}>(args?: Subset<T, Maintenance$requesterArgs<ExtArgs>>): Prisma__EmployeeClient<$Result.GetResult<Prisma.$EmployeePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+    performer<T extends Maintenance$performerArgs<ExtArgs> = {}>(args?: Subset<T, Maintenance$performerArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+    requester<T extends Maintenance$requesterArgs<ExtArgs> = {}>(args?: Subset<T, Maintenance$requesterArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
     site<T extends ComplexDefaultArgs<ExtArgs> = {}>(args?: Subset<T, ComplexDefaultArgs<ExtArgs>>): Prisma__ComplexClient<$Result.GetResult<Prisma.$ComplexPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
     company<T extends Maintenance$companyArgs<ExtArgs> = {}>(args?: Subset<T, Maintenance$companyArgs<ExtArgs>>): Prisma__CompanyClient<$Result.GetResult<Prisma.$CompanyPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
     team<T extends Maintenance$teamArgs<ExtArgs> = {}>(args?: Subset<T, Maintenance$teamArgs<ExtArgs>>): Prisma__TeamClient<$Result.GetResult<Prisma.$TeamPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
     floor<T extends Maintenance$floorArgs<ExtArgs> = {}>(args?: Subset<T, Maintenance$floorArgs<ExtArgs>>): Prisma__FloorClient<$Result.GetResult<Prisma.$FloorPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
     space<T extends Maintenance$spaceArgs<ExtArgs> = {}>(args?: Subset<T, Maintenance$spaceArgs<ExtArgs>>): Prisma__SpaceClient<$Result.GetResult<Prisma.$SpacePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
-    assignee<T extends Maintenance$assigneeArgs<ExtArgs> = {}>(args?: Subset<T, Maintenance$assigneeArgs<ExtArgs>>): Prisma__EmployeeClient<$Result.GetResult<Prisma.$EmployeePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+    assignee<T extends Maintenance$assigneeArgs<ExtArgs> = {}>(args?: Subset<T, Maintenance$assigneeArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
     asset<T extends Maintenance$assetArgs<ExtArgs> = {}>(args?: Subset<T, Maintenance$assetArgs<ExtArgs>>): Prisma__AssetClient<$Result.GetResult<Prisma.$AssetPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
     photos<T extends Maintenance$photosArgs<ExtArgs> = {}>(args?: Subset<T, Maintenance$photosArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$FilePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
@@ -30618,18 +29540,18 @@ export namespace Prisma {
    */
   export type Maintenance$performerArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the Employee
+     * Select specific fields to fetch from the User
      */
-    select?: EmployeeSelect<ExtArgs> | null
+    select?: UserSelect<ExtArgs> | null
     /**
-     * Omit specific fields from the Employee
+     * Omit specific fields from the User
      */
-    omit?: EmployeeOmit<ExtArgs> | null
+    omit?: UserOmit<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: EmployeeInclude<ExtArgs> | null
-    where?: EmployeeWhereInput
+    include?: UserInclude<ExtArgs> | null
+    where?: UserWhereInput
   }
 
   /**
@@ -30637,18 +29559,18 @@ export namespace Prisma {
    */
   export type Maintenance$requesterArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the Employee
+     * Select specific fields to fetch from the User
      */
-    select?: EmployeeSelect<ExtArgs> | null
+    select?: UserSelect<ExtArgs> | null
     /**
-     * Omit specific fields from the Employee
+     * Omit specific fields from the User
      */
-    omit?: EmployeeOmit<ExtArgs> | null
+    omit?: UserOmit<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: EmployeeInclude<ExtArgs> | null
-    where?: EmployeeWhereInput
+    include?: UserInclude<ExtArgs> | null
+    where?: UserWhereInput
   }
 
   /**
@@ -30732,18 +29654,18 @@ export namespace Prisma {
    */
   export type Maintenance$assigneeArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the Employee
+     * Select specific fields to fetch from the User
      */
-    select?: EmployeeSelect<ExtArgs> | null
+    select?: UserSelect<ExtArgs> | null
     /**
-     * Omit specific fields from the Employee
+     * Omit specific fields from the User
      */
-    omit?: EmployeeOmit<ExtArgs> | null
+    omit?: UserOmit<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: EmployeeInclude<ExtArgs> | null
-    where?: EmployeeWhereInput
+    include?: UserInclude<ExtArgs> | null
+    where?: UserWhereInput
   }
 
   /**
@@ -33301,7 +32223,12 @@ export namespace Prisma {
     updatedAt: 'updatedAt',
     passwordResetToken: 'passwordResetToken',
     passwordExpiresAt: 'passwordExpiresAt',
-    passwordResetAt: 'passwordResetAt'
+    passwordResetAt: 'passwordResetAt',
+    employeeCode: 'employeeCode',
+    employeeType: 'employeeType',
+    companyId: 'companyId',
+    serviceStatus: 'serviceStatus',
+    calenderEntityId: 'calenderEntityId'
   };
 
   export type UserScalarFieldEnum = (typeof UserScalarFieldEnum)[keyof typeof UserScalarFieldEnum]
@@ -33573,19 +32500,6 @@ export namespace Prisma {
   export type CompanyScalarFieldEnum = (typeof CompanyScalarFieldEnum)[keyof typeof CompanyScalarFieldEnum]
 
 
-  export const EmployeeScalarFieldEnum: {
-    id: 'id',
-    code: 'code',
-    type: 'type',
-    userId: 'userId',
-    companyId: 'companyId',
-    status: 'status',
-    calenderEntityId: 'calenderEntityId'
-  };
-
-  export type EmployeeScalarFieldEnum = (typeof EmployeeScalarFieldEnum)[keyof typeof EmployeeScalarFieldEnum]
-
-
   export const TeamScalarFieldEnum: {
     id: 'id',
     code: 'code',
@@ -33822,6 +32736,34 @@ export namespace Prisma {
 
 
   /**
+   * Reference to a field of type 'EmployeeType'
+   */
+  export type EnumEmployeeTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'EmployeeType'>
+    
+
+
+  /**
+   * Reference to a field of type 'EmployeeType[]'
+   */
+  export type ListEnumEmployeeTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'EmployeeType[]'>
+    
+
+
+  /**
+   * Reference to a field of type 'ServiceStatus'
+   */
+  export type EnumServiceStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'ServiceStatus'>
+    
+
+
+  /**
+   * Reference to a field of type 'ServiceStatus[]'
+   */
+  export type ListEnumServiceStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'ServiceStatus[]'>
+    
+
+
+  /**
    * Reference to a field of type 'Boolean'
    */
   export type BooleanFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Boolean'>
@@ -33853,20 +32795,6 @@ export namespace Prisma {
    * Reference to a field of type 'Availability[]'
    */
   export type ListEnumAvailabilityFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Availability[]'>
-    
-
-
-  /**
-   * Reference to a field of type 'ServiceStatus'
-   */
-  export type EnumServiceStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'ServiceStatus'>
-    
-
-
-  /**
-   * Reference to a field of type 'ServiceStatus[]'
-   */
-  export type ListEnumServiceStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'ServiceStatus[]'>
     
 
 
@@ -33997,20 +32925,6 @@ export namespace Prisma {
 
 
   /**
-   * Reference to a field of type 'EmployeeType'
-   */
-  export type EnumEmployeeTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'EmployeeType'>
-    
-
-
-  /**
-   * Reference to a field of type 'EmployeeType[]'
-   */
-  export type ListEnumEmployeeTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'EmployeeType[]'>
-    
-
-
-  /**
    * Reference to a field of type 'MaintenanceType'
    */
   export type EnumMaintenanceTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'MaintenanceType'>
@@ -34113,10 +33027,21 @@ export namespace Prisma {
     passwordResetToken?: StringNullableFilter<"User"> | string | null
     passwordExpiresAt?: DateTimeNullableFilter<"User"> | Date | string | null
     passwordResetAt?: DateTimeNullableFilter<"User"> | Date | string | null
+    employeeCode?: StringNullableFilter<"User"> | string | null
+    employeeType?: EnumEmployeeTypeNullableFilter<"User"> | $Enums.EmployeeType | null
+    companyId?: StringNullableFilter<"User"> | string | null
+    serviceStatus?: EnumServiceStatusFilter<"User"> | $Enums.ServiceStatus
+    calenderEntityId?: StringNullableFilter<"User"> | string | null
     refreshTokens?: RefreshTokenListRelationFilter
     role?: XOR<RoleScalarRelationFilter, RoleWhereInput>
     permissions?: UserPermissionListRelationFilter
-    employees?: EmployeeListRelationFilter
+    company?: XOR<CompanyNullableScalarRelationFilter, CompanyWhereInput> | null
+    calenderEntity?: XOR<CalenderEntityNullableScalarRelationFilter, CalenderEntityWhereInput> | null
+    teams?: TeamListRelationFilter
+    performedMaintenances?: MaintenanceListRelationFilter
+    requestedMaintenances?: MaintenanceListRelationFilter
+    assignedMaintenances?: MaintenanceListRelationFilter
+    supervisedTeams?: TeamListRelationFilter
   }
 
   export type UserOrderByWithRelationInput = {
@@ -34132,15 +33057,27 @@ export namespace Prisma {
     passwordResetToken?: SortOrderInput | SortOrder
     passwordExpiresAt?: SortOrderInput | SortOrder
     passwordResetAt?: SortOrderInput | SortOrder
+    employeeCode?: SortOrderInput | SortOrder
+    employeeType?: SortOrderInput | SortOrder
+    companyId?: SortOrderInput | SortOrder
+    serviceStatus?: SortOrder
+    calenderEntityId?: SortOrderInput | SortOrder
     refreshTokens?: RefreshTokenOrderByRelationAggregateInput
     role?: RoleOrderByWithRelationInput
     permissions?: UserPermissionOrderByRelationAggregateInput
-    employees?: EmployeeOrderByRelationAggregateInput
+    company?: CompanyOrderByWithRelationInput
+    calenderEntity?: CalenderEntityOrderByWithRelationInput
+    teams?: TeamOrderByRelationAggregateInput
+    performedMaintenances?: MaintenanceOrderByRelationAggregateInput
+    requestedMaintenances?: MaintenanceOrderByRelationAggregateInput
+    assignedMaintenances?: MaintenanceOrderByRelationAggregateInput
+    supervisedTeams?: TeamOrderByRelationAggregateInput
   }
 
   export type UserWhereUniqueInput = Prisma.AtLeast<{
     id?: string
     email?: string
+    employeeCode?: string
     AND?: UserWhereInput | UserWhereInput[]
     OR?: UserWhereInput[]
     NOT?: UserWhereInput | UserWhereInput[]
@@ -34154,11 +33091,21 @@ export namespace Prisma {
     passwordResetToken?: StringNullableFilter<"User"> | string | null
     passwordExpiresAt?: DateTimeNullableFilter<"User"> | Date | string | null
     passwordResetAt?: DateTimeNullableFilter<"User"> | Date | string | null
+    employeeType?: EnumEmployeeTypeNullableFilter<"User"> | $Enums.EmployeeType | null
+    companyId?: StringNullableFilter<"User"> | string | null
+    serviceStatus?: EnumServiceStatusFilter<"User"> | $Enums.ServiceStatus
+    calenderEntityId?: StringNullableFilter<"User"> | string | null
     refreshTokens?: RefreshTokenListRelationFilter
     role?: XOR<RoleScalarRelationFilter, RoleWhereInput>
     permissions?: UserPermissionListRelationFilter
-    employees?: EmployeeListRelationFilter
-  }, "id" | "email">
+    company?: XOR<CompanyNullableScalarRelationFilter, CompanyWhereInput> | null
+    calenderEntity?: XOR<CalenderEntityNullableScalarRelationFilter, CalenderEntityWhereInput> | null
+    teams?: TeamListRelationFilter
+    performedMaintenances?: MaintenanceListRelationFilter
+    requestedMaintenances?: MaintenanceListRelationFilter
+    assignedMaintenances?: MaintenanceListRelationFilter
+    supervisedTeams?: TeamListRelationFilter
+  }, "id" | "email" | "employeeCode">
 
   export type UserOrderByWithAggregationInput = {
     id?: SortOrder
@@ -34173,6 +33120,11 @@ export namespace Prisma {
     passwordResetToken?: SortOrderInput | SortOrder
     passwordExpiresAt?: SortOrderInput | SortOrder
     passwordResetAt?: SortOrderInput | SortOrder
+    employeeCode?: SortOrderInput | SortOrder
+    employeeType?: SortOrderInput | SortOrder
+    companyId?: SortOrderInput | SortOrder
+    serviceStatus?: SortOrder
+    calenderEntityId?: SortOrderInput | SortOrder
     _count?: UserCountOrderByAggregateInput
     _max?: UserMaxOrderByAggregateInput
     _min?: UserMinOrderByAggregateInput
@@ -34194,6 +33146,11 @@ export namespace Prisma {
     passwordResetToken?: StringNullableWithAggregatesFilter<"User"> | string | null
     passwordExpiresAt?: DateTimeNullableWithAggregatesFilter<"User"> | Date | string | null
     passwordResetAt?: DateTimeNullableWithAggregatesFilter<"User"> | Date | string | null
+    employeeCode?: StringNullableWithAggregatesFilter<"User"> | string | null
+    employeeType?: EnumEmployeeTypeNullableWithAggregatesFilter<"User"> | $Enums.EmployeeType | null
+    companyId?: StringNullableWithAggregatesFilter<"User"> | string | null
+    serviceStatus?: EnumServiceStatusWithAggregatesFilter<"User"> | $Enums.ServiceStatus
+    calenderEntityId?: StringNullableWithAggregatesFilter<"User"> | string | null
   }
 
   export type RoleWhereInput = {
@@ -35595,7 +34552,7 @@ export namespace Prisma {
     createdAt?: DateTimeFilter<"Company"> | Date | string
     updatedAt?: DateTimeFilter<"Company"> | Date | string
     address?: XOR<AddressScalarRelationFilter, AddressWhereInput>
-    employees?: EmployeeListRelationFilter
+    employees?: UserListRelationFilter
     maintenances?: MaintenanceListRelationFilter
   }
 
@@ -35613,7 +34570,7 @@ export namespace Prisma {
     createdAt?: SortOrder
     updatedAt?: SortOrder
     address?: AddressOrderByWithRelationInput
-    employees?: EmployeeOrderByRelationAggregateInput
+    employees?: UserOrderByRelationAggregateInput
     maintenances?: MaintenanceOrderByRelationAggregateInput
   }
 
@@ -35634,7 +34591,7 @@ export namespace Prisma {
     createdAt?: DateTimeFilter<"Company"> | Date | string
     updatedAt?: DateTimeFilter<"Company"> | Date | string
     address?: XOR<AddressScalarRelationFilter, AddressWhereInput>
-    employees?: EmployeeListRelationFilter
+    employees?: UserListRelationFilter
     maintenances?: MaintenanceListRelationFilter
   }, "id" | "code">
 
@@ -35674,89 +34631,6 @@ export namespace Prisma {
     updatedAt?: DateTimeWithAggregatesFilter<"Company"> | Date | string
   }
 
-  export type EmployeeWhereInput = {
-    AND?: EmployeeWhereInput | EmployeeWhereInput[]
-    OR?: EmployeeWhereInput[]
-    NOT?: EmployeeWhereInput | EmployeeWhereInput[]
-    id?: StringFilter<"Employee"> | string
-    code?: StringFilter<"Employee"> | string
-    type?: EnumEmployeeTypeFilter<"Employee"> | $Enums.EmployeeType
-    userId?: StringFilter<"Employee"> | string
-    companyId?: StringFilter<"Employee"> | string
-    status?: EnumServiceStatusFilter<"Employee"> | $Enums.ServiceStatus
-    calenderEntityId?: StringNullableFilter<"Employee"> | string | null
-    user?: XOR<UserScalarRelationFilter, UserWhereInput>
-    company?: XOR<CompanyScalarRelationFilter, CompanyWhereInput>
-    calenderEntity?: XOR<CalenderEntityNullableScalarRelationFilter, CalenderEntityWhereInput> | null
-    teams?: TeamListRelationFilter
-    performedMaintenances?: MaintenanceListRelationFilter
-    requestedMaintenances?: MaintenanceListRelationFilter
-    assignedMaintenances?: MaintenanceListRelationFilter
-  }
-
-  export type EmployeeOrderByWithRelationInput = {
-    id?: SortOrder
-    code?: SortOrder
-    type?: SortOrder
-    userId?: SortOrder
-    companyId?: SortOrder
-    status?: SortOrder
-    calenderEntityId?: SortOrderInput | SortOrder
-    user?: UserOrderByWithRelationInput
-    company?: CompanyOrderByWithRelationInput
-    calenderEntity?: CalenderEntityOrderByWithRelationInput
-    teams?: TeamOrderByRelationAggregateInput
-    performedMaintenances?: MaintenanceOrderByRelationAggregateInput
-    requestedMaintenances?: MaintenanceOrderByRelationAggregateInput
-    assignedMaintenances?: MaintenanceOrderByRelationAggregateInput
-  }
-
-  export type EmployeeWhereUniqueInput = Prisma.AtLeast<{
-    id?: string
-    code?: string
-    AND?: EmployeeWhereInput | EmployeeWhereInput[]
-    OR?: EmployeeWhereInput[]
-    NOT?: EmployeeWhereInput | EmployeeWhereInput[]
-    type?: EnumEmployeeTypeFilter<"Employee"> | $Enums.EmployeeType
-    userId?: StringFilter<"Employee"> | string
-    companyId?: StringFilter<"Employee"> | string
-    status?: EnumServiceStatusFilter<"Employee"> | $Enums.ServiceStatus
-    calenderEntityId?: StringNullableFilter<"Employee"> | string | null
-    user?: XOR<UserScalarRelationFilter, UserWhereInput>
-    company?: XOR<CompanyScalarRelationFilter, CompanyWhereInput>
-    calenderEntity?: XOR<CalenderEntityNullableScalarRelationFilter, CalenderEntityWhereInput> | null
-    teams?: TeamListRelationFilter
-    performedMaintenances?: MaintenanceListRelationFilter
-    requestedMaintenances?: MaintenanceListRelationFilter
-    assignedMaintenances?: MaintenanceListRelationFilter
-  }, "id" | "code">
-
-  export type EmployeeOrderByWithAggregationInput = {
-    id?: SortOrder
-    code?: SortOrder
-    type?: SortOrder
-    userId?: SortOrder
-    companyId?: SortOrder
-    status?: SortOrder
-    calenderEntityId?: SortOrderInput | SortOrder
-    _count?: EmployeeCountOrderByAggregateInput
-    _max?: EmployeeMaxOrderByAggregateInput
-    _min?: EmployeeMinOrderByAggregateInput
-  }
-
-  export type EmployeeScalarWhereWithAggregatesInput = {
-    AND?: EmployeeScalarWhereWithAggregatesInput | EmployeeScalarWhereWithAggregatesInput[]
-    OR?: EmployeeScalarWhereWithAggregatesInput[]
-    NOT?: EmployeeScalarWhereWithAggregatesInput | EmployeeScalarWhereWithAggregatesInput[]
-    id?: StringWithAggregatesFilter<"Employee"> | string
-    code?: StringWithAggregatesFilter<"Employee"> | string
-    type?: EnumEmployeeTypeWithAggregatesFilter<"Employee"> | $Enums.EmployeeType
-    userId?: StringWithAggregatesFilter<"Employee"> | string
-    companyId?: StringWithAggregatesFilter<"Employee"> | string
-    status?: EnumServiceStatusWithAggregatesFilter<"Employee"> | $Enums.ServiceStatus
-    calenderEntityId?: StringNullableWithAggregatesFilter<"Employee"> | string | null
-  }
-
   export type TeamWhereInput = {
     AND?: TeamWhereInput | TeamWhereInput[]
     OR?: TeamWhereInput[]
@@ -35769,9 +34643,10 @@ export namespace Prisma {
     supervisorId?: StringFilter<"Team"> | string
     createdAt?: DateTimeFilter<"Team"> | Date | string
     updatedAt?: DateTimeFilter<"Team"> | Date | string
-    supervisor?: XOR<EmployeeScalarRelationFilter, EmployeeWhereInput>
+    supervisor?: XOR<UserScalarRelationFilter, UserWhereInput>
     maintenances?: MaintenanceListRelationFilter
     preventives?: PreventiveListRelationFilter
+    members?: UserListRelationFilter
   }
 
   export type TeamOrderByWithRelationInput = {
@@ -35783,9 +34658,10 @@ export namespace Prisma {
     supervisorId?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
-    supervisor?: EmployeeOrderByWithRelationInput
+    supervisor?: UserOrderByWithRelationInput
     maintenances?: MaintenanceOrderByRelationAggregateInput
     preventives?: PreventiveOrderByRelationAggregateInput
+    members?: UserOrderByRelationAggregateInput
   }
 
   export type TeamWhereUniqueInput = Prisma.AtLeast<{
@@ -35800,9 +34676,10 @@ export namespace Prisma {
     supervisorId?: StringFilter<"Team"> | string
     createdAt?: DateTimeFilter<"Team"> | Date | string
     updatedAt?: DateTimeFilter<"Team"> | Date | string
-    supervisor?: XOR<EmployeeScalarRelationFilter, EmployeeWhereInput>
+    supervisor?: XOR<UserScalarRelationFilter, UserWhereInput>
     maintenances?: MaintenanceListRelationFilter
     preventives?: PreventiveListRelationFilter
+    members?: UserListRelationFilter
   }, "id" | "code">
 
   export type TeamOrderByWithAggregationInput = {
@@ -35957,7 +34834,7 @@ export namespace Prisma {
     complexes?: ComplexListRelationFilter
     spaces?: SpaceListRelationFilter
     zones?: ZoneListRelationFilter
-    employees?: EmployeeListRelationFilter
+    employees?: UserListRelationFilter
   }
 
   export type CalenderEntityOrderByWithRelationInput = {
@@ -35969,7 +34846,7 @@ export namespace Prisma {
     complexes?: ComplexOrderByRelationAggregateInput
     spaces?: SpaceOrderByRelationAggregateInput
     zones?: ZoneOrderByRelationAggregateInput
-    employees?: EmployeeOrderByRelationAggregateInput
+    employees?: UserOrderByRelationAggregateInput
   }
 
   export type CalenderEntityWhereUniqueInput = Prisma.AtLeast<{
@@ -35984,7 +34861,7 @@ export namespace Prisma {
     complexes?: ComplexListRelationFilter
     spaces?: SpaceListRelationFilter
     zones?: ZoneListRelationFilter
-    employees?: EmployeeListRelationFilter
+    employees?: UserListRelationFilter
   }, "id">
 
   export type CalenderEntityOrderByWithAggregationInput = {
@@ -36070,14 +34947,14 @@ export namespace Prisma {
     assetId?: StringNullableFilter<"Maintenance"> | string | null
     createdAt?: DateTimeFilter<"Maintenance"> | Date | string
     updatedAt?: DateTimeFilter<"Maintenance"> | Date | string
-    performer?: XOR<EmployeeNullableScalarRelationFilter, EmployeeWhereInput> | null
-    requester?: XOR<EmployeeNullableScalarRelationFilter, EmployeeWhereInput> | null
+    performer?: XOR<UserNullableScalarRelationFilter, UserWhereInput> | null
+    requester?: XOR<UserNullableScalarRelationFilter, UserWhereInput> | null
     site?: XOR<ComplexScalarRelationFilter, ComplexWhereInput>
     company?: XOR<CompanyNullableScalarRelationFilter, CompanyWhereInput> | null
     team?: XOR<TeamNullableScalarRelationFilter, TeamWhereInput> | null
     floor?: XOR<FloorNullableScalarRelationFilter, FloorWhereInput> | null
     space?: XOR<SpaceNullableScalarRelationFilter, SpaceWhereInput> | null
-    assignee?: XOR<EmployeeNullableScalarRelationFilter, EmployeeWhereInput> | null
+    assignee?: XOR<UserNullableScalarRelationFilter, UserWhereInput> | null
     asset?: XOR<AssetNullableScalarRelationFilter, AssetWhereInput> | null
     photos?: FileListRelationFilter
   }
@@ -36142,14 +35019,14 @@ export namespace Prisma {
     assetId?: SortOrderInput | SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
-    performer?: EmployeeOrderByWithRelationInput
-    requester?: EmployeeOrderByWithRelationInput
+    performer?: UserOrderByWithRelationInput
+    requester?: UserOrderByWithRelationInput
     site?: ComplexOrderByWithRelationInput
     company?: CompanyOrderByWithRelationInput
     team?: TeamOrderByWithRelationInput
     floor?: FloorOrderByWithRelationInput
     space?: SpaceOrderByWithRelationInput
-    assignee?: EmployeeOrderByWithRelationInput
+    assignee?: UserOrderByWithRelationInput
     asset?: AssetOrderByWithRelationInput
     photos?: FileOrderByRelationAggregateInput
   }
@@ -36217,14 +35094,14 @@ export namespace Prisma {
     assetId?: StringNullableFilter<"Maintenance"> | string | null
     createdAt?: DateTimeFilter<"Maintenance"> | Date | string
     updatedAt?: DateTimeFilter<"Maintenance"> | Date | string
-    performer?: XOR<EmployeeNullableScalarRelationFilter, EmployeeWhereInput> | null
-    requester?: XOR<EmployeeNullableScalarRelationFilter, EmployeeWhereInput> | null
+    performer?: XOR<UserNullableScalarRelationFilter, UserWhereInput> | null
+    requester?: XOR<UserNullableScalarRelationFilter, UserWhereInput> | null
     site?: XOR<ComplexScalarRelationFilter, ComplexWhereInput>
     company?: XOR<CompanyNullableScalarRelationFilter, CompanyWhereInput> | null
     team?: XOR<TeamNullableScalarRelationFilter, TeamWhereInput> | null
     floor?: XOR<FloorNullableScalarRelationFilter, FloorWhereInput> | null
     space?: XOR<SpaceNullableScalarRelationFilter, SpaceWhereInput> | null
-    assignee?: XOR<EmployeeNullableScalarRelationFilter, EmployeeWhereInput> | null
+    assignee?: XOR<UserNullableScalarRelationFilter, UserWhereInput> | null
     asset?: XOR<AssetNullableScalarRelationFilter, AssetWhereInput> | null
     photos?: FileListRelationFilter
   }, "id" | "code">
@@ -36570,10 +35447,19 @@ export namespace Prisma {
     passwordResetToken?: string | null
     passwordExpiresAt?: Date | string | null
     passwordResetAt?: Date | string | null
+    employeeCode?: string | null
+    employeeType?: $Enums.EmployeeType | null
+    serviceStatus?: $Enums.ServiceStatus
     refreshTokens?: RefreshTokenCreateNestedManyWithoutUserInput
     role: RoleCreateNestedOneWithoutUsersInput
     permissions?: UserPermissionCreateNestedManyWithoutUserInput
-    employees?: EmployeeCreateNestedManyWithoutUserInput
+    company?: CompanyCreateNestedOneWithoutEmployeesInput
+    calenderEntity?: CalenderEntityCreateNestedOneWithoutEmployeesInput
+    teams?: TeamCreateNestedManyWithoutMembersInput
+    performedMaintenances?: MaintenanceCreateNestedManyWithoutPerformerInput
+    requestedMaintenances?: MaintenanceCreateNestedManyWithoutRequesterInput
+    assignedMaintenances?: MaintenanceCreateNestedManyWithoutAssigneeInput
+    supervisedTeams?: TeamCreateNestedManyWithoutSupervisorInput
   }
 
   export type UserUncheckedCreateInput = {
@@ -36589,9 +35475,18 @@ export namespace Prisma {
     passwordResetToken?: string | null
     passwordExpiresAt?: Date | string | null
     passwordResetAt?: Date | string | null
+    employeeCode?: string | null
+    employeeType?: $Enums.EmployeeType | null
+    companyId?: string | null
+    serviceStatus?: $Enums.ServiceStatus
+    calenderEntityId?: string | null
     refreshTokens?: RefreshTokenUncheckedCreateNestedManyWithoutUserInput
     permissions?: UserPermissionUncheckedCreateNestedManyWithoutUserInput
-    employees?: EmployeeUncheckedCreateNestedManyWithoutUserInput
+    teams?: TeamUncheckedCreateNestedManyWithoutMembersInput
+    performedMaintenances?: MaintenanceUncheckedCreateNestedManyWithoutPerformerInput
+    requestedMaintenances?: MaintenanceUncheckedCreateNestedManyWithoutRequesterInput
+    assignedMaintenances?: MaintenanceUncheckedCreateNestedManyWithoutAssigneeInput
+    supervisedTeams?: TeamUncheckedCreateNestedManyWithoutSupervisorInput
   }
 
   export type UserUpdateInput = {
@@ -36606,10 +35501,19 @@ export namespace Prisma {
     passwordResetToken?: NullableStringFieldUpdateOperationsInput | string | null
     passwordExpiresAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     passwordResetAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    employeeCode?: NullableStringFieldUpdateOperationsInput | string | null
+    employeeType?: NullableEnumEmployeeTypeFieldUpdateOperationsInput | $Enums.EmployeeType | null
+    serviceStatus?: EnumServiceStatusFieldUpdateOperationsInput | $Enums.ServiceStatus
     refreshTokens?: RefreshTokenUpdateManyWithoutUserNestedInput
     role?: RoleUpdateOneRequiredWithoutUsersNestedInput
     permissions?: UserPermissionUpdateManyWithoutUserNestedInput
-    employees?: EmployeeUpdateManyWithoutUserNestedInput
+    company?: CompanyUpdateOneWithoutEmployeesNestedInput
+    calenderEntity?: CalenderEntityUpdateOneWithoutEmployeesNestedInput
+    teams?: TeamUpdateManyWithoutMembersNestedInput
+    performedMaintenances?: MaintenanceUpdateManyWithoutPerformerNestedInput
+    requestedMaintenances?: MaintenanceUpdateManyWithoutRequesterNestedInput
+    assignedMaintenances?: MaintenanceUpdateManyWithoutAssigneeNestedInput
+    supervisedTeams?: TeamUpdateManyWithoutSupervisorNestedInput
   }
 
   export type UserUncheckedUpdateInput = {
@@ -36625,9 +35529,18 @@ export namespace Prisma {
     passwordResetToken?: NullableStringFieldUpdateOperationsInput | string | null
     passwordExpiresAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     passwordResetAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    employeeCode?: NullableStringFieldUpdateOperationsInput | string | null
+    employeeType?: NullableEnumEmployeeTypeFieldUpdateOperationsInput | $Enums.EmployeeType | null
+    companyId?: NullableStringFieldUpdateOperationsInput | string | null
+    serviceStatus?: EnumServiceStatusFieldUpdateOperationsInput | $Enums.ServiceStatus
+    calenderEntityId?: NullableStringFieldUpdateOperationsInput | string | null
     refreshTokens?: RefreshTokenUncheckedUpdateManyWithoutUserNestedInput
     permissions?: UserPermissionUncheckedUpdateManyWithoutUserNestedInput
-    employees?: EmployeeUncheckedUpdateManyWithoutUserNestedInput
+    teams?: TeamUncheckedUpdateManyWithoutMembersNestedInput
+    performedMaintenances?: MaintenanceUncheckedUpdateManyWithoutPerformerNestedInput
+    requestedMaintenances?: MaintenanceUncheckedUpdateManyWithoutRequesterNestedInput
+    assignedMaintenances?: MaintenanceUncheckedUpdateManyWithoutAssigneeNestedInput
+    supervisedTeams?: TeamUncheckedUpdateManyWithoutSupervisorNestedInput
   }
 
   export type UserCreateManyInput = {
@@ -36643,6 +35556,11 @@ export namespace Prisma {
     passwordResetToken?: string | null
     passwordExpiresAt?: Date | string | null
     passwordResetAt?: Date | string | null
+    employeeCode?: string | null
+    employeeType?: $Enums.EmployeeType | null
+    companyId?: string | null
+    serviceStatus?: $Enums.ServiceStatus
+    calenderEntityId?: string | null
   }
 
   export type UserUpdateManyMutationInput = {
@@ -36657,6 +35575,9 @@ export namespace Prisma {
     passwordResetToken?: NullableStringFieldUpdateOperationsInput | string | null
     passwordExpiresAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     passwordResetAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    employeeCode?: NullableStringFieldUpdateOperationsInput | string | null
+    employeeType?: NullableEnumEmployeeTypeFieldUpdateOperationsInput | $Enums.EmployeeType | null
+    serviceStatus?: EnumServiceStatusFieldUpdateOperationsInput | $Enums.ServiceStatus
   }
 
   export type UserUncheckedUpdateManyInput = {
@@ -36672,6 +35593,11 @@ export namespace Prisma {
     passwordResetToken?: NullableStringFieldUpdateOperationsInput | string | null
     passwordExpiresAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     passwordResetAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    employeeCode?: NullableStringFieldUpdateOperationsInput | string | null
+    employeeType?: NullableEnumEmployeeTypeFieldUpdateOperationsInput | $Enums.EmployeeType | null
+    companyId?: NullableStringFieldUpdateOperationsInput | string | null
+    serviceStatus?: EnumServiceStatusFieldUpdateOperationsInput | $Enums.ServiceStatus
+    calenderEntityId?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type RoleCreateInput = {
@@ -38260,7 +37186,7 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     address: AddressCreateNestedOneWithoutCompaniesInput
-    employees?: EmployeeCreateNestedManyWithoutCompanyInput
+    employees?: UserCreateNestedManyWithoutCompanyInput
     maintenances?: MaintenanceCreateNestedManyWithoutCompanyInput
   }
 
@@ -38277,7 +37203,7 @@ export namespace Prisma {
     website?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
-    employees?: EmployeeUncheckedCreateNestedManyWithoutCompanyInput
+    employees?: UserUncheckedCreateNestedManyWithoutCompanyInput
     maintenances?: MaintenanceUncheckedCreateNestedManyWithoutCompanyInput
   }
 
@@ -38294,7 +37220,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     address?: AddressUpdateOneRequiredWithoutCompaniesNestedInput
-    employees?: EmployeeUpdateManyWithoutCompanyNestedInput
+    employees?: UserUpdateManyWithoutCompanyNestedInput
     maintenances?: MaintenanceUpdateManyWithoutCompanyNestedInput
   }
 
@@ -38311,7 +37237,7 @@ export namespace Prisma {
     website?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    employees?: EmployeeUncheckedUpdateManyWithoutCompanyNestedInput
+    employees?: UserUncheckedUpdateManyWithoutCompanyNestedInput
     maintenances?: MaintenanceUncheckedUpdateManyWithoutCompanyNestedInput
   }
 
@@ -38359,89 +37285,6 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
-  export type EmployeeCreateInput = {
-    id?: string
-    code: string
-    type?: $Enums.EmployeeType
-    status?: $Enums.ServiceStatus
-    user: UserCreateNestedOneWithoutEmployeesInput
-    company: CompanyCreateNestedOneWithoutEmployeesInput
-    calenderEntity?: CalenderEntityCreateNestedOneWithoutEmployeesInput
-    teams?: TeamCreateNestedManyWithoutSupervisorInput
-    performedMaintenances?: MaintenanceCreateNestedManyWithoutPerformerInput
-    requestedMaintenances?: MaintenanceCreateNestedManyWithoutRequesterInput
-    assignedMaintenances?: MaintenanceCreateNestedManyWithoutAssigneeInput
-  }
-
-  export type EmployeeUncheckedCreateInput = {
-    id?: string
-    code: string
-    type?: $Enums.EmployeeType
-    userId: string
-    companyId: string
-    status?: $Enums.ServiceStatus
-    calenderEntityId?: string | null
-    teams?: TeamUncheckedCreateNestedManyWithoutSupervisorInput
-    performedMaintenances?: MaintenanceUncheckedCreateNestedManyWithoutPerformerInput
-    requestedMaintenances?: MaintenanceUncheckedCreateNestedManyWithoutRequesterInput
-    assignedMaintenances?: MaintenanceUncheckedCreateNestedManyWithoutAssigneeInput
-  }
-
-  export type EmployeeUpdateInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    code?: StringFieldUpdateOperationsInput | string
-    type?: EnumEmployeeTypeFieldUpdateOperationsInput | $Enums.EmployeeType
-    status?: EnumServiceStatusFieldUpdateOperationsInput | $Enums.ServiceStatus
-    user?: UserUpdateOneRequiredWithoutEmployeesNestedInput
-    company?: CompanyUpdateOneRequiredWithoutEmployeesNestedInput
-    calenderEntity?: CalenderEntityUpdateOneWithoutEmployeesNestedInput
-    teams?: TeamUpdateManyWithoutSupervisorNestedInput
-    performedMaintenances?: MaintenanceUpdateManyWithoutPerformerNestedInput
-    requestedMaintenances?: MaintenanceUpdateManyWithoutRequesterNestedInput
-    assignedMaintenances?: MaintenanceUpdateManyWithoutAssigneeNestedInput
-  }
-
-  export type EmployeeUncheckedUpdateInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    code?: StringFieldUpdateOperationsInput | string
-    type?: EnumEmployeeTypeFieldUpdateOperationsInput | $Enums.EmployeeType
-    userId?: StringFieldUpdateOperationsInput | string
-    companyId?: StringFieldUpdateOperationsInput | string
-    status?: EnumServiceStatusFieldUpdateOperationsInput | $Enums.ServiceStatus
-    calenderEntityId?: NullableStringFieldUpdateOperationsInput | string | null
-    teams?: TeamUncheckedUpdateManyWithoutSupervisorNestedInput
-    performedMaintenances?: MaintenanceUncheckedUpdateManyWithoutPerformerNestedInput
-    requestedMaintenances?: MaintenanceUncheckedUpdateManyWithoutRequesterNestedInput
-    assignedMaintenances?: MaintenanceUncheckedUpdateManyWithoutAssigneeNestedInput
-  }
-
-  export type EmployeeCreateManyInput = {
-    id?: string
-    code: string
-    type?: $Enums.EmployeeType
-    userId: string
-    companyId: string
-    status?: $Enums.ServiceStatus
-    calenderEntityId?: string | null
-  }
-
-  export type EmployeeUpdateManyMutationInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    code?: StringFieldUpdateOperationsInput | string
-    type?: EnumEmployeeTypeFieldUpdateOperationsInput | $Enums.EmployeeType
-    status?: EnumServiceStatusFieldUpdateOperationsInput | $Enums.ServiceStatus
-  }
-
-  export type EmployeeUncheckedUpdateManyInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    code?: StringFieldUpdateOperationsInput | string
-    type?: EnumEmployeeTypeFieldUpdateOperationsInput | $Enums.EmployeeType
-    userId?: StringFieldUpdateOperationsInput | string
-    companyId?: StringFieldUpdateOperationsInput | string
-    status?: EnumServiceStatusFieldUpdateOperationsInput | $Enums.ServiceStatus
-    calenderEntityId?: NullableStringFieldUpdateOperationsInput | string | null
-  }
-
   export type TeamCreateInput = {
     id?: string
     code: string
@@ -38450,9 +37293,10 @@ export namespace Prisma {
     status?: $Enums.ServiceStatus
     createdAt?: Date | string
     updatedAt?: Date | string
-    supervisor: EmployeeCreateNestedOneWithoutTeamsInput
+    supervisor: UserCreateNestedOneWithoutSupervisedTeamsInput
     maintenances?: MaintenanceCreateNestedManyWithoutTeamInput
     preventives?: PreventiveCreateNestedManyWithoutTeamInput
+    members?: UserCreateNestedManyWithoutTeamsInput
   }
 
   export type TeamUncheckedCreateInput = {
@@ -38466,6 +37310,7 @@ export namespace Prisma {
     updatedAt?: Date | string
     maintenances?: MaintenanceUncheckedCreateNestedManyWithoutTeamInput
     preventives?: PreventiveUncheckedCreateNestedManyWithoutTeamInput
+    members?: UserUncheckedCreateNestedManyWithoutTeamsInput
   }
 
   export type TeamUpdateInput = {
@@ -38476,9 +37321,10 @@ export namespace Prisma {
     status?: EnumServiceStatusFieldUpdateOperationsInput | $Enums.ServiceStatus
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    supervisor?: EmployeeUpdateOneRequiredWithoutTeamsNestedInput
+    supervisor?: UserUpdateOneRequiredWithoutSupervisedTeamsNestedInput
     maintenances?: MaintenanceUpdateManyWithoutTeamNestedInput
     preventives?: PreventiveUpdateManyWithoutTeamNestedInput
+    members?: UserUpdateManyWithoutTeamsNestedInput
   }
 
   export type TeamUncheckedUpdateInput = {
@@ -38492,6 +37338,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     maintenances?: MaintenanceUncheckedUpdateManyWithoutTeamNestedInput
     preventives?: PreventiveUncheckedUpdateManyWithoutTeamNestedInput
+    members?: UserUncheckedUpdateManyWithoutTeamsNestedInput
   }
 
   export type TeamCreateManyInput = {
@@ -38655,7 +37502,7 @@ export namespace Prisma {
     complexes?: ComplexCreateNestedManyWithoutCalenderEntityInput
     spaces?: SpaceCreateNestedManyWithoutCalenderEntityInput
     zones?: ZoneCreateNestedManyWithoutCalenderEntityInput
-    employees?: EmployeeCreateNestedManyWithoutCalenderEntityInput
+    employees?: UserCreateNestedManyWithoutCalenderEntityInput
   }
 
   export type CalenderEntityUncheckedCreateInput = {
@@ -38667,7 +37514,7 @@ export namespace Prisma {
     complexes?: ComplexUncheckedCreateNestedManyWithoutCalenderEntityInput
     spaces?: SpaceUncheckedCreateNestedManyWithoutCalenderEntityInput
     zones?: ZoneUncheckedCreateNestedManyWithoutCalenderEntityInput
-    employees?: EmployeeUncheckedCreateNestedManyWithoutCalenderEntityInput
+    employees?: UserUncheckedCreateNestedManyWithoutCalenderEntityInput
   }
 
   export type CalenderEntityUpdateInput = {
@@ -38679,7 +37526,7 @@ export namespace Prisma {
     complexes?: ComplexUpdateManyWithoutCalenderEntityNestedInput
     spaces?: SpaceUpdateManyWithoutCalenderEntityNestedInput
     zones?: ZoneUpdateManyWithoutCalenderEntityNestedInput
-    employees?: EmployeeUpdateManyWithoutCalenderEntityNestedInput
+    employees?: UserUpdateManyWithoutCalenderEntityNestedInput
   }
 
   export type CalenderEntityUncheckedUpdateInput = {
@@ -38691,7 +37538,7 @@ export namespace Prisma {
     complexes?: ComplexUncheckedUpdateManyWithoutCalenderEntityNestedInput
     spaces?: SpaceUncheckedUpdateManyWithoutCalenderEntityNestedInput
     zones?: ZoneUncheckedUpdateManyWithoutCalenderEntityNestedInput
-    employees?: EmployeeUncheckedUpdateManyWithoutCalenderEntityNestedInput
+    employees?: UserUncheckedUpdateManyWithoutCalenderEntityNestedInput
   }
 
   export type CalenderEntityCreateManyInput = {
@@ -38766,14 +37613,14 @@ export namespace Prisma {
     delayNotification?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
-    performer?: EmployeeCreateNestedOneWithoutPerformedMaintenancesInput
-    requester?: EmployeeCreateNestedOneWithoutRequestedMaintenancesInput
+    performer?: UserCreateNestedOneWithoutPerformedMaintenancesInput
+    requester?: UserCreateNestedOneWithoutRequestedMaintenancesInput
     site: ComplexCreateNestedOneWithoutMaintenancesInput
     company?: CompanyCreateNestedOneWithoutMaintenancesInput
     team?: TeamCreateNestedOneWithoutMaintenancesInput
     floor?: FloorCreateNestedOneWithoutMaintenancesInput
     space?: SpaceCreateNestedOneWithoutMaintenancesInput
-    assignee?: EmployeeCreateNestedOneWithoutAssignedMaintenancesInput
+    assignee?: UserCreateNestedOneWithoutAssignedMaintenancesInput
     asset?: AssetCreateNestedOneWithoutMaintenancesInput
     photos?: FileCreateNestedManyWithoutMaintenanceInput
   }
@@ -38892,14 +37739,14 @@ export namespace Prisma {
     delayNotification?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    performer?: EmployeeUpdateOneWithoutPerformedMaintenancesNestedInput
-    requester?: EmployeeUpdateOneWithoutRequestedMaintenancesNestedInput
+    performer?: UserUpdateOneWithoutPerformedMaintenancesNestedInput
+    requester?: UserUpdateOneWithoutRequestedMaintenancesNestedInput
     site?: ComplexUpdateOneRequiredWithoutMaintenancesNestedInput
     company?: CompanyUpdateOneWithoutMaintenancesNestedInput
     team?: TeamUpdateOneWithoutMaintenancesNestedInput
     floor?: FloorUpdateOneWithoutMaintenancesNestedInput
     space?: SpaceUpdateOneWithoutMaintenancesNestedInput
-    assignee?: EmployeeUpdateOneWithoutAssignedMaintenancesNestedInput
+    assignee?: UserUpdateOneWithoutAssignedMaintenancesNestedInput
     asset?: AssetUpdateOneWithoutMaintenancesNestedInput
     photos?: FileUpdateManyWithoutMaintenanceNestedInput
   }
@@ -39406,6 +38253,20 @@ export namespace Prisma {
     not?: NestedDateTimeNullableFilter<$PrismaModel> | Date | string | null
   }
 
+  export type EnumEmployeeTypeNullableFilter<$PrismaModel = never> = {
+    equals?: $Enums.EmployeeType | EnumEmployeeTypeFieldRefInput<$PrismaModel> | null
+    in?: $Enums.EmployeeType[] | ListEnumEmployeeTypeFieldRefInput<$PrismaModel> | null
+    notIn?: $Enums.EmployeeType[] | ListEnumEmployeeTypeFieldRefInput<$PrismaModel> | null
+    not?: NestedEnumEmployeeTypeNullableFilter<$PrismaModel> | $Enums.EmployeeType | null
+  }
+
+  export type EnumServiceStatusFilter<$PrismaModel = never> = {
+    equals?: $Enums.ServiceStatus | EnumServiceStatusFieldRefInput<$PrismaModel>
+    in?: $Enums.ServiceStatus[] | ListEnumServiceStatusFieldRefInput<$PrismaModel>
+    notIn?: $Enums.ServiceStatus[] | ListEnumServiceStatusFieldRefInput<$PrismaModel>
+    not?: NestedEnumServiceStatusFilter<$PrismaModel> | $Enums.ServiceStatus
+  }
+
   export type RefreshTokenListRelationFilter = {
     every?: RefreshTokenWhereInput
     some?: RefreshTokenWhereInput
@@ -39423,10 +38284,26 @@ export namespace Prisma {
     none?: UserPermissionWhereInput
   }
 
-  export type EmployeeListRelationFilter = {
-    every?: EmployeeWhereInput
-    some?: EmployeeWhereInput
-    none?: EmployeeWhereInput
+  export type CompanyNullableScalarRelationFilter = {
+    is?: CompanyWhereInput | null
+    isNot?: CompanyWhereInput | null
+  }
+
+  export type CalenderEntityNullableScalarRelationFilter = {
+    is?: CalenderEntityWhereInput | null
+    isNot?: CalenderEntityWhereInput | null
+  }
+
+  export type TeamListRelationFilter = {
+    every?: TeamWhereInput
+    some?: TeamWhereInput
+    none?: TeamWhereInput
+  }
+
+  export type MaintenanceListRelationFilter = {
+    every?: MaintenanceWhereInput
+    some?: MaintenanceWhereInput
+    none?: MaintenanceWhereInput
   }
 
   export type SortOrderInput = {
@@ -39442,7 +38319,11 @@ export namespace Prisma {
     _count?: SortOrder
   }
 
-  export type EmployeeOrderByRelationAggregateInput = {
+  export type TeamOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type MaintenanceOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
 
@@ -39459,6 +38340,11 @@ export namespace Prisma {
     passwordResetToken?: SortOrder
     passwordExpiresAt?: SortOrder
     passwordResetAt?: SortOrder
+    employeeCode?: SortOrder
+    employeeType?: SortOrder
+    companyId?: SortOrder
+    serviceStatus?: SortOrder
+    calenderEntityId?: SortOrder
   }
 
   export type UserMaxOrderByAggregateInput = {
@@ -39474,6 +38360,11 @@ export namespace Prisma {
     passwordResetToken?: SortOrder
     passwordExpiresAt?: SortOrder
     passwordResetAt?: SortOrder
+    employeeCode?: SortOrder
+    employeeType?: SortOrder
+    companyId?: SortOrder
+    serviceStatus?: SortOrder
+    calenderEntityId?: SortOrder
   }
 
   export type UserMinOrderByAggregateInput = {
@@ -39489,6 +38380,11 @@ export namespace Prisma {
     passwordResetToken?: SortOrder
     passwordExpiresAt?: SortOrder
     passwordResetAt?: SortOrder
+    employeeCode?: SortOrder
+    employeeType?: SortOrder
+    companyId?: SortOrder
+    serviceStatus?: SortOrder
+    calenderEntityId?: SortOrder
   }
 
   export type StringWithAggregatesFilter<$PrismaModel = never> = {
@@ -39563,6 +38459,26 @@ export namespace Prisma {
     _count?: NestedIntNullableFilter<$PrismaModel>
     _min?: NestedDateTimeNullableFilter<$PrismaModel>
     _max?: NestedDateTimeNullableFilter<$PrismaModel>
+  }
+
+  export type EnumEmployeeTypeNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.EmployeeType | EnumEmployeeTypeFieldRefInput<$PrismaModel> | null
+    in?: $Enums.EmployeeType[] | ListEnumEmployeeTypeFieldRefInput<$PrismaModel> | null
+    notIn?: $Enums.EmployeeType[] | ListEnumEmployeeTypeFieldRefInput<$PrismaModel> | null
+    not?: NestedEnumEmployeeTypeNullableWithAggregatesFilter<$PrismaModel> | $Enums.EmployeeType | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedEnumEmployeeTypeNullableFilter<$PrismaModel>
+    _max?: NestedEnumEmployeeTypeNullableFilter<$PrismaModel>
+  }
+
+  export type EnumServiceStatusWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.ServiceStatus | EnumServiceStatusFieldRefInput<$PrismaModel>
+    in?: $Enums.ServiceStatus[] | ListEnumServiceStatusFieldRefInput<$PrismaModel>
+    notIn?: $Enums.ServiceStatus[] | ListEnumServiceStatusFieldRefInput<$PrismaModel>
+    not?: NestedEnumServiceStatusWithAggregatesFilter<$PrismaModel> | $Enums.ServiceStatus
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumServiceStatusFilter<$PrismaModel>
+    _max?: NestedEnumServiceStatusFilter<$PrismaModel>
   }
 
   export type BoolFilter<$PrismaModel = never> = {
@@ -39758,13 +38674,6 @@ export namespace Prisma {
     not?: NestedEnumAvailabilityFilter<$PrismaModel> | $Enums.Availability
   }
 
-  export type EnumServiceStatusFilter<$PrismaModel = never> = {
-    equals?: $Enums.ServiceStatus | EnumServiceStatusFieldRefInput<$PrismaModel>
-    in?: $Enums.ServiceStatus[] | ListEnumServiceStatusFieldRefInput<$PrismaModel>
-    notIn?: $Enums.ServiceStatus[] | ListEnumServiceStatusFieldRefInput<$PrismaModel>
-    not?: NestedEnumServiceStatusFilter<$PrismaModel> | $Enums.ServiceStatus
-  }
-
   export type EnumConditionFilter<$PrismaModel = never> = {
     equals?: $Enums.Condition | EnumConditionFieldRefInput<$PrismaModel>
     in?: $Enums.Condition[] | ListEnumConditionFieldRefInput<$PrismaModel>
@@ -39801,11 +38710,6 @@ export namespace Prisma {
     not?: NestedFloatNullableFilter<$PrismaModel> | number | null
   }
 
-  export type CalenderEntityNullableScalarRelationFilter = {
-    is?: CalenderEntityWhereInput | null
-    isNot?: CalenderEntityWhereInput | null
-  }
-
   export type BuildingListRelationFilter = {
     every?: BuildingWhereInput
     some?: BuildingWhereInput
@@ -39836,12 +38740,6 @@ export namespace Prisma {
     none?: ZoneWhereInput
   }
 
-  export type MaintenanceListRelationFilter = {
-    every?: MaintenanceWhereInput
-    some?: MaintenanceWhereInput
-    none?: MaintenanceWhereInput
-  }
-
   export type PreventiveListRelationFilter = {
     every?: PreventiveWhereInput
     some?: PreventiveWhereInput
@@ -39870,10 +38768,6 @@ export namespace Prisma {
   }
 
   export type ZoneOrderByRelationAggregateInput = {
-    _count?: SortOrder
-  }
-
-  export type MaintenanceOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
 
@@ -40001,16 +38895,6 @@ export namespace Prisma {
     _count?: NestedIntFilter<$PrismaModel>
     _min?: NestedEnumAvailabilityFilter<$PrismaModel>
     _max?: NestedEnumAvailabilityFilter<$PrismaModel>
-  }
-
-  export type EnumServiceStatusWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: $Enums.ServiceStatus | EnumServiceStatusFieldRefInput<$PrismaModel>
-    in?: $Enums.ServiceStatus[] | ListEnumServiceStatusFieldRefInput<$PrismaModel>
-    notIn?: $Enums.ServiceStatus[] | ListEnumServiceStatusFieldRefInput<$PrismaModel>
-    not?: NestedEnumServiceStatusWithAggregatesFilter<$PrismaModel> | $Enums.ServiceStatus
-    _count?: NestedIntFilter<$PrismaModel>
-    _min?: NestedEnumServiceStatusFilter<$PrismaModel>
-    _max?: NestedEnumServiceStatusFilter<$PrismaModel>
   }
 
   export type EnumConditionWithAggregatesFilter<$PrismaModel = never> = {
@@ -40852,73 +39736,6 @@ export namespace Prisma {
     _max?: NestedEnumCompanyTypeFilter<$PrismaModel>
   }
 
-  export type EnumEmployeeTypeFilter<$PrismaModel = never> = {
-    equals?: $Enums.EmployeeType | EnumEmployeeTypeFieldRefInput<$PrismaModel>
-    in?: $Enums.EmployeeType[] | ListEnumEmployeeTypeFieldRefInput<$PrismaModel>
-    notIn?: $Enums.EmployeeType[] | ListEnumEmployeeTypeFieldRefInput<$PrismaModel>
-    not?: NestedEnumEmployeeTypeFilter<$PrismaModel> | $Enums.EmployeeType
-  }
-
-  export type CompanyScalarRelationFilter = {
-    is?: CompanyWhereInput
-    isNot?: CompanyWhereInput
-  }
-
-  export type TeamListRelationFilter = {
-    every?: TeamWhereInput
-    some?: TeamWhereInput
-    none?: TeamWhereInput
-  }
-
-  export type TeamOrderByRelationAggregateInput = {
-    _count?: SortOrder
-  }
-
-  export type EmployeeCountOrderByAggregateInput = {
-    id?: SortOrder
-    code?: SortOrder
-    type?: SortOrder
-    userId?: SortOrder
-    companyId?: SortOrder
-    status?: SortOrder
-    calenderEntityId?: SortOrder
-  }
-
-  export type EmployeeMaxOrderByAggregateInput = {
-    id?: SortOrder
-    code?: SortOrder
-    type?: SortOrder
-    userId?: SortOrder
-    companyId?: SortOrder
-    status?: SortOrder
-    calenderEntityId?: SortOrder
-  }
-
-  export type EmployeeMinOrderByAggregateInput = {
-    id?: SortOrder
-    code?: SortOrder
-    type?: SortOrder
-    userId?: SortOrder
-    companyId?: SortOrder
-    status?: SortOrder
-    calenderEntityId?: SortOrder
-  }
-
-  export type EnumEmployeeTypeWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: $Enums.EmployeeType | EnumEmployeeTypeFieldRefInput<$PrismaModel>
-    in?: $Enums.EmployeeType[] | ListEnumEmployeeTypeFieldRefInput<$PrismaModel>
-    notIn?: $Enums.EmployeeType[] | ListEnumEmployeeTypeFieldRefInput<$PrismaModel>
-    not?: NestedEnumEmployeeTypeWithAggregatesFilter<$PrismaModel> | $Enums.EmployeeType
-    _count?: NestedIntFilter<$PrismaModel>
-    _min?: NestedEnumEmployeeTypeFilter<$PrismaModel>
-    _max?: NestedEnumEmployeeTypeFilter<$PrismaModel>
-  }
-
-  export type EmployeeScalarRelationFilter = {
-    is?: EmployeeWhereInput
-    isNot?: EmployeeWhereInput
-  }
-
   export type TeamCountOrderByAggregateInput = {
     id?: SortOrder
     code?: SortOrder
@@ -41092,14 +39909,9 @@ export namespace Prisma {
     not?: NestedEnumPriorityFilter<$PrismaModel> | $Enums.Priority
   }
 
-  export type EmployeeNullableScalarRelationFilter = {
-    is?: EmployeeWhereInput | null
-    isNot?: EmployeeWhereInput | null
-  }
-
-  export type CompanyNullableScalarRelationFilter = {
-    is?: CompanyWhereInput | null
-    isNot?: CompanyWhereInput | null
+  export type UserNullableScalarRelationFilter = {
+    is?: UserWhereInput | null
+    isNot?: UserWhereInput | null
   }
 
   export type TeamNullableScalarRelationFilter = {
@@ -41527,11 +40339,50 @@ export namespace Prisma {
     connect?: UserPermissionWhereUniqueInput | UserPermissionWhereUniqueInput[]
   }
 
-  export type EmployeeCreateNestedManyWithoutUserInput = {
-    create?: XOR<EmployeeCreateWithoutUserInput, EmployeeUncheckedCreateWithoutUserInput> | EmployeeCreateWithoutUserInput[] | EmployeeUncheckedCreateWithoutUserInput[]
-    connectOrCreate?: EmployeeCreateOrConnectWithoutUserInput | EmployeeCreateOrConnectWithoutUserInput[]
-    createMany?: EmployeeCreateManyUserInputEnvelope
-    connect?: EmployeeWhereUniqueInput | EmployeeWhereUniqueInput[]
+  export type CompanyCreateNestedOneWithoutEmployeesInput = {
+    create?: XOR<CompanyCreateWithoutEmployeesInput, CompanyUncheckedCreateWithoutEmployeesInput>
+    connectOrCreate?: CompanyCreateOrConnectWithoutEmployeesInput
+    connect?: CompanyWhereUniqueInput
+  }
+
+  export type CalenderEntityCreateNestedOneWithoutEmployeesInput = {
+    create?: XOR<CalenderEntityCreateWithoutEmployeesInput, CalenderEntityUncheckedCreateWithoutEmployeesInput>
+    connectOrCreate?: CalenderEntityCreateOrConnectWithoutEmployeesInput
+    connect?: CalenderEntityWhereUniqueInput
+  }
+
+  export type TeamCreateNestedManyWithoutMembersInput = {
+    create?: XOR<TeamCreateWithoutMembersInput, TeamUncheckedCreateWithoutMembersInput> | TeamCreateWithoutMembersInput[] | TeamUncheckedCreateWithoutMembersInput[]
+    connectOrCreate?: TeamCreateOrConnectWithoutMembersInput | TeamCreateOrConnectWithoutMembersInput[]
+    connect?: TeamWhereUniqueInput | TeamWhereUniqueInput[]
+  }
+
+  export type MaintenanceCreateNestedManyWithoutPerformerInput = {
+    create?: XOR<MaintenanceCreateWithoutPerformerInput, MaintenanceUncheckedCreateWithoutPerformerInput> | MaintenanceCreateWithoutPerformerInput[] | MaintenanceUncheckedCreateWithoutPerformerInput[]
+    connectOrCreate?: MaintenanceCreateOrConnectWithoutPerformerInput | MaintenanceCreateOrConnectWithoutPerformerInput[]
+    createMany?: MaintenanceCreateManyPerformerInputEnvelope
+    connect?: MaintenanceWhereUniqueInput | MaintenanceWhereUniqueInput[]
+  }
+
+  export type MaintenanceCreateNestedManyWithoutRequesterInput = {
+    create?: XOR<MaintenanceCreateWithoutRequesterInput, MaintenanceUncheckedCreateWithoutRequesterInput> | MaintenanceCreateWithoutRequesterInput[] | MaintenanceUncheckedCreateWithoutRequesterInput[]
+    connectOrCreate?: MaintenanceCreateOrConnectWithoutRequesterInput | MaintenanceCreateOrConnectWithoutRequesterInput[]
+    createMany?: MaintenanceCreateManyRequesterInputEnvelope
+    connect?: MaintenanceWhereUniqueInput | MaintenanceWhereUniqueInput[]
+  }
+
+  export type MaintenanceCreateNestedManyWithoutAssigneeInput = {
+    create?: XOR<MaintenanceCreateWithoutAssigneeInput, MaintenanceUncheckedCreateWithoutAssigneeInput> | MaintenanceCreateWithoutAssigneeInput[] | MaintenanceUncheckedCreateWithoutAssigneeInput[]
+    connectOrCreate?: MaintenanceCreateOrConnectWithoutAssigneeInput | MaintenanceCreateOrConnectWithoutAssigneeInput[]
+    createMany?: MaintenanceCreateManyAssigneeInputEnvelope
+    connect?: MaintenanceWhereUniqueInput | MaintenanceWhereUniqueInput[]
+  }
+
+  export type TeamCreateNestedManyWithoutSupervisorInput = {
+    create?: XOR<TeamCreateWithoutSupervisorInput, TeamUncheckedCreateWithoutSupervisorInput> | TeamCreateWithoutSupervisorInput[] | TeamUncheckedCreateWithoutSupervisorInput[]
+    connectOrCreate?: TeamCreateOrConnectWithoutSupervisorInput | TeamCreateOrConnectWithoutSupervisorInput[]
+    createMany?: TeamCreateManySupervisorInputEnvelope
+    connect?: TeamWhereUniqueInput | TeamWhereUniqueInput[]
   }
 
   export type RefreshTokenUncheckedCreateNestedManyWithoutUserInput = {
@@ -41548,11 +40399,38 @@ export namespace Prisma {
     connect?: UserPermissionWhereUniqueInput | UserPermissionWhereUniqueInput[]
   }
 
-  export type EmployeeUncheckedCreateNestedManyWithoutUserInput = {
-    create?: XOR<EmployeeCreateWithoutUserInput, EmployeeUncheckedCreateWithoutUserInput> | EmployeeCreateWithoutUserInput[] | EmployeeUncheckedCreateWithoutUserInput[]
-    connectOrCreate?: EmployeeCreateOrConnectWithoutUserInput | EmployeeCreateOrConnectWithoutUserInput[]
-    createMany?: EmployeeCreateManyUserInputEnvelope
-    connect?: EmployeeWhereUniqueInput | EmployeeWhereUniqueInput[]
+  export type TeamUncheckedCreateNestedManyWithoutMembersInput = {
+    create?: XOR<TeamCreateWithoutMembersInput, TeamUncheckedCreateWithoutMembersInput> | TeamCreateWithoutMembersInput[] | TeamUncheckedCreateWithoutMembersInput[]
+    connectOrCreate?: TeamCreateOrConnectWithoutMembersInput | TeamCreateOrConnectWithoutMembersInput[]
+    connect?: TeamWhereUniqueInput | TeamWhereUniqueInput[]
+  }
+
+  export type MaintenanceUncheckedCreateNestedManyWithoutPerformerInput = {
+    create?: XOR<MaintenanceCreateWithoutPerformerInput, MaintenanceUncheckedCreateWithoutPerformerInput> | MaintenanceCreateWithoutPerformerInput[] | MaintenanceUncheckedCreateWithoutPerformerInput[]
+    connectOrCreate?: MaintenanceCreateOrConnectWithoutPerformerInput | MaintenanceCreateOrConnectWithoutPerformerInput[]
+    createMany?: MaintenanceCreateManyPerformerInputEnvelope
+    connect?: MaintenanceWhereUniqueInput | MaintenanceWhereUniqueInput[]
+  }
+
+  export type MaintenanceUncheckedCreateNestedManyWithoutRequesterInput = {
+    create?: XOR<MaintenanceCreateWithoutRequesterInput, MaintenanceUncheckedCreateWithoutRequesterInput> | MaintenanceCreateWithoutRequesterInput[] | MaintenanceUncheckedCreateWithoutRequesterInput[]
+    connectOrCreate?: MaintenanceCreateOrConnectWithoutRequesterInput | MaintenanceCreateOrConnectWithoutRequesterInput[]
+    createMany?: MaintenanceCreateManyRequesterInputEnvelope
+    connect?: MaintenanceWhereUniqueInput | MaintenanceWhereUniqueInput[]
+  }
+
+  export type MaintenanceUncheckedCreateNestedManyWithoutAssigneeInput = {
+    create?: XOR<MaintenanceCreateWithoutAssigneeInput, MaintenanceUncheckedCreateWithoutAssigneeInput> | MaintenanceCreateWithoutAssigneeInput[] | MaintenanceUncheckedCreateWithoutAssigneeInput[]
+    connectOrCreate?: MaintenanceCreateOrConnectWithoutAssigneeInput | MaintenanceCreateOrConnectWithoutAssigneeInput[]
+    createMany?: MaintenanceCreateManyAssigneeInputEnvelope
+    connect?: MaintenanceWhereUniqueInput | MaintenanceWhereUniqueInput[]
+  }
+
+  export type TeamUncheckedCreateNestedManyWithoutSupervisorInput = {
+    create?: XOR<TeamCreateWithoutSupervisorInput, TeamUncheckedCreateWithoutSupervisorInput> | TeamCreateWithoutSupervisorInput[] | TeamUncheckedCreateWithoutSupervisorInput[]
+    connectOrCreate?: TeamCreateOrConnectWithoutSupervisorInput | TeamCreateOrConnectWithoutSupervisorInput[]
+    createMany?: TeamCreateManySupervisorInputEnvelope
+    connect?: TeamWhereUniqueInput | TeamWhereUniqueInput[]
   }
 
   export type StringFieldUpdateOperationsInput = {
@@ -41573,6 +40451,14 @@ export namespace Prisma {
 
   export type NullableDateTimeFieldUpdateOperationsInput = {
     set?: Date | string | null
+  }
+
+  export type NullableEnumEmployeeTypeFieldUpdateOperationsInput = {
+    set?: $Enums.EmployeeType | null
+  }
+
+  export type EnumServiceStatusFieldUpdateOperationsInput = {
+    set?: $Enums.ServiceStatus
   }
 
   export type RefreshTokenUpdateManyWithoutUserNestedInput = {
@@ -41611,18 +40497,93 @@ export namespace Prisma {
     deleteMany?: UserPermissionScalarWhereInput | UserPermissionScalarWhereInput[]
   }
 
-  export type EmployeeUpdateManyWithoutUserNestedInput = {
-    create?: XOR<EmployeeCreateWithoutUserInput, EmployeeUncheckedCreateWithoutUserInput> | EmployeeCreateWithoutUserInput[] | EmployeeUncheckedCreateWithoutUserInput[]
-    connectOrCreate?: EmployeeCreateOrConnectWithoutUserInput | EmployeeCreateOrConnectWithoutUserInput[]
-    upsert?: EmployeeUpsertWithWhereUniqueWithoutUserInput | EmployeeUpsertWithWhereUniqueWithoutUserInput[]
-    createMany?: EmployeeCreateManyUserInputEnvelope
-    set?: EmployeeWhereUniqueInput | EmployeeWhereUniqueInput[]
-    disconnect?: EmployeeWhereUniqueInput | EmployeeWhereUniqueInput[]
-    delete?: EmployeeWhereUniqueInput | EmployeeWhereUniqueInput[]
-    connect?: EmployeeWhereUniqueInput | EmployeeWhereUniqueInput[]
-    update?: EmployeeUpdateWithWhereUniqueWithoutUserInput | EmployeeUpdateWithWhereUniqueWithoutUserInput[]
-    updateMany?: EmployeeUpdateManyWithWhereWithoutUserInput | EmployeeUpdateManyWithWhereWithoutUserInput[]
-    deleteMany?: EmployeeScalarWhereInput | EmployeeScalarWhereInput[]
+  export type CompanyUpdateOneWithoutEmployeesNestedInput = {
+    create?: XOR<CompanyCreateWithoutEmployeesInput, CompanyUncheckedCreateWithoutEmployeesInput>
+    connectOrCreate?: CompanyCreateOrConnectWithoutEmployeesInput
+    upsert?: CompanyUpsertWithoutEmployeesInput
+    disconnect?: CompanyWhereInput | boolean
+    delete?: CompanyWhereInput | boolean
+    connect?: CompanyWhereUniqueInput
+    update?: XOR<XOR<CompanyUpdateToOneWithWhereWithoutEmployeesInput, CompanyUpdateWithoutEmployeesInput>, CompanyUncheckedUpdateWithoutEmployeesInput>
+  }
+
+  export type CalenderEntityUpdateOneWithoutEmployeesNestedInput = {
+    create?: XOR<CalenderEntityCreateWithoutEmployeesInput, CalenderEntityUncheckedCreateWithoutEmployeesInput>
+    connectOrCreate?: CalenderEntityCreateOrConnectWithoutEmployeesInput
+    upsert?: CalenderEntityUpsertWithoutEmployeesInput
+    disconnect?: CalenderEntityWhereInput | boolean
+    delete?: CalenderEntityWhereInput | boolean
+    connect?: CalenderEntityWhereUniqueInput
+    update?: XOR<XOR<CalenderEntityUpdateToOneWithWhereWithoutEmployeesInput, CalenderEntityUpdateWithoutEmployeesInput>, CalenderEntityUncheckedUpdateWithoutEmployeesInput>
+  }
+
+  export type TeamUpdateManyWithoutMembersNestedInput = {
+    create?: XOR<TeamCreateWithoutMembersInput, TeamUncheckedCreateWithoutMembersInput> | TeamCreateWithoutMembersInput[] | TeamUncheckedCreateWithoutMembersInput[]
+    connectOrCreate?: TeamCreateOrConnectWithoutMembersInput | TeamCreateOrConnectWithoutMembersInput[]
+    upsert?: TeamUpsertWithWhereUniqueWithoutMembersInput | TeamUpsertWithWhereUniqueWithoutMembersInput[]
+    set?: TeamWhereUniqueInput | TeamWhereUniqueInput[]
+    disconnect?: TeamWhereUniqueInput | TeamWhereUniqueInput[]
+    delete?: TeamWhereUniqueInput | TeamWhereUniqueInput[]
+    connect?: TeamWhereUniqueInput | TeamWhereUniqueInput[]
+    update?: TeamUpdateWithWhereUniqueWithoutMembersInput | TeamUpdateWithWhereUniqueWithoutMembersInput[]
+    updateMany?: TeamUpdateManyWithWhereWithoutMembersInput | TeamUpdateManyWithWhereWithoutMembersInput[]
+    deleteMany?: TeamScalarWhereInput | TeamScalarWhereInput[]
+  }
+
+  export type MaintenanceUpdateManyWithoutPerformerNestedInput = {
+    create?: XOR<MaintenanceCreateWithoutPerformerInput, MaintenanceUncheckedCreateWithoutPerformerInput> | MaintenanceCreateWithoutPerformerInput[] | MaintenanceUncheckedCreateWithoutPerformerInput[]
+    connectOrCreate?: MaintenanceCreateOrConnectWithoutPerformerInput | MaintenanceCreateOrConnectWithoutPerformerInput[]
+    upsert?: MaintenanceUpsertWithWhereUniqueWithoutPerformerInput | MaintenanceUpsertWithWhereUniqueWithoutPerformerInput[]
+    createMany?: MaintenanceCreateManyPerformerInputEnvelope
+    set?: MaintenanceWhereUniqueInput | MaintenanceWhereUniqueInput[]
+    disconnect?: MaintenanceWhereUniqueInput | MaintenanceWhereUniqueInput[]
+    delete?: MaintenanceWhereUniqueInput | MaintenanceWhereUniqueInput[]
+    connect?: MaintenanceWhereUniqueInput | MaintenanceWhereUniqueInput[]
+    update?: MaintenanceUpdateWithWhereUniqueWithoutPerformerInput | MaintenanceUpdateWithWhereUniqueWithoutPerformerInput[]
+    updateMany?: MaintenanceUpdateManyWithWhereWithoutPerformerInput | MaintenanceUpdateManyWithWhereWithoutPerformerInput[]
+    deleteMany?: MaintenanceScalarWhereInput | MaintenanceScalarWhereInput[]
+  }
+
+  export type MaintenanceUpdateManyWithoutRequesterNestedInput = {
+    create?: XOR<MaintenanceCreateWithoutRequesterInput, MaintenanceUncheckedCreateWithoutRequesterInput> | MaintenanceCreateWithoutRequesterInput[] | MaintenanceUncheckedCreateWithoutRequesterInput[]
+    connectOrCreate?: MaintenanceCreateOrConnectWithoutRequesterInput | MaintenanceCreateOrConnectWithoutRequesterInput[]
+    upsert?: MaintenanceUpsertWithWhereUniqueWithoutRequesterInput | MaintenanceUpsertWithWhereUniqueWithoutRequesterInput[]
+    createMany?: MaintenanceCreateManyRequesterInputEnvelope
+    set?: MaintenanceWhereUniqueInput | MaintenanceWhereUniqueInput[]
+    disconnect?: MaintenanceWhereUniqueInput | MaintenanceWhereUniqueInput[]
+    delete?: MaintenanceWhereUniqueInput | MaintenanceWhereUniqueInput[]
+    connect?: MaintenanceWhereUniqueInput | MaintenanceWhereUniqueInput[]
+    update?: MaintenanceUpdateWithWhereUniqueWithoutRequesterInput | MaintenanceUpdateWithWhereUniqueWithoutRequesterInput[]
+    updateMany?: MaintenanceUpdateManyWithWhereWithoutRequesterInput | MaintenanceUpdateManyWithWhereWithoutRequesterInput[]
+    deleteMany?: MaintenanceScalarWhereInput | MaintenanceScalarWhereInput[]
+  }
+
+  export type MaintenanceUpdateManyWithoutAssigneeNestedInput = {
+    create?: XOR<MaintenanceCreateWithoutAssigneeInput, MaintenanceUncheckedCreateWithoutAssigneeInput> | MaintenanceCreateWithoutAssigneeInput[] | MaintenanceUncheckedCreateWithoutAssigneeInput[]
+    connectOrCreate?: MaintenanceCreateOrConnectWithoutAssigneeInput | MaintenanceCreateOrConnectWithoutAssigneeInput[]
+    upsert?: MaintenanceUpsertWithWhereUniqueWithoutAssigneeInput | MaintenanceUpsertWithWhereUniqueWithoutAssigneeInput[]
+    createMany?: MaintenanceCreateManyAssigneeInputEnvelope
+    set?: MaintenanceWhereUniqueInput | MaintenanceWhereUniqueInput[]
+    disconnect?: MaintenanceWhereUniqueInput | MaintenanceWhereUniqueInput[]
+    delete?: MaintenanceWhereUniqueInput | MaintenanceWhereUniqueInput[]
+    connect?: MaintenanceWhereUniqueInput | MaintenanceWhereUniqueInput[]
+    update?: MaintenanceUpdateWithWhereUniqueWithoutAssigneeInput | MaintenanceUpdateWithWhereUniqueWithoutAssigneeInput[]
+    updateMany?: MaintenanceUpdateManyWithWhereWithoutAssigneeInput | MaintenanceUpdateManyWithWhereWithoutAssigneeInput[]
+    deleteMany?: MaintenanceScalarWhereInput | MaintenanceScalarWhereInput[]
+  }
+
+  export type TeamUpdateManyWithoutSupervisorNestedInput = {
+    create?: XOR<TeamCreateWithoutSupervisorInput, TeamUncheckedCreateWithoutSupervisorInput> | TeamCreateWithoutSupervisorInput[] | TeamUncheckedCreateWithoutSupervisorInput[]
+    connectOrCreate?: TeamCreateOrConnectWithoutSupervisorInput | TeamCreateOrConnectWithoutSupervisorInput[]
+    upsert?: TeamUpsertWithWhereUniqueWithoutSupervisorInput | TeamUpsertWithWhereUniqueWithoutSupervisorInput[]
+    createMany?: TeamCreateManySupervisorInputEnvelope
+    set?: TeamWhereUniqueInput | TeamWhereUniqueInput[]
+    disconnect?: TeamWhereUniqueInput | TeamWhereUniqueInput[]
+    delete?: TeamWhereUniqueInput | TeamWhereUniqueInput[]
+    connect?: TeamWhereUniqueInput | TeamWhereUniqueInput[]
+    update?: TeamUpdateWithWhereUniqueWithoutSupervisorInput | TeamUpdateWithWhereUniqueWithoutSupervisorInput[]
+    updateMany?: TeamUpdateManyWithWhereWithoutSupervisorInput | TeamUpdateManyWithWhereWithoutSupervisorInput[]
+    deleteMany?: TeamScalarWhereInput | TeamScalarWhereInput[]
   }
 
   export type RefreshTokenUncheckedUpdateManyWithoutUserNestedInput = {
@@ -41653,18 +40614,73 @@ export namespace Prisma {
     deleteMany?: UserPermissionScalarWhereInput | UserPermissionScalarWhereInput[]
   }
 
-  export type EmployeeUncheckedUpdateManyWithoutUserNestedInput = {
-    create?: XOR<EmployeeCreateWithoutUserInput, EmployeeUncheckedCreateWithoutUserInput> | EmployeeCreateWithoutUserInput[] | EmployeeUncheckedCreateWithoutUserInput[]
-    connectOrCreate?: EmployeeCreateOrConnectWithoutUserInput | EmployeeCreateOrConnectWithoutUserInput[]
-    upsert?: EmployeeUpsertWithWhereUniqueWithoutUserInput | EmployeeUpsertWithWhereUniqueWithoutUserInput[]
-    createMany?: EmployeeCreateManyUserInputEnvelope
-    set?: EmployeeWhereUniqueInput | EmployeeWhereUniqueInput[]
-    disconnect?: EmployeeWhereUniqueInput | EmployeeWhereUniqueInput[]
-    delete?: EmployeeWhereUniqueInput | EmployeeWhereUniqueInput[]
-    connect?: EmployeeWhereUniqueInput | EmployeeWhereUniqueInput[]
-    update?: EmployeeUpdateWithWhereUniqueWithoutUserInput | EmployeeUpdateWithWhereUniqueWithoutUserInput[]
-    updateMany?: EmployeeUpdateManyWithWhereWithoutUserInput | EmployeeUpdateManyWithWhereWithoutUserInput[]
-    deleteMany?: EmployeeScalarWhereInput | EmployeeScalarWhereInput[]
+  export type TeamUncheckedUpdateManyWithoutMembersNestedInput = {
+    create?: XOR<TeamCreateWithoutMembersInput, TeamUncheckedCreateWithoutMembersInput> | TeamCreateWithoutMembersInput[] | TeamUncheckedCreateWithoutMembersInput[]
+    connectOrCreate?: TeamCreateOrConnectWithoutMembersInput | TeamCreateOrConnectWithoutMembersInput[]
+    upsert?: TeamUpsertWithWhereUniqueWithoutMembersInput | TeamUpsertWithWhereUniqueWithoutMembersInput[]
+    set?: TeamWhereUniqueInput | TeamWhereUniqueInput[]
+    disconnect?: TeamWhereUniqueInput | TeamWhereUniqueInput[]
+    delete?: TeamWhereUniqueInput | TeamWhereUniqueInput[]
+    connect?: TeamWhereUniqueInput | TeamWhereUniqueInput[]
+    update?: TeamUpdateWithWhereUniqueWithoutMembersInput | TeamUpdateWithWhereUniqueWithoutMembersInput[]
+    updateMany?: TeamUpdateManyWithWhereWithoutMembersInput | TeamUpdateManyWithWhereWithoutMembersInput[]
+    deleteMany?: TeamScalarWhereInput | TeamScalarWhereInput[]
+  }
+
+  export type MaintenanceUncheckedUpdateManyWithoutPerformerNestedInput = {
+    create?: XOR<MaintenanceCreateWithoutPerformerInput, MaintenanceUncheckedCreateWithoutPerformerInput> | MaintenanceCreateWithoutPerformerInput[] | MaintenanceUncheckedCreateWithoutPerformerInput[]
+    connectOrCreate?: MaintenanceCreateOrConnectWithoutPerformerInput | MaintenanceCreateOrConnectWithoutPerformerInput[]
+    upsert?: MaintenanceUpsertWithWhereUniqueWithoutPerformerInput | MaintenanceUpsertWithWhereUniqueWithoutPerformerInput[]
+    createMany?: MaintenanceCreateManyPerformerInputEnvelope
+    set?: MaintenanceWhereUniqueInput | MaintenanceWhereUniqueInput[]
+    disconnect?: MaintenanceWhereUniqueInput | MaintenanceWhereUniqueInput[]
+    delete?: MaintenanceWhereUniqueInput | MaintenanceWhereUniqueInput[]
+    connect?: MaintenanceWhereUniqueInput | MaintenanceWhereUniqueInput[]
+    update?: MaintenanceUpdateWithWhereUniqueWithoutPerformerInput | MaintenanceUpdateWithWhereUniqueWithoutPerformerInput[]
+    updateMany?: MaintenanceUpdateManyWithWhereWithoutPerformerInput | MaintenanceUpdateManyWithWhereWithoutPerformerInput[]
+    deleteMany?: MaintenanceScalarWhereInput | MaintenanceScalarWhereInput[]
+  }
+
+  export type MaintenanceUncheckedUpdateManyWithoutRequesterNestedInput = {
+    create?: XOR<MaintenanceCreateWithoutRequesterInput, MaintenanceUncheckedCreateWithoutRequesterInput> | MaintenanceCreateWithoutRequesterInput[] | MaintenanceUncheckedCreateWithoutRequesterInput[]
+    connectOrCreate?: MaintenanceCreateOrConnectWithoutRequesterInput | MaintenanceCreateOrConnectWithoutRequesterInput[]
+    upsert?: MaintenanceUpsertWithWhereUniqueWithoutRequesterInput | MaintenanceUpsertWithWhereUniqueWithoutRequesterInput[]
+    createMany?: MaintenanceCreateManyRequesterInputEnvelope
+    set?: MaintenanceWhereUniqueInput | MaintenanceWhereUniqueInput[]
+    disconnect?: MaintenanceWhereUniqueInput | MaintenanceWhereUniqueInput[]
+    delete?: MaintenanceWhereUniqueInput | MaintenanceWhereUniqueInput[]
+    connect?: MaintenanceWhereUniqueInput | MaintenanceWhereUniqueInput[]
+    update?: MaintenanceUpdateWithWhereUniqueWithoutRequesterInput | MaintenanceUpdateWithWhereUniqueWithoutRequesterInput[]
+    updateMany?: MaintenanceUpdateManyWithWhereWithoutRequesterInput | MaintenanceUpdateManyWithWhereWithoutRequesterInput[]
+    deleteMany?: MaintenanceScalarWhereInput | MaintenanceScalarWhereInput[]
+  }
+
+  export type MaintenanceUncheckedUpdateManyWithoutAssigneeNestedInput = {
+    create?: XOR<MaintenanceCreateWithoutAssigneeInput, MaintenanceUncheckedCreateWithoutAssigneeInput> | MaintenanceCreateWithoutAssigneeInput[] | MaintenanceUncheckedCreateWithoutAssigneeInput[]
+    connectOrCreate?: MaintenanceCreateOrConnectWithoutAssigneeInput | MaintenanceCreateOrConnectWithoutAssigneeInput[]
+    upsert?: MaintenanceUpsertWithWhereUniqueWithoutAssigneeInput | MaintenanceUpsertWithWhereUniqueWithoutAssigneeInput[]
+    createMany?: MaintenanceCreateManyAssigneeInputEnvelope
+    set?: MaintenanceWhereUniqueInput | MaintenanceWhereUniqueInput[]
+    disconnect?: MaintenanceWhereUniqueInput | MaintenanceWhereUniqueInput[]
+    delete?: MaintenanceWhereUniqueInput | MaintenanceWhereUniqueInput[]
+    connect?: MaintenanceWhereUniqueInput | MaintenanceWhereUniqueInput[]
+    update?: MaintenanceUpdateWithWhereUniqueWithoutAssigneeInput | MaintenanceUpdateWithWhereUniqueWithoutAssigneeInput[]
+    updateMany?: MaintenanceUpdateManyWithWhereWithoutAssigneeInput | MaintenanceUpdateManyWithWhereWithoutAssigneeInput[]
+    deleteMany?: MaintenanceScalarWhereInput | MaintenanceScalarWhereInput[]
+  }
+
+  export type TeamUncheckedUpdateManyWithoutSupervisorNestedInput = {
+    create?: XOR<TeamCreateWithoutSupervisorInput, TeamUncheckedCreateWithoutSupervisorInput> | TeamCreateWithoutSupervisorInput[] | TeamUncheckedCreateWithoutSupervisorInput[]
+    connectOrCreate?: TeamCreateOrConnectWithoutSupervisorInput | TeamCreateOrConnectWithoutSupervisorInput[]
+    upsert?: TeamUpsertWithWhereUniqueWithoutSupervisorInput | TeamUpsertWithWhereUniqueWithoutSupervisorInput[]
+    createMany?: TeamCreateManySupervisorInputEnvelope
+    set?: TeamWhereUniqueInput | TeamWhereUniqueInput[]
+    disconnect?: TeamWhereUniqueInput | TeamWhereUniqueInput[]
+    delete?: TeamWhereUniqueInput | TeamWhereUniqueInput[]
+    connect?: TeamWhereUniqueInput | TeamWhereUniqueInput[]
+    update?: TeamUpdateWithWhereUniqueWithoutSupervisorInput | TeamUpdateWithWhereUniqueWithoutSupervisorInput[]
+    updateMany?: TeamUpdateManyWithWhereWithoutSupervisorInput | TeamUpdateManyWithWhereWithoutSupervisorInput[]
+    deleteMany?: TeamScalarWhereInput | TeamScalarWhereInput[]
   }
 
   export type PermissionCreateNestedManyWithoutRoleInput = {
@@ -41939,10 +40955,6 @@ export namespace Prisma {
 
   export type EnumAvailabilityFieldUpdateOperationsInput = {
     set?: $Enums.Availability
-  }
-
-  export type EnumServiceStatusFieldUpdateOperationsInput = {
-    set?: $Enums.ServiceStatus
   }
 
   export type EnumConditionFieldUpdateOperationsInput = {
@@ -43429,11 +42441,11 @@ export namespace Prisma {
     connect?: AddressWhereUniqueInput
   }
 
-  export type EmployeeCreateNestedManyWithoutCompanyInput = {
-    create?: XOR<EmployeeCreateWithoutCompanyInput, EmployeeUncheckedCreateWithoutCompanyInput> | EmployeeCreateWithoutCompanyInput[] | EmployeeUncheckedCreateWithoutCompanyInput[]
-    connectOrCreate?: EmployeeCreateOrConnectWithoutCompanyInput | EmployeeCreateOrConnectWithoutCompanyInput[]
-    createMany?: EmployeeCreateManyCompanyInputEnvelope
-    connect?: EmployeeWhereUniqueInput | EmployeeWhereUniqueInput[]
+  export type UserCreateNestedManyWithoutCompanyInput = {
+    create?: XOR<UserCreateWithoutCompanyInput, UserUncheckedCreateWithoutCompanyInput> | UserCreateWithoutCompanyInput[] | UserUncheckedCreateWithoutCompanyInput[]
+    connectOrCreate?: UserCreateOrConnectWithoutCompanyInput | UserCreateOrConnectWithoutCompanyInput[]
+    createMany?: UserCreateManyCompanyInputEnvelope
+    connect?: UserWhereUniqueInput | UserWhereUniqueInput[]
   }
 
   export type MaintenanceCreateNestedManyWithoutCompanyInput = {
@@ -43443,11 +42455,11 @@ export namespace Prisma {
     connect?: MaintenanceWhereUniqueInput | MaintenanceWhereUniqueInput[]
   }
 
-  export type EmployeeUncheckedCreateNestedManyWithoutCompanyInput = {
-    create?: XOR<EmployeeCreateWithoutCompanyInput, EmployeeUncheckedCreateWithoutCompanyInput> | EmployeeCreateWithoutCompanyInput[] | EmployeeUncheckedCreateWithoutCompanyInput[]
-    connectOrCreate?: EmployeeCreateOrConnectWithoutCompanyInput | EmployeeCreateOrConnectWithoutCompanyInput[]
-    createMany?: EmployeeCreateManyCompanyInputEnvelope
-    connect?: EmployeeWhereUniqueInput | EmployeeWhereUniqueInput[]
+  export type UserUncheckedCreateNestedManyWithoutCompanyInput = {
+    create?: XOR<UserCreateWithoutCompanyInput, UserUncheckedCreateWithoutCompanyInput> | UserCreateWithoutCompanyInput[] | UserUncheckedCreateWithoutCompanyInput[]
+    connectOrCreate?: UserCreateOrConnectWithoutCompanyInput | UserCreateOrConnectWithoutCompanyInput[]
+    createMany?: UserCreateManyCompanyInputEnvelope
+    connect?: UserWhereUniqueInput | UserWhereUniqueInput[]
   }
 
   export type MaintenanceUncheckedCreateNestedManyWithoutCompanyInput = {
@@ -43469,18 +42481,18 @@ export namespace Prisma {
     update?: XOR<XOR<AddressUpdateToOneWithWhereWithoutCompaniesInput, AddressUpdateWithoutCompaniesInput>, AddressUncheckedUpdateWithoutCompaniesInput>
   }
 
-  export type EmployeeUpdateManyWithoutCompanyNestedInput = {
-    create?: XOR<EmployeeCreateWithoutCompanyInput, EmployeeUncheckedCreateWithoutCompanyInput> | EmployeeCreateWithoutCompanyInput[] | EmployeeUncheckedCreateWithoutCompanyInput[]
-    connectOrCreate?: EmployeeCreateOrConnectWithoutCompanyInput | EmployeeCreateOrConnectWithoutCompanyInput[]
-    upsert?: EmployeeUpsertWithWhereUniqueWithoutCompanyInput | EmployeeUpsertWithWhereUniqueWithoutCompanyInput[]
-    createMany?: EmployeeCreateManyCompanyInputEnvelope
-    set?: EmployeeWhereUniqueInput | EmployeeWhereUniqueInput[]
-    disconnect?: EmployeeWhereUniqueInput | EmployeeWhereUniqueInput[]
-    delete?: EmployeeWhereUniqueInput | EmployeeWhereUniqueInput[]
-    connect?: EmployeeWhereUniqueInput | EmployeeWhereUniqueInput[]
-    update?: EmployeeUpdateWithWhereUniqueWithoutCompanyInput | EmployeeUpdateWithWhereUniqueWithoutCompanyInput[]
-    updateMany?: EmployeeUpdateManyWithWhereWithoutCompanyInput | EmployeeUpdateManyWithWhereWithoutCompanyInput[]
-    deleteMany?: EmployeeScalarWhereInput | EmployeeScalarWhereInput[]
+  export type UserUpdateManyWithoutCompanyNestedInput = {
+    create?: XOR<UserCreateWithoutCompanyInput, UserUncheckedCreateWithoutCompanyInput> | UserCreateWithoutCompanyInput[] | UserUncheckedCreateWithoutCompanyInput[]
+    connectOrCreate?: UserCreateOrConnectWithoutCompanyInput | UserCreateOrConnectWithoutCompanyInput[]
+    upsert?: UserUpsertWithWhereUniqueWithoutCompanyInput | UserUpsertWithWhereUniqueWithoutCompanyInput[]
+    createMany?: UserCreateManyCompanyInputEnvelope
+    set?: UserWhereUniqueInput | UserWhereUniqueInput[]
+    disconnect?: UserWhereUniqueInput | UserWhereUniqueInput[]
+    delete?: UserWhereUniqueInput | UserWhereUniqueInput[]
+    connect?: UserWhereUniqueInput | UserWhereUniqueInput[]
+    update?: UserUpdateWithWhereUniqueWithoutCompanyInput | UserUpdateWithWhereUniqueWithoutCompanyInput[]
+    updateMany?: UserUpdateManyWithWhereWithoutCompanyInput | UserUpdateManyWithWhereWithoutCompanyInput[]
+    deleteMany?: UserScalarWhereInput | UserScalarWhereInput[]
   }
 
   export type MaintenanceUpdateManyWithoutCompanyNestedInput = {
@@ -43497,18 +42509,18 @@ export namespace Prisma {
     deleteMany?: MaintenanceScalarWhereInput | MaintenanceScalarWhereInput[]
   }
 
-  export type EmployeeUncheckedUpdateManyWithoutCompanyNestedInput = {
-    create?: XOR<EmployeeCreateWithoutCompanyInput, EmployeeUncheckedCreateWithoutCompanyInput> | EmployeeCreateWithoutCompanyInput[] | EmployeeUncheckedCreateWithoutCompanyInput[]
-    connectOrCreate?: EmployeeCreateOrConnectWithoutCompanyInput | EmployeeCreateOrConnectWithoutCompanyInput[]
-    upsert?: EmployeeUpsertWithWhereUniqueWithoutCompanyInput | EmployeeUpsertWithWhereUniqueWithoutCompanyInput[]
-    createMany?: EmployeeCreateManyCompanyInputEnvelope
-    set?: EmployeeWhereUniqueInput | EmployeeWhereUniqueInput[]
-    disconnect?: EmployeeWhereUniqueInput | EmployeeWhereUniqueInput[]
-    delete?: EmployeeWhereUniqueInput | EmployeeWhereUniqueInput[]
-    connect?: EmployeeWhereUniqueInput | EmployeeWhereUniqueInput[]
-    update?: EmployeeUpdateWithWhereUniqueWithoutCompanyInput | EmployeeUpdateWithWhereUniqueWithoutCompanyInput[]
-    updateMany?: EmployeeUpdateManyWithWhereWithoutCompanyInput | EmployeeUpdateManyWithWhereWithoutCompanyInput[]
-    deleteMany?: EmployeeScalarWhereInput | EmployeeScalarWhereInput[]
+  export type UserUncheckedUpdateManyWithoutCompanyNestedInput = {
+    create?: XOR<UserCreateWithoutCompanyInput, UserUncheckedCreateWithoutCompanyInput> | UserCreateWithoutCompanyInput[] | UserUncheckedCreateWithoutCompanyInput[]
+    connectOrCreate?: UserCreateOrConnectWithoutCompanyInput | UserCreateOrConnectWithoutCompanyInput[]
+    upsert?: UserUpsertWithWhereUniqueWithoutCompanyInput | UserUpsertWithWhereUniqueWithoutCompanyInput[]
+    createMany?: UserCreateManyCompanyInputEnvelope
+    set?: UserWhereUniqueInput | UserWhereUniqueInput[]
+    disconnect?: UserWhereUniqueInput | UserWhereUniqueInput[]
+    delete?: UserWhereUniqueInput | UserWhereUniqueInput[]
+    connect?: UserWhereUniqueInput | UserWhereUniqueInput[]
+    update?: UserUpdateWithWhereUniqueWithoutCompanyInput | UserUpdateWithWhereUniqueWithoutCompanyInput[]
+    updateMany?: UserUpdateManyWithWhereWithoutCompanyInput | UserUpdateManyWithWhereWithoutCompanyInput[]
+    deleteMany?: UserScalarWhereInput | UserScalarWhereInput[]
   }
 
   export type MaintenanceUncheckedUpdateManyWithoutCompanyNestedInput = {
@@ -43525,226 +42537,10 @@ export namespace Prisma {
     deleteMany?: MaintenanceScalarWhereInput | MaintenanceScalarWhereInput[]
   }
 
-  export type UserCreateNestedOneWithoutEmployeesInput = {
-    create?: XOR<UserCreateWithoutEmployeesInput, UserUncheckedCreateWithoutEmployeesInput>
-    connectOrCreate?: UserCreateOrConnectWithoutEmployeesInput
+  export type UserCreateNestedOneWithoutSupervisedTeamsInput = {
+    create?: XOR<UserCreateWithoutSupervisedTeamsInput, UserUncheckedCreateWithoutSupervisedTeamsInput>
+    connectOrCreate?: UserCreateOrConnectWithoutSupervisedTeamsInput
     connect?: UserWhereUniqueInput
-  }
-
-  export type CompanyCreateNestedOneWithoutEmployeesInput = {
-    create?: XOR<CompanyCreateWithoutEmployeesInput, CompanyUncheckedCreateWithoutEmployeesInput>
-    connectOrCreate?: CompanyCreateOrConnectWithoutEmployeesInput
-    connect?: CompanyWhereUniqueInput
-  }
-
-  export type CalenderEntityCreateNestedOneWithoutEmployeesInput = {
-    create?: XOR<CalenderEntityCreateWithoutEmployeesInput, CalenderEntityUncheckedCreateWithoutEmployeesInput>
-    connectOrCreate?: CalenderEntityCreateOrConnectWithoutEmployeesInput
-    connect?: CalenderEntityWhereUniqueInput
-  }
-
-  export type TeamCreateNestedManyWithoutSupervisorInput = {
-    create?: XOR<TeamCreateWithoutSupervisorInput, TeamUncheckedCreateWithoutSupervisorInput> | TeamCreateWithoutSupervisorInput[] | TeamUncheckedCreateWithoutSupervisorInput[]
-    connectOrCreate?: TeamCreateOrConnectWithoutSupervisorInput | TeamCreateOrConnectWithoutSupervisorInput[]
-    createMany?: TeamCreateManySupervisorInputEnvelope
-    connect?: TeamWhereUniqueInput | TeamWhereUniqueInput[]
-  }
-
-  export type MaintenanceCreateNestedManyWithoutPerformerInput = {
-    create?: XOR<MaintenanceCreateWithoutPerformerInput, MaintenanceUncheckedCreateWithoutPerformerInput> | MaintenanceCreateWithoutPerformerInput[] | MaintenanceUncheckedCreateWithoutPerformerInput[]
-    connectOrCreate?: MaintenanceCreateOrConnectWithoutPerformerInput | MaintenanceCreateOrConnectWithoutPerformerInput[]
-    createMany?: MaintenanceCreateManyPerformerInputEnvelope
-    connect?: MaintenanceWhereUniqueInput | MaintenanceWhereUniqueInput[]
-  }
-
-  export type MaintenanceCreateNestedManyWithoutRequesterInput = {
-    create?: XOR<MaintenanceCreateWithoutRequesterInput, MaintenanceUncheckedCreateWithoutRequesterInput> | MaintenanceCreateWithoutRequesterInput[] | MaintenanceUncheckedCreateWithoutRequesterInput[]
-    connectOrCreate?: MaintenanceCreateOrConnectWithoutRequesterInput | MaintenanceCreateOrConnectWithoutRequesterInput[]
-    createMany?: MaintenanceCreateManyRequesterInputEnvelope
-    connect?: MaintenanceWhereUniqueInput | MaintenanceWhereUniqueInput[]
-  }
-
-  export type MaintenanceCreateNestedManyWithoutAssigneeInput = {
-    create?: XOR<MaintenanceCreateWithoutAssigneeInput, MaintenanceUncheckedCreateWithoutAssigneeInput> | MaintenanceCreateWithoutAssigneeInput[] | MaintenanceUncheckedCreateWithoutAssigneeInput[]
-    connectOrCreate?: MaintenanceCreateOrConnectWithoutAssigneeInput | MaintenanceCreateOrConnectWithoutAssigneeInput[]
-    createMany?: MaintenanceCreateManyAssigneeInputEnvelope
-    connect?: MaintenanceWhereUniqueInput | MaintenanceWhereUniqueInput[]
-  }
-
-  export type TeamUncheckedCreateNestedManyWithoutSupervisorInput = {
-    create?: XOR<TeamCreateWithoutSupervisorInput, TeamUncheckedCreateWithoutSupervisorInput> | TeamCreateWithoutSupervisorInput[] | TeamUncheckedCreateWithoutSupervisorInput[]
-    connectOrCreate?: TeamCreateOrConnectWithoutSupervisorInput | TeamCreateOrConnectWithoutSupervisorInput[]
-    createMany?: TeamCreateManySupervisorInputEnvelope
-    connect?: TeamWhereUniqueInput | TeamWhereUniqueInput[]
-  }
-
-  export type MaintenanceUncheckedCreateNestedManyWithoutPerformerInput = {
-    create?: XOR<MaintenanceCreateWithoutPerformerInput, MaintenanceUncheckedCreateWithoutPerformerInput> | MaintenanceCreateWithoutPerformerInput[] | MaintenanceUncheckedCreateWithoutPerformerInput[]
-    connectOrCreate?: MaintenanceCreateOrConnectWithoutPerformerInput | MaintenanceCreateOrConnectWithoutPerformerInput[]
-    createMany?: MaintenanceCreateManyPerformerInputEnvelope
-    connect?: MaintenanceWhereUniqueInput | MaintenanceWhereUniqueInput[]
-  }
-
-  export type MaintenanceUncheckedCreateNestedManyWithoutRequesterInput = {
-    create?: XOR<MaintenanceCreateWithoutRequesterInput, MaintenanceUncheckedCreateWithoutRequesterInput> | MaintenanceCreateWithoutRequesterInput[] | MaintenanceUncheckedCreateWithoutRequesterInput[]
-    connectOrCreate?: MaintenanceCreateOrConnectWithoutRequesterInput | MaintenanceCreateOrConnectWithoutRequesterInput[]
-    createMany?: MaintenanceCreateManyRequesterInputEnvelope
-    connect?: MaintenanceWhereUniqueInput | MaintenanceWhereUniqueInput[]
-  }
-
-  export type MaintenanceUncheckedCreateNestedManyWithoutAssigneeInput = {
-    create?: XOR<MaintenanceCreateWithoutAssigneeInput, MaintenanceUncheckedCreateWithoutAssigneeInput> | MaintenanceCreateWithoutAssigneeInput[] | MaintenanceUncheckedCreateWithoutAssigneeInput[]
-    connectOrCreate?: MaintenanceCreateOrConnectWithoutAssigneeInput | MaintenanceCreateOrConnectWithoutAssigneeInput[]
-    createMany?: MaintenanceCreateManyAssigneeInputEnvelope
-    connect?: MaintenanceWhereUniqueInput | MaintenanceWhereUniqueInput[]
-  }
-
-  export type EnumEmployeeTypeFieldUpdateOperationsInput = {
-    set?: $Enums.EmployeeType
-  }
-
-  export type UserUpdateOneRequiredWithoutEmployeesNestedInput = {
-    create?: XOR<UserCreateWithoutEmployeesInput, UserUncheckedCreateWithoutEmployeesInput>
-    connectOrCreate?: UserCreateOrConnectWithoutEmployeesInput
-    upsert?: UserUpsertWithoutEmployeesInput
-    connect?: UserWhereUniqueInput
-    update?: XOR<XOR<UserUpdateToOneWithWhereWithoutEmployeesInput, UserUpdateWithoutEmployeesInput>, UserUncheckedUpdateWithoutEmployeesInput>
-  }
-
-  export type CompanyUpdateOneRequiredWithoutEmployeesNestedInput = {
-    create?: XOR<CompanyCreateWithoutEmployeesInput, CompanyUncheckedCreateWithoutEmployeesInput>
-    connectOrCreate?: CompanyCreateOrConnectWithoutEmployeesInput
-    upsert?: CompanyUpsertWithoutEmployeesInput
-    connect?: CompanyWhereUniqueInput
-    update?: XOR<XOR<CompanyUpdateToOneWithWhereWithoutEmployeesInput, CompanyUpdateWithoutEmployeesInput>, CompanyUncheckedUpdateWithoutEmployeesInput>
-  }
-
-  export type CalenderEntityUpdateOneWithoutEmployeesNestedInput = {
-    create?: XOR<CalenderEntityCreateWithoutEmployeesInput, CalenderEntityUncheckedCreateWithoutEmployeesInput>
-    connectOrCreate?: CalenderEntityCreateOrConnectWithoutEmployeesInput
-    upsert?: CalenderEntityUpsertWithoutEmployeesInput
-    disconnect?: CalenderEntityWhereInput | boolean
-    delete?: CalenderEntityWhereInput | boolean
-    connect?: CalenderEntityWhereUniqueInput
-    update?: XOR<XOR<CalenderEntityUpdateToOneWithWhereWithoutEmployeesInput, CalenderEntityUpdateWithoutEmployeesInput>, CalenderEntityUncheckedUpdateWithoutEmployeesInput>
-  }
-
-  export type TeamUpdateManyWithoutSupervisorNestedInput = {
-    create?: XOR<TeamCreateWithoutSupervisorInput, TeamUncheckedCreateWithoutSupervisorInput> | TeamCreateWithoutSupervisorInput[] | TeamUncheckedCreateWithoutSupervisorInput[]
-    connectOrCreate?: TeamCreateOrConnectWithoutSupervisorInput | TeamCreateOrConnectWithoutSupervisorInput[]
-    upsert?: TeamUpsertWithWhereUniqueWithoutSupervisorInput | TeamUpsertWithWhereUniqueWithoutSupervisorInput[]
-    createMany?: TeamCreateManySupervisorInputEnvelope
-    set?: TeamWhereUniqueInput | TeamWhereUniqueInput[]
-    disconnect?: TeamWhereUniqueInput | TeamWhereUniqueInput[]
-    delete?: TeamWhereUniqueInput | TeamWhereUniqueInput[]
-    connect?: TeamWhereUniqueInput | TeamWhereUniqueInput[]
-    update?: TeamUpdateWithWhereUniqueWithoutSupervisorInput | TeamUpdateWithWhereUniqueWithoutSupervisorInput[]
-    updateMany?: TeamUpdateManyWithWhereWithoutSupervisorInput | TeamUpdateManyWithWhereWithoutSupervisorInput[]
-    deleteMany?: TeamScalarWhereInput | TeamScalarWhereInput[]
-  }
-
-  export type MaintenanceUpdateManyWithoutPerformerNestedInput = {
-    create?: XOR<MaintenanceCreateWithoutPerformerInput, MaintenanceUncheckedCreateWithoutPerformerInput> | MaintenanceCreateWithoutPerformerInput[] | MaintenanceUncheckedCreateWithoutPerformerInput[]
-    connectOrCreate?: MaintenanceCreateOrConnectWithoutPerformerInput | MaintenanceCreateOrConnectWithoutPerformerInput[]
-    upsert?: MaintenanceUpsertWithWhereUniqueWithoutPerformerInput | MaintenanceUpsertWithWhereUniqueWithoutPerformerInput[]
-    createMany?: MaintenanceCreateManyPerformerInputEnvelope
-    set?: MaintenanceWhereUniqueInput | MaintenanceWhereUniqueInput[]
-    disconnect?: MaintenanceWhereUniqueInput | MaintenanceWhereUniqueInput[]
-    delete?: MaintenanceWhereUniqueInput | MaintenanceWhereUniqueInput[]
-    connect?: MaintenanceWhereUniqueInput | MaintenanceWhereUniqueInput[]
-    update?: MaintenanceUpdateWithWhereUniqueWithoutPerformerInput | MaintenanceUpdateWithWhereUniqueWithoutPerformerInput[]
-    updateMany?: MaintenanceUpdateManyWithWhereWithoutPerformerInput | MaintenanceUpdateManyWithWhereWithoutPerformerInput[]
-    deleteMany?: MaintenanceScalarWhereInput | MaintenanceScalarWhereInput[]
-  }
-
-  export type MaintenanceUpdateManyWithoutRequesterNestedInput = {
-    create?: XOR<MaintenanceCreateWithoutRequesterInput, MaintenanceUncheckedCreateWithoutRequesterInput> | MaintenanceCreateWithoutRequesterInput[] | MaintenanceUncheckedCreateWithoutRequesterInput[]
-    connectOrCreate?: MaintenanceCreateOrConnectWithoutRequesterInput | MaintenanceCreateOrConnectWithoutRequesterInput[]
-    upsert?: MaintenanceUpsertWithWhereUniqueWithoutRequesterInput | MaintenanceUpsertWithWhereUniqueWithoutRequesterInput[]
-    createMany?: MaintenanceCreateManyRequesterInputEnvelope
-    set?: MaintenanceWhereUniqueInput | MaintenanceWhereUniqueInput[]
-    disconnect?: MaintenanceWhereUniqueInput | MaintenanceWhereUniqueInput[]
-    delete?: MaintenanceWhereUniqueInput | MaintenanceWhereUniqueInput[]
-    connect?: MaintenanceWhereUniqueInput | MaintenanceWhereUniqueInput[]
-    update?: MaintenanceUpdateWithWhereUniqueWithoutRequesterInput | MaintenanceUpdateWithWhereUniqueWithoutRequesterInput[]
-    updateMany?: MaintenanceUpdateManyWithWhereWithoutRequesterInput | MaintenanceUpdateManyWithWhereWithoutRequesterInput[]
-    deleteMany?: MaintenanceScalarWhereInput | MaintenanceScalarWhereInput[]
-  }
-
-  export type MaintenanceUpdateManyWithoutAssigneeNestedInput = {
-    create?: XOR<MaintenanceCreateWithoutAssigneeInput, MaintenanceUncheckedCreateWithoutAssigneeInput> | MaintenanceCreateWithoutAssigneeInput[] | MaintenanceUncheckedCreateWithoutAssigneeInput[]
-    connectOrCreate?: MaintenanceCreateOrConnectWithoutAssigneeInput | MaintenanceCreateOrConnectWithoutAssigneeInput[]
-    upsert?: MaintenanceUpsertWithWhereUniqueWithoutAssigneeInput | MaintenanceUpsertWithWhereUniqueWithoutAssigneeInput[]
-    createMany?: MaintenanceCreateManyAssigneeInputEnvelope
-    set?: MaintenanceWhereUniqueInput | MaintenanceWhereUniqueInput[]
-    disconnect?: MaintenanceWhereUniqueInput | MaintenanceWhereUniqueInput[]
-    delete?: MaintenanceWhereUniqueInput | MaintenanceWhereUniqueInput[]
-    connect?: MaintenanceWhereUniqueInput | MaintenanceWhereUniqueInput[]
-    update?: MaintenanceUpdateWithWhereUniqueWithoutAssigneeInput | MaintenanceUpdateWithWhereUniqueWithoutAssigneeInput[]
-    updateMany?: MaintenanceUpdateManyWithWhereWithoutAssigneeInput | MaintenanceUpdateManyWithWhereWithoutAssigneeInput[]
-    deleteMany?: MaintenanceScalarWhereInput | MaintenanceScalarWhereInput[]
-  }
-
-  export type TeamUncheckedUpdateManyWithoutSupervisorNestedInput = {
-    create?: XOR<TeamCreateWithoutSupervisorInput, TeamUncheckedCreateWithoutSupervisorInput> | TeamCreateWithoutSupervisorInput[] | TeamUncheckedCreateWithoutSupervisorInput[]
-    connectOrCreate?: TeamCreateOrConnectWithoutSupervisorInput | TeamCreateOrConnectWithoutSupervisorInput[]
-    upsert?: TeamUpsertWithWhereUniqueWithoutSupervisorInput | TeamUpsertWithWhereUniqueWithoutSupervisorInput[]
-    createMany?: TeamCreateManySupervisorInputEnvelope
-    set?: TeamWhereUniqueInput | TeamWhereUniqueInput[]
-    disconnect?: TeamWhereUniqueInput | TeamWhereUniqueInput[]
-    delete?: TeamWhereUniqueInput | TeamWhereUniqueInput[]
-    connect?: TeamWhereUniqueInput | TeamWhereUniqueInput[]
-    update?: TeamUpdateWithWhereUniqueWithoutSupervisorInput | TeamUpdateWithWhereUniqueWithoutSupervisorInput[]
-    updateMany?: TeamUpdateManyWithWhereWithoutSupervisorInput | TeamUpdateManyWithWhereWithoutSupervisorInput[]
-    deleteMany?: TeamScalarWhereInput | TeamScalarWhereInput[]
-  }
-
-  export type MaintenanceUncheckedUpdateManyWithoutPerformerNestedInput = {
-    create?: XOR<MaintenanceCreateWithoutPerformerInput, MaintenanceUncheckedCreateWithoutPerformerInput> | MaintenanceCreateWithoutPerformerInput[] | MaintenanceUncheckedCreateWithoutPerformerInput[]
-    connectOrCreate?: MaintenanceCreateOrConnectWithoutPerformerInput | MaintenanceCreateOrConnectWithoutPerformerInput[]
-    upsert?: MaintenanceUpsertWithWhereUniqueWithoutPerformerInput | MaintenanceUpsertWithWhereUniqueWithoutPerformerInput[]
-    createMany?: MaintenanceCreateManyPerformerInputEnvelope
-    set?: MaintenanceWhereUniqueInput | MaintenanceWhereUniqueInput[]
-    disconnect?: MaintenanceWhereUniqueInput | MaintenanceWhereUniqueInput[]
-    delete?: MaintenanceWhereUniqueInput | MaintenanceWhereUniqueInput[]
-    connect?: MaintenanceWhereUniqueInput | MaintenanceWhereUniqueInput[]
-    update?: MaintenanceUpdateWithWhereUniqueWithoutPerformerInput | MaintenanceUpdateWithWhereUniqueWithoutPerformerInput[]
-    updateMany?: MaintenanceUpdateManyWithWhereWithoutPerformerInput | MaintenanceUpdateManyWithWhereWithoutPerformerInput[]
-    deleteMany?: MaintenanceScalarWhereInput | MaintenanceScalarWhereInput[]
-  }
-
-  export type MaintenanceUncheckedUpdateManyWithoutRequesterNestedInput = {
-    create?: XOR<MaintenanceCreateWithoutRequesterInput, MaintenanceUncheckedCreateWithoutRequesterInput> | MaintenanceCreateWithoutRequesterInput[] | MaintenanceUncheckedCreateWithoutRequesterInput[]
-    connectOrCreate?: MaintenanceCreateOrConnectWithoutRequesterInput | MaintenanceCreateOrConnectWithoutRequesterInput[]
-    upsert?: MaintenanceUpsertWithWhereUniqueWithoutRequesterInput | MaintenanceUpsertWithWhereUniqueWithoutRequesterInput[]
-    createMany?: MaintenanceCreateManyRequesterInputEnvelope
-    set?: MaintenanceWhereUniqueInput | MaintenanceWhereUniqueInput[]
-    disconnect?: MaintenanceWhereUniqueInput | MaintenanceWhereUniqueInput[]
-    delete?: MaintenanceWhereUniqueInput | MaintenanceWhereUniqueInput[]
-    connect?: MaintenanceWhereUniqueInput | MaintenanceWhereUniqueInput[]
-    update?: MaintenanceUpdateWithWhereUniqueWithoutRequesterInput | MaintenanceUpdateWithWhereUniqueWithoutRequesterInput[]
-    updateMany?: MaintenanceUpdateManyWithWhereWithoutRequesterInput | MaintenanceUpdateManyWithWhereWithoutRequesterInput[]
-    deleteMany?: MaintenanceScalarWhereInput | MaintenanceScalarWhereInput[]
-  }
-
-  export type MaintenanceUncheckedUpdateManyWithoutAssigneeNestedInput = {
-    create?: XOR<MaintenanceCreateWithoutAssigneeInput, MaintenanceUncheckedCreateWithoutAssigneeInput> | MaintenanceCreateWithoutAssigneeInput[] | MaintenanceUncheckedCreateWithoutAssigneeInput[]
-    connectOrCreate?: MaintenanceCreateOrConnectWithoutAssigneeInput | MaintenanceCreateOrConnectWithoutAssigneeInput[]
-    upsert?: MaintenanceUpsertWithWhereUniqueWithoutAssigneeInput | MaintenanceUpsertWithWhereUniqueWithoutAssigneeInput[]
-    createMany?: MaintenanceCreateManyAssigneeInputEnvelope
-    set?: MaintenanceWhereUniqueInput | MaintenanceWhereUniqueInput[]
-    disconnect?: MaintenanceWhereUniqueInput | MaintenanceWhereUniqueInput[]
-    delete?: MaintenanceWhereUniqueInput | MaintenanceWhereUniqueInput[]
-    connect?: MaintenanceWhereUniqueInput | MaintenanceWhereUniqueInput[]
-    update?: MaintenanceUpdateWithWhereUniqueWithoutAssigneeInput | MaintenanceUpdateWithWhereUniqueWithoutAssigneeInput[]
-    updateMany?: MaintenanceUpdateManyWithWhereWithoutAssigneeInput | MaintenanceUpdateManyWithWhereWithoutAssigneeInput[]
-    deleteMany?: MaintenanceScalarWhereInput | MaintenanceScalarWhereInput[]
-  }
-
-  export type EmployeeCreateNestedOneWithoutTeamsInput = {
-    create?: XOR<EmployeeCreateWithoutTeamsInput, EmployeeUncheckedCreateWithoutTeamsInput>
-    connectOrCreate?: EmployeeCreateOrConnectWithoutTeamsInput
-    connect?: EmployeeWhereUniqueInput
   }
 
   export type MaintenanceCreateNestedManyWithoutTeamInput = {
@@ -43761,6 +42557,12 @@ export namespace Prisma {
     connect?: PreventiveWhereUniqueInput | PreventiveWhereUniqueInput[]
   }
 
+  export type UserCreateNestedManyWithoutTeamsInput = {
+    create?: XOR<UserCreateWithoutTeamsInput, UserUncheckedCreateWithoutTeamsInput> | UserCreateWithoutTeamsInput[] | UserUncheckedCreateWithoutTeamsInput[]
+    connectOrCreate?: UserCreateOrConnectWithoutTeamsInput | UserCreateOrConnectWithoutTeamsInput[]
+    connect?: UserWhereUniqueInput | UserWhereUniqueInput[]
+  }
+
   export type MaintenanceUncheckedCreateNestedManyWithoutTeamInput = {
     create?: XOR<MaintenanceCreateWithoutTeamInput, MaintenanceUncheckedCreateWithoutTeamInput> | MaintenanceCreateWithoutTeamInput[] | MaintenanceUncheckedCreateWithoutTeamInput[]
     connectOrCreate?: MaintenanceCreateOrConnectWithoutTeamInput | MaintenanceCreateOrConnectWithoutTeamInput[]
@@ -43775,12 +42577,18 @@ export namespace Prisma {
     connect?: PreventiveWhereUniqueInput | PreventiveWhereUniqueInput[]
   }
 
-  export type EmployeeUpdateOneRequiredWithoutTeamsNestedInput = {
-    create?: XOR<EmployeeCreateWithoutTeamsInput, EmployeeUncheckedCreateWithoutTeamsInput>
-    connectOrCreate?: EmployeeCreateOrConnectWithoutTeamsInput
-    upsert?: EmployeeUpsertWithoutTeamsInput
-    connect?: EmployeeWhereUniqueInput
-    update?: XOR<XOR<EmployeeUpdateToOneWithWhereWithoutTeamsInput, EmployeeUpdateWithoutTeamsInput>, EmployeeUncheckedUpdateWithoutTeamsInput>
+  export type UserUncheckedCreateNestedManyWithoutTeamsInput = {
+    create?: XOR<UserCreateWithoutTeamsInput, UserUncheckedCreateWithoutTeamsInput> | UserCreateWithoutTeamsInput[] | UserUncheckedCreateWithoutTeamsInput[]
+    connectOrCreate?: UserCreateOrConnectWithoutTeamsInput | UserCreateOrConnectWithoutTeamsInput[]
+    connect?: UserWhereUniqueInput | UserWhereUniqueInput[]
+  }
+
+  export type UserUpdateOneRequiredWithoutSupervisedTeamsNestedInput = {
+    create?: XOR<UserCreateWithoutSupervisedTeamsInput, UserUncheckedCreateWithoutSupervisedTeamsInput>
+    connectOrCreate?: UserCreateOrConnectWithoutSupervisedTeamsInput
+    upsert?: UserUpsertWithoutSupervisedTeamsInput
+    connect?: UserWhereUniqueInput
+    update?: XOR<XOR<UserUpdateToOneWithWhereWithoutSupervisedTeamsInput, UserUpdateWithoutSupervisedTeamsInput>, UserUncheckedUpdateWithoutSupervisedTeamsInput>
   }
 
   export type MaintenanceUpdateManyWithoutTeamNestedInput = {
@@ -43811,6 +42619,19 @@ export namespace Prisma {
     deleteMany?: PreventiveScalarWhereInput | PreventiveScalarWhereInput[]
   }
 
+  export type UserUpdateManyWithoutTeamsNestedInput = {
+    create?: XOR<UserCreateWithoutTeamsInput, UserUncheckedCreateWithoutTeamsInput> | UserCreateWithoutTeamsInput[] | UserUncheckedCreateWithoutTeamsInput[]
+    connectOrCreate?: UserCreateOrConnectWithoutTeamsInput | UserCreateOrConnectWithoutTeamsInput[]
+    upsert?: UserUpsertWithWhereUniqueWithoutTeamsInput | UserUpsertWithWhereUniqueWithoutTeamsInput[]
+    set?: UserWhereUniqueInput | UserWhereUniqueInput[]
+    disconnect?: UserWhereUniqueInput | UserWhereUniqueInput[]
+    delete?: UserWhereUniqueInput | UserWhereUniqueInput[]
+    connect?: UserWhereUniqueInput | UserWhereUniqueInput[]
+    update?: UserUpdateWithWhereUniqueWithoutTeamsInput | UserUpdateWithWhereUniqueWithoutTeamsInput[]
+    updateMany?: UserUpdateManyWithWhereWithoutTeamsInput | UserUpdateManyWithWhereWithoutTeamsInput[]
+    deleteMany?: UserScalarWhereInput | UserScalarWhereInput[]
+  }
+
   export type MaintenanceUncheckedUpdateManyWithoutTeamNestedInput = {
     create?: XOR<MaintenanceCreateWithoutTeamInput, MaintenanceUncheckedCreateWithoutTeamInput> | MaintenanceCreateWithoutTeamInput[] | MaintenanceUncheckedCreateWithoutTeamInput[]
     connectOrCreate?: MaintenanceCreateOrConnectWithoutTeamInput | MaintenanceCreateOrConnectWithoutTeamInput[]
@@ -43837,6 +42658,19 @@ export namespace Prisma {
     update?: PreventiveUpdateWithWhereUniqueWithoutTeamInput | PreventiveUpdateWithWhereUniqueWithoutTeamInput[]
     updateMany?: PreventiveUpdateManyWithWhereWithoutTeamInput | PreventiveUpdateManyWithWhereWithoutTeamInput[]
     deleteMany?: PreventiveScalarWhereInput | PreventiveScalarWhereInput[]
+  }
+
+  export type UserUncheckedUpdateManyWithoutTeamsNestedInput = {
+    create?: XOR<UserCreateWithoutTeamsInput, UserUncheckedCreateWithoutTeamsInput> | UserCreateWithoutTeamsInput[] | UserUncheckedCreateWithoutTeamsInput[]
+    connectOrCreate?: UserCreateOrConnectWithoutTeamsInput | UserCreateOrConnectWithoutTeamsInput[]
+    upsert?: UserUpsertWithWhereUniqueWithoutTeamsInput | UserUpsertWithWhereUniqueWithoutTeamsInput[]
+    set?: UserWhereUniqueInput | UserWhereUniqueInput[]
+    disconnect?: UserWhereUniqueInput | UserWhereUniqueInput[]
+    delete?: UserWhereUniqueInput | UserWhereUniqueInput[]
+    connect?: UserWhereUniqueInput | UserWhereUniqueInput[]
+    update?: UserUpdateWithWhereUniqueWithoutTeamsInput | UserUpdateWithWhereUniqueWithoutTeamsInput[]
+    updateMany?: UserUpdateManyWithWhereWithoutTeamsInput | UserUpdateManyWithWhereWithoutTeamsInput[]
+    deleteMany?: UserScalarWhereInput | UserScalarWhereInput[]
   }
 
   export type CompanyCreateNestedManyWithoutAddressInput = {
@@ -43951,11 +42785,11 @@ export namespace Prisma {
     connect?: ZoneWhereUniqueInput | ZoneWhereUniqueInput[]
   }
 
-  export type EmployeeCreateNestedManyWithoutCalenderEntityInput = {
-    create?: XOR<EmployeeCreateWithoutCalenderEntityInput, EmployeeUncheckedCreateWithoutCalenderEntityInput> | EmployeeCreateWithoutCalenderEntityInput[] | EmployeeUncheckedCreateWithoutCalenderEntityInput[]
-    connectOrCreate?: EmployeeCreateOrConnectWithoutCalenderEntityInput | EmployeeCreateOrConnectWithoutCalenderEntityInput[]
-    createMany?: EmployeeCreateManyCalenderEntityInputEnvelope
-    connect?: EmployeeWhereUniqueInput | EmployeeWhereUniqueInput[]
+  export type UserCreateNestedManyWithoutCalenderEntityInput = {
+    create?: XOR<UserCreateWithoutCalenderEntityInput, UserUncheckedCreateWithoutCalenderEntityInput> | UserCreateWithoutCalenderEntityInput[] | UserUncheckedCreateWithoutCalenderEntityInput[]
+    connectOrCreate?: UserCreateOrConnectWithoutCalenderEntityInput | UserCreateOrConnectWithoutCalenderEntityInput[]
+    createMany?: UserCreateManyCalenderEntityInputEnvelope
+    connect?: UserWhereUniqueInput | UserWhereUniqueInput[]
   }
 
   export type BuildingUncheckedCreateNestedManyWithoutCalenderEntityInput = {
@@ -43986,11 +42820,11 @@ export namespace Prisma {
     connect?: ZoneWhereUniqueInput | ZoneWhereUniqueInput[]
   }
 
-  export type EmployeeUncheckedCreateNestedManyWithoutCalenderEntityInput = {
-    create?: XOR<EmployeeCreateWithoutCalenderEntityInput, EmployeeUncheckedCreateWithoutCalenderEntityInput> | EmployeeCreateWithoutCalenderEntityInput[] | EmployeeUncheckedCreateWithoutCalenderEntityInput[]
-    connectOrCreate?: EmployeeCreateOrConnectWithoutCalenderEntityInput | EmployeeCreateOrConnectWithoutCalenderEntityInput[]
-    createMany?: EmployeeCreateManyCalenderEntityInputEnvelope
-    connect?: EmployeeWhereUniqueInput | EmployeeWhereUniqueInput[]
+  export type UserUncheckedCreateNestedManyWithoutCalenderEntityInput = {
+    create?: XOR<UserCreateWithoutCalenderEntityInput, UserUncheckedCreateWithoutCalenderEntityInput> | UserCreateWithoutCalenderEntityInput[] | UserUncheckedCreateWithoutCalenderEntityInput[]
+    connectOrCreate?: UserCreateOrConnectWithoutCalenderEntityInput | UserCreateOrConnectWithoutCalenderEntityInput[]
+    createMany?: UserCreateManyCalenderEntityInputEnvelope
+    connect?: UserWhereUniqueInput | UserWhereUniqueInput[]
   }
 
   export type BuildingUpdateManyWithoutCalenderEntityNestedInput = {
@@ -44049,18 +42883,18 @@ export namespace Prisma {
     deleteMany?: ZoneScalarWhereInput | ZoneScalarWhereInput[]
   }
 
-  export type EmployeeUpdateManyWithoutCalenderEntityNestedInput = {
-    create?: XOR<EmployeeCreateWithoutCalenderEntityInput, EmployeeUncheckedCreateWithoutCalenderEntityInput> | EmployeeCreateWithoutCalenderEntityInput[] | EmployeeUncheckedCreateWithoutCalenderEntityInput[]
-    connectOrCreate?: EmployeeCreateOrConnectWithoutCalenderEntityInput | EmployeeCreateOrConnectWithoutCalenderEntityInput[]
-    upsert?: EmployeeUpsertWithWhereUniqueWithoutCalenderEntityInput | EmployeeUpsertWithWhereUniqueWithoutCalenderEntityInput[]
-    createMany?: EmployeeCreateManyCalenderEntityInputEnvelope
-    set?: EmployeeWhereUniqueInput | EmployeeWhereUniqueInput[]
-    disconnect?: EmployeeWhereUniqueInput | EmployeeWhereUniqueInput[]
-    delete?: EmployeeWhereUniqueInput | EmployeeWhereUniqueInput[]
-    connect?: EmployeeWhereUniqueInput | EmployeeWhereUniqueInput[]
-    update?: EmployeeUpdateWithWhereUniqueWithoutCalenderEntityInput | EmployeeUpdateWithWhereUniqueWithoutCalenderEntityInput[]
-    updateMany?: EmployeeUpdateManyWithWhereWithoutCalenderEntityInput | EmployeeUpdateManyWithWhereWithoutCalenderEntityInput[]
-    deleteMany?: EmployeeScalarWhereInput | EmployeeScalarWhereInput[]
+  export type UserUpdateManyWithoutCalenderEntityNestedInput = {
+    create?: XOR<UserCreateWithoutCalenderEntityInput, UserUncheckedCreateWithoutCalenderEntityInput> | UserCreateWithoutCalenderEntityInput[] | UserUncheckedCreateWithoutCalenderEntityInput[]
+    connectOrCreate?: UserCreateOrConnectWithoutCalenderEntityInput | UserCreateOrConnectWithoutCalenderEntityInput[]
+    upsert?: UserUpsertWithWhereUniqueWithoutCalenderEntityInput | UserUpsertWithWhereUniqueWithoutCalenderEntityInput[]
+    createMany?: UserCreateManyCalenderEntityInputEnvelope
+    set?: UserWhereUniqueInput | UserWhereUniqueInput[]
+    disconnect?: UserWhereUniqueInput | UserWhereUniqueInput[]
+    delete?: UserWhereUniqueInput | UserWhereUniqueInput[]
+    connect?: UserWhereUniqueInput | UserWhereUniqueInput[]
+    update?: UserUpdateWithWhereUniqueWithoutCalenderEntityInput | UserUpdateWithWhereUniqueWithoutCalenderEntityInput[]
+    updateMany?: UserUpdateManyWithWhereWithoutCalenderEntityInput | UserUpdateManyWithWhereWithoutCalenderEntityInput[]
+    deleteMany?: UserScalarWhereInput | UserScalarWhereInput[]
   }
 
   export type BuildingUncheckedUpdateManyWithoutCalenderEntityNestedInput = {
@@ -44119,30 +42953,30 @@ export namespace Prisma {
     deleteMany?: ZoneScalarWhereInput | ZoneScalarWhereInput[]
   }
 
-  export type EmployeeUncheckedUpdateManyWithoutCalenderEntityNestedInput = {
-    create?: XOR<EmployeeCreateWithoutCalenderEntityInput, EmployeeUncheckedCreateWithoutCalenderEntityInput> | EmployeeCreateWithoutCalenderEntityInput[] | EmployeeUncheckedCreateWithoutCalenderEntityInput[]
-    connectOrCreate?: EmployeeCreateOrConnectWithoutCalenderEntityInput | EmployeeCreateOrConnectWithoutCalenderEntityInput[]
-    upsert?: EmployeeUpsertWithWhereUniqueWithoutCalenderEntityInput | EmployeeUpsertWithWhereUniqueWithoutCalenderEntityInput[]
-    createMany?: EmployeeCreateManyCalenderEntityInputEnvelope
-    set?: EmployeeWhereUniqueInput | EmployeeWhereUniqueInput[]
-    disconnect?: EmployeeWhereUniqueInput | EmployeeWhereUniqueInput[]
-    delete?: EmployeeWhereUniqueInput | EmployeeWhereUniqueInput[]
-    connect?: EmployeeWhereUniqueInput | EmployeeWhereUniqueInput[]
-    update?: EmployeeUpdateWithWhereUniqueWithoutCalenderEntityInput | EmployeeUpdateWithWhereUniqueWithoutCalenderEntityInput[]
-    updateMany?: EmployeeUpdateManyWithWhereWithoutCalenderEntityInput | EmployeeUpdateManyWithWhereWithoutCalenderEntityInput[]
-    deleteMany?: EmployeeScalarWhereInput | EmployeeScalarWhereInput[]
+  export type UserUncheckedUpdateManyWithoutCalenderEntityNestedInput = {
+    create?: XOR<UserCreateWithoutCalenderEntityInput, UserUncheckedCreateWithoutCalenderEntityInput> | UserCreateWithoutCalenderEntityInput[] | UserUncheckedCreateWithoutCalenderEntityInput[]
+    connectOrCreate?: UserCreateOrConnectWithoutCalenderEntityInput | UserCreateOrConnectWithoutCalenderEntityInput[]
+    upsert?: UserUpsertWithWhereUniqueWithoutCalenderEntityInput | UserUpsertWithWhereUniqueWithoutCalenderEntityInput[]
+    createMany?: UserCreateManyCalenderEntityInputEnvelope
+    set?: UserWhereUniqueInput | UserWhereUniqueInput[]
+    disconnect?: UserWhereUniqueInput | UserWhereUniqueInput[]
+    delete?: UserWhereUniqueInput | UserWhereUniqueInput[]
+    connect?: UserWhereUniqueInput | UserWhereUniqueInput[]
+    update?: UserUpdateWithWhereUniqueWithoutCalenderEntityInput | UserUpdateWithWhereUniqueWithoutCalenderEntityInput[]
+    updateMany?: UserUpdateManyWithWhereWithoutCalenderEntityInput | UserUpdateManyWithWhereWithoutCalenderEntityInput[]
+    deleteMany?: UserScalarWhereInput | UserScalarWhereInput[]
   }
 
-  export type EmployeeCreateNestedOneWithoutPerformedMaintenancesInput = {
-    create?: XOR<EmployeeCreateWithoutPerformedMaintenancesInput, EmployeeUncheckedCreateWithoutPerformedMaintenancesInput>
-    connectOrCreate?: EmployeeCreateOrConnectWithoutPerformedMaintenancesInput
-    connect?: EmployeeWhereUniqueInput
+  export type UserCreateNestedOneWithoutPerformedMaintenancesInput = {
+    create?: XOR<UserCreateWithoutPerformedMaintenancesInput, UserUncheckedCreateWithoutPerformedMaintenancesInput>
+    connectOrCreate?: UserCreateOrConnectWithoutPerformedMaintenancesInput
+    connect?: UserWhereUniqueInput
   }
 
-  export type EmployeeCreateNestedOneWithoutRequestedMaintenancesInput = {
-    create?: XOR<EmployeeCreateWithoutRequestedMaintenancesInput, EmployeeUncheckedCreateWithoutRequestedMaintenancesInput>
-    connectOrCreate?: EmployeeCreateOrConnectWithoutRequestedMaintenancesInput
-    connect?: EmployeeWhereUniqueInput
+  export type UserCreateNestedOneWithoutRequestedMaintenancesInput = {
+    create?: XOR<UserCreateWithoutRequestedMaintenancesInput, UserUncheckedCreateWithoutRequestedMaintenancesInput>
+    connectOrCreate?: UserCreateOrConnectWithoutRequestedMaintenancesInput
+    connect?: UserWhereUniqueInput
   }
 
   export type ComplexCreateNestedOneWithoutMaintenancesInput = {
@@ -44175,10 +43009,10 @@ export namespace Prisma {
     connect?: SpaceWhereUniqueInput
   }
 
-  export type EmployeeCreateNestedOneWithoutAssignedMaintenancesInput = {
-    create?: XOR<EmployeeCreateWithoutAssignedMaintenancesInput, EmployeeUncheckedCreateWithoutAssignedMaintenancesInput>
-    connectOrCreate?: EmployeeCreateOrConnectWithoutAssignedMaintenancesInput
-    connect?: EmployeeWhereUniqueInput
+  export type UserCreateNestedOneWithoutAssignedMaintenancesInput = {
+    create?: XOR<UserCreateWithoutAssignedMaintenancesInput, UserUncheckedCreateWithoutAssignedMaintenancesInput>
+    connectOrCreate?: UserCreateOrConnectWithoutAssignedMaintenancesInput
+    connect?: UserWhereUniqueInput
   }
 
   export type AssetCreateNestedOneWithoutMaintenancesInput = {
@@ -44217,24 +43051,24 @@ export namespace Prisma {
     set?: $Enums.Priority
   }
 
-  export type EmployeeUpdateOneWithoutPerformedMaintenancesNestedInput = {
-    create?: XOR<EmployeeCreateWithoutPerformedMaintenancesInput, EmployeeUncheckedCreateWithoutPerformedMaintenancesInput>
-    connectOrCreate?: EmployeeCreateOrConnectWithoutPerformedMaintenancesInput
-    upsert?: EmployeeUpsertWithoutPerformedMaintenancesInput
-    disconnect?: EmployeeWhereInput | boolean
-    delete?: EmployeeWhereInput | boolean
-    connect?: EmployeeWhereUniqueInput
-    update?: XOR<XOR<EmployeeUpdateToOneWithWhereWithoutPerformedMaintenancesInput, EmployeeUpdateWithoutPerformedMaintenancesInput>, EmployeeUncheckedUpdateWithoutPerformedMaintenancesInput>
+  export type UserUpdateOneWithoutPerformedMaintenancesNestedInput = {
+    create?: XOR<UserCreateWithoutPerformedMaintenancesInput, UserUncheckedCreateWithoutPerformedMaintenancesInput>
+    connectOrCreate?: UserCreateOrConnectWithoutPerformedMaintenancesInput
+    upsert?: UserUpsertWithoutPerformedMaintenancesInput
+    disconnect?: UserWhereInput | boolean
+    delete?: UserWhereInput | boolean
+    connect?: UserWhereUniqueInput
+    update?: XOR<XOR<UserUpdateToOneWithWhereWithoutPerformedMaintenancesInput, UserUpdateWithoutPerformedMaintenancesInput>, UserUncheckedUpdateWithoutPerformedMaintenancesInput>
   }
 
-  export type EmployeeUpdateOneWithoutRequestedMaintenancesNestedInput = {
-    create?: XOR<EmployeeCreateWithoutRequestedMaintenancesInput, EmployeeUncheckedCreateWithoutRequestedMaintenancesInput>
-    connectOrCreate?: EmployeeCreateOrConnectWithoutRequestedMaintenancesInput
-    upsert?: EmployeeUpsertWithoutRequestedMaintenancesInput
-    disconnect?: EmployeeWhereInput | boolean
-    delete?: EmployeeWhereInput | boolean
-    connect?: EmployeeWhereUniqueInput
-    update?: XOR<XOR<EmployeeUpdateToOneWithWhereWithoutRequestedMaintenancesInput, EmployeeUpdateWithoutRequestedMaintenancesInput>, EmployeeUncheckedUpdateWithoutRequestedMaintenancesInput>
+  export type UserUpdateOneWithoutRequestedMaintenancesNestedInput = {
+    create?: XOR<UserCreateWithoutRequestedMaintenancesInput, UserUncheckedCreateWithoutRequestedMaintenancesInput>
+    connectOrCreate?: UserCreateOrConnectWithoutRequestedMaintenancesInput
+    upsert?: UserUpsertWithoutRequestedMaintenancesInput
+    disconnect?: UserWhereInput | boolean
+    delete?: UserWhereInput | boolean
+    connect?: UserWhereUniqueInput
+    update?: XOR<XOR<UserUpdateToOneWithWhereWithoutRequestedMaintenancesInput, UserUpdateWithoutRequestedMaintenancesInput>, UserUncheckedUpdateWithoutRequestedMaintenancesInput>
   }
 
   export type ComplexUpdateOneRequiredWithoutMaintenancesNestedInput = {
@@ -44285,14 +43119,14 @@ export namespace Prisma {
     update?: XOR<XOR<SpaceUpdateToOneWithWhereWithoutMaintenancesInput, SpaceUpdateWithoutMaintenancesInput>, SpaceUncheckedUpdateWithoutMaintenancesInput>
   }
 
-  export type EmployeeUpdateOneWithoutAssignedMaintenancesNestedInput = {
-    create?: XOR<EmployeeCreateWithoutAssignedMaintenancesInput, EmployeeUncheckedCreateWithoutAssignedMaintenancesInput>
-    connectOrCreate?: EmployeeCreateOrConnectWithoutAssignedMaintenancesInput
-    upsert?: EmployeeUpsertWithoutAssignedMaintenancesInput
-    disconnect?: EmployeeWhereInput | boolean
-    delete?: EmployeeWhereInput | boolean
-    connect?: EmployeeWhereUniqueInput
-    update?: XOR<XOR<EmployeeUpdateToOneWithWhereWithoutAssignedMaintenancesInput, EmployeeUpdateWithoutAssignedMaintenancesInput>, EmployeeUncheckedUpdateWithoutAssignedMaintenancesInput>
+  export type UserUpdateOneWithoutAssignedMaintenancesNestedInput = {
+    create?: XOR<UserCreateWithoutAssignedMaintenancesInput, UserUncheckedCreateWithoutAssignedMaintenancesInput>
+    connectOrCreate?: UserCreateOrConnectWithoutAssignedMaintenancesInput
+    upsert?: UserUpsertWithoutAssignedMaintenancesInput
+    disconnect?: UserWhereInput | boolean
+    delete?: UserWhereInput | boolean
+    connect?: UserWhereUniqueInput
+    update?: XOR<XOR<UserUpdateToOneWithWhereWithoutAssignedMaintenancesInput, UserUpdateWithoutAssignedMaintenancesInput>, UserUncheckedUpdateWithoutAssignedMaintenancesInput>
   }
 
   export type AssetUpdateOneWithoutMaintenancesNestedInput = {
@@ -44502,6 +43336,20 @@ export namespace Prisma {
     not?: NestedDateTimeNullableFilter<$PrismaModel> | Date | string | null
   }
 
+  export type NestedEnumEmployeeTypeNullableFilter<$PrismaModel = never> = {
+    equals?: $Enums.EmployeeType | EnumEmployeeTypeFieldRefInput<$PrismaModel> | null
+    in?: $Enums.EmployeeType[] | ListEnumEmployeeTypeFieldRefInput<$PrismaModel> | null
+    notIn?: $Enums.EmployeeType[] | ListEnumEmployeeTypeFieldRefInput<$PrismaModel> | null
+    not?: NestedEnumEmployeeTypeNullableFilter<$PrismaModel> | $Enums.EmployeeType | null
+  }
+
+  export type NestedEnumServiceStatusFilter<$PrismaModel = never> = {
+    equals?: $Enums.ServiceStatus | EnumServiceStatusFieldRefInput<$PrismaModel>
+    in?: $Enums.ServiceStatus[] | ListEnumServiceStatusFieldRefInput<$PrismaModel>
+    notIn?: $Enums.ServiceStatus[] | ListEnumServiceStatusFieldRefInput<$PrismaModel>
+    not?: NestedEnumServiceStatusFilter<$PrismaModel> | $Enums.ServiceStatus
+  }
+
   export type NestedStringWithAggregatesFilter<$PrismaModel = never> = {
     equals?: string | StringFieldRefInput<$PrismaModel>
     in?: string[] | ListStringFieldRefInput<$PrismaModel>
@@ -44596,6 +43444,26 @@ export namespace Prisma {
     _max?: NestedDateTimeNullableFilter<$PrismaModel>
   }
 
+  export type NestedEnumEmployeeTypeNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.EmployeeType | EnumEmployeeTypeFieldRefInput<$PrismaModel> | null
+    in?: $Enums.EmployeeType[] | ListEnumEmployeeTypeFieldRefInput<$PrismaModel> | null
+    notIn?: $Enums.EmployeeType[] | ListEnumEmployeeTypeFieldRefInput<$PrismaModel> | null
+    not?: NestedEnumEmployeeTypeNullableWithAggregatesFilter<$PrismaModel> | $Enums.EmployeeType | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedEnumEmployeeTypeNullableFilter<$PrismaModel>
+    _max?: NestedEnumEmployeeTypeNullableFilter<$PrismaModel>
+  }
+
+  export type NestedEnumServiceStatusWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.ServiceStatus | EnumServiceStatusFieldRefInput<$PrismaModel>
+    in?: $Enums.ServiceStatus[] | ListEnumServiceStatusFieldRefInput<$PrismaModel>
+    notIn?: $Enums.ServiceStatus[] | ListEnumServiceStatusFieldRefInput<$PrismaModel>
+    not?: NestedEnumServiceStatusWithAggregatesFilter<$PrismaModel> | $Enums.ServiceStatus
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumServiceStatusFilter<$PrismaModel>
+    _max?: NestedEnumServiceStatusFilter<$PrismaModel>
+  }
+
   export type NestedBoolFilter<$PrismaModel = never> = {
     equals?: boolean | BooleanFieldRefInput<$PrismaModel>
     not?: NestedBoolFilter<$PrismaModel> | boolean
@@ -44633,13 +43501,6 @@ export namespace Prisma {
     not?: NestedEnumAvailabilityFilter<$PrismaModel> | $Enums.Availability
   }
 
-  export type NestedEnumServiceStatusFilter<$PrismaModel = never> = {
-    equals?: $Enums.ServiceStatus | EnumServiceStatusFieldRefInput<$PrismaModel>
-    in?: $Enums.ServiceStatus[] | ListEnumServiceStatusFieldRefInput<$PrismaModel>
-    notIn?: $Enums.ServiceStatus[] | ListEnumServiceStatusFieldRefInput<$PrismaModel>
-    not?: NestedEnumServiceStatusFilter<$PrismaModel> | $Enums.ServiceStatus
-  }
-
   export type NestedEnumConditionFilter<$PrismaModel = never> = {
     equals?: $Enums.Condition | EnumConditionFieldRefInput<$PrismaModel>
     in?: $Enums.Condition[] | ListEnumConditionFieldRefInput<$PrismaModel>
@@ -44673,16 +43534,6 @@ export namespace Prisma {
     _count?: NestedIntFilter<$PrismaModel>
     _min?: NestedEnumAvailabilityFilter<$PrismaModel>
     _max?: NestedEnumAvailabilityFilter<$PrismaModel>
-  }
-
-  export type NestedEnumServiceStatusWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: $Enums.ServiceStatus | EnumServiceStatusFieldRefInput<$PrismaModel>
-    in?: $Enums.ServiceStatus[] | ListEnumServiceStatusFieldRefInput<$PrismaModel>
-    notIn?: $Enums.ServiceStatus[] | ListEnumServiceStatusFieldRefInput<$PrismaModel>
-    not?: NestedEnumServiceStatusWithAggregatesFilter<$PrismaModel> | $Enums.ServiceStatus
-    _count?: NestedIntFilter<$PrismaModel>
-    _min?: NestedEnumServiceStatusFilter<$PrismaModel>
-    _max?: NestedEnumServiceStatusFilter<$PrismaModel>
   }
 
   export type NestedEnumConditionWithAggregatesFilter<$PrismaModel = never> = {
@@ -44857,23 +43708,6 @@ export namespace Prisma {
     _count?: NestedIntFilter<$PrismaModel>
     _min?: NestedEnumCompanyTypeFilter<$PrismaModel>
     _max?: NestedEnumCompanyTypeFilter<$PrismaModel>
-  }
-
-  export type NestedEnumEmployeeTypeFilter<$PrismaModel = never> = {
-    equals?: $Enums.EmployeeType | EnumEmployeeTypeFieldRefInput<$PrismaModel>
-    in?: $Enums.EmployeeType[] | ListEnumEmployeeTypeFieldRefInput<$PrismaModel>
-    notIn?: $Enums.EmployeeType[] | ListEnumEmployeeTypeFieldRefInput<$PrismaModel>
-    not?: NestedEnumEmployeeTypeFilter<$PrismaModel> | $Enums.EmployeeType
-  }
-
-  export type NestedEnumEmployeeTypeWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: $Enums.EmployeeType | EnumEmployeeTypeFieldRefInput<$PrismaModel>
-    in?: $Enums.EmployeeType[] | ListEnumEmployeeTypeFieldRefInput<$PrismaModel>
-    notIn?: $Enums.EmployeeType[] | ListEnumEmployeeTypeFieldRefInput<$PrismaModel>
-    not?: NestedEnumEmployeeTypeWithAggregatesFilter<$PrismaModel> | $Enums.EmployeeType
-    _count?: NestedIntFilter<$PrismaModel>
-    _min?: NestedEnumEmployeeTypeFilter<$PrismaModel>
-    _max?: NestedEnumEmployeeTypeFilter<$PrismaModel>
   }
 
   export type NestedEnumMaintenanceTypeFilter<$PrismaModel = never> = {
@@ -45061,39 +43895,536 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
-  export type EmployeeCreateWithoutUserInput = {
+  export type CompanyCreateWithoutEmployeesInput = {
     id?: string
     code: string
-    type?: $Enums.EmployeeType
-    status?: $Enums.ServiceStatus
-    company: CompanyCreateNestedOneWithoutEmployeesInput
-    calenderEntity?: CalenderEntityCreateNestedOneWithoutEmployeesInput
-    teams?: TeamCreateNestedManyWithoutSupervisorInput
-    performedMaintenances?: MaintenanceCreateNestedManyWithoutPerformerInput
-    requestedMaintenances?: MaintenanceCreateNestedManyWithoutRequesterInput
-    assignedMaintenances?: MaintenanceCreateNestedManyWithoutAssigneeInput
+    type?: $Enums.CompanyType
+    name: string
+    description: string
+    phone?: string | null
+    alternativePhone?: string | null
+    email?: string | null
+    website?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    address: AddressCreateNestedOneWithoutCompaniesInput
+    maintenances?: MaintenanceCreateNestedManyWithoutCompanyInput
   }
 
-  export type EmployeeUncheckedCreateWithoutUserInput = {
+  export type CompanyUncheckedCreateWithoutEmployeesInput = {
     id?: string
     code: string
-    type?: $Enums.EmployeeType
-    companyId: string
+    type?: $Enums.CompanyType
+    name: string
+    description: string
+    addressId: string
+    phone?: string | null
+    alternativePhone?: string | null
+    email?: string | null
+    website?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    maintenances?: MaintenanceUncheckedCreateNestedManyWithoutCompanyInput
+  }
+
+  export type CompanyCreateOrConnectWithoutEmployeesInput = {
+    where: CompanyWhereUniqueInput
+    create: XOR<CompanyCreateWithoutEmployeesInput, CompanyUncheckedCreateWithoutEmployeesInput>
+  }
+
+  export type CalenderEntityCreateWithoutEmployeesInput = {
+    id?: string
+    name: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    buildings?: BuildingCreateNestedManyWithoutCalenderEntityInput
+    complexes?: ComplexCreateNestedManyWithoutCalenderEntityInput
+    spaces?: SpaceCreateNestedManyWithoutCalenderEntityInput
+    zones?: ZoneCreateNestedManyWithoutCalenderEntityInput
+  }
+
+  export type CalenderEntityUncheckedCreateWithoutEmployeesInput = {
+    id?: string
+    name: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    buildings?: BuildingUncheckedCreateNestedManyWithoutCalenderEntityInput
+    complexes?: ComplexUncheckedCreateNestedManyWithoutCalenderEntityInput
+    spaces?: SpaceUncheckedCreateNestedManyWithoutCalenderEntityInput
+    zones?: ZoneUncheckedCreateNestedManyWithoutCalenderEntityInput
+  }
+
+  export type CalenderEntityCreateOrConnectWithoutEmployeesInput = {
+    where: CalenderEntityWhereUniqueInput
+    create: XOR<CalenderEntityCreateWithoutEmployeesInput, CalenderEntityUncheckedCreateWithoutEmployeesInput>
+  }
+
+  export type TeamCreateWithoutMembersInput = {
+    id?: string
+    code: string
+    name: string
+    description?: string | null
     status?: $Enums.ServiceStatus
-    calenderEntityId?: string | null
-    teams?: TeamUncheckedCreateNestedManyWithoutSupervisorInput
-    performedMaintenances?: MaintenanceUncheckedCreateNestedManyWithoutPerformerInput
-    requestedMaintenances?: MaintenanceUncheckedCreateNestedManyWithoutRequesterInput
-    assignedMaintenances?: MaintenanceUncheckedCreateNestedManyWithoutAssigneeInput
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    supervisor: UserCreateNestedOneWithoutSupervisedTeamsInput
+    maintenances?: MaintenanceCreateNestedManyWithoutTeamInput
+    preventives?: PreventiveCreateNestedManyWithoutTeamInput
   }
 
-  export type EmployeeCreateOrConnectWithoutUserInput = {
-    where: EmployeeWhereUniqueInput
-    create: XOR<EmployeeCreateWithoutUserInput, EmployeeUncheckedCreateWithoutUserInput>
+  export type TeamUncheckedCreateWithoutMembersInput = {
+    id?: string
+    code: string
+    name: string
+    description?: string | null
+    status?: $Enums.ServiceStatus
+    supervisorId: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    maintenances?: MaintenanceUncheckedCreateNestedManyWithoutTeamInput
+    preventives?: PreventiveUncheckedCreateNestedManyWithoutTeamInput
   }
 
-  export type EmployeeCreateManyUserInputEnvelope = {
-    data: EmployeeCreateManyUserInput | EmployeeCreateManyUserInput[]
+  export type TeamCreateOrConnectWithoutMembersInput = {
+    where: TeamWhereUniqueInput
+    create: XOR<TeamCreateWithoutMembersInput, TeamUncheckedCreateWithoutMembersInput>
+  }
+
+  export type MaintenanceCreateWithoutPerformerInput = {
+    id?: string
+    type?: $Enums.MaintenanceType
+    code: string
+    description: string
+    startDate?: Date | string | null
+    endDate?: Date | string | null
+    shortDescription?: string | null
+    action?: string | null
+    message?: string | null
+    processNotes?: string | null
+    metadata?: NullableJsonNullValueInput | InputJsonValue
+    processStatus?: $Enums.Status
+    register?: string | null
+    activityIdTimer?: string | null
+    activityStartTime?: Date | string | null
+    activityEndTime?: Date | string | null
+    allDeadlines?: string | null
+    processType?: $Enums.ProcessType
+    ttSysRunning?: Decimal | DecimalJsLike | number | string | null
+    ttWorkRunning?: Decimal | DecimalJsLike | number | string | null
+    sorting?: string | null
+    priority?: $Enums.Priority
+    outcome?: string | null
+    dueAssignedEnd?: Date | string | null
+    execStart?: Date | string | null
+    dueExecEndDate?: Date | string | null
+    execEndDate?: Date | string | null
+    dueClosuerDate?: Date | string | null
+    totalExecTime?: Decimal | DecimalJsLike | number | string | null
+    expStartDate?: Date | string | null
+    suspensionReason?: string | null
+    category?: string | null
+    subCategory?: string | null
+    ttSystemOpening?: Decimal | DecimalJsLike | number | string | null
+    ttWorkOpening?: Decimal | DecimalJsLike | number | string | null
+    ttSystemAssignment?: Decimal | DecimalJsLike | number | string | null
+    ttWorkAssignment?: Decimal | DecimalJsLike | number | string | null
+    ttSystemExecution?: Decimal | DecimalJsLike | number | string | null
+    ttWorkExecution?: Decimal | DecimalJsLike | number | string | null
+    ttSysSuspension?: Decimal | DecimalJsLike | number | string | null
+    ttWorkSuspension?: Decimal | DecimalJsLike | number | string | null
+    ttEstimate?: Decimal | DecimalJsLike | number | string | null
+    prevMaintenanceConfigId?: string | null
+    automaticConfig?: boolean
+    jointAccounting?: boolean
+    hasTasks?: boolean
+    estimateStatus?: $Enums.Status
+    delayNotification?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    requester?: UserCreateNestedOneWithoutRequestedMaintenancesInput
+    site: ComplexCreateNestedOneWithoutMaintenancesInput
+    company?: CompanyCreateNestedOneWithoutMaintenancesInput
+    team?: TeamCreateNestedOneWithoutMaintenancesInput
+    floor?: FloorCreateNestedOneWithoutMaintenancesInput
+    space?: SpaceCreateNestedOneWithoutMaintenancesInput
+    assignee?: UserCreateNestedOneWithoutAssignedMaintenancesInput
+    asset?: AssetCreateNestedOneWithoutMaintenancesInput
+    photos?: FileCreateNestedManyWithoutMaintenanceInput
+  }
+
+  export type MaintenanceUncheckedCreateWithoutPerformerInput = {
+    id?: string
+    type?: $Enums.MaintenanceType
+    code: string
+    description: string
+    startDate?: Date | string | null
+    endDate?: Date | string | null
+    shortDescription?: string | null
+    action?: string | null
+    message?: string | null
+    processNotes?: string | null
+    metadata?: NullableJsonNullValueInput | InputJsonValue
+    processStatus?: $Enums.Status
+    register?: string | null
+    activityIdTimer?: string | null
+    activityStartTime?: Date | string | null
+    activityEndTime?: Date | string | null
+    allDeadlines?: string | null
+    processType?: $Enums.ProcessType
+    ttSysRunning?: Decimal | DecimalJsLike | number | string | null
+    ttWorkRunning?: Decimal | DecimalJsLike | number | string | null
+    sorting?: string | null
+    requesterId?: string | null
+    priority?: $Enums.Priority
+    siteId: string
+    outcome?: string | null
+    dueAssignedEnd?: Date | string | null
+    execStart?: Date | string | null
+    dueExecEndDate?: Date | string | null
+    execEndDate?: Date | string | null
+    dueClosuerDate?: Date | string | null
+    totalExecTime?: Decimal | DecimalJsLike | number | string | null
+    expStartDate?: Date | string | null
+    suspensionReason?: string | null
+    category?: string | null
+    subCategory?: string | null
+    companyId?: string | null
+    teamId?: string | null
+    floorId?: string | null
+    spaceId?: string | null
+    ttSystemOpening?: Decimal | DecimalJsLike | number | string | null
+    ttWorkOpening?: Decimal | DecimalJsLike | number | string | null
+    ttSystemAssignment?: Decimal | DecimalJsLike | number | string | null
+    ttWorkAssignment?: Decimal | DecimalJsLike | number | string | null
+    ttSystemExecution?: Decimal | DecimalJsLike | number | string | null
+    ttWorkExecution?: Decimal | DecimalJsLike | number | string | null
+    ttSysSuspension?: Decimal | DecimalJsLike | number | string | null
+    ttWorkSuspension?: Decimal | DecimalJsLike | number | string | null
+    ttEstimate?: Decimal | DecimalJsLike | number | string | null
+    prevMaintenanceConfigId?: string | null
+    automaticConfig?: boolean
+    jointAccounting?: boolean
+    hasTasks?: boolean
+    estimateStatus?: $Enums.Status
+    delayNotification?: boolean
+    assigneeId?: string | null
+    assetId?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    photos?: FileUncheckedCreateNestedManyWithoutMaintenanceInput
+  }
+
+  export type MaintenanceCreateOrConnectWithoutPerformerInput = {
+    where: MaintenanceWhereUniqueInput
+    create: XOR<MaintenanceCreateWithoutPerformerInput, MaintenanceUncheckedCreateWithoutPerformerInput>
+  }
+
+  export type MaintenanceCreateManyPerformerInputEnvelope = {
+    data: MaintenanceCreateManyPerformerInput | MaintenanceCreateManyPerformerInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type MaintenanceCreateWithoutRequesterInput = {
+    id?: string
+    type?: $Enums.MaintenanceType
+    code: string
+    description: string
+    startDate?: Date | string | null
+    endDate?: Date | string | null
+    shortDescription?: string | null
+    action?: string | null
+    message?: string | null
+    processNotes?: string | null
+    metadata?: NullableJsonNullValueInput | InputJsonValue
+    processStatus?: $Enums.Status
+    register?: string | null
+    activityIdTimer?: string | null
+    activityStartTime?: Date | string | null
+    activityEndTime?: Date | string | null
+    allDeadlines?: string | null
+    processType?: $Enums.ProcessType
+    ttSysRunning?: Decimal | DecimalJsLike | number | string | null
+    ttWorkRunning?: Decimal | DecimalJsLike | number | string | null
+    sorting?: string | null
+    priority?: $Enums.Priority
+    outcome?: string | null
+    dueAssignedEnd?: Date | string | null
+    execStart?: Date | string | null
+    dueExecEndDate?: Date | string | null
+    execEndDate?: Date | string | null
+    dueClosuerDate?: Date | string | null
+    totalExecTime?: Decimal | DecimalJsLike | number | string | null
+    expStartDate?: Date | string | null
+    suspensionReason?: string | null
+    category?: string | null
+    subCategory?: string | null
+    ttSystemOpening?: Decimal | DecimalJsLike | number | string | null
+    ttWorkOpening?: Decimal | DecimalJsLike | number | string | null
+    ttSystemAssignment?: Decimal | DecimalJsLike | number | string | null
+    ttWorkAssignment?: Decimal | DecimalJsLike | number | string | null
+    ttSystemExecution?: Decimal | DecimalJsLike | number | string | null
+    ttWorkExecution?: Decimal | DecimalJsLike | number | string | null
+    ttSysSuspension?: Decimal | DecimalJsLike | number | string | null
+    ttWorkSuspension?: Decimal | DecimalJsLike | number | string | null
+    ttEstimate?: Decimal | DecimalJsLike | number | string | null
+    prevMaintenanceConfigId?: string | null
+    automaticConfig?: boolean
+    jointAccounting?: boolean
+    hasTasks?: boolean
+    estimateStatus?: $Enums.Status
+    delayNotification?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    performer?: UserCreateNestedOneWithoutPerformedMaintenancesInput
+    site: ComplexCreateNestedOneWithoutMaintenancesInput
+    company?: CompanyCreateNestedOneWithoutMaintenancesInput
+    team?: TeamCreateNestedOneWithoutMaintenancesInput
+    floor?: FloorCreateNestedOneWithoutMaintenancesInput
+    space?: SpaceCreateNestedOneWithoutMaintenancesInput
+    assignee?: UserCreateNestedOneWithoutAssignedMaintenancesInput
+    asset?: AssetCreateNestedOneWithoutMaintenancesInput
+    photos?: FileCreateNestedManyWithoutMaintenanceInput
+  }
+
+  export type MaintenanceUncheckedCreateWithoutRequesterInput = {
+    id?: string
+    type?: $Enums.MaintenanceType
+    code: string
+    description: string
+    startDate?: Date | string | null
+    endDate?: Date | string | null
+    shortDescription?: string | null
+    action?: string | null
+    message?: string | null
+    processNotes?: string | null
+    metadata?: NullableJsonNullValueInput | InputJsonValue
+    performerId?: string | null
+    processStatus?: $Enums.Status
+    register?: string | null
+    activityIdTimer?: string | null
+    activityStartTime?: Date | string | null
+    activityEndTime?: Date | string | null
+    allDeadlines?: string | null
+    processType?: $Enums.ProcessType
+    ttSysRunning?: Decimal | DecimalJsLike | number | string | null
+    ttWorkRunning?: Decimal | DecimalJsLike | number | string | null
+    sorting?: string | null
+    priority?: $Enums.Priority
+    siteId: string
+    outcome?: string | null
+    dueAssignedEnd?: Date | string | null
+    execStart?: Date | string | null
+    dueExecEndDate?: Date | string | null
+    execEndDate?: Date | string | null
+    dueClosuerDate?: Date | string | null
+    totalExecTime?: Decimal | DecimalJsLike | number | string | null
+    expStartDate?: Date | string | null
+    suspensionReason?: string | null
+    category?: string | null
+    subCategory?: string | null
+    companyId?: string | null
+    teamId?: string | null
+    floorId?: string | null
+    spaceId?: string | null
+    ttSystemOpening?: Decimal | DecimalJsLike | number | string | null
+    ttWorkOpening?: Decimal | DecimalJsLike | number | string | null
+    ttSystemAssignment?: Decimal | DecimalJsLike | number | string | null
+    ttWorkAssignment?: Decimal | DecimalJsLike | number | string | null
+    ttSystemExecution?: Decimal | DecimalJsLike | number | string | null
+    ttWorkExecution?: Decimal | DecimalJsLike | number | string | null
+    ttSysSuspension?: Decimal | DecimalJsLike | number | string | null
+    ttWorkSuspension?: Decimal | DecimalJsLike | number | string | null
+    ttEstimate?: Decimal | DecimalJsLike | number | string | null
+    prevMaintenanceConfigId?: string | null
+    automaticConfig?: boolean
+    jointAccounting?: boolean
+    hasTasks?: boolean
+    estimateStatus?: $Enums.Status
+    delayNotification?: boolean
+    assigneeId?: string | null
+    assetId?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    photos?: FileUncheckedCreateNestedManyWithoutMaintenanceInput
+  }
+
+  export type MaintenanceCreateOrConnectWithoutRequesterInput = {
+    where: MaintenanceWhereUniqueInput
+    create: XOR<MaintenanceCreateWithoutRequesterInput, MaintenanceUncheckedCreateWithoutRequesterInput>
+  }
+
+  export type MaintenanceCreateManyRequesterInputEnvelope = {
+    data: MaintenanceCreateManyRequesterInput | MaintenanceCreateManyRequesterInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type MaintenanceCreateWithoutAssigneeInput = {
+    id?: string
+    type?: $Enums.MaintenanceType
+    code: string
+    description: string
+    startDate?: Date | string | null
+    endDate?: Date | string | null
+    shortDescription?: string | null
+    action?: string | null
+    message?: string | null
+    processNotes?: string | null
+    metadata?: NullableJsonNullValueInput | InputJsonValue
+    processStatus?: $Enums.Status
+    register?: string | null
+    activityIdTimer?: string | null
+    activityStartTime?: Date | string | null
+    activityEndTime?: Date | string | null
+    allDeadlines?: string | null
+    processType?: $Enums.ProcessType
+    ttSysRunning?: Decimal | DecimalJsLike | number | string | null
+    ttWorkRunning?: Decimal | DecimalJsLike | number | string | null
+    sorting?: string | null
+    priority?: $Enums.Priority
+    outcome?: string | null
+    dueAssignedEnd?: Date | string | null
+    execStart?: Date | string | null
+    dueExecEndDate?: Date | string | null
+    execEndDate?: Date | string | null
+    dueClosuerDate?: Date | string | null
+    totalExecTime?: Decimal | DecimalJsLike | number | string | null
+    expStartDate?: Date | string | null
+    suspensionReason?: string | null
+    category?: string | null
+    subCategory?: string | null
+    ttSystemOpening?: Decimal | DecimalJsLike | number | string | null
+    ttWorkOpening?: Decimal | DecimalJsLike | number | string | null
+    ttSystemAssignment?: Decimal | DecimalJsLike | number | string | null
+    ttWorkAssignment?: Decimal | DecimalJsLike | number | string | null
+    ttSystemExecution?: Decimal | DecimalJsLike | number | string | null
+    ttWorkExecution?: Decimal | DecimalJsLike | number | string | null
+    ttSysSuspension?: Decimal | DecimalJsLike | number | string | null
+    ttWorkSuspension?: Decimal | DecimalJsLike | number | string | null
+    ttEstimate?: Decimal | DecimalJsLike | number | string | null
+    prevMaintenanceConfigId?: string | null
+    automaticConfig?: boolean
+    jointAccounting?: boolean
+    hasTasks?: boolean
+    estimateStatus?: $Enums.Status
+    delayNotification?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    performer?: UserCreateNestedOneWithoutPerformedMaintenancesInput
+    requester?: UserCreateNestedOneWithoutRequestedMaintenancesInput
+    site: ComplexCreateNestedOneWithoutMaintenancesInput
+    company?: CompanyCreateNestedOneWithoutMaintenancesInput
+    team?: TeamCreateNestedOneWithoutMaintenancesInput
+    floor?: FloorCreateNestedOneWithoutMaintenancesInput
+    space?: SpaceCreateNestedOneWithoutMaintenancesInput
+    asset?: AssetCreateNestedOneWithoutMaintenancesInput
+    photos?: FileCreateNestedManyWithoutMaintenanceInput
+  }
+
+  export type MaintenanceUncheckedCreateWithoutAssigneeInput = {
+    id?: string
+    type?: $Enums.MaintenanceType
+    code: string
+    description: string
+    startDate?: Date | string | null
+    endDate?: Date | string | null
+    shortDescription?: string | null
+    action?: string | null
+    message?: string | null
+    processNotes?: string | null
+    metadata?: NullableJsonNullValueInput | InputJsonValue
+    performerId?: string | null
+    processStatus?: $Enums.Status
+    register?: string | null
+    activityIdTimer?: string | null
+    activityStartTime?: Date | string | null
+    activityEndTime?: Date | string | null
+    allDeadlines?: string | null
+    processType?: $Enums.ProcessType
+    ttSysRunning?: Decimal | DecimalJsLike | number | string | null
+    ttWorkRunning?: Decimal | DecimalJsLike | number | string | null
+    sorting?: string | null
+    requesterId?: string | null
+    priority?: $Enums.Priority
+    siteId: string
+    outcome?: string | null
+    dueAssignedEnd?: Date | string | null
+    execStart?: Date | string | null
+    dueExecEndDate?: Date | string | null
+    execEndDate?: Date | string | null
+    dueClosuerDate?: Date | string | null
+    totalExecTime?: Decimal | DecimalJsLike | number | string | null
+    expStartDate?: Date | string | null
+    suspensionReason?: string | null
+    category?: string | null
+    subCategory?: string | null
+    companyId?: string | null
+    teamId?: string | null
+    floorId?: string | null
+    spaceId?: string | null
+    ttSystemOpening?: Decimal | DecimalJsLike | number | string | null
+    ttWorkOpening?: Decimal | DecimalJsLike | number | string | null
+    ttSystemAssignment?: Decimal | DecimalJsLike | number | string | null
+    ttWorkAssignment?: Decimal | DecimalJsLike | number | string | null
+    ttSystemExecution?: Decimal | DecimalJsLike | number | string | null
+    ttWorkExecution?: Decimal | DecimalJsLike | number | string | null
+    ttSysSuspension?: Decimal | DecimalJsLike | number | string | null
+    ttWorkSuspension?: Decimal | DecimalJsLike | number | string | null
+    ttEstimate?: Decimal | DecimalJsLike | number | string | null
+    prevMaintenanceConfigId?: string | null
+    automaticConfig?: boolean
+    jointAccounting?: boolean
+    hasTasks?: boolean
+    estimateStatus?: $Enums.Status
+    delayNotification?: boolean
+    assetId?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    photos?: FileUncheckedCreateNestedManyWithoutMaintenanceInput
+  }
+
+  export type MaintenanceCreateOrConnectWithoutAssigneeInput = {
+    where: MaintenanceWhereUniqueInput
+    create: XOR<MaintenanceCreateWithoutAssigneeInput, MaintenanceUncheckedCreateWithoutAssigneeInput>
+  }
+
+  export type MaintenanceCreateManyAssigneeInputEnvelope = {
+    data: MaintenanceCreateManyAssigneeInput | MaintenanceCreateManyAssigneeInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type TeamCreateWithoutSupervisorInput = {
+    id?: string
+    code: string
+    name: string
+    description?: string | null
+    status?: $Enums.ServiceStatus
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    maintenances?: MaintenanceCreateNestedManyWithoutTeamInput
+    preventives?: PreventiveCreateNestedManyWithoutTeamInput
+    members?: UserCreateNestedManyWithoutTeamsInput
+  }
+
+  export type TeamUncheckedCreateWithoutSupervisorInput = {
+    id?: string
+    code: string
+    name: string
+    description?: string | null
+    status?: $Enums.ServiceStatus
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    maintenances?: MaintenanceUncheckedCreateNestedManyWithoutTeamInput
+    preventives?: PreventiveUncheckedCreateNestedManyWithoutTeamInput
+    members?: UserUncheckedCreateNestedManyWithoutTeamsInput
+  }
+
+  export type TeamCreateOrConnectWithoutSupervisorInput = {
+    where: TeamWhereUniqueInput
+    create: XOR<TeamCreateWithoutSupervisorInput, TeamUncheckedCreateWithoutSupervisorInput>
+  }
+
+  export type TeamCreateManySupervisorInputEnvelope = {
+    data: TeamCreateManySupervisorInput | TeamCreateManySupervisorInput[]
     skipDuplicates?: boolean
   }
 
@@ -45184,33 +44515,239 @@ export namespace Prisma {
     updatedAt?: DateTimeFilter<"UserPermission"> | Date | string
   }
 
-  export type EmployeeUpsertWithWhereUniqueWithoutUserInput = {
-    where: EmployeeWhereUniqueInput
-    update: XOR<EmployeeUpdateWithoutUserInput, EmployeeUncheckedUpdateWithoutUserInput>
-    create: XOR<EmployeeCreateWithoutUserInput, EmployeeUncheckedCreateWithoutUserInput>
+  export type CompanyUpsertWithoutEmployeesInput = {
+    update: XOR<CompanyUpdateWithoutEmployeesInput, CompanyUncheckedUpdateWithoutEmployeesInput>
+    create: XOR<CompanyCreateWithoutEmployeesInput, CompanyUncheckedCreateWithoutEmployeesInput>
+    where?: CompanyWhereInput
   }
 
-  export type EmployeeUpdateWithWhereUniqueWithoutUserInput = {
-    where: EmployeeWhereUniqueInput
-    data: XOR<EmployeeUpdateWithoutUserInput, EmployeeUncheckedUpdateWithoutUserInput>
+  export type CompanyUpdateToOneWithWhereWithoutEmployeesInput = {
+    where?: CompanyWhereInput
+    data: XOR<CompanyUpdateWithoutEmployeesInput, CompanyUncheckedUpdateWithoutEmployeesInput>
   }
 
-  export type EmployeeUpdateManyWithWhereWithoutUserInput = {
-    where: EmployeeScalarWhereInput
-    data: XOR<EmployeeUpdateManyMutationInput, EmployeeUncheckedUpdateManyWithoutUserInput>
+  export type CompanyUpdateWithoutEmployeesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    code?: StringFieldUpdateOperationsInput | string
+    type?: EnumCompanyTypeFieldUpdateOperationsInput | $Enums.CompanyType
+    name?: StringFieldUpdateOperationsInput | string
+    description?: StringFieldUpdateOperationsInput | string
+    phone?: NullableStringFieldUpdateOperationsInput | string | null
+    alternativePhone?: NullableStringFieldUpdateOperationsInput | string | null
+    email?: NullableStringFieldUpdateOperationsInput | string | null
+    website?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    address?: AddressUpdateOneRequiredWithoutCompaniesNestedInput
+    maintenances?: MaintenanceUpdateManyWithoutCompanyNestedInput
   }
 
-  export type EmployeeScalarWhereInput = {
-    AND?: EmployeeScalarWhereInput | EmployeeScalarWhereInput[]
-    OR?: EmployeeScalarWhereInput[]
-    NOT?: EmployeeScalarWhereInput | EmployeeScalarWhereInput[]
-    id?: StringFilter<"Employee"> | string
-    code?: StringFilter<"Employee"> | string
-    type?: EnumEmployeeTypeFilter<"Employee"> | $Enums.EmployeeType
-    userId?: StringFilter<"Employee"> | string
-    companyId?: StringFilter<"Employee"> | string
-    status?: EnumServiceStatusFilter<"Employee"> | $Enums.ServiceStatus
-    calenderEntityId?: StringNullableFilter<"Employee"> | string | null
+  export type CompanyUncheckedUpdateWithoutEmployeesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    code?: StringFieldUpdateOperationsInput | string
+    type?: EnumCompanyTypeFieldUpdateOperationsInput | $Enums.CompanyType
+    name?: StringFieldUpdateOperationsInput | string
+    description?: StringFieldUpdateOperationsInput | string
+    addressId?: StringFieldUpdateOperationsInput | string
+    phone?: NullableStringFieldUpdateOperationsInput | string | null
+    alternativePhone?: NullableStringFieldUpdateOperationsInput | string | null
+    email?: NullableStringFieldUpdateOperationsInput | string | null
+    website?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    maintenances?: MaintenanceUncheckedUpdateManyWithoutCompanyNestedInput
+  }
+
+  export type CalenderEntityUpsertWithoutEmployeesInput = {
+    update: XOR<CalenderEntityUpdateWithoutEmployeesInput, CalenderEntityUncheckedUpdateWithoutEmployeesInput>
+    create: XOR<CalenderEntityCreateWithoutEmployeesInput, CalenderEntityUncheckedCreateWithoutEmployeesInput>
+    where?: CalenderEntityWhereInput
+  }
+
+  export type CalenderEntityUpdateToOneWithWhereWithoutEmployeesInput = {
+    where?: CalenderEntityWhereInput
+    data: XOR<CalenderEntityUpdateWithoutEmployeesInput, CalenderEntityUncheckedUpdateWithoutEmployeesInput>
+  }
+
+  export type CalenderEntityUpdateWithoutEmployeesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    buildings?: BuildingUpdateManyWithoutCalenderEntityNestedInput
+    complexes?: ComplexUpdateManyWithoutCalenderEntityNestedInput
+    spaces?: SpaceUpdateManyWithoutCalenderEntityNestedInput
+    zones?: ZoneUpdateManyWithoutCalenderEntityNestedInput
+  }
+
+  export type CalenderEntityUncheckedUpdateWithoutEmployeesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    buildings?: BuildingUncheckedUpdateManyWithoutCalenderEntityNestedInput
+    complexes?: ComplexUncheckedUpdateManyWithoutCalenderEntityNestedInput
+    spaces?: SpaceUncheckedUpdateManyWithoutCalenderEntityNestedInput
+    zones?: ZoneUncheckedUpdateManyWithoutCalenderEntityNestedInput
+  }
+
+  export type TeamUpsertWithWhereUniqueWithoutMembersInput = {
+    where: TeamWhereUniqueInput
+    update: XOR<TeamUpdateWithoutMembersInput, TeamUncheckedUpdateWithoutMembersInput>
+    create: XOR<TeamCreateWithoutMembersInput, TeamUncheckedCreateWithoutMembersInput>
+  }
+
+  export type TeamUpdateWithWhereUniqueWithoutMembersInput = {
+    where: TeamWhereUniqueInput
+    data: XOR<TeamUpdateWithoutMembersInput, TeamUncheckedUpdateWithoutMembersInput>
+  }
+
+  export type TeamUpdateManyWithWhereWithoutMembersInput = {
+    where: TeamScalarWhereInput
+    data: XOR<TeamUpdateManyMutationInput, TeamUncheckedUpdateManyWithoutMembersInput>
+  }
+
+  export type TeamScalarWhereInput = {
+    AND?: TeamScalarWhereInput | TeamScalarWhereInput[]
+    OR?: TeamScalarWhereInput[]
+    NOT?: TeamScalarWhereInput | TeamScalarWhereInput[]
+    id?: StringFilter<"Team"> | string
+    code?: StringFilter<"Team"> | string
+    name?: StringFilter<"Team"> | string
+    description?: StringNullableFilter<"Team"> | string | null
+    status?: EnumServiceStatusFilter<"Team"> | $Enums.ServiceStatus
+    supervisorId?: StringFilter<"Team"> | string
+    createdAt?: DateTimeFilter<"Team"> | Date | string
+    updatedAt?: DateTimeFilter<"Team"> | Date | string
+  }
+
+  export type MaintenanceUpsertWithWhereUniqueWithoutPerformerInput = {
+    where: MaintenanceWhereUniqueInput
+    update: XOR<MaintenanceUpdateWithoutPerformerInput, MaintenanceUncheckedUpdateWithoutPerformerInput>
+    create: XOR<MaintenanceCreateWithoutPerformerInput, MaintenanceUncheckedCreateWithoutPerformerInput>
+  }
+
+  export type MaintenanceUpdateWithWhereUniqueWithoutPerformerInput = {
+    where: MaintenanceWhereUniqueInput
+    data: XOR<MaintenanceUpdateWithoutPerformerInput, MaintenanceUncheckedUpdateWithoutPerformerInput>
+  }
+
+  export type MaintenanceUpdateManyWithWhereWithoutPerformerInput = {
+    where: MaintenanceScalarWhereInput
+    data: XOR<MaintenanceUpdateManyMutationInput, MaintenanceUncheckedUpdateManyWithoutPerformerInput>
+  }
+
+  export type MaintenanceScalarWhereInput = {
+    AND?: MaintenanceScalarWhereInput | MaintenanceScalarWhereInput[]
+    OR?: MaintenanceScalarWhereInput[]
+    NOT?: MaintenanceScalarWhereInput | MaintenanceScalarWhereInput[]
+    id?: StringFilter<"Maintenance"> | string
+    type?: EnumMaintenanceTypeFilter<"Maintenance"> | $Enums.MaintenanceType
+    code?: StringFilter<"Maintenance"> | string
+    description?: StringFilter<"Maintenance"> | string
+    startDate?: DateTimeNullableFilter<"Maintenance"> | Date | string | null
+    endDate?: DateTimeNullableFilter<"Maintenance"> | Date | string | null
+    shortDescription?: StringNullableFilter<"Maintenance"> | string | null
+    action?: StringNullableFilter<"Maintenance"> | string | null
+    message?: StringNullableFilter<"Maintenance"> | string | null
+    processNotes?: StringNullableFilter<"Maintenance"> | string | null
+    metadata?: JsonNullableFilter<"Maintenance">
+    performerId?: StringNullableFilter<"Maintenance"> | string | null
+    processStatus?: EnumStatusFilter<"Maintenance"> | $Enums.Status
+    register?: StringNullableFilter<"Maintenance"> | string | null
+    activityIdTimer?: StringNullableFilter<"Maintenance"> | string | null
+    activityStartTime?: DateTimeNullableFilter<"Maintenance"> | Date | string | null
+    activityEndTime?: DateTimeNullableFilter<"Maintenance"> | Date | string | null
+    allDeadlines?: StringNullableFilter<"Maintenance"> | string | null
+    processType?: EnumProcessTypeFilter<"Maintenance"> | $Enums.ProcessType
+    ttSysRunning?: DecimalNullableFilter<"Maintenance"> | Decimal | DecimalJsLike | number | string | null
+    ttWorkRunning?: DecimalNullableFilter<"Maintenance"> | Decimal | DecimalJsLike | number | string | null
+    sorting?: StringNullableFilter<"Maintenance"> | string | null
+    requesterId?: StringNullableFilter<"Maintenance"> | string | null
+    priority?: EnumPriorityFilter<"Maintenance"> | $Enums.Priority
+    siteId?: StringFilter<"Maintenance"> | string
+    outcome?: StringNullableFilter<"Maintenance"> | string | null
+    dueAssignedEnd?: DateTimeNullableFilter<"Maintenance"> | Date | string | null
+    execStart?: DateTimeNullableFilter<"Maintenance"> | Date | string | null
+    dueExecEndDate?: DateTimeNullableFilter<"Maintenance"> | Date | string | null
+    execEndDate?: DateTimeNullableFilter<"Maintenance"> | Date | string | null
+    dueClosuerDate?: DateTimeNullableFilter<"Maintenance"> | Date | string | null
+    totalExecTime?: DecimalNullableFilter<"Maintenance"> | Decimal | DecimalJsLike | number | string | null
+    expStartDate?: DateTimeNullableFilter<"Maintenance"> | Date | string | null
+    suspensionReason?: StringNullableFilter<"Maintenance"> | string | null
+    category?: StringNullableFilter<"Maintenance"> | string | null
+    subCategory?: StringNullableFilter<"Maintenance"> | string | null
+    companyId?: StringNullableFilter<"Maintenance"> | string | null
+    teamId?: StringNullableFilter<"Maintenance"> | string | null
+    floorId?: StringNullableFilter<"Maintenance"> | string | null
+    spaceId?: StringNullableFilter<"Maintenance"> | string | null
+    ttSystemOpening?: DecimalNullableFilter<"Maintenance"> | Decimal | DecimalJsLike | number | string | null
+    ttWorkOpening?: DecimalNullableFilter<"Maintenance"> | Decimal | DecimalJsLike | number | string | null
+    ttSystemAssignment?: DecimalNullableFilter<"Maintenance"> | Decimal | DecimalJsLike | number | string | null
+    ttWorkAssignment?: DecimalNullableFilter<"Maintenance"> | Decimal | DecimalJsLike | number | string | null
+    ttSystemExecution?: DecimalNullableFilter<"Maintenance"> | Decimal | DecimalJsLike | number | string | null
+    ttWorkExecution?: DecimalNullableFilter<"Maintenance"> | Decimal | DecimalJsLike | number | string | null
+    ttSysSuspension?: DecimalNullableFilter<"Maintenance"> | Decimal | DecimalJsLike | number | string | null
+    ttWorkSuspension?: DecimalNullableFilter<"Maintenance"> | Decimal | DecimalJsLike | number | string | null
+    ttEstimate?: DecimalNullableFilter<"Maintenance"> | Decimal | DecimalJsLike | number | string | null
+    prevMaintenanceConfigId?: StringNullableFilter<"Maintenance"> | string | null
+    automaticConfig?: BoolFilter<"Maintenance"> | boolean
+    jointAccounting?: BoolFilter<"Maintenance"> | boolean
+    hasTasks?: BoolFilter<"Maintenance"> | boolean
+    estimateStatus?: EnumStatusFilter<"Maintenance"> | $Enums.Status
+    delayNotification?: BoolFilter<"Maintenance"> | boolean
+    assigneeId?: StringNullableFilter<"Maintenance"> | string | null
+    assetId?: StringNullableFilter<"Maintenance"> | string | null
+    createdAt?: DateTimeFilter<"Maintenance"> | Date | string
+    updatedAt?: DateTimeFilter<"Maintenance"> | Date | string
+  }
+
+  export type MaintenanceUpsertWithWhereUniqueWithoutRequesterInput = {
+    where: MaintenanceWhereUniqueInput
+    update: XOR<MaintenanceUpdateWithoutRequesterInput, MaintenanceUncheckedUpdateWithoutRequesterInput>
+    create: XOR<MaintenanceCreateWithoutRequesterInput, MaintenanceUncheckedCreateWithoutRequesterInput>
+  }
+
+  export type MaintenanceUpdateWithWhereUniqueWithoutRequesterInput = {
+    where: MaintenanceWhereUniqueInput
+    data: XOR<MaintenanceUpdateWithoutRequesterInput, MaintenanceUncheckedUpdateWithoutRequesterInput>
+  }
+
+  export type MaintenanceUpdateManyWithWhereWithoutRequesterInput = {
+    where: MaintenanceScalarWhereInput
+    data: XOR<MaintenanceUpdateManyMutationInput, MaintenanceUncheckedUpdateManyWithoutRequesterInput>
+  }
+
+  export type MaintenanceUpsertWithWhereUniqueWithoutAssigneeInput = {
+    where: MaintenanceWhereUniqueInput
+    update: XOR<MaintenanceUpdateWithoutAssigneeInput, MaintenanceUncheckedUpdateWithoutAssigneeInput>
+    create: XOR<MaintenanceCreateWithoutAssigneeInput, MaintenanceUncheckedCreateWithoutAssigneeInput>
+  }
+
+  export type MaintenanceUpdateWithWhereUniqueWithoutAssigneeInput = {
+    where: MaintenanceWhereUniqueInput
+    data: XOR<MaintenanceUpdateWithoutAssigneeInput, MaintenanceUncheckedUpdateWithoutAssigneeInput>
+  }
+
+  export type MaintenanceUpdateManyWithWhereWithoutAssigneeInput = {
+    where: MaintenanceScalarWhereInput
+    data: XOR<MaintenanceUpdateManyMutationInput, MaintenanceUncheckedUpdateManyWithoutAssigneeInput>
+  }
+
+  export type TeamUpsertWithWhereUniqueWithoutSupervisorInput = {
+    where: TeamWhereUniqueInput
+    update: XOR<TeamUpdateWithoutSupervisorInput, TeamUncheckedUpdateWithoutSupervisorInput>
+    create: XOR<TeamCreateWithoutSupervisorInput, TeamUncheckedCreateWithoutSupervisorInput>
+  }
+
+  export type TeamUpdateWithWhereUniqueWithoutSupervisorInput = {
+    where: TeamWhereUniqueInput
+    data: XOR<TeamUpdateWithoutSupervisorInput, TeamUncheckedUpdateWithoutSupervisorInput>
+  }
+
+  export type TeamUpdateManyWithWhereWithoutSupervisorInput = {
+    where: TeamScalarWhereInput
+    data: XOR<TeamUpdateManyMutationInput, TeamUncheckedUpdateManyWithoutSupervisorInput>
   }
 
   export type PermissionCreateWithoutRoleInput = {
@@ -45251,9 +44788,18 @@ export namespace Prisma {
     passwordResetToken?: string | null
     passwordExpiresAt?: Date | string | null
     passwordResetAt?: Date | string | null
+    employeeCode?: string | null
+    employeeType?: $Enums.EmployeeType | null
+    serviceStatus?: $Enums.ServiceStatus
     refreshTokens?: RefreshTokenCreateNestedManyWithoutUserInput
     permissions?: UserPermissionCreateNestedManyWithoutUserInput
-    employees?: EmployeeCreateNestedManyWithoutUserInput
+    company?: CompanyCreateNestedOneWithoutEmployeesInput
+    calenderEntity?: CalenderEntityCreateNestedOneWithoutEmployeesInput
+    teams?: TeamCreateNestedManyWithoutMembersInput
+    performedMaintenances?: MaintenanceCreateNestedManyWithoutPerformerInput
+    requestedMaintenances?: MaintenanceCreateNestedManyWithoutRequesterInput
+    assignedMaintenances?: MaintenanceCreateNestedManyWithoutAssigneeInput
+    supervisedTeams?: TeamCreateNestedManyWithoutSupervisorInput
   }
 
   export type UserUncheckedCreateWithoutRoleInput = {
@@ -45268,9 +44814,18 @@ export namespace Prisma {
     passwordResetToken?: string | null
     passwordExpiresAt?: Date | string | null
     passwordResetAt?: Date | string | null
+    employeeCode?: string | null
+    employeeType?: $Enums.EmployeeType | null
+    companyId?: string | null
+    serviceStatus?: $Enums.ServiceStatus
+    calenderEntityId?: string | null
     refreshTokens?: RefreshTokenUncheckedCreateNestedManyWithoutUserInput
     permissions?: UserPermissionUncheckedCreateNestedManyWithoutUserInput
-    employees?: EmployeeUncheckedCreateNestedManyWithoutUserInput
+    teams?: TeamUncheckedCreateNestedManyWithoutMembersInput
+    performedMaintenances?: MaintenanceUncheckedCreateNestedManyWithoutPerformerInput
+    requestedMaintenances?: MaintenanceUncheckedCreateNestedManyWithoutRequesterInput
+    assignedMaintenances?: MaintenanceUncheckedCreateNestedManyWithoutAssigneeInput
+    supervisedTeams?: TeamUncheckedCreateNestedManyWithoutSupervisorInput
   }
 
   export type UserCreateOrConnectWithoutRoleInput = {
@@ -45343,6 +44898,11 @@ export namespace Prisma {
     passwordResetToken?: StringNullableFilter<"User"> | string | null
     passwordExpiresAt?: DateTimeNullableFilter<"User"> | Date | string | null
     passwordResetAt?: DateTimeNullableFilter<"User"> | Date | string | null
+    employeeCode?: StringNullableFilter<"User"> | string | null
+    employeeType?: EnumEmployeeTypeNullableFilter<"User"> | $Enums.EmployeeType | null
+    companyId?: StringNullableFilter<"User"> | string | null
+    serviceStatus?: EnumServiceStatusFilter<"User"> | $Enums.ServiceStatus
+    calenderEntityId?: StringNullableFilter<"User"> | string | null
   }
 
   export type RoleCreateWithoutPermissionsInput = {
@@ -45413,9 +44973,18 @@ export namespace Prisma {
     passwordResetToken?: string | null
     passwordExpiresAt?: Date | string | null
     passwordResetAt?: Date | string | null
+    employeeCode?: string | null
+    employeeType?: $Enums.EmployeeType | null
+    serviceStatus?: $Enums.ServiceStatus
     refreshTokens?: RefreshTokenCreateNestedManyWithoutUserInput
     role: RoleCreateNestedOneWithoutUsersInput
-    employees?: EmployeeCreateNestedManyWithoutUserInput
+    company?: CompanyCreateNestedOneWithoutEmployeesInput
+    calenderEntity?: CalenderEntityCreateNestedOneWithoutEmployeesInput
+    teams?: TeamCreateNestedManyWithoutMembersInput
+    performedMaintenances?: MaintenanceCreateNestedManyWithoutPerformerInput
+    requestedMaintenances?: MaintenanceCreateNestedManyWithoutRequesterInput
+    assignedMaintenances?: MaintenanceCreateNestedManyWithoutAssigneeInput
+    supervisedTeams?: TeamCreateNestedManyWithoutSupervisorInput
   }
 
   export type UserUncheckedCreateWithoutPermissionsInput = {
@@ -45431,8 +45000,17 @@ export namespace Prisma {
     passwordResetToken?: string | null
     passwordExpiresAt?: Date | string | null
     passwordResetAt?: Date | string | null
+    employeeCode?: string | null
+    employeeType?: $Enums.EmployeeType | null
+    companyId?: string | null
+    serviceStatus?: $Enums.ServiceStatus
+    calenderEntityId?: string | null
     refreshTokens?: RefreshTokenUncheckedCreateNestedManyWithoutUserInput
-    employees?: EmployeeUncheckedCreateNestedManyWithoutUserInput
+    teams?: TeamUncheckedCreateNestedManyWithoutMembersInput
+    performedMaintenances?: MaintenanceUncheckedCreateNestedManyWithoutPerformerInput
+    requestedMaintenances?: MaintenanceUncheckedCreateNestedManyWithoutRequesterInput
+    assignedMaintenances?: MaintenanceUncheckedCreateNestedManyWithoutAssigneeInput
+    supervisedTeams?: TeamUncheckedCreateNestedManyWithoutSupervisorInput
   }
 
   export type UserCreateOrConnectWithoutPermissionsInput = {
@@ -45463,9 +45041,18 @@ export namespace Prisma {
     passwordResetToken?: NullableStringFieldUpdateOperationsInput | string | null
     passwordExpiresAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     passwordResetAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    employeeCode?: NullableStringFieldUpdateOperationsInput | string | null
+    employeeType?: NullableEnumEmployeeTypeFieldUpdateOperationsInput | $Enums.EmployeeType | null
+    serviceStatus?: EnumServiceStatusFieldUpdateOperationsInput | $Enums.ServiceStatus
     refreshTokens?: RefreshTokenUpdateManyWithoutUserNestedInput
     role?: RoleUpdateOneRequiredWithoutUsersNestedInput
-    employees?: EmployeeUpdateManyWithoutUserNestedInput
+    company?: CompanyUpdateOneWithoutEmployeesNestedInput
+    calenderEntity?: CalenderEntityUpdateOneWithoutEmployeesNestedInput
+    teams?: TeamUpdateManyWithoutMembersNestedInput
+    performedMaintenances?: MaintenanceUpdateManyWithoutPerformerNestedInput
+    requestedMaintenances?: MaintenanceUpdateManyWithoutRequesterNestedInput
+    assignedMaintenances?: MaintenanceUpdateManyWithoutAssigneeNestedInput
+    supervisedTeams?: TeamUpdateManyWithoutSupervisorNestedInput
   }
 
   export type UserUncheckedUpdateWithoutPermissionsInput = {
@@ -45481,8 +45068,17 @@ export namespace Prisma {
     passwordResetToken?: NullableStringFieldUpdateOperationsInput | string | null
     passwordExpiresAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     passwordResetAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    employeeCode?: NullableStringFieldUpdateOperationsInput | string | null
+    employeeType?: NullableEnumEmployeeTypeFieldUpdateOperationsInput | $Enums.EmployeeType | null
+    companyId?: NullableStringFieldUpdateOperationsInput | string | null
+    serviceStatus?: EnumServiceStatusFieldUpdateOperationsInput | $Enums.ServiceStatus
+    calenderEntityId?: NullableStringFieldUpdateOperationsInput | string | null
     refreshTokens?: RefreshTokenUncheckedUpdateManyWithoutUserNestedInput
-    employees?: EmployeeUncheckedUpdateManyWithoutUserNestedInput
+    teams?: TeamUncheckedUpdateManyWithoutMembersNestedInput
+    performedMaintenances?: MaintenanceUncheckedUpdateManyWithoutPerformerNestedInput
+    requestedMaintenances?: MaintenanceUncheckedUpdateManyWithoutRequesterNestedInput
+    assignedMaintenances?: MaintenanceUncheckedUpdateManyWithoutAssigneeNestedInput
+    supervisedTeams?: TeamUncheckedUpdateManyWithoutSupervisorNestedInput
   }
 
   export type ComplexCreateWithoutSiteInput = {
@@ -45618,7 +45214,7 @@ export namespace Prisma {
     buildings?: BuildingCreateNestedManyWithoutCalenderEntityInput
     spaces?: SpaceCreateNestedManyWithoutCalenderEntityInput
     zones?: ZoneCreateNestedManyWithoutCalenderEntityInput
-    employees?: EmployeeCreateNestedManyWithoutCalenderEntityInput
+    employees?: UserCreateNestedManyWithoutCalenderEntityInput
   }
 
   export type CalenderEntityUncheckedCreateWithoutComplexesInput = {
@@ -45629,7 +45225,7 @@ export namespace Prisma {
     buildings?: BuildingUncheckedCreateNestedManyWithoutCalenderEntityInput
     spaces?: SpaceUncheckedCreateNestedManyWithoutCalenderEntityInput
     zones?: ZoneUncheckedCreateNestedManyWithoutCalenderEntityInput
-    employees?: EmployeeUncheckedCreateNestedManyWithoutCalenderEntityInput
+    employees?: UserUncheckedCreateNestedManyWithoutCalenderEntityInput
   }
 
   export type CalenderEntityCreateOrConnectWithoutComplexesInput = {
@@ -45997,13 +45593,13 @@ export namespace Prisma {
     delayNotification?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
-    performer?: EmployeeCreateNestedOneWithoutPerformedMaintenancesInput
-    requester?: EmployeeCreateNestedOneWithoutRequestedMaintenancesInput
+    performer?: UserCreateNestedOneWithoutPerformedMaintenancesInput
+    requester?: UserCreateNestedOneWithoutRequestedMaintenancesInput
     company?: CompanyCreateNestedOneWithoutMaintenancesInput
     team?: TeamCreateNestedOneWithoutMaintenancesInput
     floor?: FloorCreateNestedOneWithoutMaintenancesInput
     space?: SpaceCreateNestedOneWithoutMaintenancesInput
-    assignee?: EmployeeCreateNestedOneWithoutAssignedMaintenancesInput
+    assignee?: UserCreateNestedOneWithoutAssignedMaintenancesInput
     asset?: AssetCreateNestedOneWithoutMaintenancesInput
     photos?: FileCreateNestedManyWithoutMaintenanceInput
   }
@@ -46174,7 +45770,7 @@ export namespace Prisma {
     buildings?: BuildingUpdateManyWithoutCalenderEntityNestedInput
     spaces?: SpaceUpdateManyWithoutCalenderEntityNestedInput
     zones?: ZoneUpdateManyWithoutCalenderEntityNestedInput
-    employees?: EmployeeUpdateManyWithoutCalenderEntityNestedInput
+    employees?: UserUpdateManyWithoutCalenderEntityNestedInput
   }
 
   export type CalenderEntityUncheckedUpdateWithoutComplexesInput = {
@@ -46185,7 +45781,7 @@ export namespace Prisma {
     buildings?: BuildingUncheckedUpdateManyWithoutCalenderEntityNestedInput
     spaces?: SpaceUncheckedUpdateManyWithoutCalenderEntityNestedInput
     zones?: ZoneUncheckedUpdateManyWithoutCalenderEntityNestedInput
-    employees?: EmployeeUncheckedUpdateManyWithoutCalenderEntityNestedInput
+    employees?: UserUncheckedUpdateManyWithoutCalenderEntityNestedInput
   }
 
   export type BuildingUpsertWithWhereUniqueWithoutComplexInput = {
@@ -46417,71 +46013,6 @@ export namespace Prisma {
     data: XOR<MaintenanceUpdateManyMutationInput, MaintenanceUncheckedUpdateManyWithoutSiteInput>
   }
 
-  export type MaintenanceScalarWhereInput = {
-    AND?: MaintenanceScalarWhereInput | MaintenanceScalarWhereInput[]
-    OR?: MaintenanceScalarWhereInput[]
-    NOT?: MaintenanceScalarWhereInput | MaintenanceScalarWhereInput[]
-    id?: StringFilter<"Maintenance"> | string
-    type?: EnumMaintenanceTypeFilter<"Maintenance"> | $Enums.MaintenanceType
-    code?: StringFilter<"Maintenance"> | string
-    description?: StringFilter<"Maintenance"> | string
-    startDate?: DateTimeNullableFilter<"Maintenance"> | Date | string | null
-    endDate?: DateTimeNullableFilter<"Maintenance"> | Date | string | null
-    shortDescription?: StringNullableFilter<"Maintenance"> | string | null
-    action?: StringNullableFilter<"Maintenance"> | string | null
-    message?: StringNullableFilter<"Maintenance"> | string | null
-    processNotes?: StringNullableFilter<"Maintenance"> | string | null
-    metadata?: JsonNullableFilter<"Maintenance">
-    performerId?: StringNullableFilter<"Maintenance"> | string | null
-    processStatus?: EnumStatusFilter<"Maintenance"> | $Enums.Status
-    register?: StringNullableFilter<"Maintenance"> | string | null
-    activityIdTimer?: StringNullableFilter<"Maintenance"> | string | null
-    activityStartTime?: DateTimeNullableFilter<"Maintenance"> | Date | string | null
-    activityEndTime?: DateTimeNullableFilter<"Maintenance"> | Date | string | null
-    allDeadlines?: StringNullableFilter<"Maintenance"> | string | null
-    processType?: EnumProcessTypeFilter<"Maintenance"> | $Enums.ProcessType
-    ttSysRunning?: DecimalNullableFilter<"Maintenance"> | Decimal | DecimalJsLike | number | string | null
-    ttWorkRunning?: DecimalNullableFilter<"Maintenance"> | Decimal | DecimalJsLike | number | string | null
-    sorting?: StringNullableFilter<"Maintenance"> | string | null
-    requesterId?: StringNullableFilter<"Maintenance"> | string | null
-    priority?: EnumPriorityFilter<"Maintenance"> | $Enums.Priority
-    siteId?: StringFilter<"Maintenance"> | string
-    outcome?: StringNullableFilter<"Maintenance"> | string | null
-    dueAssignedEnd?: DateTimeNullableFilter<"Maintenance"> | Date | string | null
-    execStart?: DateTimeNullableFilter<"Maintenance"> | Date | string | null
-    dueExecEndDate?: DateTimeNullableFilter<"Maintenance"> | Date | string | null
-    execEndDate?: DateTimeNullableFilter<"Maintenance"> | Date | string | null
-    dueClosuerDate?: DateTimeNullableFilter<"Maintenance"> | Date | string | null
-    totalExecTime?: DecimalNullableFilter<"Maintenance"> | Decimal | DecimalJsLike | number | string | null
-    expStartDate?: DateTimeNullableFilter<"Maintenance"> | Date | string | null
-    suspensionReason?: StringNullableFilter<"Maintenance"> | string | null
-    category?: StringNullableFilter<"Maintenance"> | string | null
-    subCategory?: StringNullableFilter<"Maintenance"> | string | null
-    companyId?: StringNullableFilter<"Maintenance"> | string | null
-    teamId?: StringNullableFilter<"Maintenance"> | string | null
-    floorId?: StringNullableFilter<"Maintenance"> | string | null
-    spaceId?: StringNullableFilter<"Maintenance"> | string | null
-    ttSystemOpening?: DecimalNullableFilter<"Maintenance"> | Decimal | DecimalJsLike | number | string | null
-    ttWorkOpening?: DecimalNullableFilter<"Maintenance"> | Decimal | DecimalJsLike | number | string | null
-    ttSystemAssignment?: DecimalNullableFilter<"Maintenance"> | Decimal | DecimalJsLike | number | string | null
-    ttWorkAssignment?: DecimalNullableFilter<"Maintenance"> | Decimal | DecimalJsLike | number | string | null
-    ttSystemExecution?: DecimalNullableFilter<"Maintenance"> | Decimal | DecimalJsLike | number | string | null
-    ttWorkExecution?: DecimalNullableFilter<"Maintenance"> | Decimal | DecimalJsLike | number | string | null
-    ttSysSuspension?: DecimalNullableFilter<"Maintenance"> | Decimal | DecimalJsLike | number | string | null
-    ttWorkSuspension?: DecimalNullableFilter<"Maintenance"> | Decimal | DecimalJsLike | number | string | null
-    ttEstimate?: DecimalNullableFilter<"Maintenance"> | Decimal | DecimalJsLike | number | string | null
-    prevMaintenanceConfigId?: StringNullableFilter<"Maintenance"> | string | null
-    automaticConfig?: BoolFilter<"Maintenance"> | boolean
-    jointAccounting?: BoolFilter<"Maintenance"> | boolean
-    hasTasks?: BoolFilter<"Maintenance"> | boolean
-    estimateStatus?: EnumStatusFilter<"Maintenance"> | $Enums.Status
-    delayNotification?: BoolFilter<"Maintenance"> | boolean
-    assigneeId?: StringNullableFilter<"Maintenance"> | string | null
-    assetId?: StringNullableFilter<"Maintenance"> | string | null
-    createdAt?: DateTimeFilter<"Maintenance"> | Date | string
-    updatedAt?: DateTimeFilter<"Maintenance"> | Date | string
-  }
-
   export type PreventiveUpsertWithWhereUniqueWithoutSiteInput = {
     where: PreventiveWhereUniqueInput
     update: XOR<PreventiveUpdateWithoutSiteInput, PreventiveUncheckedUpdateWithoutSiteInput>
@@ -46661,7 +46192,7 @@ export namespace Prisma {
     complexes?: ComplexCreateNestedManyWithoutCalenderEntityInput
     spaces?: SpaceCreateNestedManyWithoutCalenderEntityInput
     zones?: ZoneCreateNestedManyWithoutCalenderEntityInput
-    employees?: EmployeeCreateNestedManyWithoutCalenderEntityInput
+    employees?: UserCreateNestedManyWithoutCalenderEntityInput
   }
 
   export type CalenderEntityUncheckedCreateWithoutBuildingsInput = {
@@ -46672,7 +46203,7 @@ export namespace Prisma {
     complexes?: ComplexUncheckedCreateNestedManyWithoutCalenderEntityInput
     spaces?: SpaceUncheckedCreateNestedManyWithoutCalenderEntityInput
     zones?: ZoneUncheckedCreateNestedManyWithoutCalenderEntityInput
-    employees?: EmployeeUncheckedCreateNestedManyWithoutCalenderEntityInput
+    employees?: UserUncheckedCreateNestedManyWithoutCalenderEntityInput
   }
 
   export type CalenderEntityCreateOrConnectWithoutBuildingsInput = {
@@ -47100,7 +46631,7 @@ export namespace Prisma {
     complexes?: ComplexUpdateManyWithoutCalenderEntityNestedInput
     spaces?: SpaceUpdateManyWithoutCalenderEntityNestedInput
     zones?: ZoneUpdateManyWithoutCalenderEntityNestedInput
-    employees?: EmployeeUpdateManyWithoutCalenderEntityNestedInput
+    employees?: UserUpdateManyWithoutCalenderEntityNestedInput
   }
 
   export type CalenderEntityUncheckedUpdateWithoutBuildingsInput = {
@@ -47111,7 +46642,7 @@ export namespace Prisma {
     complexes?: ComplexUncheckedUpdateManyWithoutCalenderEntityNestedInput
     spaces?: SpaceUncheckedUpdateManyWithoutCalenderEntityNestedInput
     zones?: ZoneUncheckedUpdateManyWithoutCalenderEntityNestedInput
-    employees?: EmployeeUncheckedUpdateManyWithoutCalenderEntityNestedInput
+    employees?: UserUncheckedUpdateManyWithoutCalenderEntityNestedInput
   }
 
   export type FileUpsertWithWhereUniqueWithoutBuildingsInput = {
@@ -47535,13 +47066,13 @@ export namespace Prisma {
     delayNotification?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
-    performer?: EmployeeCreateNestedOneWithoutPerformedMaintenancesInput
-    requester?: EmployeeCreateNestedOneWithoutRequestedMaintenancesInput
+    performer?: UserCreateNestedOneWithoutPerformedMaintenancesInput
+    requester?: UserCreateNestedOneWithoutRequestedMaintenancesInput
     site: ComplexCreateNestedOneWithoutMaintenancesInput
     company?: CompanyCreateNestedOneWithoutMaintenancesInput
     team?: TeamCreateNestedOneWithoutMaintenancesInput
     space?: SpaceCreateNestedOneWithoutMaintenancesInput
-    assignee?: EmployeeCreateNestedOneWithoutAssignedMaintenancesInput
+    assignee?: UserCreateNestedOneWithoutAssignedMaintenancesInput
     asset?: AssetCreateNestedOneWithoutMaintenancesInput
     photos?: FileCreateNestedManyWithoutMaintenanceInput
   }
@@ -47890,7 +47421,7 @@ export namespace Prisma {
     buildings?: BuildingCreateNestedManyWithoutCalenderEntityInput
     complexes?: ComplexCreateNestedManyWithoutCalenderEntityInput
     spaces?: SpaceCreateNestedManyWithoutCalenderEntityInput
-    employees?: EmployeeCreateNestedManyWithoutCalenderEntityInput
+    employees?: UserCreateNestedManyWithoutCalenderEntityInput
   }
 
   export type CalenderEntityUncheckedCreateWithoutZonesInput = {
@@ -47901,7 +47432,7 @@ export namespace Prisma {
     buildings?: BuildingUncheckedCreateNestedManyWithoutCalenderEntityInput
     complexes?: ComplexUncheckedCreateNestedManyWithoutCalenderEntityInput
     spaces?: SpaceUncheckedCreateNestedManyWithoutCalenderEntityInput
-    employees?: EmployeeUncheckedCreateNestedManyWithoutCalenderEntityInput
+    employees?: UserUncheckedCreateNestedManyWithoutCalenderEntityInput
   }
 
   export type CalenderEntityCreateOrConnectWithoutZonesInput = {
@@ -48214,7 +47745,7 @@ export namespace Prisma {
     buildings?: BuildingUpdateManyWithoutCalenderEntityNestedInput
     complexes?: ComplexUpdateManyWithoutCalenderEntityNestedInput
     spaces?: SpaceUpdateManyWithoutCalenderEntityNestedInput
-    employees?: EmployeeUpdateManyWithoutCalenderEntityNestedInput
+    employees?: UserUpdateManyWithoutCalenderEntityNestedInput
   }
 
   export type CalenderEntityUncheckedUpdateWithoutZonesInput = {
@@ -48225,7 +47756,7 @@ export namespace Prisma {
     buildings?: BuildingUncheckedUpdateManyWithoutCalenderEntityNestedInput
     complexes?: ComplexUncheckedUpdateManyWithoutCalenderEntityNestedInput
     spaces?: SpaceUncheckedUpdateManyWithoutCalenderEntityNestedInput
-    employees?: EmployeeUncheckedUpdateManyWithoutCalenderEntityNestedInput
+    employees?: UserUncheckedUpdateManyWithoutCalenderEntityNestedInput
   }
 
   export type ComplexUpsertWithoutZonesInput = {
@@ -48483,7 +48014,7 @@ export namespace Prisma {
     buildings?: BuildingCreateNestedManyWithoutCalenderEntityInput
     complexes?: ComplexCreateNestedManyWithoutCalenderEntityInput
     zones?: ZoneCreateNestedManyWithoutCalenderEntityInput
-    employees?: EmployeeCreateNestedManyWithoutCalenderEntityInput
+    employees?: UserCreateNestedManyWithoutCalenderEntityInput
   }
 
   export type CalenderEntityUncheckedCreateWithoutSpacesInput = {
@@ -48494,7 +48025,7 @@ export namespace Prisma {
     buildings?: BuildingUncheckedCreateNestedManyWithoutCalenderEntityInput
     complexes?: ComplexUncheckedCreateNestedManyWithoutCalenderEntityInput
     zones?: ZoneUncheckedCreateNestedManyWithoutCalenderEntityInput
-    employees?: EmployeeUncheckedCreateNestedManyWithoutCalenderEntityInput
+    employees?: UserUncheckedCreateNestedManyWithoutCalenderEntityInput
   }
 
   export type CalenderEntityCreateOrConnectWithoutSpacesInput = {
@@ -48854,13 +48385,13 @@ export namespace Prisma {
     delayNotification?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
-    performer?: EmployeeCreateNestedOneWithoutPerformedMaintenancesInput
-    requester?: EmployeeCreateNestedOneWithoutRequestedMaintenancesInput
+    performer?: UserCreateNestedOneWithoutPerformedMaintenancesInput
+    requester?: UserCreateNestedOneWithoutRequestedMaintenancesInput
     site: ComplexCreateNestedOneWithoutMaintenancesInput
     company?: CompanyCreateNestedOneWithoutMaintenancesInput
     team?: TeamCreateNestedOneWithoutMaintenancesInput
     floor?: FloorCreateNestedOneWithoutMaintenancesInput
-    assignee?: EmployeeCreateNestedOneWithoutAssignedMaintenancesInput
+    assignee?: UserCreateNestedOneWithoutAssignedMaintenancesInput
     asset?: AssetCreateNestedOneWithoutMaintenancesInput
     photos?: FileCreateNestedManyWithoutMaintenanceInput
   }
@@ -49044,7 +48575,7 @@ export namespace Prisma {
     buildings?: BuildingUpdateManyWithoutCalenderEntityNestedInput
     complexes?: ComplexUpdateManyWithoutCalenderEntityNestedInput
     zones?: ZoneUpdateManyWithoutCalenderEntityNestedInput
-    employees?: EmployeeUpdateManyWithoutCalenderEntityNestedInput
+    employees?: UserUpdateManyWithoutCalenderEntityNestedInput
   }
 
   export type CalenderEntityUncheckedUpdateWithoutSpacesInput = {
@@ -49055,7 +48586,7 @@ export namespace Prisma {
     buildings?: BuildingUncheckedUpdateManyWithoutCalenderEntityNestedInput
     complexes?: ComplexUncheckedUpdateManyWithoutCalenderEntityNestedInput
     zones?: ZoneUncheckedUpdateManyWithoutCalenderEntityNestedInput
-    employees?: EmployeeUncheckedUpdateManyWithoutCalenderEntityNestedInput
+    employees?: UserUncheckedUpdateManyWithoutCalenderEntityNestedInput
   }
 
   export type ComplexUpsertWithoutSpacesInput = {
@@ -49699,14 +49230,14 @@ export namespace Prisma {
     delayNotification?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
-    performer?: EmployeeCreateNestedOneWithoutPerformedMaintenancesInput
-    requester?: EmployeeCreateNestedOneWithoutRequestedMaintenancesInput
+    performer?: UserCreateNestedOneWithoutPerformedMaintenancesInput
+    requester?: UserCreateNestedOneWithoutRequestedMaintenancesInput
     site: ComplexCreateNestedOneWithoutMaintenancesInput
     company?: CompanyCreateNestedOneWithoutMaintenancesInput
     team?: TeamCreateNestedOneWithoutMaintenancesInput
     floor?: FloorCreateNestedOneWithoutMaintenancesInput
     space?: SpaceCreateNestedOneWithoutMaintenancesInput
-    assignee?: EmployeeCreateNestedOneWithoutAssignedMaintenancesInput
+    assignee?: UserCreateNestedOneWithoutAssignedMaintenancesInput
     photos?: FileCreateNestedManyWithoutMaintenanceInput
   }
 
@@ -50346,14 +49877,14 @@ export namespace Prisma {
     delayNotification?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
-    performer?: EmployeeCreateNestedOneWithoutPerformedMaintenancesInput
-    requester?: EmployeeCreateNestedOneWithoutRequestedMaintenancesInput
+    performer?: UserCreateNestedOneWithoutPerformedMaintenancesInput
+    requester?: UserCreateNestedOneWithoutRequestedMaintenancesInput
     site: ComplexCreateNestedOneWithoutMaintenancesInput
     company?: CompanyCreateNestedOneWithoutMaintenancesInput
     team?: TeamCreateNestedOneWithoutMaintenancesInput
     floor?: FloorCreateNestedOneWithoutMaintenancesInput
     space?: SpaceCreateNestedOneWithoutMaintenancesInput
-    assignee?: EmployeeCreateNestedOneWithoutAssignedMaintenancesInput
+    assignee?: UserCreateNestedOneWithoutAssignedMaintenancesInput
     asset?: AssetCreateNestedOneWithoutMaintenancesInput
   }
 
@@ -50550,14 +50081,14 @@ export namespace Prisma {
     delayNotification?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    performer?: EmployeeUpdateOneWithoutPerformedMaintenancesNestedInput
-    requester?: EmployeeUpdateOneWithoutRequestedMaintenancesNestedInput
+    performer?: UserUpdateOneWithoutPerformedMaintenancesNestedInput
+    requester?: UserUpdateOneWithoutRequestedMaintenancesNestedInput
     site?: ComplexUpdateOneRequiredWithoutMaintenancesNestedInput
     company?: CompanyUpdateOneWithoutMaintenancesNestedInput
     team?: TeamUpdateOneWithoutMaintenancesNestedInput
     floor?: FloorUpdateOneWithoutMaintenancesNestedInput
     space?: SpaceUpdateOneWithoutMaintenancesNestedInput
-    assignee?: EmployeeUpdateOneWithoutAssignedMaintenancesNestedInput
+    assignee?: UserUpdateOneWithoutAssignedMaintenancesNestedInput
     asset?: AssetUpdateOneWithoutMaintenancesNestedInput
   }
 
@@ -50650,39 +50181,65 @@ export namespace Prisma {
     create: XOR<AddressCreateWithoutCompaniesInput, AddressUncheckedCreateWithoutCompaniesInput>
   }
 
-  export type EmployeeCreateWithoutCompanyInput = {
+  export type UserCreateWithoutCompanyInput = {
     id?: string
-    code: string
-    type?: $Enums.EmployeeType
-    status?: $Enums.ServiceStatus
-    user: UserCreateNestedOneWithoutEmployeesInput
+    email: string
+    password: string
+    firstName: string
+    lastName: string
+    status?: $Enums.UserStatus
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    passwordResetToken?: string | null
+    passwordExpiresAt?: Date | string | null
+    passwordResetAt?: Date | string | null
+    employeeCode?: string | null
+    employeeType?: $Enums.EmployeeType | null
+    serviceStatus?: $Enums.ServiceStatus
+    refreshTokens?: RefreshTokenCreateNestedManyWithoutUserInput
+    role: RoleCreateNestedOneWithoutUsersInput
+    permissions?: UserPermissionCreateNestedManyWithoutUserInput
     calenderEntity?: CalenderEntityCreateNestedOneWithoutEmployeesInput
-    teams?: TeamCreateNestedManyWithoutSupervisorInput
+    teams?: TeamCreateNestedManyWithoutMembersInput
     performedMaintenances?: MaintenanceCreateNestedManyWithoutPerformerInput
     requestedMaintenances?: MaintenanceCreateNestedManyWithoutRequesterInput
     assignedMaintenances?: MaintenanceCreateNestedManyWithoutAssigneeInput
+    supervisedTeams?: TeamCreateNestedManyWithoutSupervisorInput
   }
 
-  export type EmployeeUncheckedCreateWithoutCompanyInput = {
+  export type UserUncheckedCreateWithoutCompanyInput = {
     id?: string
-    code: string
-    type?: $Enums.EmployeeType
-    userId: string
-    status?: $Enums.ServiceStatus
+    email: string
+    password: string
+    firstName: string
+    lastName: string
+    roleId: string
+    status?: $Enums.UserStatus
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    passwordResetToken?: string | null
+    passwordExpiresAt?: Date | string | null
+    passwordResetAt?: Date | string | null
+    employeeCode?: string | null
+    employeeType?: $Enums.EmployeeType | null
+    serviceStatus?: $Enums.ServiceStatus
     calenderEntityId?: string | null
-    teams?: TeamUncheckedCreateNestedManyWithoutSupervisorInput
+    refreshTokens?: RefreshTokenUncheckedCreateNestedManyWithoutUserInput
+    permissions?: UserPermissionUncheckedCreateNestedManyWithoutUserInput
+    teams?: TeamUncheckedCreateNestedManyWithoutMembersInput
     performedMaintenances?: MaintenanceUncheckedCreateNestedManyWithoutPerformerInput
     requestedMaintenances?: MaintenanceUncheckedCreateNestedManyWithoutRequesterInput
     assignedMaintenances?: MaintenanceUncheckedCreateNestedManyWithoutAssigneeInput
+    supervisedTeams?: TeamUncheckedCreateNestedManyWithoutSupervisorInput
   }
 
-  export type EmployeeCreateOrConnectWithoutCompanyInput = {
-    where: EmployeeWhereUniqueInput
-    create: XOR<EmployeeCreateWithoutCompanyInput, EmployeeUncheckedCreateWithoutCompanyInput>
+  export type UserCreateOrConnectWithoutCompanyInput = {
+    where: UserWhereUniqueInput
+    create: XOR<UserCreateWithoutCompanyInput, UserUncheckedCreateWithoutCompanyInput>
   }
 
-  export type EmployeeCreateManyCompanyInputEnvelope = {
-    data: EmployeeCreateManyCompanyInput | EmployeeCreateManyCompanyInput[]
+  export type UserCreateManyCompanyInputEnvelope = {
+    data: UserCreateManyCompanyInput | UserCreateManyCompanyInput[]
     skipDuplicates?: boolean
   }
 
@@ -50737,13 +50294,13 @@ export namespace Prisma {
     delayNotification?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
-    performer?: EmployeeCreateNestedOneWithoutPerformedMaintenancesInput
-    requester?: EmployeeCreateNestedOneWithoutRequestedMaintenancesInput
+    performer?: UserCreateNestedOneWithoutPerformedMaintenancesInput
+    requester?: UserCreateNestedOneWithoutRequestedMaintenancesInput
     site: ComplexCreateNestedOneWithoutMaintenancesInput
     team?: TeamCreateNestedOneWithoutMaintenancesInput
     floor?: FloorCreateNestedOneWithoutMaintenancesInput
     space?: SpaceCreateNestedOneWithoutMaintenancesInput
-    assignee?: EmployeeCreateNestedOneWithoutAssignedMaintenancesInput
+    assignee?: UserCreateNestedOneWithoutAssignedMaintenancesInput
     asset?: AssetCreateNestedOneWithoutMaintenancesInput
     photos?: FileCreateNestedManyWithoutMaintenanceInput
   }
@@ -50853,20 +50410,20 @@ export namespace Prisma {
     buildings?: BuildingUncheckedUpdateManyWithoutAddressNestedInput
   }
 
-  export type EmployeeUpsertWithWhereUniqueWithoutCompanyInput = {
-    where: EmployeeWhereUniqueInput
-    update: XOR<EmployeeUpdateWithoutCompanyInput, EmployeeUncheckedUpdateWithoutCompanyInput>
-    create: XOR<EmployeeCreateWithoutCompanyInput, EmployeeUncheckedCreateWithoutCompanyInput>
+  export type UserUpsertWithWhereUniqueWithoutCompanyInput = {
+    where: UserWhereUniqueInput
+    update: XOR<UserUpdateWithoutCompanyInput, UserUncheckedUpdateWithoutCompanyInput>
+    create: XOR<UserCreateWithoutCompanyInput, UserUncheckedCreateWithoutCompanyInput>
   }
 
-  export type EmployeeUpdateWithWhereUniqueWithoutCompanyInput = {
-    where: EmployeeWhereUniqueInput
-    data: XOR<EmployeeUpdateWithoutCompanyInput, EmployeeUncheckedUpdateWithoutCompanyInput>
+  export type UserUpdateWithWhereUniqueWithoutCompanyInput = {
+    where: UserWhereUniqueInput
+    data: XOR<UserUpdateWithoutCompanyInput, UserUncheckedUpdateWithoutCompanyInput>
   }
 
-  export type EmployeeUpdateManyWithWhereWithoutCompanyInput = {
-    where: EmployeeScalarWhereInput
-    data: XOR<EmployeeUpdateManyMutationInput, EmployeeUncheckedUpdateManyWithoutCompanyInput>
+  export type UserUpdateManyWithWhereWithoutCompanyInput = {
+    where: UserScalarWhereInput
+    data: XOR<UserUpdateManyMutationInput, UserUncheckedUpdateManyWithoutCompanyInput>
   }
 
   export type MaintenanceUpsertWithWhereUniqueWithoutCompanyInput = {
@@ -50885,7 +50442,7 @@ export namespace Prisma {
     data: XOR<MaintenanceUpdateManyMutationInput, MaintenanceUncheckedUpdateManyWithoutCompanyInput>
   }
 
-  export type UserCreateWithoutEmployeesInput = {
+  export type UserCreateWithoutSupervisedTeamsInput = {
     id?: string
     email: string
     password: string
@@ -50897,12 +50454,21 @@ export namespace Prisma {
     passwordResetToken?: string | null
     passwordExpiresAt?: Date | string | null
     passwordResetAt?: Date | string | null
+    employeeCode?: string | null
+    employeeType?: $Enums.EmployeeType | null
+    serviceStatus?: $Enums.ServiceStatus
     refreshTokens?: RefreshTokenCreateNestedManyWithoutUserInput
     role: RoleCreateNestedOneWithoutUsersInput
     permissions?: UserPermissionCreateNestedManyWithoutUserInput
+    company?: CompanyCreateNestedOneWithoutEmployeesInput
+    calenderEntity?: CalenderEntityCreateNestedOneWithoutEmployeesInput
+    teams?: TeamCreateNestedManyWithoutMembersInput
+    performedMaintenances?: MaintenanceCreateNestedManyWithoutPerformerInput
+    requestedMaintenances?: MaintenanceCreateNestedManyWithoutRequesterInput
+    assignedMaintenances?: MaintenanceCreateNestedManyWithoutAssigneeInput
   }
 
-  export type UserUncheckedCreateWithoutEmployeesInput = {
+  export type UserUncheckedCreateWithoutSupervisedTeamsInput = {
     id?: string
     email: string
     password: string
@@ -50915,743 +50481,22 @@ export namespace Prisma {
     passwordResetToken?: string | null
     passwordExpiresAt?: Date | string | null
     passwordResetAt?: Date | string | null
+    employeeCode?: string | null
+    employeeType?: $Enums.EmployeeType | null
+    companyId?: string | null
+    serviceStatus?: $Enums.ServiceStatus
+    calenderEntityId?: string | null
     refreshTokens?: RefreshTokenUncheckedCreateNestedManyWithoutUserInput
     permissions?: UserPermissionUncheckedCreateNestedManyWithoutUserInput
-  }
-
-  export type UserCreateOrConnectWithoutEmployeesInput = {
-    where: UserWhereUniqueInput
-    create: XOR<UserCreateWithoutEmployeesInput, UserUncheckedCreateWithoutEmployeesInput>
-  }
-
-  export type CompanyCreateWithoutEmployeesInput = {
-    id?: string
-    code: string
-    type?: $Enums.CompanyType
-    name: string
-    description: string
-    phone?: string | null
-    alternativePhone?: string | null
-    email?: string | null
-    website?: string | null
-    createdAt?: Date | string
-    updatedAt?: Date | string
-    address: AddressCreateNestedOneWithoutCompaniesInput
-    maintenances?: MaintenanceCreateNestedManyWithoutCompanyInput
-  }
-
-  export type CompanyUncheckedCreateWithoutEmployeesInput = {
-    id?: string
-    code: string
-    type?: $Enums.CompanyType
-    name: string
-    description: string
-    addressId: string
-    phone?: string | null
-    alternativePhone?: string | null
-    email?: string | null
-    website?: string | null
-    createdAt?: Date | string
-    updatedAt?: Date | string
-    maintenances?: MaintenanceUncheckedCreateNestedManyWithoutCompanyInput
-  }
-
-  export type CompanyCreateOrConnectWithoutEmployeesInput = {
-    where: CompanyWhereUniqueInput
-    create: XOR<CompanyCreateWithoutEmployeesInput, CompanyUncheckedCreateWithoutEmployeesInput>
-  }
-
-  export type CalenderEntityCreateWithoutEmployeesInput = {
-    id?: string
-    name: string
-    createdAt?: Date | string
-    updatedAt?: Date | string
-    buildings?: BuildingCreateNestedManyWithoutCalenderEntityInput
-    complexes?: ComplexCreateNestedManyWithoutCalenderEntityInput
-    spaces?: SpaceCreateNestedManyWithoutCalenderEntityInput
-    zones?: ZoneCreateNestedManyWithoutCalenderEntityInput
-  }
-
-  export type CalenderEntityUncheckedCreateWithoutEmployeesInput = {
-    id?: string
-    name: string
-    createdAt?: Date | string
-    updatedAt?: Date | string
-    buildings?: BuildingUncheckedCreateNestedManyWithoutCalenderEntityInput
-    complexes?: ComplexUncheckedCreateNestedManyWithoutCalenderEntityInput
-    spaces?: SpaceUncheckedCreateNestedManyWithoutCalenderEntityInput
-    zones?: ZoneUncheckedCreateNestedManyWithoutCalenderEntityInput
-  }
-
-  export type CalenderEntityCreateOrConnectWithoutEmployeesInput = {
-    where: CalenderEntityWhereUniqueInput
-    create: XOR<CalenderEntityCreateWithoutEmployeesInput, CalenderEntityUncheckedCreateWithoutEmployeesInput>
-  }
-
-  export type TeamCreateWithoutSupervisorInput = {
-    id?: string
-    code: string
-    name: string
-    description?: string | null
-    status?: $Enums.ServiceStatus
-    createdAt?: Date | string
-    updatedAt?: Date | string
-    maintenances?: MaintenanceCreateNestedManyWithoutTeamInput
-    preventives?: PreventiveCreateNestedManyWithoutTeamInput
-  }
-
-  export type TeamUncheckedCreateWithoutSupervisorInput = {
-    id?: string
-    code: string
-    name: string
-    description?: string | null
-    status?: $Enums.ServiceStatus
-    createdAt?: Date | string
-    updatedAt?: Date | string
-    maintenances?: MaintenanceUncheckedCreateNestedManyWithoutTeamInput
-    preventives?: PreventiveUncheckedCreateNestedManyWithoutTeamInput
-  }
-
-  export type TeamCreateOrConnectWithoutSupervisorInput = {
-    where: TeamWhereUniqueInput
-    create: XOR<TeamCreateWithoutSupervisorInput, TeamUncheckedCreateWithoutSupervisorInput>
-  }
-
-  export type TeamCreateManySupervisorInputEnvelope = {
-    data: TeamCreateManySupervisorInput | TeamCreateManySupervisorInput[]
-    skipDuplicates?: boolean
-  }
-
-  export type MaintenanceCreateWithoutPerformerInput = {
-    id?: string
-    type?: $Enums.MaintenanceType
-    code: string
-    description: string
-    startDate?: Date | string | null
-    endDate?: Date | string | null
-    shortDescription?: string | null
-    action?: string | null
-    message?: string | null
-    processNotes?: string | null
-    metadata?: NullableJsonNullValueInput | InputJsonValue
-    processStatus?: $Enums.Status
-    register?: string | null
-    activityIdTimer?: string | null
-    activityStartTime?: Date | string | null
-    activityEndTime?: Date | string | null
-    allDeadlines?: string | null
-    processType?: $Enums.ProcessType
-    ttSysRunning?: Decimal | DecimalJsLike | number | string | null
-    ttWorkRunning?: Decimal | DecimalJsLike | number | string | null
-    sorting?: string | null
-    priority?: $Enums.Priority
-    outcome?: string | null
-    dueAssignedEnd?: Date | string | null
-    execStart?: Date | string | null
-    dueExecEndDate?: Date | string | null
-    execEndDate?: Date | string | null
-    dueClosuerDate?: Date | string | null
-    totalExecTime?: Decimal | DecimalJsLike | number | string | null
-    expStartDate?: Date | string | null
-    suspensionReason?: string | null
-    category?: string | null
-    subCategory?: string | null
-    ttSystemOpening?: Decimal | DecimalJsLike | number | string | null
-    ttWorkOpening?: Decimal | DecimalJsLike | number | string | null
-    ttSystemAssignment?: Decimal | DecimalJsLike | number | string | null
-    ttWorkAssignment?: Decimal | DecimalJsLike | number | string | null
-    ttSystemExecution?: Decimal | DecimalJsLike | number | string | null
-    ttWorkExecution?: Decimal | DecimalJsLike | number | string | null
-    ttSysSuspension?: Decimal | DecimalJsLike | number | string | null
-    ttWorkSuspension?: Decimal | DecimalJsLike | number | string | null
-    ttEstimate?: Decimal | DecimalJsLike | number | string | null
-    prevMaintenanceConfigId?: string | null
-    automaticConfig?: boolean
-    jointAccounting?: boolean
-    hasTasks?: boolean
-    estimateStatus?: $Enums.Status
-    delayNotification?: boolean
-    createdAt?: Date | string
-    updatedAt?: Date | string
-    requester?: EmployeeCreateNestedOneWithoutRequestedMaintenancesInput
-    site: ComplexCreateNestedOneWithoutMaintenancesInput
-    company?: CompanyCreateNestedOneWithoutMaintenancesInput
-    team?: TeamCreateNestedOneWithoutMaintenancesInput
-    floor?: FloorCreateNestedOneWithoutMaintenancesInput
-    space?: SpaceCreateNestedOneWithoutMaintenancesInput
-    assignee?: EmployeeCreateNestedOneWithoutAssignedMaintenancesInput
-    asset?: AssetCreateNestedOneWithoutMaintenancesInput
-    photos?: FileCreateNestedManyWithoutMaintenanceInput
-  }
-
-  export type MaintenanceUncheckedCreateWithoutPerformerInput = {
-    id?: string
-    type?: $Enums.MaintenanceType
-    code: string
-    description: string
-    startDate?: Date | string | null
-    endDate?: Date | string | null
-    shortDescription?: string | null
-    action?: string | null
-    message?: string | null
-    processNotes?: string | null
-    metadata?: NullableJsonNullValueInput | InputJsonValue
-    processStatus?: $Enums.Status
-    register?: string | null
-    activityIdTimer?: string | null
-    activityStartTime?: Date | string | null
-    activityEndTime?: Date | string | null
-    allDeadlines?: string | null
-    processType?: $Enums.ProcessType
-    ttSysRunning?: Decimal | DecimalJsLike | number | string | null
-    ttWorkRunning?: Decimal | DecimalJsLike | number | string | null
-    sorting?: string | null
-    requesterId?: string | null
-    priority?: $Enums.Priority
-    siteId: string
-    outcome?: string | null
-    dueAssignedEnd?: Date | string | null
-    execStart?: Date | string | null
-    dueExecEndDate?: Date | string | null
-    execEndDate?: Date | string | null
-    dueClosuerDate?: Date | string | null
-    totalExecTime?: Decimal | DecimalJsLike | number | string | null
-    expStartDate?: Date | string | null
-    suspensionReason?: string | null
-    category?: string | null
-    subCategory?: string | null
-    companyId?: string | null
-    teamId?: string | null
-    floorId?: string | null
-    spaceId?: string | null
-    ttSystemOpening?: Decimal | DecimalJsLike | number | string | null
-    ttWorkOpening?: Decimal | DecimalJsLike | number | string | null
-    ttSystemAssignment?: Decimal | DecimalJsLike | number | string | null
-    ttWorkAssignment?: Decimal | DecimalJsLike | number | string | null
-    ttSystemExecution?: Decimal | DecimalJsLike | number | string | null
-    ttWorkExecution?: Decimal | DecimalJsLike | number | string | null
-    ttSysSuspension?: Decimal | DecimalJsLike | number | string | null
-    ttWorkSuspension?: Decimal | DecimalJsLike | number | string | null
-    ttEstimate?: Decimal | DecimalJsLike | number | string | null
-    prevMaintenanceConfigId?: string | null
-    automaticConfig?: boolean
-    jointAccounting?: boolean
-    hasTasks?: boolean
-    estimateStatus?: $Enums.Status
-    delayNotification?: boolean
-    assigneeId?: string | null
-    assetId?: string | null
-    createdAt?: Date | string
-    updatedAt?: Date | string
-    photos?: FileUncheckedCreateNestedManyWithoutMaintenanceInput
-  }
-
-  export type MaintenanceCreateOrConnectWithoutPerformerInput = {
-    where: MaintenanceWhereUniqueInput
-    create: XOR<MaintenanceCreateWithoutPerformerInput, MaintenanceUncheckedCreateWithoutPerformerInput>
-  }
-
-  export type MaintenanceCreateManyPerformerInputEnvelope = {
-    data: MaintenanceCreateManyPerformerInput | MaintenanceCreateManyPerformerInput[]
-    skipDuplicates?: boolean
-  }
-
-  export type MaintenanceCreateWithoutRequesterInput = {
-    id?: string
-    type?: $Enums.MaintenanceType
-    code: string
-    description: string
-    startDate?: Date | string | null
-    endDate?: Date | string | null
-    shortDescription?: string | null
-    action?: string | null
-    message?: string | null
-    processNotes?: string | null
-    metadata?: NullableJsonNullValueInput | InputJsonValue
-    processStatus?: $Enums.Status
-    register?: string | null
-    activityIdTimer?: string | null
-    activityStartTime?: Date | string | null
-    activityEndTime?: Date | string | null
-    allDeadlines?: string | null
-    processType?: $Enums.ProcessType
-    ttSysRunning?: Decimal | DecimalJsLike | number | string | null
-    ttWorkRunning?: Decimal | DecimalJsLike | number | string | null
-    sorting?: string | null
-    priority?: $Enums.Priority
-    outcome?: string | null
-    dueAssignedEnd?: Date | string | null
-    execStart?: Date | string | null
-    dueExecEndDate?: Date | string | null
-    execEndDate?: Date | string | null
-    dueClosuerDate?: Date | string | null
-    totalExecTime?: Decimal | DecimalJsLike | number | string | null
-    expStartDate?: Date | string | null
-    suspensionReason?: string | null
-    category?: string | null
-    subCategory?: string | null
-    ttSystemOpening?: Decimal | DecimalJsLike | number | string | null
-    ttWorkOpening?: Decimal | DecimalJsLike | number | string | null
-    ttSystemAssignment?: Decimal | DecimalJsLike | number | string | null
-    ttWorkAssignment?: Decimal | DecimalJsLike | number | string | null
-    ttSystemExecution?: Decimal | DecimalJsLike | number | string | null
-    ttWorkExecution?: Decimal | DecimalJsLike | number | string | null
-    ttSysSuspension?: Decimal | DecimalJsLike | number | string | null
-    ttWorkSuspension?: Decimal | DecimalJsLike | number | string | null
-    ttEstimate?: Decimal | DecimalJsLike | number | string | null
-    prevMaintenanceConfigId?: string | null
-    automaticConfig?: boolean
-    jointAccounting?: boolean
-    hasTasks?: boolean
-    estimateStatus?: $Enums.Status
-    delayNotification?: boolean
-    createdAt?: Date | string
-    updatedAt?: Date | string
-    performer?: EmployeeCreateNestedOneWithoutPerformedMaintenancesInput
-    site: ComplexCreateNestedOneWithoutMaintenancesInput
-    company?: CompanyCreateNestedOneWithoutMaintenancesInput
-    team?: TeamCreateNestedOneWithoutMaintenancesInput
-    floor?: FloorCreateNestedOneWithoutMaintenancesInput
-    space?: SpaceCreateNestedOneWithoutMaintenancesInput
-    assignee?: EmployeeCreateNestedOneWithoutAssignedMaintenancesInput
-    asset?: AssetCreateNestedOneWithoutMaintenancesInput
-    photos?: FileCreateNestedManyWithoutMaintenanceInput
-  }
-
-  export type MaintenanceUncheckedCreateWithoutRequesterInput = {
-    id?: string
-    type?: $Enums.MaintenanceType
-    code: string
-    description: string
-    startDate?: Date | string | null
-    endDate?: Date | string | null
-    shortDescription?: string | null
-    action?: string | null
-    message?: string | null
-    processNotes?: string | null
-    metadata?: NullableJsonNullValueInput | InputJsonValue
-    performerId?: string | null
-    processStatus?: $Enums.Status
-    register?: string | null
-    activityIdTimer?: string | null
-    activityStartTime?: Date | string | null
-    activityEndTime?: Date | string | null
-    allDeadlines?: string | null
-    processType?: $Enums.ProcessType
-    ttSysRunning?: Decimal | DecimalJsLike | number | string | null
-    ttWorkRunning?: Decimal | DecimalJsLike | number | string | null
-    sorting?: string | null
-    priority?: $Enums.Priority
-    siteId: string
-    outcome?: string | null
-    dueAssignedEnd?: Date | string | null
-    execStart?: Date | string | null
-    dueExecEndDate?: Date | string | null
-    execEndDate?: Date | string | null
-    dueClosuerDate?: Date | string | null
-    totalExecTime?: Decimal | DecimalJsLike | number | string | null
-    expStartDate?: Date | string | null
-    suspensionReason?: string | null
-    category?: string | null
-    subCategory?: string | null
-    companyId?: string | null
-    teamId?: string | null
-    floorId?: string | null
-    spaceId?: string | null
-    ttSystemOpening?: Decimal | DecimalJsLike | number | string | null
-    ttWorkOpening?: Decimal | DecimalJsLike | number | string | null
-    ttSystemAssignment?: Decimal | DecimalJsLike | number | string | null
-    ttWorkAssignment?: Decimal | DecimalJsLike | number | string | null
-    ttSystemExecution?: Decimal | DecimalJsLike | number | string | null
-    ttWorkExecution?: Decimal | DecimalJsLike | number | string | null
-    ttSysSuspension?: Decimal | DecimalJsLike | number | string | null
-    ttWorkSuspension?: Decimal | DecimalJsLike | number | string | null
-    ttEstimate?: Decimal | DecimalJsLike | number | string | null
-    prevMaintenanceConfigId?: string | null
-    automaticConfig?: boolean
-    jointAccounting?: boolean
-    hasTasks?: boolean
-    estimateStatus?: $Enums.Status
-    delayNotification?: boolean
-    assigneeId?: string | null
-    assetId?: string | null
-    createdAt?: Date | string
-    updatedAt?: Date | string
-    photos?: FileUncheckedCreateNestedManyWithoutMaintenanceInput
-  }
-
-  export type MaintenanceCreateOrConnectWithoutRequesterInput = {
-    where: MaintenanceWhereUniqueInput
-    create: XOR<MaintenanceCreateWithoutRequesterInput, MaintenanceUncheckedCreateWithoutRequesterInput>
-  }
-
-  export type MaintenanceCreateManyRequesterInputEnvelope = {
-    data: MaintenanceCreateManyRequesterInput | MaintenanceCreateManyRequesterInput[]
-    skipDuplicates?: boolean
-  }
-
-  export type MaintenanceCreateWithoutAssigneeInput = {
-    id?: string
-    type?: $Enums.MaintenanceType
-    code: string
-    description: string
-    startDate?: Date | string | null
-    endDate?: Date | string | null
-    shortDescription?: string | null
-    action?: string | null
-    message?: string | null
-    processNotes?: string | null
-    metadata?: NullableJsonNullValueInput | InputJsonValue
-    processStatus?: $Enums.Status
-    register?: string | null
-    activityIdTimer?: string | null
-    activityStartTime?: Date | string | null
-    activityEndTime?: Date | string | null
-    allDeadlines?: string | null
-    processType?: $Enums.ProcessType
-    ttSysRunning?: Decimal | DecimalJsLike | number | string | null
-    ttWorkRunning?: Decimal | DecimalJsLike | number | string | null
-    sorting?: string | null
-    priority?: $Enums.Priority
-    outcome?: string | null
-    dueAssignedEnd?: Date | string | null
-    execStart?: Date | string | null
-    dueExecEndDate?: Date | string | null
-    execEndDate?: Date | string | null
-    dueClosuerDate?: Date | string | null
-    totalExecTime?: Decimal | DecimalJsLike | number | string | null
-    expStartDate?: Date | string | null
-    suspensionReason?: string | null
-    category?: string | null
-    subCategory?: string | null
-    ttSystemOpening?: Decimal | DecimalJsLike | number | string | null
-    ttWorkOpening?: Decimal | DecimalJsLike | number | string | null
-    ttSystemAssignment?: Decimal | DecimalJsLike | number | string | null
-    ttWorkAssignment?: Decimal | DecimalJsLike | number | string | null
-    ttSystemExecution?: Decimal | DecimalJsLike | number | string | null
-    ttWorkExecution?: Decimal | DecimalJsLike | number | string | null
-    ttSysSuspension?: Decimal | DecimalJsLike | number | string | null
-    ttWorkSuspension?: Decimal | DecimalJsLike | number | string | null
-    ttEstimate?: Decimal | DecimalJsLike | number | string | null
-    prevMaintenanceConfigId?: string | null
-    automaticConfig?: boolean
-    jointAccounting?: boolean
-    hasTasks?: boolean
-    estimateStatus?: $Enums.Status
-    delayNotification?: boolean
-    createdAt?: Date | string
-    updatedAt?: Date | string
-    performer?: EmployeeCreateNestedOneWithoutPerformedMaintenancesInput
-    requester?: EmployeeCreateNestedOneWithoutRequestedMaintenancesInput
-    site: ComplexCreateNestedOneWithoutMaintenancesInput
-    company?: CompanyCreateNestedOneWithoutMaintenancesInput
-    team?: TeamCreateNestedOneWithoutMaintenancesInput
-    floor?: FloorCreateNestedOneWithoutMaintenancesInput
-    space?: SpaceCreateNestedOneWithoutMaintenancesInput
-    asset?: AssetCreateNestedOneWithoutMaintenancesInput
-    photos?: FileCreateNestedManyWithoutMaintenanceInput
-  }
-
-  export type MaintenanceUncheckedCreateWithoutAssigneeInput = {
-    id?: string
-    type?: $Enums.MaintenanceType
-    code: string
-    description: string
-    startDate?: Date | string | null
-    endDate?: Date | string | null
-    shortDescription?: string | null
-    action?: string | null
-    message?: string | null
-    processNotes?: string | null
-    metadata?: NullableJsonNullValueInput | InputJsonValue
-    performerId?: string | null
-    processStatus?: $Enums.Status
-    register?: string | null
-    activityIdTimer?: string | null
-    activityStartTime?: Date | string | null
-    activityEndTime?: Date | string | null
-    allDeadlines?: string | null
-    processType?: $Enums.ProcessType
-    ttSysRunning?: Decimal | DecimalJsLike | number | string | null
-    ttWorkRunning?: Decimal | DecimalJsLike | number | string | null
-    sorting?: string | null
-    requesterId?: string | null
-    priority?: $Enums.Priority
-    siteId: string
-    outcome?: string | null
-    dueAssignedEnd?: Date | string | null
-    execStart?: Date | string | null
-    dueExecEndDate?: Date | string | null
-    execEndDate?: Date | string | null
-    dueClosuerDate?: Date | string | null
-    totalExecTime?: Decimal | DecimalJsLike | number | string | null
-    expStartDate?: Date | string | null
-    suspensionReason?: string | null
-    category?: string | null
-    subCategory?: string | null
-    companyId?: string | null
-    teamId?: string | null
-    floorId?: string | null
-    spaceId?: string | null
-    ttSystemOpening?: Decimal | DecimalJsLike | number | string | null
-    ttWorkOpening?: Decimal | DecimalJsLike | number | string | null
-    ttSystemAssignment?: Decimal | DecimalJsLike | number | string | null
-    ttWorkAssignment?: Decimal | DecimalJsLike | number | string | null
-    ttSystemExecution?: Decimal | DecimalJsLike | number | string | null
-    ttWorkExecution?: Decimal | DecimalJsLike | number | string | null
-    ttSysSuspension?: Decimal | DecimalJsLike | number | string | null
-    ttWorkSuspension?: Decimal | DecimalJsLike | number | string | null
-    ttEstimate?: Decimal | DecimalJsLike | number | string | null
-    prevMaintenanceConfigId?: string | null
-    automaticConfig?: boolean
-    jointAccounting?: boolean
-    hasTasks?: boolean
-    estimateStatus?: $Enums.Status
-    delayNotification?: boolean
-    assetId?: string | null
-    createdAt?: Date | string
-    updatedAt?: Date | string
-    photos?: FileUncheckedCreateNestedManyWithoutMaintenanceInput
-  }
-
-  export type MaintenanceCreateOrConnectWithoutAssigneeInput = {
-    where: MaintenanceWhereUniqueInput
-    create: XOR<MaintenanceCreateWithoutAssigneeInput, MaintenanceUncheckedCreateWithoutAssigneeInput>
-  }
-
-  export type MaintenanceCreateManyAssigneeInputEnvelope = {
-    data: MaintenanceCreateManyAssigneeInput | MaintenanceCreateManyAssigneeInput[]
-    skipDuplicates?: boolean
-  }
-
-  export type UserUpsertWithoutEmployeesInput = {
-    update: XOR<UserUpdateWithoutEmployeesInput, UserUncheckedUpdateWithoutEmployeesInput>
-    create: XOR<UserCreateWithoutEmployeesInput, UserUncheckedCreateWithoutEmployeesInput>
-    where?: UserWhereInput
-  }
-
-  export type UserUpdateToOneWithWhereWithoutEmployeesInput = {
-    where?: UserWhereInput
-    data: XOR<UserUpdateWithoutEmployeesInput, UserUncheckedUpdateWithoutEmployeesInput>
-  }
-
-  export type UserUpdateWithoutEmployeesInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    email?: StringFieldUpdateOperationsInput | string
-    password?: StringFieldUpdateOperationsInput | string
-    firstName?: StringFieldUpdateOperationsInput | string
-    lastName?: StringFieldUpdateOperationsInput | string
-    status?: EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    passwordResetToken?: NullableStringFieldUpdateOperationsInput | string | null
-    passwordExpiresAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    passwordResetAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    refreshTokens?: RefreshTokenUpdateManyWithoutUserNestedInput
-    role?: RoleUpdateOneRequiredWithoutUsersNestedInput
-    permissions?: UserPermissionUpdateManyWithoutUserNestedInput
-  }
-
-  export type UserUncheckedUpdateWithoutEmployeesInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    email?: StringFieldUpdateOperationsInput | string
-    password?: StringFieldUpdateOperationsInput | string
-    firstName?: StringFieldUpdateOperationsInput | string
-    lastName?: StringFieldUpdateOperationsInput | string
-    roleId?: StringFieldUpdateOperationsInput | string
-    status?: EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    passwordResetToken?: NullableStringFieldUpdateOperationsInput | string | null
-    passwordExpiresAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    passwordResetAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    refreshTokens?: RefreshTokenUncheckedUpdateManyWithoutUserNestedInput
-    permissions?: UserPermissionUncheckedUpdateManyWithoutUserNestedInput
-  }
-
-  export type CompanyUpsertWithoutEmployeesInput = {
-    update: XOR<CompanyUpdateWithoutEmployeesInput, CompanyUncheckedUpdateWithoutEmployeesInput>
-    create: XOR<CompanyCreateWithoutEmployeesInput, CompanyUncheckedCreateWithoutEmployeesInput>
-    where?: CompanyWhereInput
-  }
-
-  export type CompanyUpdateToOneWithWhereWithoutEmployeesInput = {
-    where?: CompanyWhereInput
-    data: XOR<CompanyUpdateWithoutEmployeesInput, CompanyUncheckedUpdateWithoutEmployeesInput>
-  }
-
-  export type CompanyUpdateWithoutEmployeesInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    code?: StringFieldUpdateOperationsInput | string
-    type?: EnumCompanyTypeFieldUpdateOperationsInput | $Enums.CompanyType
-    name?: StringFieldUpdateOperationsInput | string
-    description?: StringFieldUpdateOperationsInput | string
-    phone?: NullableStringFieldUpdateOperationsInput | string | null
-    alternativePhone?: NullableStringFieldUpdateOperationsInput | string | null
-    email?: NullableStringFieldUpdateOperationsInput | string | null
-    website?: NullableStringFieldUpdateOperationsInput | string | null
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    address?: AddressUpdateOneRequiredWithoutCompaniesNestedInput
-    maintenances?: MaintenanceUpdateManyWithoutCompanyNestedInput
-  }
-
-  export type CompanyUncheckedUpdateWithoutEmployeesInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    code?: StringFieldUpdateOperationsInput | string
-    type?: EnumCompanyTypeFieldUpdateOperationsInput | $Enums.CompanyType
-    name?: StringFieldUpdateOperationsInput | string
-    description?: StringFieldUpdateOperationsInput | string
-    addressId?: StringFieldUpdateOperationsInput | string
-    phone?: NullableStringFieldUpdateOperationsInput | string | null
-    alternativePhone?: NullableStringFieldUpdateOperationsInput | string | null
-    email?: NullableStringFieldUpdateOperationsInput | string | null
-    website?: NullableStringFieldUpdateOperationsInput | string | null
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    maintenances?: MaintenanceUncheckedUpdateManyWithoutCompanyNestedInput
-  }
-
-  export type CalenderEntityUpsertWithoutEmployeesInput = {
-    update: XOR<CalenderEntityUpdateWithoutEmployeesInput, CalenderEntityUncheckedUpdateWithoutEmployeesInput>
-    create: XOR<CalenderEntityCreateWithoutEmployeesInput, CalenderEntityUncheckedCreateWithoutEmployeesInput>
-    where?: CalenderEntityWhereInput
-  }
-
-  export type CalenderEntityUpdateToOneWithWhereWithoutEmployeesInput = {
-    where?: CalenderEntityWhereInput
-    data: XOR<CalenderEntityUpdateWithoutEmployeesInput, CalenderEntityUncheckedUpdateWithoutEmployeesInput>
-  }
-
-  export type CalenderEntityUpdateWithoutEmployeesInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    name?: StringFieldUpdateOperationsInput | string
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    buildings?: BuildingUpdateManyWithoutCalenderEntityNestedInput
-    complexes?: ComplexUpdateManyWithoutCalenderEntityNestedInput
-    spaces?: SpaceUpdateManyWithoutCalenderEntityNestedInput
-    zones?: ZoneUpdateManyWithoutCalenderEntityNestedInput
-  }
-
-  export type CalenderEntityUncheckedUpdateWithoutEmployeesInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    name?: StringFieldUpdateOperationsInput | string
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    buildings?: BuildingUncheckedUpdateManyWithoutCalenderEntityNestedInput
-    complexes?: ComplexUncheckedUpdateManyWithoutCalenderEntityNestedInput
-    spaces?: SpaceUncheckedUpdateManyWithoutCalenderEntityNestedInput
-    zones?: ZoneUncheckedUpdateManyWithoutCalenderEntityNestedInput
-  }
-
-  export type TeamUpsertWithWhereUniqueWithoutSupervisorInput = {
-    where: TeamWhereUniqueInput
-    update: XOR<TeamUpdateWithoutSupervisorInput, TeamUncheckedUpdateWithoutSupervisorInput>
-    create: XOR<TeamCreateWithoutSupervisorInput, TeamUncheckedCreateWithoutSupervisorInput>
-  }
-
-  export type TeamUpdateWithWhereUniqueWithoutSupervisorInput = {
-    where: TeamWhereUniqueInput
-    data: XOR<TeamUpdateWithoutSupervisorInput, TeamUncheckedUpdateWithoutSupervisorInput>
-  }
-
-  export type TeamUpdateManyWithWhereWithoutSupervisorInput = {
-    where: TeamScalarWhereInput
-    data: XOR<TeamUpdateManyMutationInput, TeamUncheckedUpdateManyWithoutSupervisorInput>
-  }
-
-  export type TeamScalarWhereInput = {
-    AND?: TeamScalarWhereInput | TeamScalarWhereInput[]
-    OR?: TeamScalarWhereInput[]
-    NOT?: TeamScalarWhereInput | TeamScalarWhereInput[]
-    id?: StringFilter<"Team"> | string
-    code?: StringFilter<"Team"> | string
-    name?: StringFilter<"Team"> | string
-    description?: StringNullableFilter<"Team"> | string | null
-    status?: EnumServiceStatusFilter<"Team"> | $Enums.ServiceStatus
-    supervisorId?: StringFilter<"Team"> | string
-    createdAt?: DateTimeFilter<"Team"> | Date | string
-    updatedAt?: DateTimeFilter<"Team"> | Date | string
-  }
-
-  export type MaintenanceUpsertWithWhereUniqueWithoutPerformerInput = {
-    where: MaintenanceWhereUniqueInput
-    update: XOR<MaintenanceUpdateWithoutPerformerInput, MaintenanceUncheckedUpdateWithoutPerformerInput>
-    create: XOR<MaintenanceCreateWithoutPerformerInput, MaintenanceUncheckedCreateWithoutPerformerInput>
-  }
-
-  export type MaintenanceUpdateWithWhereUniqueWithoutPerformerInput = {
-    where: MaintenanceWhereUniqueInput
-    data: XOR<MaintenanceUpdateWithoutPerformerInput, MaintenanceUncheckedUpdateWithoutPerformerInput>
-  }
-
-  export type MaintenanceUpdateManyWithWhereWithoutPerformerInput = {
-    where: MaintenanceScalarWhereInput
-    data: XOR<MaintenanceUpdateManyMutationInput, MaintenanceUncheckedUpdateManyWithoutPerformerInput>
-  }
-
-  export type MaintenanceUpsertWithWhereUniqueWithoutRequesterInput = {
-    where: MaintenanceWhereUniqueInput
-    update: XOR<MaintenanceUpdateWithoutRequesterInput, MaintenanceUncheckedUpdateWithoutRequesterInput>
-    create: XOR<MaintenanceCreateWithoutRequesterInput, MaintenanceUncheckedCreateWithoutRequesterInput>
-  }
-
-  export type MaintenanceUpdateWithWhereUniqueWithoutRequesterInput = {
-    where: MaintenanceWhereUniqueInput
-    data: XOR<MaintenanceUpdateWithoutRequesterInput, MaintenanceUncheckedUpdateWithoutRequesterInput>
-  }
-
-  export type MaintenanceUpdateManyWithWhereWithoutRequesterInput = {
-    where: MaintenanceScalarWhereInput
-    data: XOR<MaintenanceUpdateManyMutationInput, MaintenanceUncheckedUpdateManyWithoutRequesterInput>
-  }
-
-  export type MaintenanceUpsertWithWhereUniqueWithoutAssigneeInput = {
-    where: MaintenanceWhereUniqueInput
-    update: XOR<MaintenanceUpdateWithoutAssigneeInput, MaintenanceUncheckedUpdateWithoutAssigneeInput>
-    create: XOR<MaintenanceCreateWithoutAssigneeInput, MaintenanceUncheckedCreateWithoutAssigneeInput>
-  }
-
-  export type MaintenanceUpdateWithWhereUniqueWithoutAssigneeInput = {
-    where: MaintenanceWhereUniqueInput
-    data: XOR<MaintenanceUpdateWithoutAssigneeInput, MaintenanceUncheckedUpdateWithoutAssigneeInput>
-  }
-
-  export type MaintenanceUpdateManyWithWhereWithoutAssigneeInput = {
-    where: MaintenanceScalarWhereInput
-    data: XOR<MaintenanceUpdateManyMutationInput, MaintenanceUncheckedUpdateManyWithoutAssigneeInput>
-  }
-
-  export type EmployeeCreateWithoutTeamsInput = {
-    id?: string
-    code: string
-    type?: $Enums.EmployeeType
-    status?: $Enums.ServiceStatus
-    user: UserCreateNestedOneWithoutEmployeesInput
-    company: CompanyCreateNestedOneWithoutEmployeesInput
-    calenderEntity?: CalenderEntityCreateNestedOneWithoutEmployeesInput
-    performedMaintenances?: MaintenanceCreateNestedManyWithoutPerformerInput
-    requestedMaintenances?: MaintenanceCreateNestedManyWithoutRequesterInput
-    assignedMaintenances?: MaintenanceCreateNestedManyWithoutAssigneeInput
-  }
-
-  export type EmployeeUncheckedCreateWithoutTeamsInput = {
-    id?: string
-    code: string
-    type?: $Enums.EmployeeType
-    userId: string
-    companyId: string
-    status?: $Enums.ServiceStatus
-    calenderEntityId?: string | null
+    teams?: TeamUncheckedCreateNestedManyWithoutMembersInput
     performedMaintenances?: MaintenanceUncheckedCreateNestedManyWithoutPerformerInput
     requestedMaintenances?: MaintenanceUncheckedCreateNestedManyWithoutRequesterInput
     assignedMaintenances?: MaintenanceUncheckedCreateNestedManyWithoutAssigneeInput
   }
 
-  export type EmployeeCreateOrConnectWithoutTeamsInput = {
-    where: EmployeeWhereUniqueInput
-    create: XOR<EmployeeCreateWithoutTeamsInput, EmployeeUncheckedCreateWithoutTeamsInput>
+  export type UserCreateOrConnectWithoutSupervisedTeamsInput = {
+    where: UserWhereUniqueInput
+    create: XOR<UserCreateWithoutSupervisedTeamsInput, UserUncheckedCreateWithoutSupervisedTeamsInput>
   }
 
   export type MaintenanceCreateWithoutTeamInput = {
@@ -51705,13 +50550,13 @@ export namespace Prisma {
     delayNotification?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
-    performer?: EmployeeCreateNestedOneWithoutPerformedMaintenancesInput
-    requester?: EmployeeCreateNestedOneWithoutRequestedMaintenancesInput
+    performer?: UserCreateNestedOneWithoutPerformedMaintenancesInput
+    requester?: UserCreateNestedOneWithoutRequestedMaintenancesInput
     site: ComplexCreateNestedOneWithoutMaintenancesInput
     company?: CompanyCreateNestedOneWithoutMaintenancesInput
     floor?: FloorCreateNestedOneWithoutMaintenancesInput
     space?: SpaceCreateNestedOneWithoutMaintenancesInput
-    assignee?: EmployeeCreateNestedOneWithoutAssignedMaintenancesInput
+    assignee?: UserCreateNestedOneWithoutAssignedMaintenancesInput
     asset?: AssetCreateNestedOneWithoutMaintenancesInput
     photos?: FileCreateNestedManyWithoutMaintenanceInput
   }
@@ -51838,38 +50683,121 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
-  export type EmployeeUpsertWithoutTeamsInput = {
-    update: XOR<EmployeeUpdateWithoutTeamsInput, EmployeeUncheckedUpdateWithoutTeamsInput>
-    create: XOR<EmployeeCreateWithoutTeamsInput, EmployeeUncheckedCreateWithoutTeamsInput>
-    where?: EmployeeWhereInput
+  export type UserCreateWithoutTeamsInput = {
+    id?: string
+    email: string
+    password: string
+    firstName: string
+    lastName: string
+    status?: $Enums.UserStatus
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    passwordResetToken?: string | null
+    passwordExpiresAt?: Date | string | null
+    passwordResetAt?: Date | string | null
+    employeeCode?: string | null
+    employeeType?: $Enums.EmployeeType | null
+    serviceStatus?: $Enums.ServiceStatus
+    refreshTokens?: RefreshTokenCreateNestedManyWithoutUserInput
+    role: RoleCreateNestedOneWithoutUsersInput
+    permissions?: UserPermissionCreateNestedManyWithoutUserInput
+    company?: CompanyCreateNestedOneWithoutEmployeesInput
+    calenderEntity?: CalenderEntityCreateNestedOneWithoutEmployeesInput
+    performedMaintenances?: MaintenanceCreateNestedManyWithoutPerformerInput
+    requestedMaintenances?: MaintenanceCreateNestedManyWithoutRequesterInput
+    assignedMaintenances?: MaintenanceCreateNestedManyWithoutAssigneeInput
+    supervisedTeams?: TeamCreateNestedManyWithoutSupervisorInput
   }
 
-  export type EmployeeUpdateToOneWithWhereWithoutTeamsInput = {
-    where?: EmployeeWhereInput
-    data: XOR<EmployeeUpdateWithoutTeamsInput, EmployeeUncheckedUpdateWithoutTeamsInput>
+  export type UserUncheckedCreateWithoutTeamsInput = {
+    id?: string
+    email: string
+    password: string
+    firstName: string
+    lastName: string
+    roleId: string
+    status?: $Enums.UserStatus
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    passwordResetToken?: string | null
+    passwordExpiresAt?: Date | string | null
+    passwordResetAt?: Date | string | null
+    employeeCode?: string | null
+    employeeType?: $Enums.EmployeeType | null
+    companyId?: string | null
+    serviceStatus?: $Enums.ServiceStatus
+    calenderEntityId?: string | null
+    refreshTokens?: RefreshTokenUncheckedCreateNestedManyWithoutUserInput
+    permissions?: UserPermissionUncheckedCreateNestedManyWithoutUserInput
+    performedMaintenances?: MaintenanceUncheckedCreateNestedManyWithoutPerformerInput
+    requestedMaintenances?: MaintenanceUncheckedCreateNestedManyWithoutRequesterInput
+    assignedMaintenances?: MaintenanceUncheckedCreateNestedManyWithoutAssigneeInput
+    supervisedTeams?: TeamUncheckedCreateNestedManyWithoutSupervisorInput
   }
 
-  export type EmployeeUpdateWithoutTeamsInput = {
+  export type UserCreateOrConnectWithoutTeamsInput = {
+    where: UserWhereUniqueInput
+    create: XOR<UserCreateWithoutTeamsInput, UserUncheckedCreateWithoutTeamsInput>
+  }
+
+  export type UserUpsertWithoutSupervisedTeamsInput = {
+    update: XOR<UserUpdateWithoutSupervisedTeamsInput, UserUncheckedUpdateWithoutSupervisedTeamsInput>
+    create: XOR<UserCreateWithoutSupervisedTeamsInput, UserUncheckedCreateWithoutSupervisedTeamsInput>
+    where?: UserWhereInput
+  }
+
+  export type UserUpdateToOneWithWhereWithoutSupervisedTeamsInput = {
+    where?: UserWhereInput
+    data: XOR<UserUpdateWithoutSupervisedTeamsInput, UserUncheckedUpdateWithoutSupervisedTeamsInput>
+  }
+
+  export type UserUpdateWithoutSupervisedTeamsInput = {
     id?: StringFieldUpdateOperationsInput | string
-    code?: StringFieldUpdateOperationsInput | string
-    type?: EnumEmployeeTypeFieldUpdateOperationsInput | $Enums.EmployeeType
-    status?: EnumServiceStatusFieldUpdateOperationsInput | $Enums.ServiceStatus
-    user?: UserUpdateOneRequiredWithoutEmployeesNestedInput
-    company?: CompanyUpdateOneRequiredWithoutEmployeesNestedInput
+    email?: StringFieldUpdateOperationsInput | string
+    password?: StringFieldUpdateOperationsInput | string
+    firstName?: StringFieldUpdateOperationsInput | string
+    lastName?: StringFieldUpdateOperationsInput | string
+    status?: EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    passwordResetToken?: NullableStringFieldUpdateOperationsInput | string | null
+    passwordExpiresAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    passwordResetAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    employeeCode?: NullableStringFieldUpdateOperationsInput | string | null
+    employeeType?: NullableEnumEmployeeTypeFieldUpdateOperationsInput | $Enums.EmployeeType | null
+    serviceStatus?: EnumServiceStatusFieldUpdateOperationsInput | $Enums.ServiceStatus
+    refreshTokens?: RefreshTokenUpdateManyWithoutUserNestedInput
+    role?: RoleUpdateOneRequiredWithoutUsersNestedInput
+    permissions?: UserPermissionUpdateManyWithoutUserNestedInput
+    company?: CompanyUpdateOneWithoutEmployeesNestedInput
     calenderEntity?: CalenderEntityUpdateOneWithoutEmployeesNestedInput
+    teams?: TeamUpdateManyWithoutMembersNestedInput
     performedMaintenances?: MaintenanceUpdateManyWithoutPerformerNestedInput
     requestedMaintenances?: MaintenanceUpdateManyWithoutRequesterNestedInput
     assignedMaintenances?: MaintenanceUpdateManyWithoutAssigneeNestedInput
   }
 
-  export type EmployeeUncheckedUpdateWithoutTeamsInput = {
+  export type UserUncheckedUpdateWithoutSupervisedTeamsInput = {
     id?: StringFieldUpdateOperationsInput | string
-    code?: StringFieldUpdateOperationsInput | string
-    type?: EnumEmployeeTypeFieldUpdateOperationsInput | $Enums.EmployeeType
-    userId?: StringFieldUpdateOperationsInput | string
-    companyId?: StringFieldUpdateOperationsInput | string
-    status?: EnumServiceStatusFieldUpdateOperationsInput | $Enums.ServiceStatus
+    email?: StringFieldUpdateOperationsInput | string
+    password?: StringFieldUpdateOperationsInput | string
+    firstName?: StringFieldUpdateOperationsInput | string
+    lastName?: StringFieldUpdateOperationsInput | string
+    roleId?: StringFieldUpdateOperationsInput | string
+    status?: EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    passwordResetToken?: NullableStringFieldUpdateOperationsInput | string | null
+    passwordExpiresAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    passwordResetAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    employeeCode?: NullableStringFieldUpdateOperationsInput | string | null
+    employeeType?: NullableEnumEmployeeTypeFieldUpdateOperationsInput | $Enums.EmployeeType | null
+    companyId?: NullableStringFieldUpdateOperationsInput | string | null
+    serviceStatus?: EnumServiceStatusFieldUpdateOperationsInput | $Enums.ServiceStatus
     calenderEntityId?: NullableStringFieldUpdateOperationsInput | string | null
+    refreshTokens?: RefreshTokenUncheckedUpdateManyWithoutUserNestedInput
+    permissions?: UserPermissionUncheckedUpdateManyWithoutUserNestedInput
+    teams?: TeamUncheckedUpdateManyWithoutMembersNestedInput
     performedMaintenances?: MaintenanceUncheckedUpdateManyWithoutPerformerNestedInput
     requestedMaintenances?: MaintenanceUncheckedUpdateManyWithoutRequesterNestedInput
     assignedMaintenances?: MaintenanceUncheckedUpdateManyWithoutAssigneeNestedInput
@@ -51907,6 +50835,22 @@ export namespace Prisma {
     data: XOR<PreventiveUpdateManyMutationInput, PreventiveUncheckedUpdateManyWithoutTeamInput>
   }
 
+  export type UserUpsertWithWhereUniqueWithoutTeamsInput = {
+    where: UserWhereUniqueInput
+    update: XOR<UserUpdateWithoutTeamsInput, UserUncheckedUpdateWithoutTeamsInput>
+    create: XOR<UserCreateWithoutTeamsInput, UserUncheckedCreateWithoutTeamsInput>
+  }
+
+  export type UserUpdateWithWhereUniqueWithoutTeamsInput = {
+    where: UserWhereUniqueInput
+    data: XOR<UserUpdateWithoutTeamsInput, UserUncheckedUpdateWithoutTeamsInput>
+  }
+
+  export type UserUpdateManyWithWhereWithoutTeamsInput = {
+    where: UserScalarWhereInput
+    data: XOR<UserUpdateManyMutationInput, UserUncheckedUpdateManyWithoutTeamsInput>
+  }
+
   export type CompanyCreateWithoutAddressInput = {
     id?: string
     code: string
@@ -51919,7 +50863,7 @@ export namespace Prisma {
     website?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
-    employees?: EmployeeCreateNestedManyWithoutCompanyInput
+    employees?: UserCreateNestedManyWithoutCompanyInput
     maintenances?: MaintenanceCreateNestedManyWithoutCompanyInput
   }
 
@@ -51935,7 +50879,7 @@ export namespace Prisma {
     website?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
-    employees?: EmployeeUncheckedCreateNestedManyWithoutCompanyInput
+    employees?: UserUncheckedCreateNestedManyWithoutCompanyInput
     maintenances?: MaintenanceUncheckedCreateNestedManyWithoutCompanyInput
   }
 
@@ -52369,39 +51313,65 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
-  export type EmployeeCreateWithoutCalenderEntityInput = {
+  export type UserCreateWithoutCalenderEntityInput = {
     id?: string
-    code: string
-    type?: $Enums.EmployeeType
-    status?: $Enums.ServiceStatus
-    user: UserCreateNestedOneWithoutEmployeesInput
-    company: CompanyCreateNestedOneWithoutEmployeesInput
-    teams?: TeamCreateNestedManyWithoutSupervisorInput
+    email: string
+    password: string
+    firstName: string
+    lastName: string
+    status?: $Enums.UserStatus
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    passwordResetToken?: string | null
+    passwordExpiresAt?: Date | string | null
+    passwordResetAt?: Date | string | null
+    employeeCode?: string | null
+    employeeType?: $Enums.EmployeeType | null
+    serviceStatus?: $Enums.ServiceStatus
+    refreshTokens?: RefreshTokenCreateNestedManyWithoutUserInput
+    role: RoleCreateNestedOneWithoutUsersInput
+    permissions?: UserPermissionCreateNestedManyWithoutUserInput
+    company?: CompanyCreateNestedOneWithoutEmployeesInput
+    teams?: TeamCreateNestedManyWithoutMembersInput
     performedMaintenances?: MaintenanceCreateNestedManyWithoutPerformerInput
     requestedMaintenances?: MaintenanceCreateNestedManyWithoutRequesterInput
     assignedMaintenances?: MaintenanceCreateNestedManyWithoutAssigneeInput
+    supervisedTeams?: TeamCreateNestedManyWithoutSupervisorInput
   }
 
-  export type EmployeeUncheckedCreateWithoutCalenderEntityInput = {
+  export type UserUncheckedCreateWithoutCalenderEntityInput = {
     id?: string
-    code: string
-    type?: $Enums.EmployeeType
-    userId: string
-    companyId: string
-    status?: $Enums.ServiceStatus
-    teams?: TeamUncheckedCreateNestedManyWithoutSupervisorInput
+    email: string
+    password: string
+    firstName: string
+    lastName: string
+    roleId: string
+    status?: $Enums.UserStatus
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    passwordResetToken?: string | null
+    passwordExpiresAt?: Date | string | null
+    passwordResetAt?: Date | string | null
+    employeeCode?: string | null
+    employeeType?: $Enums.EmployeeType | null
+    companyId?: string | null
+    serviceStatus?: $Enums.ServiceStatus
+    refreshTokens?: RefreshTokenUncheckedCreateNestedManyWithoutUserInput
+    permissions?: UserPermissionUncheckedCreateNestedManyWithoutUserInput
+    teams?: TeamUncheckedCreateNestedManyWithoutMembersInput
     performedMaintenances?: MaintenanceUncheckedCreateNestedManyWithoutPerformerInput
     requestedMaintenances?: MaintenanceUncheckedCreateNestedManyWithoutRequesterInput
     assignedMaintenances?: MaintenanceUncheckedCreateNestedManyWithoutAssigneeInput
+    supervisedTeams?: TeamUncheckedCreateNestedManyWithoutSupervisorInput
   }
 
-  export type EmployeeCreateOrConnectWithoutCalenderEntityInput = {
-    where: EmployeeWhereUniqueInput
-    create: XOR<EmployeeCreateWithoutCalenderEntityInput, EmployeeUncheckedCreateWithoutCalenderEntityInput>
+  export type UserCreateOrConnectWithoutCalenderEntityInput = {
+    where: UserWhereUniqueInput
+    create: XOR<UserCreateWithoutCalenderEntityInput, UserUncheckedCreateWithoutCalenderEntityInput>
   }
 
-  export type EmployeeCreateManyCalenderEntityInputEnvelope = {
-    data: EmployeeCreateManyCalenderEntityInput | EmployeeCreateManyCalenderEntityInput[]
+  export type UserCreateManyCalenderEntityInputEnvelope = {
+    data: UserCreateManyCalenderEntityInput | UserCreateManyCalenderEntityInput[]
     skipDuplicates?: boolean
   }
 
@@ -52469,82 +51439,134 @@ export namespace Prisma {
     data: XOR<ZoneUpdateManyMutationInput, ZoneUncheckedUpdateManyWithoutCalenderEntityInput>
   }
 
-  export type EmployeeUpsertWithWhereUniqueWithoutCalenderEntityInput = {
-    where: EmployeeWhereUniqueInput
-    update: XOR<EmployeeUpdateWithoutCalenderEntityInput, EmployeeUncheckedUpdateWithoutCalenderEntityInput>
-    create: XOR<EmployeeCreateWithoutCalenderEntityInput, EmployeeUncheckedCreateWithoutCalenderEntityInput>
+  export type UserUpsertWithWhereUniqueWithoutCalenderEntityInput = {
+    where: UserWhereUniqueInput
+    update: XOR<UserUpdateWithoutCalenderEntityInput, UserUncheckedUpdateWithoutCalenderEntityInput>
+    create: XOR<UserCreateWithoutCalenderEntityInput, UserUncheckedCreateWithoutCalenderEntityInput>
   }
 
-  export type EmployeeUpdateWithWhereUniqueWithoutCalenderEntityInput = {
-    where: EmployeeWhereUniqueInput
-    data: XOR<EmployeeUpdateWithoutCalenderEntityInput, EmployeeUncheckedUpdateWithoutCalenderEntityInput>
+  export type UserUpdateWithWhereUniqueWithoutCalenderEntityInput = {
+    where: UserWhereUniqueInput
+    data: XOR<UserUpdateWithoutCalenderEntityInput, UserUncheckedUpdateWithoutCalenderEntityInput>
   }
 
-  export type EmployeeUpdateManyWithWhereWithoutCalenderEntityInput = {
-    where: EmployeeScalarWhereInput
-    data: XOR<EmployeeUpdateManyMutationInput, EmployeeUncheckedUpdateManyWithoutCalenderEntityInput>
+  export type UserUpdateManyWithWhereWithoutCalenderEntityInput = {
+    where: UserScalarWhereInput
+    data: XOR<UserUpdateManyMutationInput, UserUncheckedUpdateManyWithoutCalenderEntityInput>
   }
 
-  export type EmployeeCreateWithoutPerformedMaintenancesInput = {
+  export type UserCreateWithoutPerformedMaintenancesInput = {
     id?: string
-    code: string
-    type?: $Enums.EmployeeType
-    status?: $Enums.ServiceStatus
-    user: UserCreateNestedOneWithoutEmployeesInput
-    company: CompanyCreateNestedOneWithoutEmployeesInput
+    email: string
+    password: string
+    firstName: string
+    lastName: string
+    status?: $Enums.UserStatus
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    passwordResetToken?: string | null
+    passwordExpiresAt?: Date | string | null
+    passwordResetAt?: Date | string | null
+    employeeCode?: string | null
+    employeeType?: $Enums.EmployeeType | null
+    serviceStatus?: $Enums.ServiceStatus
+    refreshTokens?: RefreshTokenCreateNestedManyWithoutUserInput
+    role: RoleCreateNestedOneWithoutUsersInput
+    permissions?: UserPermissionCreateNestedManyWithoutUserInput
+    company?: CompanyCreateNestedOneWithoutEmployeesInput
     calenderEntity?: CalenderEntityCreateNestedOneWithoutEmployeesInput
-    teams?: TeamCreateNestedManyWithoutSupervisorInput
+    teams?: TeamCreateNestedManyWithoutMembersInput
     requestedMaintenances?: MaintenanceCreateNestedManyWithoutRequesterInput
     assignedMaintenances?: MaintenanceCreateNestedManyWithoutAssigneeInput
+    supervisedTeams?: TeamCreateNestedManyWithoutSupervisorInput
   }
 
-  export type EmployeeUncheckedCreateWithoutPerformedMaintenancesInput = {
+  export type UserUncheckedCreateWithoutPerformedMaintenancesInput = {
     id?: string
-    code: string
-    type?: $Enums.EmployeeType
-    userId: string
-    companyId: string
-    status?: $Enums.ServiceStatus
+    email: string
+    password: string
+    firstName: string
+    lastName: string
+    roleId: string
+    status?: $Enums.UserStatus
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    passwordResetToken?: string | null
+    passwordExpiresAt?: Date | string | null
+    passwordResetAt?: Date | string | null
+    employeeCode?: string | null
+    employeeType?: $Enums.EmployeeType | null
+    companyId?: string | null
+    serviceStatus?: $Enums.ServiceStatus
     calenderEntityId?: string | null
-    teams?: TeamUncheckedCreateNestedManyWithoutSupervisorInput
+    refreshTokens?: RefreshTokenUncheckedCreateNestedManyWithoutUserInput
+    permissions?: UserPermissionUncheckedCreateNestedManyWithoutUserInput
+    teams?: TeamUncheckedCreateNestedManyWithoutMembersInput
     requestedMaintenances?: MaintenanceUncheckedCreateNestedManyWithoutRequesterInput
     assignedMaintenances?: MaintenanceUncheckedCreateNestedManyWithoutAssigneeInput
+    supervisedTeams?: TeamUncheckedCreateNestedManyWithoutSupervisorInput
   }
 
-  export type EmployeeCreateOrConnectWithoutPerformedMaintenancesInput = {
-    where: EmployeeWhereUniqueInput
-    create: XOR<EmployeeCreateWithoutPerformedMaintenancesInput, EmployeeUncheckedCreateWithoutPerformedMaintenancesInput>
+  export type UserCreateOrConnectWithoutPerformedMaintenancesInput = {
+    where: UserWhereUniqueInput
+    create: XOR<UserCreateWithoutPerformedMaintenancesInput, UserUncheckedCreateWithoutPerformedMaintenancesInput>
   }
 
-  export type EmployeeCreateWithoutRequestedMaintenancesInput = {
+  export type UserCreateWithoutRequestedMaintenancesInput = {
     id?: string
-    code: string
-    type?: $Enums.EmployeeType
-    status?: $Enums.ServiceStatus
-    user: UserCreateNestedOneWithoutEmployeesInput
-    company: CompanyCreateNestedOneWithoutEmployeesInput
+    email: string
+    password: string
+    firstName: string
+    lastName: string
+    status?: $Enums.UserStatus
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    passwordResetToken?: string | null
+    passwordExpiresAt?: Date | string | null
+    passwordResetAt?: Date | string | null
+    employeeCode?: string | null
+    employeeType?: $Enums.EmployeeType | null
+    serviceStatus?: $Enums.ServiceStatus
+    refreshTokens?: RefreshTokenCreateNestedManyWithoutUserInput
+    role: RoleCreateNestedOneWithoutUsersInput
+    permissions?: UserPermissionCreateNestedManyWithoutUserInput
+    company?: CompanyCreateNestedOneWithoutEmployeesInput
     calenderEntity?: CalenderEntityCreateNestedOneWithoutEmployeesInput
-    teams?: TeamCreateNestedManyWithoutSupervisorInput
+    teams?: TeamCreateNestedManyWithoutMembersInput
     performedMaintenances?: MaintenanceCreateNestedManyWithoutPerformerInput
     assignedMaintenances?: MaintenanceCreateNestedManyWithoutAssigneeInput
+    supervisedTeams?: TeamCreateNestedManyWithoutSupervisorInput
   }
 
-  export type EmployeeUncheckedCreateWithoutRequestedMaintenancesInput = {
+  export type UserUncheckedCreateWithoutRequestedMaintenancesInput = {
     id?: string
-    code: string
-    type?: $Enums.EmployeeType
-    userId: string
-    companyId: string
-    status?: $Enums.ServiceStatus
+    email: string
+    password: string
+    firstName: string
+    lastName: string
+    roleId: string
+    status?: $Enums.UserStatus
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    passwordResetToken?: string | null
+    passwordExpiresAt?: Date | string | null
+    passwordResetAt?: Date | string | null
+    employeeCode?: string | null
+    employeeType?: $Enums.EmployeeType | null
+    companyId?: string | null
+    serviceStatus?: $Enums.ServiceStatus
     calenderEntityId?: string | null
-    teams?: TeamUncheckedCreateNestedManyWithoutSupervisorInput
+    refreshTokens?: RefreshTokenUncheckedCreateNestedManyWithoutUserInput
+    permissions?: UserPermissionUncheckedCreateNestedManyWithoutUserInput
+    teams?: TeamUncheckedCreateNestedManyWithoutMembersInput
     performedMaintenances?: MaintenanceUncheckedCreateNestedManyWithoutPerformerInput
     assignedMaintenances?: MaintenanceUncheckedCreateNestedManyWithoutAssigneeInput
+    supervisedTeams?: TeamUncheckedCreateNestedManyWithoutSupervisorInput
   }
 
-  export type EmployeeCreateOrConnectWithoutRequestedMaintenancesInput = {
-    where: EmployeeWhereUniqueInput
-    create: XOR<EmployeeCreateWithoutRequestedMaintenancesInput, EmployeeUncheckedCreateWithoutRequestedMaintenancesInput>
+  export type UserCreateOrConnectWithoutRequestedMaintenancesInput = {
+    where: UserWhereUniqueInput
+    create: XOR<UserCreateWithoutRequestedMaintenancesInput, UserUncheckedCreateWithoutRequestedMaintenancesInput>
   }
 
   export type ComplexCreateWithoutMaintenancesInput = {
@@ -52633,7 +51655,7 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     address: AddressCreateNestedOneWithoutCompaniesInput
-    employees?: EmployeeCreateNestedManyWithoutCompanyInput
+    employees?: UserCreateNestedManyWithoutCompanyInput
   }
 
   export type CompanyUncheckedCreateWithoutMaintenancesInput = {
@@ -52649,7 +51671,7 @@ export namespace Prisma {
     website?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
-    employees?: EmployeeUncheckedCreateNestedManyWithoutCompanyInput
+    employees?: UserUncheckedCreateNestedManyWithoutCompanyInput
   }
 
   export type CompanyCreateOrConnectWithoutMaintenancesInput = {
@@ -52665,8 +51687,9 @@ export namespace Prisma {
     status?: $Enums.ServiceStatus
     createdAt?: Date | string
     updatedAt?: Date | string
-    supervisor: EmployeeCreateNestedOneWithoutTeamsInput
+    supervisor: UserCreateNestedOneWithoutSupervisedTeamsInput
     preventives?: PreventiveCreateNestedManyWithoutTeamInput
+    members?: UserCreateNestedManyWithoutTeamsInput
   }
 
   export type TeamUncheckedCreateWithoutMaintenancesInput = {
@@ -52679,6 +51702,7 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     preventives?: PreventiveUncheckedCreateNestedManyWithoutTeamInput
+    members?: UserUncheckedCreateNestedManyWithoutTeamsInput
   }
 
   export type TeamCreateOrConnectWithoutMaintenancesInput = {
@@ -52806,35 +51830,61 @@ export namespace Prisma {
     create: XOR<SpaceCreateWithoutMaintenancesInput, SpaceUncheckedCreateWithoutMaintenancesInput>
   }
 
-  export type EmployeeCreateWithoutAssignedMaintenancesInput = {
+  export type UserCreateWithoutAssignedMaintenancesInput = {
     id?: string
-    code: string
-    type?: $Enums.EmployeeType
-    status?: $Enums.ServiceStatus
-    user: UserCreateNestedOneWithoutEmployeesInput
-    company: CompanyCreateNestedOneWithoutEmployeesInput
+    email: string
+    password: string
+    firstName: string
+    lastName: string
+    status?: $Enums.UserStatus
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    passwordResetToken?: string | null
+    passwordExpiresAt?: Date | string | null
+    passwordResetAt?: Date | string | null
+    employeeCode?: string | null
+    employeeType?: $Enums.EmployeeType | null
+    serviceStatus?: $Enums.ServiceStatus
+    refreshTokens?: RefreshTokenCreateNestedManyWithoutUserInput
+    role: RoleCreateNestedOneWithoutUsersInput
+    permissions?: UserPermissionCreateNestedManyWithoutUserInput
+    company?: CompanyCreateNestedOneWithoutEmployeesInput
     calenderEntity?: CalenderEntityCreateNestedOneWithoutEmployeesInput
-    teams?: TeamCreateNestedManyWithoutSupervisorInput
+    teams?: TeamCreateNestedManyWithoutMembersInput
     performedMaintenances?: MaintenanceCreateNestedManyWithoutPerformerInput
     requestedMaintenances?: MaintenanceCreateNestedManyWithoutRequesterInput
+    supervisedTeams?: TeamCreateNestedManyWithoutSupervisorInput
   }
 
-  export type EmployeeUncheckedCreateWithoutAssignedMaintenancesInput = {
+  export type UserUncheckedCreateWithoutAssignedMaintenancesInput = {
     id?: string
-    code: string
-    type?: $Enums.EmployeeType
-    userId: string
-    companyId: string
-    status?: $Enums.ServiceStatus
+    email: string
+    password: string
+    firstName: string
+    lastName: string
+    roleId: string
+    status?: $Enums.UserStatus
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    passwordResetToken?: string | null
+    passwordExpiresAt?: Date | string | null
+    passwordResetAt?: Date | string | null
+    employeeCode?: string | null
+    employeeType?: $Enums.EmployeeType | null
+    companyId?: string | null
+    serviceStatus?: $Enums.ServiceStatus
     calenderEntityId?: string | null
-    teams?: TeamUncheckedCreateNestedManyWithoutSupervisorInput
+    refreshTokens?: RefreshTokenUncheckedCreateNestedManyWithoutUserInput
+    permissions?: UserPermissionUncheckedCreateNestedManyWithoutUserInput
+    teams?: TeamUncheckedCreateNestedManyWithoutMembersInput
     performedMaintenances?: MaintenanceUncheckedCreateNestedManyWithoutPerformerInput
     requestedMaintenances?: MaintenanceUncheckedCreateNestedManyWithoutRequesterInput
+    supervisedTeams?: TeamUncheckedCreateNestedManyWithoutSupervisorInput
   }
 
-  export type EmployeeCreateOrConnectWithoutAssignedMaintenancesInput = {
-    where: EmployeeWhereUniqueInput
-    create: XOR<EmployeeCreateWithoutAssignedMaintenancesInput, EmployeeUncheckedCreateWithoutAssignedMaintenancesInput>
+  export type UserCreateOrConnectWithoutAssignedMaintenancesInput = {
+    where: UserWhereUniqueInput
+    create: XOR<UserCreateWithoutAssignedMaintenancesInput, UserUncheckedCreateWithoutAssignedMaintenancesInput>
   }
 
   export type AssetCreateWithoutMaintenancesInput = {
@@ -52898,78 +51948,130 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
-  export type EmployeeUpsertWithoutPerformedMaintenancesInput = {
-    update: XOR<EmployeeUpdateWithoutPerformedMaintenancesInput, EmployeeUncheckedUpdateWithoutPerformedMaintenancesInput>
-    create: XOR<EmployeeCreateWithoutPerformedMaintenancesInput, EmployeeUncheckedCreateWithoutPerformedMaintenancesInput>
-    where?: EmployeeWhereInput
+  export type UserUpsertWithoutPerformedMaintenancesInput = {
+    update: XOR<UserUpdateWithoutPerformedMaintenancesInput, UserUncheckedUpdateWithoutPerformedMaintenancesInput>
+    create: XOR<UserCreateWithoutPerformedMaintenancesInput, UserUncheckedCreateWithoutPerformedMaintenancesInput>
+    where?: UserWhereInput
   }
 
-  export type EmployeeUpdateToOneWithWhereWithoutPerformedMaintenancesInput = {
-    where?: EmployeeWhereInput
-    data: XOR<EmployeeUpdateWithoutPerformedMaintenancesInput, EmployeeUncheckedUpdateWithoutPerformedMaintenancesInput>
+  export type UserUpdateToOneWithWhereWithoutPerformedMaintenancesInput = {
+    where?: UserWhereInput
+    data: XOR<UserUpdateWithoutPerformedMaintenancesInput, UserUncheckedUpdateWithoutPerformedMaintenancesInput>
   }
 
-  export type EmployeeUpdateWithoutPerformedMaintenancesInput = {
+  export type UserUpdateWithoutPerformedMaintenancesInput = {
     id?: StringFieldUpdateOperationsInput | string
-    code?: StringFieldUpdateOperationsInput | string
-    type?: EnumEmployeeTypeFieldUpdateOperationsInput | $Enums.EmployeeType
-    status?: EnumServiceStatusFieldUpdateOperationsInput | $Enums.ServiceStatus
-    user?: UserUpdateOneRequiredWithoutEmployeesNestedInput
-    company?: CompanyUpdateOneRequiredWithoutEmployeesNestedInput
+    email?: StringFieldUpdateOperationsInput | string
+    password?: StringFieldUpdateOperationsInput | string
+    firstName?: StringFieldUpdateOperationsInput | string
+    lastName?: StringFieldUpdateOperationsInput | string
+    status?: EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    passwordResetToken?: NullableStringFieldUpdateOperationsInput | string | null
+    passwordExpiresAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    passwordResetAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    employeeCode?: NullableStringFieldUpdateOperationsInput | string | null
+    employeeType?: NullableEnumEmployeeTypeFieldUpdateOperationsInput | $Enums.EmployeeType | null
+    serviceStatus?: EnumServiceStatusFieldUpdateOperationsInput | $Enums.ServiceStatus
+    refreshTokens?: RefreshTokenUpdateManyWithoutUserNestedInput
+    role?: RoleUpdateOneRequiredWithoutUsersNestedInput
+    permissions?: UserPermissionUpdateManyWithoutUserNestedInput
+    company?: CompanyUpdateOneWithoutEmployeesNestedInput
     calenderEntity?: CalenderEntityUpdateOneWithoutEmployeesNestedInput
-    teams?: TeamUpdateManyWithoutSupervisorNestedInput
+    teams?: TeamUpdateManyWithoutMembersNestedInput
     requestedMaintenances?: MaintenanceUpdateManyWithoutRequesterNestedInput
     assignedMaintenances?: MaintenanceUpdateManyWithoutAssigneeNestedInput
+    supervisedTeams?: TeamUpdateManyWithoutSupervisorNestedInput
   }
 
-  export type EmployeeUncheckedUpdateWithoutPerformedMaintenancesInput = {
+  export type UserUncheckedUpdateWithoutPerformedMaintenancesInput = {
     id?: StringFieldUpdateOperationsInput | string
-    code?: StringFieldUpdateOperationsInput | string
-    type?: EnumEmployeeTypeFieldUpdateOperationsInput | $Enums.EmployeeType
-    userId?: StringFieldUpdateOperationsInput | string
-    companyId?: StringFieldUpdateOperationsInput | string
-    status?: EnumServiceStatusFieldUpdateOperationsInput | $Enums.ServiceStatus
+    email?: StringFieldUpdateOperationsInput | string
+    password?: StringFieldUpdateOperationsInput | string
+    firstName?: StringFieldUpdateOperationsInput | string
+    lastName?: StringFieldUpdateOperationsInput | string
+    roleId?: StringFieldUpdateOperationsInput | string
+    status?: EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    passwordResetToken?: NullableStringFieldUpdateOperationsInput | string | null
+    passwordExpiresAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    passwordResetAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    employeeCode?: NullableStringFieldUpdateOperationsInput | string | null
+    employeeType?: NullableEnumEmployeeTypeFieldUpdateOperationsInput | $Enums.EmployeeType | null
+    companyId?: NullableStringFieldUpdateOperationsInput | string | null
+    serviceStatus?: EnumServiceStatusFieldUpdateOperationsInput | $Enums.ServiceStatus
     calenderEntityId?: NullableStringFieldUpdateOperationsInput | string | null
-    teams?: TeamUncheckedUpdateManyWithoutSupervisorNestedInput
+    refreshTokens?: RefreshTokenUncheckedUpdateManyWithoutUserNestedInput
+    permissions?: UserPermissionUncheckedUpdateManyWithoutUserNestedInput
+    teams?: TeamUncheckedUpdateManyWithoutMembersNestedInput
     requestedMaintenances?: MaintenanceUncheckedUpdateManyWithoutRequesterNestedInput
     assignedMaintenances?: MaintenanceUncheckedUpdateManyWithoutAssigneeNestedInput
+    supervisedTeams?: TeamUncheckedUpdateManyWithoutSupervisorNestedInput
   }
 
-  export type EmployeeUpsertWithoutRequestedMaintenancesInput = {
-    update: XOR<EmployeeUpdateWithoutRequestedMaintenancesInput, EmployeeUncheckedUpdateWithoutRequestedMaintenancesInput>
-    create: XOR<EmployeeCreateWithoutRequestedMaintenancesInput, EmployeeUncheckedCreateWithoutRequestedMaintenancesInput>
-    where?: EmployeeWhereInput
+  export type UserUpsertWithoutRequestedMaintenancesInput = {
+    update: XOR<UserUpdateWithoutRequestedMaintenancesInput, UserUncheckedUpdateWithoutRequestedMaintenancesInput>
+    create: XOR<UserCreateWithoutRequestedMaintenancesInput, UserUncheckedCreateWithoutRequestedMaintenancesInput>
+    where?: UserWhereInput
   }
 
-  export type EmployeeUpdateToOneWithWhereWithoutRequestedMaintenancesInput = {
-    where?: EmployeeWhereInput
-    data: XOR<EmployeeUpdateWithoutRequestedMaintenancesInput, EmployeeUncheckedUpdateWithoutRequestedMaintenancesInput>
+  export type UserUpdateToOneWithWhereWithoutRequestedMaintenancesInput = {
+    where?: UserWhereInput
+    data: XOR<UserUpdateWithoutRequestedMaintenancesInput, UserUncheckedUpdateWithoutRequestedMaintenancesInput>
   }
 
-  export type EmployeeUpdateWithoutRequestedMaintenancesInput = {
+  export type UserUpdateWithoutRequestedMaintenancesInput = {
     id?: StringFieldUpdateOperationsInput | string
-    code?: StringFieldUpdateOperationsInput | string
-    type?: EnumEmployeeTypeFieldUpdateOperationsInput | $Enums.EmployeeType
-    status?: EnumServiceStatusFieldUpdateOperationsInput | $Enums.ServiceStatus
-    user?: UserUpdateOneRequiredWithoutEmployeesNestedInput
-    company?: CompanyUpdateOneRequiredWithoutEmployeesNestedInput
+    email?: StringFieldUpdateOperationsInput | string
+    password?: StringFieldUpdateOperationsInput | string
+    firstName?: StringFieldUpdateOperationsInput | string
+    lastName?: StringFieldUpdateOperationsInput | string
+    status?: EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    passwordResetToken?: NullableStringFieldUpdateOperationsInput | string | null
+    passwordExpiresAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    passwordResetAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    employeeCode?: NullableStringFieldUpdateOperationsInput | string | null
+    employeeType?: NullableEnumEmployeeTypeFieldUpdateOperationsInput | $Enums.EmployeeType | null
+    serviceStatus?: EnumServiceStatusFieldUpdateOperationsInput | $Enums.ServiceStatus
+    refreshTokens?: RefreshTokenUpdateManyWithoutUserNestedInput
+    role?: RoleUpdateOneRequiredWithoutUsersNestedInput
+    permissions?: UserPermissionUpdateManyWithoutUserNestedInput
+    company?: CompanyUpdateOneWithoutEmployeesNestedInput
     calenderEntity?: CalenderEntityUpdateOneWithoutEmployeesNestedInput
-    teams?: TeamUpdateManyWithoutSupervisorNestedInput
+    teams?: TeamUpdateManyWithoutMembersNestedInput
     performedMaintenances?: MaintenanceUpdateManyWithoutPerformerNestedInput
     assignedMaintenances?: MaintenanceUpdateManyWithoutAssigneeNestedInput
+    supervisedTeams?: TeamUpdateManyWithoutSupervisorNestedInput
   }
 
-  export type EmployeeUncheckedUpdateWithoutRequestedMaintenancesInput = {
+  export type UserUncheckedUpdateWithoutRequestedMaintenancesInput = {
     id?: StringFieldUpdateOperationsInput | string
-    code?: StringFieldUpdateOperationsInput | string
-    type?: EnumEmployeeTypeFieldUpdateOperationsInput | $Enums.EmployeeType
-    userId?: StringFieldUpdateOperationsInput | string
-    companyId?: StringFieldUpdateOperationsInput | string
-    status?: EnumServiceStatusFieldUpdateOperationsInput | $Enums.ServiceStatus
+    email?: StringFieldUpdateOperationsInput | string
+    password?: StringFieldUpdateOperationsInput | string
+    firstName?: StringFieldUpdateOperationsInput | string
+    lastName?: StringFieldUpdateOperationsInput | string
+    roleId?: StringFieldUpdateOperationsInput | string
+    status?: EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    passwordResetToken?: NullableStringFieldUpdateOperationsInput | string | null
+    passwordExpiresAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    passwordResetAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    employeeCode?: NullableStringFieldUpdateOperationsInput | string | null
+    employeeType?: NullableEnumEmployeeTypeFieldUpdateOperationsInput | $Enums.EmployeeType | null
+    companyId?: NullableStringFieldUpdateOperationsInput | string | null
+    serviceStatus?: EnumServiceStatusFieldUpdateOperationsInput | $Enums.ServiceStatus
     calenderEntityId?: NullableStringFieldUpdateOperationsInput | string | null
-    teams?: TeamUncheckedUpdateManyWithoutSupervisorNestedInput
+    refreshTokens?: RefreshTokenUncheckedUpdateManyWithoutUserNestedInput
+    permissions?: UserPermissionUncheckedUpdateManyWithoutUserNestedInput
+    teams?: TeamUncheckedUpdateManyWithoutMembersNestedInput
     performedMaintenances?: MaintenanceUncheckedUpdateManyWithoutPerformerNestedInput
     assignedMaintenances?: MaintenanceUncheckedUpdateManyWithoutAssigneeNestedInput
+    supervisedTeams?: TeamUncheckedUpdateManyWithoutSupervisorNestedInput
   }
 
   export type ComplexUpsertWithoutMaintenancesInput = {
@@ -53075,7 +52177,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     address?: AddressUpdateOneRequiredWithoutCompaniesNestedInput
-    employees?: EmployeeUpdateManyWithoutCompanyNestedInput
+    employees?: UserUpdateManyWithoutCompanyNestedInput
   }
 
   export type CompanyUncheckedUpdateWithoutMaintenancesInput = {
@@ -53091,7 +52193,7 @@ export namespace Prisma {
     website?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    employees?: EmployeeUncheckedUpdateManyWithoutCompanyNestedInput
+    employees?: UserUncheckedUpdateManyWithoutCompanyNestedInput
   }
 
   export type TeamUpsertWithoutMaintenancesInput = {
@@ -53113,8 +52215,9 @@ export namespace Prisma {
     status?: EnumServiceStatusFieldUpdateOperationsInput | $Enums.ServiceStatus
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    supervisor?: EmployeeUpdateOneRequiredWithoutTeamsNestedInput
+    supervisor?: UserUpdateOneRequiredWithoutSupervisedTeamsNestedInput
     preventives?: PreventiveUpdateManyWithoutTeamNestedInput
+    members?: UserUpdateManyWithoutTeamsNestedInput
   }
 
   export type TeamUncheckedUpdateWithoutMaintenancesInput = {
@@ -53127,6 +52230,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     preventives?: PreventiveUncheckedUpdateManyWithoutTeamNestedInput
+    members?: UserUncheckedUpdateManyWithoutTeamsNestedInput
   }
 
   export type FloorUpsertWithoutMaintenancesInput = {
@@ -53261,41 +52365,67 @@ export namespace Prisma {
     assets?: AssetUncheckedUpdateManyWithoutSpaceNestedInput
   }
 
-  export type EmployeeUpsertWithoutAssignedMaintenancesInput = {
-    update: XOR<EmployeeUpdateWithoutAssignedMaintenancesInput, EmployeeUncheckedUpdateWithoutAssignedMaintenancesInput>
-    create: XOR<EmployeeCreateWithoutAssignedMaintenancesInput, EmployeeUncheckedCreateWithoutAssignedMaintenancesInput>
-    where?: EmployeeWhereInput
+  export type UserUpsertWithoutAssignedMaintenancesInput = {
+    update: XOR<UserUpdateWithoutAssignedMaintenancesInput, UserUncheckedUpdateWithoutAssignedMaintenancesInput>
+    create: XOR<UserCreateWithoutAssignedMaintenancesInput, UserUncheckedCreateWithoutAssignedMaintenancesInput>
+    where?: UserWhereInput
   }
 
-  export type EmployeeUpdateToOneWithWhereWithoutAssignedMaintenancesInput = {
-    where?: EmployeeWhereInput
-    data: XOR<EmployeeUpdateWithoutAssignedMaintenancesInput, EmployeeUncheckedUpdateWithoutAssignedMaintenancesInput>
+  export type UserUpdateToOneWithWhereWithoutAssignedMaintenancesInput = {
+    where?: UserWhereInput
+    data: XOR<UserUpdateWithoutAssignedMaintenancesInput, UserUncheckedUpdateWithoutAssignedMaintenancesInput>
   }
 
-  export type EmployeeUpdateWithoutAssignedMaintenancesInput = {
+  export type UserUpdateWithoutAssignedMaintenancesInput = {
     id?: StringFieldUpdateOperationsInput | string
-    code?: StringFieldUpdateOperationsInput | string
-    type?: EnumEmployeeTypeFieldUpdateOperationsInput | $Enums.EmployeeType
-    status?: EnumServiceStatusFieldUpdateOperationsInput | $Enums.ServiceStatus
-    user?: UserUpdateOneRequiredWithoutEmployeesNestedInput
-    company?: CompanyUpdateOneRequiredWithoutEmployeesNestedInput
+    email?: StringFieldUpdateOperationsInput | string
+    password?: StringFieldUpdateOperationsInput | string
+    firstName?: StringFieldUpdateOperationsInput | string
+    lastName?: StringFieldUpdateOperationsInput | string
+    status?: EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    passwordResetToken?: NullableStringFieldUpdateOperationsInput | string | null
+    passwordExpiresAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    passwordResetAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    employeeCode?: NullableStringFieldUpdateOperationsInput | string | null
+    employeeType?: NullableEnumEmployeeTypeFieldUpdateOperationsInput | $Enums.EmployeeType | null
+    serviceStatus?: EnumServiceStatusFieldUpdateOperationsInput | $Enums.ServiceStatus
+    refreshTokens?: RefreshTokenUpdateManyWithoutUserNestedInput
+    role?: RoleUpdateOneRequiredWithoutUsersNestedInput
+    permissions?: UserPermissionUpdateManyWithoutUserNestedInput
+    company?: CompanyUpdateOneWithoutEmployeesNestedInput
     calenderEntity?: CalenderEntityUpdateOneWithoutEmployeesNestedInput
-    teams?: TeamUpdateManyWithoutSupervisorNestedInput
+    teams?: TeamUpdateManyWithoutMembersNestedInput
     performedMaintenances?: MaintenanceUpdateManyWithoutPerformerNestedInput
     requestedMaintenances?: MaintenanceUpdateManyWithoutRequesterNestedInput
+    supervisedTeams?: TeamUpdateManyWithoutSupervisorNestedInput
   }
 
-  export type EmployeeUncheckedUpdateWithoutAssignedMaintenancesInput = {
+  export type UserUncheckedUpdateWithoutAssignedMaintenancesInput = {
     id?: StringFieldUpdateOperationsInput | string
-    code?: StringFieldUpdateOperationsInput | string
-    type?: EnumEmployeeTypeFieldUpdateOperationsInput | $Enums.EmployeeType
-    userId?: StringFieldUpdateOperationsInput | string
-    companyId?: StringFieldUpdateOperationsInput | string
-    status?: EnumServiceStatusFieldUpdateOperationsInput | $Enums.ServiceStatus
+    email?: StringFieldUpdateOperationsInput | string
+    password?: StringFieldUpdateOperationsInput | string
+    firstName?: StringFieldUpdateOperationsInput | string
+    lastName?: StringFieldUpdateOperationsInput | string
+    roleId?: StringFieldUpdateOperationsInput | string
+    status?: EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    passwordResetToken?: NullableStringFieldUpdateOperationsInput | string | null
+    passwordExpiresAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    passwordResetAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    employeeCode?: NullableStringFieldUpdateOperationsInput | string | null
+    employeeType?: NullableEnumEmployeeTypeFieldUpdateOperationsInput | $Enums.EmployeeType | null
+    companyId?: NullableStringFieldUpdateOperationsInput | string | null
+    serviceStatus?: EnumServiceStatusFieldUpdateOperationsInput | $Enums.ServiceStatus
     calenderEntityId?: NullableStringFieldUpdateOperationsInput | string | null
-    teams?: TeamUncheckedUpdateManyWithoutSupervisorNestedInput
+    refreshTokens?: RefreshTokenUncheckedUpdateManyWithoutUserNestedInput
+    permissions?: UserPermissionUncheckedUpdateManyWithoutUserNestedInput
+    teams?: TeamUncheckedUpdateManyWithoutMembersNestedInput
     performedMaintenances?: MaintenanceUncheckedUpdateManyWithoutPerformerNestedInput
     requestedMaintenances?: MaintenanceUncheckedUpdateManyWithoutRequesterNestedInput
+    supervisedTeams?: TeamUncheckedUpdateManyWithoutSupervisorNestedInput
   }
 
   export type AssetUpsertWithoutMaintenancesInput = {
@@ -53652,8 +52782,9 @@ export namespace Prisma {
     status?: $Enums.ServiceStatus
     createdAt?: Date | string
     updatedAt?: Date | string
-    supervisor: EmployeeCreateNestedOneWithoutTeamsInput
+    supervisor: UserCreateNestedOneWithoutSupervisedTeamsInput
     maintenances?: MaintenanceCreateNestedManyWithoutTeamInput
+    members?: UserCreateNestedManyWithoutTeamsInput
   }
 
   export type TeamUncheckedCreateWithoutPreventivesInput = {
@@ -53666,6 +52797,7 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     maintenances?: MaintenanceUncheckedCreateNestedManyWithoutTeamInput
+    members?: UserUncheckedCreateNestedManyWithoutTeamsInput
   }
 
   export type TeamCreateOrConnectWithoutPreventivesInput = {
@@ -54013,8 +53145,9 @@ export namespace Prisma {
     status?: EnumServiceStatusFieldUpdateOperationsInput | $Enums.ServiceStatus
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    supervisor?: EmployeeUpdateOneRequiredWithoutTeamsNestedInput
+    supervisor?: UserUpdateOneRequiredWithoutSupervisedTeamsNestedInput
     maintenances?: MaintenanceUpdateManyWithoutTeamNestedInput
+    members?: UserUpdateManyWithoutTeamsNestedInput
   }
 
   export type TeamUncheckedUpdateWithoutPreventivesInput = {
@@ -54027,6 +53160,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     maintenances?: MaintenanceUncheckedUpdateManyWithoutTeamNestedInput
+    members?: UserUncheckedUpdateManyWithoutTeamsNestedInput
   }
 
   export type UserCreateWithoutRefreshTokensInput = {
@@ -54041,9 +53175,18 @@ export namespace Prisma {
     passwordResetToken?: string | null
     passwordExpiresAt?: Date | string | null
     passwordResetAt?: Date | string | null
+    employeeCode?: string | null
+    employeeType?: $Enums.EmployeeType | null
+    serviceStatus?: $Enums.ServiceStatus
     role: RoleCreateNestedOneWithoutUsersInput
     permissions?: UserPermissionCreateNestedManyWithoutUserInput
-    employees?: EmployeeCreateNestedManyWithoutUserInput
+    company?: CompanyCreateNestedOneWithoutEmployeesInput
+    calenderEntity?: CalenderEntityCreateNestedOneWithoutEmployeesInput
+    teams?: TeamCreateNestedManyWithoutMembersInput
+    performedMaintenances?: MaintenanceCreateNestedManyWithoutPerformerInput
+    requestedMaintenances?: MaintenanceCreateNestedManyWithoutRequesterInput
+    assignedMaintenances?: MaintenanceCreateNestedManyWithoutAssigneeInput
+    supervisedTeams?: TeamCreateNestedManyWithoutSupervisorInput
   }
 
   export type UserUncheckedCreateWithoutRefreshTokensInput = {
@@ -54059,8 +53202,17 @@ export namespace Prisma {
     passwordResetToken?: string | null
     passwordExpiresAt?: Date | string | null
     passwordResetAt?: Date | string | null
+    employeeCode?: string | null
+    employeeType?: $Enums.EmployeeType | null
+    companyId?: string | null
+    serviceStatus?: $Enums.ServiceStatus
+    calenderEntityId?: string | null
     permissions?: UserPermissionUncheckedCreateNestedManyWithoutUserInput
-    employees?: EmployeeUncheckedCreateNestedManyWithoutUserInput
+    teams?: TeamUncheckedCreateNestedManyWithoutMembersInput
+    performedMaintenances?: MaintenanceUncheckedCreateNestedManyWithoutPerformerInput
+    requestedMaintenances?: MaintenanceUncheckedCreateNestedManyWithoutRequesterInput
+    assignedMaintenances?: MaintenanceUncheckedCreateNestedManyWithoutAssigneeInput
+    supervisedTeams?: TeamUncheckedCreateNestedManyWithoutSupervisorInput
   }
 
   export type UserCreateOrConnectWithoutRefreshTokensInput = {
@@ -54091,9 +53243,18 @@ export namespace Prisma {
     passwordResetToken?: NullableStringFieldUpdateOperationsInput | string | null
     passwordExpiresAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     passwordResetAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    employeeCode?: NullableStringFieldUpdateOperationsInput | string | null
+    employeeType?: NullableEnumEmployeeTypeFieldUpdateOperationsInput | $Enums.EmployeeType | null
+    serviceStatus?: EnumServiceStatusFieldUpdateOperationsInput | $Enums.ServiceStatus
     role?: RoleUpdateOneRequiredWithoutUsersNestedInput
     permissions?: UserPermissionUpdateManyWithoutUserNestedInput
-    employees?: EmployeeUpdateManyWithoutUserNestedInput
+    company?: CompanyUpdateOneWithoutEmployeesNestedInput
+    calenderEntity?: CalenderEntityUpdateOneWithoutEmployeesNestedInput
+    teams?: TeamUpdateManyWithoutMembersNestedInput
+    performedMaintenances?: MaintenanceUpdateManyWithoutPerformerNestedInput
+    requestedMaintenances?: MaintenanceUpdateManyWithoutRequesterNestedInput
+    assignedMaintenances?: MaintenanceUpdateManyWithoutAssigneeNestedInput
+    supervisedTeams?: TeamUpdateManyWithoutSupervisorNestedInput
   }
 
   export type UserUncheckedUpdateWithoutRefreshTokensInput = {
@@ -54109,8 +53270,17 @@ export namespace Prisma {
     passwordResetToken?: NullableStringFieldUpdateOperationsInput | string | null
     passwordExpiresAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     passwordResetAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    employeeCode?: NullableStringFieldUpdateOperationsInput | string | null
+    employeeType?: NullableEnumEmployeeTypeFieldUpdateOperationsInput | $Enums.EmployeeType | null
+    companyId?: NullableStringFieldUpdateOperationsInput | string | null
+    serviceStatus?: EnumServiceStatusFieldUpdateOperationsInput | $Enums.ServiceStatus
+    calenderEntityId?: NullableStringFieldUpdateOperationsInput | string | null
     permissions?: UserPermissionUncheckedUpdateManyWithoutUserNestedInput
-    employees?: EmployeeUncheckedUpdateManyWithoutUserNestedInput
+    teams?: TeamUncheckedUpdateManyWithoutMembersNestedInput
+    performedMaintenances?: MaintenanceUncheckedUpdateManyWithoutPerformerNestedInput
+    requestedMaintenances?: MaintenanceUncheckedUpdateManyWithoutRequesterNestedInput
+    assignedMaintenances?: MaintenanceUncheckedUpdateManyWithoutAssigneeNestedInput
+    supervisedTeams?: TeamUncheckedUpdateManyWithoutSupervisorNestedInput
   }
 
   export type RefreshTokenCreateManyUserInput = {
@@ -54129,13 +53299,197 @@ export namespace Prisma {
     updatedAt?: Date | string
   }
 
-  export type EmployeeCreateManyUserInput = {
+  export type MaintenanceCreateManyPerformerInput = {
+    id?: string
+    type?: $Enums.MaintenanceType
+    code: string
+    description: string
+    startDate?: Date | string | null
+    endDate?: Date | string | null
+    shortDescription?: string | null
+    action?: string | null
+    message?: string | null
+    processNotes?: string | null
+    metadata?: NullableJsonNullValueInput | InputJsonValue
+    processStatus?: $Enums.Status
+    register?: string | null
+    activityIdTimer?: string | null
+    activityStartTime?: Date | string | null
+    activityEndTime?: Date | string | null
+    allDeadlines?: string | null
+    processType?: $Enums.ProcessType
+    ttSysRunning?: Decimal | DecimalJsLike | number | string | null
+    ttWorkRunning?: Decimal | DecimalJsLike | number | string | null
+    sorting?: string | null
+    requesterId?: string | null
+    priority?: $Enums.Priority
+    siteId: string
+    outcome?: string | null
+    dueAssignedEnd?: Date | string | null
+    execStart?: Date | string | null
+    dueExecEndDate?: Date | string | null
+    execEndDate?: Date | string | null
+    dueClosuerDate?: Date | string | null
+    totalExecTime?: Decimal | DecimalJsLike | number | string | null
+    expStartDate?: Date | string | null
+    suspensionReason?: string | null
+    category?: string | null
+    subCategory?: string | null
+    companyId?: string | null
+    teamId?: string | null
+    floorId?: string | null
+    spaceId?: string | null
+    ttSystemOpening?: Decimal | DecimalJsLike | number | string | null
+    ttWorkOpening?: Decimal | DecimalJsLike | number | string | null
+    ttSystemAssignment?: Decimal | DecimalJsLike | number | string | null
+    ttWorkAssignment?: Decimal | DecimalJsLike | number | string | null
+    ttSystemExecution?: Decimal | DecimalJsLike | number | string | null
+    ttWorkExecution?: Decimal | DecimalJsLike | number | string | null
+    ttSysSuspension?: Decimal | DecimalJsLike | number | string | null
+    ttWorkSuspension?: Decimal | DecimalJsLike | number | string | null
+    ttEstimate?: Decimal | DecimalJsLike | number | string | null
+    prevMaintenanceConfigId?: string | null
+    automaticConfig?: boolean
+    jointAccounting?: boolean
+    hasTasks?: boolean
+    estimateStatus?: $Enums.Status
+    delayNotification?: boolean
+    assigneeId?: string | null
+    assetId?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type MaintenanceCreateManyRequesterInput = {
+    id?: string
+    type?: $Enums.MaintenanceType
+    code: string
+    description: string
+    startDate?: Date | string | null
+    endDate?: Date | string | null
+    shortDescription?: string | null
+    action?: string | null
+    message?: string | null
+    processNotes?: string | null
+    metadata?: NullableJsonNullValueInput | InputJsonValue
+    performerId?: string | null
+    processStatus?: $Enums.Status
+    register?: string | null
+    activityIdTimer?: string | null
+    activityStartTime?: Date | string | null
+    activityEndTime?: Date | string | null
+    allDeadlines?: string | null
+    processType?: $Enums.ProcessType
+    ttSysRunning?: Decimal | DecimalJsLike | number | string | null
+    ttWorkRunning?: Decimal | DecimalJsLike | number | string | null
+    sorting?: string | null
+    priority?: $Enums.Priority
+    siteId: string
+    outcome?: string | null
+    dueAssignedEnd?: Date | string | null
+    execStart?: Date | string | null
+    dueExecEndDate?: Date | string | null
+    execEndDate?: Date | string | null
+    dueClosuerDate?: Date | string | null
+    totalExecTime?: Decimal | DecimalJsLike | number | string | null
+    expStartDate?: Date | string | null
+    suspensionReason?: string | null
+    category?: string | null
+    subCategory?: string | null
+    companyId?: string | null
+    teamId?: string | null
+    floorId?: string | null
+    spaceId?: string | null
+    ttSystemOpening?: Decimal | DecimalJsLike | number | string | null
+    ttWorkOpening?: Decimal | DecimalJsLike | number | string | null
+    ttSystemAssignment?: Decimal | DecimalJsLike | number | string | null
+    ttWorkAssignment?: Decimal | DecimalJsLike | number | string | null
+    ttSystemExecution?: Decimal | DecimalJsLike | number | string | null
+    ttWorkExecution?: Decimal | DecimalJsLike | number | string | null
+    ttSysSuspension?: Decimal | DecimalJsLike | number | string | null
+    ttWorkSuspension?: Decimal | DecimalJsLike | number | string | null
+    ttEstimate?: Decimal | DecimalJsLike | number | string | null
+    prevMaintenanceConfigId?: string | null
+    automaticConfig?: boolean
+    jointAccounting?: boolean
+    hasTasks?: boolean
+    estimateStatus?: $Enums.Status
+    delayNotification?: boolean
+    assigneeId?: string | null
+    assetId?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type MaintenanceCreateManyAssigneeInput = {
+    id?: string
+    type?: $Enums.MaintenanceType
+    code: string
+    description: string
+    startDate?: Date | string | null
+    endDate?: Date | string | null
+    shortDescription?: string | null
+    action?: string | null
+    message?: string | null
+    processNotes?: string | null
+    metadata?: NullableJsonNullValueInput | InputJsonValue
+    performerId?: string | null
+    processStatus?: $Enums.Status
+    register?: string | null
+    activityIdTimer?: string | null
+    activityStartTime?: Date | string | null
+    activityEndTime?: Date | string | null
+    allDeadlines?: string | null
+    processType?: $Enums.ProcessType
+    ttSysRunning?: Decimal | DecimalJsLike | number | string | null
+    ttWorkRunning?: Decimal | DecimalJsLike | number | string | null
+    sorting?: string | null
+    requesterId?: string | null
+    priority?: $Enums.Priority
+    siteId: string
+    outcome?: string | null
+    dueAssignedEnd?: Date | string | null
+    execStart?: Date | string | null
+    dueExecEndDate?: Date | string | null
+    execEndDate?: Date | string | null
+    dueClosuerDate?: Date | string | null
+    totalExecTime?: Decimal | DecimalJsLike | number | string | null
+    expStartDate?: Date | string | null
+    suspensionReason?: string | null
+    category?: string | null
+    subCategory?: string | null
+    companyId?: string | null
+    teamId?: string | null
+    floorId?: string | null
+    spaceId?: string | null
+    ttSystemOpening?: Decimal | DecimalJsLike | number | string | null
+    ttWorkOpening?: Decimal | DecimalJsLike | number | string | null
+    ttSystemAssignment?: Decimal | DecimalJsLike | number | string | null
+    ttWorkAssignment?: Decimal | DecimalJsLike | number | string | null
+    ttSystemExecution?: Decimal | DecimalJsLike | number | string | null
+    ttWorkExecution?: Decimal | DecimalJsLike | number | string | null
+    ttSysSuspension?: Decimal | DecimalJsLike | number | string | null
+    ttWorkSuspension?: Decimal | DecimalJsLike | number | string | null
+    ttEstimate?: Decimal | DecimalJsLike | number | string | null
+    prevMaintenanceConfigId?: string | null
+    automaticConfig?: boolean
+    jointAccounting?: boolean
+    hasTasks?: boolean
+    estimateStatus?: $Enums.Status
+    delayNotification?: boolean
+    assetId?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type TeamCreateManySupervisorInput = {
     id?: string
     code: string
-    type?: $Enums.EmployeeType
-    companyId: string
+    name: string
+    description?: string | null
     status?: $Enums.ServiceStatus
-    calenderEntityId?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
   }
 
   export type RefreshTokenUpdateWithoutUserInput = {
@@ -54186,39 +53540,632 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
-  export type EmployeeUpdateWithoutUserInput = {
+  export type TeamUpdateWithoutMembersInput = {
     id?: StringFieldUpdateOperationsInput | string
     code?: StringFieldUpdateOperationsInput | string
-    type?: EnumEmployeeTypeFieldUpdateOperationsInput | $Enums.EmployeeType
+    name?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
     status?: EnumServiceStatusFieldUpdateOperationsInput | $Enums.ServiceStatus
-    company?: CompanyUpdateOneRequiredWithoutEmployeesNestedInput
-    calenderEntity?: CalenderEntityUpdateOneWithoutEmployeesNestedInput
-    teams?: TeamUpdateManyWithoutSupervisorNestedInput
-    performedMaintenances?: MaintenanceUpdateManyWithoutPerformerNestedInput
-    requestedMaintenances?: MaintenanceUpdateManyWithoutRequesterNestedInput
-    assignedMaintenances?: MaintenanceUpdateManyWithoutAssigneeNestedInput
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    supervisor?: UserUpdateOneRequiredWithoutSupervisedTeamsNestedInput
+    maintenances?: MaintenanceUpdateManyWithoutTeamNestedInput
+    preventives?: PreventiveUpdateManyWithoutTeamNestedInput
   }
 
-  export type EmployeeUncheckedUpdateWithoutUserInput = {
+  export type TeamUncheckedUpdateWithoutMembersInput = {
     id?: StringFieldUpdateOperationsInput | string
     code?: StringFieldUpdateOperationsInput | string
-    type?: EnumEmployeeTypeFieldUpdateOperationsInput | $Enums.EmployeeType
-    companyId?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
     status?: EnumServiceStatusFieldUpdateOperationsInput | $Enums.ServiceStatus
-    calenderEntityId?: NullableStringFieldUpdateOperationsInput | string | null
-    teams?: TeamUncheckedUpdateManyWithoutSupervisorNestedInput
-    performedMaintenances?: MaintenanceUncheckedUpdateManyWithoutPerformerNestedInput
-    requestedMaintenances?: MaintenanceUncheckedUpdateManyWithoutRequesterNestedInput
-    assignedMaintenances?: MaintenanceUncheckedUpdateManyWithoutAssigneeNestedInput
+    supervisorId?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    maintenances?: MaintenanceUncheckedUpdateManyWithoutTeamNestedInput
+    preventives?: PreventiveUncheckedUpdateManyWithoutTeamNestedInput
   }
 
-  export type EmployeeUncheckedUpdateManyWithoutUserInput = {
+  export type TeamUncheckedUpdateManyWithoutMembersInput = {
     id?: StringFieldUpdateOperationsInput | string
     code?: StringFieldUpdateOperationsInput | string
-    type?: EnumEmployeeTypeFieldUpdateOperationsInput | $Enums.EmployeeType
-    companyId?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
     status?: EnumServiceStatusFieldUpdateOperationsInput | $Enums.ServiceStatus
-    calenderEntityId?: NullableStringFieldUpdateOperationsInput | string | null
+    supervisorId?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type MaintenanceUpdateWithoutPerformerInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    type?: EnumMaintenanceTypeFieldUpdateOperationsInput | $Enums.MaintenanceType
+    code?: StringFieldUpdateOperationsInput | string
+    description?: StringFieldUpdateOperationsInput | string
+    startDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    endDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    shortDescription?: NullableStringFieldUpdateOperationsInput | string | null
+    action?: NullableStringFieldUpdateOperationsInput | string | null
+    message?: NullableStringFieldUpdateOperationsInput | string | null
+    processNotes?: NullableStringFieldUpdateOperationsInput | string | null
+    metadata?: NullableJsonNullValueInput | InputJsonValue
+    processStatus?: EnumStatusFieldUpdateOperationsInput | $Enums.Status
+    register?: NullableStringFieldUpdateOperationsInput | string | null
+    activityIdTimer?: NullableStringFieldUpdateOperationsInput | string | null
+    activityStartTime?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    activityEndTime?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    allDeadlines?: NullableStringFieldUpdateOperationsInput | string | null
+    processType?: EnumProcessTypeFieldUpdateOperationsInput | $Enums.ProcessType
+    ttSysRunning?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    ttWorkRunning?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    sorting?: NullableStringFieldUpdateOperationsInput | string | null
+    priority?: EnumPriorityFieldUpdateOperationsInput | $Enums.Priority
+    outcome?: NullableStringFieldUpdateOperationsInput | string | null
+    dueAssignedEnd?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    execStart?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    dueExecEndDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    execEndDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    dueClosuerDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    totalExecTime?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    expStartDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    suspensionReason?: NullableStringFieldUpdateOperationsInput | string | null
+    category?: NullableStringFieldUpdateOperationsInput | string | null
+    subCategory?: NullableStringFieldUpdateOperationsInput | string | null
+    ttSystemOpening?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    ttWorkOpening?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    ttSystemAssignment?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    ttWorkAssignment?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    ttSystemExecution?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    ttWorkExecution?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    ttSysSuspension?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    ttWorkSuspension?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    ttEstimate?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    prevMaintenanceConfigId?: NullableStringFieldUpdateOperationsInput | string | null
+    automaticConfig?: BoolFieldUpdateOperationsInput | boolean
+    jointAccounting?: BoolFieldUpdateOperationsInput | boolean
+    hasTasks?: BoolFieldUpdateOperationsInput | boolean
+    estimateStatus?: EnumStatusFieldUpdateOperationsInput | $Enums.Status
+    delayNotification?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    requester?: UserUpdateOneWithoutRequestedMaintenancesNestedInput
+    site?: ComplexUpdateOneRequiredWithoutMaintenancesNestedInput
+    company?: CompanyUpdateOneWithoutMaintenancesNestedInput
+    team?: TeamUpdateOneWithoutMaintenancesNestedInput
+    floor?: FloorUpdateOneWithoutMaintenancesNestedInput
+    space?: SpaceUpdateOneWithoutMaintenancesNestedInput
+    assignee?: UserUpdateOneWithoutAssignedMaintenancesNestedInput
+    asset?: AssetUpdateOneWithoutMaintenancesNestedInput
+    photos?: FileUpdateManyWithoutMaintenanceNestedInput
+  }
+
+  export type MaintenanceUncheckedUpdateWithoutPerformerInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    type?: EnumMaintenanceTypeFieldUpdateOperationsInput | $Enums.MaintenanceType
+    code?: StringFieldUpdateOperationsInput | string
+    description?: StringFieldUpdateOperationsInput | string
+    startDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    endDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    shortDescription?: NullableStringFieldUpdateOperationsInput | string | null
+    action?: NullableStringFieldUpdateOperationsInput | string | null
+    message?: NullableStringFieldUpdateOperationsInput | string | null
+    processNotes?: NullableStringFieldUpdateOperationsInput | string | null
+    metadata?: NullableJsonNullValueInput | InputJsonValue
+    processStatus?: EnumStatusFieldUpdateOperationsInput | $Enums.Status
+    register?: NullableStringFieldUpdateOperationsInput | string | null
+    activityIdTimer?: NullableStringFieldUpdateOperationsInput | string | null
+    activityStartTime?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    activityEndTime?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    allDeadlines?: NullableStringFieldUpdateOperationsInput | string | null
+    processType?: EnumProcessTypeFieldUpdateOperationsInput | $Enums.ProcessType
+    ttSysRunning?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    ttWorkRunning?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    sorting?: NullableStringFieldUpdateOperationsInput | string | null
+    requesterId?: NullableStringFieldUpdateOperationsInput | string | null
+    priority?: EnumPriorityFieldUpdateOperationsInput | $Enums.Priority
+    siteId?: StringFieldUpdateOperationsInput | string
+    outcome?: NullableStringFieldUpdateOperationsInput | string | null
+    dueAssignedEnd?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    execStart?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    dueExecEndDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    execEndDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    dueClosuerDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    totalExecTime?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    expStartDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    suspensionReason?: NullableStringFieldUpdateOperationsInput | string | null
+    category?: NullableStringFieldUpdateOperationsInput | string | null
+    subCategory?: NullableStringFieldUpdateOperationsInput | string | null
+    companyId?: NullableStringFieldUpdateOperationsInput | string | null
+    teamId?: NullableStringFieldUpdateOperationsInput | string | null
+    floorId?: NullableStringFieldUpdateOperationsInput | string | null
+    spaceId?: NullableStringFieldUpdateOperationsInput | string | null
+    ttSystemOpening?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    ttWorkOpening?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    ttSystemAssignment?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    ttWorkAssignment?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    ttSystemExecution?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    ttWorkExecution?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    ttSysSuspension?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    ttWorkSuspension?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    ttEstimate?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    prevMaintenanceConfigId?: NullableStringFieldUpdateOperationsInput | string | null
+    automaticConfig?: BoolFieldUpdateOperationsInput | boolean
+    jointAccounting?: BoolFieldUpdateOperationsInput | boolean
+    hasTasks?: BoolFieldUpdateOperationsInput | boolean
+    estimateStatus?: EnumStatusFieldUpdateOperationsInput | $Enums.Status
+    delayNotification?: BoolFieldUpdateOperationsInput | boolean
+    assigneeId?: NullableStringFieldUpdateOperationsInput | string | null
+    assetId?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    photos?: FileUncheckedUpdateManyWithoutMaintenanceNestedInput
+  }
+
+  export type MaintenanceUncheckedUpdateManyWithoutPerformerInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    type?: EnumMaintenanceTypeFieldUpdateOperationsInput | $Enums.MaintenanceType
+    code?: StringFieldUpdateOperationsInput | string
+    description?: StringFieldUpdateOperationsInput | string
+    startDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    endDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    shortDescription?: NullableStringFieldUpdateOperationsInput | string | null
+    action?: NullableStringFieldUpdateOperationsInput | string | null
+    message?: NullableStringFieldUpdateOperationsInput | string | null
+    processNotes?: NullableStringFieldUpdateOperationsInput | string | null
+    metadata?: NullableJsonNullValueInput | InputJsonValue
+    processStatus?: EnumStatusFieldUpdateOperationsInput | $Enums.Status
+    register?: NullableStringFieldUpdateOperationsInput | string | null
+    activityIdTimer?: NullableStringFieldUpdateOperationsInput | string | null
+    activityStartTime?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    activityEndTime?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    allDeadlines?: NullableStringFieldUpdateOperationsInput | string | null
+    processType?: EnumProcessTypeFieldUpdateOperationsInput | $Enums.ProcessType
+    ttSysRunning?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    ttWorkRunning?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    sorting?: NullableStringFieldUpdateOperationsInput | string | null
+    requesterId?: NullableStringFieldUpdateOperationsInput | string | null
+    priority?: EnumPriorityFieldUpdateOperationsInput | $Enums.Priority
+    siteId?: StringFieldUpdateOperationsInput | string
+    outcome?: NullableStringFieldUpdateOperationsInput | string | null
+    dueAssignedEnd?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    execStart?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    dueExecEndDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    execEndDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    dueClosuerDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    totalExecTime?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    expStartDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    suspensionReason?: NullableStringFieldUpdateOperationsInput | string | null
+    category?: NullableStringFieldUpdateOperationsInput | string | null
+    subCategory?: NullableStringFieldUpdateOperationsInput | string | null
+    companyId?: NullableStringFieldUpdateOperationsInput | string | null
+    teamId?: NullableStringFieldUpdateOperationsInput | string | null
+    floorId?: NullableStringFieldUpdateOperationsInput | string | null
+    spaceId?: NullableStringFieldUpdateOperationsInput | string | null
+    ttSystemOpening?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    ttWorkOpening?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    ttSystemAssignment?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    ttWorkAssignment?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    ttSystemExecution?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    ttWorkExecution?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    ttSysSuspension?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    ttWorkSuspension?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    ttEstimate?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    prevMaintenanceConfigId?: NullableStringFieldUpdateOperationsInput | string | null
+    automaticConfig?: BoolFieldUpdateOperationsInput | boolean
+    jointAccounting?: BoolFieldUpdateOperationsInput | boolean
+    hasTasks?: BoolFieldUpdateOperationsInput | boolean
+    estimateStatus?: EnumStatusFieldUpdateOperationsInput | $Enums.Status
+    delayNotification?: BoolFieldUpdateOperationsInput | boolean
+    assigneeId?: NullableStringFieldUpdateOperationsInput | string | null
+    assetId?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type MaintenanceUpdateWithoutRequesterInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    type?: EnumMaintenanceTypeFieldUpdateOperationsInput | $Enums.MaintenanceType
+    code?: StringFieldUpdateOperationsInput | string
+    description?: StringFieldUpdateOperationsInput | string
+    startDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    endDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    shortDescription?: NullableStringFieldUpdateOperationsInput | string | null
+    action?: NullableStringFieldUpdateOperationsInput | string | null
+    message?: NullableStringFieldUpdateOperationsInput | string | null
+    processNotes?: NullableStringFieldUpdateOperationsInput | string | null
+    metadata?: NullableJsonNullValueInput | InputJsonValue
+    processStatus?: EnumStatusFieldUpdateOperationsInput | $Enums.Status
+    register?: NullableStringFieldUpdateOperationsInput | string | null
+    activityIdTimer?: NullableStringFieldUpdateOperationsInput | string | null
+    activityStartTime?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    activityEndTime?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    allDeadlines?: NullableStringFieldUpdateOperationsInput | string | null
+    processType?: EnumProcessTypeFieldUpdateOperationsInput | $Enums.ProcessType
+    ttSysRunning?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    ttWorkRunning?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    sorting?: NullableStringFieldUpdateOperationsInput | string | null
+    priority?: EnumPriorityFieldUpdateOperationsInput | $Enums.Priority
+    outcome?: NullableStringFieldUpdateOperationsInput | string | null
+    dueAssignedEnd?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    execStart?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    dueExecEndDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    execEndDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    dueClosuerDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    totalExecTime?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    expStartDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    suspensionReason?: NullableStringFieldUpdateOperationsInput | string | null
+    category?: NullableStringFieldUpdateOperationsInput | string | null
+    subCategory?: NullableStringFieldUpdateOperationsInput | string | null
+    ttSystemOpening?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    ttWorkOpening?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    ttSystemAssignment?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    ttWorkAssignment?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    ttSystemExecution?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    ttWorkExecution?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    ttSysSuspension?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    ttWorkSuspension?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    ttEstimate?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    prevMaintenanceConfigId?: NullableStringFieldUpdateOperationsInput | string | null
+    automaticConfig?: BoolFieldUpdateOperationsInput | boolean
+    jointAccounting?: BoolFieldUpdateOperationsInput | boolean
+    hasTasks?: BoolFieldUpdateOperationsInput | boolean
+    estimateStatus?: EnumStatusFieldUpdateOperationsInput | $Enums.Status
+    delayNotification?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    performer?: UserUpdateOneWithoutPerformedMaintenancesNestedInput
+    site?: ComplexUpdateOneRequiredWithoutMaintenancesNestedInput
+    company?: CompanyUpdateOneWithoutMaintenancesNestedInput
+    team?: TeamUpdateOneWithoutMaintenancesNestedInput
+    floor?: FloorUpdateOneWithoutMaintenancesNestedInput
+    space?: SpaceUpdateOneWithoutMaintenancesNestedInput
+    assignee?: UserUpdateOneWithoutAssignedMaintenancesNestedInput
+    asset?: AssetUpdateOneWithoutMaintenancesNestedInput
+    photos?: FileUpdateManyWithoutMaintenanceNestedInput
+  }
+
+  export type MaintenanceUncheckedUpdateWithoutRequesterInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    type?: EnumMaintenanceTypeFieldUpdateOperationsInput | $Enums.MaintenanceType
+    code?: StringFieldUpdateOperationsInput | string
+    description?: StringFieldUpdateOperationsInput | string
+    startDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    endDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    shortDescription?: NullableStringFieldUpdateOperationsInput | string | null
+    action?: NullableStringFieldUpdateOperationsInput | string | null
+    message?: NullableStringFieldUpdateOperationsInput | string | null
+    processNotes?: NullableStringFieldUpdateOperationsInput | string | null
+    metadata?: NullableJsonNullValueInput | InputJsonValue
+    performerId?: NullableStringFieldUpdateOperationsInput | string | null
+    processStatus?: EnumStatusFieldUpdateOperationsInput | $Enums.Status
+    register?: NullableStringFieldUpdateOperationsInput | string | null
+    activityIdTimer?: NullableStringFieldUpdateOperationsInput | string | null
+    activityStartTime?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    activityEndTime?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    allDeadlines?: NullableStringFieldUpdateOperationsInput | string | null
+    processType?: EnumProcessTypeFieldUpdateOperationsInput | $Enums.ProcessType
+    ttSysRunning?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    ttWorkRunning?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    sorting?: NullableStringFieldUpdateOperationsInput | string | null
+    priority?: EnumPriorityFieldUpdateOperationsInput | $Enums.Priority
+    siteId?: StringFieldUpdateOperationsInput | string
+    outcome?: NullableStringFieldUpdateOperationsInput | string | null
+    dueAssignedEnd?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    execStart?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    dueExecEndDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    execEndDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    dueClosuerDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    totalExecTime?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    expStartDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    suspensionReason?: NullableStringFieldUpdateOperationsInput | string | null
+    category?: NullableStringFieldUpdateOperationsInput | string | null
+    subCategory?: NullableStringFieldUpdateOperationsInput | string | null
+    companyId?: NullableStringFieldUpdateOperationsInput | string | null
+    teamId?: NullableStringFieldUpdateOperationsInput | string | null
+    floorId?: NullableStringFieldUpdateOperationsInput | string | null
+    spaceId?: NullableStringFieldUpdateOperationsInput | string | null
+    ttSystemOpening?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    ttWorkOpening?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    ttSystemAssignment?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    ttWorkAssignment?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    ttSystemExecution?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    ttWorkExecution?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    ttSysSuspension?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    ttWorkSuspension?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    ttEstimate?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    prevMaintenanceConfigId?: NullableStringFieldUpdateOperationsInput | string | null
+    automaticConfig?: BoolFieldUpdateOperationsInput | boolean
+    jointAccounting?: BoolFieldUpdateOperationsInput | boolean
+    hasTasks?: BoolFieldUpdateOperationsInput | boolean
+    estimateStatus?: EnumStatusFieldUpdateOperationsInput | $Enums.Status
+    delayNotification?: BoolFieldUpdateOperationsInput | boolean
+    assigneeId?: NullableStringFieldUpdateOperationsInput | string | null
+    assetId?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    photos?: FileUncheckedUpdateManyWithoutMaintenanceNestedInput
+  }
+
+  export type MaintenanceUncheckedUpdateManyWithoutRequesterInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    type?: EnumMaintenanceTypeFieldUpdateOperationsInput | $Enums.MaintenanceType
+    code?: StringFieldUpdateOperationsInput | string
+    description?: StringFieldUpdateOperationsInput | string
+    startDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    endDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    shortDescription?: NullableStringFieldUpdateOperationsInput | string | null
+    action?: NullableStringFieldUpdateOperationsInput | string | null
+    message?: NullableStringFieldUpdateOperationsInput | string | null
+    processNotes?: NullableStringFieldUpdateOperationsInput | string | null
+    metadata?: NullableJsonNullValueInput | InputJsonValue
+    performerId?: NullableStringFieldUpdateOperationsInput | string | null
+    processStatus?: EnumStatusFieldUpdateOperationsInput | $Enums.Status
+    register?: NullableStringFieldUpdateOperationsInput | string | null
+    activityIdTimer?: NullableStringFieldUpdateOperationsInput | string | null
+    activityStartTime?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    activityEndTime?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    allDeadlines?: NullableStringFieldUpdateOperationsInput | string | null
+    processType?: EnumProcessTypeFieldUpdateOperationsInput | $Enums.ProcessType
+    ttSysRunning?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    ttWorkRunning?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    sorting?: NullableStringFieldUpdateOperationsInput | string | null
+    priority?: EnumPriorityFieldUpdateOperationsInput | $Enums.Priority
+    siteId?: StringFieldUpdateOperationsInput | string
+    outcome?: NullableStringFieldUpdateOperationsInput | string | null
+    dueAssignedEnd?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    execStart?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    dueExecEndDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    execEndDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    dueClosuerDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    totalExecTime?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    expStartDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    suspensionReason?: NullableStringFieldUpdateOperationsInput | string | null
+    category?: NullableStringFieldUpdateOperationsInput | string | null
+    subCategory?: NullableStringFieldUpdateOperationsInput | string | null
+    companyId?: NullableStringFieldUpdateOperationsInput | string | null
+    teamId?: NullableStringFieldUpdateOperationsInput | string | null
+    floorId?: NullableStringFieldUpdateOperationsInput | string | null
+    spaceId?: NullableStringFieldUpdateOperationsInput | string | null
+    ttSystemOpening?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    ttWorkOpening?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    ttSystemAssignment?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    ttWorkAssignment?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    ttSystemExecution?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    ttWorkExecution?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    ttSysSuspension?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    ttWorkSuspension?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    ttEstimate?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    prevMaintenanceConfigId?: NullableStringFieldUpdateOperationsInput | string | null
+    automaticConfig?: BoolFieldUpdateOperationsInput | boolean
+    jointAccounting?: BoolFieldUpdateOperationsInput | boolean
+    hasTasks?: BoolFieldUpdateOperationsInput | boolean
+    estimateStatus?: EnumStatusFieldUpdateOperationsInput | $Enums.Status
+    delayNotification?: BoolFieldUpdateOperationsInput | boolean
+    assigneeId?: NullableStringFieldUpdateOperationsInput | string | null
+    assetId?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type MaintenanceUpdateWithoutAssigneeInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    type?: EnumMaintenanceTypeFieldUpdateOperationsInput | $Enums.MaintenanceType
+    code?: StringFieldUpdateOperationsInput | string
+    description?: StringFieldUpdateOperationsInput | string
+    startDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    endDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    shortDescription?: NullableStringFieldUpdateOperationsInput | string | null
+    action?: NullableStringFieldUpdateOperationsInput | string | null
+    message?: NullableStringFieldUpdateOperationsInput | string | null
+    processNotes?: NullableStringFieldUpdateOperationsInput | string | null
+    metadata?: NullableJsonNullValueInput | InputJsonValue
+    processStatus?: EnumStatusFieldUpdateOperationsInput | $Enums.Status
+    register?: NullableStringFieldUpdateOperationsInput | string | null
+    activityIdTimer?: NullableStringFieldUpdateOperationsInput | string | null
+    activityStartTime?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    activityEndTime?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    allDeadlines?: NullableStringFieldUpdateOperationsInput | string | null
+    processType?: EnumProcessTypeFieldUpdateOperationsInput | $Enums.ProcessType
+    ttSysRunning?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    ttWorkRunning?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    sorting?: NullableStringFieldUpdateOperationsInput | string | null
+    priority?: EnumPriorityFieldUpdateOperationsInput | $Enums.Priority
+    outcome?: NullableStringFieldUpdateOperationsInput | string | null
+    dueAssignedEnd?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    execStart?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    dueExecEndDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    execEndDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    dueClosuerDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    totalExecTime?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    expStartDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    suspensionReason?: NullableStringFieldUpdateOperationsInput | string | null
+    category?: NullableStringFieldUpdateOperationsInput | string | null
+    subCategory?: NullableStringFieldUpdateOperationsInput | string | null
+    ttSystemOpening?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    ttWorkOpening?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    ttSystemAssignment?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    ttWorkAssignment?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    ttSystemExecution?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    ttWorkExecution?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    ttSysSuspension?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    ttWorkSuspension?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    ttEstimate?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    prevMaintenanceConfigId?: NullableStringFieldUpdateOperationsInput | string | null
+    automaticConfig?: BoolFieldUpdateOperationsInput | boolean
+    jointAccounting?: BoolFieldUpdateOperationsInput | boolean
+    hasTasks?: BoolFieldUpdateOperationsInput | boolean
+    estimateStatus?: EnumStatusFieldUpdateOperationsInput | $Enums.Status
+    delayNotification?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    performer?: UserUpdateOneWithoutPerformedMaintenancesNestedInput
+    requester?: UserUpdateOneWithoutRequestedMaintenancesNestedInput
+    site?: ComplexUpdateOneRequiredWithoutMaintenancesNestedInput
+    company?: CompanyUpdateOneWithoutMaintenancesNestedInput
+    team?: TeamUpdateOneWithoutMaintenancesNestedInput
+    floor?: FloorUpdateOneWithoutMaintenancesNestedInput
+    space?: SpaceUpdateOneWithoutMaintenancesNestedInput
+    asset?: AssetUpdateOneWithoutMaintenancesNestedInput
+    photos?: FileUpdateManyWithoutMaintenanceNestedInput
+  }
+
+  export type MaintenanceUncheckedUpdateWithoutAssigneeInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    type?: EnumMaintenanceTypeFieldUpdateOperationsInput | $Enums.MaintenanceType
+    code?: StringFieldUpdateOperationsInput | string
+    description?: StringFieldUpdateOperationsInput | string
+    startDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    endDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    shortDescription?: NullableStringFieldUpdateOperationsInput | string | null
+    action?: NullableStringFieldUpdateOperationsInput | string | null
+    message?: NullableStringFieldUpdateOperationsInput | string | null
+    processNotes?: NullableStringFieldUpdateOperationsInput | string | null
+    metadata?: NullableJsonNullValueInput | InputJsonValue
+    performerId?: NullableStringFieldUpdateOperationsInput | string | null
+    processStatus?: EnumStatusFieldUpdateOperationsInput | $Enums.Status
+    register?: NullableStringFieldUpdateOperationsInput | string | null
+    activityIdTimer?: NullableStringFieldUpdateOperationsInput | string | null
+    activityStartTime?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    activityEndTime?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    allDeadlines?: NullableStringFieldUpdateOperationsInput | string | null
+    processType?: EnumProcessTypeFieldUpdateOperationsInput | $Enums.ProcessType
+    ttSysRunning?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    ttWorkRunning?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    sorting?: NullableStringFieldUpdateOperationsInput | string | null
+    requesterId?: NullableStringFieldUpdateOperationsInput | string | null
+    priority?: EnumPriorityFieldUpdateOperationsInput | $Enums.Priority
+    siteId?: StringFieldUpdateOperationsInput | string
+    outcome?: NullableStringFieldUpdateOperationsInput | string | null
+    dueAssignedEnd?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    execStart?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    dueExecEndDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    execEndDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    dueClosuerDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    totalExecTime?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    expStartDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    suspensionReason?: NullableStringFieldUpdateOperationsInput | string | null
+    category?: NullableStringFieldUpdateOperationsInput | string | null
+    subCategory?: NullableStringFieldUpdateOperationsInput | string | null
+    companyId?: NullableStringFieldUpdateOperationsInput | string | null
+    teamId?: NullableStringFieldUpdateOperationsInput | string | null
+    floorId?: NullableStringFieldUpdateOperationsInput | string | null
+    spaceId?: NullableStringFieldUpdateOperationsInput | string | null
+    ttSystemOpening?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    ttWorkOpening?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    ttSystemAssignment?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    ttWorkAssignment?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    ttSystemExecution?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    ttWorkExecution?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    ttSysSuspension?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    ttWorkSuspension?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    ttEstimate?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    prevMaintenanceConfigId?: NullableStringFieldUpdateOperationsInput | string | null
+    automaticConfig?: BoolFieldUpdateOperationsInput | boolean
+    jointAccounting?: BoolFieldUpdateOperationsInput | boolean
+    hasTasks?: BoolFieldUpdateOperationsInput | boolean
+    estimateStatus?: EnumStatusFieldUpdateOperationsInput | $Enums.Status
+    delayNotification?: BoolFieldUpdateOperationsInput | boolean
+    assetId?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    photos?: FileUncheckedUpdateManyWithoutMaintenanceNestedInput
+  }
+
+  export type MaintenanceUncheckedUpdateManyWithoutAssigneeInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    type?: EnumMaintenanceTypeFieldUpdateOperationsInput | $Enums.MaintenanceType
+    code?: StringFieldUpdateOperationsInput | string
+    description?: StringFieldUpdateOperationsInput | string
+    startDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    endDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    shortDescription?: NullableStringFieldUpdateOperationsInput | string | null
+    action?: NullableStringFieldUpdateOperationsInput | string | null
+    message?: NullableStringFieldUpdateOperationsInput | string | null
+    processNotes?: NullableStringFieldUpdateOperationsInput | string | null
+    metadata?: NullableJsonNullValueInput | InputJsonValue
+    performerId?: NullableStringFieldUpdateOperationsInput | string | null
+    processStatus?: EnumStatusFieldUpdateOperationsInput | $Enums.Status
+    register?: NullableStringFieldUpdateOperationsInput | string | null
+    activityIdTimer?: NullableStringFieldUpdateOperationsInput | string | null
+    activityStartTime?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    activityEndTime?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    allDeadlines?: NullableStringFieldUpdateOperationsInput | string | null
+    processType?: EnumProcessTypeFieldUpdateOperationsInput | $Enums.ProcessType
+    ttSysRunning?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    ttWorkRunning?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    sorting?: NullableStringFieldUpdateOperationsInput | string | null
+    requesterId?: NullableStringFieldUpdateOperationsInput | string | null
+    priority?: EnumPriorityFieldUpdateOperationsInput | $Enums.Priority
+    siteId?: StringFieldUpdateOperationsInput | string
+    outcome?: NullableStringFieldUpdateOperationsInput | string | null
+    dueAssignedEnd?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    execStart?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    dueExecEndDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    execEndDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    dueClosuerDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    totalExecTime?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    expStartDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    suspensionReason?: NullableStringFieldUpdateOperationsInput | string | null
+    category?: NullableStringFieldUpdateOperationsInput | string | null
+    subCategory?: NullableStringFieldUpdateOperationsInput | string | null
+    companyId?: NullableStringFieldUpdateOperationsInput | string | null
+    teamId?: NullableStringFieldUpdateOperationsInput | string | null
+    floorId?: NullableStringFieldUpdateOperationsInput | string | null
+    spaceId?: NullableStringFieldUpdateOperationsInput | string | null
+    ttSystemOpening?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    ttWorkOpening?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    ttSystemAssignment?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    ttWorkAssignment?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    ttSystemExecution?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    ttWorkExecution?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    ttSysSuspension?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    ttWorkSuspension?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    ttEstimate?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    prevMaintenanceConfigId?: NullableStringFieldUpdateOperationsInput | string | null
+    automaticConfig?: BoolFieldUpdateOperationsInput | boolean
+    jointAccounting?: BoolFieldUpdateOperationsInput | boolean
+    hasTasks?: BoolFieldUpdateOperationsInput | boolean
+    estimateStatus?: EnumStatusFieldUpdateOperationsInput | $Enums.Status
+    delayNotification?: BoolFieldUpdateOperationsInput | boolean
+    assetId?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type TeamUpdateWithoutSupervisorInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    code?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: EnumServiceStatusFieldUpdateOperationsInput | $Enums.ServiceStatus
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    maintenances?: MaintenanceUpdateManyWithoutTeamNestedInput
+    preventives?: PreventiveUpdateManyWithoutTeamNestedInput
+    members?: UserUpdateManyWithoutTeamsNestedInput
+  }
+
+  export type TeamUncheckedUpdateWithoutSupervisorInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    code?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: EnumServiceStatusFieldUpdateOperationsInput | $Enums.ServiceStatus
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    maintenances?: MaintenanceUncheckedUpdateManyWithoutTeamNestedInput
+    preventives?: PreventiveUncheckedUpdateManyWithoutTeamNestedInput
+    members?: UserUncheckedUpdateManyWithoutTeamsNestedInput
+  }
+
+  export type TeamUncheckedUpdateManyWithoutSupervisorInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    code?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: EnumServiceStatusFieldUpdateOperationsInput | $Enums.ServiceStatus
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type PermissionCreateManyRoleInput = {
@@ -54241,6 +54188,11 @@ export namespace Prisma {
     passwordResetToken?: string | null
     passwordExpiresAt?: Date | string | null
     passwordResetAt?: Date | string | null
+    employeeCode?: string | null
+    employeeType?: $Enums.EmployeeType | null
+    companyId?: string | null
+    serviceStatus?: $Enums.ServiceStatus
+    calenderEntityId?: string | null
   }
 
   export type PermissionUpdateWithoutRoleInput = {
@@ -54279,9 +54231,18 @@ export namespace Prisma {
     passwordResetToken?: NullableStringFieldUpdateOperationsInput | string | null
     passwordExpiresAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     passwordResetAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    employeeCode?: NullableStringFieldUpdateOperationsInput | string | null
+    employeeType?: NullableEnumEmployeeTypeFieldUpdateOperationsInput | $Enums.EmployeeType | null
+    serviceStatus?: EnumServiceStatusFieldUpdateOperationsInput | $Enums.ServiceStatus
     refreshTokens?: RefreshTokenUpdateManyWithoutUserNestedInput
     permissions?: UserPermissionUpdateManyWithoutUserNestedInput
-    employees?: EmployeeUpdateManyWithoutUserNestedInput
+    company?: CompanyUpdateOneWithoutEmployeesNestedInput
+    calenderEntity?: CalenderEntityUpdateOneWithoutEmployeesNestedInput
+    teams?: TeamUpdateManyWithoutMembersNestedInput
+    performedMaintenances?: MaintenanceUpdateManyWithoutPerformerNestedInput
+    requestedMaintenances?: MaintenanceUpdateManyWithoutRequesterNestedInput
+    assignedMaintenances?: MaintenanceUpdateManyWithoutAssigneeNestedInput
+    supervisedTeams?: TeamUpdateManyWithoutSupervisorNestedInput
   }
 
   export type UserUncheckedUpdateWithoutRoleInput = {
@@ -54296,9 +54257,18 @@ export namespace Prisma {
     passwordResetToken?: NullableStringFieldUpdateOperationsInput | string | null
     passwordExpiresAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     passwordResetAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    employeeCode?: NullableStringFieldUpdateOperationsInput | string | null
+    employeeType?: NullableEnumEmployeeTypeFieldUpdateOperationsInput | $Enums.EmployeeType | null
+    companyId?: NullableStringFieldUpdateOperationsInput | string | null
+    serviceStatus?: EnumServiceStatusFieldUpdateOperationsInput | $Enums.ServiceStatus
+    calenderEntityId?: NullableStringFieldUpdateOperationsInput | string | null
     refreshTokens?: RefreshTokenUncheckedUpdateManyWithoutUserNestedInput
     permissions?: UserPermissionUncheckedUpdateManyWithoutUserNestedInput
-    employees?: EmployeeUncheckedUpdateManyWithoutUserNestedInput
+    teams?: TeamUncheckedUpdateManyWithoutMembersNestedInput
+    performedMaintenances?: MaintenanceUncheckedUpdateManyWithoutPerformerNestedInput
+    requestedMaintenances?: MaintenanceUncheckedUpdateManyWithoutRequesterNestedInput
+    assignedMaintenances?: MaintenanceUncheckedUpdateManyWithoutAssigneeNestedInput
+    supervisedTeams?: TeamUncheckedUpdateManyWithoutSupervisorNestedInput
   }
 
   export type UserUncheckedUpdateManyWithoutRoleInput = {
@@ -54313,6 +54283,11 @@ export namespace Prisma {
     passwordResetToken?: NullableStringFieldUpdateOperationsInput | string | null
     passwordExpiresAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     passwordResetAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    employeeCode?: NullableStringFieldUpdateOperationsInput | string | null
+    employeeType?: NullableEnumEmployeeTypeFieldUpdateOperationsInput | $Enums.EmployeeType | null
+    companyId?: NullableStringFieldUpdateOperationsInput | string | null
+    serviceStatus?: EnumServiceStatusFieldUpdateOperationsInput | $Enums.ServiceStatus
+    calenderEntityId?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type ComplexCreateManySiteInput = {
@@ -55055,13 +55030,13 @@ export namespace Prisma {
     delayNotification?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    performer?: EmployeeUpdateOneWithoutPerformedMaintenancesNestedInput
-    requester?: EmployeeUpdateOneWithoutRequestedMaintenancesNestedInput
+    performer?: UserUpdateOneWithoutPerformedMaintenancesNestedInput
+    requester?: UserUpdateOneWithoutRequestedMaintenancesNestedInput
     company?: CompanyUpdateOneWithoutMaintenancesNestedInput
     team?: TeamUpdateOneWithoutMaintenancesNestedInput
     floor?: FloorUpdateOneWithoutMaintenancesNestedInput
     space?: SpaceUpdateOneWithoutMaintenancesNestedInput
-    assignee?: EmployeeUpdateOneWithoutAssignedMaintenancesNestedInput
+    assignee?: UserUpdateOneWithoutAssignedMaintenancesNestedInput
     asset?: AssetUpdateOneWithoutMaintenancesNestedInput
     photos?: FileUpdateManyWithoutMaintenanceNestedInput
   }
@@ -56089,13 +56064,13 @@ export namespace Prisma {
     delayNotification?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    performer?: EmployeeUpdateOneWithoutPerformedMaintenancesNestedInput
-    requester?: EmployeeUpdateOneWithoutRequestedMaintenancesNestedInput
+    performer?: UserUpdateOneWithoutPerformedMaintenancesNestedInput
+    requester?: UserUpdateOneWithoutRequestedMaintenancesNestedInput
     site?: ComplexUpdateOneRequiredWithoutMaintenancesNestedInput
     company?: CompanyUpdateOneWithoutMaintenancesNestedInput
     team?: TeamUpdateOneWithoutMaintenancesNestedInput
     space?: SpaceUpdateOneWithoutMaintenancesNestedInput
-    assignee?: EmployeeUpdateOneWithoutAssignedMaintenancesNestedInput
+    assignee?: UserUpdateOneWithoutAssignedMaintenancesNestedInput
     asset?: AssetUpdateOneWithoutMaintenancesNestedInput
     photos?: FileUpdateManyWithoutMaintenanceNestedInput
   }
@@ -56578,13 +56553,13 @@ export namespace Prisma {
     delayNotification?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    performer?: EmployeeUpdateOneWithoutPerformedMaintenancesNestedInput
-    requester?: EmployeeUpdateOneWithoutRequestedMaintenancesNestedInput
+    performer?: UserUpdateOneWithoutPerformedMaintenancesNestedInput
+    requester?: UserUpdateOneWithoutRequestedMaintenancesNestedInput
     site?: ComplexUpdateOneRequiredWithoutMaintenancesNestedInput
     company?: CompanyUpdateOneWithoutMaintenancesNestedInput
     team?: TeamUpdateOneWithoutMaintenancesNestedInput
     floor?: FloorUpdateOneWithoutMaintenancesNestedInput
-    assignee?: EmployeeUpdateOneWithoutAssignedMaintenancesNestedInput
+    assignee?: UserUpdateOneWithoutAssignedMaintenancesNestedInput
     asset?: AssetUpdateOneWithoutMaintenancesNestedInput
     photos?: FileUpdateManyWithoutMaintenanceNestedInput
   }
@@ -57043,14 +57018,14 @@ export namespace Prisma {
     delayNotification?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    performer?: EmployeeUpdateOneWithoutPerformedMaintenancesNestedInput
-    requester?: EmployeeUpdateOneWithoutRequestedMaintenancesNestedInput
+    performer?: UserUpdateOneWithoutPerformedMaintenancesNestedInput
+    requester?: UserUpdateOneWithoutRequestedMaintenancesNestedInput
     site?: ComplexUpdateOneRequiredWithoutMaintenancesNestedInput
     company?: CompanyUpdateOneWithoutMaintenancesNestedInput
     team?: TeamUpdateOneWithoutMaintenancesNestedInput
     floor?: FloorUpdateOneWithoutMaintenancesNestedInput
     space?: SpaceUpdateOneWithoutMaintenancesNestedInput
-    assignee?: EmployeeUpdateOneWithoutAssignedMaintenancesNestedInput
+    assignee?: UserUpdateOneWithoutAssignedMaintenancesNestedInput
     photos?: FileUpdateManyWithoutMaintenanceNestedInput
   }
 
@@ -57613,12 +57588,22 @@ export namespace Prisma {
     siteId?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
-  export type EmployeeCreateManyCompanyInput = {
+  export type UserCreateManyCompanyInput = {
     id?: string
-    code: string
-    type?: $Enums.EmployeeType
-    userId: string
-    status?: $Enums.ServiceStatus
+    email: string
+    password: string
+    firstName: string
+    lastName: string
+    roleId: string
+    status?: $Enums.UserStatus
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    passwordResetToken?: string | null
+    passwordExpiresAt?: Date | string | null
+    passwordResetAt?: Date | string | null
+    employeeCode?: string | null
+    employeeType?: $Enums.EmployeeType | null
+    serviceStatus?: $Enums.ServiceStatus
     calenderEntityId?: string | null
   }
 
@@ -57683,38 +57668,74 @@ export namespace Prisma {
     updatedAt?: Date | string
   }
 
-  export type EmployeeUpdateWithoutCompanyInput = {
+  export type UserUpdateWithoutCompanyInput = {
     id?: StringFieldUpdateOperationsInput | string
-    code?: StringFieldUpdateOperationsInput | string
-    type?: EnumEmployeeTypeFieldUpdateOperationsInput | $Enums.EmployeeType
-    status?: EnumServiceStatusFieldUpdateOperationsInput | $Enums.ServiceStatus
-    user?: UserUpdateOneRequiredWithoutEmployeesNestedInput
+    email?: StringFieldUpdateOperationsInput | string
+    password?: StringFieldUpdateOperationsInput | string
+    firstName?: StringFieldUpdateOperationsInput | string
+    lastName?: StringFieldUpdateOperationsInput | string
+    status?: EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    passwordResetToken?: NullableStringFieldUpdateOperationsInput | string | null
+    passwordExpiresAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    passwordResetAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    employeeCode?: NullableStringFieldUpdateOperationsInput | string | null
+    employeeType?: NullableEnumEmployeeTypeFieldUpdateOperationsInput | $Enums.EmployeeType | null
+    serviceStatus?: EnumServiceStatusFieldUpdateOperationsInput | $Enums.ServiceStatus
+    refreshTokens?: RefreshTokenUpdateManyWithoutUserNestedInput
+    role?: RoleUpdateOneRequiredWithoutUsersNestedInput
+    permissions?: UserPermissionUpdateManyWithoutUserNestedInput
     calenderEntity?: CalenderEntityUpdateOneWithoutEmployeesNestedInput
-    teams?: TeamUpdateManyWithoutSupervisorNestedInput
+    teams?: TeamUpdateManyWithoutMembersNestedInput
     performedMaintenances?: MaintenanceUpdateManyWithoutPerformerNestedInput
     requestedMaintenances?: MaintenanceUpdateManyWithoutRequesterNestedInput
     assignedMaintenances?: MaintenanceUpdateManyWithoutAssigneeNestedInput
+    supervisedTeams?: TeamUpdateManyWithoutSupervisorNestedInput
   }
 
-  export type EmployeeUncheckedUpdateWithoutCompanyInput = {
+  export type UserUncheckedUpdateWithoutCompanyInput = {
     id?: StringFieldUpdateOperationsInput | string
-    code?: StringFieldUpdateOperationsInput | string
-    type?: EnumEmployeeTypeFieldUpdateOperationsInput | $Enums.EmployeeType
-    userId?: StringFieldUpdateOperationsInput | string
-    status?: EnumServiceStatusFieldUpdateOperationsInput | $Enums.ServiceStatus
+    email?: StringFieldUpdateOperationsInput | string
+    password?: StringFieldUpdateOperationsInput | string
+    firstName?: StringFieldUpdateOperationsInput | string
+    lastName?: StringFieldUpdateOperationsInput | string
+    roleId?: StringFieldUpdateOperationsInput | string
+    status?: EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    passwordResetToken?: NullableStringFieldUpdateOperationsInput | string | null
+    passwordExpiresAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    passwordResetAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    employeeCode?: NullableStringFieldUpdateOperationsInput | string | null
+    employeeType?: NullableEnumEmployeeTypeFieldUpdateOperationsInput | $Enums.EmployeeType | null
+    serviceStatus?: EnumServiceStatusFieldUpdateOperationsInput | $Enums.ServiceStatus
     calenderEntityId?: NullableStringFieldUpdateOperationsInput | string | null
-    teams?: TeamUncheckedUpdateManyWithoutSupervisorNestedInput
+    refreshTokens?: RefreshTokenUncheckedUpdateManyWithoutUserNestedInput
+    permissions?: UserPermissionUncheckedUpdateManyWithoutUserNestedInput
+    teams?: TeamUncheckedUpdateManyWithoutMembersNestedInput
     performedMaintenances?: MaintenanceUncheckedUpdateManyWithoutPerformerNestedInput
     requestedMaintenances?: MaintenanceUncheckedUpdateManyWithoutRequesterNestedInput
     assignedMaintenances?: MaintenanceUncheckedUpdateManyWithoutAssigneeNestedInput
+    supervisedTeams?: TeamUncheckedUpdateManyWithoutSupervisorNestedInput
   }
 
-  export type EmployeeUncheckedUpdateManyWithoutCompanyInput = {
+  export type UserUncheckedUpdateManyWithoutCompanyInput = {
     id?: StringFieldUpdateOperationsInput | string
-    code?: StringFieldUpdateOperationsInput | string
-    type?: EnumEmployeeTypeFieldUpdateOperationsInput | $Enums.EmployeeType
-    userId?: StringFieldUpdateOperationsInput | string
-    status?: EnumServiceStatusFieldUpdateOperationsInput | $Enums.ServiceStatus
+    email?: StringFieldUpdateOperationsInput | string
+    password?: StringFieldUpdateOperationsInput | string
+    firstName?: StringFieldUpdateOperationsInput | string
+    lastName?: StringFieldUpdateOperationsInput | string
+    roleId?: StringFieldUpdateOperationsInput | string
+    status?: EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    passwordResetToken?: NullableStringFieldUpdateOperationsInput | string | null
+    passwordExpiresAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    passwordResetAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    employeeCode?: NullableStringFieldUpdateOperationsInput | string | null
+    employeeType?: NullableEnumEmployeeTypeFieldUpdateOperationsInput | $Enums.EmployeeType | null
+    serviceStatus?: EnumServiceStatusFieldUpdateOperationsInput | $Enums.ServiceStatus
     calenderEntityId?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
@@ -57769,13 +57790,13 @@ export namespace Prisma {
     delayNotification?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    performer?: EmployeeUpdateOneWithoutPerformedMaintenancesNestedInput
-    requester?: EmployeeUpdateOneWithoutRequestedMaintenancesNestedInput
+    performer?: UserUpdateOneWithoutPerformedMaintenancesNestedInput
+    requester?: UserUpdateOneWithoutRequestedMaintenancesNestedInput
     site?: ComplexUpdateOneRequiredWithoutMaintenancesNestedInput
     team?: TeamUpdateOneWithoutMaintenancesNestedInput
     floor?: FloorUpdateOneWithoutMaintenancesNestedInput
     space?: SpaceUpdateOneWithoutMaintenancesNestedInput
-    assignee?: EmployeeUpdateOneWithoutAssignedMaintenancesNestedInput
+    assignee?: UserUpdateOneWithoutAssignedMaintenancesNestedInput
     asset?: AssetUpdateOneWithoutMaintenancesNestedInput
     photos?: FileUpdateManyWithoutMaintenanceNestedInput
   }
@@ -57898,788 +57919,6 @@ export namespace Prisma {
     estimateStatus?: EnumStatusFieldUpdateOperationsInput | $Enums.Status
     delayNotification?: BoolFieldUpdateOperationsInput | boolean
     assigneeId?: NullableStringFieldUpdateOperationsInput | string | null
-    assetId?: NullableStringFieldUpdateOperationsInput | string | null
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-  }
-
-  export type TeamCreateManySupervisorInput = {
-    id?: string
-    code: string
-    name: string
-    description?: string | null
-    status?: $Enums.ServiceStatus
-    createdAt?: Date | string
-    updatedAt?: Date | string
-  }
-
-  export type MaintenanceCreateManyPerformerInput = {
-    id?: string
-    type?: $Enums.MaintenanceType
-    code: string
-    description: string
-    startDate?: Date | string | null
-    endDate?: Date | string | null
-    shortDescription?: string | null
-    action?: string | null
-    message?: string | null
-    processNotes?: string | null
-    metadata?: NullableJsonNullValueInput | InputJsonValue
-    processStatus?: $Enums.Status
-    register?: string | null
-    activityIdTimer?: string | null
-    activityStartTime?: Date | string | null
-    activityEndTime?: Date | string | null
-    allDeadlines?: string | null
-    processType?: $Enums.ProcessType
-    ttSysRunning?: Decimal | DecimalJsLike | number | string | null
-    ttWorkRunning?: Decimal | DecimalJsLike | number | string | null
-    sorting?: string | null
-    requesterId?: string | null
-    priority?: $Enums.Priority
-    siteId: string
-    outcome?: string | null
-    dueAssignedEnd?: Date | string | null
-    execStart?: Date | string | null
-    dueExecEndDate?: Date | string | null
-    execEndDate?: Date | string | null
-    dueClosuerDate?: Date | string | null
-    totalExecTime?: Decimal | DecimalJsLike | number | string | null
-    expStartDate?: Date | string | null
-    suspensionReason?: string | null
-    category?: string | null
-    subCategory?: string | null
-    companyId?: string | null
-    teamId?: string | null
-    floorId?: string | null
-    spaceId?: string | null
-    ttSystemOpening?: Decimal | DecimalJsLike | number | string | null
-    ttWorkOpening?: Decimal | DecimalJsLike | number | string | null
-    ttSystemAssignment?: Decimal | DecimalJsLike | number | string | null
-    ttWorkAssignment?: Decimal | DecimalJsLike | number | string | null
-    ttSystemExecution?: Decimal | DecimalJsLike | number | string | null
-    ttWorkExecution?: Decimal | DecimalJsLike | number | string | null
-    ttSysSuspension?: Decimal | DecimalJsLike | number | string | null
-    ttWorkSuspension?: Decimal | DecimalJsLike | number | string | null
-    ttEstimate?: Decimal | DecimalJsLike | number | string | null
-    prevMaintenanceConfigId?: string | null
-    automaticConfig?: boolean
-    jointAccounting?: boolean
-    hasTasks?: boolean
-    estimateStatus?: $Enums.Status
-    delayNotification?: boolean
-    assigneeId?: string | null
-    assetId?: string | null
-    createdAt?: Date | string
-    updatedAt?: Date | string
-  }
-
-  export type MaintenanceCreateManyRequesterInput = {
-    id?: string
-    type?: $Enums.MaintenanceType
-    code: string
-    description: string
-    startDate?: Date | string | null
-    endDate?: Date | string | null
-    shortDescription?: string | null
-    action?: string | null
-    message?: string | null
-    processNotes?: string | null
-    metadata?: NullableJsonNullValueInput | InputJsonValue
-    performerId?: string | null
-    processStatus?: $Enums.Status
-    register?: string | null
-    activityIdTimer?: string | null
-    activityStartTime?: Date | string | null
-    activityEndTime?: Date | string | null
-    allDeadlines?: string | null
-    processType?: $Enums.ProcessType
-    ttSysRunning?: Decimal | DecimalJsLike | number | string | null
-    ttWorkRunning?: Decimal | DecimalJsLike | number | string | null
-    sorting?: string | null
-    priority?: $Enums.Priority
-    siteId: string
-    outcome?: string | null
-    dueAssignedEnd?: Date | string | null
-    execStart?: Date | string | null
-    dueExecEndDate?: Date | string | null
-    execEndDate?: Date | string | null
-    dueClosuerDate?: Date | string | null
-    totalExecTime?: Decimal | DecimalJsLike | number | string | null
-    expStartDate?: Date | string | null
-    suspensionReason?: string | null
-    category?: string | null
-    subCategory?: string | null
-    companyId?: string | null
-    teamId?: string | null
-    floorId?: string | null
-    spaceId?: string | null
-    ttSystemOpening?: Decimal | DecimalJsLike | number | string | null
-    ttWorkOpening?: Decimal | DecimalJsLike | number | string | null
-    ttSystemAssignment?: Decimal | DecimalJsLike | number | string | null
-    ttWorkAssignment?: Decimal | DecimalJsLike | number | string | null
-    ttSystemExecution?: Decimal | DecimalJsLike | number | string | null
-    ttWorkExecution?: Decimal | DecimalJsLike | number | string | null
-    ttSysSuspension?: Decimal | DecimalJsLike | number | string | null
-    ttWorkSuspension?: Decimal | DecimalJsLike | number | string | null
-    ttEstimate?: Decimal | DecimalJsLike | number | string | null
-    prevMaintenanceConfigId?: string | null
-    automaticConfig?: boolean
-    jointAccounting?: boolean
-    hasTasks?: boolean
-    estimateStatus?: $Enums.Status
-    delayNotification?: boolean
-    assigneeId?: string | null
-    assetId?: string | null
-    createdAt?: Date | string
-    updatedAt?: Date | string
-  }
-
-  export type MaintenanceCreateManyAssigneeInput = {
-    id?: string
-    type?: $Enums.MaintenanceType
-    code: string
-    description: string
-    startDate?: Date | string | null
-    endDate?: Date | string | null
-    shortDescription?: string | null
-    action?: string | null
-    message?: string | null
-    processNotes?: string | null
-    metadata?: NullableJsonNullValueInput | InputJsonValue
-    performerId?: string | null
-    processStatus?: $Enums.Status
-    register?: string | null
-    activityIdTimer?: string | null
-    activityStartTime?: Date | string | null
-    activityEndTime?: Date | string | null
-    allDeadlines?: string | null
-    processType?: $Enums.ProcessType
-    ttSysRunning?: Decimal | DecimalJsLike | number | string | null
-    ttWorkRunning?: Decimal | DecimalJsLike | number | string | null
-    sorting?: string | null
-    requesterId?: string | null
-    priority?: $Enums.Priority
-    siteId: string
-    outcome?: string | null
-    dueAssignedEnd?: Date | string | null
-    execStart?: Date | string | null
-    dueExecEndDate?: Date | string | null
-    execEndDate?: Date | string | null
-    dueClosuerDate?: Date | string | null
-    totalExecTime?: Decimal | DecimalJsLike | number | string | null
-    expStartDate?: Date | string | null
-    suspensionReason?: string | null
-    category?: string | null
-    subCategory?: string | null
-    companyId?: string | null
-    teamId?: string | null
-    floorId?: string | null
-    spaceId?: string | null
-    ttSystemOpening?: Decimal | DecimalJsLike | number | string | null
-    ttWorkOpening?: Decimal | DecimalJsLike | number | string | null
-    ttSystemAssignment?: Decimal | DecimalJsLike | number | string | null
-    ttWorkAssignment?: Decimal | DecimalJsLike | number | string | null
-    ttSystemExecution?: Decimal | DecimalJsLike | number | string | null
-    ttWorkExecution?: Decimal | DecimalJsLike | number | string | null
-    ttSysSuspension?: Decimal | DecimalJsLike | number | string | null
-    ttWorkSuspension?: Decimal | DecimalJsLike | number | string | null
-    ttEstimate?: Decimal | DecimalJsLike | number | string | null
-    prevMaintenanceConfigId?: string | null
-    automaticConfig?: boolean
-    jointAccounting?: boolean
-    hasTasks?: boolean
-    estimateStatus?: $Enums.Status
-    delayNotification?: boolean
-    assetId?: string | null
-    createdAt?: Date | string
-    updatedAt?: Date | string
-  }
-
-  export type TeamUpdateWithoutSupervisorInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    code?: StringFieldUpdateOperationsInput | string
-    name?: StringFieldUpdateOperationsInput | string
-    description?: NullableStringFieldUpdateOperationsInput | string | null
-    status?: EnumServiceStatusFieldUpdateOperationsInput | $Enums.ServiceStatus
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    maintenances?: MaintenanceUpdateManyWithoutTeamNestedInput
-    preventives?: PreventiveUpdateManyWithoutTeamNestedInput
-  }
-
-  export type TeamUncheckedUpdateWithoutSupervisorInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    code?: StringFieldUpdateOperationsInput | string
-    name?: StringFieldUpdateOperationsInput | string
-    description?: NullableStringFieldUpdateOperationsInput | string | null
-    status?: EnumServiceStatusFieldUpdateOperationsInput | $Enums.ServiceStatus
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    maintenances?: MaintenanceUncheckedUpdateManyWithoutTeamNestedInput
-    preventives?: PreventiveUncheckedUpdateManyWithoutTeamNestedInput
-  }
-
-  export type TeamUncheckedUpdateManyWithoutSupervisorInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    code?: StringFieldUpdateOperationsInput | string
-    name?: StringFieldUpdateOperationsInput | string
-    description?: NullableStringFieldUpdateOperationsInput | string | null
-    status?: EnumServiceStatusFieldUpdateOperationsInput | $Enums.ServiceStatus
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-  }
-
-  export type MaintenanceUpdateWithoutPerformerInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    type?: EnumMaintenanceTypeFieldUpdateOperationsInput | $Enums.MaintenanceType
-    code?: StringFieldUpdateOperationsInput | string
-    description?: StringFieldUpdateOperationsInput | string
-    startDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    endDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    shortDescription?: NullableStringFieldUpdateOperationsInput | string | null
-    action?: NullableStringFieldUpdateOperationsInput | string | null
-    message?: NullableStringFieldUpdateOperationsInput | string | null
-    processNotes?: NullableStringFieldUpdateOperationsInput | string | null
-    metadata?: NullableJsonNullValueInput | InputJsonValue
-    processStatus?: EnumStatusFieldUpdateOperationsInput | $Enums.Status
-    register?: NullableStringFieldUpdateOperationsInput | string | null
-    activityIdTimer?: NullableStringFieldUpdateOperationsInput | string | null
-    activityStartTime?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    activityEndTime?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    allDeadlines?: NullableStringFieldUpdateOperationsInput | string | null
-    processType?: EnumProcessTypeFieldUpdateOperationsInput | $Enums.ProcessType
-    ttSysRunning?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
-    ttWorkRunning?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
-    sorting?: NullableStringFieldUpdateOperationsInput | string | null
-    priority?: EnumPriorityFieldUpdateOperationsInput | $Enums.Priority
-    outcome?: NullableStringFieldUpdateOperationsInput | string | null
-    dueAssignedEnd?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    execStart?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    dueExecEndDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    execEndDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    dueClosuerDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    totalExecTime?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
-    expStartDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    suspensionReason?: NullableStringFieldUpdateOperationsInput | string | null
-    category?: NullableStringFieldUpdateOperationsInput | string | null
-    subCategory?: NullableStringFieldUpdateOperationsInput | string | null
-    ttSystemOpening?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
-    ttWorkOpening?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
-    ttSystemAssignment?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
-    ttWorkAssignment?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
-    ttSystemExecution?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
-    ttWorkExecution?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
-    ttSysSuspension?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
-    ttWorkSuspension?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
-    ttEstimate?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
-    prevMaintenanceConfigId?: NullableStringFieldUpdateOperationsInput | string | null
-    automaticConfig?: BoolFieldUpdateOperationsInput | boolean
-    jointAccounting?: BoolFieldUpdateOperationsInput | boolean
-    hasTasks?: BoolFieldUpdateOperationsInput | boolean
-    estimateStatus?: EnumStatusFieldUpdateOperationsInput | $Enums.Status
-    delayNotification?: BoolFieldUpdateOperationsInput | boolean
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    requester?: EmployeeUpdateOneWithoutRequestedMaintenancesNestedInput
-    site?: ComplexUpdateOneRequiredWithoutMaintenancesNestedInput
-    company?: CompanyUpdateOneWithoutMaintenancesNestedInput
-    team?: TeamUpdateOneWithoutMaintenancesNestedInput
-    floor?: FloorUpdateOneWithoutMaintenancesNestedInput
-    space?: SpaceUpdateOneWithoutMaintenancesNestedInput
-    assignee?: EmployeeUpdateOneWithoutAssignedMaintenancesNestedInput
-    asset?: AssetUpdateOneWithoutMaintenancesNestedInput
-    photos?: FileUpdateManyWithoutMaintenanceNestedInput
-  }
-
-  export type MaintenanceUncheckedUpdateWithoutPerformerInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    type?: EnumMaintenanceTypeFieldUpdateOperationsInput | $Enums.MaintenanceType
-    code?: StringFieldUpdateOperationsInput | string
-    description?: StringFieldUpdateOperationsInput | string
-    startDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    endDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    shortDescription?: NullableStringFieldUpdateOperationsInput | string | null
-    action?: NullableStringFieldUpdateOperationsInput | string | null
-    message?: NullableStringFieldUpdateOperationsInput | string | null
-    processNotes?: NullableStringFieldUpdateOperationsInput | string | null
-    metadata?: NullableJsonNullValueInput | InputJsonValue
-    processStatus?: EnumStatusFieldUpdateOperationsInput | $Enums.Status
-    register?: NullableStringFieldUpdateOperationsInput | string | null
-    activityIdTimer?: NullableStringFieldUpdateOperationsInput | string | null
-    activityStartTime?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    activityEndTime?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    allDeadlines?: NullableStringFieldUpdateOperationsInput | string | null
-    processType?: EnumProcessTypeFieldUpdateOperationsInput | $Enums.ProcessType
-    ttSysRunning?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
-    ttWorkRunning?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
-    sorting?: NullableStringFieldUpdateOperationsInput | string | null
-    requesterId?: NullableStringFieldUpdateOperationsInput | string | null
-    priority?: EnumPriorityFieldUpdateOperationsInput | $Enums.Priority
-    siteId?: StringFieldUpdateOperationsInput | string
-    outcome?: NullableStringFieldUpdateOperationsInput | string | null
-    dueAssignedEnd?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    execStart?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    dueExecEndDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    execEndDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    dueClosuerDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    totalExecTime?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
-    expStartDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    suspensionReason?: NullableStringFieldUpdateOperationsInput | string | null
-    category?: NullableStringFieldUpdateOperationsInput | string | null
-    subCategory?: NullableStringFieldUpdateOperationsInput | string | null
-    companyId?: NullableStringFieldUpdateOperationsInput | string | null
-    teamId?: NullableStringFieldUpdateOperationsInput | string | null
-    floorId?: NullableStringFieldUpdateOperationsInput | string | null
-    spaceId?: NullableStringFieldUpdateOperationsInput | string | null
-    ttSystemOpening?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
-    ttWorkOpening?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
-    ttSystemAssignment?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
-    ttWorkAssignment?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
-    ttSystemExecution?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
-    ttWorkExecution?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
-    ttSysSuspension?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
-    ttWorkSuspension?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
-    ttEstimate?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
-    prevMaintenanceConfigId?: NullableStringFieldUpdateOperationsInput | string | null
-    automaticConfig?: BoolFieldUpdateOperationsInput | boolean
-    jointAccounting?: BoolFieldUpdateOperationsInput | boolean
-    hasTasks?: BoolFieldUpdateOperationsInput | boolean
-    estimateStatus?: EnumStatusFieldUpdateOperationsInput | $Enums.Status
-    delayNotification?: BoolFieldUpdateOperationsInput | boolean
-    assigneeId?: NullableStringFieldUpdateOperationsInput | string | null
-    assetId?: NullableStringFieldUpdateOperationsInput | string | null
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    photos?: FileUncheckedUpdateManyWithoutMaintenanceNestedInput
-  }
-
-  export type MaintenanceUncheckedUpdateManyWithoutPerformerInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    type?: EnumMaintenanceTypeFieldUpdateOperationsInput | $Enums.MaintenanceType
-    code?: StringFieldUpdateOperationsInput | string
-    description?: StringFieldUpdateOperationsInput | string
-    startDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    endDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    shortDescription?: NullableStringFieldUpdateOperationsInput | string | null
-    action?: NullableStringFieldUpdateOperationsInput | string | null
-    message?: NullableStringFieldUpdateOperationsInput | string | null
-    processNotes?: NullableStringFieldUpdateOperationsInput | string | null
-    metadata?: NullableJsonNullValueInput | InputJsonValue
-    processStatus?: EnumStatusFieldUpdateOperationsInput | $Enums.Status
-    register?: NullableStringFieldUpdateOperationsInput | string | null
-    activityIdTimer?: NullableStringFieldUpdateOperationsInput | string | null
-    activityStartTime?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    activityEndTime?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    allDeadlines?: NullableStringFieldUpdateOperationsInput | string | null
-    processType?: EnumProcessTypeFieldUpdateOperationsInput | $Enums.ProcessType
-    ttSysRunning?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
-    ttWorkRunning?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
-    sorting?: NullableStringFieldUpdateOperationsInput | string | null
-    requesterId?: NullableStringFieldUpdateOperationsInput | string | null
-    priority?: EnumPriorityFieldUpdateOperationsInput | $Enums.Priority
-    siteId?: StringFieldUpdateOperationsInput | string
-    outcome?: NullableStringFieldUpdateOperationsInput | string | null
-    dueAssignedEnd?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    execStart?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    dueExecEndDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    execEndDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    dueClosuerDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    totalExecTime?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
-    expStartDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    suspensionReason?: NullableStringFieldUpdateOperationsInput | string | null
-    category?: NullableStringFieldUpdateOperationsInput | string | null
-    subCategory?: NullableStringFieldUpdateOperationsInput | string | null
-    companyId?: NullableStringFieldUpdateOperationsInput | string | null
-    teamId?: NullableStringFieldUpdateOperationsInput | string | null
-    floorId?: NullableStringFieldUpdateOperationsInput | string | null
-    spaceId?: NullableStringFieldUpdateOperationsInput | string | null
-    ttSystemOpening?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
-    ttWorkOpening?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
-    ttSystemAssignment?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
-    ttWorkAssignment?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
-    ttSystemExecution?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
-    ttWorkExecution?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
-    ttSysSuspension?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
-    ttWorkSuspension?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
-    ttEstimate?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
-    prevMaintenanceConfigId?: NullableStringFieldUpdateOperationsInput | string | null
-    automaticConfig?: BoolFieldUpdateOperationsInput | boolean
-    jointAccounting?: BoolFieldUpdateOperationsInput | boolean
-    hasTasks?: BoolFieldUpdateOperationsInput | boolean
-    estimateStatus?: EnumStatusFieldUpdateOperationsInput | $Enums.Status
-    delayNotification?: BoolFieldUpdateOperationsInput | boolean
-    assigneeId?: NullableStringFieldUpdateOperationsInput | string | null
-    assetId?: NullableStringFieldUpdateOperationsInput | string | null
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-  }
-
-  export type MaintenanceUpdateWithoutRequesterInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    type?: EnumMaintenanceTypeFieldUpdateOperationsInput | $Enums.MaintenanceType
-    code?: StringFieldUpdateOperationsInput | string
-    description?: StringFieldUpdateOperationsInput | string
-    startDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    endDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    shortDescription?: NullableStringFieldUpdateOperationsInput | string | null
-    action?: NullableStringFieldUpdateOperationsInput | string | null
-    message?: NullableStringFieldUpdateOperationsInput | string | null
-    processNotes?: NullableStringFieldUpdateOperationsInput | string | null
-    metadata?: NullableJsonNullValueInput | InputJsonValue
-    processStatus?: EnumStatusFieldUpdateOperationsInput | $Enums.Status
-    register?: NullableStringFieldUpdateOperationsInput | string | null
-    activityIdTimer?: NullableStringFieldUpdateOperationsInput | string | null
-    activityStartTime?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    activityEndTime?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    allDeadlines?: NullableStringFieldUpdateOperationsInput | string | null
-    processType?: EnumProcessTypeFieldUpdateOperationsInput | $Enums.ProcessType
-    ttSysRunning?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
-    ttWorkRunning?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
-    sorting?: NullableStringFieldUpdateOperationsInput | string | null
-    priority?: EnumPriorityFieldUpdateOperationsInput | $Enums.Priority
-    outcome?: NullableStringFieldUpdateOperationsInput | string | null
-    dueAssignedEnd?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    execStart?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    dueExecEndDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    execEndDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    dueClosuerDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    totalExecTime?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
-    expStartDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    suspensionReason?: NullableStringFieldUpdateOperationsInput | string | null
-    category?: NullableStringFieldUpdateOperationsInput | string | null
-    subCategory?: NullableStringFieldUpdateOperationsInput | string | null
-    ttSystemOpening?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
-    ttWorkOpening?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
-    ttSystemAssignment?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
-    ttWorkAssignment?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
-    ttSystemExecution?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
-    ttWorkExecution?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
-    ttSysSuspension?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
-    ttWorkSuspension?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
-    ttEstimate?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
-    prevMaintenanceConfigId?: NullableStringFieldUpdateOperationsInput | string | null
-    automaticConfig?: BoolFieldUpdateOperationsInput | boolean
-    jointAccounting?: BoolFieldUpdateOperationsInput | boolean
-    hasTasks?: BoolFieldUpdateOperationsInput | boolean
-    estimateStatus?: EnumStatusFieldUpdateOperationsInput | $Enums.Status
-    delayNotification?: BoolFieldUpdateOperationsInput | boolean
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    performer?: EmployeeUpdateOneWithoutPerformedMaintenancesNestedInput
-    site?: ComplexUpdateOneRequiredWithoutMaintenancesNestedInput
-    company?: CompanyUpdateOneWithoutMaintenancesNestedInput
-    team?: TeamUpdateOneWithoutMaintenancesNestedInput
-    floor?: FloorUpdateOneWithoutMaintenancesNestedInput
-    space?: SpaceUpdateOneWithoutMaintenancesNestedInput
-    assignee?: EmployeeUpdateOneWithoutAssignedMaintenancesNestedInput
-    asset?: AssetUpdateOneWithoutMaintenancesNestedInput
-    photos?: FileUpdateManyWithoutMaintenanceNestedInput
-  }
-
-  export type MaintenanceUncheckedUpdateWithoutRequesterInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    type?: EnumMaintenanceTypeFieldUpdateOperationsInput | $Enums.MaintenanceType
-    code?: StringFieldUpdateOperationsInput | string
-    description?: StringFieldUpdateOperationsInput | string
-    startDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    endDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    shortDescription?: NullableStringFieldUpdateOperationsInput | string | null
-    action?: NullableStringFieldUpdateOperationsInput | string | null
-    message?: NullableStringFieldUpdateOperationsInput | string | null
-    processNotes?: NullableStringFieldUpdateOperationsInput | string | null
-    metadata?: NullableJsonNullValueInput | InputJsonValue
-    performerId?: NullableStringFieldUpdateOperationsInput | string | null
-    processStatus?: EnumStatusFieldUpdateOperationsInput | $Enums.Status
-    register?: NullableStringFieldUpdateOperationsInput | string | null
-    activityIdTimer?: NullableStringFieldUpdateOperationsInput | string | null
-    activityStartTime?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    activityEndTime?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    allDeadlines?: NullableStringFieldUpdateOperationsInput | string | null
-    processType?: EnumProcessTypeFieldUpdateOperationsInput | $Enums.ProcessType
-    ttSysRunning?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
-    ttWorkRunning?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
-    sorting?: NullableStringFieldUpdateOperationsInput | string | null
-    priority?: EnumPriorityFieldUpdateOperationsInput | $Enums.Priority
-    siteId?: StringFieldUpdateOperationsInput | string
-    outcome?: NullableStringFieldUpdateOperationsInput | string | null
-    dueAssignedEnd?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    execStart?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    dueExecEndDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    execEndDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    dueClosuerDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    totalExecTime?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
-    expStartDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    suspensionReason?: NullableStringFieldUpdateOperationsInput | string | null
-    category?: NullableStringFieldUpdateOperationsInput | string | null
-    subCategory?: NullableStringFieldUpdateOperationsInput | string | null
-    companyId?: NullableStringFieldUpdateOperationsInput | string | null
-    teamId?: NullableStringFieldUpdateOperationsInput | string | null
-    floorId?: NullableStringFieldUpdateOperationsInput | string | null
-    spaceId?: NullableStringFieldUpdateOperationsInput | string | null
-    ttSystemOpening?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
-    ttWorkOpening?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
-    ttSystemAssignment?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
-    ttWorkAssignment?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
-    ttSystemExecution?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
-    ttWorkExecution?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
-    ttSysSuspension?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
-    ttWorkSuspension?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
-    ttEstimate?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
-    prevMaintenanceConfigId?: NullableStringFieldUpdateOperationsInput | string | null
-    automaticConfig?: BoolFieldUpdateOperationsInput | boolean
-    jointAccounting?: BoolFieldUpdateOperationsInput | boolean
-    hasTasks?: BoolFieldUpdateOperationsInput | boolean
-    estimateStatus?: EnumStatusFieldUpdateOperationsInput | $Enums.Status
-    delayNotification?: BoolFieldUpdateOperationsInput | boolean
-    assigneeId?: NullableStringFieldUpdateOperationsInput | string | null
-    assetId?: NullableStringFieldUpdateOperationsInput | string | null
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    photos?: FileUncheckedUpdateManyWithoutMaintenanceNestedInput
-  }
-
-  export type MaintenanceUncheckedUpdateManyWithoutRequesterInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    type?: EnumMaintenanceTypeFieldUpdateOperationsInput | $Enums.MaintenanceType
-    code?: StringFieldUpdateOperationsInput | string
-    description?: StringFieldUpdateOperationsInput | string
-    startDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    endDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    shortDescription?: NullableStringFieldUpdateOperationsInput | string | null
-    action?: NullableStringFieldUpdateOperationsInput | string | null
-    message?: NullableStringFieldUpdateOperationsInput | string | null
-    processNotes?: NullableStringFieldUpdateOperationsInput | string | null
-    metadata?: NullableJsonNullValueInput | InputJsonValue
-    performerId?: NullableStringFieldUpdateOperationsInput | string | null
-    processStatus?: EnumStatusFieldUpdateOperationsInput | $Enums.Status
-    register?: NullableStringFieldUpdateOperationsInput | string | null
-    activityIdTimer?: NullableStringFieldUpdateOperationsInput | string | null
-    activityStartTime?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    activityEndTime?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    allDeadlines?: NullableStringFieldUpdateOperationsInput | string | null
-    processType?: EnumProcessTypeFieldUpdateOperationsInput | $Enums.ProcessType
-    ttSysRunning?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
-    ttWorkRunning?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
-    sorting?: NullableStringFieldUpdateOperationsInput | string | null
-    priority?: EnumPriorityFieldUpdateOperationsInput | $Enums.Priority
-    siteId?: StringFieldUpdateOperationsInput | string
-    outcome?: NullableStringFieldUpdateOperationsInput | string | null
-    dueAssignedEnd?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    execStart?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    dueExecEndDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    execEndDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    dueClosuerDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    totalExecTime?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
-    expStartDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    suspensionReason?: NullableStringFieldUpdateOperationsInput | string | null
-    category?: NullableStringFieldUpdateOperationsInput | string | null
-    subCategory?: NullableStringFieldUpdateOperationsInput | string | null
-    companyId?: NullableStringFieldUpdateOperationsInput | string | null
-    teamId?: NullableStringFieldUpdateOperationsInput | string | null
-    floorId?: NullableStringFieldUpdateOperationsInput | string | null
-    spaceId?: NullableStringFieldUpdateOperationsInput | string | null
-    ttSystemOpening?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
-    ttWorkOpening?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
-    ttSystemAssignment?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
-    ttWorkAssignment?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
-    ttSystemExecution?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
-    ttWorkExecution?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
-    ttSysSuspension?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
-    ttWorkSuspension?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
-    ttEstimate?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
-    prevMaintenanceConfigId?: NullableStringFieldUpdateOperationsInput | string | null
-    automaticConfig?: BoolFieldUpdateOperationsInput | boolean
-    jointAccounting?: BoolFieldUpdateOperationsInput | boolean
-    hasTasks?: BoolFieldUpdateOperationsInput | boolean
-    estimateStatus?: EnumStatusFieldUpdateOperationsInput | $Enums.Status
-    delayNotification?: BoolFieldUpdateOperationsInput | boolean
-    assigneeId?: NullableStringFieldUpdateOperationsInput | string | null
-    assetId?: NullableStringFieldUpdateOperationsInput | string | null
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-  }
-
-  export type MaintenanceUpdateWithoutAssigneeInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    type?: EnumMaintenanceTypeFieldUpdateOperationsInput | $Enums.MaintenanceType
-    code?: StringFieldUpdateOperationsInput | string
-    description?: StringFieldUpdateOperationsInput | string
-    startDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    endDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    shortDescription?: NullableStringFieldUpdateOperationsInput | string | null
-    action?: NullableStringFieldUpdateOperationsInput | string | null
-    message?: NullableStringFieldUpdateOperationsInput | string | null
-    processNotes?: NullableStringFieldUpdateOperationsInput | string | null
-    metadata?: NullableJsonNullValueInput | InputJsonValue
-    processStatus?: EnumStatusFieldUpdateOperationsInput | $Enums.Status
-    register?: NullableStringFieldUpdateOperationsInput | string | null
-    activityIdTimer?: NullableStringFieldUpdateOperationsInput | string | null
-    activityStartTime?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    activityEndTime?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    allDeadlines?: NullableStringFieldUpdateOperationsInput | string | null
-    processType?: EnumProcessTypeFieldUpdateOperationsInput | $Enums.ProcessType
-    ttSysRunning?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
-    ttWorkRunning?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
-    sorting?: NullableStringFieldUpdateOperationsInput | string | null
-    priority?: EnumPriorityFieldUpdateOperationsInput | $Enums.Priority
-    outcome?: NullableStringFieldUpdateOperationsInput | string | null
-    dueAssignedEnd?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    execStart?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    dueExecEndDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    execEndDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    dueClosuerDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    totalExecTime?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
-    expStartDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    suspensionReason?: NullableStringFieldUpdateOperationsInput | string | null
-    category?: NullableStringFieldUpdateOperationsInput | string | null
-    subCategory?: NullableStringFieldUpdateOperationsInput | string | null
-    ttSystemOpening?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
-    ttWorkOpening?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
-    ttSystemAssignment?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
-    ttWorkAssignment?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
-    ttSystemExecution?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
-    ttWorkExecution?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
-    ttSysSuspension?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
-    ttWorkSuspension?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
-    ttEstimate?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
-    prevMaintenanceConfigId?: NullableStringFieldUpdateOperationsInput | string | null
-    automaticConfig?: BoolFieldUpdateOperationsInput | boolean
-    jointAccounting?: BoolFieldUpdateOperationsInput | boolean
-    hasTasks?: BoolFieldUpdateOperationsInput | boolean
-    estimateStatus?: EnumStatusFieldUpdateOperationsInput | $Enums.Status
-    delayNotification?: BoolFieldUpdateOperationsInput | boolean
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    performer?: EmployeeUpdateOneWithoutPerformedMaintenancesNestedInput
-    requester?: EmployeeUpdateOneWithoutRequestedMaintenancesNestedInput
-    site?: ComplexUpdateOneRequiredWithoutMaintenancesNestedInput
-    company?: CompanyUpdateOneWithoutMaintenancesNestedInput
-    team?: TeamUpdateOneWithoutMaintenancesNestedInput
-    floor?: FloorUpdateOneWithoutMaintenancesNestedInput
-    space?: SpaceUpdateOneWithoutMaintenancesNestedInput
-    asset?: AssetUpdateOneWithoutMaintenancesNestedInput
-    photos?: FileUpdateManyWithoutMaintenanceNestedInput
-  }
-
-  export type MaintenanceUncheckedUpdateWithoutAssigneeInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    type?: EnumMaintenanceTypeFieldUpdateOperationsInput | $Enums.MaintenanceType
-    code?: StringFieldUpdateOperationsInput | string
-    description?: StringFieldUpdateOperationsInput | string
-    startDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    endDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    shortDescription?: NullableStringFieldUpdateOperationsInput | string | null
-    action?: NullableStringFieldUpdateOperationsInput | string | null
-    message?: NullableStringFieldUpdateOperationsInput | string | null
-    processNotes?: NullableStringFieldUpdateOperationsInput | string | null
-    metadata?: NullableJsonNullValueInput | InputJsonValue
-    performerId?: NullableStringFieldUpdateOperationsInput | string | null
-    processStatus?: EnumStatusFieldUpdateOperationsInput | $Enums.Status
-    register?: NullableStringFieldUpdateOperationsInput | string | null
-    activityIdTimer?: NullableStringFieldUpdateOperationsInput | string | null
-    activityStartTime?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    activityEndTime?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    allDeadlines?: NullableStringFieldUpdateOperationsInput | string | null
-    processType?: EnumProcessTypeFieldUpdateOperationsInput | $Enums.ProcessType
-    ttSysRunning?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
-    ttWorkRunning?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
-    sorting?: NullableStringFieldUpdateOperationsInput | string | null
-    requesterId?: NullableStringFieldUpdateOperationsInput | string | null
-    priority?: EnumPriorityFieldUpdateOperationsInput | $Enums.Priority
-    siteId?: StringFieldUpdateOperationsInput | string
-    outcome?: NullableStringFieldUpdateOperationsInput | string | null
-    dueAssignedEnd?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    execStart?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    dueExecEndDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    execEndDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    dueClosuerDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    totalExecTime?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
-    expStartDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    suspensionReason?: NullableStringFieldUpdateOperationsInput | string | null
-    category?: NullableStringFieldUpdateOperationsInput | string | null
-    subCategory?: NullableStringFieldUpdateOperationsInput | string | null
-    companyId?: NullableStringFieldUpdateOperationsInput | string | null
-    teamId?: NullableStringFieldUpdateOperationsInput | string | null
-    floorId?: NullableStringFieldUpdateOperationsInput | string | null
-    spaceId?: NullableStringFieldUpdateOperationsInput | string | null
-    ttSystemOpening?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
-    ttWorkOpening?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
-    ttSystemAssignment?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
-    ttWorkAssignment?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
-    ttSystemExecution?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
-    ttWorkExecution?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
-    ttSysSuspension?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
-    ttWorkSuspension?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
-    ttEstimate?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
-    prevMaintenanceConfigId?: NullableStringFieldUpdateOperationsInput | string | null
-    automaticConfig?: BoolFieldUpdateOperationsInput | boolean
-    jointAccounting?: BoolFieldUpdateOperationsInput | boolean
-    hasTasks?: BoolFieldUpdateOperationsInput | boolean
-    estimateStatus?: EnumStatusFieldUpdateOperationsInput | $Enums.Status
-    delayNotification?: BoolFieldUpdateOperationsInput | boolean
-    assetId?: NullableStringFieldUpdateOperationsInput | string | null
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    photos?: FileUncheckedUpdateManyWithoutMaintenanceNestedInput
-  }
-
-  export type MaintenanceUncheckedUpdateManyWithoutAssigneeInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    type?: EnumMaintenanceTypeFieldUpdateOperationsInput | $Enums.MaintenanceType
-    code?: StringFieldUpdateOperationsInput | string
-    description?: StringFieldUpdateOperationsInput | string
-    startDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    endDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    shortDescription?: NullableStringFieldUpdateOperationsInput | string | null
-    action?: NullableStringFieldUpdateOperationsInput | string | null
-    message?: NullableStringFieldUpdateOperationsInput | string | null
-    processNotes?: NullableStringFieldUpdateOperationsInput | string | null
-    metadata?: NullableJsonNullValueInput | InputJsonValue
-    performerId?: NullableStringFieldUpdateOperationsInput | string | null
-    processStatus?: EnumStatusFieldUpdateOperationsInput | $Enums.Status
-    register?: NullableStringFieldUpdateOperationsInput | string | null
-    activityIdTimer?: NullableStringFieldUpdateOperationsInput | string | null
-    activityStartTime?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    activityEndTime?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    allDeadlines?: NullableStringFieldUpdateOperationsInput | string | null
-    processType?: EnumProcessTypeFieldUpdateOperationsInput | $Enums.ProcessType
-    ttSysRunning?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
-    ttWorkRunning?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
-    sorting?: NullableStringFieldUpdateOperationsInput | string | null
-    requesterId?: NullableStringFieldUpdateOperationsInput | string | null
-    priority?: EnumPriorityFieldUpdateOperationsInput | $Enums.Priority
-    siteId?: StringFieldUpdateOperationsInput | string
-    outcome?: NullableStringFieldUpdateOperationsInput | string | null
-    dueAssignedEnd?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    execStart?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    dueExecEndDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    execEndDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    dueClosuerDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    totalExecTime?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
-    expStartDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    suspensionReason?: NullableStringFieldUpdateOperationsInput | string | null
-    category?: NullableStringFieldUpdateOperationsInput | string | null
-    subCategory?: NullableStringFieldUpdateOperationsInput | string | null
-    companyId?: NullableStringFieldUpdateOperationsInput | string | null
-    teamId?: NullableStringFieldUpdateOperationsInput | string | null
-    floorId?: NullableStringFieldUpdateOperationsInput | string | null
-    spaceId?: NullableStringFieldUpdateOperationsInput | string | null
-    ttSystemOpening?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
-    ttWorkOpening?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
-    ttSystemAssignment?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
-    ttWorkAssignment?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
-    ttSystemExecution?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
-    ttWorkExecution?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
-    ttSysSuspension?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
-    ttWorkSuspension?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
-    ttEstimate?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
-    prevMaintenanceConfigId?: NullableStringFieldUpdateOperationsInput | string | null
-    automaticConfig?: BoolFieldUpdateOperationsInput | boolean
-    jointAccounting?: BoolFieldUpdateOperationsInput | boolean
-    hasTasks?: BoolFieldUpdateOperationsInput | boolean
-    estimateStatus?: EnumStatusFieldUpdateOperationsInput | $Enums.Status
-    delayNotification?: BoolFieldUpdateOperationsInput | boolean
     assetId?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -58817,13 +58056,13 @@ export namespace Prisma {
     delayNotification?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    performer?: EmployeeUpdateOneWithoutPerformedMaintenancesNestedInput
-    requester?: EmployeeUpdateOneWithoutRequestedMaintenancesNestedInput
+    performer?: UserUpdateOneWithoutPerformedMaintenancesNestedInput
+    requester?: UserUpdateOneWithoutRequestedMaintenancesNestedInput
     site?: ComplexUpdateOneRequiredWithoutMaintenancesNestedInput
     company?: CompanyUpdateOneWithoutMaintenancesNestedInput
     floor?: FloorUpdateOneWithoutMaintenancesNestedInput
     space?: SpaceUpdateOneWithoutMaintenancesNestedInput
-    assignee?: EmployeeUpdateOneWithoutAssignedMaintenancesNestedInput
+    assignee?: UserUpdateOneWithoutAssignedMaintenancesNestedInput
     asset?: AssetUpdateOneWithoutMaintenancesNestedInput
     photos?: FileUpdateManyWithoutMaintenanceNestedInput
   }
@@ -59011,6 +58250,78 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
+  export type UserUpdateWithoutTeamsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    password?: StringFieldUpdateOperationsInput | string
+    firstName?: StringFieldUpdateOperationsInput | string
+    lastName?: StringFieldUpdateOperationsInput | string
+    status?: EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    passwordResetToken?: NullableStringFieldUpdateOperationsInput | string | null
+    passwordExpiresAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    passwordResetAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    employeeCode?: NullableStringFieldUpdateOperationsInput | string | null
+    employeeType?: NullableEnumEmployeeTypeFieldUpdateOperationsInput | $Enums.EmployeeType | null
+    serviceStatus?: EnumServiceStatusFieldUpdateOperationsInput | $Enums.ServiceStatus
+    refreshTokens?: RefreshTokenUpdateManyWithoutUserNestedInput
+    role?: RoleUpdateOneRequiredWithoutUsersNestedInput
+    permissions?: UserPermissionUpdateManyWithoutUserNestedInput
+    company?: CompanyUpdateOneWithoutEmployeesNestedInput
+    calenderEntity?: CalenderEntityUpdateOneWithoutEmployeesNestedInput
+    performedMaintenances?: MaintenanceUpdateManyWithoutPerformerNestedInput
+    requestedMaintenances?: MaintenanceUpdateManyWithoutRequesterNestedInput
+    assignedMaintenances?: MaintenanceUpdateManyWithoutAssigneeNestedInput
+    supervisedTeams?: TeamUpdateManyWithoutSupervisorNestedInput
+  }
+
+  export type UserUncheckedUpdateWithoutTeamsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    password?: StringFieldUpdateOperationsInput | string
+    firstName?: StringFieldUpdateOperationsInput | string
+    lastName?: StringFieldUpdateOperationsInput | string
+    roleId?: StringFieldUpdateOperationsInput | string
+    status?: EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    passwordResetToken?: NullableStringFieldUpdateOperationsInput | string | null
+    passwordExpiresAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    passwordResetAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    employeeCode?: NullableStringFieldUpdateOperationsInput | string | null
+    employeeType?: NullableEnumEmployeeTypeFieldUpdateOperationsInput | $Enums.EmployeeType | null
+    companyId?: NullableStringFieldUpdateOperationsInput | string | null
+    serviceStatus?: EnumServiceStatusFieldUpdateOperationsInput | $Enums.ServiceStatus
+    calenderEntityId?: NullableStringFieldUpdateOperationsInput | string | null
+    refreshTokens?: RefreshTokenUncheckedUpdateManyWithoutUserNestedInput
+    permissions?: UserPermissionUncheckedUpdateManyWithoutUserNestedInput
+    performedMaintenances?: MaintenanceUncheckedUpdateManyWithoutPerformerNestedInput
+    requestedMaintenances?: MaintenanceUncheckedUpdateManyWithoutRequesterNestedInput
+    assignedMaintenances?: MaintenanceUncheckedUpdateManyWithoutAssigneeNestedInput
+    supervisedTeams?: TeamUncheckedUpdateManyWithoutSupervisorNestedInput
+  }
+
+  export type UserUncheckedUpdateManyWithoutTeamsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    password?: StringFieldUpdateOperationsInput | string
+    firstName?: StringFieldUpdateOperationsInput | string
+    lastName?: StringFieldUpdateOperationsInput | string
+    roleId?: StringFieldUpdateOperationsInput | string
+    status?: EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    passwordResetToken?: NullableStringFieldUpdateOperationsInput | string | null
+    passwordExpiresAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    passwordResetAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    employeeCode?: NullableStringFieldUpdateOperationsInput | string | null
+    employeeType?: NullableEnumEmployeeTypeFieldUpdateOperationsInput | $Enums.EmployeeType | null
+    companyId?: NullableStringFieldUpdateOperationsInput | string | null
+    serviceStatus?: EnumServiceStatusFieldUpdateOperationsInput | $Enums.ServiceStatus
+    calenderEntityId?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
   export type CompanyCreateManyAddressInput = {
     id?: string
     code: string
@@ -59062,7 +58373,7 @@ export namespace Prisma {
     website?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    employees?: EmployeeUpdateManyWithoutCompanyNestedInput
+    employees?: UserUpdateManyWithoutCompanyNestedInput
     maintenances?: MaintenanceUpdateManyWithoutCompanyNestedInput
   }
 
@@ -59078,7 +58389,7 @@ export namespace Prisma {
     website?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    employees?: EmployeeUncheckedUpdateManyWithoutCompanyNestedInput
+    employees?: UserUncheckedUpdateManyWithoutCompanyNestedInput
     maintenances?: MaintenanceUncheckedUpdateManyWithoutCompanyNestedInput
   }
 
@@ -59293,13 +58604,23 @@ export namespace Prisma {
     updatedAt?: Date | string
   }
 
-  export type EmployeeCreateManyCalenderEntityInput = {
+  export type UserCreateManyCalenderEntityInput = {
     id?: string
-    code: string
-    type?: $Enums.EmployeeType
-    userId: string
-    companyId: string
-    status?: $Enums.ServiceStatus
+    email: string
+    password: string
+    firstName: string
+    lastName: string
+    roleId: string
+    status?: $Enums.UserStatus
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    passwordResetToken?: string | null
+    passwordExpiresAt?: Date | string | null
+    passwordResetAt?: Date | string | null
+    employeeCode?: string | null
+    employeeType?: $Enums.EmployeeType | null
+    companyId?: string | null
+    serviceStatus?: $Enums.ServiceStatus
   }
 
   export type BuildingUpdateWithoutCalenderEntityInput = {
@@ -59674,39 +58995,75 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
-  export type EmployeeUpdateWithoutCalenderEntityInput = {
+  export type UserUpdateWithoutCalenderEntityInput = {
     id?: StringFieldUpdateOperationsInput | string
-    code?: StringFieldUpdateOperationsInput | string
-    type?: EnumEmployeeTypeFieldUpdateOperationsInput | $Enums.EmployeeType
-    status?: EnumServiceStatusFieldUpdateOperationsInput | $Enums.ServiceStatus
-    user?: UserUpdateOneRequiredWithoutEmployeesNestedInput
-    company?: CompanyUpdateOneRequiredWithoutEmployeesNestedInput
-    teams?: TeamUpdateManyWithoutSupervisorNestedInput
+    email?: StringFieldUpdateOperationsInput | string
+    password?: StringFieldUpdateOperationsInput | string
+    firstName?: StringFieldUpdateOperationsInput | string
+    lastName?: StringFieldUpdateOperationsInput | string
+    status?: EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    passwordResetToken?: NullableStringFieldUpdateOperationsInput | string | null
+    passwordExpiresAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    passwordResetAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    employeeCode?: NullableStringFieldUpdateOperationsInput | string | null
+    employeeType?: NullableEnumEmployeeTypeFieldUpdateOperationsInput | $Enums.EmployeeType | null
+    serviceStatus?: EnumServiceStatusFieldUpdateOperationsInput | $Enums.ServiceStatus
+    refreshTokens?: RefreshTokenUpdateManyWithoutUserNestedInput
+    role?: RoleUpdateOneRequiredWithoutUsersNestedInput
+    permissions?: UserPermissionUpdateManyWithoutUserNestedInput
+    company?: CompanyUpdateOneWithoutEmployeesNestedInput
+    teams?: TeamUpdateManyWithoutMembersNestedInput
     performedMaintenances?: MaintenanceUpdateManyWithoutPerformerNestedInput
     requestedMaintenances?: MaintenanceUpdateManyWithoutRequesterNestedInput
     assignedMaintenances?: MaintenanceUpdateManyWithoutAssigneeNestedInput
+    supervisedTeams?: TeamUpdateManyWithoutSupervisorNestedInput
   }
 
-  export type EmployeeUncheckedUpdateWithoutCalenderEntityInput = {
+  export type UserUncheckedUpdateWithoutCalenderEntityInput = {
     id?: StringFieldUpdateOperationsInput | string
-    code?: StringFieldUpdateOperationsInput | string
-    type?: EnumEmployeeTypeFieldUpdateOperationsInput | $Enums.EmployeeType
-    userId?: StringFieldUpdateOperationsInput | string
-    companyId?: StringFieldUpdateOperationsInput | string
-    status?: EnumServiceStatusFieldUpdateOperationsInput | $Enums.ServiceStatus
-    teams?: TeamUncheckedUpdateManyWithoutSupervisorNestedInput
+    email?: StringFieldUpdateOperationsInput | string
+    password?: StringFieldUpdateOperationsInput | string
+    firstName?: StringFieldUpdateOperationsInput | string
+    lastName?: StringFieldUpdateOperationsInput | string
+    roleId?: StringFieldUpdateOperationsInput | string
+    status?: EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    passwordResetToken?: NullableStringFieldUpdateOperationsInput | string | null
+    passwordExpiresAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    passwordResetAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    employeeCode?: NullableStringFieldUpdateOperationsInput | string | null
+    employeeType?: NullableEnumEmployeeTypeFieldUpdateOperationsInput | $Enums.EmployeeType | null
+    companyId?: NullableStringFieldUpdateOperationsInput | string | null
+    serviceStatus?: EnumServiceStatusFieldUpdateOperationsInput | $Enums.ServiceStatus
+    refreshTokens?: RefreshTokenUncheckedUpdateManyWithoutUserNestedInput
+    permissions?: UserPermissionUncheckedUpdateManyWithoutUserNestedInput
+    teams?: TeamUncheckedUpdateManyWithoutMembersNestedInput
     performedMaintenances?: MaintenanceUncheckedUpdateManyWithoutPerformerNestedInput
     requestedMaintenances?: MaintenanceUncheckedUpdateManyWithoutRequesterNestedInput
     assignedMaintenances?: MaintenanceUncheckedUpdateManyWithoutAssigneeNestedInput
+    supervisedTeams?: TeamUncheckedUpdateManyWithoutSupervisorNestedInput
   }
 
-  export type EmployeeUncheckedUpdateManyWithoutCalenderEntityInput = {
+  export type UserUncheckedUpdateManyWithoutCalenderEntityInput = {
     id?: StringFieldUpdateOperationsInput | string
-    code?: StringFieldUpdateOperationsInput | string
-    type?: EnumEmployeeTypeFieldUpdateOperationsInput | $Enums.EmployeeType
-    userId?: StringFieldUpdateOperationsInput | string
-    companyId?: StringFieldUpdateOperationsInput | string
-    status?: EnumServiceStatusFieldUpdateOperationsInput | $Enums.ServiceStatus
+    email?: StringFieldUpdateOperationsInput | string
+    password?: StringFieldUpdateOperationsInput | string
+    firstName?: StringFieldUpdateOperationsInput | string
+    lastName?: StringFieldUpdateOperationsInput | string
+    roleId?: StringFieldUpdateOperationsInput | string
+    status?: EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    passwordResetToken?: NullableStringFieldUpdateOperationsInput | string | null
+    passwordExpiresAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    passwordResetAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    employeeCode?: NullableStringFieldUpdateOperationsInput | string | null
+    employeeType?: NullableEnumEmployeeTypeFieldUpdateOperationsInput | $Enums.EmployeeType | null
+    companyId?: NullableStringFieldUpdateOperationsInput | string | null
+    serviceStatus?: EnumServiceStatusFieldUpdateOperationsInput | $Enums.ServiceStatus
   }
 
   export type FileCreateManyMaintenanceInput = {

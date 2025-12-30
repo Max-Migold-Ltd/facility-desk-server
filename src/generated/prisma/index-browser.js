@@ -132,7 +132,12 @@ exports.Prisma.UserScalarFieldEnum = {
   updatedAt: 'updatedAt',
   passwordResetToken: 'passwordResetToken',
   passwordExpiresAt: 'passwordExpiresAt',
-  passwordResetAt: 'passwordResetAt'
+  passwordResetAt: 'passwordResetAt',
+  employeeCode: 'employeeCode',
+  employeeType: 'employeeType',
+  companyId: 'companyId',
+  serviceStatus: 'serviceStatus',
+  calenderEntityId: 'calenderEntityId'
 };
 
 exports.Prisma.RoleScalarFieldEnum = {
@@ -359,16 +364,6 @@ exports.Prisma.CompanyScalarFieldEnum = {
   updatedAt: 'updatedAt'
 };
 
-exports.Prisma.EmployeeScalarFieldEnum = {
-  id: 'id',
-  code: 'code',
-  type: 'type',
-  userId: 'userId',
-  companyId: 'companyId',
-  status: 'status',
-  calenderEntityId: 'calenderEntityId'
-};
-
 exports.Prisma.TeamScalarFieldEnum = {
   id: 'id',
   code: 'code',
@@ -526,6 +521,19 @@ exports.UserStatus = exports.$Enums.UserStatus = {
   SUSPENDED: 'SUSPENDED'
 };
 
+exports.EmployeeType = exports.$Enums.EmployeeType = {
+  CUSTOMER_EMPLOYEE: 'CUSTOMER_EMPLOYEE',
+  EXTERNAL_EMPLOYEE: 'EXTERNAL_EMPLOYEE',
+  INTERNAL_EMPLOYEE: 'INTERNAL_EMPLOYEE',
+  SUPPLIER_EMPLOYEE: 'SUPPLIER_EMPLOYEE'
+};
+
+exports.ServiceStatus = exports.$Enums.ServiceStatus = {
+  ACTIVE: 'ACTIVE',
+  INACTIVE: 'INACTIVE',
+  SUSPENDED: 'SUSPENDED'
+};
+
 exports.AccessLevel = exports.$Enums.AccessLevel = {
   NONE: 'NONE',
   READ: 'READ',
@@ -537,12 +545,6 @@ exports.Availability = exports.$Enums.Availability = {
   VACANT: 'VACANT',
   UNDER_CONSTRUCTION: 'UNDER_CONSTRUCTION',
   RENT: 'RENT'
-};
-
-exports.ServiceStatus = exports.$Enums.ServiceStatus = {
-  ACTIVE: 'ACTIVE',
-  INACTIVE: 'INACTIVE',
-  SUSPENDED: 'SUSPENDED'
 };
 
 exports.Condition = exports.$Enums.Condition = {
@@ -589,13 +591,6 @@ exports.CompanyType = exports.$Enums.CompanyType = {
   CORPORATE_GROUP: 'CORPORATE_GROUP',
   CUSTOMER: 'CUSTOMER',
   SUPPLIER: 'SUPPLIER'
-};
-
-exports.EmployeeType = exports.$Enums.EmployeeType = {
-  CUSTOMER_EMPLOYEE: 'CUSTOMER_EMPLOYEE',
-  EXTERNAL_EMPLOYEE: 'EXTERNAL_EMPLOYEE',
-  INTERNAL_EMPLOYEE: 'INTERNAL_EMPLOYEE',
-  SUPPLIER_EMPLOYEE: 'SUPPLIER_EMPLOYEE'
 };
 
 exports.MaintenanceType = exports.$Enums.MaintenanceType = {
@@ -650,7 +645,6 @@ exports.Prisma.ModelName = {
   Asset: 'Asset',
   File: 'File',
   Company: 'Company',
-  Employee: 'Employee',
   Team: 'Team',
   Address: 'Address',
   Contract: 'Contract',

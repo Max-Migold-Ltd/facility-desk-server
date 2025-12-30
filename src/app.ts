@@ -25,13 +25,12 @@ import floorRoutes from "./modules/location/routes/floors.routes";
 import zoneRoutes from "./modules/location/routes/zones.routes";
 import spaceRoutes from "./modules/location/routes/spaces.routes";
 
-
 import swaggerSpec from "./swagger";
 import swagger from "swagger-ui-express";
 import assetCategoryRoutes from "./modules/assets/routes/asset-category.routes";
 import assetRoutes from "./modules/assets/routes/asset.routes";
 import companiesRoutes from "./modules/companies/companies.routes";
-import employeesRoutes from "./modules/employees/employees.routes";
+
 import teamsRoutes from "./modules/teams/teams.routes";
 import maintenanceRoutes from "./modules/maintenance/maintenance.routes";
 
@@ -87,7 +86,7 @@ app.use(
   permissionRoutes
 );
 app.use(`/api/${API_VERSION}/companies`, apiRateLimiter, companiesRoutes);
-app.use(`/api/${API_VERSION}/employees`, apiRateLimiter, employeesRoutes);
+
 app.use(`/api/${API_VERSION}/teams`, apiRateLimiter, teamsRoutes);
 app.use(`/api/${API_VERSION}/maintenance`, apiRateLimiter, maintenanceRoutes);
 // LOCATIONS

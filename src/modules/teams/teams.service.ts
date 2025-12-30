@@ -28,14 +28,10 @@ export class TeamsService {
         where,
         include: {
           supervisor: {
-            include: {
-              user: {
-                select: {
-                  firstName: true,
-                  lastName: true,
-                  email: true,
-                },
-              },
+            select: {
+              firstName: true,
+              lastName: true,
+              email: true,
             },
           },
         },
@@ -62,14 +58,10 @@ export class TeamsService {
       where: { id },
       include: {
         supervisor: {
-          include: {
-            user: {
-              select: {
-                firstName: true,
-                lastName: true,
-                email: true,
-              },
-            },
+          select: {
+            firstName: true,
+            lastName: true,
+            email: true,
           },
         },
       },
@@ -96,10 +88,10 @@ export class TeamsService {
     if (existingCode) throw new ConflictError("Team code already exists");
 
     // Check supervisor existence
-    const supervisor = await prisma.employee.findUnique({
+    const supervisor = await prisma.user.findUnique({
       where: { id: data.supervisorId },
     });
-    if (!supervisor) throw new NotFoundError("Supervisor (Employee) not found");
+    if (!supervisor) throw new NotFoundError("Supervisor (User) not found");
 
     const team = await prisma.team.create({
       data,
@@ -133,11 +125,10 @@ export class TeamsService {
     if (!team) throw new NotFoundError("Team");
 
     if (data.supervisorId) {
-      const supervisor = await prisma.employee.findUnique({
+      const supervisor = await prisma.user.findUnique({
         where: { id: data.supervisorId },
       });
-      if (!supervisor)
-        throw new NotFoundError("Supervisor (Employee) not found");
+      if (!supervisor) throw new NotFoundError("Supervisor (User) not found");
     }
 
     const updatedTeam = await prisma.team.update({

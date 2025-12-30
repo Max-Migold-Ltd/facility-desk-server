@@ -50,7 +50,7 @@ async function main() {
   // ============================================================================
   // 1. ROLES & PERMISSIONS
   // ============================================================================
-  console.log("\n� Seeding Roles & Permissions...");
+  console.log("\n🔐 Seeding Roles & Permissions...");
   const rolesMap = new Map<string, string>();
 
   for (const [key, roleName] of Object.entries(ROLES)) {
@@ -114,9 +114,9 @@ async function main() {
   console.log(`   - Company: ${mainCompany.name}`);
 
   // ============================================================================
-  // 3. USERS & EMPLOYEES
+  // 3. USERS (Merged with Employee)
   // ============================================================================
-  console.log("\n� Seeding Users & Employees...");
+  console.log("\n👥 Seeding Users & Employees...");
   const hashedPassword = await hashPassword(DEFAULT_PASSWORD);
 
   const usersData = [
@@ -146,48 +146,42 @@ async function main() {
     },
   ];
 
-  const employeesMap = new Map<string, string>(); // Code -> Id
+  const usersMap = new Map<string, string>(); // Email -> Id
 
   for (const u of usersData) {
     const roleId = rolesMap.get(u.roleKey);
     if (!roleId) continue;
 
-    let user = await prisma.user.findUnique({ where: { email: u.email } });
-    if (!user) {
-      user = await prisma.user.create({
-        data: {
-          email: u.email,
-          password: hashedPassword,
-          firstName: u.firstName,
-          lastName: u.lastName,
-          roleId: roleId,
-          status: UserStatus.ACTIVE,
-        },
-      });
-    }
+    const userData = {
+      email: u.email,
+      password: hashedPassword,
+      firstName: u.firstName,
+      lastName: u.lastName,
+      roleId: roleId,
+      status: UserStatus.ACTIVE,
+      // Merged Employee Fields
+      employeeCode: u.employeeCode,
+      employeeType: u.employeeType,
+      companyId: mainCompany.id,
+      serviceStatus: ServiceStatus.ACTIVE,
+    };
 
-    // Create Employee Profile
-    const emp = await prisma.employee.upsert({
-      where: { code: u.employeeCode },
-      update: {},
-      create: {
-        code: u.employeeCode,
-        userId: user.id,
-        companyId: mainCompany.id,
-        type: u.employeeType,
-        status: ServiceStatus.ACTIVE,
-      },
+    const user = await prisma.user.upsert({
+      where: { email: u.email },
+      update: userData,
+      create: userData,
     });
-    employeesMap.set(u.employeeCode, emp.id);
-    console.log(`   - User/Employee: ${u.email} (${u.roleKey})`);
+
+    usersMap.set(u.email, user.id);
+    console.log(`   - User: ${u.email} (${u.roleKey})`);
   }
 
   // ============================================================================
   // 4. TEAMS
   // ============================================================================
   console.log("\n🛠️ Seeding Teams...");
-  const techId = employeesMap.get("EMP-003");
-  const managerId = employeesMap.get("EMP-002");
+  const techId = usersMap.get("tech@facilitydesk.com");
+  const managerId = usersMap.get("manager@facilitydesk.com");
 
   if (techId && managerId) {
     await prisma.team.upsert({
@@ -197,7 +191,7 @@ async function main() {
         code: "TEAM-HVAC",
         name: "HVAC Specialists",
         description: "Handling all heating and cooling requests",
-        supervisorId: managerId,
+        supervisorId: managerId, // Now referencing User
         status: ServiceStatus.ACTIVE,
       },
     });
@@ -386,8 +380,8 @@ async function main() {
         floorId: floor.id,
         spaceId: space.id,
         assetId: asset.id,
-        requesterId: managerId, // Manager requested
-        assigneeId: techId, // Assigned to Tech
+        requesterId: managerId, // User requested
+        assigneeId: techId, // User assignee
         processStatus: Status.PENDING,
       },
     });
