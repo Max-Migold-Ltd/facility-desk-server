@@ -9,7 +9,7 @@ A comprehensive Role-Based Access Control (RBAC) system for facility desk manage
   - Secure httpOnly cookies for refresh tokens
   - Token refresh and rotation mechanism
   - Password hashing with bcrypt
-  - **New**: Support for multiple roles per user (M:N)
+
 
 - **Role-Based Access Control (RBAC)**
   - Dynamic Role creation (no longer restricted to fixed Enums)
@@ -129,7 +129,7 @@ facility-desk-server/
 After seeding, you can login with:
 
 - **Email**: `admin@facilitydesk.com`
-- **Password**: `Admin@123`
+- **Password**: `Password@123`
 
 ⚠️ **Change this password immediately in production!**
 
@@ -157,13 +157,13 @@ This interactive interface allows you to test all endpoints including Auth, User
 #### Users & Roles
 - `GET /api/v1/users`: List users
 - `GET /api/v1/roles`: List available roles
-- `PUT /api/v1/users/:id`: Update user (assign multiple roles here)
+- `PUT /api/v1/users/:id`: Update user (assign role here)
 
 ## Database Schema Highlights
 
 ### User Model
-- Supports **Many-to-Many** relationship with Roles.
-- `roles`: List of roles assigned to the user.
+- **One-to-Many** relationship with Roles (User belongs to one Role).
+- `role`: The role assigned to the user.
 
 ### Role Model
 - `name`: String (allows custom role names).
