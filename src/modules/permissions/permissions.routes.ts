@@ -1,14 +1,28 @@
-import { Router } from 'express';
-import { PermissionsController } from './permissions.controller';
-import { authenticate } from '../../middleware/auth.middleware';
-import { requireRole } from '../../middleware/rbac.middleware';
-import { requirePermission } from '../../middleware/permission.middleware';
+import { Router } from "express";
+import { PermissionsController } from "./permissions.controller";
+import { authenticate } from "../../middleware/auth.middleware";
+import { requireRole } from "../../middleware/rbac.middleware";
+import { requirePermission } from "../../middleware/permission.middleware";
 
-const router = Router();
+const router = Router({ mergeParams: true });
 const permissionsController = new PermissionsController();
 
 // All routes require authentication
 router.use(authenticate);
+
+router
+  .route("/")
+  .get(requirePermission("Permission", "READ"), permissionsController.getAll)
+  .post(requirePermission("Permission", "WRITE"), permissionsController.create);
+
+router
+  .route("/:id")
+  .get(requirePermission("Permission", "READ"), permissionsController.getById)
+  .patch(requirePermission("Permission", "WRITE"), permissionsController.update)
+  .delete(
+    requirePermission("Permission", "WRITE"),
+    permissionsController.delete
+  );
 
 /**
  * @swagger
@@ -63,10 +77,10 @@ router.use(authenticate);
  *         description: Role not found
  */
 router.get(
-  '/:roleId/permissions',
-  requireRole(["ADMIN"]),
-  requirePermission('Permission', 'READ'),
-  permissionsController.getRolePermissions
+  "/:roleId/permissions",
+  requireRole(["Super Admin", "Admin"]),
+  requirePermission("Permission", "READ"),
+  permissionsController.getAll
 );
 
 /**
@@ -133,11 +147,11 @@ router.get(
  *       404:
  *         description: Role not found
  */
-router.put(
-  "/:roleId/permissions",
-  requireRole(["ADMIN"]),
-  requirePermission("Permission", "WRITE"),
-  permissionsController.updateRolePermissions
-);
+// router.put(
+//   "/:roleId/permissions",
+//   requireRole(["ADMIN"]),
+//   requirePermission("Permission", "WRITE"),
+//   permissionsController.updateRolePermissions
+// );
 
 export default router;

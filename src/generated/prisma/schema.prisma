@@ -147,18 +147,18 @@ enum Priority {
 // ========================  MODELS =================================== //
 
 model User {
-  id            String           @id @default(uuid())
-  email         String           @unique
+  id            String         @id @default(uuid())
+  email         String         @unique
   password      String
   firstName     String
   lastName      String
   roleId        String
-  status        UserStatus       @default(ACTIVE)
-  createdAt     DateTime         @default(now())
-  updatedAt     DateTime         @updatedAt
+  status        UserStatus     @default(ACTIVE)
+  createdAt     DateTime       @default(now())
+  updatedAt     DateTime       @updatedAt
   refreshTokens RefreshToken[]
-  role          Role             @relation(fields: [roleId], references: [id])
-  permissions   UserPermission[] // Direct permissions
+  role          Role           @relation(fields: [roleId], references: [id])
+  permissions   Permission[] // Direct permissions
 
   passwordResetToken String?
   passwordExpiresAt  DateTime?
@@ -188,8 +188,8 @@ model User {
 
 model Role {
   id          String       @id @default(uuid())
-  name        String       @unique // Was RoleName
-  isSystem    Boolean      @default(false) // Protects core roles
+  name        String       @unique
+  isSystem    Boolean      @default(false)
   description String?
   createdAt   DateTime     @default(now())
   updatedAt   DateTime     @updatedAt
@@ -208,24 +208,12 @@ model Permission {
   createdAt   DateTime    @default(now())
   updatedAt   DateTime    @updatedAt
   role        Role        @relation(fields: [roleId], references: [id], onDelete: Cascade)
+  user        User?       @relation(fields: [userId], references: [id])
+  userId      String?
 
-  @@unique([roleId, resource])
+  @@unique([roleId, resource, accessLevel])
   @@index([roleId])
   @@map("permissions")
-}
-
-model UserPermission {
-  id          String      @id @default(uuid())
-  userId      String
-  resource    String
-  accessLevel AccessLevel @default(NONE)
-  createdAt   DateTime    @default(now())
-  updatedAt   DateTime    @updatedAt
-  user        User        @relation(fields: [userId], references: [id], onDelete: Cascade)
-
-  @@unique([userId, resource])
-  @@index([userId])
-  @@map("user_permissions")
 }
 
 model Site {
@@ -719,6 +707,8 @@ model Maintenance {
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+
+  @@map("maintenances")
 }
 
 model Preventive {

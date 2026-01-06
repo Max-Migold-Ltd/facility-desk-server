@@ -30,16 +30,16 @@ const ROLES = {
 };
 
 const RESOURCES = [
-  "Users",
-  "Roles",
-  "Permissions",
-  "Companies",
-  "Employees",
-  "Sites",
-  "Buildings",
-  "Assets",
+  "User",
+  "Role",
+  "Permission",
+  "Company",
+  "Employee",
+  "Site",
+  "Building",
+  "Asset",
   "Maintenance",
-  "Reports",
+  "Report",
 ];
 
 const DEFAULT_PASSWORD = "Password@123";
@@ -73,7 +73,7 @@ async function main() {
     if (!roleId) continue;
     for (const resource of RESOURCES) {
       await prisma.permission.upsert({
-        where: { roleId_resource: { roleId, resource } },
+        where: { roleId_resource_accessLevel: { roleId, resource, accessLevel: AccessLevel.WRITE } },
         update: { accessLevel: AccessLevel.WRITE },
         create: { roleId, resource, accessLevel: AccessLevel.WRITE },
       });
@@ -159,7 +159,6 @@ async function main() {
       lastName: u.lastName,
       roleId: roleId,
       status: UserStatus.ACTIVE,
-      // Merged Employee Fields
       employeeCode: u.employeeCode,
       employeeType: u.employeeType,
       companyId: mainCompany.id,

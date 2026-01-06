@@ -82,9 +82,9 @@ app.use(`/api/${API_VERSION}/users`, apiRateLimiter, userRoutes);
 app.use(
   `/api/${API_VERSION}/roles`,
   apiRateLimiter,
-  roleRoutes,
-  permissionRoutes
+  roleRoutes
 );
+app.use(`/api/${API_VERSION}/permissions`, apiRateLimiter, permissionRoutes);
 app.use(`/api/${API_VERSION}/companies`, apiRateLimiter, companiesRoutes);
 
 app.use(`/api/${API_VERSION}/teams`, apiRateLimiter, teamsRoutes);

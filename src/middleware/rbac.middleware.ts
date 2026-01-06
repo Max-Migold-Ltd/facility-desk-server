@@ -15,6 +15,8 @@ export const requireRole = (roles: string[]) => {
       const userRoleName = req.user.role.name;
       const hasRole = roles.includes(userRoleName);
 
+      console.log("Role: ", userRoleName)
+
       if (!hasRole) {
         throw new ForbiddenError(
           `Access denied. Required role: ${roles.join(" or ")}`

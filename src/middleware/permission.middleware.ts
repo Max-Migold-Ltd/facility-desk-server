@@ -21,46 +21,45 @@ export const requirePermission = (
       }
 
       // 1. Check for Direct User Permission overrides
-      const directPermission = req.user.permissions.find(
-        (p) => p.resource === resource
-      );
 
-      if (directPermission) {
-        if (
-          accessLevelHierarchy[directPermission.accessLevel as AccessLevel] <
-          accessLevelHierarchy[minAccessLevel]
-        ) {
-          throw new ForbiddenError(
-            `Insufficient direct permissions for ${resource}. Required: ${minAccessLevel}, Has: ${directPermission.accessLevel}`
-          );
-        }
-        // If direct permission is sufficient, proceed
-        return next();
-      }
-
-      // 2. Fallback to Role-based Permission
-      const rolePermission = await prisma.permission.findUnique({
+      //1. Check if the role contains the permission
+      const rolePermissions = await prisma.permission.findMany({
         where: {
-          roleId_resource: {
-            roleId: req.user.role.id,
-            resource,
-          },
+          roleId: req.user.role.id,
+          resource,
         },
       });
 
-      // If no permission found, default to NONE
-      const userAccessLevel = rolePermission?.accessLevel || "NONE";
-
-      // Check if user's access level meets the minimum requirement
-      if (
-        accessLevelHierarchy[userAccessLevel] <
-        accessLevelHierarchy[minAccessLevel]
-      ) {
-        throw new ForbiddenError(
-          `Insufficient permissions for ${resource}. Required: ${minAccessLevel}, Has: ${userAccessLevel}`
+      if (rolePermissions.length > 0) {
+        const permission = rolePermissions[0];
+        if (
+          accessLevelHierarchy[permission.accessLevel as AccessLevel] >=
+          accessLevelHierarchy[minAccessLevel]
+        ) {
+          // allow
+          return next();
+        }
+      } else {
+        const directPermission = req.user.permissions.find(
+          (p) => p.resource === resource
         );
+        if (directPermission) {
+          if (
+            accessLevelHierarchy[directPermission.accessLevel as AccessLevel] <
+            accessLevelHierarchy[minAccessLevel]
+          ) {
+            return new ForbiddenError(
+              `Insufficient direct permissions for ${resource}. Required: ${minAccessLevel}, Has: ${directPermission.accessLevel}`
+            );
+          }
+          // If direct permission is sufficient, proceed
+          return next();
+        } else {
+          return new ForbiddenError(
+            `Insufficient permissions for ${resource}. Required: ${minAccessLevel}`
+          );
+        }
       }
-
       next();
     } catch (error) {
       next(error);

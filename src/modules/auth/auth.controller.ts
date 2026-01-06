@@ -1,10 +1,38 @@
 import { Request, Response, NextFunction } from "express";
 import { AuthService } from "./auth.service";
 import { cookieOptions } from "../../utils/cookie.util";
+import bulkUserQueue from "../jobs/queues/bulkUser.queue";
 
 const authService = new AuthService();
 
 export class AuthController {
+  async bulkRegistration(req:Request, res:Response, next:NextFunction) {
+    try {
+      if(!req.file){
+        return res.status(400).json({
+          success: false,
+          error: {
+            message: "File not found",
+            code: "FILE_NOT_FOUND",
+          },
+        });
+      }
+      await bulkUserQueue.add("process-users", {
+        filePath: req.file.path,
+        originalName: req.file.originalname,
+        mimetype: req.file.mimetype,
+        size: req.file.size,
+      });
+
+      res.status(202).json({
+        success: true,
+        message: "File uploaded successfully. Processing Started",
+      })
+      
+    } catch (error) {
+      next(error)
+    }
+  }
   async register(req: Request, res: Response, next: NextFunction) {
     try {
       const result = await authService.register(req.body);
@@ -79,7 +107,7 @@ export class AuthController {
       const result = await authService.me(userId!);
 
       // Set new refresh token as httpOnly cookie
-      res.cookie("refresh_token", result.refreshToken, cookieOptions)
+      res.cookie("refresh_token", result.refreshToken, cookieOptions);
 
       res.status(200).json({
         status: true,

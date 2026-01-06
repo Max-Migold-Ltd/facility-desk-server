@@ -4,11 +4,15 @@ import { authenticate } from "../../middleware/auth.middleware";
 import { requireRole } from "../../middleware/rbac.middleware";
 import { requirePermission } from "../../middleware/permission.middleware";
 
+import permissionRouter from "../permissions/permissions.routes";
+
 const router = Router();
 const rolesController = new RolesController();
 
 // All routes require authentication
 router.use(authenticate);
+
+router.use("/:roleId/permissions", permissionRouter);
 
 /**
  * @swagger
@@ -53,12 +57,14 @@ router.use(authenticate);
  *       403:
  *         description: Insufficient permissions
  */
-router.get(
-  "/",
-  requireRole(["ADMIN"]),
-  requirePermission("Role", "READ"),
-  rolesController.getAll
-);
+router
+  .route("/")
+  .get(
+    requireRole(["Super Admin", "Admin"]),
+    // requirePermission("Role", "READ"),
+    rolesController.getAll
+  )
+  .post(requirePermission("Role", "WRITE"), rolesController.create);
 
 /**
  * @swagger
@@ -112,9 +118,19 @@ router.get(
  */
 router.get(
   "/:id",
-  requireRole(["ADMIN"]),
+  requireRole(["Super Admin", "Admin"]),
   requirePermission("Role", "READ"),
   rolesController.getById
 );
+
+router
+  .route("/:id")
+  .get(
+    // requireRole(["Super Admin", "Admin"]),
+    requirePermission("Role", "READ"),
+    rolesController.getById
+  )
+  .patch(requirePermission("Role", "WRITE"), rolesController.update)
+  .delete(requirePermission("Role", "WRITE"), rolesController.delete);
 
 export default router;

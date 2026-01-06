@@ -4,7 +4,7 @@ dotenv.config();
 import app from "./app";
 import { connectDatabase, disconnectDatabase } from "./config/database";
 import { CONSTANTS } from "./config/constants";
-import { initPreventiveScheduler } from "./modules/cron-jobs/preventive.scheduler";
+import { initPreventiveScheduler } from "./modules/jobs/preventive.scheduler";
 
 let server: any;
 
@@ -14,7 +14,7 @@ async function startServer() {
     await connectDatabase();
 
     // Initialize Cron Jobs
-    initPreventiveScheduler();
+    // initPreventiveScheduler();
 
     // Start Express server
     server = app.listen(CONSTANTS.PORT, () => {

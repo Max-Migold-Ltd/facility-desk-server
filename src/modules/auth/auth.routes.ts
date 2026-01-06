@@ -4,6 +4,7 @@ import { registerValidation, loginValidation } from "./auth.validation";
 import { validate } from "../../middleware/validate.middleware";
 import { authRateLimiter } from "../../middleware/rate-limit.middleware";
 import { authenticate } from "../../middleware/auth.middleware";
+import { upload } from "../../middleware/upload";
 
 const router = Router();
 const authController = new AuthController();
@@ -102,6 +103,12 @@ router.post(
   authRateLimiter,
   validate(registerValidation),
   authController.register
+);
+
+router.post(
+  "/register/bulk",
+  upload.single("file"),
+  authController.bulkRegistration
 );
 
 /**

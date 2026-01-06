@@ -155,16 +155,8 @@ exports.Prisma.PermissionScalarFieldEnum = {
   resource: 'resource',
   accessLevel: 'accessLevel',
   createdAt: 'createdAt',
-  updatedAt: 'updatedAt'
-};
-
-exports.Prisma.UserPermissionScalarFieldEnum = {
-  id: 'id',
-  userId: 'userId',
-  resource: 'resource',
-  accessLevel: 'accessLevel',
-  createdAt: 'createdAt',
-  updatedAt: 'updatedAt'
+  updatedAt: 'updatedAt',
+  userId: 'userId'
 };
 
 exports.Prisma.SiteScalarFieldEnum = {
@@ -634,7 +626,6 @@ exports.Prisma.ModelName = {
   User: 'User',
   Role: 'Role',
   Permission: 'Permission',
-  UserPermission: 'UserPermission',
   Site: 'Site',
   Complex: 'Complex',
   Building: 'Building',
