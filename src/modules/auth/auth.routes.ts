@@ -107,7 +107,6 @@ router.post(
 
 router.post(
   "/register/bulk",
-g
   upload.single("file"),
   authController.bulkRegistration
 );
