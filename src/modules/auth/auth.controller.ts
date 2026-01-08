@@ -11,7 +11,6 @@ export class AuthController {
     res: Response,
     next: NextFunction
   ) => {
-    console.log("Getting here @bulkRegistration controller");
     try {
       if (!req.file) {
         return res.status(400).json({

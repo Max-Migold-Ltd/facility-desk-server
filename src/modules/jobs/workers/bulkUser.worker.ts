@@ -5,7 +5,7 @@ import fs from "fs/promises";
 import { AuthService } from "../../auth/auth.service";
 
 const authService = new AuthService();
-const connection = new IORedis();
+const connection = new IORedis({ maxRetriesPerRequest: null });
 
 const worker = new Worker(
   "bulk-user-upload",
@@ -21,10 +21,15 @@ const worker = new Worker(
       const sheetName = workbook.SheetNames[0];
       const worksheet = workbook.Sheets[sheetName];
 
+      // console.log("Sheet Name", sheetName);
+      // console.log("Worksheet", worksheet);
+
       const rows = XLSX.utils.sheet_to_json(worksheet, {
         defval: "",
         blankrows: false,
       });
+
+      console.log("Rows: ", rows);
 
       const BATCH_SIZE = 50;
 

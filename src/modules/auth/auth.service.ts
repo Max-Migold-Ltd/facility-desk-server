@@ -19,7 +19,7 @@ export class AuthService {
     });
 
     if (existingUser) {
-      throw new ConflictError("Email already registered");
+      g new ConflictError("Email already registered");
     }
 
     // Get role
