@@ -5,11 +5,30 @@ import fs from "fs/promises";
 import csvtojson from "csvtojson";
 
 import { AuthService } from "../../auth/auth.service";
+import {
+  SitesService,
+  ComplexesService,
+  BuildingsService,
+  FloorsService,
+  SpacesService,
+  ZonesService,
+} from "../../location";
+
 import { AppError } from "../../../errors";
 
 const authService = new AuthService();
+const siteService = new SitesService();
+const complexService = new ComplexesService();
+const buildingService = new BuildingsService();
+const floorService = new FloorsService();
+const spaceService = new SpacesService();
+const zoneService = new ZonesService();
+
 const connection = new IORedis({ maxRetriesPerRequest: null });
 
+const BATCH_SIZE = 50;
+
+// Extract data to rows
 const extractData = async (filePath: string) => {
   if (filePath.endsWith(".xlsx") || filePath.endsWith(".xls")) {
     const workbook = XLSX.readFile(filePath);
@@ -51,7 +70,6 @@ const worker = new Worker(
       case "process-users":
         try {
           const data = await extractData(filePath);
-          const BATCH_SIZE = 50;
 
           for (let i = 0; i < data.length; i += BATCH_SIZE) {
             const batch = data.slice(i, i + BATCH_SIZE);
@@ -69,6 +87,116 @@ const worker = new Worker(
           await fs.unlink(filePath);
         }
         break;
+      case "process-sites":
+        try {
+          const data = await extractData(filePath);
+
+          for (let i = 0; i < data.length; i += BATCH_SIZE) {
+            const batch = data.slice(i, i + BATCH_SIZE);
+            await Promise.all(
+              batch.map((row: any) =>
+                siteService.create(row).catch((err) => {
+                  console.error("Row failed: ", row.email, err.message);
+                })
+              )
+            );
+          }
+        } catch (error) {
+          console.error("Error processing users:", error);
+        } finally {
+          await fs.unlink(filePath);
+        }
+      case "process-complexes":
+        try {
+          const data = await extractData(filePath);
+          for (let i = 0; i < data.length; i += BATCH_SIZE) {
+            const batch = data.slice(i, i + BATCH_SIZE);
+            await Promise.all(
+              batch.map((row: any) =>
+                complexService.create(row).catch((err) => {
+                  console.error("Row failed: ", row.email, err.message);
+                })
+              )
+            );
+          }
+        } catch (error) {
+          console.error("Error processing users:", error);
+        } finally {
+          await fs.unlink(filePath);
+        }
+      case "process-buildings":
+        try {
+          const data = await extractData(filePath);
+          for (let i = 0; i < data.length; i += BATCH_SIZE) {
+            const batch = data.slice(i, i + BATCH_SIZE);
+            await Promise.all(
+              batch.map((row: any) =>
+                buildingService.create(row).catch((err) => {
+                  console.error("Row failed: ", row.email, err.message);
+                })
+              )
+            );
+          }
+        } catch (error) {
+          console.error("Error processing users:", error);
+        } finally {
+          await fs.unlink(filePath);
+        }
+      case "process-floors":
+        try {
+          const data = await extractData(filePath);
+          for (let i = 0; i < data.length; i += BATCH_SIZE) {
+            const batch = data.slice(i, i + BATCH_SIZE);
+            await Promise.all(
+              batch.map((row: any) =>
+                floorService.create(row).catch((err) => {
+                  console.error("Row failed: ", row.email, err.message);
+                })
+              )
+            );
+          }
+        } catch (error) {
+          console.error("Error processing users:", error);
+        } finally {
+          await fs.unlink(filePath);
+        }
+
+      case "process-spaces":
+        try {
+          const data = await extractData(filePath);
+          for (let i = 0; i < data.length; i += BATCH_SIZE) {
+            const batch = data.slice(i, i + BATCH_SIZE);
+            await Promise.all(
+              batch.map((row: any) =>
+                spaceService.create(row).catch((err) => {
+                  console.error("Row failed: ", row.email, err.message);
+                })
+              )
+            );
+          }
+        } catch (error) {
+          console.error("Error processing users:", error);
+        } finally {
+          await fs.unlink(filePath);
+        }
+      case "process-zones":
+        try {
+          const data = await extractData(filePath);
+          for (let i = 0; i < data.length; i += BATCH_SIZE) {
+            const batch = data.slice(i, i + BATCH_SIZE);
+            await Promise.all(
+              batch.map((row: any) =>
+                zoneService.create(row).catch((err) => {
+                  console.error("Row failed: ", row.email, err.message);
+                })
+              )
+            );
+          }
+        } catch (error) {
+          console.error("Error processing users:", error);
+        } finally {
+          await fs.unlink(filePath);
+        }
       default:
         break;
     }

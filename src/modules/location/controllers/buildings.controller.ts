@@ -1,11 +1,30 @@
 import { Request, Response, NextFunction } from "express";
 import { BuildingsService } from "../services/buildings.service";
 import { ComplexesService } from "../services/complexes.service";
+import bulkUploadQueue from "../../jobs/queues/bulkUpload.queue";
+import { NotFoundError } from "../../../errors";
 
 const buildingsService = new BuildingsService();
 const complexesService = new ComplexesService();
 
 export class BuildingsController {
+  async bulkBuildings(req: Request, res: Response, next: NextFunction) {
+    if (!req.file) {
+      return next(new NotFoundError("File"));
+    }
+
+    await bulkUploadQueue.add("process-buildings", {
+      filePath: req.file.path,
+      originalName: req.file.originalname,
+      mimetype: req.file.mimetype,
+      size: req.file.size,
+    });
+
+    res.status(200).json({
+      status: true,
+      message: "File uploaded successfully. Processing Started",
+    });
+  }
   async getAll(req: Request, res: Response, next: NextFunction) {
     try {
       const buildings = await buildingsService.findAll(req.query);

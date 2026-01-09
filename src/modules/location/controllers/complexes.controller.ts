@@ -1,9 +1,28 @@
 import { Request, Response, NextFunction } from "express";
 import { ComplexesService } from "../services/complexes.service";
+import { NotFoundError } from "../../../errors";
+import bulkUploadQueue from "../../jobs/queues/bulkUpload.queue";
 
 const complexesService = new ComplexesService();
 
 export class ComplexesController {
+  async bulkComplexes (req:Request, res:Response, next: NextFunction) {
+    if(!req.file) {
+      return next(new NotFoundError("File"))
+    }
+
+    await bulkUploadQueue.add("process-complexes", {
+      filePath: req.file.path,
+      originalName: req.file.originalname,
+      mimetype: req.file.mimetype,
+      size: req.file.size,
+    });
+
+    res.status(200).json({
+      status: true,
+      message: "File uploaded successfully. Processing Started",
+    });
+  }
   async getAll(req: Request, res: Response, next: NextFunction) {
     try {
       const complexes = await complexesService.findAll(req.query);

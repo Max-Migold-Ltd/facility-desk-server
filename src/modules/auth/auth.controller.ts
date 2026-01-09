@@ -3,6 +3,7 @@ import { AuthService } from "./auth.service";
 import { cookieOptions } from "../../utils/cookie.util";
 
 import bulkUploadQueue from "../jobs/queues/bulkUpload.queue";
+import { NotFoundError } from "../../errors";
 
 const authService = new AuthService();
 
@@ -14,13 +15,7 @@ export class AuthController {
   ) => {
     try {
       if (!req.file) {
-        return res.status(400).json({
-          success: false,
-          error: {
-            message: "File not found",
-            code: "FILE_NOT_FOUND",
-          },
-        });
+        return next(new NotFoundError("File"));
       }
       console.log("File: ", req.file);
       await bulkUploadQueue.add("process-users", {

@@ -1,9 +1,28 @@
-import { Request, Response } from "express";
+import { NextFunction, Request, Response } from "express";
 import { ZonesService } from "../services/zones.service";
+import { NotFoundError } from "../../../errors";
+import bulkUploadQueue from "../../jobs/queues/bulkUpload.queue";
 
 const service = new ZonesService();
 
 export class ZonesController {
+  async bulkZOnes(req: Request, res: Response, next: NextFunction) {
+    if (!req.file) {
+      return next(new NotFoundError("File"));
+    }
+
+    await bulkUploadQueue.add("process-zones", {
+      filePath: req.file.path,
+      originalName: req.file.originalname,
+      mimetype: req.file.mimetype,
+      size: req.file.size,
+    });
+
+    res.status(200).json({
+      status: true,
+      message: "File uploaded successfully. Processing Started",
+    });
+  }
   async findAll(req: Request, res: Response) {
     try {
       // Cast query params to correct types if needed (e.g. numbers)
