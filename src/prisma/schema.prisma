@@ -37,7 +37,7 @@ enum Condition {
   POOR
 }
 
-enum gMainUse {
+enum MainUse {
   RESIDENTIAL
   COMMERCIAL
   CULTURAL
