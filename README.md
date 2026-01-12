@@ -36,7 +36,7 @@ A comprehensive Role-Based Access Control (RBAC) system for facility desk manage
   - Bcrypt password hashing (12 rounds)
 
 - **API Documentation**
-  - **Swagger UI**: Interactive API documentation available at `http://localhost:3000/api-docs`
+  - **Swagger UI**: Interactive API documentation available at `http://localhost:3000/api/v1/docs`
 
 ## Tech Stack
 
@@ -137,7 +137,7 @@ After seeding, you can login with:
 
 The most up-to-date documentation is available via **Swagger UI** running locally:
 
-👉 **[http://localhost:3000/api-docs](http://localhost:3000/api-docs)**
+👉 **[http://localhost:3000/api/v1/docs](http://localhost:3000/api/v1/docs)**
 
 This interactive interface allows you to test all endpoints including Auth, Users, Roles, and Maintenance.
 
