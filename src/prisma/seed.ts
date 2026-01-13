@@ -73,7 +73,13 @@ async function main() {
     if (!roleId) continue;
     for (const resource of RESOURCES) {
       await prisma.permission.upsert({
-        where: { roleId_resource_accessLevel: { roleId, resource, accessLevel: AccessLevel.WRITE } },
+        where: {
+          roleId_resource_accessLevel: {
+            roleId,
+            resource,
+            accessLevel: AccessLevel.WRITE,
+          },
+        },
         update: { accessLevel: AccessLevel.WRITE },
         create: { roleId, resource, accessLevel: AccessLevel.WRITE },
       });
@@ -86,14 +92,19 @@ async function main() {
   // ============================================================================
   console.log("\n🏢 Seeding Companies...");
 
+  // ============================================================================
+  // 2. COMPANY & ADDRESS
+  // ============================================================================
+  console.log("\n🏢 Seeding Companies...");
+
   const mainAddress = await prisma.address.create({
     data: {
       street: "123 Facility Lane",
-      city: "Tech City",
-      state: "Innovation State",
+      city: "Lagos",
+      state: "Lagos", // Fixed: Used valid Enum value
       zipCode: "10001",
-      latitude: 40.7128,
-      longitude: -74.006,
+      latitude: 6.5244,
+      longitude: 3.3792,
     },
   });
 
@@ -202,26 +213,33 @@ async function main() {
   // ============================================================================
   console.log("\n📍 Seeding Sites & Hierarchy...");
 
-  // Site
-  const site = await prisma.site.create({
+  // Site Address
+  const siteAddress = await prisma.address.create({
     data: {
+      street: "1 Main St",
+      city: "Lagos",
+      state: "Lagos",
+      zipCode: "10001",
+    },
+  });
+
+  // Site
+  // Since we cannot verify if Site exists by unique name easily without unique constraint,
+  // we will just Create (or findFirst if we wanted to be safe, but create is fine for seed reset)
+  // Note: Site name isn't unique in schema, but addressId is.
+  // Ideally we check if address is used. For simplicity in seed, we'll assume fresh db or unique address.
+  const site = await prisma.site.upsert({
+    where: { addressId: siteAddress.id },
+    update: {},
+    create: {
       name: "Downtown Campus",
-      address: "Downtown Area",
+      addressId: siteAddress.id, // Fixed: Relation to Address
       description: "Main business campus",
-      climateZone: "Temperate",
+      climateZone: "Tropical",
     },
   });
 
   // Complex
-  const complexAddress = await prisma.address.create({
-    data: {
-      street: "100 Tech Blvd",
-      city: "Tech City",
-      state: "IS",
-      zipCode: "10002",
-    },
-  });
-
   const complex = await prisma.complex.upsert({
     where: { code: "CX-001" },
     update: {},
@@ -231,48 +249,27 @@ async function main() {
       siteId: site.id,
       availability: Availability.IN_USE,
       status: ServiceStatus.ACTIVE,
-      address: "100 Tech Blvd",
-      city: "Tech City",
-      zipCode: "10002",
+      // Fixed: Removed invalid address fields
     },
   });
 
   // Building
-  const buildingAddress = await prisma.address.create({
-    data: {
-      street: "100 Tech Blvd",
-      city: "Tech City",
-      state: "IS",
-      zipCode: "10002",
-    },
-  });
-
   const building = await prisma.building.upsert({
-    where: {
-      complexId_code: {
-        complexId: complex.id,
-        code: "BLD-A",
-      },
-    },
+    where: { code: "BLD-A" }, // Fixed: Use unique code
     update: {},
     create: {
       name: "Building Alpha",
       code: "BLD-A",
       complexId: complex.id,
-      addressId: buildingAddress.id,
       mainUse: MainUse.OFFICE,
       totalFloors: 5,
+      // Fixed: Removed addressId
     },
   });
 
   // Floor
   const floor = await prisma.floor.upsert({
-    where: {
-      buildingId_code: {
-        buildingId: building.id,
-        code: "FL-01",
-      },
-    },
+    where: { code: "FL-01" }, // Fixed: Use unique code
     update: {},
     create: {
       name: "First Floor",
@@ -280,33 +277,37 @@ async function main() {
       level: 1,
       type: "office",
       buildingId: building.id,
-      complexId: complex.id,
+      // Fixed: Removed complexId (it's inferred from Building)
+    },
+  });
+
+  // Zone (NEW LAYER)
+  const zone = await prisma.zone.upsert({
+    where: { code: "ZN-01" },
+    update: {},
+    create: {
+      name: "Zone Alpha",
+      code: "ZN-01",
+      type: "Wing A",
+      floorId: floor.id,
     },
   });
 
   // Space
   const space = await prisma.space.upsert({
-    where: {
-      floorId_buildingId_code: {
-        floorId: floor.id,
-        buildingId: building.id,
-        code: "RM-101",
-      },
-    },
+    where: { code: "RM-101" }, // Fixed: Use unique code
     update: {},
     create: {
       name: "Server Room",
       code: "RM-101",
       use: RoomUse.TECHNICAL_ROOM,
-      floorId: floor.id,
-      buildingId: building.id,
-      complexId: complex.id,
+      zoneId: zone.id, // Fixed: Linked to Zone
       condition: Condition.GOOD,
       criticality: Priority.HIGH,
     },
   });
   console.log(
-    `   - Location Path: ${site.name} -> ${complex.name} -> ${building.name} -> ${floor.name} -> ${space.name}`
+    `   - Location Path: ${site.name} -> ${complex.name} -> ${building.name} -> ${floor.name} -> ${zone.name} -> ${space.name}`
   );
 
   // ============================================================================
@@ -355,7 +356,7 @@ async function main() {
       frequency: Frequency.MONTHLY,
       nextRun: new Date(),
       priority: Priority.HIGH,
-      siteId: complex.id,
+      siteId: complex.id, // Fixed: ensure this maps to Complex as defined in Schema relation
       buildingId: building.id,
       floorId: floor.id,
       spaceId: space.id,
