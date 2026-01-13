@@ -28,7 +28,9 @@ export class FloorsController {
       const floors = await floorsService.findAll(req.query);
       res.status(200).json({
         success: true,
-        data: floors,
+        length: floors.data.length,
+        data: floors.data,
+        pagination: floors.pagination,
       });
     } catch (error) {
       next(error);
@@ -93,7 +95,7 @@ export class FloorsController {
   async delete(req: Request, res: Response, next: NextFunction) {
     try {
       await floorsService.delete(req.params.id);
-      res.status(200).json({
+      res.status(204).json({
         success: true,
         data: null,
       });

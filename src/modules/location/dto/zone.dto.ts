@@ -8,12 +8,6 @@ export interface CreateZoneDto {
   status?: ServiceStatus;
 
   floorId: string;
-  buildingId?: string;
-  complexId?: string;
-
-  address?: string;
-  city?: string;
-  zipCode?: string;
 
   totalRooms?: number;
   glazedArea?: number;

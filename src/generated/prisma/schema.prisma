@@ -79,6 +79,7 @@ enum RoomUse {
   MEETING_ROOM
   TECHNICAL_ROOM
   LABORATORY
+  STORAGE
 }
 
 enum Availability {
@@ -267,9 +268,6 @@ model Complex {
 
   createdAt    DateTime      @default(now())
   updatedAt    DateTime      @updatedAt
-  floors       Floor[]
-  spaces       Space[]
-  zones        Zone[]
   maintenances Maintenance[]
   preventives  Preventive[]
 
@@ -280,7 +278,6 @@ model Complex {
   @@map("complexes")
 }
 
-// Move address to Site?
 model Building {
   id   String @id @default(uuid())
   name String
@@ -320,8 +317,6 @@ model Building {
 
   createdAt    DateTime      @default(now())
   updatedAt    DateTime      @updatedAt
-  spaces       Space[]
-  zones        Zone[]
   preventives  Preventive[]
   maintenances Maintenance[]
 
@@ -331,7 +326,7 @@ model Building {
 
 model Floor {
   id     String        @id @default(uuid())
-  code   String
+  code   String        @unique
   name   String
   level  Int
   type   String? // "office", "retail", "technical"
@@ -341,8 +336,6 @@ model Floor {
   criticality Criticality @default(LOW)
 
   // Location Data
-  complexId  String
-  complex    Complex  @relation(fields: [complexId], references: [id])
   buildingId String
   building   Building @relation(fields: [buildingId], references: [id])
 
@@ -357,21 +350,20 @@ model Floor {
   totalHeatedVolume Float?
   totalVolume       Float?
 
-  spaces Space[]
-  zones  Zone[]
+  zones Zone[]
 
   createdAt    DateTime      @default(now())
   updatedAt    DateTime      @updatedAt
   maintenances Maintenance[]
   preventives  Preventive[]
 
-  @@unique([buildingId, code])
+  @@unique([buildingId, name])
   @@map("floors")
 }
 
 model Zone {
   id           String        @id @default(uuid())
-  code         String
+  code         String        @unique
   name         String
   type         String? // "fire compartment", "wing", "tenant demarcation"
   availability Availability  @default(IN_USE)
@@ -381,16 +373,8 @@ model Zone {
   calenderEntity   CalenderEntity? @relation(fields: [calenderEntityId], references: [id], onDelete: Cascade)
 
   // Address
-  complexId  String?
-  complex    Complex?  @relation(fields: [complexId], references: [id])
-  buildingId String?
-  building   Building? @relation(fields: [buildingId], references: [id])
-  floorId    String
-  floor      Floor     @relation(fields: [floorId], references: [id], onDelete: Cascade)
-
-  address String?
-  city    String?
-  zipCode String?
+  floorId String
+  floor   Floor  @relation(fields: [floorId], references: [id], onDelete: Cascade)
 
   // Maintenance Data
   totalRooms        Int?
@@ -421,14 +405,14 @@ model Zone {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
-  @@unique([floorId, code])
+  @@unique([floorId, name])
   @@map("zones")
 }
 
 model Space {
   id     String        @id @default(uuid())
   name   String
-  code   String
+  code   String        @unique
   use    RoomUse       @default(OFFICE)
   status ServiceStatus @default(ACTIVE)
 
@@ -436,14 +420,9 @@ model Space {
   calenderEntity   CalenderEntity? @relation(fields: [calenderEntityId], references: [id], onDelete: Cascade)
 
   // Location Data
-  complexId  String?
-  complex    Complex?  @relation(fields: [complexId], references: [id])
-  buildingId String?
-  building   Building? @relation(fields: [buildingId], references: [id])
-  floorId    String
-  floor      Floor     @relation(fields: [floorId], references: [id], onDelete: Cascade)
-  zoneId     String?
-  zone       Zone?     @relation(fields: [zoneId], references: [id])
+
+  zoneId String
+  zone   Zone   @relation(fields: [zoneId], references: [id])
 
   // Maintenance Data
   condition   Condition   @default(GOOD)
@@ -468,7 +447,7 @@ model Space {
 
   assets Asset[]
 
-  @@unique([floorId, buildingId, code])
+  @@unique([zoneId, name])
   @@map("spaces")
 }
 

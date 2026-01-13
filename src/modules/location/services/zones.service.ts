@@ -36,19 +36,13 @@ export class ZonesService {
       ];
     }
 
-    const [count, zones] = await prisma.$transaction([
+    const [count, zones] = await Promise.all([
       prisma.zone.count({ where: whereClause }),
       prisma.zone.findMany({
         where: whereClause,
         take: limit,
         skip: (page - 1) * limit,
         orderBy: { [sortBy]: sortOrder },
-        include: {
-          floor: { select: { id: true, name: true, code: true } },
-          building: { select: { id: true, name: true, code: true } },
-          complex: { select: { id: true, name: true, code: true } },
-          photos: { select: { id: true, url: true } },
-        },
       }),
     ]);
 
@@ -68,9 +62,6 @@ export class ZonesService {
       where: { id },
       include: {
         floor: { select: { id: true, name: true, code: true } },
-        building: { select: { id: true, name: true, code: true } },
-        complex: { select: { id: true, name: true, code: true } },
-        rooms: { select: { id: true, name: true, code: true } },
         photos: { select: { id: true, url: true } },
       },
     });
@@ -81,11 +72,16 @@ export class ZonesService {
   }
 
   async create(data: CreateZoneDto): Promise<ZoneResponseDto> {
-    const { photoIds, ...rest } = data;
+    const { photoIds, floorId, ...rest } = data;
+
+    // Check if floor exists
+    const floorExists = await prisma.floor.findUnique({ where: { id: floorId } });
+    if (!floorExists) throw new NotFoundError("Floor");
 
     const zone = await prisma.zone.create({
       data: {
         ...rest,
+        floorId,
         ...(photoIds && {
           photos: {
             connect: photoIds.map((id) => ({ id })),

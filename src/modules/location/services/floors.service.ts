@@ -8,8 +8,10 @@ import {
   UpdateFloorDto,
 } from "../dto/floor.dto";
 import { BuildingsService } from "./buildings.service";
+import { ComplexesService } from "./complexes.service";
 
 const buildingsService = new BuildingsService();
+const complexesService = new ComplexesService();
 
 export class FloorsService {
   async findAll(query: QueryFloorDto): Promise<PaginatedFloorResponseDto> {
@@ -39,36 +41,13 @@ export class FloorsService {
       ];
     }
 
-    const [count, floors] = await prisma.$transaction([
+    const [count, floors] = await Promise.all([
       prisma.floor.count({ where: whereClause }),
       prisma.floor.findMany({
         where: whereClause,
         take: limit,
         skip: (page - 1) * limit,
         orderBy: { [sortBy]: sortOrder },
-        include: {
-          building: {
-            select: {
-              id: true,
-              code: true,
-              name: true,
-            },
-          },
-          spaces: {
-            select: {
-              id: true,
-              code: true,
-              name: true,
-            },
-          },
-          zones: {
-            select: {
-              id: true,
-              code: true,
-              name: true,
-            },
-          },
-        },
       }),
     ]);
 
@@ -94,13 +73,7 @@ export class FloorsService {
             name: true,
           },
         },
-        spaces: {
-          select: {
-            id: true,
-            code: true,
-            name: true,
-          },
-        },
+
         zones: {
           select: {
             id: true,
@@ -117,7 +90,7 @@ export class FloorsService {
   }
 
   async create(data: CreateFloorDto): Promise<FloorResponseDto> {
-    // check if building exists
+    // check if building and complex exists
     const building = await buildingsService.findById(data.buildingId);
     if (!building) {
       throw new NotFoundError("Building");
@@ -136,29 +109,6 @@ export class FloorsService {
     const updated = await prisma.floor.update({
       where: { id },
       data,
-      include: {
-        building: {
-          select: {
-            id: true,
-            code: true,
-            name: true,
-          },
-        },
-        spaces: {
-          select: {
-            id: true,
-            code: true,
-            name: true,
-          },
-        },
-        zones: {
-          select: {
-            id: true,
-            code: true,
-            name: true,
-          },
-        },
-      },
     });
 
     return updated as FloorResponseDto;

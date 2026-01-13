@@ -28,6 +28,12 @@ export const errorMiddleware = (
       .json(formatErrorResponse("Invalid token", "INVALID_TOKEN"));
   }
 
+  if (err.name === "NotFoundError") {
+    return res
+      .status(404)
+      .json(formatErrorResponse("Resource not found", "NOT_FOUND"));
+  }
+
   if (err.name === "TokenExpiredError") {
     return res
       .status(401)

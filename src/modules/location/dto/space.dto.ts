@@ -18,10 +18,7 @@ export interface CreateSpaceDto {
   criticality?: Criticality;
 
   calenderEntityId?: string;
-  complexId?: string;
-  buildingId?: string;
-  floorId: string;
-  zoneId?: string;
+  zoneId: string;
 
   photoIds?: string[];
 

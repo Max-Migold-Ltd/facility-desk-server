@@ -28,7 +28,8 @@ export class SpacesController {
       const spaces = await spacesService.findAll(req.query);
       res.status(200).json({
         success: true,
-        data: spaces,
+        data: spaces.data,
+        pagination: spaces.pagination,
       });
     } catch (error) {
       next(error);
@@ -64,7 +65,6 @@ export class SpacesController {
       const space = await spacesService.update(req.params.id, {
         name: req.body.name,
         use: req.body.use,
-        floorId: req.body.floorId,
         zoneId: req.body.zoneId,
         glazedArea: req.body.glazedArea,
         cleanableArea: req.body.cleanableArea,
@@ -76,8 +76,6 @@ export class SpacesController {
         condition: req.body.condition,
         criticality: req.body.criticality,
         calenderEntityId: req.body.calenderEntityId,
-        complexId: req.body.complexId,
-        buildingId: req.body.buildingId,
         photoIds: req.body.photoIds,
         status: req.body.status,
       });

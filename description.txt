@@ -109,3 +109,8 @@ who can be assigned any combination of the following roles
 12.	Vendor/Contractor: specialized service delivery, documentation
 13.	Request for services and supplies
 
+
+WRITE - Can Create, update and delete
+READ - Can view data
+Start using conflict error
+Create permission for Zone, Space etc or just a general permission for location?

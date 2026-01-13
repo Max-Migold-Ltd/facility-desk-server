@@ -230,7 +230,6 @@ exports.Prisma.FloorScalarFieldEnum = {
   status: 'status',
   condition: 'condition',
   criticality: 'criticality',
-  complexId: 'complexId',
   buildingId: 'buildingId',
   totalUnits: 'totalUnits',
   totalRooms: 'totalRooms',
@@ -253,12 +252,7 @@ exports.Prisma.ZoneScalarFieldEnum = {
   availability: 'availability',
   status: 'status',
   calenderEntityId: 'calenderEntityId',
-  complexId: 'complexId',
-  buildingId: 'buildingId',
   floorId: 'floorId',
-  address: 'address',
-  city: 'city',
-  zipCode: 'zipCode',
   totalRooms: 'totalRooms',
   glazedArea: 'glazedArea',
   cleanableArea: 'cleanableArea',
@@ -289,9 +283,6 @@ exports.Prisma.SpaceScalarFieldEnum = {
   use: 'use',
   status: 'status',
   calenderEntityId: 'calenderEntityId',
-  complexId: 'complexId',
-  buildingId: 'buildingId',
-  floorId: 'floorId',
   zoneId: 'zoneId',
   condition: 'condition',
   criticality: 'criticality',
@@ -568,7 +559,8 @@ exports.RoomUse = exports.$Enums.RoomUse = {
   TOILET: 'TOILET',
   MEETING_ROOM: 'MEETING_ROOM',
   TECHNICAL_ROOM: 'TECHNICAL_ROOM',
-  LABORATORY: 'LABORATORY'
+  LABORATORY: 'LABORATORY',
+  STORAGE: 'STORAGE'
 };
 
 exports.AssetCategoryType = exports.$Enums.AssetCategoryType = {

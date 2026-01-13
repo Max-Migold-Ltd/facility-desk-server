@@ -35,41 +35,18 @@ export class SpacesService {
       ];
     }
 
-    const [count, rooms] = await prisma.$transaction([
+    const [count, spaces] = await Promise.all([
       prisma.space.count({ where: whereClause }),
       prisma.space.findMany({
         where: whereClause,
         take: limit,
         skip: (page - 1) * limit,
         orderBy: { [sortBy]: sortOrder },
-        include: {
-          floor: {
-            select: {
-              id: true,
-              code: true,
-              name: true,
-              level: true,
-            },
-          },
-          zone: {
-            select: {
-              id: true,
-              code: true,
-              name: true,
-            },
-          },
-          photos: {
-            select: {
-              id: true,
-              url: true,
-            },
-          },
-        },
       }),
     ]);
 
     return {
-      data: rooms as SpaceResponseDto[],
+      data: spaces as SpaceResponseDto[],
       pagination: {
         page,
         limit,
@@ -82,29 +59,6 @@ export class SpacesService {
   async findById(id: string): Promise<SpaceResponseDto> {
     const space = await prisma.space.findUnique({
       where: { id },
-      include: {
-        floor: {
-          select: {
-            id: true,
-            code: true,
-            name: true,
-            level: true,
-          },
-        },
-        zone: {
-          select: {
-            id: true,
-            code: true,
-            name: true,
-          },
-        },
-        photos: {
-          select: {
-            id: true,
-            url: true,
-          },
-        },
-      },
     });
 
     if (!space) throw new NotFoundError("Space");
@@ -113,39 +67,21 @@ export class SpacesService {
   }
 
   async create(data: CreateSpaceDto): Promise<SpaceResponseDto> {
-    const { photoIds, ...spaceData } = data;
+    const { photoIds, zoneId, ...spaceData } = data;
+
+    // Check if Zone exists
+    const zone = await prisma.zone.findUnique({ where: { id: zoneId } });
+    if (!zone) throw new NotFoundError("Zone");
 
     const space = await prisma.space.create({
       data: {
         ...spaceData,
+        zoneId,
         ...(photoIds && {
           photos: {
             connect: photoIds.map((id) => ({ id })),
           },
         }),
-      },
-      include: {
-        floor: {
-          select: {
-            id: true,
-            code: true,
-            name: true,
-            level: true,
-          },
-        },
-        zone: {
-          select: {
-            id: true,
-            code: true,
-            name: true,
-          },
-        },
-        photos: {
-          select: {
-            id: true,
-            url: true,
-          },
-        },
       },
     });
 
@@ -159,29 +95,6 @@ export class SpacesService {
     const updated = await prisma.space.update({
       where: { id },
       data,
-      include: {
-        floor: {
-          select: {
-            id: true,
-            code: true,
-            name: true,
-            level: true,
-          },
-        },
-        zone: {
-          select: {
-            id: true,
-            code: true,
-            name: true,
-          },
-        },
-        photos: {
-          select: {
-            id: true,
-            url: true,
-          },
-        },
-      },
     });
 
     return updated as SpaceResponseDto;

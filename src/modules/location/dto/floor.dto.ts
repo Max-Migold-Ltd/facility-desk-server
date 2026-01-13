@@ -66,7 +66,6 @@ export interface FloorResponseDto {
   status?: ServiceStatus;
   condition?: Condition;
   criticality?: Criticality;
-  complexId: string;
   buildingId: string;
 
   totalUnits?: number;
@@ -80,29 +79,12 @@ export interface FloorResponseDto {
   totalVolume?: number;
 
   // Related data (optional for expanded responses)
-  complex?: {
-    id: string;
-    code: string;
-    name: string;
-  };
 
   building?: {
     id: string;
     code: string;
     name: string;
   };
-
-  rooms?: {
-    id: string;
-    code: string;
-    name: string;
-  }[];
-
-  units?: {
-    id: string;
-    code: string;
-    name: string;
-  }[];
 }
 
 /**
