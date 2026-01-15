@@ -33,7 +33,7 @@ router.use(authenticate);
  *         schema:
  *           type: string
  *       - in: query
- *         name: assetId
+ *         name: itemId
  *         schema:
  *           type: string
  *       - in: query
@@ -67,7 +67,7 @@ router.get(
  *         schema:
  *           type: string
  *       - in: query
- *         name: assetId
+ *         name: itemId
  *         schema:
  *           type: string
  *       - in: query
@@ -119,7 +119,7 @@ router.get(
  *             required:
  *               - type
  *               - quantity
- *               - assetId
+ *               - itemId
  *               - warehouseId
  *             properties:
  *               type:
@@ -128,13 +128,18 @@ router.get(
  *               quantity:
  *                 type: integer
  *                 minimum: 1
- *               assetId:
+ *               itemId:
  *                 type: string
  *               warehouseId:
  *                 type: string
  *               targetWarehouseId:
  *                 type: string
  *                 description: Required for TRANSFER
+ *               referenceId:
+ *                 type: string
+ *               referenceType:
+ *                 type: string
+ *                 enum: [MAINTENANCE, PURCHASE_ORDER, MANUAL, OTHER]
  *     responses:
  *       201:
  *         description: Movement created and stock updated

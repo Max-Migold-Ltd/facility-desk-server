@@ -9,13 +9,13 @@ export class StockController {
   // Stock Endpoints
   async getStocks(req: Request, res: Response, next: NextFunction) {
     try {
-      const { page, limit, warehouseId, assetId } = req.query;
+      const { page, limit, warehouseId, itemId } = req.query;
 
       const result = await stockService.getStocks({
         page: page ? parseInt(page as string) : undefined,
         limit: limit ? parseInt(limit as string) : undefined,
         warehouseId: warehouseId as string,
-        assetId: assetId as string,
+        itemId: itemId as string,
       });
 
       res.status(200).json({
@@ -30,14 +30,14 @@ export class StockController {
   // Stock Movement Endpoints
   async getMovements(req: Request, res: Response, next: NextFunction) {
     try {
-      const { page, limit, warehouseId, assetId, type, startDate, endDate } =
+      const { page, limit, warehouseId, itemId, type, startDate, endDate } =
         req.query;
 
       const result = await stockService.getStockMovements({
         page: page ? parseInt(page as string) : undefined,
         limit: limit ? parseInt(limit as string) : undefined,
         warehouseId: warehouseId as string,
-        assetId: assetId as string,
+        itemId: itemId as string,
         type: type as StockMovementType,
         startDate: startDate ? new Date(startDate as string) : undefined,
         endDate: endDate ? new Date(endDate as string) : undefined,

@@ -69,6 +69,8 @@ const swaggerOptions: swaggerJSDoc.Options = {
       { name: "Maintenance", description: "Maintenance request management" },
       { name: "Teams", description: "Team management endpoints" },
       { name: "Companies", description: "Company management endpoints" },
+      { name: "Items", description: "Logistics Item management" },
+      { name: "Stocks", description: "Inventory and Stock management" },
     ],
   },
   apis: ["./src/modules/**/*.routes.ts"],

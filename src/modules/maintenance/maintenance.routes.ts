@@ -3,6 +3,7 @@ import { MaintenanceController } from "./maintenance.controller";
 import { authenticate } from "../../middleware/auth.middleware";
 import { body } from "express-validator";
 import { validate } from "../../middleware/validate.middleware";
+import maintenanceItemRouter from "./routes/maintenance-item.routes";
 // import { requirePermission } from "../../middleware/permission.middleware"; // Use if needed
 
 const router = Router();
@@ -270,5 +271,8 @@ router.post(
   validate([body("url").isURL().withMessage("Valid URL is required")]),
   maintenanceController.attachPhoto
 );
+
+// Mount Maintenance Item Routes (e.g., /:maintenanceId/items)
+router.use("/:maintenanceId", maintenanceItemRouter);
 
 export default router;

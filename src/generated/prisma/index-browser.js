@@ -472,10 +472,23 @@ exports.Prisma.WarehouseScalarFieldEnum = {
   updatedAt: 'updatedAt'
 };
 
+exports.Prisma.ItemScalarFieldEnum = {
+  id: 'id',
+  name: 'name',
+  description: 'description',
+  code: 'code',
+  category: 'category',
+  unitOfMeasure: 'unitOfMeasure',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
 exports.Prisma.StockScalarFieldEnum = {
   id: 'id',
   quantity: 'quantity',
-  assetId: 'assetId',
+  minQuantity: 'minQuantity',
+  maxQuantity: 'maxQuantity',
+  itemId: 'itemId',
   warehouseId: 'warehouseId'
 };
 
@@ -483,9 +496,21 @@ exports.Prisma.StockMovementScalarFieldEnum = {
   id: 'id',
   type: 'type',
   quantity: 'quantity',
-  assetId: 'assetId',
+  itemId: 'itemId',
   warehouseId: 'warehouseId',
   targetWarehouseId: 'targetWarehouseId',
+  referenceId: 'referenceId',
+  referenceType: 'referenceType',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.MaintenanceItemScalarFieldEnum = {
+  id: 'id',
+  quantity: 'quantity',
+  cost: 'cost',
+  maintenanceId: 'maintenanceId',
+  itemId: 'itemId',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 };
@@ -685,6 +710,13 @@ exports.StockMovementType = exports.$Enums.StockMovementType = {
   TRANSFER: 'TRANSFER'
 };
 
+exports.StockReferenceType = exports.$Enums.StockReferenceType = {
+  MAINTENANCE: 'MAINTENANCE',
+  PURCHASE_ORDER: 'PURCHASE_ORDER',
+  MANUAL: 'MANUAL',
+  OTHER: 'OTHER'
+};
+
 exports.Prisma.ModelName = {
   User: 'User',
   Role: 'Role',
@@ -707,8 +739,10 @@ exports.Prisma.ModelName = {
   Maintenance: 'Maintenance',
   Preventive: 'Preventive',
   Warehouse: 'Warehouse',
+  Item: 'Item',
   Stock: 'Stock',
   StockMovement: 'StockMovement',
+  MaintenanceItem: 'MaintenanceItem',
   RefreshToken: 'RefreshToken'
 };
 

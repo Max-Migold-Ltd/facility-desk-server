@@ -1,22 +1,27 @@
-import { StockMovementType } from "../../../generated/prisma";
+import {
+  StockMovementType,
+  StockReferenceType,
+} from "../../../generated/prisma";
 
 export interface CreateStockMovementDto {
   type: StockMovementType;
   quantity: number;
-  assetId: string;
+  itemId: string;
   warehouseId: string;
   targetWarehouseId?: string; // Required if type is TRANSFER
   notes?: string;
+  referenceId?: string;
+  referenceType?: StockReferenceType;
 }
 
 export interface StockFilterDto {
   warehouseId?: string;
-  assetId?: string;
+  itemId?: string;
 }
 
 export interface StockMovementFilterDto {
   warehouseId?: string;
-  assetId?: string;
+  itemId?: string;
   type?: StockMovementType;
   startDate?: Date;
   endDate?: Date;

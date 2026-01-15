@@ -12,18 +12,25 @@ export class StockService {
    * Get current stocks with optional filters
    */
   async getStocks(filters: StockFilterDto & { page?: number; limit?: number }) {
-    const { warehouseId, assetId, page = 1, limit = 10 } = filters;
+    const { warehouseId, itemId, page = 1, limit = 10 } = filters;
     const skip = (page - 1) * limit;
 
     const where: Prisma.StockWhereInput = {};
     if (warehouseId) where.warehouseId = warehouseId;
-    if (assetId) where.assetId = assetId;
+    if (itemId) where.itemId = itemId;
 
     const [stocks, total] = await Promise.all([
       prisma.stock.findMany({
         where,
         include: {
-          asset: { select: { id: true, name: true, category: true } },
+          item: {
+            select: {
+              id: true,
+              name: true,
+              category: true,
+              unitOfMeasure: true,
+            },
+          },
           warehouse: { select: { id: true, name: true } },
         },
         skip,
@@ -52,7 +59,7 @@ export class StockService {
   ) {
     const {
       warehouseId,
-      assetId,
+      itemId,
       type,
       startDate,
       endDate,
@@ -69,14 +76,10 @@ export class StockService {
         { targetWarehouseId: warehouseId },
       ];
     }
-    // If strict filtering is needed (only source or only target), adjust logic.
-    // Usually "movements for a warehouse" implies both incoming and outgoing.
-    // However, the `warehouseId` filter above in OR block might conflict if `assetId` is also present combined with AND.
-    // Let's refine:
 
     const andConditions: Prisma.StockMovementWhereInput[] = [];
 
-    if (assetId) andConditions.push({ assetId });
+    if (itemId) andConditions.push({ itemId });
     if (type) andConditions.push({ type });
     if (startDate) andConditions.push({ createdAt: { gte: startDate } });
     if (endDate) andConditions.push({ createdAt: { lte: endDate } });
@@ -95,7 +98,7 @@ export class StockService {
       prisma.stockMovement.findMany({
         where,
         include: {
-          asset: { select: { id: true, name: true } },
+          item: { select: { id: true, name: true } },
           warehouse: { select: { id: true, name: true } },
           targetWarehouse: { select: { id: true, name: true } },
         },
@@ -121,15 +124,24 @@ export class StockService {
    * Create a new stock movement (Load, Unload, Transfer)
    */
   async createMovement(data: CreateStockMovementDto) {
-    const { type, quantity, assetId, warehouseId, targetWarehouseId } = data;
+    const {
+      type,
+      quantity,
+      itemId,
+      warehouseId,
+      targetWarehouseId,
+      referenceId,
+      referenceType,
+      notes,
+    } = data;
 
-    // Verify Asset and Warehouse exist
-    const [asset, warehouse] = await Promise.all([
-      prisma.asset.findUnique({ where: { id: assetId } }),
+    // Verify Item and Warehouse exist
+    const [item, warehouse] = await Promise.all([
+      prisma.item.findUnique({ where: { id: itemId } }),
       prisma.warehouse.findUnique({ where: { id: warehouseId } }),
     ]);
 
-    if (!asset) throw new NotFoundError("Asset");
+    if (!item) throw new NotFoundError("Item");
     if (!warehouse) throw new NotFoundError("Warehouse");
 
     return await prisma.$transaction(async (tx) => {
@@ -138,9 +150,11 @@ export class StockService {
         data: {
           type,
           quantity,
-          assetId,
+          itemId,
           warehouseId,
           targetWarehouseId,
+          referenceId,
+          referenceType,
         },
       });
 
@@ -149,14 +163,14 @@ export class StockService {
         // Increase stock in warehouse
         await tx.stock.upsert({
           where: {
-            assetId_warehouseId: {
-              assetId,
+            itemId_warehouseId: {
+              itemId,
               warehouseId,
             },
           },
           update: { quantity: { increment: quantity } },
           create: {
-            assetId,
+            itemId,
             warehouseId,
             quantity,
           },
@@ -165,7 +179,7 @@ export class StockService {
         // Decrease stock in warehouse
         const currentStock = await tx.stock.findUnique({
           where: {
-            assetId_warehouseId: { assetId, warehouseId },
+            itemId_warehouseId: { itemId, warehouseId },
           },
         });
 
@@ -173,12 +187,20 @@ export class StockService {
           throw new BadRequestError("Insufficient stock for unload");
         }
 
-        await tx.stock.update({
+        const updatedStock = await tx.stock.update({
           where: {
-            assetId_warehouseId: { assetId, warehouseId },
+            itemId_warehouseId: { itemId, warehouseId },
           },
           data: { quantity: { decrement: quantity } },
         });
+
+        // 3. Check for Low Stock (Alert Simulation)
+        if (updatedStock.quantity <= updatedStock.minQuantity) {
+          console.warn(
+            `[LOW STOCK ALERT] Item ${itemId} in Warehouse ${warehouseId} is below minimum level (${updatedStock.quantity} <= ${updatedStock.minQuantity})`
+          );
+          // In a real system, trigger email/notification here
+        }
       } else if (type === StockMovementType.TRANSFER) {
         if (!targetWarehouseId) {
           throw new BadRequestError("Target warehouse required for transfer");
@@ -193,7 +215,7 @@ export class StockService {
         // Decrease source
         const sourceStock = await tx.stock.findUnique({
           where: {
-            assetId_warehouseId: { assetId, warehouseId },
+            itemId_warehouseId: { itemId, warehouseId },
           },
         });
 
@@ -203,7 +225,7 @@ export class StockService {
 
         await tx.stock.update({
           where: {
-            assetId_warehouseId: { assetId, warehouseId },
+            itemId_warehouseId: { itemId, warehouseId },
           },
           data: { quantity: { decrement: quantity } },
         });
@@ -211,14 +233,14 @@ export class StockService {
         // Increase target
         await tx.stock.upsert({
           where: {
-            assetId_warehouseId: {
-              assetId,
+            itemId_warehouseId: {
+              itemId,
               warehouseId: targetWarehouseId,
             },
           },
           update: { quantity: { increment: quantity } },
           create: {
-            assetId,
+            itemId,
             warehouseId: targetWarehouseId,
             quantity,
           },

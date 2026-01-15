@@ -1,5 +1,8 @@
 import { body, query } from "express-validator";
-import { StockMovementType } from "../../../generated/prisma";
+import {
+  StockMovementType,
+  StockReferenceType,
+} from "../../../generated/prisma";
 
 export const createStockMovementValidation = [
   body("type")
@@ -11,12 +14,12 @@ export const createStockMovementValidation = [
   body("quantity")
     .isInt({ min: 1 })
     .withMessage("Quantity must be a positive integer"),
-  body("assetId")
+  body("itemId")
     .trim()
     .notEmpty()
-    .withMessage("Asset ID is required")
+    .withMessage("Item ID is required")
     .isUUID()
-    .withMessage("Invalid Asset ID"),
+    .withMessage("Invalid Item ID"),
   body("warehouseId")
     .trim()
     .notEmpty()
@@ -42,16 +45,21 @@ export const createStockMovementValidation = [
       }
       return true;
     }),
+  body("referenceId").optional().trim().notEmpty(),
+  body("referenceType")
+    .optional()
+    .isIn(Object.values(StockReferenceType))
+    .withMessage("Invalid reference type"),
 ];
 
 export const stockFilterValidation = [
   query("warehouseId").optional().isUUID().withMessage("Invalid Warehouse ID"),
-  query("assetId").optional().isUUID().withMessage("Invalid Asset ID"),
+  query("itemId").optional().isUUID().withMessage("Invalid Item ID"),
 ];
 
 export const stockMovementFilterValidation = [
   query("warehouseId").optional().isUUID().withMessage("Invalid Warehouse ID"),
-  query("assetId").optional().isUUID().withMessage("Invalid Asset ID"),
+  query("itemId").optional().isUUID().withMessage("Invalid Item ID"),
   query("type")
     .optional()
     .isIn(Object.values(StockMovementType))

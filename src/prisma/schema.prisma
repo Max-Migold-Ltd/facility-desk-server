@@ -151,6 +151,13 @@ enum StockMovementType {
   TRANSFER
 }
 
+enum StockReferenceType {
+  MAINTENANCE
+  PURCHASE_ORDER
+  MANUAL
+  OTHER
+}
+
 enum State {
   Fct
   Abia
@@ -449,6 +456,7 @@ model Zone {
 
   rooms  Space[]
   photos File[]
+  items  MaintenanceItem[]
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
@@ -539,12 +547,10 @@ model Asset {
   spaceId String?
   space   Space?  @relation(fields: [spaceId], references: [id])
 
-  createdAt      DateTime        @default(now())
-  updatedAt      DateTime        @updatedAt
-  maintenances   Maintenance[]
-  preventives    Preventive[]
-  stocks         Stock[]
-  stockMovements StockMovement[]
+  createdAt    DateTime      @default(now())
+  updatedAt    DateTime      @updatedAt
+  maintenances Maintenance[]
+  preventives  Preventive[]
 
   @@index([name])
   @@map("assets")
@@ -735,8 +741,9 @@ model Maintenance {
 
   photos File[]
 
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  createdAt        DateTime          @default(now())
+  updatedAt        DateTime          @updatedAt
+  maintenanceItems MaintenanceItem[]
 
   @@map("maintenances")
 }
@@ -798,17 +805,37 @@ model Warehouse {
   @@map("warehouses")
 }
 
-model Stock {
-  id       String @id @default(uuid())
-  quantity Int    @default(0)
+model Item {
+  id            String  @id @default(uuid())
+  name          String
+  description   String?
+  code          String  @unique
+  category      String?
+  unitOfMeasure String?
 
-  assetId String
-  asset   Asset  @relation(fields: [assetId], references: [id])
+  stocks           Stock[]
+  stockMovements   StockMovement[]
+  maintenanceItems MaintenanceItem[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@map("items")
+}
+
+model Stock {
+  id          String @id @default(uuid())
+  quantity    Int    @default(0)
+  minQuantity Int    @default(0) // For alerts
+  maxQuantity Int? // Optional max capacity
+
+  itemId String
+  item   Item   @relation(fields: [itemId], references: [id])
 
   warehouseId String
   warehouse   Warehouse @relation(fields: [warehouseId], references: [id])
 
-  @@unique([assetId, warehouseId])
+  @@unique([itemId, warehouseId])
   @@map("stocks")
 }
 
@@ -817,8 +844,8 @@ model StockMovement {
   type     StockMovementType @default(LOAD)
   quantity Int               @default(0)
 
-  assetId String
-  asset   Asset  @relation(fields: [assetId], references: [id])
+  itemId String
+  item   Item   @relation(fields: [itemId], references: [id])
 
   warehouseId String
   warehouse   Warehouse @relation("WarehouseStockMovements", fields: [warehouseId], references: [id])
@@ -826,10 +853,34 @@ model StockMovement {
   targetWarehouseId String?
   targetWarehouse   Warehouse? @relation("TargetWarehouseStockMovements", fields: [targetWarehouseId], references: [id])
 
+  // Context & Traceability
+  referenceId   String?
+  referenceType StockReferenceType?
+
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
   @@map("stock_movements")
+}
+
+model MaintenanceItem {
+  id       String   @id @default(uuid())
+  quantity Int
+  cost     Decimal? @default(0)
+
+  maintenanceId String
+  maintenance   Maintenance @relation(fields: [maintenanceId], references: [id], onDelete: Cascade)
+
+  itemId String
+  item   Item   @relation(fields: [itemId], references: [id], onDelete: Restrict)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  zone      Zone?    @relation(fields: [zoneId], references: [id])
+  zoneId    String?
+
+  @@unique([maintenanceId, itemId])
+  @@map("maintenance_items")
 }
 
 model RefreshToken {

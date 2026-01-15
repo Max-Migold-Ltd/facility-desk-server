@@ -30,6 +30,8 @@ import swagger from "swagger-ui-express";
 import assetCategoryRoutes from "./modules/assets/routes/asset-category.routes";
 import assetRoutes from "./modules/assets/routes/asset.routes";
 import companiesRoutes from "./modules/companies/companies.routes";
+import itemRoutes from "./modules/logistics/routes/item.routes";
+import stockRoutes from "./modules/logistics/routes/stock.routes";
 
 import teamsRoutes from "./modules/teams/teams.routes";
 import maintenanceRoutes from "./modules/maintenance/maintenance.routes";
@@ -79,11 +81,7 @@ app.use(`/api/${API_VERSION}/docs`, swagger.serve, swagger.setup(swaggerSpec));
 
 app.use(`/api/${API_VERSION}/auth`, authRoutes);
 app.use(`/api/${API_VERSION}/users`, apiRateLimiter, userRoutes);
-app.use(
-  `/api/${API_VERSION}/roles`,
-  apiRateLimiter,
-  roleRoutes
-);
+app.use(`/api/${API_VERSION}/roles`, apiRateLimiter, roleRoutes);
 app.use(`/api/${API_VERSION}/permissions`, apiRateLimiter, permissionRoutes);
 app.use(`/api/${API_VERSION}/companies`, apiRateLimiter, companiesRoutes);
 
@@ -103,6 +101,10 @@ app.use(
   assetCategoryRoutes
 );
 app.use(`/api/${API_VERSION}/assets`, apiRateLimiter, assetRoutes);
+
+// LOGISTICS
+app.use(`/api/${API_VERSION}/logistics/items`, apiRateLimiter, itemRoutes);
+app.use(`/api/${API_VERSION}/logistics`, apiRateLimiter, stockRoutes);
 
 // 404 handler
 app.use((req: Request, res: Response) => {
