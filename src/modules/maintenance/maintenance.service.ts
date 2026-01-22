@@ -1,5 +1,5 @@
 import prisma from "../../lib/prisma";
-import { NotFoundError } from "../../errors";
+import { BadRequestError, NotFoundError } from "../../errors";
 import {
   MaintenanceType,
   Priority,
@@ -28,37 +28,59 @@ export class MaintenanceService {
   }
 
   async create(data: CreateMaintenanceDto) {
-    const type = data.type || MaintenanceType.CORRECTIVE; // Default if not specified, though DTO might require it
-    const code = this.generateCode(type);
+    const {
+      type,
+      roomId,
+      startDate,
+      endDate,
+      priority,
+      siteId,
+      requesterId,
+      buildingId,
+      assetId,
+      floorId,
+      spaceId,
+      assigneeId,
+      teamId,
+      metadata,
+      ...rest
+    } = data;
+
+    const finalType = type || MaintenanceType.CORRECTIVE;
+    const code = this.generateCode(finalType);
+    const finalPriority = (priority as Priority) || Priority.LOW;
+
+    // Use Prisma.MaintenanceCreateInput to ensure we strictly follow the relation-based input type
+    // avoiding ambiguity with UncheckedCreateInput
+    const createData: Prisma.MaintenanceCreateInput = {
+      processStatus: Status.PENDING,
+      ...rest,
+
+      type: finalType,
+      code,
+      priority: finalPriority,
+
+      site: { connect: { id: siteId } },
+      requester: { connect: { id: requesterId } },
+
+      // Optional relations
+      ...(buildingId && { building: { connect: { id: buildingId } } }),
+      ...(assetId && { asset: { connect: { id: assetId } } }),
+      ...(floorId && { floor: { connect: { id: floorId } } }),
+      ...((spaceId || roomId) && {
+        space: { connect: { id: spaceId || roomId } },
+      }),
+      ...(assigneeId && { assignee: { connect: { id: assigneeId } } }),
+      ...(teamId && { team: { connect: { id: teamId } } }),
+
+      startDate: startDate ? new Date(startDate) : undefined,
+      endDate: endDate ? new Date(endDate) : undefined,
+
+      metadata: metadata ?? Prisma.JsonNull,
+    };
 
     const maintenance = await prisma.maintenance.create({
-      data: {
-        type,
-        code,
-        description: data.description,
-        priority: (data.priority as Priority) || Priority.LOW,
-        site: { connect: { id: data.siteId } },
-        requester: { connect: { id: data.requesterId } },
-        // Optional relations
-        ...(data.buildingId && {
-          building: { connect: { id: data.buildingId } },
-        }),
-        ...(data.assetId && { asset: { connect: { id: data.assetId } } }),
-        ...(data.floorId && { floor: { connect: { id: data.floorId } } }),
-        ...(data.roomId && { space: { connect: { id: data.roomId } } }), // Mapped to Space
-        ...(data.startDate && { startDate: new Date(data.startDate) }),
-        ...(data.endDate && { endDate: new Date(data.endDate) }),
-
-        // Metadata
-        ...(data.metadata && { metadata: data.metadata }),
-
-        // Default performer to requester or assignee if provided
-        performer: { connect: { id: data.assigneeId || data.requesterId } }, // Fallback
-        ...(data.assigneeId && {
-          assignee: { connect: { id: data.assigneeId } },
-        }), // Assignee connected here
-        processStatus: Status.PENDING,
-      },
+      data: createData,
       include: {
         site: true,
         requester: true,
@@ -69,7 +91,7 @@ export class MaintenanceService {
   }
 
   async findAll(
-    options: MaintenanceQueryDto & { page?: number; limit?: number }
+    options: MaintenanceQueryDto & { page?: number; limit?: number },
   ) {
     const page = Math.max(1, options.page || 1);
     const limit = Math.min(100, Math.max(1, options.limit || 10));
@@ -116,13 +138,10 @@ export class MaintenanceService {
         },
         skip,
         take: limit,
-        orderBy: { createdAt: "desc" }, // createdAt is not in model, assuming checking schema again or using startDate/id
+        orderBy: { createdAt: "desc" },
       }),
       prisma.maintenance.count({ where }),
     ]);
-    // NOTE: Maintenance model doesn't have createdAt? Let's check schema.
-    // Logic: use id or add createdAt if missing. Schema check: no createdAt in Maintenance!
-    // It has `startDate`, `endDate`. I'll sort by `startDate` desc.
 
     return {
       maintenances,
@@ -144,7 +163,6 @@ export class MaintenanceService {
         space: true,
         requester: true,
         assignee: true,
-        performer: true,
         team: true,
       },
     });
@@ -158,6 +176,9 @@ export class MaintenanceService {
 
   async update(id: string, data: UpdateMaintenanceDto) {
     const maintenance = await this.findById(id); // Ensure exists
+    if (!maintenance) {
+      throw new NotFoundError("Maintenance");
+    }
 
     // Prepare update data
     const updateData: Prisma.MaintenanceUpdateInput = {};
@@ -186,9 +207,6 @@ export class MaintenanceService {
 
     if (assigneeId) {
       data.assignee = { connect: { id: assigneeId } };
-      // Also set performer if not set? Or leave performer for status change?
-      // Usually assignment implies they are now the performer for the next step.
-      data.performer = { connect: { id: assigneeId } };
     }
 
     if (teamId) {

@@ -143,6 +143,21 @@ export type MaintenanceItem = $Result.DefaultSelection<Prisma.$MaintenanceItemPa
  * 
  */
 export type RefreshToken = $Result.DefaultSelection<Prisma.$RefreshTokenPayload>
+/**
+ * Model Meter
+ * 
+ */
+export type Meter = $Result.DefaultSelection<Prisma.$MeterPayload>
+/**
+ * Model MeterReading
+ * 
+ */
+export type MeterReading = $Result.DefaultSelection<Prisma.$MeterReadingPayload>
+/**
+ * Model MeterMaintenanceTrigger
+ * 
+ */
+export type MeterMaintenanceTrigger = $Result.DefaultSelection<Prisma.$MeterMaintenanceTriggerPayload>
 
 /**
  * Enums
@@ -353,6 +368,15 @@ export const StockReferenceType: {
 export type StockReferenceType = (typeof StockReferenceType)[keyof typeof StockReferenceType]
 
 
+export const PerformerReference: {
+  USER: 'USER',
+  TEAM: 'TEAM',
+  COMPANY: 'COMPANY'
+};
+
+export type PerformerReference = (typeof PerformerReference)[keyof typeof PerformerReference]
+
+
 export const State: {
   Fct: 'Fct',
   Abia: 'Abia',
@@ -394,6 +418,32 @@ export const State: {
 };
 
 export type State = (typeof State)[keyof typeof State]
+
+
+export const MeterType: {
+  CUMULATIVE: 'CUMULATIVE',
+  GAUGE: 'GAUGE'
+};
+
+export type MeterType = (typeof MeterType)[keyof typeof MeterType]
+
+
+export const MeterReadingSource: {
+  MANUAL: 'MANUAL',
+  IOT_API: 'IOT_API',
+  CSV_IMPORT: 'CSV_IMPORT'
+};
+
+export type MeterReadingSource = (typeof MeterReadingSource)[keyof typeof MeterReadingSource]
+
+
+export const TriggerCondition: {
+  EVERY_X_UNITS: 'EVERY_X_UNITS',
+  ABOVE_THRESHOLD: 'ABOVE_THRESHOLD',
+  BELOW_THRESHOLD: 'BELOW_THRESHOLD'
+};
+
+export type TriggerCondition = (typeof TriggerCondition)[keyof typeof TriggerCondition]
 
 }
 
@@ -477,9 +527,25 @@ export type StockReferenceType = $Enums.StockReferenceType
 
 export const StockReferenceType: typeof $Enums.StockReferenceType
 
+export type PerformerReference = $Enums.PerformerReference
+
+export const PerformerReference: typeof $Enums.PerformerReference
+
 export type State = $Enums.State
 
 export const State: typeof $Enums.State
+
+export type MeterType = $Enums.MeterType
+
+export const MeterType: typeof $Enums.MeterType
+
+export type MeterReadingSource = $Enums.MeterReadingSource
+
+export const MeterReadingSource: typeof $Enums.MeterReadingSource
+
+export type TriggerCondition = $Enums.TriggerCondition
+
+export const TriggerCondition: typeof $Enums.TriggerCondition
 
 /**
  * ##  Prisma Client ʲˢ
@@ -857,6 +923,36 @@ export class PrismaClient<
     * ```
     */
   get refreshToken(): Prisma.RefreshTokenDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.meter`: Exposes CRUD operations for the **Meter** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more Meters
+    * const meters = await prisma.meter.findMany()
+    * ```
+    */
+  get meter(): Prisma.MeterDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.meterReading`: Exposes CRUD operations for the **MeterReading** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more MeterReadings
+    * const meterReadings = await prisma.meterReading.findMany()
+    * ```
+    */
+  get meterReading(): Prisma.MeterReadingDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.meterMaintenanceTrigger`: Exposes CRUD operations for the **MeterMaintenanceTrigger** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more MeterMaintenanceTriggers
+    * const meterMaintenanceTriggers = await prisma.meterMaintenanceTrigger.findMany()
+    * ```
+    */
+  get meterMaintenanceTrigger(): Prisma.MeterMaintenanceTriggerDelegate<ExtArgs, ClientOptions>;
 }
 
 export namespace Prisma {
@@ -1316,7 +1412,10 @@ export namespace Prisma {
     Stock: 'Stock',
     StockMovement: 'StockMovement',
     MaintenanceItem: 'MaintenanceItem',
-    RefreshToken: 'RefreshToken'
+    RefreshToken: 'RefreshToken',
+    Meter: 'Meter',
+    MeterReading: 'MeterReading',
+    MeterMaintenanceTrigger: 'MeterMaintenanceTrigger'
   };
 
   export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -1332,7 +1431,7 @@ export namespace Prisma {
       omit: GlobalOmitOptions
     }
     meta: {
-      modelProps: "user" | "role" | "permission" | "site" | "complex" | "building" | "floor" | "zone" | "space" | "assetType" | "assetCategory" | "asset" | "file" | "company" | "team" | "address" | "contract" | "calenderEntity" | "maintenance" | "preventive" | "warehouse" | "item" | "stock" | "stockMovement" | "maintenanceItem" | "refreshToken"
+      modelProps: "user" | "role" | "permission" | "site" | "complex" | "building" | "floor" | "zone" | "space" | "assetType" | "assetCategory" | "asset" | "file" | "company" | "team" | "address" | "contract" | "calenderEntity" | "maintenance" | "preventive" | "warehouse" | "item" | "stock" | "stockMovement" | "maintenanceItem" | "refreshToken" | "meter" | "meterReading" | "meterMaintenanceTrigger"
       txIsolationLevel: Prisma.TransactionIsolationLevel
     }
     model: {
@@ -3260,6 +3359,228 @@ export namespace Prisma {
           }
         }
       }
+      Meter: {
+        payload: Prisma.$MeterPayload<ExtArgs>
+        fields: Prisma.MeterFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.MeterFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MeterPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.MeterFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MeterPayload>
+          }
+          findFirst: {
+            args: Prisma.MeterFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MeterPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.MeterFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MeterPayload>
+          }
+          findMany: {
+            args: Prisma.MeterFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MeterPayload>[]
+          }
+          create: {
+            args: Prisma.MeterCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MeterPayload>
+          }
+          createMany: {
+            args: Prisma.MeterCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.MeterCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MeterPayload>[]
+          }
+          delete: {
+            args: Prisma.MeterDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MeterPayload>
+          }
+          update: {
+            args: Prisma.MeterUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MeterPayload>
+          }
+          deleteMany: {
+            args: Prisma.MeterDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.MeterUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.MeterUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MeterPayload>[]
+          }
+          upsert: {
+            args: Prisma.MeterUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MeterPayload>
+          }
+          aggregate: {
+            args: Prisma.MeterAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateMeter>
+          }
+          groupBy: {
+            args: Prisma.MeterGroupByArgs<ExtArgs>
+            result: $Utils.Optional<MeterGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.MeterCountArgs<ExtArgs>
+            result: $Utils.Optional<MeterCountAggregateOutputType> | number
+          }
+        }
+      }
+      MeterReading: {
+        payload: Prisma.$MeterReadingPayload<ExtArgs>
+        fields: Prisma.MeterReadingFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.MeterReadingFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MeterReadingPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.MeterReadingFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MeterReadingPayload>
+          }
+          findFirst: {
+            args: Prisma.MeterReadingFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MeterReadingPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.MeterReadingFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MeterReadingPayload>
+          }
+          findMany: {
+            args: Prisma.MeterReadingFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MeterReadingPayload>[]
+          }
+          create: {
+            args: Prisma.MeterReadingCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MeterReadingPayload>
+          }
+          createMany: {
+            args: Prisma.MeterReadingCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.MeterReadingCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MeterReadingPayload>[]
+          }
+          delete: {
+            args: Prisma.MeterReadingDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MeterReadingPayload>
+          }
+          update: {
+            args: Prisma.MeterReadingUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MeterReadingPayload>
+          }
+          deleteMany: {
+            args: Prisma.MeterReadingDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.MeterReadingUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.MeterReadingUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MeterReadingPayload>[]
+          }
+          upsert: {
+            args: Prisma.MeterReadingUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MeterReadingPayload>
+          }
+          aggregate: {
+            args: Prisma.MeterReadingAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateMeterReading>
+          }
+          groupBy: {
+            args: Prisma.MeterReadingGroupByArgs<ExtArgs>
+            result: $Utils.Optional<MeterReadingGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.MeterReadingCountArgs<ExtArgs>
+            result: $Utils.Optional<MeterReadingCountAggregateOutputType> | number
+          }
+        }
+      }
+      MeterMaintenanceTrigger: {
+        payload: Prisma.$MeterMaintenanceTriggerPayload<ExtArgs>
+        fields: Prisma.MeterMaintenanceTriggerFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.MeterMaintenanceTriggerFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MeterMaintenanceTriggerPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.MeterMaintenanceTriggerFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MeterMaintenanceTriggerPayload>
+          }
+          findFirst: {
+            args: Prisma.MeterMaintenanceTriggerFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MeterMaintenanceTriggerPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.MeterMaintenanceTriggerFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MeterMaintenanceTriggerPayload>
+          }
+          findMany: {
+            args: Prisma.MeterMaintenanceTriggerFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MeterMaintenanceTriggerPayload>[]
+          }
+          create: {
+            args: Prisma.MeterMaintenanceTriggerCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MeterMaintenanceTriggerPayload>
+          }
+          createMany: {
+            args: Prisma.MeterMaintenanceTriggerCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.MeterMaintenanceTriggerCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MeterMaintenanceTriggerPayload>[]
+          }
+          delete: {
+            args: Prisma.MeterMaintenanceTriggerDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MeterMaintenanceTriggerPayload>
+          }
+          update: {
+            args: Prisma.MeterMaintenanceTriggerUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MeterMaintenanceTriggerPayload>
+          }
+          deleteMany: {
+            args: Prisma.MeterMaintenanceTriggerDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.MeterMaintenanceTriggerUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.MeterMaintenanceTriggerUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MeterMaintenanceTriggerPayload>[]
+          }
+          upsert: {
+            args: Prisma.MeterMaintenanceTriggerUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MeterMaintenanceTriggerPayload>
+          }
+          aggregate: {
+            args: Prisma.MeterMaintenanceTriggerAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateMeterMaintenanceTrigger>
+          }
+          groupBy: {
+            args: Prisma.MeterMaintenanceTriggerGroupByArgs<ExtArgs>
+            result: $Utils.Optional<MeterMaintenanceTriggerGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.MeterMaintenanceTriggerCountArgs<ExtArgs>
+            result: $Utils.Optional<MeterMaintenanceTriggerCountAggregateOutputType> | number
+          }
+        }
+      }
     }
   } & {
     other: {
@@ -3378,6 +3699,9 @@ export namespace Prisma {
     stockMovement?: StockMovementOmit
     maintenanceItem?: MaintenanceItemOmit
     refreshToken?: RefreshTokenOmit
+    meter?: MeterOmit
+    meterReading?: MeterReadingOmit
+    meterMaintenanceTrigger?: MeterMaintenanceTriggerOmit
   }
 
   /* Types for Logging */
@@ -3461,7 +3785,6 @@ export namespace Prisma {
     refreshTokens: number
     permissions: number
     teams: number
-    performedMaintenances: number
     requestedMaintenances: number
     assignedMaintenances: number
     supervisedTeams: number
@@ -3471,7 +3794,6 @@ export namespace Prisma {
     refreshTokens?: boolean | UserCountOutputTypeCountRefreshTokensArgs
     permissions?: boolean | UserCountOutputTypeCountPermissionsArgs
     teams?: boolean | UserCountOutputTypeCountTeamsArgs
-    performedMaintenances?: boolean | UserCountOutputTypeCountPerformedMaintenancesArgs
     requestedMaintenances?: boolean | UserCountOutputTypeCountRequestedMaintenancesArgs
     assignedMaintenances?: boolean | UserCountOutputTypeCountAssignedMaintenancesArgs
     supervisedTeams?: boolean | UserCountOutputTypeCountSupervisedTeamsArgs
@@ -3507,13 +3829,6 @@ export namespace Prisma {
    */
   export type UserCountOutputTypeCountTeamsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: TeamWhereInput
-  }
-
-  /**
-   * UserCountOutputType without action
-   */
-  export type UserCountOutputTypeCountPerformedMaintenancesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    where?: MaintenanceWhereInput
   }
 
   /**
@@ -3676,6 +3991,7 @@ export namespace Prisma {
     floors: number
     preventives: number
     maintenances: number
+    meters: number
   }
 
   export type BuildingCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -3683,6 +3999,7 @@ export namespace Prisma {
     floors?: boolean | BuildingCountOutputTypeCountFloorsArgs
     preventives?: boolean | BuildingCountOutputTypeCountPreventivesArgs
     maintenances?: boolean | BuildingCountOutputTypeCountMaintenancesArgs
+    meters?: boolean | BuildingCountOutputTypeCountMetersArgs
   }
 
   // Custom InputTypes
@@ -3722,6 +4039,13 @@ export namespace Prisma {
    */
   export type BuildingCountOutputTypeCountMaintenancesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: MaintenanceWhereInput
+  }
+
+  /**
+   * BuildingCountOutputType without action
+   */
+  export type BuildingCountOutputTypeCountMetersArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: MeterWhereInput
   }
 
 
@@ -3781,11 +4105,17 @@ export namespace Prisma {
   export type ZoneCountOutputType = {
     rooms: number
     photos: number
+    items: number
+    meters: number
+    maintenances: number
   }
 
   export type ZoneCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     rooms?: boolean | ZoneCountOutputTypeCountRoomsArgs
     photos?: boolean | ZoneCountOutputTypeCountPhotosArgs
+    items?: boolean | ZoneCountOutputTypeCountItemsArgs
+    meters?: boolean | ZoneCountOutputTypeCountMetersArgs
+    maintenances?: boolean | ZoneCountOutputTypeCountMaintenancesArgs
   }
 
   // Custom InputTypes
@@ -3813,6 +4143,27 @@ export namespace Prisma {
     where?: FileWhereInput
   }
 
+  /**
+   * ZoneCountOutputType without action
+   */
+  export type ZoneCountOutputTypeCountItemsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: MaintenanceItemWhereInput
+  }
+
+  /**
+   * ZoneCountOutputType without action
+   */
+  export type ZoneCountOutputTypeCountMetersArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: MeterWhereInput
+  }
+
+  /**
+   * ZoneCountOutputType without action
+   */
+  export type ZoneCountOutputTypeCountMaintenancesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: MaintenanceWhereInput
+  }
+
 
   /**
    * Count Type SpaceCountOutputType
@@ -3822,6 +4173,7 @@ export namespace Prisma {
     photos: number
     maintenances: number
     preventives: number
+    meters: number
     assets: number
   }
 
@@ -3829,6 +4181,7 @@ export namespace Prisma {
     photos?: boolean | SpaceCountOutputTypeCountPhotosArgs
     maintenances?: boolean | SpaceCountOutputTypeCountMaintenancesArgs
     preventives?: boolean | SpaceCountOutputTypeCountPreventivesArgs
+    meters?: boolean | SpaceCountOutputTypeCountMetersArgs
     assets?: boolean | SpaceCountOutputTypeCountAssetsArgs
   }
 
@@ -3862,6 +4215,13 @@ export namespace Prisma {
    */
   export type SpaceCountOutputTypeCountPreventivesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: PreventiveWhereInput
+  }
+
+  /**
+   * SpaceCountOutputType without action
+   */
+  export type SpaceCountOutputTypeCountMetersArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: MeterWhereInput
   }
 
   /**
@@ -3911,12 +4271,14 @@ export namespace Prisma {
     childAssets: number
     maintenances: number
     preventives: number
+    meters: number
   }
 
   export type AssetCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     childAssets?: boolean | AssetCountOutputTypeCountChildAssetsArgs
     maintenances?: boolean | AssetCountOutputTypeCountMaintenancesArgs
     preventives?: boolean | AssetCountOutputTypeCountPreventivesArgs
+    meters?: boolean | AssetCountOutputTypeCountMetersArgs
   }
 
   // Custom InputTypes
@@ -3949,6 +4311,13 @@ export namespace Prisma {
    */
   export type AssetCountOutputTypeCountPreventivesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: PreventiveWhereInput
+  }
+
+  /**
+   * AssetCountOutputType without action
+   */
+  export type AssetCountOutputTypeCountMetersArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: MeterWhereInput
   }
 
 
@@ -4256,6 +4625,37 @@ export namespace Prisma {
 
 
   /**
+   * Count Type PreventiveCountOutputType
+   */
+
+  export type PreventiveCountOutputType = {
+    meterTriggers: number
+  }
+
+  export type PreventiveCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    meterTriggers?: boolean | PreventiveCountOutputTypeCountMeterTriggersArgs
+  }
+
+  // Custom InputTypes
+  /**
+   * PreventiveCountOutputType without action
+   */
+  export type PreventiveCountOutputTypeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PreventiveCountOutputType
+     */
+    select?: PreventiveCountOutputTypeSelect<ExtArgs> | null
+  }
+
+  /**
+   * PreventiveCountOutputType without action
+   */
+  export type PreventiveCountOutputTypeCountMeterTriggersArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: MeterMaintenanceTriggerWhereInput
+  }
+
+
+  /**
    * Count Type WarehouseCountOutputType
    */
 
@@ -4350,6 +4750,46 @@ export namespace Prisma {
    */
   export type ItemCountOutputTypeCountMaintenanceItemsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: MaintenanceItemWhereInput
+  }
+
+
+  /**
+   * Count Type MeterCountOutputType
+   */
+
+  export type MeterCountOutputType = {
+    readings: number
+    preventiveTriggers: number
+  }
+
+  export type MeterCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    readings?: boolean | MeterCountOutputTypeCountReadingsArgs
+    preventiveTriggers?: boolean | MeterCountOutputTypeCountPreventiveTriggersArgs
+  }
+
+  // Custom InputTypes
+  /**
+   * MeterCountOutputType without action
+   */
+  export type MeterCountOutputTypeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MeterCountOutputType
+     */
+    select?: MeterCountOutputTypeSelect<ExtArgs> | null
+  }
+
+  /**
+   * MeterCountOutputType without action
+   */
+  export type MeterCountOutputTypeCountReadingsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: MeterReadingWhereInput
+  }
+
+  /**
+   * MeterCountOutputType without action
+   */
+  export type MeterCountOutputTypeCountPreventiveTriggersArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: MeterMaintenanceTriggerWhereInput
   }
 
 
@@ -4623,7 +5063,6 @@ export namespace Prisma {
     company?: boolean | User$companyArgs<ExtArgs>
     calenderEntity?: boolean | User$calenderEntityArgs<ExtArgs>
     teams?: boolean | User$teamsArgs<ExtArgs>
-    performedMaintenances?: boolean | User$performedMaintenancesArgs<ExtArgs>
     requestedMaintenances?: boolean | User$requestedMaintenancesArgs<ExtArgs>
     assignedMaintenances?: boolean | User$assignedMaintenancesArgs<ExtArgs>
     supervisedTeams?: boolean | User$supervisedTeamsArgs<ExtArgs>
@@ -4704,7 +5143,6 @@ export namespace Prisma {
     company?: boolean | User$companyArgs<ExtArgs>
     calenderEntity?: boolean | User$calenderEntityArgs<ExtArgs>
     teams?: boolean | User$teamsArgs<ExtArgs>
-    performedMaintenances?: boolean | User$performedMaintenancesArgs<ExtArgs>
     requestedMaintenances?: boolean | User$requestedMaintenancesArgs<ExtArgs>
     assignedMaintenances?: boolean | User$assignedMaintenancesArgs<ExtArgs>
     supervisedTeams?: boolean | User$supervisedTeamsArgs<ExtArgs>
@@ -4730,7 +5168,6 @@ export namespace Prisma {
       company: Prisma.$CompanyPayload<ExtArgs> | null
       calenderEntity: Prisma.$CalenderEntityPayload<ExtArgs> | null
       teams: Prisma.$TeamPayload<ExtArgs>[]
-      performedMaintenances: Prisma.$MaintenancePayload<ExtArgs>[]
       requestedMaintenances: Prisma.$MaintenancePayload<ExtArgs>[]
       assignedMaintenances: Prisma.$MaintenancePayload<ExtArgs>[]
       supervisedTeams: Prisma.$TeamPayload<ExtArgs>[]
@@ -5153,7 +5590,6 @@ export namespace Prisma {
     company<T extends User$companyArgs<ExtArgs> = {}>(args?: Subset<T, User$companyArgs<ExtArgs>>): Prisma__CompanyClient<$Result.GetResult<Prisma.$CompanyPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
     calenderEntity<T extends User$calenderEntityArgs<ExtArgs> = {}>(args?: Subset<T, User$calenderEntityArgs<ExtArgs>>): Prisma__CalenderEntityClient<$Result.GetResult<Prisma.$CalenderEntityPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
     teams<T extends User$teamsArgs<ExtArgs> = {}>(args?: Subset<T, User$teamsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$TeamPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
-    performedMaintenances<T extends User$performedMaintenancesArgs<ExtArgs> = {}>(args?: Subset<T, User$performedMaintenancesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$MaintenancePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     requestedMaintenances<T extends User$requestedMaintenancesArgs<ExtArgs> = {}>(args?: Subset<T, User$requestedMaintenancesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$MaintenancePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     assignedMaintenances<T extends User$assignedMaintenancesArgs<ExtArgs> = {}>(args?: Subset<T, User$assignedMaintenancesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$MaintenancePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     supervisedTeams<T extends User$supervisedTeamsArgs<ExtArgs> = {}>(args?: Subset<T, User$supervisedTeamsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$TeamPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
@@ -5706,30 +6142,6 @@ export namespace Prisma {
     take?: number
     skip?: number
     distinct?: TeamScalarFieldEnum | TeamScalarFieldEnum[]
-  }
-
-  /**
-   * User.performedMaintenances
-   */
-  export type User$performedMaintenancesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the Maintenance
-     */
-    select?: MaintenanceSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the Maintenance
-     */
-    omit?: MaintenanceOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: MaintenanceInclude<ExtArgs> | null
-    where?: MaintenanceWhereInput
-    orderBy?: MaintenanceOrderByWithRelationInput | MaintenanceOrderByWithRelationInput[]
-    cursor?: MaintenanceWhereUniqueInput
-    take?: number
-    skip?: number
-    distinct?: MaintenanceScalarFieldEnum | MaintenanceScalarFieldEnum[]
   }
 
   /**
@@ -11050,6 +11462,7 @@ export namespace Prisma {
     floors?: boolean | Building$floorsArgs<ExtArgs>
     preventives?: boolean | Building$preventivesArgs<ExtArgs>
     maintenances?: boolean | Building$maintenancesArgs<ExtArgs>
+    meters?: boolean | Building$metersArgs<ExtArgs>
     _count?: boolean | BuildingCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["building"]>
 
@@ -11143,6 +11556,7 @@ export namespace Prisma {
     floors?: boolean | Building$floorsArgs<ExtArgs>
     preventives?: boolean | Building$preventivesArgs<ExtArgs>
     maintenances?: boolean | Building$maintenancesArgs<ExtArgs>
+    meters?: boolean | Building$metersArgs<ExtArgs>
     _count?: boolean | BuildingCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type BuildingIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -11163,6 +11577,7 @@ export namespace Prisma {
       floors: Prisma.$FloorPayload<ExtArgs>[]
       preventives: Prisma.$PreventivePayload<ExtArgs>[]
       maintenances: Prisma.$MaintenancePayload<ExtArgs>[]
+      meters: Prisma.$MeterPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -11588,6 +12003,7 @@ export namespace Prisma {
     floors<T extends Building$floorsArgs<ExtArgs> = {}>(args?: Subset<T, Building$floorsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$FloorPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     preventives<T extends Building$preventivesArgs<ExtArgs> = {}>(args?: Subset<T, Building$preventivesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PreventivePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     maintenances<T extends Building$maintenancesArgs<ExtArgs> = {}>(args?: Subset<T, Building$maintenancesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$MaintenancePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    meters<T extends Building$metersArgs<ExtArgs> = {}>(args?: Subset<T, Building$metersArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$MeterPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -12148,6 +12564,30 @@ export namespace Prisma {
     take?: number
     skip?: number
     distinct?: MaintenanceScalarFieldEnum | MaintenanceScalarFieldEnum[]
+  }
+
+  /**
+   * Building.meters
+   */
+  export type Building$metersArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Meter
+     */
+    select?: MeterSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Meter
+     */
+    omit?: MeterOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MeterInclude<ExtArgs> | null
+    where?: MeterWhereInput
+    orderBy?: MeterOrderByWithRelationInput | MeterOrderByWithRelationInput[]
+    cursor?: MeterWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: MeterScalarFieldEnum | MeterScalarFieldEnum[]
   }
 
   /**
@@ -14016,6 +14456,9 @@ export namespace Prisma {
     floor?: boolean | FloorDefaultArgs<ExtArgs>
     rooms?: boolean | Zone$roomsArgs<ExtArgs>
     photos?: boolean | Zone$photosArgs<ExtArgs>
+    items?: boolean | Zone$itemsArgs<ExtArgs>
+    meters?: boolean | Zone$metersArgs<ExtArgs>
+    maintenances?: boolean | Zone$maintenancesArgs<ExtArgs>
     _count?: boolean | ZoneCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["zone"]>
 
@@ -14125,6 +14568,9 @@ export namespace Prisma {
     floor?: boolean | FloorDefaultArgs<ExtArgs>
     rooms?: boolean | Zone$roomsArgs<ExtArgs>
     photos?: boolean | Zone$photosArgs<ExtArgs>
+    items?: boolean | Zone$itemsArgs<ExtArgs>
+    meters?: boolean | Zone$metersArgs<ExtArgs>
+    maintenances?: boolean | Zone$maintenancesArgs<ExtArgs>
     _count?: boolean | ZoneCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type ZoneIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -14143,6 +14589,9 @@ export namespace Prisma {
       floor: Prisma.$FloorPayload<ExtArgs>
       rooms: Prisma.$SpacePayload<ExtArgs>[]
       photos: Prisma.$FilePayload<ExtArgs>[]
+      items: Prisma.$MaintenanceItemPayload<ExtArgs>[]
+      meters: Prisma.$MeterPayload<ExtArgs>[]
+      maintenances: Prisma.$MaintenancePayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -14572,6 +15021,9 @@ export namespace Prisma {
     floor<T extends FloorDefaultArgs<ExtArgs> = {}>(args?: Subset<T, FloorDefaultArgs<ExtArgs>>): Prisma__FloorClient<$Result.GetResult<Prisma.$FloorPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
     rooms<T extends Zone$roomsArgs<ExtArgs> = {}>(args?: Subset<T, Zone$roomsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$SpacePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     photos<T extends Zone$photosArgs<ExtArgs> = {}>(args?: Subset<T, Zone$photosArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$FilePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    items<T extends Zone$itemsArgs<ExtArgs> = {}>(args?: Subset<T, Zone$itemsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$MaintenanceItemPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    meters<T extends Zone$metersArgs<ExtArgs> = {}>(args?: Subset<T, Zone$metersArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$MeterPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    maintenances<T extends Zone$maintenancesArgs<ExtArgs> = {}>(args?: Subset<T, Zone$maintenancesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$MaintenancePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -15093,6 +15545,78 @@ export namespace Prisma {
   }
 
   /**
+   * Zone.items
+   */
+  export type Zone$itemsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MaintenanceItem
+     */
+    select?: MaintenanceItemSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the MaintenanceItem
+     */
+    omit?: MaintenanceItemOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MaintenanceItemInclude<ExtArgs> | null
+    where?: MaintenanceItemWhereInput
+    orderBy?: MaintenanceItemOrderByWithRelationInput | MaintenanceItemOrderByWithRelationInput[]
+    cursor?: MaintenanceItemWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: MaintenanceItemScalarFieldEnum | MaintenanceItemScalarFieldEnum[]
+  }
+
+  /**
+   * Zone.meters
+   */
+  export type Zone$metersArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Meter
+     */
+    select?: MeterSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Meter
+     */
+    omit?: MeterOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MeterInclude<ExtArgs> | null
+    where?: MeterWhereInput
+    orderBy?: MeterOrderByWithRelationInput | MeterOrderByWithRelationInput[]
+    cursor?: MeterWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: MeterScalarFieldEnum | MeterScalarFieldEnum[]
+  }
+
+  /**
+   * Zone.maintenances
+   */
+  export type Zone$maintenancesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Maintenance
+     */
+    select?: MaintenanceSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Maintenance
+     */
+    omit?: MaintenanceOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MaintenanceInclude<ExtArgs> | null
+    where?: MaintenanceWhereInput
+    orderBy?: MaintenanceOrderByWithRelationInput | MaintenanceOrderByWithRelationInput[]
+    cursor?: MaintenanceWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: MaintenanceScalarFieldEnum | MaintenanceScalarFieldEnum[]
+  }
+
+  /**
    * Zone without action
    */
   export type ZoneDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -15450,6 +15974,7 @@ export namespace Prisma {
     photos?: boolean | Space$photosArgs<ExtArgs>
     maintenances?: boolean | Space$maintenancesArgs<ExtArgs>
     preventives?: boolean | Space$preventivesArgs<ExtArgs>
+    meters?: boolean | Space$metersArgs<ExtArgs>
     assets?: boolean | Space$assetsArgs<ExtArgs>
     _count?: boolean | SpaceCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["space"]>
@@ -15531,6 +16056,7 @@ export namespace Prisma {
     photos?: boolean | Space$photosArgs<ExtArgs>
     maintenances?: boolean | Space$maintenancesArgs<ExtArgs>
     preventives?: boolean | Space$preventivesArgs<ExtArgs>
+    meters?: boolean | Space$metersArgs<ExtArgs>
     assets?: boolean | Space$assetsArgs<ExtArgs>
     _count?: boolean | SpaceCountOutputTypeDefaultArgs<ExtArgs>
   }
@@ -15551,6 +16077,7 @@ export namespace Prisma {
       photos: Prisma.$FilePayload<ExtArgs>[]
       maintenances: Prisma.$MaintenancePayload<ExtArgs>[]
       preventives: Prisma.$PreventivePayload<ExtArgs>[]
+      meters: Prisma.$MeterPayload<ExtArgs>[]
       assets: Prisma.$AssetPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
@@ -15972,6 +16499,7 @@ export namespace Prisma {
     photos<T extends Space$photosArgs<ExtArgs> = {}>(args?: Subset<T, Space$photosArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$FilePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     maintenances<T extends Space$maintenancesArgs<ExtArgs> = {}>(args?: Subset<T, Space$maintenancesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$MaintenancePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     preventives<T extends Space$preventivesArgs<ExtArgs> = {}>(args?: Subset<T, Space$preventivesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PreventivePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    meters<T extends Space$metersArgs<ExtArgs> = {}>(args?: Subset<T, Space$metersArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$MeterPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     assets<T extends Space$assetsArgs<ExtArgs> = {}>(args?: Subset<T, Space$assetsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$AssetPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
@@ -16505,6 +17033,30 @@ export namespace Prisma {
     take?: number
     skip?: number
     distinct?: PreventiveScalarFieldEnum | PreventiveScalarFieldEnum[]
+  }
+
+  /**
+   * Space.meters
+   */
+  export type Space$metersArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Meter
+     */
+    select?: MeterSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Meter
+     */
+    omit?: MeterOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MeterInclude<ExtArgs> | null
+    where?: MeterWhereInput
+    orderBy?: MeterOrderByWithRelationInput | MeterOrderByWithRelationInput[]
+    cursor?: MeterWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: MeterScalarFieldEnum | MeterScalarFieldEnum[]
   }
 
   /**
@@ -18791,6 +19343,7 @@ export namespace Prisma {
     space?: boolean | Asset$spaceArgs<ExtArgs>
     maintenances?: boolean | Asset$maintenancesArgs<ExtArgs>
     preventives?: boolean | Asset$preventivesArgs<ExtArgs>
+    meters?: boolean | Asset$metersArgs<ExtArgs>
     _count?: boolean | AssetCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["asset"]>
 
@@ -18844,6 +19397,7 @@ export namespace Prisma {
     space?: boolean | Asset$spaceArgs<ExtArgs>
     maintenances?: boolean | Asset$maintenancesArgs<ExtArgs>
     preventives?: boolean | Asset$preventivesArgs<ExtArgs>
+    meters?: boolean | Asset$metersArgs<ExtArgs>
     _count?: boolean | AssetCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type AssetIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -18866,6 +19420,7 @@ export namespace Prisma {
       space: Prisma.$SpacePayload<ExtArgs> | null
       maintenances: Prisma.$MaintenancePayload<ExtArgs>[]
       preventives: Prisma.$PreventivePayload<ExtArgs>[]
+      meters: Prisma.$MeterPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -19277,6 +19832,7 @@ export namespace Prisma {
     space<T extends Asset$spaceArgs<ExtArgs> = {}>(args?: Subset<T, Asset$spaceArgs<ExtArgs>>): Prisma__SpaceClient<$Result.GetResult<Prisma.$SpacePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
     maintenances<T extends Asset$maintenancesArgs<ExtArgs> = {}>(args?: Subset<T, Asset$maintenancesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$MaintenancePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     preventives<T extends Asset$preventivesArgs<ExtArgs> = {}>(args?: Subset<T, Asset$preventivesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PreventivePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    meters<T extends Asset$metersArgs<ExtArgs> = {}>(args?: Subset<T, Asset$metersArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$MeterPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -19818,6 +20374,30 @@ export namespace Prisma {
     take?: number
     skip?: number
     distinct?: PreventiveScalarFieldEnum | PreventiveScalarFieldEnum[]
+  }
+
+  /**
+   * Asset.meters
+   */
+  export type Asset$metersArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Meter
+     */
+    select?: MeterSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Meter
+     */
+    omit?: MeterOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MeterInclude<ExtArgs> | null
+    where?: MeterWhereInput
+    orderBy?: MeterOrderByWithRelationInput | MeterOrderByWithRelationInput[]
+    cursor?: MeterWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: MeterScalarFieldEnum | MeterScalarFieldEnum[]
   }
 
   /**
@@ -26776,6 +27356,7 @@ export namespace Prisma {
     message: string | null
     processNotes: string | null
     performerId: string | null
+    performerReference: $Enums.PerformerReference | null
     processStatus: $Enums.Status | null
     register: string | null
     activityIdTimer: string | null
@@ -26794,7 +27375,7 @@ export namespace Prisma {
     execStart: Date | null
     dueExecEndDate: Date | null
     execEndDate: Date | null
-    dueClosuerDate: Date | null
+    dueClosureDate: Date | null
     totalExecTime: Decimal | null
     expStartDate: Date | null
     suspensionReason: string | null
@@ -26804,6 +27385,7 @@ export namespace Prisma {
     buildingId: string | null
     teamId: string | null
     floorId: string | null
+    zoneId: string | null
     spaceId: string | null
     ttSystemOpening: Decimal | null
     ttWorkOpening: Decimal | null
@@ -26838,6 +27420,7 @@ export namespace Prisma {
     message: string | null
     processNotes: string | null
     performerId: string | null
+    performerReference: $Enums.PerformerReference | null
     processStatus: $Enums.Status | null
     register: string | null
     activityIdTimer: string | null
@@ -26856,7 +27439,7 @@ export namespace Prisma {
     execStart: Date | null
     dueExecEndDate: Date | null
     execEndDate: Date | null
-    dueClosuerDate: Date | null
+    dueClosureDate: Date | null
     totalExecTime: Decimal | null
     expStartDate: Date | null
     suspensionReason: string | null
@@ -26866,6 +27449,7 @@ export namespace Prisma {
     buildingId: string | null
     teamId: string | null
     floorId: string | null
+    zoneId: string | null
     spaceId: string | null
     ttSystemOpening: Decimal | null
     ttWorkOpening: Decimal | null
@@ -26901,6 +27485,7 @@ export namespace Prisma {
     processNotes: number
     metadata: number
     performerId: number
+    performerReference: number
     processStatus: number
     register: number
     activityIdTimer: number
@@ -26919,7 +27504,7 @@ export namespace Prisma {
     execStart: number
     dueExecEndDate: number
     execEndDate: number
-    dueClosuerDate: number
+    dueClosureDate: number
     totalExecTime: number
     expStartDate: number
     suspensionReason: number
@@ -26929,6 +27514,7 @@ export namespace Prisma {
     buildingId: number
     teamId: number
     floorId: number
+    zoneId: number
     spaceId: number
     ttSystemOpening: number
     ttWorkOpening: number
@@ -26995,6 +27581,7 @@ export namespace Prisma {
     message?: true
     processNotes?: true
     performerId?: true
+    performerReference?: true
     processStatus?: true
     register?: true
     activityIdTimer?: true
@@ -27013,7 +27600,7 @@ export namespace Prisma {
     execStart?: true
     dueExecEndDate?: true
     execEndDate?: true
-    dueClosuerDate?: true
+    dueClosureDate?: true
     totalExecTime?: true
     expStartDate?: true
     suspensionReason?: true
@@ -27023,6 +27610,7 @@ export namespace Prisma {
     buildingId?: true
     teamId?: true
     floorId?: true
+    zoneId?: true
     spaceId?: true
     ttSystemOpening?: true
     ttWorkOpening?: true
@@ -27057,6 +27645,7 @@ export namespace Prisma {
     message?: true
     processNotes?: true
     performerId?: true
+    performerReference?: true
     processStatus?: true
     register?: true
     activityIdTimer?: true
@@ -27075,7 +27664,7 @@ export namespace Prisma {
     execStart?: true
     dueExecEndDate?: true
     execEndDate?: true
-    dueClosuerDate?: true
+    dueClosureDate?: true
     totalExecTime?: true
     expStartDate?: true
     suspensionReason?: true
@@ -27085,6 +27674,7 @@ export namespace Prisma {
     buildingId?: true
     teamId?: true
     floorId?: true
+    zoneId?: true
     spaceId?: true
     ttSystemOpening?: true
     ttWorkOpening?: true
@@ -27120,6 +27710,7 @@ export namespace Prisma {
     processNotes?: true
     metadata?: true
     performerId?: true
+    performerReference?: true
     processStatus?: true
     register?: true
     activityIdTimer?: true
@@ -27138,7 +27729,7 @@ export namespace Prisma {
     execStart?: true
     dueExecEndDate?: true
     execEndDate?: true
-    dueClosuerDate?: true
+    dueClosureDate?: true
     totalExecTime?: true
     expStartDate?: true
     suspensionReason?: true
@@ -27148,6 +27739,7 @@ export namespace Prisma {
     buildingId?: true
     teamId?: true
     floorId?: true
+    zoneId?: true
     spaceId?: true
     ttSystemOpening?: true
     ttWorkOpening?: true
@@ -27270,6 +27862,7 @@ export namespace Prisma {
     processNotes: string | null
     metadata: JsonValue | null
     performerId: string | null
+    performerReference: $Enums.PerformerReference | null
     processStatus: $Enums.Status
     register: string | null
     activityIdTimer: string | null
@@ -27288,7 +27881,7 @@ export namespace Prisma {
     execStart: Date | null
     dueExecEndDate: Date | null
     execEndDate: Date | null
-    dueClosuerDate: Date | null
+    dueClosureDate: Date | null
     totalExecTime: Decimal | null
     expStartDate: Date | null
     suspensionReason: string | null
@@ -27298,6 +27891,7 @@ export namespace Prisma {
     buildingId: string | null
     teamId: string | null
     floorId: string | null
+    zoneId: string | null
     spaceId: string | null
     ttSystemOpening: Decimal | null
     ttWorkOpening: Decimal | null
@@ -27352,6 +27946,7 @@ export namespace Prisma {
     processNotes?: boolean
     metadata?: boolean
     performerId?: boolean
+    performerReference?: boolean
     processStatus?: boolean
     register?: boolean
     activityIdTimer?: boolean
@@ -27370,7 +27965,7 @@ export namespace Prisma {
     execStart?: boolean
     dueExecEndDate?: boolean
     execEndDate?: boolean
-    dueClosuerDate?: boolean
+    dueClosureDate?: boolean
     totalExecTime?: boolean
     expStartDate?: boolean
     suspensionReason?: boolean
@@ -27380,6 +27975,7 @@ export namespace Prisma {
     buildingId?: boolean
     teamId?: boolean
     floorId?: boolean
+    zoneId?: boolean
     spaceId?: boolean
     ttSystemOpening?: boolean
     ttWorkOpening?: boolean
@@ -27400,13 +27996,13 @@ export namespace Prisma {
     assetId?: boolean
     createdAt?: boolean
     updatedAt?: boolean
-    performer?: boolean | Maintenance$performerArgs<ExtArgs>
     requester?: boolean | Maintenance$requesterArgs<ExtArgs>
     site?: boolean | ComplexDefaultArgs<ExtArgs>
     company?: boolean | Maintenance$companyArgs<ExtArgs>
     building?: boolean | Maintenance$buildingArgs<ExtArgs>
     team?: boolean | Maintenance$teamArgs<ExtArgs>
     floor?: boolean | Maintenance$floorArgs<ExtArgs>
+    zone?: boolean | Maintenance$zoneArgs<ExtArgs>
     space?: boolean | Maintenance$spaceArgs<ExtArgs>
     assignee?: boolean | Maintenance$assigneeArgs<ExtArgs>
     asset?: boolean | Maintenance$assetArgs<ExtArgs>
@@ -27428,6 +28024,7 @@ export namespace Prisma {
     processNotes?: boolean
     metadata?: boolean
     performerId?: boolean
+    performerReference?: boolean
     processStatus?: boolean
     register?: boolean
     activityIdTimer?: boolean
@@ -27446,7 +28043,7 @@ export namespace Prisma {
     execStart?: boolean
     dueExecEndDate?: boolean
     execEndDate?: boolean
-    dueClosuerDate?: boolean
+    dueClosureDate?: boolean
     totalExecTime?: boolean
     expStartDate?: boolean
     suspensionReason?: boolean
@@ -27456,6 +28053,7 @@ export namespace Prisma {
     buildingId?: boolean
     teamId?: boolean
     floorId?: boolean
+    zoneId?: boolean
     spaceId?: boolean
     ttSystemOpening?: boolean
     ttWorkOpening?: boolean
@@ -27476,13 +28074,13 @@ export namespace Prisma {
     assetId?: boolean
     createdAt?: boolean
     updatedAt?: boolean
-    performer?: boolean | Maintenance$performerArgs<ExtArgs>
     requester?: boolean | Maintenance$requesterArgs<ExtArgs>
     site?: boolean | ComplexDefaultArgs<ExtArgs>
     company?: boolean | Maintenance$companyArgs<ExtArgs>
     building?: boolean | Maintenance$buildingArgs<ExtArgs>
     team?: boolean | Maintenance$teamArgs<ExtArgs>
     floor?: boolean | Maintenance$floorArgs<ExtArgs>
+    zone?: boolean | Maintenance$zoneArgs<ExtArgs>
     space?: boolean | Maintenance$spaceArgs<ExtArgs>
     assignee?: boolean | Maintenance$assigneeArgs<ExtArgs>
     asset?: boolean | Maintenance$assetArgs<ExtArgs>
@@ -27501,6 +28099,7 @@ export namespace Prisma {
     processNotes?: boolean
     metadata?: boolean
     performerId?: boolean
+    performerReference?: boolean
     processStatus?: boolean
     register?: boolean
     activityIdTimer?: boolean
@@ -27519,7 +28118,7 @@ export namespace Prisma {
     execStart?: boolean
     dueExecEndDate?: boolean
     execEndDate?: boolean
-    dueClosuerDate?: boolean
+    dueClosureDate?: boolean
     totalExecTime?: boolean
     expStartDate?: boolean
     suspensionReason?: boolean
@@ -27529,6 +28128,7 @@ export namespace Prisma {
     buildingId?: boolean
     teamId?: boolean
     floorId?: boolean
+    zoneId?: boolean
     spaceId?: boolean
     ttSystemOpening?: boolean
     ttWorkOpening?: boolean
@@ -27549,13 +28149,13 @@ export namespace Prisma {
     assetId?: boolean
     createdAt?: boolean
     updatedAt?: boolean
-    performer?: boolean | Maintenance$performerArgs<ExtArgs>
     requester?: boolean | Maintenance$requesterArgs<ExtArgs>
     site?: boolean | ComplexDefaultArgs<ExtArgs>
     company?: boolean | Maintenance$companyArgs<ExtArgs>
     building?: boolean | Maintenance$buildingArgs<ExtArgs>
     team?: boolean | Maintenance$teamArgs<ExtArgs>
     floor?: boolean | Maintenance$floorArgs<ExtArgs>
+    zone?: boolean | Maintenance$zoneArgs<ExtArgs>
     space?: boolean | Maintenance$spaceArgs<ExtArgs>
     assignee?: boolean | Maintenance$assigneeArgs<ExtArgs>
     asset?: boolean | Maintenance$assetArgs<ExtArgs>
@@ -27574,6 +28174,7 @@ export namespace Prisma {
     processNotes?: boolean
     metadata?: boolean
     performerId?: boolean
+    performerReference?: boolean
     processStatus?: boolean
     register?: boolean
     activityIdTimer?: boolean
@@ -27592,7 +28193,7 @@ export namespace Prisma {
     execStart?: boolean
     dueExecEndDate?: boolean
     execEndDate?: boolean
-    dueClosuerDate?: boolean
+    dueClosureDate?: boolean
     totalExecTime?: boolean
     expStartDate?: boolean
     suspensionReason?: boolean
@@ -27602,6 +28203,7 @@ export namespace Prisma {
     buildingId?: boolean
     teamId?: boolean
     floorId?: boolean
+    zoneId?: boolean
     spaceId?: boolean
     ttSystemOpening?: boolean
     ttWorkOpening?: boolean
@@ -27624,15 +28226,15 @@ export namespace Prisma {
     updatedAt?: boolean
   }
 
-  export type MaintenanceOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "type" | "code" | "description" | "startDate" | "endDate" | "shortDescription" | "action" | "message" | "processNotes" | "metadata" | "performerId" | "processStatus" | "register" | "activityIdTimer" | "activityStartTime" | "activityEndTime" | "allDeadlines" | "processType" | "ttSysRunning" | "ttWorkRunning" | "sorting" | "requesterId" | "priority" | "siteId" | "outcome" | "dueAssignedEnd" | "execStart" | "dueExecEndDate" | "execEndDate" | "dueClosuerDate" | "totalExecTime" | "expStartDate" | "suspensionReason" | "category" | "subCategory" | "companyId" | "buildingId" | "teamId" | "floorId" | "spaceId" | "ttSystemOpening" | "ttWorkOpening" | "ttSystemAssignment" | "ttWorkAssignment" | "ttSystemExecution" | "ttWorkExecution" | "ttSysSuspension" | "ttWorkSuspension" | "ttEstimate" | "prevMaintenanceConfigId" | "automaticConfig" | "jointAccounting" | "hasTasks" | "estimateStatus" | "delayNotification" | "assigneeId" | "assetId" | "createdAt" | "updatedAt", ExtArgs["result"]["maintenance"]>
+  export type MaintenanceOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "type" | "code" | "description" | "startDate" | "endDate" | "shortDescription" | "action" | "message" | "processNotes" | "metadata" | "performerId" | "performerReference" | "processStatus" | "register" | "activityIdTimer" | "activityStartTime" | "activityEndTime" | "allDeadlines" | "processType" | "ttSysRunning" | "ttWorkRunning" | "sorting" | "requesterId" | "priority" | "siteId" | "outcome" | "dueAssignedEnd" | "execStart" | "dueExecEndDate" | "execEndDate" | "dueClosureDate" | "totalExecTime" | "expStartDate" | "suspensionReason" | "category" | "subCategory" | "companyId" | "buildingId" | "teamId" | "floorId" | "zoneId" | "spaceId" | "ttSystemOpening" | "ttWorkOpening" | "ttSystemAssignment" | "ttWorkAssignment" | "ttSystemExecution" | "ttWorkExecution" | "ttSysSuspension" | "ttWorkSuspension" | "ttEstimate" | "prevMaintenanceConfigId" | "automaticConfig" | "jointAccounting" | "hasTasks" | "estimateStatus" | "delayNotification" | "assigneeId" | "assetId" | "createdAt" | "updatedAt", ExtArgs["result"]["maintenance"]>
   export type MaintenanceInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    performer?: boolean | Maintenance$performerArgs<ExtArgs>
     requester?: boolean | Maintenance$requesterArgs<ExtArgs>
     site?: boolean | ComplexDefaultArgs<ExtArgs>
     company?: boolean | Maintenance$companyArgs<ExtArgs>
     building?: boolean | Maintenance$buildingArgs<ExtArgs>
     team?: boolean | Maintenance$teamArgs<ExtArgs>
     floor?: boolean | Maintenance$floorArgs<ExtArgs>
+    zone?: boolean | Maintenance$zoneArgs<ExtArgs>
     space?: boolean | Maintenance$spaceArgs<ExtArgs>
     assignee?: boolean | Maintenance$assigneeArgs<ExtArgs>
     asset?: boolean | Maintenance$assetArgs<ExtArgs>
@@ -27641,25 +28243,25 @@ export namespace Prisma {
     _count?: boolean | MaintenanceCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type MaintenanceIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    performer?: boolean | Maintenance$performerArgs<ExtArgs>
     requester?: boolean | Maintenance$requesterArgs<ExtArgs>
     site?: boolean | ComplexDefaultArgs<ExtArgs>
     company?: boolean | Maintenance$companyArgs<ExtArgs>
     building?: boolean | Maintenance$buildingArgs<ExtArgs>
     team?: boolean | Maintenance$teamArgs<ExtArgs>
     floor?: boolean | Maintenance$floorArgs<ExtArgs>
+    zone?: boolean | Maintenance$zoneArgs<ExtArgs>
     space?: boolean | Maintenance$spaceArgs<ExtArgs>
     assignee?: boolean | Maintenance$assigneeArgs<ExtArgs>
     asset?: boolean | Maintenance$assetArgs<ExtArgs>
   }
   export type MaintenanceIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    performer?: boolean | Maintenance$performerArgs<ExtArgs>
     requester?: boolean | Maintenance$requesterArgs<ExtArgs>
     site?: boolean | ComplexDefaultArgs<ExtArgs>
     company?: boolean | Maintenance$companyArgs<ExtArgs>
     building?: boolean | Maintenance$buildingArgs<ExtArgs>
     team?: boolean | Maintenance$teamArgs<ExtArgs>
     floor?: boolean | Maintenance$floorArgs<ExtArgs>
+    zone?: boolean | Maintenance$zoneArgs<ExtArgs>
     space?: boolean | Maintenance$spaceArgs<ExtArgs>
     assignee?: boolean | Maintenance$assigneeArgs<ExtArgs>
     asset?: boolean | Maintenance$assetArgs<ExtArgs>
@@ -27668,13 +28270,13 @@ export namespace Prisma {
   export type $MaintenancePayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "Maintenance"
     objects: {
-      performer: Prisma.$UserPayload<ExtArgs> | null
       requester: Prisma.$UserPayload<ExtArgs> | null
       site: Prisma.$ComplexPayload<ExtArgs>
       company: Prisma.$CompanyPayload<ExtArgs> | null
       building: Prisma.$BuildingPayload<ExtArgs> | null
       team: Prisma.$TeamPayload<ExtArgs> | null
       floor: Prisma.$FloorPayload<ExtArgs> | null
+      zone: Prisma.$ZonePayload<ExtArgs> | null
       space: Prisma.$SpacePayload<ExtArgs> | null
       assignee: Prisma.$UserPayload<ExtArgs> | null
       asset: Prisma.$AssetPayload<ExtArgs> | null
@@ -27694,6 +28296,7 @@ export namespace Prisma {
       processNotes: string | null
       metadata: Prisma.JsonValue | null
       performerId: string | null
+      performerReference: $Enums.PerformerReference | null
       processStatus: $Enums.Status
       register: string | null
       activityIdTimer: string | null
@@ -27712,7 +28315,7 @@ export namespace Prisma {
       execStart: Date | null
       dueExecEndDate: Date | null
       execEndDate: Date | null
-      dueClosuerDate: Date | null
+      dueClosureDate: Date | null
       totalExecTime: Prisma.Decimal | null
       expStartDate: Date | null
       suspensionReason: string | null
@@ -27722,6 +28325,7 @@ export namespace Prisma {
       buildingId: string | null
       teamId: string | null
       floorId: string | null
+      zoneId: string | null
       spaceId: string | null
       ttSystemOpening: Prisma.Decimal | null
       ttWorkOpening: Prisma.Decimal | null
@@ -28136,13 +28740,13 @@ export namespace Prisma {
    */
   export interface Prisma__MaintenanceClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
-    performer<T extends Maintenance$performerArgs<ExtArgs> = {}>(args?: Subset<T, Maintenance$performerArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
     requester<T extends Maintenance$requesterArgs<ExtArgs> = {}>(args?: Subset<T, Maintenance$requesterArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
     site<T extends ComplexDefaultArgs<ExtArgs> = {}>(args?: Subset<T, ComplexDefaultArgs<ExtArgs>>): Prisma__ComplexClient<$Result.GetResult<Prisma.$ComplexPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
     company<T extends Maintenance$companyArgs<ExtArgs> = {}>(args?: Subset<T, Maintenance$companyArgs<ExtArgs>>): Prisma__CompanyClient<$Result.GetResult<Prisma.$CompanyPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
     building<T extends Maintenance$buildingArgs<ExtArgs> = {}>(args?: Subset<T, Maintenance$buildingArgs<ExtArgs>>): Prisma__BuildingClient<$Result.GetResult<Prisma.$BuildingPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
     team<T extends Maintenance$teamArgs<ExtArgs> = {}>(args?: Subset<T, Maintenance$teamArgs<ExtArgs>>): Prisma__TeamClient<$Result.GetResult<Prisma.$TeamPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
     floor<T extends Maintenance$floorArgs<ExtArgs> = {}>(args?: Subset<T, Maintenance$floorArgs<ExtArgs>>): Prisma__FloorClient<$Result.GetResult<Prisma.$FloorPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+    zone<T extends Maintenance$zoneArgs<ExtArgs> = {}>(args?: Subset<T, Maintenance$zoneArgs<ExtArgs>>): Prisma__ZoneClient<$Result.GetResult<Prisma.$ZonePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
     space<T extends Maintenance$spaceArgs<ExtArgs> = {}>(args?: Subset<T, Maintenance$spaceArgs<ExtArgs>>): Prisma__SpaceClient<$Result.GetResult<Prisma.$SpacePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
     assignee<T extends Maintenance$assigneeArgs<ExtArgs> = {}>(args?: Subset<T, Maintenance$assigneeArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
     asset<T extends Maintenance$assetArgs<ExtArgs> = {}>(args?: Subset<T, Maintenance$assetArgs<ExtArgs>>): Prisma__AssetClient<$Result.GetResult<Prisma.$AssetPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
@@ -28189,6 +28793,7 @@ export namespace Prisma {
     readonly processNotes: FieldRef<"Maintenance", 'String'>
     readonly metadata: FieldRef<"Maintenance", 'Json'>
     readonly performerId: FieldRef<"Maintenance", 'String'>
+    readonly performerReference: FieldRef<"Maintenance", 'PerformerReference'>
     readonly processStatus: FieldRef<"Maintenance", 'Status'>
     readonly register: FieldRef<"Maintenance", 'String'>
     readonly activityIdTimer: FieldRef<"Maintenance", 'String'>
@@ -28207,7 +28812,7 @@ export namespace Prisma {
     readonly execStart: FieldRef<"Maintenance", 'DateTime'>
     readonly dueExecEndDate: FieldRef<"Maintenance", 'DateTime'>
     readonly execEndDate: FieldRef<"Maintenance", 'DateTime'>
-    readonly dueClosuerDate: FieldRef<"Maintenance", 'DateTime'>
+    readonly dueClosureDate: FieldRef<"Maintenance", 'DateTime'>
     readonly totalExecTime: FieldRef<"Maintenance", 'Decimal'>
     readonly expStartDate: FieldRef<"Maintenance", 'DateTime'>
     readonly suspensionReason: FieldRef<"Maintenance", 'String'>
@@ -28217,6 +28822,7 @@ export namespace Prisma {
     readonly buildingId: FieldRef<"Maintenance", 'String'>
     readonly teamId: FieldRef<"Maintenance", 'String'>
     readonly floorId: FieldRef<"Maintenance", 'String'>
+    readonly zoneId: FieldRef<"Maintenance", 'String'>
     readonly spaceId: FieldRef<"Maintenance", 'String'>
     readonly ttSystemOpening: FieldRef<"Maintenance", 'Decimal'>
     readonly ttWorkOpening: FieldRef<"Maintenance", 'Decimal'>
@@ -28633,25 +29239,6 @@ export namespace Prisma {
   }
 
   /**
-   * Maintenance.performer
-   */
-  export type Maintenance$performerArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the User
-     */
-    select?: UserSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the User
-     */
-    omit?: UserOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: UserInclude<ExtArgs> | null
-    where?: UserWhereInput
-  }
-
-  /**
    * Maintenance.requester
    */
   export type Maintenance$requesterArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -28744,6 +29331,25 @@ export namespace Prisma {
      */
     include?: FloorInclude<ExtArgs> | null
     where?: FloorWhereInput
+  }
+
+  /**
+   * Maintenance.zone
+   */
+  export type Maintenance$zoneArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Zone
+     */
+    select?: ZoneSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Zone
+     */
+    omit?: ZoneOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ZoneInclude<ExtArgs> | null
+    where?: ZoneWhereInput
   }
 
   /**
@@ -29178,6 +29784,8 @@ export namespace Prisma {
     floor?: boolean | Preventive$floorArgs<ExtArgs>
     space?: boolean | Preventive$spaceArgs<ExtArgs>
     team?: boolean | Preventive$teamArgs<ExtArgs>
+    meterTriggers?: boolean | Preventive$meterTriggersArgs<ExtArgs>
+    _count?: boolean | PreventiveCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["preventive"]>
 
   export type PreventiveSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
@@ -29263,6 +29871,8 @@ export namespace Prisma {
     floor?: boolean | Preventive$floorArgs<ExtArgs>
     space?: boolean | Preventive$spaceArgs<ExtArgs>
     team?: boolean | Preventive$teamArgs<ExtArgs>
+    meterTriggers?: boolean | Preventive$meterTriggersArgs<ExtArgs>
+    _count?: boolean | PreventiveCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type PreventiveIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     site?: boolean | ComplexDefaultArgs<ExtArgs>
@@ -29290,6 +29900,7 @@ export namespace Prisma {
       floor: Prisma.$FloorPayload<ExtArgs> | null
       space: Prisma.$SpacePayload<ExtArgs> | null
       team: Prisma.$TeamPayload<ExtArgs> | null
+      meterTriggers: Prisma.$MeterMaintenanceTriggerPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -29710,6 +30321,7 @@ export namespace Prisma {
     floor<T extends Preventive$floorArgs<ExtArgs> = {}>(args?: Subset<T, Preventive$floorArgs<ExtArgs>>): Prisma__FloorClient<$Result.GetResult<Prisma.$FloorPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
     space<T extends Preventive$spaceArgs<ExtArgs> = {}>(args?: Subset<T, Preventive$spaceArgs<ExtArgs>>): Prisma__SpaceClient<$Result.GetResult<Prisma.$SpacePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
     team<T extends Preventive$teamArgs<ExtArgs> = {}>(args?: Subset<T, Preventive$teamArgs<ExtArgs>>): Prisma__TeamClient<$Result.GetResult<Prisma.$TeamPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+    meterTriggers<T extends Preventive$meterTriggersArgs<ExtArgs> = {}>(args?: Subset<T, Preventive$meterTriggersArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$MeterMaintenanceTriggerPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -30245,6 +30857,30 @@ export namespace Prisma {
      */
     include?: TeamInclude<ExtArgs> | null
     where?: TeamWhereInput
+  }
+
+  /**
+   * Preventive.meterTriggers
+   */
+  export type Preventive$meterTriggersArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MeterMaintenanceTrigger
+     */
+    select?: MeterMaintenanceTriggerSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the MeterMaintenanceTrigger
+     */
+    omit?: MeterMaintenanceTriggerOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MeterMaintenanceTriggerInclude<ExtArgs> | null
+    where?: MeterMaintenanceTriggerWhereInput
+    orderBy?: MeterMaintenanceTriggerOrderByWithRelationInput | MeterMaintenanceTriggerOrderByWithRelationInput[]
+    cursor?: MeterMaintenanceTriggerWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: MeterMaintenanceTriggerScalarFieldEnum | MeterMaintenanceTriggerScalarFieldEnum[]
   }
 
   /**
@@ -33912,7 +34548,7 @@ export namespace Prisma {
     warehouseId: string
     targetWarehouseId: string | null
     referenceId: string | null
-    referenceType: $Enums.StockReferenceType | null
+    referenceType: $Enums.StockReferenceType
     createdAt: Date
     updatedAt: Date
     _count: StockMovementCountAggregateOutputType | null
@@ -34029,7 +34665,7 @@ export namespace Prisma {
       warehouseId: string
       targetWarehouseId: string | null
       referenceId: string | null
-      referenceType: $Enums.StockReferenceType | null
+      referenceType: $Enums.StockReferenceType
       createdAt: Date
       updatedAt: Date
     }, ExtArgs["result"]["stockMovement"]>
@@ -34931,6 +35567,7 @@ export namespace Prisma {
     itemId: string | null
     createdAt: Date | null
     updatedAt: Date | null
+    zoneId: string | null
   }
 
   export type MaintenanceItemMaxAggregateOutputType = {
@@ -34941,6 +35578,7 @@ export namespace Prisma {
     itemId: string | null
     createdAt: Date | null
     updatedAt: Date | null
+    zoneId: string | null
   }
 
   export type MaintenanceItemCountAggregateOutputType = {
@@ -34951,6 +35589,7 @@ export namespace Prisma {
     itemId: number
     createdAt: number
     updatedAt: number
+    zoneId: number
     _all: number
   }
 
@@ -34973,6 +35612,7 @@ export namespace Prisma {
     itemId?: true
     createdAt?: true
     updatedAt?: true
+    zoneId?: true
   }
 
   export type MaintenanceItemMaxAggregateInputType = {
@@ -34983,6 +35623,7 @@ export namespace Prisma {
     itemId?: true
     createdAt?: true
     updatedAt?: true
+    zoneId?: true
   }
 
   export type MaintenanceItemCountAggregateInputType = {
@@ -34993,6 +35634,7 @@ export namespace Prisma {
     itemId?: true
     createdAt?: true
     updatedAt?: true
+    zoneId?: true
     _all?: true
   }
 
@@ -35090,6 +35732,7 @@ export namespace Prisma {
     itemId: string
     createdAt: Date
     updatedAt: Date
+    zoneId: string | null
     _count: MaintenanceItemCountAggregateOutputType | null
     _avg: MaintenanceItemAvgAggregateOutputType | null
     _sum: MaintenanceItemSumAggregateOutputType | null
@@ -35119,8 +35762,10 @@ export namespace Prisma {
     itemId?: boolean
     createdAt?: boolean
     updatedAt?: boolean
+    zoneId?: boolean
     maintenance?: boolean | MaintenanceDefaultArgs<ExtArgs>
     item?: boolean | ItemDefaultArgs<ExtArgs>
+    zone?: boolean | MaintenanceItem$zoneArgs<ExtArgs>
   }, ExtArgs["result"]["maintenanceItem"]>
 
   export type MaintenanceItemSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
@@ -35131,8 +35776,10 @@ export namespace Prisma {
     itemId?: boolean
     createdAt?: boolean
     updatedAt?: boolean
+    zoneId?: boolean
     maintenance?: boolean | MaintenanceDefaultArgs<ExtArgs>
     item?: boolean | ItemDefaultArgs<ExtArgs>
+    zone?: boolean | MaintenanceItem$zoneArgs<ExtArgs>
   }, ExtArgs["result"]["maintenanceItem"]>
 
   export type MaintenanceItemSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
@@ -35143,8 +35790,10 @@ export namespace Prisma {
     itemId?: boolean
     createdAt?: boolean
     updatedAt?: boolean
+    zoneId?: boolean
     maintenance?: boolean | MaintenanceDefaultArgs<ExtArgs>
     item?: boolean | ItemDefaultArgs<ExtArgs>
+    zone?: boolean | MaintenanceItem$zoneArgs<ExtArgs>
   }, ExtArgs["result"]["maintenanceItem"]>
 
   export type MaintenanceItemSelectScalar = {
@@ -35155,20 +35804,24 @@ export namespace Prisma {
     itemId?: boolean
     createdAt?: boolean
     updatedAt?: boolean
+    zoneId?: boolean
   }
 
-  export type MaintenanceItemOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "quantity" | "cost" | "maintenanceId" | "itemId" | "createdAt" | "updatedAt", ExtArgs["result"]["maintenanceItem"]>
+  export type MaintenanceItemOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "quantity" | "cost" | "maintenanceId" | "itemId" | "createdAt" | "updatedAt" | "zoneId", ExtArgs["result"]["maintenanceItem"]>
   export type MaintenanceItemInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     maintenance?: boolean | MaintenanceDefaultArgs<ExtArgs>
     item?: boolean | ItemDefaultArgs<ExtArgs>
+    zone?: boolean | MaintenanceItem$zoneArgs<ExtArgs>
   }
   export type MaintenanceItemIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     maintenance?: boolean | MaintenanceDefaultArgs<ExtArgs>
     item?: boolean | ItemDefaultArgs<ExtArgs>
+    zone?: boolean | MaintenanceItem$zoneArgs<ExtArgs>
   }
   export type MaintenanceItemIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     maintenance?: boolean | MaintenanceDefaultArgs<ExtArgs>
     item?: boolean | ItemDefaultArgs<ExtArgs>
+    zone?: boolean | MaintenanceItem$zoneArgs<ExtArgs>
   }
 
   export type $MaintenanceItemPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -35176,6 +35829,7 @@ export namespace Prisma {
     objects: {
       maintenance: Prisma.$MaintenancePayload<ExtArgs>
       item: Prisma.$ItemPayload<ExtArgs>
+      zone: Prisma.$ZonePayload<ExtArgs> | null
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -35185,6 +35839,7 @@ export namespace Prisma {
       itemId: string
       createdAt: Date
       updatedAt: Date
+      zoneId: string | null
     }, ExtArgs["result"]["maintenanceItem"]>
     composites: {}
   }
@@ -35581,6 +36236,7 @@ export namespace Prisma {
     readonly [Symbol.toStringTag]: "PrismaPromise"
     maintenance<T extends MaintenanceDefaultArgs<ExtArgs> = {}>(args?: Subset<T, MaintenanceDefaultArgs<ExtArgs>>): Prisma__MaintenanceClient<$Result.GetResult<Prisma.$MaintenancePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
     item<T extends ItemDefaultArgs<ExtArgs> = {}>(args?: Subset<T, ItemDefaultArgs<ExtArgs>>): Prisma__ItemClient<$Result.GetResult<Prisma.$ItemPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    zone<T extends MaintenanceItem$zoneArgs<ExtArgs> = {}>(args?: Subset<T, MaintenanceItem$zoneArgs<ExtArgs>>): Prisma__ZoneClient<$Result.GetResult<Prisma.$ZonePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -35617,6 +36273,7 @@ export namespace Prisma {
     readonly itemId: FieldRef<"MaintenanceItem", 'String'>
     readonly createdAt: FieldRef<"MaintenanceItem", 'DateTime'>
     readonly updatedAt: FieldRef<"MaintenanceItem", 'DateTime'>
+    readonly zoneId: FieldRef<"MaintenanceItem", 'String'>
   }
     
 
@@ -36010,6 +36667,25 @@ export namespace Prisma {
      * Limit how many MaintenanceItems to delete.
      */
     limit?: number
+  }
+
+  /**
+   * MaintenanceItem.zone
+   */
+  export type MaintenanceItem$zoneArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Zone
+     */
+    select?: ZoneSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Zone
+     */
+    omit?: ZoneOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ZoneInclude<ExtArgs> | null
+    where?: ZoneWhereInput
   }
 
   /**
@@ -37103,6 +37779,3548 @@ export namespace Prisma {
 
 
   /**
+   * Model Meter
+   */
+
+  export type AggregateMeter = {
+    _count: MeterCountAggregateOutputType | null
+    _min: MeterMinAggregateOutputType | null
+    _max: MeterMaxAggregateOutputType | null
+  }
+
+  export type MeterMinAggregateOutputType = {
+    id: string | null
+    name: string | null
+    type: $Enums.MeterType | null
+    unit: string | null
+    assetId: string | null
+    buildingId: string | null
+    zoneId: string | null
+    spaceId: string | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type MeterMaxAggregateOutputType = {
+    id: string | null
+    name: string | null
+    type: $Enums.MeterType | null
+    unit: string | null
+    assetId: string | null
+    buildingId: string | null
+    zoneId: string | null
+    spaceId: string | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type MeterCountAggregateOutputType = {
+    id: number
+    name: number
+    type: number
+    unit: number
+    assetId: number
+    buildingId: number
+    zoneId: number
+    spaceId: number
+    createdAt: number
+    updatedAt: number
+    _all: number
+  }
+
+
+  export type MeterMinAggregateInputType = {
+    id?: true
+    name?: true
+    type?: true
+    unit?: true
+    assetId?: true
+    buildingId?: true
+    zoneId?: true
+    spaceId?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type MeterMaxAggregateInputType = {
+    id?: true
+    name?: true
+    type?: true
+    unit?: true
+    assetId?: true
+    buildingId?: true
+    zoneId?: true
+    spaceId?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type MeterCountAggregateInputType = {
+    id?: true
+    name?: true
+    type?: true
+    unit?: true
+    assetId?: true
+    buildingId?: true
+    zoneId?: true
+    spaceId?: true
+    createdAt?: true
+    updatedAt?: true
+    _all?: true
+  }
+
+  export type MeterAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Meter to aggregate.
+     */
+    where?: MeterWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Meters to fetch.
+     */
+    orderBy?: MeterOrderByWithRelationInput | MeterOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: MeterWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Meters from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Meters.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned Meters
+    **/
+    _count?: true | MeterCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: MeterMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: MeterMaxAggregateInputType
+  }
+
+  export type GetMeterAggregateType<T extends MeterAggregateArgs> = {
+        [P in keyof T & keyof AggregateMeter]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateMeter[P]>
+      : GetScalarType<T[P], AggregateMeter[P]>
+  }
+
+
+
+
+  export type MeterGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: MeterWhereInput
+    orderBy?: MeterOrderByWithAggregationInput | MeterOrderByWithAggregationInput[]
+    by: MeterScalarFieldEnum[] | MeterScalarFieldEnum
+    having?: MeterScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: MeterCountAggregateInputType | true
+    _min?: MeterMinAggregateInputType
+    _max?: MeterMaxAggregateInputType
+  }
+
+  export type MeterGroupByOutputType = {
+    id: string
+    name: string
+    type: $Enums.MeterType
+    unit: string
+    assetId: string | null
+    buildingId: string | null
+    zoneId: string | null
+    spaceId: string | null
+    createdAt: Date
+    updatedAt: Date
+    _count: MeterCountAggregateOutputType | null
+    _min: MeterMinAggregateOutputType | null
+    _max: MeterMaxAggregateOutputType | null
+  }
+
+  type GetMeterGroupByPayload<T extends MeterGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<MeterGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof MeterGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], MeterGroupByOutputType[P]>
+            : GetScalarType<T[P], MeterGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type MeterSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    name?: boolean
+    type?: boolean
+    unit?: boolean
+    assetId?: boolean
+    buildingId?: boolean
+    zoneId?: boolean
+    spaceId?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    asset?: boolean | Meter$assetArgs<ExtArgs>
+    building?: boolean | Meter$buildingArgs<ExtArgs>
+    zone?: boolean | Meter$zoneArgs<ExtArgs>
+    space?: boolean | Meter$spaceArgs<ExtArgs>
+    readings?: boolean | Meter$readingsArgs<ExtArgs>
+    preventiveTriggers?: boolean | Meter$preventiveTriggersArgs<ExtArgs>
+    _count?: boolean | MeterCountOutputTypeDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["meter"]>
+
+  export type MeterSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    name?: boolean
+    type?: boolean
+    unit?: boolean
+    assetId?: boolean
+    buildingId?: boolean
+    zoneId?: boolean
+    spaceId?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    asset?: boolean | Meter$assetArgs<ExtArgs>
+    building?: boolean | Meter$buildingArgs<ExtArgs>
+    zone?: boolean | Meter$zoneArgs<ExtArgs>
+    space?: boolean | Meter$spaceArgs<ExtArgs>
+  }, ExtArgs["result"]["meter"]>
+
+  export type MeterSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    name?: boolean
+    type?: boolean
+    unit?: boolean
+    assetId?: boolean
+    buildingId?: boolean
+    zoneId?: boolean
+    spaceId?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    asset?: boolean | Meter$assetArgs<ExtArgs>
+    building?: boolean | Meter$buildingArgs<ExtArgs>
+    zone?: boolean | Meter$zoneArgs<ExtArgs>
+    space?: boolean | Meter$spaceArgs<ExtArgs>
+  }, ExtArgs["result"]["meter"]>
+
+  export type MeterSelectScalar = {
+    id?: boolean
+    name?: boolean
+    type?: boolean
+    unit?: boolean
+    assetId?: boolean
+    buildingId?: boolean
+    zoneId?: boolean
+    spaceId?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }
+
+  export type MeterOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "type" | "unit" | "assetId" | "buildingId" | "zoneId" | "spaceId" | "createdAt" | "updatedAt", ExtArgs["result"]["meter"]>
+  export type MeterInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    asset?: boolean | Meter$assetArgs<ExtArgs>
+    building?: boolean | Meter$buildingArgs<ExtArgs>
+    zone?: boolean | Meter$zoneArgs<ExtArgs>
+    space?: boolean | Meter$spaceArgs<ExtArgs>
+    readings?: boolean | Meter$readingsArgs<ExtArgs>
+    preventiveTriggers?: boolean | Meter$preventiveTriggersArgs<ExtArgs>
+    _count?: boolean | MeterCountOutputTypeDefaultArgs<ExtArgs>
+  }
+  export type MeterIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    asset?: boolean | Meter$assetArgs<ExtArgs>
+    building?: boolean | Meter$buildingArgs<ExtArgs>
+    zone?: boolean | Meter$zoneArgs<ExtArgs>
+    space?: boolean | Meter$spaceArgs<ExtArgs>
+  }
+  export type MeterIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    asset?: boolean | Meter$assetArgs<ExtArgs>
+    building?: boolean | Meter$buildingArgs<ExtArgs>
+    zone?: boolean | Meter$zoneArgs<ExtArgs>
+    space?: boolean | Meter$spaceArgs<ExtArgs>
+  }
+
+  export type $MeterPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "Meter"
+    objects: {
+      asset: Prisma.$AssetPayload<ExtArgs> | null
+      building: Prisma.$BuildingPayload<ExtArgs> | null
+      zone: Prisma.$ZonePayload<ExtArgs> | null
+      space: Prisma.$SpacePayload<ExtArgs> | null
+      readings: Prisma.$MeterReadingPayload<ExtArgs>[]
+      preventiveTriggers: Prisma.$MeterMaintenanceTriggerPayload<ExtArgs>[]
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      name: string
+      type: $Enums.MeterType
+      unit: string
+      assetId: string | null
+      buildingId: string | null
+      zoneId: string | null
+      spaceId: string | null
+      createdAt: Date
+      updatedAt: Date
+    }, ExtArgs["result"]["meter"]>
+    composites: {}
+  }
+
+  type MeterGetPayload<S extends boolean | null | undefined | MeterDefaultArgs> = $Result.GetResult<Prisma.$MeterPayload, S>
+
+  type MeterCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<MeterFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: MeterCountAggregateInputType | true
+    }
+
+  export interface MeterDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['Meter'], meta: { name: 'Meter' } }
+    /**
+     * Find zero or one Meter that matches the filter.
+     * @param {MeterFindUniqueArgs} args - Arguments to find a Meter
+     * @example
+     * // Get one Meter
+     * const meter = await prisma.meter.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends MeterFindUniqueArgs>(args: SelectSubset<T, MeterFindUniqueArgs<ExtArgs>>): Prisma__MeterClient<$Result.GetResult<Prisma.$MeterPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one Meter that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {MeterFindUniqueOrThrowArgs} args - Arguments to find a Meter
+     * @example
+     * // Get one Meter
+     * const meter = await prisma.meter.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends MeterFindUniqueOrThrowArgs>(args: SelectSubset<T, MeterFindUniqueOrThrowArgs<ExtArgs>>): Prisma__MeterClient<$Result.GetResult<Prisma.$MeterPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Meter that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {MeterFindFirstArgs} args - Arguments to find a Meter
+     * @example
+     * // Get one Meter
+     * const meter = await prisma.meter.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends MeterFindFirstArgs>(args?: SelectSubset<T, MeterFindFirstArgs<ExtArgs>>): Prisma__MeterClient<$Result.GetResult<Prisma.$MeterPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Meter that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {MeterFindFirstOrThrowArgs} args - Arguments to find a Meter
+     * @example
+     * // Get one Meter
+     * const meter = await prisma.meter.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends MeterFindFirstOrThrowArgs>(args?: SelectSubset<T, MeterFindFirstOrThrowArgs<ExtArgs>>): Prisma__MeterClient<$Result.GetResult<Prisma.$MeterPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more Meters that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {MeterFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all Meters
+     * const meters = await prisma.meter.findMany()
+     * 
+     * // Get first 10 Meters
+     * const meters = await prisma.meter.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const meterWithIdOnly = await prisma.meter.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends MeterFindManyArgs>(args?: SelectSubset<T, MeterFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$MeterPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a Meter.
+     * @param {MeterCreateArgs} args - Arguments to create a Meter.
+     * @example
+     * // Create one Meter
+     * const Meter = await prisma.meter.create({
+     *   data: {
+     *     // ... data to create a Meter
+     *   }
+     * })
+     * 
+     */
+    create<T extends MeterCreateArgs>(args: SelectSubset<T, MeterCreateArgs<ExtArgs>>): Prisma__MeterClient<$Result.GetResult<Prisma.$MeterPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many Meters.
+     * @param {MeterCreateManyArgs} args - Arguments to create many Meters.
+     * @example
+     * // Create many Meters
+     * const meter = await prisma.meter.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends MeterCreateManyArgs>(args?: SelectSubset<T, MeterCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many Meters and returns the data saved in the database.
+     * @param {MeterCreateManyAndReturnArgs} args - Arguments to create many Meters.
+     * @example
+     * // Create many Meters
+     * const meter = await prisma.meter.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many Meters and only return the `id`
+     * const meterWithIdOnly = await prisma.meter.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends MeterCreateManyAndReturnArgs>(args?: SelectSubset<T, MeterCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$MeterPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a Meter.
+     * @param {MeterDeleteArgs} args - Arguments to delete one Meter.
+     * @example
+     * // Delete one Meter
+     * const Meter = await prisma.meter.delete({
+     *   where: {
+     *     // ... filter to delete one Meter
+     *   }
+     * })
+     * 
+     */
+    delete<T extends MeterDeleteArgs>(args: SelectSubset<T, MeterDeleteArgs<ExtArgs>>): Prisma__MeterClient<$Result.GetResult<Prisma.$MeterPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one Meter.
+     * @param {MeterUpdateArgs} args - Arguments to update one Meter.
+     * @example
+     * // Update one Meter
+     * const meter = await prisma.meter.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends MeterUpdateArgs>(args: SelectSubset<T, MeterUpdateArgs<ExtArgs>>): Prisma__MeterClient<$Result.GetResult<Prisma.$MeterPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more Meters.
+     * @param {MeterDeleteManyArgs} args - Arguments to filter Meters to delete.
+     * @example
+     * // Delete a few Meters
+     * const { count } = await prisma.meter.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends MeterDeleteManyArgs>(args?: SelectSubset<T, MeterDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Meters.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {MeterUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many Meters
+     * const meter = await prisma.meter.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends MeterUpdateManyArgs>(args: SelectSubset<T, MeterUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Meters and returns the data updated in the database.
+     * @param {MeterUpdateManyAndReturnArgs} args - Arguments to update many Meters.
+     * @example
+     * // Update many Meters
+     * const meter = await prisma.meter.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more Meters and only return the `id`
+     * const meterWithIdOnly = await prisma.meter.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends MeterUpdateManyAndReturnArgs>(args: SelectSubset<T, MeterUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$MeterPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one Meter.
+     * @param {MeterUpsertArgs} args - Arguments to update or create a Meter.
+     * @example
+     * // Update or create a Meter
+     * const meter = await prisma.meter.upsert({
+     *   create: {
+     *     // ... data to create a Meter
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the Meter we want to update
+     *   }
+     * })
+     */
+    upsert<T extends MeterUpsertArgs>(args: SelectSubset<T, MeterUpsertArgs<ExtArgs>>): Prisma__MeterClient<$Result.GetResult<Prisma.$MeterPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of Meters.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {MeterCountArgs} args - Arguments to filter Meters to count.
+     * @example
+     * // Count the number of Meters
+     * const count = await prisma.meter.count({
+     *   where: {
+     *     // ... the filter for the Meters we want to count
+     *   }
+     * })
+    **/
+    count<T extends MeterCountArgs>(
+      args?: Subset<T, MeterCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], MeterCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a Meter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {MeterAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends MeterAggregateArgs>(args: Subset<T, MeterAggregateArgs>): Prisma.PrismaPromise<GetMeterAggregateType<T>>
+
+    /**
+     * Group by Meter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {MeterGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends MeterGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: MeterGroupByArgs['orderBy'] }
+        : { orderBy?: MeterGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, MeterGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetMeterGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the Meter model
+   */
+  readonly fields: MeterFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for Meter.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__MeterClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    asset<T extends Meter$assetArgs<ExtArgs> = {}>(args?: Subset<T, Meter$assetArgs<ExtArgs>>): Prisma__AssetClient<$Result.GetResult<Prisma.$AssetPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+    building<T extends Meter$buildingArgs<ExtArgs> = {}>(args?: Subset<T, Meter$buildingArgs<ExtArgs>>): Prisma__BuildingClient<$Result.GetResult<Prisma.$BuildingPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+    zone<T extends Meter$zoneArgs<ExtArgs> = {}>(args?: Subset<T, Meter$zoneArgs<ExtArgs>>): Prisma__ZoneClient<$Result.GetResult<Prisma.$ZonePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+    space<T extends Meter$spaceArgs<ExtArgs> = {}>(args?: Subset<T, Meter$spaceArgs<ExtArgs>>): Prisma__SpaceClient<$Result.GetResult<Prisma.$SpacePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+    readings<T extends Meter$readingsArgs<ExtArgs> = {}>(args?: Subset<T, Meter$readingsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$MeterReadingPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    preventiveTriggers<T extends Meter$preventiveTriggersArgs<ExtArgs> = {}>(args?: Subset<T, Meter$preventiveTriggersArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$MeterMaintenanceTriggerPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the Meter model
+   */
+  interface MeterFieldRefs {
+    readonly id: FieldRef<"Meter", 'String'>
+    readonly name: FieldRef<"Meter", 'String'>
+    readonly type: FieldRef<"Meter", 'MeterType'>
+    readonly unit: FieldRef<"Meter", 'String'>
+    readonly assetId: FieldRef<"Meter", 'String'>
+    readonly buildingId: FieldRef<"Meter", 'String'>
+    readonly zoneId: FieldRef<"Meter", 'String'>
+    readonly spaceId: FieldRef<"Meter", 'String'>
+    readonly createdAt: FieldRef<"Meter", 'DateTime'>
+    readonly updatedAt: FieldRef<"Meter", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * Meter findUnique
+   */
+  export type MeterFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Meter
+     */
+    select?: MeterSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Meter
+     */
+    omit?: MeterOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MeterInclude<ExtArgs> | null
+    /**
+     * Filter, which Meter to fetch.
+     */
+    where: MeterWhereUniqueInput
+  }
+
+  /**
+   * Meter findUniqueOrThrow
+   */
+  export type MeterFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Meter
+     */
+    select?: MeterSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Meter
+     */
+    omit?: MeterOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MeterInclude<ExtArgs> | null
+    /**
+     * Filter, which Meter to fetch.
+     */
+    where: MeterWhereUniqueInput
+  }
+
+  /**
+   * Meter findFirst
+   */
+  export type MeterFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Meter
+     */
+    select?: MeterSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Meter
+     */
+    omit?: MeterOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MeterInclude<ExtArgs> | null
+    /**
+     * Filter, which Meter to fetch.
+     */
+    where?: MeterWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Meters to fetch.
+     */
+    orderBy?: MeterOrderByWithRelationInput | MeterOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Meters.
+     */
+    cursor?: MeterWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Meters from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Meters.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Meters.
+     */
+    distinct?: MeterScalarFieldEnum | MeterScalarFieldEnum[]
+  }
+
+  /**
+   * Meter findFirstOrThrow
+   */
+  export type MeterFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Meter
+     */
+    select?: MeterSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Meter
+     */
+    omit?: MeterOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MeterInclude<ExtArgs> | null
+    /**
+     * Filter, which Meter to fetch.
+     */
+    where?: MeterWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Meters to fetch.
+     */
+    orderBy?: MeterOrderByWithRelationInput | MeterOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Meters.
+     */
+    cursor?: MeterWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Meters from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Meters.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Meters.
+     */
+    distinct?: MeterScalarFieldEnum | MeterScalarFieldEnum[]
+  }
+
+  /**
+   * Meter findMany
+   */
+  export type MeterFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Meter
+     */
+    select?: MeterSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Meter
+     */
+    omit?: MeterOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MeterInclude<ExtArgs> | null
+    /**
+     * Filter, which Meters to fetch.
+     */
+    where?: MeterWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Meters to fetch.
+     */
+    orderBy?: MeterOrderByWithRelationInput | MeterOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing Meters.
+     */
+    cursor?: MeterWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Meters from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Meters.
+     */
+    skip?: number
+    distinct?: MeterScalarFieldEnum | MeterScalarFieldEnum[]
+  }
+
+  /**
+   * Meter create
+   */
+  export type MeterCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Meter
+     */
+    select?: MeterSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Meter
+     */
+    omit?: MeterOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MeterInclude<ExtArgs> | null
+    /**
+     * The data needed to create a Meter.
+     */
+    data: XOR<MeterCreateInput, MeterUncheckedCreateInput>
+  }
+
+  /**
+   * Meter createMany
+   */
+  export type MeterCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many Meters.
+     */
+    data: MeterCreateManyInput | MeterCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * Meter createManyAndReturn
+   */
+  export type MeterCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Meter
+     */
+    select?: MeterSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the Meter
+     */
+    omit?: MeterOmit<ExtArgs> | null
+    /**
+     * The data used to create many Meters.
+     */
+    data: MeterCreateManyInput | MeterCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MeterIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * Meter update
+   */
+  export type MeterUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Meter
+     */
+    select?: MeterSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Meter
+     */
+    omit?: MeterOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MeterInclude<ExtArgs> | null
+    /**
+     * The data needed to update a Meter.
+     */
+    data: XOR<MeterUpdateInput, MeterUncheckedUpdateInput>
+    /**
+     * Choose, which Meter to update.
+     */
+    where: MeterWhereUniqueInput
+  }
+
+  /**
+   * Meter updateMany
+   */
+  export type MeterUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update Meters.
+     */
+    data: XOR<MeterUpdateManyMutationInput, MeterUncheckedUpdateManyInput>
+    /**
+     * Filter which Meters to update
+     */
+    where?: MeterWhereInput
+    /**
+     * Limit how many Meters to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * Meter updateManyAndReturn
+   */
+  export type MeterUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Meter
+     */
+    select?: MeterSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the Meter
+     */
+    omit?: MeterOmit<ExtArgs> | null
+    /**
+     * The data used to update Meters.
+     */
+    data: XOR<MeterUpdateManyMutationInput, MeterUncheckedUpdateManyInput>
+    /**
+     * Filter which Meters to update
+     */
+    where?: MeterWhereInput
+    /**
+     * Limit how many Meters to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MeterIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * Meter upsert
+   */
+  export type MeterUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Meter
+     */
+    select?: MeterSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Meter
+     */
+    omit?: MeterOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MeterInclude<ExtArgs> | null
+    /**
+     * The filter to search for the Meter to update in case it exists.
+     */
+    where: MeterWhereUniqueInput
+    /**
+     * In case the Meter found by the `where` argument doesn't exist, create a new Meter with this data.
+     */
+    create: XOR<MeterCreateInput, MeterUncheckedCreateInput>
+    /**
+     * In case the Meter was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<MeterUpdateInput, MeterUncheckedUpdateInput>
+  }
+
+  /**
+   * Meter delete
+   */
+  export type MeterDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Meter
+     */
+    select?: MeterSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Meter
+     */
+    omit?: MeterOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MeterInclude<ExtArgs> | null
+    /**
+     * Filter which Meter to delete.
+     */
+    where: MeterWhereUniqueInput
+  }
+
+  /**
+   * Meter deleteMany
+   */
+  export type MeterDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Meters to delete
+     */
+    where?: MeterWhereInput
+    /**
+     * Limit how many Meters to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * Meter.asset
+   */
+  export type Meter$assetArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Asset
+     */
+    select?: AssetSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Asset
+     */
+    omit?: AssetOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AssetInclude<ExtArgs> | null
+    where?: AssetWhereInput
+  }
+
+  /**
+   * Meter.building
+   */
+  export type Meter$buildingArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Building
+     */
+    select?: BuildingSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Building
+     */
+    omit?: BuildingOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: BuildingInclude<ExtArgs> | null
+    where?: BuildingWhereInput
+  }
+
+  /**
+   * Meter.zone
+   */
+  export type Meter$zoneArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Zone
+     */
+    select?: ZoneSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Zone
+     */
+    omit?: ZoneOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ZoneInclude<ExtArgs> | null
+    where?: ZoneWhereInput
+  }
+
+  /**
+   * Meter.space
+   */
+  export type Meter$spaceArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Space
+     */
+    select?: SpaceSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Space
+     */
+    omit?: SpaceOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SpaceInclude<ExtArgs> | null
+    where?: SpaceWhereInput
+  }
+
+  /**
+   * Meter.readings
+   */
+  export type Meter$readingsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MeterReading
+     */
+    select?: MeterReadingSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the MeterReading
+     */
+    omit?: MeterReadingOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MeterReadingInclude<ExtArgs> | null
+    where?: MeterReadingWhereInput
+    orderBy?: MeterReadingOrderByWithRelationInput | MeterReadingOrderByWithRelationInput[]
+    cursor?: MeterReadingWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: MeterReadingScalarFieldEnum | MeterReadingScalarFieldEnum[]
+  }
+
+  /**
+   * Meter.preventiveTriggers
+   */
+  export type Meter$preventiveTriggersArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MeterMaintenanceTrigger
+     */
+    select?: MeterMaintenanceTriggerSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the MeterMaintenanceTrigger
+     */
+    omit?: MeterMaintenanceTriggerOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MeterMaintenanceTriggerInclude<ExtArgs> | null
+    where?: MeterMaintenanceTriggerWhereInput
+    orderBy?: MeterMaintenanceTriggerOrderByWithRelationInput | MeterMaintenanceTriggerOrderByWithRelationInput[]
+    cursor?: MeterMaintenanceTriggerWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: MeterMaintenanceTriggerScalarFieldEnum | MeterMaintenanceTriggerScalarFieldEnum[]
+  }
+
+  /**
+   * Meter without action
+   */
+  export type MeterDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Meter
+     */
+    select?: MeterSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Meter
+     */
+    omit?: MeterOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MeterInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model MeterReading
+   */
+
+  export type AggregateMeterReading = {
+    _count: MeterReadingCountAggregateOutputType | null
+    _avg: MeterReadingAvgAggregateOutputType | null
+    _sum: MeterReadingSumAggregateOutputType | null
+    _min: MeterReadingMinAggregateOutputType | null
+    _max: MeterReadingMaxAggregateOutputType | null
+  }
+
+  export type MeterReadingAvgAggregateOutputType = {
+    value: Decimal | null
+  }
+
+  export type MeterReadingSumAggregateOutputType = {
+    value: Decimal | null
+  }
+
+  export type MeterReadingMinAggregateOutputType = {
+    id: string | null
+    value: Decimal | null
+    timestamp: Date | null
+    source: $Enums.MeterReadingSource | null
+    meterId: string | null
+    recordedByUserId: string | null
+    createdAt: Date | null
+  }
+
+  export type MeterReadingMaxAggregateOutputType = {
+    id: string | null
+    value: Decimal | null
+    timestamp: Date | null
+    source: $Enums.MeterReadingSource | null
+    meterId: string | null
+    recordedByUserId: string | null
+    createdAt: Date | null
+  }
+
+  export type MeterReadingCountAggregateOutputType = {
+    id: number
+    value: number
+    timestamp: number
+    source: number
+    meterId: number
+    recordedByUserId: number
+    createdAt: number
+    _all: number
+  }
+
+
+  export type MeterReadingAvgAggregateInputType = {
+    value?: true
+  }
+
+  export type MeterReadingSumAggregateInputType = {
+    value?: true
+  }
+
+  export type MeterReadingMinAggregateInputType = {
+    id?: true
+    value?: true
+    timestamp?: true
+    source?: true
+    meterId?: true
+    recordedByUserId?: true
+    createdAt?: true
+  }
+
+  export type MeterReadingMaxAggregateInputType = {
+    id?: true
+    value?: true
+    timestamp?: true
+    source?: true
+    meterId?: true
+    recordedByUserId?: true
+    createdAt?: true
+  }
+
+  export type MeterReadingCountAggregateInputType = {
+    id?: true
+    value?: true
+    timestamp?: true
+    source?: true
+    meterId?: true
+    recordedByUserId?: true
+    createdAt?: true
+    _all?: true
+  }
+
+  export type MeterReadingAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which MeterReading to aggregate.
+     */
+    where?: MeterReadingWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of MeterReadings to fetch.
+     */
+    orderBy?: MeterReadingOrderByWithRelationInput | MeterReadingOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: MeterReadingWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` MeterReadings from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` MeterReadings.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned MeterReadings
+    **/
+    _count?: true | MeterReadingCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: MeterReadingAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: MeterReadingSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: MeterReadingMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: MeterReadingMaxAggregateInputType
+  }
+
+  export type GetMeterReadingAggregateType<T extends MeterReadingAggregateArgs> = {
+        [P in keyof T & keyof AggregateMeterReading]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateMeterReading[P]>
+      : GetScalarType<T[P], AggregateMeterReading[P]>
+  }
+
+
+
+
+  export type MeterReadingGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: MeterReadingWhereInput
+    orderBy?: MeterReadingOrderByWithAggregationInput | MeterReadingOrderByWithAggregationInput[]
+    by: MeterReadingScalarFieldEnum[] | MeterReadingScalarFieldEnum
+    having?: MeterReadingScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: MeterReadingCountAggregateInputType | true
+    _avg?: MeterReadingAvgAggregateInputType
+    _sum?: MeterReadingSumAggregateInputType
+    _min?: MeterReadingMinAggregateInputType
+    _max?: MeterReadingMaxAggregateInputType
+  }
+
+  export type MeterReadingGroupByOutputType = {
+    id: string
+    value: Decimal
+    timestamp: Date
+    source: $Enums.MeterReadingSource
+    meterId: string
+    recordedByUserId: string | null
+    createdAt: Date
+    _count: MeterReadingCountAggregateOutputType | null
+    _avg: MeterReadingAvgAggregateOutputType | null
+    _sum: MeterReadingSumAggregateOutputType | null
+    _min: MeterReadingMinAggregateOutputType | null
+    _max: MeterReadingMaxAggregateOutputType | null
+  }
+
+  type GetMeterReadingGroupByPayload<T extends MeterReadingGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<MeterReadingGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof MeterReadingGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], MeterReadingGroupByOutputType[P]>
+            : GetScalarType<T[P], MeterReadingGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type MeterReadingSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    value?: boolean
+    timestamp?: boolean
+    source?: boolean
+    meterId?: boolean
+    recordedByUserId?: boolean
+    createdAt?: boolean
+    meter?: boolean | MeterDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["meterReading"]>
+
+  export type MeterReadingSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    value?: boolean
+    timestamp?: boolean
+    source?: boolean
+    meterId?: boolean
+    recordedByUserId?: boolean
+    createdAt?: boolean
+    meter?: boolean | MeterDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["meterReading"]>
+
+  export type MeterReadingSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    value?: boolean
+    timestamp?: boolean
+    source?: boolean
+    meterId?: boolean
+    recordedByUserId?: boolean
+    createdAt?: boolean
+    meter?: boolean | MeterDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["meterReading"]>
+
+  export type MeterReadingSelectScalar = {
+    id?: boolean
+    value?: boolean
+    timestamp?: boolean
+    source?: boolean
+    meterId?: boolean
+    recordedByUserId?: boolean
+    createdAt?: boolean
+  }
+
+  export type MeterReadingOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "value" | "timestamp" | "source" | "meterId" | "recordedByUserId" | "createdAt", ExtArgs["result"]["meterReading"]>
+  export type MeterReadingInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    meter?: boolean | MeterDefaultArgs<ExtArgs>
+  }
+  export type MeterReadingIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    meter?: boolean | MeterDefaultArgs<ExtArgs>
+  }
+  export type MeterReadingIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    meter?: boolean | MeterDefaultArgs<ExtArgs>
+  }
+
+  export type $MeterReadingPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "MeterReading"
+    objects: {
+      meter: Prisma.$MeterPayload<ExtArgs>
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      value: Prisma.Decimal
+      timestamp: Date
+      source: $Enums.MeterReadingSource
+      meterId: string
+      recordedByUserId: string | null
+      createdAt: Date
+    }, ExtArgs["result"]["meterReading"]>
+    composites: {}
+  }
+
+  type MeterReadingGetPayload<S extends boolean | null | undefined | MeterReadingDefaultArgs> = $Result.GetResult<Prisma.$MeterReadingPayload, S>
+
+  type MeterReadingCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<MeterReadingFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: MeterReadingCountAggregateInputType | true
+    }
+
+  export interface MeterReadingDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['MeterReading'], meta: { name: 'MeterReading' } }
+    /**
+     * Find zero or one MeterReading that matches the filter.
+     * @param {MeterReadingFindUniqueArgs} args - Arguments to find a MeterReading
+     * @example
+     * // Get one MeterReading
+     * const meterReading = await prisma.meterReading.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends MeterReadingFindUniqueArgs>(args: SelectSubset<T, MeterReadingFindUniqueArgs<ExtArgs>>): Prisma__MeterReadingClient<$Result.GetResult<Prisma.$MeterReadingPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one MeterReading that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {MeterReadingFindUniqueOrThrowArgs} args - Arguments to find a MeterReading
+     * @example
+     * // Get one MeterReading
+     * const meterReading = await prisma.meterReading.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends MeterReadingFindUniqueOrThrowArgs>(args: SelectSubset<T, MeterReadingFindUniqueOrThrowArgs<ExtArgs>>): Prisma__MeterReadingClient<$Result.GetResult<Prisma.$MeterReadingPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first MeterReading that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {MeterReadingFindFirstArgs} args - Arguments to find a MeterReading
+     * @example
+     * // Get one MeterReading
+     * const meterReading = await prisma.meterReading.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends MeterReadingFindFirstArgs>(args?: SelectSubset<T, MeterReadingFindFirstArgs<ExtArgs>>): Prisma__MeterReadingClient<$Result.GetResult<Prisma.$MeterReadingPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first MeterReading that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {MeterReadingFindFirstOrThrowArgs} args - Arguments to find a MeterReading
+     * @example
+     * // Get one MeterReading
+     * const meterReading = await prisma.meterReading.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends MeterReadingFindFirstOrThrowArgs>(args?: SelectSubset<T, MeterReadingFindFirstOrThrowArgs<ExtArgs>>): Prisma__MeterReadingClient<$Result.GetResult<Prisma.$MeterReadingPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more MeterReadings that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {MeterReadingFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all MeterReadings
+     * const meterReadings = await prisma.meterReading.findMany()
+     * 
+     * // Get first 10 MeterReadings
+     * const meterReadings = await prisma.meterReading.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const meterReadingWithIdOnly = await prisma.meterReading.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends MeterReadingFindManyArgs>(args?: SelectSubset<T, MeterReadingFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$MeterReadingPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a MeterReading.
+     * @param {MeterReadingCreateArgs} args - Arguments to create a MeterReading.
+     * @example
+     * // Create one MeterReading
+     * const MeterReading = await prisma.meterReading.create({
+     *   data: {
+     *     // ... data to create a MeterReading
+     *   }
+     * })
+     * 
+     */
+    create<T extends MeterReadingCreateArgs>(args: SelectSubset<T, MeterReadingCreateArgs<ExtArgs>>): Prisma__MeterReadingClient<$Result.GetResult<Prisma.$MeterReadingPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many MeterReadings.
+     * @param {MeterReadingCreateManyArgs} args - Arguments to create many MeterReadings.
+     * @example
+     * // Create many MeterReadings
+     * const meterReading = await prisma.meterReading.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends MeterReadingCreateManyArgs>(args?: SelectSubset<T, MeterReadingCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many MeterReadings and returns the data saved in the database.
+     * @param {MeterReadingCreateManyAndReturnArgs} args - Arguments to create many MeterReadings.
+     * @example
+     * // Create many MeterReadings
+     * const meterReading = await prisma.meterReading.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many MeterReadings and only return the `id`
+     * const meterReadingWithIdOnly = await prisma.meterReading.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends MeterReadingCreateManyAndReturnArgs>(args?: SelectSubset<T, MeterReadingCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$MeterReadingPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a MeterReading.
+     * @param {MeterReadingDeleteArgs} args - Arguments to delete one MeterReading.
+     * @example
+     * // Delete one MeterReading
+     * const MeterReading = await prisma.meterReading.delete({
+     *   where: {
+     *     // ... filter to delete one MeterReading
+     *   }
+     * })
+     * 
+     */
+    delete<T extends MeterReadingDeleteArgs>(args: SelectSubset<T, MeterReadingDeleteArgs<ExtArgs>>): Prisma__MeterReadingClient<$Result.GetResult<Prisma.$MeterReadingPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one MeterReading.
+     * @param {MeterReadingUpdateArgs} args - Arguments to update one MeterReading.
+     * @example
+     * // Update one MeterReading
+     * const meterReading = await prisma.meterReading.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends MeterReadingUpdateArgs>(args: SelectSubset<T, MeterReadingUpdateArgs<ExtArgs>>): Prisma__MeterReadingClient<$Result.GetResult<Prisma.$MeterReadingPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more MeterReadings.
+     * @param {MeterReadingDeleteManyArgs} args - Arguments to filter MeterReadings to delete.
+     * @example
+     * // Delete a few MeterReadings
+     * const { count } = await prisma.meterReading.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends MeterReadingDeleteManyArgs>(args?: SelectSubset<T, MeterReadingDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more MeterReadings.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {MeterReadingUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many MeterReadings
+     * const meterReading = await prisma.meterReading.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends MeterReadingUpdateManyArgs>(args: SelectSubset<T, MeterReadingUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more MeterReadings and returns the data updated in the database.
+     * @param {MeterReadingUpdateManyAndReturnArgs} args - Arguments to update many MeterReadings.
+     * @example
+     * // Update many MeterReadings
+     * const meterReading = await prisma.meterReading.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more MeterReadings and only return the `id`
+     * const meterReadingWithIdOnly = await prisma.meterReading.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends MeterReadingUpdateManyAndReturnArgs>(args: SelectSubset<T, MeterReadingUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$MeterReadingPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one MeterReading.
+     * @param {MeterReadingUpsertArgs} args - Arguments to update or create a MeterReading.
+     * @example
+     * // Update or create a MeterReading
+     * const meterReading = await prisma.meterReading.upsert({
+     *   create: {
+     *     // ... data to create a MeterReading
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the MeterReading we want to update
+     *   }
+     * })
+     */
+    upsert<T extends MeterReadingUpsertArgs>(args: SelectSubset<T, MeterReadingUpsertArgs<ExtArgs>>): Prisma__MeterReadingClient<$Result.GetResult<Prisma.$MeterReadingPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of MeterReadings.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {MeterReadingCountArgs} args - Arguments to filter MeterReadings to count.
+     * @example
+     * // Count the number of MeterReadings
+     * const count = await prisma.meterReading.count({
+     *   where: {
+     *     // ... the filter for the MeterReadings we want to count
+     *   }
+     * })
+    **/
+    count<T extends MeterReadingCountArgs>(
+      args?: Subset<T, MeterReadingCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], MeterReadingCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a MeterReading.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {MeterReadingAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends MeterReadingAggregateArgs>(args: Subset<T, MeterReadingAggregateArgs>): Prisma.PrismaPromise<GetMeterReadingAggregateType<T>>
+
+    /**
+     * Group by MeterReading.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {MeterReadingGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends MeterReadingGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: MeterReadingGroupByArgs['orderBy'] }
+        : { orderBy?: MeterReadingGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, MeterReadingGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetMeterReadingGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the MeterReading model
+   */
+  readonly fields: MeterReadingFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for MeterReading.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__MeterReadingClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    meter<T extends MeterDefaultArgs<ExtArgs> = {}>(args?: Subset<T, MeterDefaultArgs<ExtArgs>>): Prisma__MeterClient<$Result.GetResult<Prisma.$MeterPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the MeterReading model
+   */
+  interface MeterReadingFieldRefs {
+    readonly id: FieldRef<"MeterReading", 'String'>
+    readonly value: FieldRef<"MeterReading", 'Decimal'>
+    readonly timestamp: FieldRef<"MeterReading", 'DateTime'>
+    readonly source: FieldRef<"MeterReading", 'MeterReadingSource'>
+    readonly meterId: FieldRef<"MeterReading", 'String'>
+    readonly recordedByUserId: FieldRef<"MeterReading", 'String'>
+    readonly createdAt: FieldRef<"MeterReading", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * MeterReading findUnique
+   */
+  export type MeterReadingFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MeterReading
+     */
+    select?: MeterReadingSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the MeterReading
+     */
+    omit?: MeterReadingOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MeterReadingInclude<ExtArgs> | null
+    /**
+     * Filter, which MeterReading to fetch.
+     */
+    where: MeterReadingWhereUniqueInput
+  }
+
+  /**
+   * MeterReading findUniqueOrThrow
+   */
+  export type MeterReadingFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MeterReading
+     */
+    select?: MeterReadingSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the MeterReading
+     */
+    omit?: MeterReadingOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MeterReadingInclude<ExtArgs> | null
+    /**
+     * Filter, which MeterReading to fetch.
+     */
+    where: MeterReadingWhereUniqueInput
+  }
+
+  /**
+   * MeterReading findFirst
+   */
+  export type MeterReadingFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MeterReading
+     */
+    select?: MeterReadingSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the MeterReading
+     */
+    omit?: MeterReadingOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MeterReadingInclude<ExtArgs> | null
+    /**
+     * Filter, which MeterReading to fetch.
+     */
+    where?: MeterReadingWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of MeterReadings to fetch.
+     */
+    orderBy?: MeterReadingOrderByWithRelationInput | MeterReadingOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for MeterReadings.
+     */
+    cursor?: MeterReadingWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` MeterReadings from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` MeterReadings.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of MeterReadings.
+     */
+    distinct?: MeterReadingScalarFieldEnum | MeterReadingScalarFieldEnum[]
+  }
+
+  /**
+   * MeterReading findFirstOrThrow
+   */
+  export type MeterReadingFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MeterReading
+     */
+    select?: MeterReadingSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the MeterReading
+     */
+    omit?: MeterReadingOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MeterReadingInclude<ExtArgs> | null
+    /**
+     * Filter, which MeterReading to fetch.
+     */
+    where?: MeterReadingWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of MeterReadings to fetch.
+     */
+    orderBy?: MeterReadingOrderByWithRelationInput | MeterReadingOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for MeterReadings.
+     */
+    cursor?: MeterReadingWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` MeterReadings from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` MeterReadings.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of MeterReadings.
+     */
+    distinct?: MeterReadingScalarFieldEnum | MeterReadingScalarFieldEnum[]
+  }
+
+  /**
+   * MeterReading findMany
+   */
+  export type MeterReadingFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MeterReading
+     */
+    select?: MeterReadingSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the MeterReading
+     */
+    omit?: MeterReadingOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MeterReadingInclude<ExtArgs> | null
+    /**
+     * Filter, which MeterReadings to fetch.
+     */
+    where?: MeterReadingWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of MeterReadings to fetch.
+     */
+    orderBy?: MeterReadingOrderByWithRelationInput | MeterReadingOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing MeterReadings.
+     */
+    cursor?: MeterReadingWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` MeterReadings from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` MeterReadings.
+     */
+    skip?: number
+    distinct?: MeterReadingScalarFieldEnum | MeterReadingScalarFieldEnum[]
+  }
+
+  /**
+   * MeterReading create
+   */
+  export type MeterReadingCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MeterReading
+     */
+    select?: MeterReadingSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the MeterReading
+     */
+    omit?: MeterReadingOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MeterReadingInclude<ExtArgs> | null
+    /**
+     * The data needed to create a MeterReading.
+     */
+    data: XOR<MeterReadingCreateInput, MeterReadingUncheckedCreateInput>
+  }
+
+  /**
+   * MeterReading createMany
+   */
+  export type MeterReadingCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many MeterReadings.
+     */
+    data: MeterReadingCreateManyInput | MeterReadingCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * MeterReading createManyAndReturn
+   */
+  export type MeterReadingCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MeterReading
+     */
+    select?: MeterReadingSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the MeterReading
+     */
+    omit?: MeterReadingOmit<ExtArgs> | null
+    /**
+     * The data used to create many MeterReadings.
+     */
+    data: MeterReadingCreateManyInput | MeterReadingCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MeterReadingIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * MeterReading update
+   */
+  export type MeterReadingUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MeterReading
+     */
+    select?: MeterReadingSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the MeterReading
+     */
+    omit?: MeterReadingOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MeterReadingInclude<ExtArgs> | null
+    /**
+     * The data needed to update a MeterReading.
+     */
+    data: XOR<MeterReadingUpdateInput, MeterReadingUncheckedUpdateInput>
+    /**
+     * Choose, which MeterReading to update.
+     */
+    where: MeterReadingWhereUniqueInput
+  }
+
+  /**
+   * MeterReading updateMany
+   */
+  export type MeterReadingUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update MeterReadings.
+     */
+    data: XOR<MeterReadingUpdateManyMutationInput, MeterReadingUncheckedUpdateManyInput>
+    /**
+     * Filter which MeterReadings to update
+     */
+    where?: MeterReadingWhereInput
+    /**
+     * Limit how many MeterReadings to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * MeterReading updateManyAndReturn
+   */
+  export type MeterReadingUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MeterReading
+     */
+    select?: MeterReadingSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the MeterReading
+     */
+    omit?: MeterReadingOmit<ExtArgs> | null
+    /**
+     * The data used to update MeterReadings.
+     */
+    data: XOR<MeterReadingUpdateManyMutationInput, MeterReadingUncheckedUpdateManyInput>
+    /**
+     * Filter which MeterReadings to update
+     */
+    where?: MeterReadingWhereInput
+    /**
+     * Limit how many MeterReadings to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MeterReadingIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * MeterReading upsert
+   */
+  export type MeterReadingUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MeterReading
+     */
+    select?: MeterReadingSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the MeterReading
+     */
+    omit?: MeterReadingOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MeterReadingInclude<ExtArgs> | null
+    /**
+     * The filter to search for the MeterReading to update in case it exists.
+     */
+    where: MeterReadingWhereUniqueInput
+    /**
+     * In case the MeterReading found by the `where` argument doesn't exist, create a new MeterReading with this data.
+     */
+    create: XOR<MeterReadingCreateInput, MeterReadingUncheckedCreateInput>
+    /**
+     * In case the MeterReading was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<MeterReadingUpdateInput, MeterReadingUncheckedUpdateInput>
+  }
+
+  /**
+   * MeterReading delete
+   */
+  export type MeterReadingDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MeterReading
+     */
+    select?: MeterReadingSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the MeterReading
+     */
+    omit?: MeterReadingOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MeterReadingInclude<ExtArgs> | null
+    /**
+     * Filter which MeterReading to delete.
+     */
+    where: MeterReadingWhereUniqueInput
+  }
+
+  /**
+   * MeterReading deleteMany
+   */
+  export type MeterReadingDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which MeterReadings to delete
+     */
+    where?: MeterReadingWhereInput
+    /**
+     * Limit how many MeterReadings to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * MeterReading without action
+   */
+  export type MeterReadingDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MeterReading
+     */
+    select?: MeterReadingSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the MeterReading
+     */
+    omit?: MeterReadingOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MeterReadingInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model MeterMaintenanceTrigger
+   */
+
+  export type AggregateMeterMaintenanceTrigger = {
+    _count: MeterMaintenanceTriggerCountAggregateOutputType | null
+    _avg: MeterMaintenanceTriggerAvgAggregateOutputType | null
+    _sum: MeterMaintenanceTriggerSumAggregateOutputType | null
+    _min: MeterMaintenanceTriggerMinAggregateOutputType | null
+    _max: MeterMaintenanceTriggerMaxAggregateOutputType | null
+  }
+
+  export type MeterMaintenanceTriggerAvgAggregateOutputType = {
+    triggerValue: Decimal | null
+    lastTriggerReading: Decimal | null
+  }
+
+  export type MeterMaintenanceTriggerSumAggregateOutputType = {
+    triggerValue: Decimal | null
+    lastTriggerReading: Decimal | null
+  }
+
+  export type MeterMaintenanceTriggerMinAggregateOutputType = {
+    id: string | null
+    meterId: string | null
+    preventiveId: string | null
+    condition: $Enums.TriggerCondition | null
+    triggerValue: Decimal | null
+    lastTriggerReading: Decimal | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type MeterMaintenanceTriggerMaxAggregateOutputType = {
+    id: string | null
+    meterId: string | null
+    preventiveId: string | null
+    condition: $Enums.TriggerCondition | null
+    triggerValue: Decimal | null
+    lastTriggerReading: Decimal | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type MeterMaintenanceTriggerCountAggregateOutputType = {
+    id: number
+    meterId: number
+    preventiveId: number
+    condition: number
+    triggerValue: number
+    lastTriggerReading: number
+    createdAt: number
+    updatedAt: number
+    _all: number
+  }
+
+
+  export type MeterMaintenanceTriggerAvgAggregateInputType = {
+    triggerValue?: true
+    lastTriggerReading?: true
+  }
+
+  export type MeterMaintenanceTriggerSumAggregateInputType = {
+    triggerValue?: true
+    lastTriggerReading?: true
+  }
+
+  export type MeterMaintenanceTriggerMinAggregateInputType = {
+    id?: true
+    meterId?: true
+    preventiveId?: true
+    condition?: true
+    triggerValue?: true
+    lastTriggerReading?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type MeterMaintenanceTriggerMaxAggregateInputType = {
+    id?: true
+    meterId?: true
+    preventiveId?: true
+    condition?: true
+    triggerValue?: true
+    lastTriggerReading?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type MeterMaintenanceTriggerCountAggregateInputType = {
+    id?: true
+    meterId?: true
+    preventiveId?: true
+    condition?: true
+    triggerValue?: true
+    lastTriggerReading?: true
+    createdAt?: true
+    updatedAt?: true
+    _all?: true
+  }
+
+  export type MeterMaintenanceTriggerAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which MeterMaintenanceTrigger to aggregate.
+     */
+    where?: MeterMaintenanceTriggerWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of MeterMaintenanceTriggers to fetch.
+     */
+    orderBy?: MeterMaintenanceTriggerOrderByWithRelationInput | MeterMaintenanceTriggerOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: MeterMaintenanceTriggerWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` MeterMaintenanceTriggers from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` MeterMaintenanceTriggers.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned MeterMaintenanceTriggers
+    **/
+    _count?: true | MeterMaintenanceTriggerCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: MeterMaintenanceTriggerAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: MeterMaintenanceTriggerSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: MeterMaintenanceTriggerMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: MeterMaintenanceTriggerMaxAggregateInputType
+  }
+
+  export type GetMeterMaintenanceTriggerAggregateType<T extends MeterMaintenanceTriggerAggregateArgs> = {
+        [P in keyof T & keyof AggregateMeterMaintenanceTrigger]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateMeterMaintenanceTrigger[P]>
+      : GetScalarType<T[P], AggregateMeterMaintenanceTrigger[P]>
+  }
+
+
+
+
+  export type MeterMaintenanceTriggerGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: MeterMaintenanceTriggerWhereInput
+    orderBy?: MeterMaintenanceTriggerOrderByWithAggregationInput | MeterMaintenanceTriggerOrderByWithAggregationInput[]
+    by: MeterMaintenanceTriggerScalarFieldEnum[] | MeterMaintenanceTriggerScalarFieldEnum
+    having?: MeterMaintenanceTriggerScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: MeterMaintenanceTriggerCountAggregateInputType | true
+    _avg?: MeterMaintenanceTriggerAvgAggregateInputType
+    _sum?: MeterMaintenanceTriggerSumAggregateInputType
+    _min?: MeterMaintenanceTriggerMinAggregateInputType
+    _max?: MeterMaintenanceTriggerMaxAggregateInputType
+  }
+
+  export type MeterMaintenanceTriggerGroupByOutputType = {
+    id: string
+    meterId: string
+    preventiveId: string
+    condition: $Enums.TriggerCondition
+    triggerValue: Decimal
+    lastTriggerReading: Decimal | null
+    createdAt: Date
+    updatedAt: Date
+    _count: MeterMaintenanceTriggerCountAggregateOutputType | null
+    _avg: MeterMaintenanceTriggerAvgAggregateOutputType | null
+    _sum: MeterMaintenanceTriggerSumAggregateOutputType | null
+    _min: MeterMaintenanceTriggerMinAggregateOutputType | null
+    _max: MeterMaintenanceTriggerMaxAggregateOutputType | null
+  }
+
+  type GetMeterMaintenanceTriggerGroupByPayload<T extends MeterMaintenanceTriggerGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<MeterMaintenanceTriggerGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof MeterMaintenanceTriggerGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], MeterMaintenanceTriggerGroupByOutputType[P]>
+            : GetScalarType<T[P], MeterMaintenanceTriggerGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type MeterMaintenanceTriggerSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    meterId?: boolean
+    preventiveId?: boolean
+    condition?: boolean
+    triggerValue?: boolean
+    lastTriggerReading?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    meter?: boolean | MeterDefaultArgs<ExtArgs>
+    preventive?: boolean | PreventiveDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["meterMaintenanceTrigger"]>
+
+  export type MeterMaintenanceTriggerSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    meterId?: boolean
+    preventiveId?: boolean
+    condition?: boolean
+    triggerValue?: boolean
+    lastTriggerReading?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    meter?: boolean | MeterDefaultArgs<ExtArgs>
+    preventive?: boolean | PreventiveDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["meterMaintenanceTrigger"]>
+
+  export type MeterMaintenanceTriggerSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    meterId?: boolean
+    preventiveId?: boolean
+    condition?: boolean
+    triggerValue?: boolean
+    lastTriggerReading?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    meter?: boolean | MeterDefaultArgs<ExtArgs>
+    preventive?: boolean | PreventiveDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["meterMaintenanceTrigger"]>
+
+  export type MeterMaintenanceTriggerSelectScalar = {
+    id?: boolean
+    meterId?: boolean
+    preventiveId?: boolean
+    condition?: boolean
+    triggerValue?: boolean
+    lastTriggerReading?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }
+
+  export type MeterMaintenanceTriggerOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "meterId" | "preventiveId" | "condition" | "triggerValue" | "lastTriggerReading" | "createdAt" | "updatedAt", ExtArgs["result"]["meterMaintenanceTrigger"]>
+  export type MeterMaintenanceTriggerInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    meter?: boolean | MeterDefaultArgs<ExtArgs>
+    preventive?: boolean | PreventiveDefaultArgs<ExtArgs>
+  }
+  export type MeterMaintenanceTriggerIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    meter?: boolean | MeterDefaultArgs<ExtArgs>
+    preventive?: boolean | PreventiveDefaultArgs<ExtArgs>
+  }
+  export type MeterMaintenanceTriggerIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    meter?: boolean | MeterDefaultArgs<ExtArgs>
+    preventive?: boolean | PreventiveDefaultArgs<ExtArgs>
+  }
+
+  export type $MeterMaintenanceTriggerPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "MeterMaintenanceTrigger"
+    objects: {
+      meter: Prisma.$MeterPayload<ExtArgs>
+      preventive: Prisma.$PreventivePayload<ExtArgs>
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      meterId: string
+      preventiveId: string
+      condition: $Enums.TriggerCondition
+      triggerValue: Prisma.Decimal
+      lastTriggerReading: Prisma.Decimal | null
+      createdAt: Date
+      updatedAt: Date
+    }, ExtArgs["result"]["meterMaintenanceTrigger"]>
+    composites: {}
+  }
+
+  type MeterMaintenanceTriggerGetPayload<S extends boolean | null | undefined | MeterMaintenanceTriggerDefaultArgs> = $Result.GetResult<Prisma.$MeterMaintenanceTriggerPayload, S>
+
+  type MeterMaintenanceTriggerCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<MeterMaintenanceTriggerFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: MeterMaintenanceTriggerCountAggregateInputType | true
+    }
+
+  export interface MeterMaintenanceTriggerDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['MeterMaintenanceTrigger'], meta: { name: 'MeterMaintenanceTrigger' } }
+    /**
+     * Find zero or one MeterMaintenanceTrigger that matches the filter.
+     * @param {MeterMaintenanceTriggerFindUniqueArgs} args - Arguments to find a MeterMaintenanceTrigger
+     * @example
+     * // Get one MeterMaintenanceTrigger
+     * const meterMaintenanceTrigger = await prisma.meterMaintenanceTrigger.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends MeterMaintenanceTriggerFindUniqueArgs>(args: SelectSubset<T, MeterMaintenanceTriggerFindUniqueArgs<ExtArgs>>): Prisma__MeterMaintenanceTriggerClient<$Result.GetResult<Prisma.$MeterMaintenanceTriggerPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one MeterMaintenanceTrigger that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {MeterMaintenanceTriggerFindUniqueOrThrowArgs} args - Arguments to find a MeterMaintenanceTrigger
+     * @example
+     * // Get one MeterMaintenanceTrigger
+     * const meterMaintenanceTrigger = await prisma.meterMaintenanceTrigger.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends MeterMaintenanceTriggerFindUniqueOrThrowArgs>(args: SelectSubset<T, MeterMaintenanceTriggerFindUniqueOrThrowArgs<ExtArgs>>): Prisma__MeterMaintenanceTriggerClient<$Result.GetResult<Prisma.$MeterMaintenanceTriggerPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first MeterMaintenanceTrigger that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {MeterMaintenanceTriggerFindFirstArgs} args - Arguments to find a MeterMaintenanceTrigger
+     * @example
+     * // Get one MeterMaintenanceTrigger
+     * const meterMaintenanceTrigger = await prisma.meterMaintenanceTrigger.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends MeterMaintenanceTriggerFindFirstArgs>(args?: SelectSubset<T, MeterMaintenanceTriggerFindFirstArgs<ExtArgs>>): Prisma__MeterMaintenanceTriggerClient<$Result.GetResult<Prisma.$MeterMaintenanceTriggerPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first MeterMaintenanceTrigger that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {MeterMaintenanceTriggerFindFirstOrThrowArgs} args - Arguments to find a MeterMaintenanceTrigger
+     * @example
+     * // Get one MeterMaintenanceTrigger
+     * const meterMaintenanceTrigger = await prisma.meterMaintenanceTrigger.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends MeterMaintenanceTriggerFindFirstOrThrowArgs>(args?: SelectSubset<T, MeterMaintenanceTriggerFindFirstOrThrowArgs<ExtArgs>>): Prisma__MeterMaintenanceTriggerClient<$Result.GetResult<Prisma.$MeterMaintenanceTriggerPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more MeterMaintenanceTriggers that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {MeterMaintenanceTriggerFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all MeterMaintenanceTriggers
+     * const meterMaintenanceTriggers = await prisma.meterMaintenanceTrigger.findMany()
+     * 
+     * // Get first 10 MeterMaintenanceTriggers
+     * const meterMaintenanceTriggers = await prisma.meterMaintenanceTrigger.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const meterMaintenanceTriggerWithIdOnly = await prisma.meterMaintenanceTrigger.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends MeterMaintenanceTriggerFindManyArgs>(args?: SelectSubset<T, MeterMaintenanceTriggerFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$MeterMaintenanceTriggerPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a MeterMaintenanceTrigger.
+     * @param {MeterMaintenanceTriggerCreateArgs} args - Arguments to create a MeterMaintenanceTrigger.
+     * @example
+     * // Create one MeterMaintenanceTrigger
+     * const MeterMaintenanceTrigger = await prisma.meterMaintenanceTrigger.create({
+     *   data: {
+     *     // ... data to create a MeterMaintenanceTrigger
+     *   }
+     * })
+     * 
+     */
+    create<T extends MeterMaintenanceTriggerCreateArgs>(args: SelectSubset<T, MeterMaintenanceTriggerCreateArgs<ExtArgs>>): Prisma__MeterMaintenanceTriggerClient<$Result.GetResult<Prisma.$MeterMaintenanceTriggerPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many MeterMaintenanceTriggers.
+     * @param {MeterMaintenanceTriggerCreateManyArgs} args - Arguments to create many MeterMaintenanceTriggers.
+     * @example
+     * // Create many MeterMaintenanceTriggers
+     * const meterMaintenanceTrigger = await prisma.meterMaintenanceTrigger.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends MeterMaintenanceTriggerCreateManyArgs>(args?: SelectSubset<T, MeterMaintenanceTriggerCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many MeterMaintenanceTriggers and returns the data saved in the database.
+     * @param {MeterMaintenanceTriggerCreateManyAndReturnArgs} args - Arguments to create many MeterMaintenanceTriggers.
+     * @example
+     * // Create many MeterMaintenanceTriggers
+     * const meterMaintenanceTrigger = await prisma.meterMaintenanceTrigger.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many MeterMaintenanceTriggers and only return the `id`
+     * const meterMaintenanceTriggerWithIdOnly = await prisma.meterMaintenanceTrigger.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends MeterMaintenanceTriggerCreateManyAndReturnArgs>(args?: SelectSubset<T, MeterMaintenanceTriggerCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$MeterMaintenanceTriggerPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a MeterMaintenanceTrigger.
+     * @param {MeterMaintenanceTriggerDeleteArgs} args - Arguments to delete one MeterMaintenanceTrigger.
+     * @example
+     * // Delete one MeterMaintenanceTrigger
+     * const MeterMaintenanceTrigger = await prisma.meterMaintenanceTrigger.delete({
+     *   where: {
+     *     // ... filter to delete one MeterMaintenanceTrigger
+     *   }
+     * })
+     * 
+     */
+    delete<T extends MeterMaintenanceTriggerDeleteArgs>(args: SelectSubset<T, MeterMaintenanceTriggerDeleteArgs<ExtArgs>>): Prisma__MeterMaintenanceTriggerClient<$Result.GetResult<Prisma.$MeterMaintenanceTriggerPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one MeterMaintenanceTrigger.
+     * @param {MeterMaintenanceTriggerUpdateArgs} args - Arguments to update one MeterMaintenanceTrigger.
+     * @example
+     * // Update one MeterMaintenanceTrigger
+     * const meterMaintenanceTrigger = await prisma.meterMaintenanceTrigger.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends MeterMaintenanceTriggerUpdateArgs>(args: SelectSubset<T, MeterMaintenanceTriggerUpdateArgs<ExtArgs>>): Prisma__MeterMaintenanceTriggerClient<$Result.GetResult<Prisma.$MeterMaintenanceTriggerPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more MeterMaintenanceTriggers.
+     * @param {MeterMaintenanceTriggerDeleteManyArgs} args - Arguments to filter MeterMaintenanceTriggers to delete.
+     * @example
+     * // Delete a few MeterMaintenanceTriggers
+     * const { count } = await prisma.meterMaintenanceTrigger.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends MeterMaintenanceTriggerDeleteManyArgs>(args?: SelectSubset<T, MeterMaintenanceTriggerDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more MeterMaintenanceTriggers.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {MeterMaintenanceTriggerUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many MeterMaintenanceTriggers
+     * const meterMaintenanceTrigger = await prisma.meterMaintenanceTrigger.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends MeterMaintenanceTriggerUpdateManyArgs>(args: SelectSubset<T, MeterMaintenanceTriggerUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more MeterMaintenanceTriggers and returns the data updated in the database.
+     * @param {MeterMaintenanceTriggerUpdateManyAndReturnArgs} args - Arguments to update many MeterMaintenanceTriggers.
+     * @example
+     * // Update many MeterMaintenanceTriggers
+     * const meterMaintenanceTrigger = await prisma.meterMaintenanceTrigger.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more MeterMaintenanceTriggers and only return the `id`
+     * const meterMaintenanceTriggerWithIdOnly = await prisma.meterMaintenanceTrigger.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends MeterMaintenanceTriggerUpdateManyAndReturnArgs>(args: SelectSubset<T, MeterMaintenanceTriggerUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$MeterMaintenanceTriggerPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one MeterMaintenanceTrigger.
+     * @param {MeterMaintenanceTriggerUpsertArgs} args - Arguments to update or create a MeterMaintenanceTrigger.
+     * @example
+     * // Update or create a MeterMaintenanceTrigger
+     * const meterMaintenanceTrigger = await prisma.meterMaintenanceTrigger.upsert({
+     *   create: {
+     *     // ... data to create a MeterMaintenanceTrigger
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the MeterMaintenanceTrigger we want to update
+     *   }
+     * })
+     */
+    upsert<T extends MeterMaintenanceTriggerUpsertArgs>(args: SelectSubset<T, MeterMaintenanceTriggerUpsertArgs<ExtArgs>>): Prisma__MeterMaintenanceTriggerClient<$Result.GetResult<Prisma.$MeterMaintenanceTriggerPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of MeterMaintenanceTriggers.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {MeterMaintenanceTriggerCountArgs} args - Arguments to filter MeterMaintenanceTriggers to count.
+     * @example
+     * // Count the number of MeterMaintenanceTriggers
+     * const count = await prisma.meterMaintenanceTrigger.count({
+     *   where: {
+     *     // ... the filter for the MeterMaintenanceTriggers we want to count
+     *   }
+     * })
+    **/
+    count<T extends MeterMaintenanceTriggerCountArgs>(
+      args?: Subset<T, MeterMaintenanceTriggerCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], MeterMaintenanceTriggerCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a MeterMaintenanceTrigger.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {MeterMaintenanceTriggerAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends MeterMaintenanceTriggerAggregateArgs>(args: Subset<T, MeterMaintenanceTriggerAggregateArgs>): Prisma.PrismaPromise<GetMeterMaintenanceTriggerAggregateType<T>>
+
+    /**
+     * Group by MeterMaintenanceTrigger.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {MeterMaintenanceTriggerGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends MeterMaintenanceTriggerGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: MeterMaintenanceTriggerGroupByArgs['orderBy'] }
+        : { orderBy?: MeterMaintenanceTriggerGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, MeterMaintenanceTriggerGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetMeterMaintenanceTriggerGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the MeterMaintenanceTrigger model
+   */
+  readonly fields: MeterMaintenanceTriggerFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for MeterMaintenanceTrigger.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__MeterMaintenanceTriggerClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    meter<T extends MeterDefaultArgs<ExtArgs> = {}>(args?: Subset<T, MeterDefaultArgs<ExtArgs>>): Prisma__MeterClient<$Result.GetResult<Prisma.$MeterPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    preventive<T extends PreventiveDefaultArgs<ExtArgs> = {}>(args?: Subset<T, PreventiveDefaultArgs<ExtArgs>>): Prisma__PreventiveClient<$Result.GetResult<Prisma.$PreventivePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the MeterMaintenanceTrigger model
+   */
+  interface MeterMaintenanceTriggerFieldRefs {
+    readonly id: FieldRef<"MeterMaintenanceTrigger", 'String'>
+    readonly meterId: FieldRef<"MeterMaintenanceTrigger", 'String'>
+    readonly preventiveId: FieldRef<"MeterMaintenanceTrigger", 'String'>
+    readonly condition: FieldRef<"MeterMaintenanceTrigger", 'TriggerCondition'>
+    readonly triggerValue: FieldRef<"MeterMaintenanceTrigger", 'Decimal'>
+    readonly lastTriggerReading: FieldRef<"MeterMaintenanceTrigger", 'Decimal'>
+    readonly createdAt: FieldRef<"MeterMaintenanceTrigger", 'DateTime'>
+    readonly updatedAt: FieldRef<"MeterMaintenanceTrigger", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * MeterMaintenanceTrigger findUnique
+   */
+  export type MeterMaintenanceTriggerFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MeterMaintenanceTrigger
+     */
+    select?: MeterMaintenanceTriggerSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the MeterMaintenanceTrigger
+     */
+    omit?: MeterMaintenanceTriggerOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MeterMaintenanceTriggerInclude<ExtArgs> | null
+    /**
+     * Filter, which MeterMaintenanceTrigger to fetch.
+     */
+    where: MeterMaintenanceTriggerWhereUniqueInput
+  }
+
+  /**
+   * MeterMaintenanceTrigger findUniqueOrThrow
+   */
+  export type MeterMaintenanceTriggerFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MeterMaintenanceTrigger
+     */
+    select?: MeterMaintenanceTriggerSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the MeterMaintenanceTrigger
+     */
+    omit?: MeterMaintenanceTriggerOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MeterMaintenanceTriggerInclude<ExtArgs> | null
+    /**
+     * Filter, which MeterMaintenanceTrigger to fetch.
+     */
+    where: MeterMaintenanceTriggerWhereUniqueInput
+  }
+
+  /**
+   * MeterMaintenanceTrigger findFirst
+   */
+  export type MeterMaintenanceTriggerFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MeterMaintenanceTrigger
+     */
+    select?: MeterMaintenanceTriggerSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the MeterMaintenanceTrigger
+     */
+    omit?: MeterMaintenanceTriggerOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MeterMaintenanceTriggerInclude<ExtArgs> | null
+    /**
+     * Filter, which MeterMaintenanceTrigger to fetch.
+     */
+    where?: MeterMaintenanceTriggerWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of MeterMaintenanceTriggers to fetch.
+     */
+    orderBy?: MeterMaintenanceTriggerOrderByWithRelationInput | MeterMaintenanceTriggerOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for MeterMaintenanceTriggers.
+     */
+    cursor?: MeterMaintenanceTriggerWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` MeterMaintenanceTriggers from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` MeterMaintenanceTriggers.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of MeterMaintenanceTriggers.
+     */
+    distinct?: MeterMaintenanceTriggerScalarFieldEnum | MeterMaintenanceTriggerScalarFieldEnum[]
+  }
+
+  /**
+   * MeterMaintenanceTrigger findFirstOrThrow
+   */
+  export type MeterMaintenanceTriggerFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MeterMaintenanceTrigger
+     */
+    select?: MeterMaintenanceTriggerSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the MeterMaintenanceTrigger
+     */
+    omit?: MeterMaintenanceTriggerOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MeterMaintenanceTriggerInclude<ExtArgs> | null
+    /**
+     * Filter, which MeterMaintenanceTrigger to fetch.
+     */
+    where?: MeterMaintenanceTriggerWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of MeterMaintenanceTriggers to fetch.
+     */
+    orderBy?: MeterMaintenanceTriggerOrderByWithRelationInput | MeterMaintenanceTriggerOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for MeterMaintenanceTriggers.
+     */
+    cursor?: MeterMaintenanceTriggerWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` MeterMaintenanceTriggers from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` MeterMaintenanceTriggers.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of MeterMaintenanceTriggers.
+     */
+    distinct?: MeterMaintenanceTriggerScalarFieldEnum | MeterMaintenanceTriggerScalarFieldEnum[]
+  }
+
+  /**
+   * MeterMaintenanceTrigger findMany
+   */
+  export type MeterMaintenanceTriggerFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MeterMaintenanceTrigger
+     */
+    select?: MeterMaintenanceTriggerSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the MeterMaintenanceTrigger
+     */
+    omit?: MeterMaintenanceTriggerOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MeterMaintenanceTriggerInclude<ExtArgs> | null
+    /**
+     * Filter, which MeterMaintenanceTriggers to fetch.
+     */
+    where?: MeterMaintenanceTriggerWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of MeterMaintenanceTriggers to fetch.
+     */
+    orderBy?: MeterMaintenanceTriggerOrderByWithRelationInput | MeterMaintenanceTriggerOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing MeterMaintenanceTriggers.
+     */
+    cursor?: MeterMaintenanceTriggerWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` MeterMaintenanceTriggers from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` MeterMaintenanceTriggers.
+     */
+    skip?: number
+    distinct?: MeterMaintenanceTriggerScalarFieldEnum | MeterMaintenanceTriggerScalarFieldEnum[]
+  }
+
+  /**
+   * MeterMaintenanceTrigger create
+   */
+  export type MeterMaintenanceTriggerCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MeterMaintenanceTrigger
+     */
+    select?: MeterMaintenanceTriggerSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the MeterMaintenanceTrigger
+     */
+    omit?: MeterMaintenanceTriggerOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MeterMaintenanceTriggerInclude<ExtArgs> | null
+    /**
+     * The data needed to create a MeterMaintenanceTrigger.
+     */
+    data: XOR<MeterMaintenanceTriggerCreateInput, MeterMaintenanceTriggerUncheckedCreateInput>
+  }
+
+  /**
+   * MeterMaintenanceTrigger createMany
+   */
+  export type MeterMaintenanceTriggerCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many MeterMaintenanceTriggers.
+     */
+    data: MeterMaintenanceTriggerCreateManyInput | MeterMaintenanceTriggerCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * MeterMaintenanceTrigger createManyAndReturn
+   */
+  export type MeterMaintenanceTriggerCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MeterMaintenanceTrigger
+     */
+    select?: MeterMaintenanceTriggerSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the MeterMaintenanceTrigger
+     */
+    omit?: MeterMaintenanceTriggerOmit<ExtArgs> | null
+    /**
+     * The data used to create many MeterMaintenanceTriggers.
+     */
+    data: MeterMaintenanceTriggerCreateManyInput | MeterMaintenanceTriggerCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MeterMaintenanceTriggerIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * MeterMaintenanceTrigger update
+   */
+  export type MeterMaintenanceTriggerUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MeterMaintenanceTrigger
+     */
+    select?: MeterMaintenanceTriggerSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the MeterMaintenanceTrigger
+     */
+    omit?: MeterMaintenanceTriggerOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MeterMaintenanceTriggerInclude<ExtArgs> | null
+    /**
+     * The data needed to update a MeterMaintenanceTrigger.
+     */
+    data: XOR<MeterMaintenanceTriggerUpdateInput, MeterMaintenanceTriggerUncheckedUpdateInput>
+    /**
+     * Choose, which MeterMaintenanceTrigger to update.
+     */
+    where: MeterMaintenanceTriggerWhereUniqueInput
+  }
+
+  /**
+   * MeterMaintenanceTrigger updateMany
+   */
+  export type MeterMaintenanceTriggerUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update MeterMaintenanceTriggers.
+     */
+    data: XOR<MeterMaintenanceTriggerUpdateManyMutationInput, MeterMaintenanceTriggerUncheckedUpdateManyInput>
+    /**
+     * Filter which MeterMaintenanceTriggers to update
+     */
+    where?: MeterMaintenanceTriggerWhereInput
+    /**
+     * Limit how many MeterMaintenanceTriggers to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * MeterMaintenanceTrigger updateManyAndReturn
+   */
+  export type MeterMaintenanceTriggerUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MeterMaintenanceTrigger
+     */
+    select?: MeterMaintenanceTriggerSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the MeterMaintenanceTrigger
+     */
+    omit?: MeterMaintenanceTriggerOmit<ExtArgs> | null
+    /**
+     * The data used to update MeterMaintenanceTriggers.
+     */
+    data: XOR<MeterMaintenanceTriggerUpdateManyMutationInput, MeterMaintenanceTriggerUncheckedUpdateManyInput>
+    /**
+     * Filter which MeterMaintenanceTriggers to update
+     */
+    where?: MeterMaintenanceTriggerWhereInput
+    /**
+     * Limit how many MeterMaintenanceTriggers to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MeterMaintenanceTriggerIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * MeterMaintenanceTrigger upsert
+   */
+  export type MeterMaintenanceTriggerUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MeterMaintenanceTrigger
+     */
+    select?: MeterMaintenanceTriggerSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the MeterMaintenanceTrigger
+     */
+    omit?: MeterMaintenanceTriggerOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MeterMaintenanceTriggerInclude<ExtArgs> | null
+    /**
+     * The filter to search for the MeterMaintenanceTrigger to update in case it exists.
+     */
+    where: MeterMaintenanceTriggerWhereUniqueInput
+    /**
+     * In case the MeterMaintenanceTrigger found by the `where` argument doesn't exist, create a new MeterMaintenanceTrigger with this data.
+     */
+    create: XOR<MeterMaintenanceTriggerCreateInput, MeterMaintenanceTriggerUncheckedCreateInput>
+    /**
+     * In case the MeterMaintenanceTrigger was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<MeterMaintenanceTriggerUpdateInput, MeterMaintenanceTriggerUncheckedUpdateInput>
+  }
+
+  /**
+   * MeterMaintenanceTrigger delete
+   */
+  export type MeterMaintenanceTriggerDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MeterMaintenanceTrigger
+     */
+    select?: MeterMaintenanceTriggerSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the MeterMaintenanceTrigger
+     */
+    omit?: MeterMaintenanceTriggerOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MeterMaintenanceTriggerInclude<ExtArgs> | null
+    /**
+     * Filter which MeterMaintenanceTrigger to delete.
+     */
+    where: MeterMaintenanceTriggerWhereUniqueInput
+  }
+
+  /**
+   * MeterMaintenanceTrigger deleteMany
+   */
+  export type MeterMaintenanceTriggerDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which MeterMaintenanceTriggers to delete
+     */
+    where?: MeterMaintenanceTriggerWhereInput
+    /**
+     * Limit how many MeterMaintenanceTriggers to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * MeterMaintenanceTrigger without action
+   */
+  export type MeterMaintenanceTriggerDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MeterMaintenanceTrigger
+     */
+    select?: MeterMaintenanceTriggerSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the MeterMaintenanceTrigger
+     */
+    omit?: MeterMaintenanceTriggerOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MeterMaintenanceTriggerInclude<ExtArgs> | null
+  }
+
+
+  /**
    * Enums
    */
 
@@ -37442,6 +41660,7 @@ export namespace Prisma {
     processNotes: 'processNotes',
     metadata: 'metadata',
     performerId: 'performerId',
+    performerReference: 'performerReference',
     processStatus: 'processStatus',
     register: 'register',
     activityIdTimer: 'activityIdTimer',
@@ -37460,7 +41679,7 @@ export namespace Prisma {
     execStart: 'execStart',
     dueExecEndDate: 'dueExecEndDate',
     execEndDate: 'execEndDate',
-    dueClosuerDate: 'dueClosuerDate',
+    dueClosureDate: 'dueClosureDate',
     totalExecTime: 'totalExecTime',
     expStartDate: 'expStartDate',
     suspensionReason: 'suspensionReason',
@@ -37470,6 +41689,7 @@ export namespace Prisma {
     buildingId: 'buildingId',
     teamId: 'teamId',
     floorId: 'floorId',
+    zoneId: 'zoneId',
     spaceId: 'spaceId',
     ttSystemOpening: 'ttSystemOpening',
     ttWorkOpening: 'ttWorkOpening',
@@ -37580,7 +41800,8 @@ export namespace Prisma {
     maintenanceId: 'maintenanceId',
     itemId: 'itemId',
     createdAt: 'createdAt',
-    updatedAt: 'updatedAt'
+    updatedAt: 'updatedAt',
+    zoneId: 'zoneId'
   };
 
   export type MaintenanceItemScalarFieldEnum = (typeof MaintenanceItemScalarFieldEnum)[keyof typeof MaintenanceItemScalarFieldEnum]
@@ -37596,6 +41817,49 @@ export namespace Prisma {
   };
 
   export type RefreshTokenScalarFieldEnum = (typeof RefreshTokenScalarFieldEnum)[keyof typeof RefreshTokenScalarFieldEnum]
+
+
+  export const MeterScalarFieldEnum: {
+    id: 'id',
+    name: 'name',
+    type: 'type',
+    unit: 'unit',
+    assetId: 'assetId',
+    buildingId: 'buildingId',
+    zoneId: 'zoneId',
+    spaceId: 'spaceId',
+    createdAt: 'createdAt',
+    updatedAt: 'updatedAt'
+  };
+
+  export type MeterScalarFieldEnum = (typeof MeterScalarFieldEnum)[keyof typeof MeterScalarFieldEnum]
+
+
+  export const MeterReadingScalarFieldEnum: {
+    id: 'id',
+    value: 'value',
+    timestamp: 'timestamp',
+    source: 'source',
+    meterId: 'meterId',
+    recordedByUserId: 'recordedByUserId',
+    createdAt: 'createdAt'
+  };
+
+  export type MeterReadingScalarFieldEnum = (typeof MeterReadingScalarFieldEnum)[keyof typeof MeterReadingScalarFieldEnum]
+
+
+  export const MeterMaintenanceTriggerScalarFieldEnum: {
+    id: 'id',
+    meterId: 'meterId',
+    preventiveId: 'preventiveId',
+    condition: 'condition',
+    triggerValue: 'triggerValue',
+    lastTriggerReading: 'lastTriggerReading',
+    createdAt: 'createdAt',
+    updatedAt: 'updatedAt'
+  };
+
+  export type MeterMaintenanceTriggerScalarFieldEnum = (typeof MeterMaintenanceTriggerScalarFieldEnum)[keyof typeof MeterMaintenanceTriggerScalarFieldEnum]
 
 
   export const SortOrder: {
@@ -37918,6 +42182,20 @@ export namespace Prisma {
 
 
   /**
+   * Reference to a field of type 'PerformerReference'
+   */
+  export type EnumPerformerReferenceFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'PerformerReference'>
+    
+
+
+  /**
+   * Reference to a field of type 'PerformerReference[]'
+   */
+  export type ListEnumPerformerReferenceFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'PerformerReference[]'>
+    
+
+
+  /**
    * Reference to a field of type 'Status'
    */
   export type EnumStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Status'>
@@ -37999,6 +42277,48 @@ export namespace Prisma {
    */
   export type ListEnumStockReferenceTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'StockReferenceType[]'>
     
+
+
+  /**
+   * Reference to a field of type 'MeterType'
+   */
+  export type EnumMeterTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'MeterType'>
+    
+
+
+  /**
+   * Reference to a field of type 'MeterType[]'
+   */
+  export type ListEnumMeterTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'MeterType[]'>
+    
+
+
+  /**
+   * Reference to a field of type 'MeterReadingSource'
+   */
+  export type EnumMeterReadingSourceFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'MeterReadingSource'>
+    
+
+
+  /**
+   * Reference to a field of type 'MeterReadingSource[]'
+   */
+  export type ListEnumMeterReadingSourceFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'MeterReadingSource[]'>
+    
+
+
+  /**
+   * Reference to a field of type 'TriggerCondition'
+   */
+  export type EnumTriggerConditionFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'TriggerCondition'>
+    
+
+
+  /**
+   * Reference to a field of type 'TriggerCondition[]'
+   */
+  export type ListEnumTriggerConditionFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'TriggerCondition[]'>
+    
   /**
    * Deep Input Types
    */
@@ -38031,7 +42351,6 @@ export namespace Prisma {
     company?: XOR<CompanyNullableScalarRelationFilter, CompanyWhereInput> | null
     calenderEntity?: XOR<CalenderEntityNullableScalarRelationFilter, CalenderEntityWhereInput> | null
     teams?: TeamListRelationFilter
-    performedMaintenances?: MaintenanceListRelationFilter
     requestedMaintenances?: MaintenanceListRelationFilter
     assignedMaintenances?: MaintenanceListRelationFilter
     supervisedTeams?: TeamListRelationFilter
@@ -38061,7 +42380,6 @@ export namespace Prisma {
     company?: CompanyOrderByWithRelationInput
     calenderEntity?: CalenderEntityOrderByWithRelationInput
     teams?: TeamOrderByRelationAggregateInput
-    performedMaintenances?: MaintenanceOrderByRelationAggregateInput
     requestedMaintenances?: MaintenanceOrderByRelationAggregateInput
     assignedMaintenances?: MaintenanceOrderByRelationAggregateInput
     supervisedTeams?: TeamOrderByRelationAggregateInput
@@ -38094,7 +42412,6 @@ export namespace Prisma {
     company?: XOR<CompanyNullableScalarRelationFilter, CompanyWhereInput> | null
     calenderEntity?: XOR<CalenderEntityNullableScalarRelationFilter, CalenderEntityWhereInput> | null
     teams?: TeamListRelationFilter
-    performedMaintenances?: MaintenanceListRelationFilter
     requestedMaintenances?: MaintenanceListRelationFilter
     assignedMaintenances?: MaintenanceListRelationFilter
     supervisedTeams?: TeamListRelationFilter
@@ -38542,6 +42859,7 @@ export namespace Prisma {
     floors?: FloorListRelationFilter
     preventives?: PreventiveListRelationFilter
     maintenances?: MaintenanceListRelationFilter
+    meters?: MeterListRelationFilter
   }
 
   export type BuildingOrderByWithRelationInput = {
@@ -38574,6 +42892,7 @@ export namespace Prisma {
     floors?: FloorOrderByRelationAggregateInput
     preventives?: PreventiveOrderByRelationAggregateInput
     maintenances?: MaintenanceOrderByRelationAggregateInput
+    meters?: MeterOrderByRelationAggregateInput
   }
 
   export type BuildingWhereUniqueInput = Prisma.AtLeast<{
@@ -38610,6 +42929,7 @@ export namespace Prisma {
     floors?: FloorListRelationFilter
     preventives?: PreventiveListRelationFilter
     maintenances?: MaintenanceListRelationFilter
+    meters?: MeterListRelationFilter
   }, "id" | "code" | "complexId_name">
 
   export type BuildingOrderByWithAggregationInput = {
@@ -38851,6 +43171,9 @@ export namespace Prisma {
     floor?: XOR<FloorScalarRelationFilter, FloorWhereInput>
     rooms?: SpaceListRelationFilter
     photos?: FileListRelationFilter
+    items?: MaintenanceItemListRelationFilter
+    meters?: MeterListRelationFilter
+    maintenances?: MaintenanceListRelationFilter
   }
 
   export type ZoneOrderByWithRelationInput = {
@@ -38887,6 +43210,9 @@ export namespace Prisma {
     floor?: FloorOrderByWithRelationInput
     rooms?: SpaceOrderByRelationAggregateInput
     photos?: FileOrderByRelationAggregateInput
+    items?: MaintenanceItemOrderByRelationAggregateInput
+    meters?: MeterOrderByRelationAggregateInput
+    maintenances?: MaintenanceOrderByRelationAggregateInput
   }
 
   export type ZoneWhereUniqueInput = Prisma.AtLeast<{
@@ -38927,6 +43253,9 @@ export namespace Prisma {
     floor?: XOR<FloorScalarRelationFilter, FloorWhereInput>
     rooms?: SpaceListRelationFilter
     photos?: FileListRelationFilter
+    items?: MaintenanceItemListRelationFilter
+    meters?: MeterListRelationFilter
+    maintenances?: MaintenanceListRelationFilter
   }, "id" | "code" | "floorId_name">
 
   export type ZoneOrderByWithAggregationInput = {
@@ -39029,6 +43358,7 @@ export namespace Prisma {
     photos?: FileListRelationFilter
     maintenances?: MaintenanceListRelationFilter
     preventives?: PreventiveListRelationFilter
+    meters?: MeterListRelationFilter
     assets?: AssetListRelationFilter
   }
 
@@ -39057,6 +43387,7 @@ export namespace Prisma {
     photos?: FileOrderByRelationAggregateInput
     maintenances?: MaintenanceOrderByRelationAggregateInput
     preventives?: PreventiveOrderByRelationAggregateInput
+    meters?: MeterOrderByRelationAggregateInput
     assets?: AssetOrderByRelationAggregateInput
   }
 
@@ -39089,6 +43420,7 @@ export namespace Prisma {
     photos?: FileListRelationFilter
     maintenances?: MaintenanceListRelationFilter
     preventives?: PreventiveListRelationFilter
+    meters?: MeterListRelationFilter
     assets?: AssetListRelationFilter
   }, "id" | "code" | "zoneId_name">
 
@@ -39260,6 +43592,7 @@ export namespace Prisma {
     space?: XOR<SpaceNullableScalarRelationFilter, SpaceWhereInput> | null
     maintenances?: MaintenanceListRelationFilter
     preventives?: PreventiveListRelationFilter
+    meters?: MeterListRelationFilter
   }
 
   export type AssetOrderByWithRelationInput = {
@@ -39278,6 +43611,7 @@ export namespace Prisma {
     space?: SpaceOrderByWithRelationInput
     maintenances?: MaintenanceOrderByRelationAggregateInput
     preventives?: PreventiveOrderByRelationAggregateInput
+    meters?: MeterOrderByRelationAggregateInput
   }
 
   export type AssetWhereUniqueInput = Prisma.AtLeast<{
@@ -39299,6 +43633,7 @@ export namespace Prisma {
     space?: XOR<SpaceNullableScalarRelationFilter, SpaceWhereInput> | null
     maintenances?: MaintenanceListRelationFilter
     preventives?: PreventiveListRelationFilter
+    meters?: MeterListRelationFilter
   }, "id" | "tag">
 
   export type AssetOrderByWithAggregationInput = {
@@ -39757,6 +44092,7 @@ export namespace Prisma {
     processNotes?: StringNullableFilter<"Maintenance"> | string | null
     metadata?: JsonNullableFilter<"Maintenance">
     performerId?: StringNullableFilter<"Maintenance"> | string | null
+    performerReference?: EnumPerformerReferenceNullableFilter<"Maintenance"> | $Enums.PerformerReference | null
     processStatus?: EnumStatusFilter<"Maintenance"> | $Enums.Status
     register?: StringNullableFilter<"Maintenance"> | string | null
     activityIdTimer?: StringNullableFilter<"Maintenance"> | string | null
@@ -39775,7 +44111,7 @@ export namespace Prisma {
     execStart?: DateTimeNullableFilter<"Maintenance"> | Date | string | null
     dueExecEndDate?: DateTimeNullableFilter<"Maintenance"> | Date | string | null
     execEndDate?: DateTimeNullableFilter<"Maintenance"> | Date | string | null
-    dueClosuerDate?: DateTimeNullableFilter<"Maintenance"> | Date | string | null
+    dueClosureDate?: DateTimeNullableFilter<"Maintenance"> | Date | string | null
     totalExecTime?: DecimalNullableFilter<"Maintenance"> | Decimal | DecimalJsLike | number | string | null
     expStartDate?: DateTimeNullableFilter<"Maintenance"> | Date | string | null
     suspensionReason?: StringNullableFilter<"Maintenance"> | string | null
@@ -39785,6 +44121,7 @@ export namespace Prisma {
     buildingId?: StringNullableFilter<"Maintenance"> | string | null
     teamId?: StringNullableFilter<"Maintenance"> | string | null
     floorId?: StringNullableFilter<"Maintenance"> | string | null
+    zoneId?: StringNullableFilter<"Maintenance"> | string | null
     spaceId?: StringNullableFilter<"Maintenance"> | string | null
     ttSystemOpening?: DecimalNullableFilter<"Maintenance"> | Decimal | DecimalJsLike | number | string | null
     ttWorkOpening?: DecimalNullableFilter<"Maintenance"> | Decimal | DecimalJsLike | number | string | null
@@ -39805,13 +44142,13 @@ export namespace Prisma {
     assetId?: StringNullableFilter<"Maintenance"> | string | null
     createdAt?: DateTimeFilter<"Maintenance"> | Date | string
     updatedAt?: DateTimeFilter<"Maintenance"> | Date | string
-    performer?: XOR<UserNullableScalarRelationFilter, UserWhereInput> | null
     requester?: XOR<UserNullableScalarRelationFilter, UserWhereInput> | null
     site?: XOR<ComplexScalarRelationFilter, ComplexWhereInput>
     company?: XOR<CompanyNullableScalarRelationFilter, CompanyWhereInput> | null
     building?: XOR<BuildingNullableScalarRelationFilter, BuildingWhereInput> | null
     team?: XOR<TeamNullableScalarRelationFilter, TeamWhereInput> | null
     floor?: XOR<FloorNullableScalarRelationFilter, FloorWhereInput> | null
+    zone?: XOR<ZoneNullableScalarRelationFilter, ZoneWhereInput> | null
     space?: XOR<SpaceNullableScalarRelationFilter, SpaceWhereInput> | null
     assignee?: XOR<UserNullableScalarRelationFilter, UserWhereInput> | null
     asset?: XOR<AssetNullableScalarRelationFilter, AssetWhereInput> | null
@@ -39832,6 +44169,7 @@ export namespace Prisma {
     processNotes?: SortOrderInput | SortOrder
     metadata?: SortOrderInput | SortOrder
     performerId?: SortOrderInput | SortOrder
+    performerReference?: SortOrderInput | SortOrder
     processStatus?: SortOrder
     register?: SortOrderInput | SortOrder
     activityIdTimer?: SortOrderInput | SortOrder
@@ -39850,7 +44188,7 @@ export namespace Prisma {
     execStart?: SortOrderInput | SortOrder
     dueExecEndDate?: SortOrderInput | SortOrder
     execEndDate?: SortOrderInput | SortOrder
-    dueClosuerDate?: SortOrderInput | SortOrder
+    dueClosureDate?: SortOrderInput | SortOrder
     totalExecTime?: SortOrderInput | SortOrder
     expStartDate?: SortOrderInput | SortOrder
     suspensionReason?: SortOrderInput | SortOrder
@@ -39860,6 +44198,7 @@ export namespace Prisma {
     buildingId?: SortOrderInput | SortOrder
     teamId?: SortOrderInput | SortOrder
     floorId?: SortOrderInput | SortOrder
+    zoneId?: SortOrderInput | SortOrder
     spaceId?: SortOrderInput | SortOrder
     ttSystemOpening?: SortOrderInput | SortOrder
     ttWorkOpening?: SortOrderInput | SortOrder
@@ -39880,13 +44219,13 @@ export namespace Prisma {
     assetId?: SortOrderInput | SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
-    performer?: UserOrderByWithRelationInput
     requester?: UserOrderByWithRelationInput
     site?: ComplexOrderByWithRelationInput
     company?: CompanyOrderByWithRelationInput
     building?: BuildingOrderByWithRelationInput
     team?: TeamOrderByWithRelationInput
     floor?: FloorOrderByWithRelationInput
+    zone?: ZoneOrderByWithRelationInput
     space?: SpaceOrderByWithRelationInput
     assignee?: UserOrderByWithRelationInput
     asset?: AssetOrderByWithRelationInput
@@ -39910,6 +44249,7 @@ export namespace Prisma {
     processNotes?: StringNullableFilter<"Maintenance"> | string | null
     metadata?: JsonNullableFilter<"Maintenance">
     performerId?: StringNullableFilter<"Maintenance"> | string | null
+    performerReference?: EnumPerformerReferenceNullableFilter<"Maintenance"> | $Enums.PerformerReference | null
     processStatus?: EnumStatusFilter<"Maintenance"> | $Enums.Status
     register?: StringNullableFilter<"Maintenance"> | string | null
     activityIdTimer?: StringNullableFilter<"Maintenance"> | string | null
@@ -39928,7 +44268,7 @@ export namespace Prisma {
     execStart?: DateTimeNullableFilter<"Maintenance"> | Date | string | null
     dueExecEndDate?: DateTimeNullableFilter<"Maintenance"> | Date | string | null
     execEndDate?: DateTimeNullableFilter<"Maintenance"> | Date | string | null
-    dueClosuerDate?: DateTimeNullableFilter<"Maintenance"> | Date | string | null
+    dueClosureDate?: DateTimeNullableFilter<"Maintenance"> | Date | string | null
     totalExecTime?: DecimalNullableFilter<"Maintenance"> | Decimal | DecimalJsLike | number | string | null
     expStartDate?: DateTimeNullableFilter<"Maintenance"> | Date | string | null
     suspensionReason?: StringNullableFilter<"Maintenance"> | string | null
@@ -39938,6 +44278,7 @@ export namespace Prisma {
     buildingId?: StringNullableFilter<"Maintenance"> | string | null
     teamId?: StringNullableFilter<"Maintenance"> | string | null
     floorId?: StringNullableFilter<"Maintenance"> | string | null
+    zoneId?: StringNullableFilter<"Maintenance"> | string | null
     spaceId?: StringNullableFilter<"Maintenance"> | string | null
     ttSystemOpening?: DecimalNullableFilter<"Maintenance"> | Decimal | DecimalJsLike | number | string | null
     ttWorkOpening?: DecimalNullableFilter<"Maintenance"> | Decimal | DecimalJsLike | number | string | null
@@ -39958,13 +44299,13 @@ export namespace Prisma {
     assetId?: StringNullableFilter<"Maintenance"> | string | null
     createdAt?: DateTimeFilter<"Maintenance"> | Date | string
     updatedAt?: DateTimeFilter<"Maintenance"> | Date | string
-    performer?: XOR<UserNullableScalarRelationFilter, UserWhereInput> | null
     requester?: XOR<UserNullableScalarRelationFilter, UserWhereInput> | null
     site?: XOR<ComplexScalarRelationFilter, ComplexWhereInput>
     company?: XOR<CompanyNullableScalarRelationFilter, CompanyWhereInput> | null
     building?: XOR<BuildingNullableScalarRelationFilter, BuildingWhereInput> | null
     team?: XOR<TeamNullableScalarRelationFilter, TeamWhereInput> | null
     floor?: XOR<FloorNullableScalarRelationFilter, FloorWhereInput> | null
+    zone?: XOR<ZoneNullableScalarRelationFilter, ZoneWhereInput> | null
     space?: XOR<SpaceNullableScalarRelationFilter, SpaceWhereInput> | null
     assignee?: XOR<UserNullableScalarRelationFilter, UserWhereInput> | null
     asset?: XOR<AssetNullableScalarRelationFilter, AssetWhereInput> | null
@@ -39985,6 +44326,7 @@ export namespace Prisma {
     processNotes?: SortOrderInput | SortOrder
     metadata?: SortOrderInput | SortOrder
     performerId?: SortOrderInput | SortOrder
+    performerReference?: SortOrderInput | SortOrder
     processStatus?: SortOrder
     register?: SortOrderInput | SortOrder
     activityIdTimer?: SortOrderInput | SortOrder
@@ -40003,7 +44345,7 @@ export namespace Prisma {
     execStart?: SortOrderInput | SortOrder
     dueExecEndDate?: SortOrderInput | SortOrder
     execEndDate?: SortOrderInput | SortOrder
-    dueClosuerDate?: SortOrderInput | SortOrder
+    dueClosureDate?: SortOrderInput | SortOrder
     totalExecTime?: SortOrderInput | SortOrder
     expStartDate?: SortOrderInput | SortOrder
     suspensionReason?: SortOrderInput | SortOrder
@@ -40013,6 +44355,7 @@ export namespace Prisma {
     buildingId?: SortOrderInput | SortOrder
     teamId?: SortOrderInput | SortOrder
     floorId?: SortOrderInput | SortOrder
+    zoneId?: SortOrderInput | SortOrder
     spaceId?: SortOrderInput | SortOrder
     ttSystemOpening?: SortOrderInput | SortOrder
     ttWorkOpening?: SortOrderInput | SortOrder
@@ -40056,6 +44399,7 @@ export namespace Prisma {
     processNotes?: StringNullableWithAggregatesFilter<"Maintenance"> | string | null
     metadata?: JsonNullableWithAggregatesFilter<"Maintenance">
     performerId?: StringNullableWithAggregatesFilter<"Maintenance"> | string | null
+    performerReference?: EnumPerformerReferenceNullableWithAggregatesFilter<"Maintenance"> | $Enums.PerformerReference | null
     processStatus?: EnumStatusWithAggregatesFilter<"Maintenance"> | $Enums.Status
     register?: StringNullableWithAggregatesFilter<"Maintenance"> | string | null
     activityIdTimer?: StringNullableWithAggregatesFilter<"Maintenance"> | string | null
@@ -40074,7 +44418,7 @@ export namespace Prisma {
     execStart?: DateTimeNullableWithAggregatesFilter<"Maintenance"> | Date | string | null
     dueExecEndDate?: DateTimeNullableWithAggregatesFilter<"Maintenance"> | Date | string | null
     execEndDate?: DateTimeNullableWithAggregatesFilter<"Maintenance"> | Date | string | null
-    dueClosuerDate?: DateTimeNullableWithAggregatesFilter<"Maintenance"> | Date | string | null
+    dueClosureDate?: DateTimeNullableWithAggregatesFilter<"Maintenance"> | Date | string | null
     totalExecTime?: DecimalNullableWithAggregatesFilter<"Maintenance"> | Decimal | DecimalJsLike | number | string | null
     expStartDate?: DateTimeNullableWithAggregatesFilter<"Maintenance"> | Date | string | null
     suspensionReason?: StringNullableWithAggregatesFilter<"Maintenance"> | string | null
@@ -40084,6 +44428,7 @@ export namespace Prisma {
     buildingId?: StringNullableWithAggregatesFilter<"Maintenance"> | string | null
     teamId?: StringNullableWithAggregatesFilter<"Maintenance"> | string | null
     floorId?: StringNullableWithAggregatesFilter<"Maintenance"> | string | null
+    zoneId?: StringNullableWithAggregatesFilter<"Maintenance"> | string | null
     spaceId?: StringNullableWithAggregatesFilter<"Maintenance"> | string | null
     ttSystemOpening?: DecimalNullableWithAggregatesFilter<"Maintenance"> | Decimal | DecimalJsLike | number | string | null
     ttWorkOpening?: DecimalNullableWithAggregatesFilter<"Maintenance"> | Decimal | DecimalJsLike | number | string | null
@@ -40134,6 +44479,7 @@ export namespace Prisma {
     floor?: XOR<FloorNullableScalarRelationFilter, FloorWhereInput> | null
     space?: XOR<SpaceNullableScalarRelationFilter, SpaceWhereInput> | null
     team?: XOR<TeamNullableScalarRelationFilter, TeamWhereInput> | null
+    meterTriggers?: MeterMaintenanceTriggerListRelationFilter
   }
 
   export type PreventiveOrderByWithRelationInput = {
@@ -40161,6 +44507,7 @@ export namespace Prisma {
     floor?: FloorOrderByWithRelationInput
     space?: SpaceOrderByWithRelationInput
     team?: TeamOrderByWithRelationInput
+    meterTriggers?: MeterMaintenanceTriggerOrderByRelationAggregateInput
   }
 
   export type PreventiveWhereUniqueInput = Prisma.AtLeast<{
@@ -40191,6 +44538,7 @@ export namespace Prisma {
     floor?: XOR<FloorNullableScalarRelationFilter, FloorWhereInput> | null
     space?: XOR<SpaceNullableScalarRelationFilter, SpaceWhereInput> | null
     team?: XOR<TeamNullableScalarRelationFilter, TeamWhereInput> | null
+    meterTriggers?: MeterMaintenanceTriggerListRelationFilter
   }, "id" | "code">
 
   export type PreventiveOrderByWithAggregationInput = {
@@ -40345,11 +44693,11 @@ export namespace Prisma {
 
   export type ItemWhereUniqueInput = Prisma.AtLeast<{
     id?: string
+    name?: string
     code?: string
     AND?: ItemWhereInput | ItemWhereInput[]
     OR?: ItemWhereInput[]
     NOT?: ItemWhereInput | ItemWhereInput[]
-    name?: StringFilter<"Item"> | string
     description?: StringNullableFilter<"Item"> | string | null
     category?: StringNullableFilter<"Item"> | string | null
     unitOfMeasure?: StringNullableFilter<"Item"> | string | null
@@ -40358,7 +44706,7 @@ export namespace Prisma {
     stocks?: StockListRelationFilter
     stockMovements?: StockMovementListRelationFilter
     maintenanceItems?: MaintenanceItemListRelationFilter
-  }, "id" | "code">
+  }, "id" | "name" | "code">
 
   export type ItemOrderByWithAggregationInput = {
     id?: SortOrder
@@ -40465,7 +44813,7 @@ export namespace Prisma {
     warehouseId?: StringFilter<"StockMovement"> | string
     targetWarehouseId?: StringNullableFilter<"StockMovement"> | string | null
     referenceId?: StringNullableFilter<"StockMovement"> | string | null
-    referenceType?: EnumStockReferenceTypeNullableFilter<"StockMovement"> | $Enums.StockReferenceType | null
+    referenceType?: EnumStockReferenceTypeFilter<"StockMovement"> | $Enums.StockReferenceType
     createdAt?: DateTimeFilter<"StockMovement"> | Date | string
     updatedAt?: DateTimeFilter<"StockMovement"> | Date | string
     item?: XOR<ItemScalarRelationFilter, ItemWhereInput>
@@ -40481,7 +44829,7 @@ export namespace Prisma {
     warehouseId?: SortOrder
     targetWarehouseId?: SortOrderInput | SortOrder
     referenceId?: SortOrderInput | SortOrder
-    referenceType?: SortOrderInput | SortOrder
+    referenceType?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     item?: ItemOrderByWithRelationInput
@@ -40500,7 +44848,7 @@ export namespace Prisma {
     warehouseId?: StringFilter<"StockMovement"> | string
     targetWarehouseId?: StringNullableFilter<"StockMovement"> | string | null
     referenceId?: StringNullableFilter<"StockMovement"> | string | null
-    referenceType?: EnumStockReferenceTypeNullableFilter<"StockMovement"> | $Enums.StockReferenceType | null
+    referenceType?: EnumStockReferenceTypeFilter<"StockMovement"> | $Enums.StockReferenceType
     createdAt?: DateTimeFilter<"StockMovement"> | Date | string
     updatedAt?: DateTimeFilter<"StockMovement"> | Date | string
     item?: XOR<ItemScalarRelationFilter, ItemWhereInput>
@@ -40516,7 +44864,7 @@ export namespace Prisma {
     warehouseId?: SortOrder
     targetWarehouseId?: SortOrderInput | SortOrder
     referenceId?: SortOrderInput | SortOrder
-    referenceType?: SortOrderInput | SortOrder
+    referenceType?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     _count?: StockMovementCountOrderByAggregateInput
@@ -40537,7 +44885,7 @@ export namespace Prisma {
     warehouseId?: StringWithAggregatesFilter<"StockMovement"> | string
     targetWarehouseId?: StringNullableWithAggregatesFilter<"StockMovement"> | string | null
     referenceId?: StringNullableWithAggregatesFilter<"StockMovement"> | string | null
-    referenceType?: EnumStockReferenceTypeNullableWithAggregatesFilter<"StockMovement"> | $Enums.StockReferenceType | null
+    referenceType?: EnumStockReferenceTypeWithAggregatesFilter<"StockMovement"> | $Enums.StockReferenceType
     createdAt?: DateTimeWithAggregatesFilter<"StockMovement"> | Date | string
     updatedAt?: DateTimeWithAggregatesFilter<"StockMovement"> | Date | string
   }
@@ -40553,8 +44901,10 @@ export namespace Prisma {
     itemId?: StringFilter<"MaintenanceItem"> | string
     createdAt?: DateTimeFilter<"MaintenanceItem"> | Date | string
     updatedAt?: DateTimeFilter<"MaintenanceItem"> | Date | string
+    zoneId?: StringNullableFilter<"MaintenanceItem"> | string | null
     maintenance?: XOR<MaintenanceScalarRelationFilter, MaintenanceWhereInput>
     item?: XOR<ItemScalarRelationFilter, ItemWhereInput>
+    zone?: XOR<ZoneNullableScalarRelationFilter, ZoneWhereInput> | null
   }
 
   export type MaintenanceItemOrderByWithRelationInput = {
@@ -40565,8 +44915,10 @@ export namespace Prisma {
     itemId?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
+    zoneId?: SortOrderInput | SortOrder
     maintenance?: MaintenanceOrderByWithRelationInput
     item?: ItemOrderByWithRelationInput
+    zone?: ZoneOrderByWithRelationInput
   }
 
   export type MaintenanceItemWhereUniqueInput = Prisma.AtLeast<{
@@ -40581,8 +44933,10 @@ export namespace Prisma {
     itemId?: StringFilter<"MaintenanceItem"> | string
     createdAt?: DateTimeFilter<"MaintenanceItem"> | Date | string
     updatedAt?: DateTimeFilter<"MaintenanceItem"> | Date | string
+    zoneId?: StringNullableFilter<"MaintenanceItem"> | string | null
     maintenance?: XOR<MaintenanceScalarRelationFilter, MaintenanceWhereInput>
     item?: XOR<ItemScalarRelationFilter, ItemWhereInput>
+    zone?: XOR<ZoneNullableScalarRelationFilter, ZoneWhereInput> | null
   }, "id" | "maintenanceId_itemId">
 
   export type MaintenanceItemOrderByWithAggregationInput = {
@@ -40593,6 +44947,7 @@ export namespace Prisma {
     itemId?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
+    zoneId?: SortOrderInput | SortOrder
     _count?: MaintenanceItemCountOrderByAggregateInput
     _avg?: MaintenanceItemAvgOrderByAggregateInput
     _max?: MaintenanceItemMaxOrderByAggregateInput
@@ -40611,6 +44966,7 @@ export namespace Prisma {
     itemId?: StringWithAggregatesFilter<"MaintenanceItem"> | string
     createdAt?: DateTimeWithAggregatesFilter<"MaintenanceItem"> | Date | string
     updatedAt?: DateTimeWithAggregatesFilter<"MaintenanceItem"> | Date | string
+    zoneId?: StringNullableWithAggregatesFilter<"MaintenanceItem"> | string | null
   }
 
   export type RefreshTokenWhereInput = {
@@ -40673,6 +45029,243 @@ export namespace Prisma {
     updatedAt?: DateTimeWithAggregatesFilter<"RefreshToken"> | Date | string
   }
 
+  export type MeterWhereInput = {
+    AND?: MeterWhereInput | MeterWhereInput[]
+    OR?: MeterWhereInput[]
+    NOT?: MeterWhereInput | MeterWhereInput[]
+    id?: StringFilter<"Meter"> | string
+    name?: StringFilter<"Meter"> | string
+    type?: EnumMeterTypeFilter<"Meter"> | $Enums.MeterType
+    unit?: StringFilter<"Meter"> | string
+    assetId?: StringNullableFilter<"Meter"> | string | null
+    buildingId?: StringNullableFilter<"Meter"> | string | null
+    zoneId?: StringNullableFilter<"Meter"> | string | null
+    spaceId?: StringNullableFilter<"Meter"> | string | null
+    createdAt?: DateTimeFilter<"Meter"> | Date | string
+    updatedAt?: DateTimeFilter<"Meter"> | Date | string
+    asset?: XOR<AssetNullableScalarRelationFilter, AssetWhereInput> | null
+    building?: XOR<BuildingNullableScalarRelationFilter, BuildingWhereInput> | null
+    zone?: XOR<ZoneNullableScalarRelationFilter, ZoneWhereInput> | null
+    space?: XOR<SpaceNullableScalarRelationFilter, SpaceWhereInput> | null
+    readings?: MeterReadingListRelationFilter
+    preventiveTriggers?: MeterMaintenanceTriggerListRelationFilter
+  }
+
+  export type MeterOrderByWithRelationInput = {
+    id?: SortOrder
+    name?: SortOrder
+    type?: SortOrder
+    unit?: SortOrder
+    assetId?: SortOrderInput | SortOrder
+    buildingId?: SortOrderInput | SortOrder
+    zoneId?: SortOrderInput | SortOrder
+    spaceId?: SortOrderInput | SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    asset?: AssetOrderByWithRelationInput
+    building?: BuildingOrderByWithRelationInput
+    zone?: ZoneOrderByWithRelationInput
+    space?: SpaceOrderByWithRelationInput
+    readings?: MeterReadingOrderByRelationAggregateInput
+    preventiveTriggers?: MeterMaintenanceTriggerOrderByRelationAggregateInput
+  }
+
+  export type MeterWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    AND?: MeterWhereInput | MeterWhereInput[]
+    OR?: MeterWhereInput[]
+    NOT?: MeterWhereInput | MeterWhereInput[]
+    name?: StringFilter<"Meter"> | string
+    type?: EnumMeterTypeFilter<"Meter"> | $Enums.MeterType
+    unit?: StringFilter<"Meter"> | string
+    assetId?: StringNullableFilter<"Meter"> | string | null
+    buildingId?: StringNullableFilter<"Meter"> | string | null
+    zoneId?: StringNullableFilter<"Meter"> | string | null
+    spaceId?: StringNullableFilter<"Meter"> | string | null
+    createdAt?: DateTimeFilter<"Meter"> | Date | string
+    updatedAt?: DateTimeFilter<"Meter"> | Date | string
+    asset?: XOR<AssetNullableScalarRelationFilter, AssetWhereInput> | null
+    building?: XOR<BuildingNullableScalarRelationFilter, BuildingWhereInput> | null
+    zone?: XOR<ZoneNullableScalarRelationFilter, ZoneWhereInput> | null
+    space?: XOR<SpaceNullableScalarRelationFilter, SpaceWhereInput> | null
+    readings?: MeterReadingListRelationFilter
+    preventiveTriggers?: MeterMaintenanceTriggerListRelationFilter
+  }, "id">
+
+  export type MeterOrderByWithAggregationInput = {
+    id?: SortOrder
+    name?: SortOrder
+    type?: SortOrder
+    unit?: SortOrder
+    assetId?: SortOrderInput | SortOrder
+    buildingId?: SortOrderInput | SortOrder
+    zoneId?: SortOrderInput | SortOrder
+    spaceId?: SortOrderInput | SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    _count?: MeterCountOrderByAggregateInput
+    _max?: MeterMaxOrderByAggregateInput
+    _min?: MeterMinOrderByAggregateInput
+  }
+
+  export type MeterScalarWhereWithAggregatesInput = {
+    AND?: MeterScalarWhereWithAggregatesInput | MeterScalarWhereWithAggregatesInput[]
+    OR?: MeterScalarWhereWithAggregatesInput[]
+    NOT?: MeterScalarWhereWithAggregatesInput | MeterScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"Meter"> | string
+    name?: StringWithAggregatesFilter<"Meter"> | string
+    type?: EnumMeterTypeWithAggregatesFilter<"Meter"> | $Enums.MeterType
+    unit?: StringWithAggregatesFilter<"Meter"> | string
+    assetId?: StringNullableWithAggregatesFilter<"Meter"> | string | null
+    buildingId?: StringNullableWithAggregatesFilter<"Meter"> | string | null
+    zoneId?: StringNullableWithAggregatesFilter<"Meter"> | string | null
+    spaceId?: StringNullableWithAggregatesFilter<"Meter"> | string | null
+    createdAt?: DateTimeWithAggregatesFilter<"Meter"> | Date | string
+    updatedAt?: DateTimeWithAggregatesFilter<"Meter"> | Date | string
+  }
+
+  export type MeterReadingWhereInput = {
+    AND?: MeterReadingWhereInput | MeterReadingWhereInput[]
+    OR?: MeterReadingWhereInput[]
+    NOT?: MeterReadingWhereInput | MeterReadingWhereInput[]
+    id?: StringFilter<"MeterReading"> | string
+    value?: DecimalFilter<"MeterReading"> | Decimal | DecimalJsLike | number | string
+    timestamp?: DateTimeFilter<"MeterReading"> | Date | string
+    source?: EnumMeterReadingSourceFilter<"MeterReading"> | $Enums.MeterReadingSource
+    meterId?: StringFilter<"MeterReading"> | string
+    recordedByUserId?: StringNullableFilter<"MeterReading"> | string | null
+    createdAt?: DateTimeFilter<"MeterReading"> | Date | string
+    meter?: XOR<MeterScalarRelationFilter, MeterWhereInput>
+  }
+
+  export type MeterReadingOrderByWithRelationInput = {
+    id?: SortOrder
+    value?: SortOrder
+    timestamp?: SortOrder
+    source?: SortOrder
+    meterId?: SortOrder
+    recordedByUserId?: SortOrderInput | SortOrder
+    createdAt?: SortOrder
+    meter?: MeterOrderByWithRelationInput
+  }
+
+  export type MeterReadingWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    AND?: MeterReadingWhereInput | MeterReadingWhereInput[]
+    OR?: MeterReadingWhereInput[]
+    NOT?: MeterReadingWhereInput | MeterReadingWhereInput[]
+    value?: DecimalFilter<"MeterReading"> | Decimal | DecimalJsLike | number | string
+    timestamp?: DateTimeFilter<"MeterReading"> | Date | string
+    source?: EnumMeterReadingSourceFilter<"MeterReading"> | $Enums.MeterReadingSource
+    meterId?: StringFilter<"MeterReading"> | string
+    recordedByUserId?: StringNullableFilter<"MeterReading"> | string | null
+    createdAt?: DateTimeFilter<"MeterReading"> | Date | string
+    meter?: XOR<MeterScalarRelationFilter, MeterWhereInput>
+  }, "id">
+
+  export type MeterReadingOrderByWithAggregationInput = {
+    id?: SortOrder
+    value?: SortOrder
+    timestamp?: SortOrder
+    source?: SortOrder
+    meterId?: SortOrder
+    recordedByUserId?: SortOrderInput | SortOrder
+    createdAt?: SortOrder
+    _count?: MeterReadingCountOrderByAggregateInput
+    _avg?: MeterReadingAvgOrderByAggregateInput
+    _max?: MeterReadingMaxOrderByAggregateInput
+    _min?: MeterReadingMinOrderByAggregateInput
+    _sum?: MeterReadingSumOrderByAggregateInput
+  }
+
+  export type MeterReadingScalarWhereWithAggregatesInput = {
+    AND?: MeterReadingScalarWhereWithAggregatesInput | MeterReadingScalarWhereWithAggregatesInput[]
+    OR?: MeterReadingScalarWhereWithAggregatesInput[]
+    NOT?: MeterReadingScalarWhereWithAggregatesInput | MeterReadingScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"MeterReading"> | string
+    value?: DecimalWithAggregatesFilter<"MeterReading"> | Decimal | DecimalJsLike | number | string
+    timestamp?: DateTimeWithAggregatesFilter<"MeterReading"> | Date | string
+    source?: EnumMeterReadingSourceWithAggregatesFilter<"MeterReading"> | $Enums.MeterReadingSource
+    meterId?: StringWithAggregatesFilter<"MeterReading"> | string
+    recordedByUserId?: StringNullableWithAggregatesFilter<"MeterReading"> | string | null
+    createdAt?: DateTimeWithAggregatesFilter<"MeterReading"> | Date | string
+  }
+
+  export type MeterMaintenanceTriggerWhereInput = {
+    AND?: MeterMaintenanceTriggerWhereInput | MeterMaintenanceTriggerWhereInput[]
+    OR?: MeterMaintenanceTriggerWhereInput[]
+    NOT?: MeterMaintenanceTriggerWhereInput | MeterMaintenanceTriggerWhereInput[]
+    id?: StringFilter<"MeterMaintenanceTrigger"> | string
+    meterId?: StringFilter<"MeterMaintenanceTrigger"> | string
+    preventiveId?: StringFilter<"MeterMaintenanceTrigger"> | string
+    condition?: EnumTriggerConditionFilter<"MeterMaintenanceTrigger"> | $Enums.TriggerCondition
+    triggerValue?: DecimalFilter<"MeterMaintenanceTrigger"> | Decimal | DecimalJsLike | number | string
+    lastTriggerReading?: DecimalNullableFilter<"MeterMaintenanceTrigger"> | Decimal | DecimalJsLike | number | string | null
+    createdAt?: DateTimeFilter<"MeterMaintenanceTrigger"> | Date | string
+    updatedAt?: DateTimeFilter<"MeterMaintenanceTrigger"> | Date | string
+    meter?: XOR<MeterScalarRelationFilter, MeterWhereInput>
+    preventive?: XOR<PreventiveScalarRelationFilter, PreventiveWhereInput>
+  }
+
+  export type MeterMaintenanceTriggerOrderByWithRelationInput = {
+    id?: SortOrder
+    meterId?: SortOrder
+    preventiveId?: SortOrder
+    condition?: SortOrder
+    triggerValue?: SortOrder
+    lastTriggerReading?: SortOrderInput | SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    meter?: MeterOrderByWithRelationInput
+    preventive?: PreventiveOrderByWithRelationInput
+  }
+
+  export type MeterMaintenanceTriggerWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    AND?: MeterMaintenanceTriggerWhereInput | MeterMaintenanceTriggerWhereInput[]
+    OR?: MeterMaintenanceTriggerWhereInput[]
+    NOT?: MeterMaintenanceTriggerWhereInput | MeterMaintenanceTriggerWhereInput[]
+    meterId?: StringFilter<"MeterMaintenanceTrigger"> | string
+    preventiveId?: StringFilter<"MeterMaintenanceTrigger"> | string
+    condition?: EnumTriggerConditionFilter<"MeterMaintenanceTrigger"> | $Enums.TriggerCondition
+    triggerValue?: DecimalFilter<"MeterMaintenanceTrigger"> | Decimal | DecimalJsLike | number | string
+    lastTriggerReading?: DecimalNullableFilter<"MeterMaintenanceTrigger"> | Decimal | DecimalJsLike | number | string | null
+    createdAt?: DateTimeFilter<"MeterMaintenanceTrigger"> | Date | string
+    updatedAt?: DateTimeFilter<"MeterMaintenanceTrigger"> | Date | string
+    meter?: XOR<MeterScalarRelationFilter, MeterWhereInput>
+    preventive?: XOR<PreventiveScalarRelationFilter, PreventiveWhereInput>
+  }, "id">
+
+  export type MeterMaintenanceTriggerOrderByWithAggregationInput = {
+    id?: SortOrder
+    meterId?: SortOrder
+    preventiveId?: SortOrder
+    condition?: SortOrder
+    triggerValue?: SortOrder
+    lastTriggerReading?: SortOrderInput | SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    _count?: MeterMaintenanceTriggerCountOrderByAggregateInput
+    _avg?: MeterMaintenanceTriggerAvgOrderByAggregateInput
+    _max?: MeterMaintenanceTriggerMaxOrderByAggregateInput
+    _min?: MeterMaintenanceTriggerMinOrderByAggregateInput
+    _sum?: MeterMaintenanceTriggerSumOrderByAggregateInput
+  }
+
+  export type MeterMaintenanceTriggerScalarWhereWithAggregatesInput = {
+    AND?: MeterMaintenanceTriggerScalarWhereWithAggregatesInput | MeterMaintenanceTriggerScalarWhereWithAggregatesInput[]
+    OR?: MeterMaintenanceTriggerScalarWhereWithAggregatesInput[]
+    NOT?: MeterMaintenanceTriggerScalarWhereWithAggregatesInput | MeterMaintenanceTriggerScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"MeterMaintenanceTrigger"> | string
+    meterId?: StringWithAggregatesFilter<"MeterMaintenanceTrigger"> | string
+    preventiveId?: StringWithAggregatesFilter<"MeterMaintenanceTrigger"> | string
+    condition?: EnumTriggerConditionWithAggregatesFilter<"MeterMaintenanceTrigger"> | $Enums.TriggerCondition
+    triggerValue?: DecimalWithAggregatesFilter<"MeterMaintenanceTrigger"> | Decimal | DecimalJsLike | number | string
+    lastTriggerReading?: DecimalNullableWithAggregatesFilter<"MeterMaintenanceTrigger"> | Decimal | DecimalJsLike | number | string | null
+    createdAt?: DateTimeWithAggregatesFilter<"MeterMaintenanceTrigger"> | Date | string
+    updatedAt?: DateTimeWithAggregatesFilter<"MeterMaintenanceTrigger"> | Date | string
+  }
+
   export type UserCreateInput = {
     id?: string
     email: string
@@ -40694,7 +45287,6 @@ export namespace Prisma {
     company?: CompanyCreateNestedOneWithoutEmployeesInput
     calenderEntity?: CalenderEntityCreateNestedOneWithoutEmployeesInput
     teams?: TeamCreateNestedManyWithoutMembersInput
-    performedMaintenances?: MaintenanceCreateNestedManyWithoutPerformerInput
     requestedMaintenances?: MaintenanceCreateNestedManyWithoutRequesterInput
     assignedMaintenances?: MaintenanceCreateNestedManyWithoutAssigneeInput
     supervisedTeams?: TeamCreateNestedManyWithoutSupervisorInput
@@ -40721,7 +45313,6 @@ export namespace Prisma {
     refreshTokens?: RefreshTokenUncheckedCreateNestedManyWithoutUserInput
     permissions?: PermissionUncheckedCreateNestedManyWithoutUserInput
     teams?: TeamUncheckedCreateNestedManyWithoutMembersInput
-    performedMaintenances?: MaintenanceUncheckedCreateNestedManyWithoutPerformerInput
     requestedMaintenances?: MaintenanceUncheckedCreateNestedManyWithoutRequesterInput
     assignedMaintenances?: MaintenanceUncheckedCreateNestedManyWithoutAssigneeInput
     supervisedTeams?: TeamUncheckedCreateNestedManyWithoutSupervisorInput
@@ -40748,7 +45339,6 @@ export namespace Prisma {
     company?: CompanyUpdateOneWithoutEmployeesNestedInput
     calenderEntity?: CalenderEntityUpdateOneWithoutEmployeesNestedInput
     teams?: TeamUpdateManyWithoutMembersNestedInput
-    performedMaintenances?: MaintenanceUpdateManyWithoutPerformerNestedInput
     requestedMaintenances?: MaintenanceUpdateManyWithoutRequesterNestedInput
     assignedMaintenances?: MaintenanceUpdateManyWithoutAssigneeNestedInput
     supervisedTeams?: TeamUpdateManyWithoutSupervisorNestedInput
@@ -40775,7 +45365,6 @@ export namespace Prisma {
     refreshTokens?: RefreshTokenUncheckedUpdateManyWithoutUserNestedInput
     permissions?: PermissionUncheckedUpdateManyWithoutUserNestedInput
     teams?: TeamUncheckedUpdateManyWithoutMembersNestedInput
-    performedMaintenances?: MaintenanceUncheckedUpdateManyWithoutPerformerNestedInput
     requestedMaintenances?: MaintenanceUncheckedUpdateManyWithoutRequesterNestedInput
     assignedMaintenances?: MaintenanceUncheckedUpdateManyWithoutAssigneeNestedInput
     supervisedTeams?: TeamUncheckedUpdateManyWithoutSupervisorNestedInput
@@ -41274,6 +45863,7 @@ export namespace Prisma {
     floors?: FloorCreateNestedManyWithoutBuildingInput
     preventives?: PreventiveCreateNestedManyWithoutBuildingInput
     maintenances?: MaintenanceCreateNestedManyWithoutBuildingInput
+    meters?: MeterCreateNestedManyWithoutBuildingInput
   }
 
   export type BuildingUncheckedCreateInput = {
@@ -41304,6 +45894,7 @@ export namespace Prisma {
     floors?: FloorUncheckedCreateNestedManyWithoutBuildingInput
     preventives?: PreventiveUncheckedCreateNestedManyWithoutBuildingInput
     maintenances?: MaintenanceUncheckedCreateNestedManyWithoutBuildingInput
+    meters?: MeterUncheckedCreateNestedManyWithoutBuildingInput
   }
 
   export type BuildingUpdateInput = {
@@ -41334,6 +45925,7 @@ export namespace Prisma {
     floors?: FloorUpdateManyWithoutBuildingNestedInput
     preventives?: PreventiveUpdateManyWithoutBuildingNestedInput
     maintenances?: MaintenanceUpdateManyWithoutBuildingNestedInput
+    meters?: MeterUpdateManyWithoutBuildingNestedInput
   }
 
   export type BuildingUncheckedUpdateInput = {
@@ -41364,6 +45956,7 @@ export namespace Prisma {
     floors?: FloorUncheckedUpdateManyWithoutBuildingNestedInput
     preventives?: PreventiveUncheckedUpdateManyWithoutBuildingNestedInput
     maintenances?: MaintenanceUncheckedUpdateManyWithoutBuildingNestedInput
+    meters?: MeterUncheckedUpdateManyWithoutBuildingNestedInput
   }
 
   export type BuildingCreateManyInput = {
@@ -41646,6 +46239,9 @@ export namespace Prisma {
     floor: FloorCreateNestedOneWithoutZonesInput
     rooms?: SpaceCreateNestedManyWithoutZoneInput
     photos?: FileCreateNestedManyWithoutZonesInput
+    items?: MaintenanceItemCreateNestedManyWithoutZoneInput
+    meters?: MeterCreateNestedManyWithoutZoneInput
+    maintenances?: MaintenanceCreateNestedManyWithoutZoneInput
   }
 
   export type ZoneUncheckedCreateInput = {
@@ -41680,6 +46276,9 @@ export namespace Prisma {
     updatedAt?: Date | string
     rooms?: SpaceUncheckedCreateNestedManyWithoutZoneInput
     photos?: FileUncheckedCreateNestedManyWithoutZonesInput
+    items?: MaintenanceItemUncheckedCreateNestedManyWithoutZoneInput
+    meters?: MeterUncheckedCreateNestedManyWithoutZoneInput
+    maintenances?: MaintenanceUncheckedCreateNestedManyWithoutZoneInput
   }
 
   export type ZoneUpdateInput = {
@@ -41714,6 +46313,9 @@ export namespace Prisma {
     floor?: FloorUpdateOneRequiredWithoutZonesNestedInput
     rooms?: SpaceUpdateManyWithoutZoneNestedInput
     photos?: FileUpdateManyWithoutZonesNestedInput
+    items?: MaintenanceItemUpdateManyWithoutZoneNestedInput
+    meters?: MeterUpdateManyWithoutZoneNestedInput
+    maintenances?: MaintenanceUpdateManyWithoutZoneNestedInput
   }
 
   export type ZoneUncheckedUpdateInput = {
@@ -41748,6 +46350,9 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     rooms?: SpaceUncheckedUpdateManyWithoutZoneNestedInput
     photos?: FileUncheckedUpdateManyWithoutZonesNestedInput
+    items?: MaintenanceItemUncheckedUpdateManyWithoutZoneNestedInput
+    meters?: MeterUncheckedUpdateManyWithoutZoneNestedInput
+    maintenances?: MaintenanceUncheckedUpdateManyWithoutZoneNestedInput
   }
 
   export type ZoneCreateManyInput = {
@@ -41867,6 +46472,7 @@ export namespace Prisma {
     photos?: FileCreateNestedManyWithoutSpacesInput
     maintenances?: MaintenanceCreateNestedManyWithoutSpaceInput
     preventives?: PreventiveCreateNestedManyWithoutSpaceInput
+    meters?: MeterCreateNestedManyWithoutSpaceInput
     assets?: AssetCreateNestedManyWithoutSpaceInput
   }
 
@@ -41893,6 +46499,7 @@ export namespace Prisma {
     photos?: FileUncheckedCreateNestedManyWithoutSpacesInput
     maintenances?: MaintenanceUncheckedCreateNestedManyWithoutSpaceInput
     preventives?: PreventiveUncheckedCreateNestedManyWithoutSpaceInput
+    meters?: MeterUncheckedCreateNestedManyWithoutSpaceInput
     assets?: AssetUncheckedCreateNestedManyWithoutSpaceInput
   }
 
@@ -41919,6 +46526,7 @@ export namespace Prisma {
     photos?: FileUpdateManyWithoutSpacesNestedInput
     maintenances?: MaintenanceUpdateManyWithoutSpaceNestedInput
     preventives?: PreventiveUpdateManyWithoutSpaceNestedInput
+    meters?: MeterUpdateManyWithoutSpaceNestedInput
     assets?: AssetUpdateManyWithoutSpaceNestedInput
   }
 
@@ -41945,6 +46553,7 @@ export namespace Prisma {
     photos?: FileUncheckedUpdateManyWithoutSpacesNestedInput
     maintenances?: MaintenanceUncheckedUpdateManyWithoutSpaceNestedInput
     preventives?: PreventiveUncheckedUpdateManyWithoutSpaceNestedInput
+    meters?: MeterUncheckedUpdateManyWithoutSpaceNestedInput
     assets?: AssetUncheckedUpdateManyWithoutSpaceNestedInput
   }
 
@@ -42127,6 +46736,7 @@ export namespace Prisma {
     space?: SpaceCreateNestedOneWithoutAssetsInput
     maintenances?: MaintenanceCreateNestedManyWithoutAssetInput
     preventives?: PreventiveCreateNestedManyWithoutAssetInput
+    meters?: MeterCreateNestedManyWithoutAssetInput
   }
 
   export type AssetUncheckedCreateInput = {
@@ -42142,6 +46752,7 @@ export namespace Prisma {
     childAssets?: AssetUncheckedCreateNestedManyWithoutParentSystemInput
     maintenances?: MaintenanceUncheckedCreateNestedManyWithoutAssetInput
     preventives?: PreventiveUncheckedCreateNestedManyWithoutAssetInput
+    meters?: MeterUncheckedCreateNestedManyWithoutAssetInput
   }
 
   export type AssetUpdateInput = {
@@ -42157,6 +46768,7 @@ export namespace Prisma {
     space?: SpaceUpdateOneWithoutAssetsNestedInput
     maintenances?: MaintenanceUpdateManyWithoutAssetNestedInput
     preventives?: PreventiveUpdateManyWithoutAssetNestedInput
+    meters?: MeterUpdateManyWithoutAssetNestedInput
   }
 
   export type AssetUncheckedUpdateInput = {
@@ -42172,6 +46784,7 @@ export namespace Prisma {
     childAssets?: AssetUncheckedUpdateManyWithoutParentSystemNestedInput
     maintenances?: MaintenanceUncheckedUpdateManyWithoutAssetNestedInput
     preventives?: PreventiveUncheckedUpdateManyWithoutAssetNestedInput
+    meters?: MeterUncheckedUpdateManyWithoutAssetNestedInput
   }
 
   export type AssetCreateManyInput = {
@@ -42669,6 +47282,8 @@ export namespace Prisma {
     message?: string | null
     processNotes?: string | null
     metadata?: NullableJsonNullValueInput | InputJsonValue
+    performerId?: string | null
+    performerReference?: $Enums.PerformerReference | null
     processStatus?: $Enums.Status
     register?: string | null
     activityIdTimer?: string | null
@@ -42685,7 +47300,7 @@ export namespace Prisma {
     execStart?: Date | string | null
     dueExecEndDate?: Date | string | null
     execEndDate?: Date | string | null
-    dueClosuerDate?: Date | string | null
+    dueClosureDate?: Date | string | null
     totalExecTime?: Decimal | DecimalJsLike | number | string | null
     expStartDate?: Date | string | null
     suspensionReason?: string | null
@@ -42708,13 +47323,13 @@ export namespace Prisma {
     delayNotification?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
-    performer?: UserCreateNestedOneWithoutPerformedMaintenancesInput
     requester?: UserCreateNestedOneWithoutRequestedMaintenancesInput
     site: ComplexCreateNestedOneWithoutMaintenancesInput
     company?: CompanyCreateNestedOneWithoutMaintenancesInput
     building?: BuildingCreateNestedOneWithoutMaintenancesInput
     team?: TeamCreateNestedOneWithoutMaintenancesInput
     floor?: FloorCreateNestedOneWithoutMaintenancesInput
+    zone?: ZoneCreateNestedOneWithoutMaintenancesInput
     space?: SpaceCreateNestedOneWithoutMaintenancesInput
     assignee?: UserCreateNestedOneWithoutAssignedMaintenancesInput
     asset?: AssetCreateNestedOneWithoutMaintenancesInput
@@ -42735,6 +47350,7 @@ export namespace Prisma {
     processNotes?: string | null
     metadata?: NullableJsonNullValueInput | InputJsonValue
     performerId?: string | null
+    performerReference?: $Enums.PerformerReference | null
     processStatus?: $Enums.Status
     register?: string | null
     activityIdTimer?: string | null
@@ -42753,7 +47369,7 @@ export namespace Prisma {
     execStart?: Date | string | null
     dueExecEndDate?: Date | string | null
     execEndDate?: Date | string | null
-    dueClosuerDate?: Date | string | null
+    dueClosureDate?: Date | string | null
     totalExecTime?: Decimal | DecimalJsLike | number | string | null
     expStartDate?: Date | string | null
     suspensionReason?: string | null
@@ -42763,6 +47379,7 @@ export namespace Prisma {
     buildingId?: string | null
     teamId?: string | null
     floorId?: string | null
+    zoneId?: string | null
     spaceId?: string | null
     ttSystemOpening?: Decimal | DecimalJsLike | number | string | null
     ttWorkOpening?: Decimal | DecimalJsLike | number | string | null
@@ -42799,6 +47416,8 @@ export namespace Prisma {
     message?: NullableStringFieldUpdateOperationsInput | string | null
     processNotes?: NullableStringFieldUpdateOperationsInput | string | null
     metadata?: NullableJsonNullValueInput | InputJsonValue
+    performerId?: NullableStringFieldUpdateOperationsInput | string | null
+    performerReference?: NullableEnumPerformerReferenceFieldUpdateOperationsInput | $Enums.PerformerReference | null
     processStatus?: EnumStatusFieldUpdateOperationsInput | $Enums.Status
     register?: NullableStringFieldUpdateOperationsInput | string | null
     activityIdTimer?: NullableStringFieldUpdateOperationsInput | string | null
@@ -42815,7 +47434,7 @@ export namespace Prisma {
     execStart?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     dueExecEndDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     execEndDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    dueClosuerDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    dueClosureDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     totalExecTime?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     expStartDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     suspensionReason?: NullableStringFieldUpdateOperationsInput | string | null
@@ -42838,13 +47457,13 @@ export namespace Prisma {
     delayNotification?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    performer?: UserUpdateOneWithoutPerformedMaintenancesNestedInput
     requester?: UserUpdateOneWithoutRequestedMaintenancesNestedInput
     site?: ComplexUpdateOneRequiredWithoutMaintenancesNestedInput
     company?: CompanyUpdateOneWithoutMaintenancesNestedInput
     building?: BuildingUpdateOneWithoutMaintenancesNestedInput
     team?: TeamUpdateOneWithoutMaintenancesNestedInput
     floor?: FloorUpdateOneWithoutMaintenancesNestedInput
+    zone?: ZoneUpdateOneWithoutMaintenancesNestedInput
     space?: SpaceUpdateOneWithoutMaintenancesNestedInput
     assignee?: UserUpdateOneWithoutAssignedMaintenancesNestedInput
     asset?: AssetUpdateOneWithoutMaintenancesNestedInput
@@ -42865,6 +47484,7 @@ export namespace Prisma {
     processNotes?: NullableStringFieldUpdateOperationsInput | string | null
     metadata?: NullableJsonNullValueInput | InputJsonValue
     performerId?: NullableStringFieldUpdateOperationsInput | string | null
+    performerReference?: NullableEnumPerformerReferenceFieldUpdateOperationsInput | $Enums.PerformerReference | null
     processStatus?: EnumStatusFieldUpdateOperationsInput | $Enums.Status
     register?: NullableStringFieldUpdateOperationsInput | string | null
     activityIdTimer?: NullableStringFieldUpdateOperationsInput | string | null
@@ -42883,7 +47503,7 @@ export namespace Prisma {
     execStart?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     dueExecEndDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     execEndDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    dueClosuerDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    dueClosureDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     totalExecTime?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     expStartDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     suspensionReason?: NullableStringFieldUpdateOperationsInput | string | null
@@ -42893,6 +47513,7 @@ export namespace Prisma {
     buildingId?: NullableStringFieldUpdateOperationsInput | string | null
     teamId?: NullableStringFieldUpdateOperationsInput | string | null
     floorId?: NullableStringFieldUpdateOperationsInput | string | null
+    zoneId?: NullableStringFieldUpdateOperationsInput | string | null
     spaceId?: NullableStringFieldUpdateOperationsInput | string | null
     ttSystemOpening?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     ttWorkOpening?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
@@ -42930,6 +47551,7 @@ export namespace Prisma {
     processNotes?: string | null
     metadata?: NullableJsonNullValueInput | InputJsonValue
     performerId?: string | null
+    performerReference?: $Enums.PerformerReference | null
     processStatus?: $Enums.Status
     register?: string | null
     activityIdTimer?: string | null
@@ -42948,7 +47570,7 @@ export namespace Prisma {
     execStart?: Date | string | null
     dueExecEndDate?: Date | string | null
     execEndDate?: Date | string | null
-    dueClosuerDate?: Date | string | null
+    dueClosureDate?: Date | string | null
     totalExecTime?: Decimal | DecimalJsLike | number | string | null
     expStartDate?: Date | string | null
     suspensionReason?: string | null
@@ -42958,6 +47580,7 @@ export namespace Prisma {
     buildingId?: string | null
     teamId?: string | null
     floorId?: string | null
+    zoneId?: string | null
     spaceId?: string | null
     ttSystemOpening?: Decimal | DecimalJsLike | number | string | null
     ttWorkOpening?: Decimal | DecimalJsLike | number | string | null
@@ -42992,6 +47615,8 @@ export namespace Prisma {
     message?: NullableStringFieldUpdateOperationsInput | string | null
     processNotes?: NullableStringFieldUpdateOperationsInput | string | null
     metadata?: NullableJsonNullValueInput | InputJsonValue
+    performerId?: NullableStringFieldUpdateOperationsInput | string | null
+    performerReference?: NullableEnumPerformerReferenceFieldUpdateOperationsInput | $Enums.PerformerReference | null
     processStatus?: EnumStatusFieldUpdateOperationsInput | $Enums.Status
     register?: NullableStringFieldUpdateOperationsInput | string | null
     activityIdTimer?: NullableStringFieldUpdateOperationsInput | string | null
@@ -43008,7 +47633,7 @@ export namespace Prisma {
     execStart?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     dueExecEndDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     execEndDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    dueClosuerDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    dueClosureDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     totalExecTime?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     expStartDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     suspensionReason?: NullableStringFieldUpdateOperationsInput | string | null
@@ -43046,6 +47671,7 @@ export namespace Prisma {
     processNotes?: NullableStringFieldUpdateOperationsInput | string | null
     metadata?: NullableJsonNullValueInput | InputJsonValue
     performerId?: NullableStringFieldUpdateOperationsInput | string | null
+    performerReference?: NullableEnumPerformerReferenceFieldUpdateOperationsInput | $Enums.PerformerReference | null
     processStatus?: EnumStatusFieldUpdateOperationsInput | $Enums.Status
     register?: NullableStringFieldUpdateOperationsInput | string | null
     activityIdTimer?: NullableStringFieldUpdateOperationsInput | string | null
@@ -43064,7 +47690,7 @@ export namespace Prisma {
     execStart?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     dueExecEndDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     execEndDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    dueClosuerDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    dueClosureDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     totalExecTime?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     expStartDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     suspensionReason?: NullableStringFieldUpdateOperationsInput | string | null
@@ -43074,6 +47700,7 @@ export namespace Prisma {
     buildingId?: NullableStringFieldUpdateOperationsInput | string | null
     teamId?: NullableStringFieldUpdateOperationsInput | string | null
     floorId?: NullableStringFieldUpdateOperationsInput | string | null
+    zoneId?: NullableStringFieldUpdateOperationsInput | string | null
     spaceId?: NullableStringFieldUpdateOperationsInput | string | null
     ttSystemOpening?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     ttWorkOpening?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
@@ -43115,6 +47742,7 @@ export namespace Prisma {
     floor?: FloorCreateNestedOneWithoutPreventivesInput
     space?: SpaceCreateNestedOneWithoutPreventivesInput
     team?: TeamCreateNestedOneWithoutPreventivesInput
+    meterTriggers?: MeterMaintenanceTriggerCreateNestedManyWithoutPreventiveInput
   }
 
   export type PreventiveUncheckedCreateInput = {
@@ -43136,6 +47764,7 @@ export namespace Prisma {
     teamId?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
+    meterTriggers?: MeterMaintenanceTriggerUncheckedCreateNestedManyWithoutPreventiveInput
   }
 
   export type PreventiveUpdateInput = {
@@ -43157,6 +47786,7 @@ export namespace Prisma {
     floor?: FloorUpdateOneWithoutPreventivesNestedInput
     space?: SpaceUpdateOneWithoutPreventivesNestedInput
     team?: TeamUpdateOneWithoutPreventivesNestedInput
+    meterTriggers?: MeterMaintenanceTriggerUpdateManyWithoutPreventiveNestedInput
   }
 
   export type PreventiveUncheckedUpdateInput = {
@@ -43178,6 +47808,7 @@ export namespace Prisma {
     teamId?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    meterTriggers?: MeterMaintenanceTriggerUncheckedUpdateManyWithoutPreventiveNestedInput
   }
 
   export type PreventiveCreateManyInput = {
@@ -43466,7 +48097,7 @@ export namespace Prisma {
     type?: $Enums.StockMovementType
     quantity?: number
     referenceId?: string | null
-    referenceType?: $Enums.StockReferenceType | null
+    referenceType?: $Enums.StockReferenceType
     createdAt?: Date | string
     updatedAt?: Date | string
     item: ItemCreateNestedOneWithoutStockMovementsInput
@@ -43482,7 +48113,7 @@ export namespace Prisma {
     warehouseId: string
     targetWarehouseId?: string | null
     referenceId?: string | null
-    referenceType?: $Enums.StockReferenceType | null
+    referenceType?: $Enums.StockReferenceType
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -43492,7 +48123,7 @@ export namespace Prisma {
     type?: EnumStockMovementTypeFieldUpdateOperationsInput | $Enums.StockMovementType
     quantity?: IntFieldUpdateOperationsInput | number
     referenceId?: NullableStringFieldUpdateOperationsInput | string | null
-    referenceType?: NullableEnumStockReferenceTypeFieldUpdateOperationsInput | $Enums.StockReferenceType | null
+    referenceType?: EnumStockReferenceTypeFieldUpdateOperationsInput | $Enums.StockReferenceType
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     item?: ItemUpdateOneRequiredWithoutStockMovementsNestedInput
@@ -43508,7 +48139,7 @@ export namespace Prisma {
     warehouseId?: StringFieldUpdateOperationsInput | string
     targetWarehouseId?: NullableStringFieldUpdateOperationsInput | string | null
     referenceId?: NullableStringFieldUpdateOperationsInput | string | null
-    referenceType?: NullableEnumStockReferenceTypeFieldUpdateOperationsInput | $Enums.StockReferenceType | null
+    referenceType?: EnumStockReferenceTypeFieldUpdateOperationsInput | $Enums.StockReferenceType
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -43521,7 +48152,7 @@ export namespace Prisma {
     warehouseId: string
     targetWarehouseId?: string | null
     referenceId?: string | null
-    referenceType?: $Enums.StockReferenceType | null
+    referenceType?: $Enums.StockReferenceType
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -43531,7 +48162,7 @@ export namespace Prisma {
     type?: EnumStockMovementTypeFieldUpdateOperationsInput | $Enums.StockMovementType
     quantity?: IntFieldUpdateOperationsInput | number
     referenceId?: NullableStringFieldUpdateOperationsInput | string | null
-    referenceType?: NullableEnumStockReferenceTypeFieldUpdateOperationsInput | $Enums.StockReferenceType | null
+    referenceType?: EnumStockReferenceTypeFieldUpdateOperationsInput | $Enums.StockReferenceType
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -43544,7 +48175,7 @@ export namespace Prisma {
     warehouseId?: StringFieldUpdateOperationsInput | string
     targetWarehouseId?: NullableStringFieldUpdateOperationsInput | string | null
     referenceId?: NullableStringFieldUpdateOperationsInput | string | null
-    referenceType?: NullableEnumStockReferenceTypeFieldUpdateOperationsInput | $Enums.StockReferenceType | null
+    referenceType?: EnumStockReferenceTypeFieldUpdateOperationsInput | $Enums.StockReferenceType
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -43557,6 +48188,7 @@ export namespace Prisma {
     updatedAt?: Date | string
     maintenance: MaintenanceCreateNestedOneWithoutMaintenanceItemsInput
     item: ItemCreateNestedOneWithoutMaintenanceItemsInput
+    zone?: ZoneCreateNestedOneWithoutItemsInput
   }
 
   export type MaintenanceItemUncheckedCreateInput = {
@@ -43567,6 +48199,7 @@ export namespace Prisma {
     itemId: string
     createdAt?: Date | string
     updatedAt?: Date | string
+    zoneId?: string | null
   }
 
   export type MaintenanceItemUpdateInput = {
@@ -43577,6 +48210,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     maintenance?: MaintenanceUpdateOneRequiredWithoutMaintenanceItemsNestedInput
     item?: ItemUpdateOneRequiredWithoutMaintenanceItemsNestedInput
+    zone?: ZoneUpdateOneWithoutItemsNestedInput
   }
 
   export type MaintenanceItemUncheckedUpdateInput = {
@@ -43587,6 +48221,7 @@ export namespace Prisma {
     itemId?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    zoneId?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type MaintenanceItemCreateManyInput = {
@@ -43597,6 +48232,7 @@ export namespace Prisma {
     itemId: string
     createdAt?: Date | string
     updatedAt?: Date | string
+    zoneId?: string | null
   }
 
   export type MaintenanceItemUpdateManyMutationInput = {
@@ -43615,6 +48251,7 @@ export namespace Prisma {
     itemId?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    zoneId?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type RefreshTokenCreateInput = {
@@ -43675,6 +48312,245 @@ export namespace Prisma {
     token?: StringFieldUpdateOperationsInput | string
     userId?: StringFieldUpdateOperationsInput | string
     expiresAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type MeterCreateInput = {
+    id?: string
+    name: string
+    type?: $Enums.MeterType
+    unit: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    asset?: AssetCreateNestedOneWithoutMetersInput
+    building?: BuildingCreateNestedOneWithoutMetersInput
+    zone?: ZoneCreateNestedOneWithoutMetersInput
+    space?: SpaceCreateNestedOneWithoutMetersInput
+    readings?: MeterReadingCreateNestedManyWithoutMeterInput
+    preventiveTriggers?: MeterMaintenanceTriggerCreateNestedManyWithoutMeterInput
+  }
+
+  export type MeterUncheckedCreateInput = {
+    id?: string
+    name: string
+    type?: $Enums.MeterType
+    unit: string
+    assetId?: string | null
+    buildingId?: string | null
+    zoneId?: string | null
+    spaceId?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    readings?: MeterReadingUncheckedCreateNestedManyWithoutMeterInput
+    preventiveTriggers?: MeterMaintenanceTriggerUncheckedCreateNestedManyWithoutMeterInput
+  }
+
+  export type MeterUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    type?: EnumMeterTypeFieldUpdateOperationsInput | $Enums.MeterType
+    unit?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    asset?: AssetUpdateOneWithoutMetersNestedInput
+    building?: BuildingUpdateOneWithoutMetersNestedInput
+    zone?: ZoneUpdateOneWithoutMetersNestedInput
+    space?: SpaceUpdateOneWithoutMetersNestedInput
+    readings?: MeterReadingUpdateManyWithoutMeterNestedInput
+    preventiveTriggers?: MeterMaintenanceTriggerUpdateManyWithoutMeterNestedInput
+  }
+
+  export type MeterUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    type?: EnumMeterTypeFieldUpdateOperationsInput | $Enums.MeterType
+    unit?: StringFieldUpdateOperationsInput | string
+    assetId?: NullableStringFieldUpdateOperationsInput | string | null
+    buildingId?: NullableStringFieldUpdateOperationsInput | string | null
+    zoneId?: NullableStringFieldUpdateOperationsInput | string | null
+    spaceId?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    readings?: MeterReadingUncheckedUpdateManyWithoutMeterNestedInput
+    preventiveTriggers?: MeterMaintenanceTriggerUncheckedUpdateManyWithoutMeterNestedInput
+  }
+
+  export type MeterCreateManyInput = {
+    id?: string
+    name: string
+    type?: $Enums.MeterType
+    unit: string
+    assetId?: string | null
+    buildingId?: string | null
+    zoneId?: string | null
+    spaceId?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type MeterUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    type?: EnumMeterTypeFieldUpdateOperationsInput | $Enums.MeterType
+    unit?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type MeterUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    type?: EnumMeterTypeFieldUpdateOperationsInput | $Enums.MeterType
+    unit?: StringFieldUpdateOperationsInput | string
+    assetId?: NullableStringFieldUpdateOperationsInput | string | null
+    buildingId?: NullableStringFieldUpdateOperationsInput | string | null
+    zoneId?: NullableStringFieldUpdateOperationsInput | string | null
+    spaceId?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type MeterReadingCreateInput = {
+    id?: string
+    value: Decimal | DecimalJsLike | number | string
+    timestamp?: Date | string
+    source?: $Enums.MeterReadingSource
+    recordedByUserId?: string | null
+    createdAt?: Date | string
+    meter: MeterCreateNestedOneWithoutReadingsInput
+  }
+
+  export type MeterReadingUncheckedCreateInput = {
+    id?: string
+    value: Decimal | DecimalJsLike | number | string
+    timestamp?: Date | string
+    source?: $Enums.MeterReadingSource
+    meterId: string
+    recordedByUserId?: string | null
+    createdAt?: Date | string
+  }
+
+  export type MeterReadingUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    value?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    timestamp?: DateTimeFieldUpdateOperationsInput | Date | string
+    source?: EnumMeterReadingSourceFieldUpdateOperationsInput | $Enums.MeterReadingSource
+    recordedByUserId?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    meter?: MeterUpdateOneRequiredWithoutReadingsNestedInput
+  }
+
+  export type MeterReadingUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    value?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    timestamp?: DateTimeFieldUpdateOperationsInput | Date | string
+    source?: EnumMeterReadingSourceFieldUpdateOperationsInput | $Enums.MeterReadingSource
+    meterId?: StringFieldUpdateOperationsInput | string
+    recordedByUserId?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type MeterReadingCreateManyInput = {
+    id?: string
+    value: Decimal | DecimalJsLike | number | string
+    timestamp?: Date | string
+    source?: $Enums.MeterReadingSource
+    meterId: string
+    recordedByUserId?: string | null
+    createdAt?: Date | string
+  }
+
+  export type MeterReadingUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    value?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    timestamp?: DateTimeFieldUpdateOperationsInput | Date | string
+    source?: EnumMeterReadingSourceFieldUpdateOperationsInput | $Enums.MeterReadingSource
+    recordedByUserId?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type MeterReadingUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    value?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    timestamp?: DateTimeFieldUpdateOperationsInput | Date | string
+    source?: EnumMeterReadingSourceFieldUpdateOperationsInput | $Enums.MeterReadingSource
+    meterId?: StringFieldUpdateOperationsInput | string
+    recordedByUserId?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type MeterMaintenanceTriggerCreateInput = {
+    id?: string
+    condition: $Enums.TriggerCondition
+    triggerValue: Decimal | DecimalJsLike | number | string
+    lastTriggerReading?: Decimal | DecimalJsLike | number | string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    meter: MeterCreateNestedOneWithoutPreventiveTriggersInput
+    preventive: PreventiveCreateNestedOneWithoutMeterTriggersInput
+  }
+
+  export type MeterMaintenanceTriggerUncheckedCreateInput = {
+    id?: string
+    meterId: string
+    preventiveId: string
+    condition: $Enums.TriggerCondition
+    triggerValue: Decimal | DecimalJsLike | number | string
+    lastTriggerReading?: Decimal | DecimalJsLike | number | string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type MeterMaintenanceTriggerUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    condition?: EnumTriggerConditionFieldUpdateOperationsInput | $Enums.TriggerCondition
+    triggerValue?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    lastTriggerReading?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    meter?: MeterUpdateOneRequiredWithoutPreventiveTriggersNestedInput
+    preventive?: PreventiveUpdateOneRequiredWithoutMeterTriggersNestedInput
+  }
+
+  export type MeterMaintenanceTriggerUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    meterId?: StringFieldUpdateOperationsInput | string
+    preventiveId?: StringFieldUpdateOperationsInput | string
+    condition?: EnumTriggerConditionFieldUpdateOperationsInput | $Enums.TriggerCondition
+    triggerValue?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    lastTriggerReading?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type MeterMaintenanceTriggerCreateManyInput = {
+    id?: string
+    meterId: string
+    preventiveId: string
+    condition: $Enums.TriggerCondition
+    triggerValue: Decimal | DecimalJsLike | number | string
+    lastTriggerReading?: Decimal | DecimalJsLike | number | string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type MeterMaintenanceTriggerUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    condition?: EnumTriggerConditionFieldUpdateOperationsInput | $Enums.TriggerCondition
+    triggerValue?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    lastTriggerReading?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type MeterMaintenanceTriggerUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    meterId?: StringFieldUpdateOperationsInput | string
+    preventiveId?: StringFieldUpdateOperationsInput | string
+    condition?: EnumTriggerConditionFieldUpdateOperationsInput | $Enums.TriggerCondition
+    triggerValue?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    lastTriggerReading?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -44388,7 +49264,17 @@ export namespace Prisma {
     none?: FloorWhereInput
   }
 
+  export type MeterListRelationFilter = {
+    every?: MeterWhereInput
+    some?: MeterWhereInput
+    none?: MeterWhereInput
+  }
+
   export type FloorOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type MeterOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
 
@@ -44675,7 +49561,17 @@ export namespace Prisma {
     none?: SpaceWhereInput
   }
 
+  export type MaintenanceItemListRelationFilter = {
+    every?: MaintenanceItemWhereInput
+    some?: MaintenanceItemWhereInput
+    none?: MaintenanceItemWhereInput
+  }
+
   export type SpaceOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type MaintenanceItemOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
 
@@ -45345,6 +50241,13 @@ export namespace Prisma {
     not?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
   }
 
+  export type EnumPerformerReferenceNullableFilter<$PrismaModel = never> = {
+    equals?: $Enums.PerformerReference | EnumPerformerReferenceFieldRefInput<$PrismaModel> | null
+    in?: $Enums.PerformerReference[] | ListEnumPerformerReferenceFieldRefInput<$PrismaModel> | null
+    notIn?: $Enums.PerformerReference[] | ListEnumPerformerReferenceFieldRefInput<$PrismaModel> | null
+    not?: NestedEnumPerformerReferenceNullableFilter<$PrismaModel> | $Enums.PerformerReference | null
+  }
+
   export type EnumStatusFilter<$PrismaModel = never> = {
     equals?: $Enums.Status | EnumStatusFieldRefInput<$PrismaModel>
     in?: $Enums.Status[] | ListEnumStatusFieldRefInput<$PrismaModel>
@@ -45381,14 +50284,9 @@ export namespace Prisma {
     isNot?: FloorWhereInput | null
   }
 
-  export type MaintenanceItemListRelationFilter = {
-    every?: MaintenanceItemWhereInput
-    some?: MaintenanceItemWhereInput
-    none?: MaintenanceItemWhereInput
-  }
-
-  export type MaintenanceItemOrderByRelationAggregateInput = {
-    _count?: SortOrder
+  export type ZoneNullableScalarRelationFilter = {
+    is?: ZoneWhereInput | null
+    isNot?: ZoneWhereInput | null
   }
 
   export type MaintenanceCountOrderByAggregateInput = {
@@ -45404,6 +50302,7 @@ export namespace Prisma {
     processNotes?: SortOrder
     metadata?: SortOrder
     performerId?: SortOrder
+    performerReference?: SortOrder
     processStatus?: SortOrder
     register?: SortOrder
     activityIdTimer?: SortOrder
@@ -45422,7 +50321,7 @@ export namespace Prisma {
     execStart?: SortOrder
     dueExecEndDate?: SortOrder
     execEndDate?: SortOrder
-    dueClosuerDate?: SortOrder
+    dueClosureDate?: SortOrder
     totalExecTime?: SortOrder
     expStartDate?: SortOrder
     suspensionReason?: SortOrder
@@ -45432,6 +50331,7 @@ export namespace Prisma {
     buildingId?: SortOrder
     teamId?: SortOrder
     floorId?: SortOrder
+    zoneId?: SortOrder
     spaceId?: SortOrder
     ttSystemOpening?: SortOrder
     ttWorkOpening?: SortOrder
@@ -45481,6 +50381,7 @@ export namespace Prisma {
     message?: SortOrder
     processNotes?: SortOrder
     performerId?: SortOrder
+    performerReference?: SortOrder
     processStatus?: SortOrder
     register?: SortOrder
     activityIdTimer?: SortOrder
@@ -45499,7 +50400,7 @@ export namespace Prisma {
     execStart?: SortOrder
     dueExecEndDate?: SortOrder
     execEndDate?: SortOrder
-    dueClosuerDate?: SortOrder
+    dueClosureDate?: SortOrder
     totalExecTime?: SortOrder
     expStartDate?: SortOrder
     suspensionReason?: SortOrder
@@ -45509,6 +50410,7 @@ export namespace Prisma {
     buildingId?: SortOrder
     teamId?: SortOrder
     floorId?: SortOrder
+    zoneId?: SortOrder
     spaceId?: SortOrder
     ttSystemOpening?: SortOrder
     ttWorkOpening?: SortOrder
@@ -45543,6 +50445,7 @@ export namespace Prisma {
     message?: SortOrder
     processNotes?: SortOrder
     performerId?: SortOrder
+    performerReference?: SortOrder
     processStatus?: SortOrder
     register?: SortOrder
     activityIdTimer?: SortOrder
@@ -45561,7 +50464,7 @@ export namespace Prisma {
     execStart?: SortOrder
     dueExecEndDate?: SortOrder
     execEndDate?: SortOrder
-    dueClosuerDate?: SortOrder
+    dueClosureDate?: SortOrder
     totalExecTime?: SortOrder
     expStartDate?: SortOrder
     suspensionReason?: SortOrder
@@ -45571,6 +50474,7 @@ export namespace Prisma {
     buildingId?: SortOrder
     teamId?: SortOrder
     floorId?: SortOrder
+    zoneId?: SortOrder
     spaceId?: SortOrder
     ttSystemOpening?: SortOrder
     ttWorkOpening?: SortOrder
@@ -45644,6 +50548,16 @@ export namespace Prisma {
     _max?: NestedJsonNullableFilter<$PrismaModel>
   }
 
+  export type EnumPerformerReferenceNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.PerformerReference | EnumPerformerReferenceFieldRefInput<$PrismaModel> | null
+    in?: $Enums.PerformerReference[] | ListEnumPerformerReferenceFieldRefInput<$PrismaModel> | null
+    notIn?: $Enums.PerformerReference[] | ListEnumPerformerReferenceFieldRefInput<$PrismaModel> | null
+    not?: NestedEnumPerformerReferenceNullableWithAggregatesFilter<$PrismaModel> | $Enums.PerformerReference | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedEnumPerformerReferenceNullableFilter<$PrismaModel>
+    _max?: NestedEnumPerformerReferenceNullableFilter<$PrismaModel>
+  }
+
   export type EnumStatusWithAggregatesFilter<$PrismaModel = never> = {
     equals?: $Enums.Status | EnumStatusFieldRefInput<$PrismaModel>
     in?: $Enums.Status[] | ListEnumStatusFieldRefInput<$PrismaModel>
@@ -45679,6 +50593,16 @@ export namespace Prisma {
     in?: $Enums.Frequency[] | ListEnumFrequencyFieldRefInput<$PrismaModel>
     notIn?: $Enums.Frequency[] | ListEnumFrequencyFieldRefInput<$PrismaModel>
     not?: NestedEnumFrequencyFilter<$PrismaModel> | $Enums.Frequency
+  }
+
+  export type MeterMaintenanceTriggerListRelationFilter = {
+    every?: MeterMaintenanceTriggerWhereInput
+    some?: MeterMaintenanceTriggerWhereInput
+    none?: MeterMaintenanceTriggerWhereInput
+  }
+
+  export type MeterMaintenanceTriggerOrderByRelationAggregateInput = {
+    _count?: SortOrder
   }
 
   export type PreventiveCountOrderByAggregateInput = {
@@ -45903,11 +50827,11 @@ export namespace Prisma {
     not?: NestedEnumStockMovementTypeFilter<$PrismaModel> | $Enums.StockMovementType
   }
 
-  export type EnumStockReferenceTypeNullableFilter<$PrismaModel = never> = {
-    equals?: $Enums.StockReferenceType | EnumStockReferenceTypeFieldRefInput<$PrismaModel> | null
-    in?: $Enums.StockReferenceType[] | ListEnumStockReferenceTypeFieldRefInput<$PrismaModel> | null
-    notIn?: $Enums.StockReferenceType[] | ListEnumStockReferenceTypeFieldRefInput<$PrismaModel> | null
-    not?: NestedEnumStockReferenceTypeNullableFilter<$PrismaModel> | $Enums.StockReferenceType | null
+  export type EnumStockReferenceTypeFilter<$PrismaModel = never> = {
+    equals?: $Enums.StockReferenceType | EnumStockReferenceTypeFieldRefInput<$PrismaModel>
+    in?: $Enums.StockReferenceType[] | ListEnumStockReferenceTypeFieldRefInput<$PrismaModel>
+    notIn?: $Enums.StockReferenceType[] | ListEnumStockReferenceTypeFieldRefInput<$PrismaModel>
+    not?: NestedEnumStockReferenceTypeFilter<$PrismaModel> | $Enums.StockReferenceType
   }
 
   export type WarehouseNullableScalarRelationFilter = {
@@ -45972,14 +50896,14 @@ export namespace Prisma {
     _max?: NestedEnumStockMovementTypeFilter<$PrismaModel>
   }
 
-  export type EnumStockReferenceTypeNullableWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: $Enums.StockReferenceType | EnumStockReferenceTypeFieldRefInput<$PrismaModel> | null
-    in?: $Enums.StockReferenceType[] | ListEnumStockReferenceTypeFieldRefInput<$PrismaModel> | null
-    notIn?: $Enums.StockReferenceType[] | ListEnumStockReferenceTypeFieldRefInput<$PrismaModel> | null
-    not?: NestedEnumStockReferenceTypeNullableWithAggregatesFilter<$PrismaModel> | $Enums.StockReferenceType | null
-    _count?: NestedIntNullableFilter<$PrismaModel>
-    _min?: NestedEnumStockReferenceTypeNullableFilter<$PrismaModel>
-    _max?: NestedEnumStockReferenceTypeNullableFilter<$PrismaModel>
+  export type EnumStockReferenceTypeWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.StockReferenceType | EnumStockReferenceTypeFieldRefInput<$PrismaModel>
+    in?: $Enums.StockReferenceType[] | ListEnumStockReferenceTypeFieldRefInput<$PrismaModel>
+    notIn?: $Enums.StockReferenceType[] | ListEnumStockReferenceTypeFieldRefInput<$PrismaModel>
+    not?: NestedEnumStockReferenceTypeWithAggregatesFilter<$PrismaModel> | $Enums.StockReferenceType
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumStockReferenceTypeFilter<$PrismaModel>
+    _max?: NestedEnumStockReferenceTypeFilter<$PrismaModel>
   }
 
   export type MaintenanceScalarRelationFilter = {
@@ -46000,6 +50924,7 @@ export namespace Prisma {
     itemId?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
+    zoneId?: SortOrder
   }
 
   export type MaintenanceItemAvgOrderByAggregateInput = {
@@ -46015,6 +50940,7 @@ export namespace Prisma {
     itemId?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
+    zoneId?: SortOrder
   }
 
   export type MaintenanceItemMinOrderByAggregateInput = {
@@ -46025,6 +50951,7 @@ export namespace Prisma {
     itemId?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
+    zoneId?: SortOrder
   }
 
   export type MaintenanceItemSumOrderByAggregateInput = {
@@ -46057,6 +50984,224 @@ export namespace Prisma {
     expiresAt?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
+  }
+
+  export type EnumMeterTypeFilter<$PrismaModel = never> = {
+    equals?: $Enums.MeterType | EnumMeterTypeFieldRefInput<$PrismaModel>
+    in?: $Enums.MeterType[] | ListEnumMeterTypeFieldRefInput<$PrismaModel>
+    notIn?: $Enums.MeterType[] | ListEnumMeterTypeFieldRefInput<$PrismaModel>
+    not?: NestedEnumMeterTypeFilter<$PrismaModel> | $Enums.MeterType
+  }
+
+  export type MeterReadingListRelationFilter = {
+    every?: MeterReadingWhereInput
+    some?: MeterReadingWhereInput
+    none?: MeterReadingWhereInput
+  }
+
+  export type MeterReadingOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type MeterCountOrderByAggregateInput = {
+    id?: SortOrder
+    name?: SortOrder
+    type?: SortOrder
+    unit?: SortOrder
+    assetId?: SortOrder
+    buildingId?: SortOrder
+    zoneId?: SortOrder
+    spaceId?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type MeterMaxOrderByAggregateInput = {
+    id?: SortOrder
+    name?: SortOrder
+    type?: SortOrder
+    unit?: SortOrder
+    assetId?: SortOrder
+    buildingId?: SortOrder
+    zoneId?: SortOrder
+    spaceId?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type MeterMinOrderByAggregateInput = {
+    id?: SortOrder
+    name?: SortOrder
+    type?: SortOrder
+    unit?: SortOrder
+    assetId?: SortOrder
+    buildingId?: SortOrder
+    zoneId?: SortOrder
+    spaceId?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type EnumMeterTypeWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.MeterType | EnumMeterTypeFieldRefInput<$PrismaModel>
+    in?: $Enums.MeterType[] | ListEnumMeterTypeFieldRefInput<$PrismaModel>
+    notIn?: $Enums.MeterType[] | ListEnumMeterTypeFieldRefInput<$PrismaModel>
+    not?: NestedEnumMeterTypeWithAggregatesFilter<$PrismaModel> | $Enums.MeterType
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumMeterTypeFilter<$PrismaModel>
+    _max?: NestedEnumMeterTypeFilter<$PrismaModel>
+  }
+
+  export type DecimalFilter<$PrismaModel = never> = {
+    equals?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    in?: Decimal[] | DecimalJsLike[] | number[] | string[] | ListDecimalFieldRefInput<$PrismaModel>
+    notIn?: Decimal[] | DecimalJsLike[] | number[] | string[] | ListDecimalFieldRefInput<$PrismaModel>
+    lt?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    lte?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    gt?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    gte?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    not?: NestedDecimalFilter<$PrismaModel> | Decimal | DecimalJsLike | number | string
+  }
+
+  export type EnumMeterReadingSourceFilter<$PrismaModel = never> = {
+    equals?: $Enums.MeterReadingSource | EnumMeterReadingSourceFieldRefInput<$PrismaModel>
+    in?: $Enums.MeterReadingSource[] | ListEnumMeterReadingSourceFieldRefInput<$PrismaModel>
+    notIn?: $Enums.MeterReadingSource[] | ListEnumMeterReadingSourceFieldRefInput<$PrismaModel>
+    not?: NestedEnumMeterReadingSourceFilter<$PrismaModel> | $Enums.MeterReadingSource
+  }
+
+  export type MeterScalarRelationFilter = {
+    is?: MeterWhereInput
+    isNot?: MeterWhereInput
+  }
+
+  export type MeterReadingCountOrderByAggregateInput = {
+    id?: SortOrder
+    value?: SortOrder
+    timestamp?: SortOrder
+    source?: SortOrder
+    meterId?: SortOrder
+    recordedByUserId?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type MeterReadingAvgOrderByAggregateInput = {
+    value?: SortOrder
+  }
+
+  export type MeterReadingMaxOrderByAggregateInput = {
+    id?: SortOrder
+    value?: SortOrder
+    timestamp?: SortOrder
+    source?: SortOrder
+    meterId?: SortOrder
+    recordedByUserId?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type MeterReadingMinOrderByAggregateInput = {
+    id?: SortOrder
+    value?: SortOrder
+    timestamp?: SortOrder
+    source?: SortOrder
+    meterId?: SortOrder
+    recordedByUserId?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type MeterReadingSumOrderByAggregateInput = {
+    value?: SortOrder
+  }
+
+  export type DecimalWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    in?: Decimal[] | DecimalJsLike[] | number[] | string[] | ListDecimalFieldRefInput<$PrismaModel>
+    notIn?: Decimal[] | DecimalJsLike[] | number[] | string[] | ListDecimalFieldRefInput<$PrismaModel>
+    lt?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    lte?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    gt?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    gte?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    not?: NestedDecimalWithAggregatesFilter<$PrismaModel> | Decimal | DecimalJsLike | number | string
+    _count?: NestedIntFilter<$PrismaModel>
+    _avg?: NestedDecimalFilter<$PrismaModel>
+    _sum?: NestedDecimalFilter<$PrismaModel>
+    _min?: NestedDecimalFilter<$PrismaModel>
+    _max?: NestedDecimalFilter<$PrismaModel>
+  }
+
+  export type EnumMeterReadingSourceWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.MeterReadingSource | EnumMeterReadingSourceFieldRefInput<$PrismaModel>
+    in?: $Enums.MeterReadingSource[] | ListEnumMeterReadingSourceFieldRefInput<$PrismaModel>
+    notIn?: $Enums.MeterReadingSource[] | ListEnumMeterReadingSourceFieldRefInput<$PrismaModel>
+    not?: NestedEnumMeterReadingSourceWithAggregatesFilter<$PrismaModel> | $Enums.MeterReadingSource
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumMeterReadingSourceFilter<$PrismaModel>
+    _max?: NestedEnumMeterReadingSourceFilter<$PrismaModel>
+  }
+
+  export type EnumTriggerConditionFilter<$PrismaModel = never> = {
+    equals?: $Enums.TriggerCondition | EnumTriggerConditionFieldRefInput<$PrismaModel>
+    in?: $Enums.TriggerCondition[] | ListEnumTriggerConditionFieldRefInput<$PrismaModel>
+    notIn?: $Enums.TriggerCondition[] | ListEnumTriggerConditionFieldRefInput<$PrismaModel>
+    not?: NestedEnumTriggerConditionFilter<$PrismaModel> | $Enums.TriggerCondition
+  }
+
+  export type PreventiveScalarRelationFilter = {
+    is?: PreventiveWhereInput
+    isNot?: PreventiveWhereInput
+  }
+
+  export type MeterMaintenanceTriggerCountOrderByAggregateInput = {
+    id?: SortOrder
+    meterId?: SortOrder
+    preventiveId?: SortOrder
+    condition?: SortOrder
+    triggerValue?: SortOrder
+    lastTriggerReading?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type MeterMaintenanceTriggerAvgOrderByAggregateInput = {
+    triggerValue?: SortOrder
+    lastTriggerReading?: SortOrder
+  }
+
+  export type MeterMaintenanceTriggerMaxOrderByAggregateInput = {
+    id?: SortOrder
+    meterId?: SortOrder
+    preventiveId?: SortOrder
+    condition?: SortOrder
+    triggerValue?: SortOrder
+    lastTriggerReading?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type MeterMaintenanceTriggerMinOrderByAggregateInput = {
+    id?: SortOrder
+    meterId?: SortOrder
+    preventiveId?: SortOrder
+    condition?: SortOrder
+    triggerValue?: SortOrder
+    lastTriggerReading?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type MeterMaintenanceTriggerSumOrderByAggregateInput = {
+    triggerValue?: SortOrder
+    lastTriggerReading?: SortOrder
+  }
+
+  export type EnumTriggerConditionWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.TriggerCondition | EnumTriggerConditionFieldRefInput<$PrismaModel>
+    in?: $Enums.TriggerCondition[] | ListEnumTriggerConditionFieldRefInput<$PrismaModel>
+    notIn?: $Enums.TriggerCondition[] | ListEnumTriggerConditionFieldRefInput<$PrismaModel>
+    not?: NestedEnumTriggerConditionWithAggregatesFilter<$PrismaModel> | $Enums.TriggerCondition
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumTriggerConditionFilter<$PrismaModel>
+    _max?: NestedEnumTriggerConditionFilter<$PrismaModel>
   }
 
   export type RefreshTokenCreateNestedManyWithoutUserInput = {
@@ -46095,13 +51240,6 @@ export namespace Prisma {
     create?: XOR<TeamCreateWithoutMembersInput, TeamUncheckedCreateWithoutMembersInput> | TeamCreateWithoutMembersInput[] | TeamUncheckedCreateWithoutMembersInput[]
     connectOrCreate?: TeamCreateOrConnectWithoutMembersInput | TeamCreateOrConnectWithoutMembersInput[]
     connect?: TeamWhereUniqueInput | TeamWhereUniqueInput[]
-  }
-
-  export type MaintenanceCreateNestedManyWithoutPerformerInput = {
-    create?: XOR<MaintenanceCreateWithoutPerformerInput, MaintenanceUncheckedCreateWithoutPerformerInput> | MaintenanceCreateWithoutPerformerInput[] | MaintenanceUncheckedCreateWithoutPerformerInput[]
-    connectOrCreate?: MaintenanceCreateOrConnectWithoutPerformerInput | MaintenanceCreateOrConnectWithoutPerformerInput[]
-    createMany?: MaintenanceCreateManyPerformerInputEnvelope
-    connect?: MaintenanceWhereUniqueInput | MaintenanceWhereUniqueInput[]
   }
 
   export type MaintenanceCreateNestedManyWithoutRequesterInput = {
@@ -46143,13 +51281,6 @@ export namespace Prisma {
     create?: XOR<TeamCreateWithoutMembersInput, TeamUncheckedCreateWithoutMembersInput> | TeamCreateWithoutMembersInput[] | TeamUncheckedCreateWithoutMembersInput[]
     connectOrCreate?: TeamCreateOrConnectWithoutMembersInput | TeamCreateOrConnectWithoutMembersInput[]
     connect?: TeamWhereUniqueInput | TeamWhereUniqueInput[]
-  }
-
-  export type MaintenanceUncheckedCreateNestedManyWithoutPerformerInput = {
-    create?: XOR<MaintenanceCreateWithoutPerformerInput, MaintenanceUncheckedCreateWithoutPerformerInput> | MaintenanceCreateWithoutPerformerInput[] | MaintenanceUncheckedCreateWithoutPerformerInput[]
-    connectOrCreate?: MaintenanceCreateOrConnectWithoutPerformerInput | MaintenanceCreateOrConnectWithoutPerformerInput[]
-    createMany?: MaintenanceCreateManyPerformerInputEnvelope
-    connect?: MaintenanceWhereUniqueInput | MaintenanceWhereUniqueInput[]
   }
 
   export type MaintenanceUncheckedCreateNestedManyWithoutRequesterInput = {
@@ -46270,20 +51401,6 @@ export namespace Prisma {
     deleteMany?: TeamScalarWhereInput | TeamScalarWhereInput[]
   }
 
-  export type MaintenanceUpdateManyWithoutPerformerNestedInput = {
-    create?: XOR<MaintenanceCreateWithoutPerformerInput, MaintenanceUncheckedCreateWithoutPerformerInput> | MaintenanceCreateWithoutPerformerInput[] | MaintenanceUncheckedCreateWithoutPerformerInput[]
-    connectOrCreate?: MaintenanceCreateOrConnectWithoutPerformerInput | MaintenanceCreateOrConnectWithoutPerformerInput[]
-    upsert?: MaintenanceUpsertWithWhereUniqueWithoutPerformerInput | MaintenanceUpsertWithWhereUniqueWithoutPerformerInput[]
-    createMany?: MaintenanceCreateManyPerformerInputEnvelope
-    set?: MaintenanceWhereUniqueInput | MaintenanceWhereUniqueInput[]
-    disconnect?: MaintenanceWhereUniqueInput | MaintenanceWhereUniqueInput[]
-    delete?: MaintenanceWhereUniqueInput | MaintenanceWhereUniqueInput[]
-    connect?: MaintenanceWhereUniqueInput | MaintenanceWhereUniqueInput[]
-    update?: MaintenanceUpdateWithWhereUniqueWithoutPerformerInput | MaintenanceUpdateWithWhereUniqueWithoutPerformerInput[]
-    updateMany?: MaintenanceUpdateManyWithWhereWithoutPerformerInput | MaintenanceUpdateManyWithWhereWithoutPerformerInput[]
-    deleteMany?: MaintenanceScalarWhereInput | MaintenanceScalarWhereInput[]
-  }
-
   export type MaintenanceUpdateManyWithoutRequesterNestedInput = {
     create?: XOR<MaintenanceCreateWithoutRequesterInput, MaintenanceUncheckedCreateWithoutRequesterInput> | MaintenanceCreateWithoutRequesterInput[] | MaintenanceUncheckedCreateWithoutRequesterInput[]
     connectOrCreate?: MaintenanceCreateOrConnectWithoutRequesterInput | MaintenanceCreateOrConnectWithoutRequesterInput[]
@@ -46365,20 +51482,6 @@ export namespace Prisma {
     update?: TeamUpdateWithWhereUniqueWithoutMembersInput | TeamUpdateWithWhereUniqueWithoutMembersInput[]
     updateMany?: TeamUpdateManyWithWhereWithoutMembersInput | TeamUpdateManyWithWhereWithoutMembersInput[]
     deleteMany?: TeamScalarWhereInput | TeamScalarWhereInput[]
-  }
-
-  export type MaintenanceUncheckedUpdateManyWithoutPerformerNestedInput = {
-    create?: XOR<MaintenanceCreateWithoutPerformerInput, MaintenanceUncheckedCreateWithoutPerformerInput> | MaintenanceCreateWithoutPerformerInput[] | MaintenanceUncheckedCreateWithoutPerformerInput[]
-    connectOrCreate?: MaintenanceCreateOrConnectWithoutPerformerInput | MaintenanceCreateOrConnectWithoutPerformerInput[]
-    upsert?: MaintenanceUpsertWithWhereUniqueWithoutPerformerInput | MaintenanceUpsertWithWhereUniqueWithoutPerformerInput[]
-    createMany?: MaintenanceCreateManyPerformerInputEnvelope
-    set?: MaintenanceWhereUniqueInput | MaintenanceWhereUniqueInput[]
-    disconnect?: MaintenanceWhereUniqueInput | MaintenanceWhereUniqueInput[]
-    delete?: MaintenanceWhereUniqueInput | MaintenanceWhereUniqueInput[]
-    connect?: MaintenanceWhereUniqueInput | MaintenanceWhereUniqueInput[]
-    update?: MaintenanceUpdateWithWhereUniqueWithoutPerformerInput | MaintenanceUpdateWithWhereUniqueWithoutPerformerInput[]
-    updateMany?: MaintenanceUpdateManyWithWhereWithoutPerformerInput | MaintenanceUpdateManyWithWhereWithoutPerformerInput[]
-    deleteMany?: MaintenanceScalarWhereInput | MaintenanceScalarWhereInput[]
   }
 
   export type MaintenanceUncheckedUpdateManyWithoutRequesterNestedInput = {
@@ -46862,6 +51965,13 @@ export namespace Prisma {
     connect?: MaintenanceWhereUniqueInput | MaintenanceWhereUniqueInput[]
   }
 
+  export type MeterCreateNestedManyWithoutBuildingInput = {
+    create?: XOR<MeterCreateWithoutBuildingInput, MeterUncheckedCreateWithoutBuildingInput> | MeterCreateWithoutBuildingInput[] | MeterUncheckedCreateWithoutBuildingInput[]
+    connectOrCreate?: MeterCreateOrConnectWithoutBuildingInput | MeterCreateOrConnectWithoutBuildingInput[]
+    createMany?: MeterCreateManyBuildingInputEnvelope
+    connect?: MeterWhereUniqueInput | MeterWhereUniqueInput[]
+  }
+
   export type FileUncheckedCreateNestedManyWithoutBuildingsInput = {
     create?: XOR<FileCreateWithoutBuildingsInput, FileUncheckedCreateWithoutBuildingsInput> | FileCreateWithoutBuildingsInput[] | FileUncheckedCreateWithoutBuildingsInput[]
     connectOrCreate?: FileCreateOrConnectWithoutBuildingsInput | FileCreateOrConnectWithoutBuildingsInput[]
@@ -46887,6 +51997,13 @@ export namespace Prisma {
     connectOrCreate?: MaintenanceCreateOrConnectWithoutBuildingInput | MaintenanceCreateOrConnectWithoutBuildingInput[]
     createMany?: MaintenanceCreateManyBuildingInputEnvelope
     connect?: MaintenanceWhereUniqueInput | MaintenanceWhereUniqueInput[]
+  }
+
+  export type MeterUncheckedCreateNestedManyWithoutBuildingInput = {
+    create?: XOR<MeterCreateWithoutBuildingInput, MeterUncheckedCreateWithoutBuildingInput> | MeterCreateWithoutBuildingInput[] | MeterUncheckedCreateWithoutBuildingInput[]
+    connectOrCreate?: MeterCreateOrConnectWithoutBuildingInput | MeterCreateOrConnectWithoutBuildingInput[]
+    createMany?: MeterCreateManyBuildingInputEnvelope
+    connect?: MeterWhereUniqueInput | MeterWhereUniqueInput[]
   }
 
   export type EnumMainUseFieldUpdateOperationsInput = {
@@ -46966,6 +52083,20 @@ export namespace Prisma {
     deleteMany?: MaintenanceScalarWhereInput | MaintenanceScalarWhereInput[]
   }
 
+  export type MeterUpdateManyWithoutBuildingNestedInput = {
+    create?: XOR<MeterCreateWithoutBuildingInput, MeterUncheckedCreateWithoutBuildingInput> | MeterCreateWithoutBuildingInput[] | MeterUncheckedCreateWithoutBuildingInput[]
+    connectOrCreate?: MeterCreateOrConnectWithoutBuildingInput | MeterCreateOrConnectWithoutBuildingInput[]
+    upsert?: MeterUpsertWithWhereUniqueWithoutBuildingInput | MeterUpsertWithWhereUniqueWithoutBuildingInput[]
+    createMany?: MeterCreateManyBuildingInputEnvelope
+    set?: MeterWhereUniqueInput | MeterWhereUniqueInput[]
+    disconnect?: MeterWhereUniqueInput | MeterWhereUniqueInput[]
+    delete?: MeterWhereUniqueInput | MeterWhereUniqueInput[]
+    connect?: MeterWhereUniqueInput | MeterWhereUniqueInput[]
+    update?: MeterUpdateWithWhereUniqueWithoutBuildingInput | MeterUpdateWithWhereUniqueWithoutBuildingInput[]
+    updateMany?: MeterUpdateManyWithWhereWithoutBuildingInput | MeterUpdateManyWithWhereWithoutBuildingInput[]
+    deleteMany?: MeterScalarWhereInput | MeterScalarWhereInput[]
+  }
+
   export type FileUncheckedUpdateManyWithoutBuildingsNestedInput = {
     create?: XOR<FileCreateWithoutBuildingsInput, FileUncheckedCreateWithoutBuildingsInput> | FileCreateWithoutBuildingsInput[] | FileUncheckedCreateWithoutBuildingsInput[]
     connectOrCreate?: FileCreateOrConnectWithoutBuildingsInput | FileCreateOrConnectWithoutBuildingsInput[]
@@ -47019,6 +52150,20 @@ export namespace Prisma {
     update?: MaintenanceUpdateWithWhereUniqueWithoutBuildingInput | MaintenanceUpdateWithWhereUniqueWithoutBuildingInput[]
     updateMany?: MaintenanceUpdateManyWithWhereWithoutBuildingInput | MaintenanceUpdateManyWithWhereWithoutBuildingInput[]
     deleteMany?: MaintenanceScalarWhereInput | MaintenanceScalarWhereInput[]
+  }
+
+  export type MeterUncheckedUpdateManyWithoutBuildingNestedInput = {
+    create?: XOR<MeterCreateWithoutBuildingInput, MeterUncheckedCreateWithoutBuildingInput> | MeterCreateWithoutBuildingInput[] | MeterUncheckedCreateWithoutBuildingInput[]
+    connectOrCreate?: MeterCreateOrConnectWithoutBuildingInput | MeterCreateOrConnectWithoutBuildingInput[]
+    upsert?: MeterUpsertWithWhereUniqueWithoutBuildingInput | MeterUpsertWithWhereUniqueWithoutBuildingInput[]
+    createMany?: MeterCreateManyBuildingInputEnvelope
+    set?: MeterWhereUniqueInput | MeterWhereUniqueInput[]
+    disconnect?: MeterWhereUniqueInput | MeterWhereUniqueInput[]
+    delete?: MeterWhereUniqueInput | MeterWhereUniqueInput[]
+    connect?: MeterWhereUniqueInput | MeterWhereUniqueInput[]
+    update?: MeterUpdateWithWhereUniqueWithoutBuildingInput | MeterUpdateWithWhereUniqueWithoutBuildingInput[]
+    updateMany?: MeterUpdateManyWithWhereWithoutBuildingInput | MeterUpdateManyWithWhereWithoutBuildingInput[]
+    deleteMany?: MeterScalarWhereInput | MeterScalarWhereInput[]
   }
 
   export type BuildingCreateNestedOneWithoutFloorsInput = {
@@ -47194,6 +52339,27 @@ export namespace Prisma {
     connect?: FileWhereUniqueInput | FileWhereUniqueInput[]
   }
 
+  export type MaintenanceItemCreateNestedManyWithoutZoneInput = {
+    create?: XOR<MaintenanceItemCreateWithoutZoneInput, MaintenanceItemUncheckedCreateWithoutZoneInput> | MaintenanceItemCreateWithoutZoneInput[] | MaintenanceItemUncheckedCreateWithoutZoneInput[]
+    connectOrCreate?: MaintenanceItemCreateOrConnectWithoutZoneInput | MaintenanceItemCreateOrConnectWithoutZoneInput[]
+    createMany?: MaintenanceItemCreateManyZoneInputEnvelope
+    connect?: MaintenanceItemWhereUniqueInput | MaintenanceItemWhereUniqueInput[]
+  }
+
+  export type MeterCreateNestedManyWithoutZoneInput = {
+    create?: XOR<MeterCreateWithoutZoneInput, MeterUncheckedCreateWithoutZoneInput> | MeterCreateWithoutZoneInput[] | MeterUncheckedCreateWithoutZoneInput[]
+    connectOrCreate?: MeterCreateOrConnectWithoutZoneInput | MeterCreateOrConnectWithoutZoneInput[]
+    createMany?: MeterCreateManyZoneInputEnvelope
+    connect?: MeterWhereUniqueInput | MeterWhereUniqueInput[]
+  }
+
+  export type MaintenanceCreateNestedManyWithoutZoneInput = {
+    create?: XOR<MaintenanceCreateWithoutZoneInput, MaintenanceUncheckedCreateWithoutZoneInput> | MaintenanceCreateWithoutZoneInput[] | MaintenanceUncheckedCreateWithoutZoneInput[]
+    connectOrCreate?: MaintenanceCreateOrConnectWithoutZoneInput | MaintenanceCreateOrConnectWithoutZoneInput[]
+    createMany?: MaintenanceCreateManyZoneInputEnvelope
+    connect?: MaintenanceWhereUniqueInput | MaintenanceWhereUniqueInput[]
+  }
+
   export type SpaceUncheckedCreateNestedManyWithoutZoneInput = {
     create?: XOR<SpaceCreateWithoutZoneInput, SpaceUncheckedCreateWithoutZoneInput> | SpaceCreateWithoutZoneInput[] | SpaceUncheckedCreateWithoutZoneInput[]
     connectOrCreate?: SpaceCreateOrConnectWithoutZoneInput | SpaceCreateOrConnectWithoutZoneInput[]
@@ -47205,6 +52371,27 @@ export namespace Prisma {
     create?: XOR<FileCreateWithoutZonesInput, FileUncheckedCreateWithoutZonesInput> | FileCreateWithoutZonesInput[] | FileUncheckedCreateWithoutZonesInput[]
     connectOrCreate?: FileCreateOrConnectWithoutZonesInput | FileCreateOrConnectWithoutZonesInput[]
     connect?: FileWhereUniqueInput | FileWhereUniqueInput[]
+  }
+
+  export type MaintenanceItemUncheckedCreateNestedManyWithoutZoneInput = {
+    create?: XOR<MaintenanceItemCreateWithoutZoneInput, MaintenanceItemUncheckedCreateWithoutZoneInput> | MaintenanceItemCreateWithoutZoneInput[] | MaintenanceItemUncheckedCreateWithoutZoneInput[]
+    connectOrCreate?: MaintenanceItemCreateOrConnectWithoutZoneInput | MaintenanceItemCreateOrConnectWithoutZoneInput[]
+    createMany?: MaintenanceItemCreateManyZoneInputEnvelope
+    connect?: MaintenanceItemWhereUniqueInput | MaintenanceItemWhereUniqueInput[]
+  }
+
+  export type MeterUncheckedCreateNestedManyWithoutZoneInput = {
+    create?: XOR<MeterCreateWithoutZoneInput, MeterUncheckedCreateWithoutZoneInput> | MeterCreateWithoutZoneInput[] | MeterUncheckedCreateWithoutZoneInput[]
+    connectOrCreate?: MeterCreateOrConnectWithoutZoneInput | MeterCreateOrConnectWithoutZoneInput[]
+    createMany?: MeterCreateManyZoneInputEnvelope
+    connect?: MeterWhereUniqueInput | MeterWhereUniqueInput[]
+  }
+
+  export type MaintenanceUncheckedCreateNestedManyWithoutZoneInput = {
+    create?: XOR<MaintenanceCreateWithoutZoneInput, MaintenanceUncheckedCreateWithoutZoneInput> | MaintenanceCreateWithoutZoneInput[] | MaintenanceUncheckedCreateWithoutZoneInput[]
+    connectOrCreate?: MaintenanceCreateOrConnectWithoutZoneInput | MaintenanceCreateOrConnectWithoutZoneInput[]
+    createMany?: MaintenanceCreateManyZoneInputEnvelope
+    connect?: MaintenanceWhereUniqueInput | MaintenanceWhereUniqueInput[]
   }
 
   export type NullableDecimalFieldUpdateOperationsInput = {
@@ -47260,6 +52447,48 @@ export namespace Prisma {
     deleteMany?: FileScalarWhereInput | FileScalarWhereInput[]
   }
 
+  export type MaintenanceItemUpdateManyWithoutZoneNestedInput = {
+    create?: XOR<MaintenanceItemCreateWithoutZoneInput, MaintenanceItemUncheckedCreateWithoutZoneInput> | MaintenanceItemCreateWithoutZoneInput[] | MaintenanceItemUncheckedCreateWithoutZoneInput[]
+    connectOrCreate?: MaintenanceItemCreateOrConnectWithoutZoneInput | MaintenanceItemCreateOrConnectWithoutZoneInput[]
+    upsert?: MaintenanceItemUpsertWithWhereUniqueWithoutZoneInput | MaintenanceItemUpsertWithWhereUniqueWithoutZoneInput[]
+    createMany?: MaintenanceItemCreateManyZoneInputEnvelope
+    set?: MaintenanceItemWhereUniqueInput | MaintenanceItemWhereUniqueInput[]
+    disconnect?: MaintenanceItemWhereUniqueInput | MaintenanceItemWhereUniqueInput[]
+    delete?: MaintenanceItemWhereUniqueInput | MaintenanceItemWhereUniqueInput[]
+    connect?: MaintenanceItemWhereUniqueInput | MaintenanceItemWhereUniqueInput[]
+    update?: MaintenanceItemUpdateWithWhereUniqueWithoutZoneInput | MaintenanceItemUpdateWithWhereUniqueWithoutZoneInput[]
+    updateMany?: MaintenanceItemUpdateManyWithWhereWithoutZoneInput | MaintenanceItemUpdateManyWithWhereWithoutZoneInput[]
+    deleteMany?: MaintenanceItemScalarWhereInput | MaintenanceItemScalarWhereInput[]
+  }
+
+  export type MeterUpdateManyWithoutZoneNestedInput = {
+    create?: XOR<MeterCreateWithoutZoneInput, MeterUncheckedCreateWithoutZoneInput> | MeterCreateWithoutZoneInput[] | MeterUncheckedCreateWithoutZoneInput[]
+    connectOrCreate?: MeterCreateOrConnectWithoutZoneInput | MeterCreateOrConnectWithoutZoneInput[]
+    upsert?: MeterUpsertWithWhereUniqueWithoutZoneInput | MeterUpsertWithWhereUniqueWithoutZoneInput[]
+    createMany?: MeterCreateManyZoneInputEnvelope
+    set?: MeterWhereUniqueInput | MeterWhereUniqueInput[]
+    disconnect?: MeterWhereUniqueInput | MeterWhereUniqueInput[]
+    delete?: MeterWhereUniqueInput | MeterWhereUniqueInput[]
+    connect?: MeterWhereUniqueInput | MeterWhereUniqueInput[]
+    update?: MeterUpdateWithWhereUniqueWithoutZoneInput | MeterUpdateWithWhereUniqueWithoutZoneInput[]
+    updateMany?: MeterUpdateManyWithWhereWithoutZoneInput | MeterUpdateManyWithWhereWithoutZoneInput[]
+    deleteMany?: MeterScalarWhereInput | MeterScalarWhereInput[]
+  }
+
+  export type MaintenanceUpdateManyWithoutZoneNestedInput = {
+    create?: XOR<MaintenanceCreateWithoutZoneInput, MaintenanceUncheckedCreateWithoutZoneInput> | MaintenanceCreateWithoutZoneInput[] | MaintenanceUncheckedCreateWithoutZoneInput[]
+    connectOrCreate?: MaintenanceCreateOrConnectWithoutZoneInput | MaintenanceCreateOrConnectWithoutZoneInput[]
+    upsert?: MaintenanceUpsertWithWhereUniqueWithoutZoneInput | MaintenanceUpsertWithWhereUniqueWithoutZoneInput[]
+    createMany?: MaintenanceCreateManyZoneInputEnvelope
+    set?: MaintenanceWhereUniqueInput | MaintenanceWhereUniqueInput[]
+    disconnect?: MaintenanceWhereUniqueInput | MaintenanceWhereUniqueInput[]
+    delete?: MaintenanceWhereUniqueInput | MaintenanceWhereUniqueInput[]
+    connect?: MaintenanceWhereUniqueInput | MaintenanceWhereUniqueInput[]
+    update?: MaintenanceUpdateWithWhereUniqueWithoutZoneInput | MaintenanceUpdateWithWhereUniqueWithoutZoneInput[]
+    updateMany?: MaintenanceUpdateManyWithWhereWithoutZoneInput | MaintenanceUpdateManyWithWhereWithoutZoneInput[]
+    deleteMany?: MaintenanceScalarWhereInput | MaintenanceScalarWhereInput[]
+  }
+
   export type SpaceUncheckedUpdateManyWithoutZoneNestedInput = {
     create?: XOR<SpaceCreateWithoutZoneInput, SpaceUncheckedCreateWithoutZoneInput> | SpaceCreateWithoutZoneInput[] | SpaceUncheckedCreateWithoutZoneInput[]
     connectOrCreate?: SpaceCreateOrConnectWithoutZoneInput | SpaceCreateOrConnectWithoutZoneInput[]
@@ -47285,6 +52514,48 @@ export namespace Prisma {
     update?: FileUpdateWithWhereUniqueWithoutZonesInput | FileUpdateWithWhereUniqueWithoutZonesInput[]
     updateMany?: FileUpdateManyWithWhereWithoutZonesInput | FileUpdateManyWithWhereWithoutZonesInput[]
     deleteMany?: FileScalarWhereInput | FileScalarWhereInput[]
+  }
+
+  export type MaintenanceItemUncheckedUpdateManyWithoutZoneNestedInput = {
+    create?: XOR<MaintenanceItemCreateWithoutZoneInput, MaintenanceItemUncheckedCreateWithoutZoneInput> | MaintenanceItemCreateWithoutZoneInput[] | MaintenanceItemUncheckedCreateWithoutZoneInput[]
+    connectOrCreate?: MaintenanceItemCreateOrConnectWithoutZoneInput | MaintenanceItemCreateOrConnectWithoutZoneInput[]
+    upsert?: MaintenanceItemUpsertWithWhereUniqueWithoutZoneInput | MaintenanceItemUpsertWithWhereUniqueWithoutZoneInput[]
+    createMany?: MaintenanceItemCreateManyZoneInputEnvelope
+    set?: MaintenanceItemWhereUniqueInput | MaintenanceItemWhereUniqueInput[]
+    disconnect?: MaintenanceItemWhereUniqueInput | MaintenanceItemWhereUniqueInput[]
+    delete?: MaintenanceItemWhereUniqueInput | MaintenanceItemWhereUniqueInput[]
+    connect?: MaintenanceItemWhereUniqueInput | MaintenanceItemWhereUniqueInput[]
+    update?: MaintenanceItemUpdateWithWhereUniqueWithoutZoneInput | MaintenanceItemUpdateWithWhereUniqueWithoutZoneInput[]
+    updateMany?: MaintenanceItemUpdateManyWithWhereWithoutZoneInput | MaintenanceItemUpdateManyWithWhereWithoutZoneInput[]
+    deleteMany?: MaintenanceItemScalarWhereInput | MaintenanceItemScalarWhereInput[]
+  }
+
+  export type MeterUncheckedUpdateManyWithoutZoneNestedInput = {
+    create?: XOR<MeterCreateWithoutZoneInput, MeterUncheckedCreateWithoutZoneInput> | MeterCreateWithoutZoneInput[] | MeterUncheckedCreateWithoutZoneInput[]
+    connectOrCreate?: MeterCreateOrConnectWithoutZoneInput | MeterCreateOrConnectWithoutZoneInput[]
+    upsert?: MeterUpsertWithWhereUniqueWithoutZoneInput | MeterUpsertWithWhereUniqueWithoutZoneInput[]
+    createMany?: MeterCreateManyZoneInputEnvelope
+    set?: MeterWhereUniqueInput | MeterWhereUniqueInput[]
+    disconnect?: MeterWhereUniqueInput | MeterWhereUniqueInput[]
+    delete?: MeterWhereUniqueInput | MeterWhereUniqueInput[]
+    connect?: MeterWhereUniqueInput | MeterWhereUniqueInput[]
+    update?: MeterUpdateWithWhereUniqueWithoutZoneInput | MeterUpdateWithWhereUniqueWithoutZoneInput[]
+    updateMany?: MeterUpdateManyWithWhereWithoutZoneInput | MeterUpdateManyWithWhereWithoutZoneInput[]
+    deleteMany?: MeterScalarWhereInput | MeterScalarWhereInput[]
+  }
+
+  export type MaintenanceUncheckedUpdateManyWithoutZoneNestedInput = {
+    create?: XOR<MaintenanceCreateWithoutZoneInput, MaintenanceUncheckedCreateWithoutZoneInput> | MaintenanceCreateWithoutZoneInput[] | MaintenanceUncheckedCreateWithoutZoneInput[]
+    connectOrCreate?: MaintenanceCreateOrConnectWithoutZoneInput | MaintenanceCreateOrConnectWithoutZoneInput[]
+    upsert?: MaintenanceUpsertWithWhereUniqueWithoutZoneInput | MaintenanceUpsertWithWhereUniqueWithoutZoneInput[]
+    createMany?: MaintenanceCreateManyZoneInputEnvelope
+    set?: MaintenanceWhereUniqueInput | MaintenanceWhereUniqueInput[]
+    disconnect?: MaintenanceWhereUniqueInput | MaintenanceWhereUniqueInput[]
+    delete?: MaintenanceWhereUniqueInput | MaintenanceWhereUniqueInput[]
+    connect?: MaintenanceWhereUniqueInput | MaintenanceWhereUniqueInput[]
+    update?: MaintenanceUpdateWithWhereUniqueWithoutZoneInput | MaintenanceUpdateWithWhereUniqueWithoutZoneInput[]
+    updateMany?: MaintenanceUpdateManyWithWhereWithoutZoneInput | MaintenanceUpdateManyWithWhereWithoutZoneInput[]
+    deleteMany?: MaintenanceScalarWhereInput | MaintenanceScalarWhereInput[]
   }
 
   export type CalenderEntityCreateNestedOneWithoutSpacesInput = {
@@ -47319,6 +52590,13 @@ export namespace Prisma {
     connect?: PreventiveWhereUniqueInput | PreventiveWhereUniqueInput[]
   }
 
+  export type MeterCreateNestedManyWithoutSpaceInput = {
+    create?: XOR<MeterCreateWithoutSpaceInput, MeterUncheckedCreateWithoutSpaceInput> | MeterCreateWithoutSpaceInput[] | MeterUncheckedCreateWithoutSpaceInput[]
+    connectOrCreate?: MeterCreateOrConnectWithoutSpaceInput | MeterCreateOrConnectWithoutSpaceInput[]
+    createMany?: MeterCreateManySpaceInputEnvelope
+    connect?: MeterWhereUniqueInput | MeterWhereUniqueInput[]
+  }
+
   export type AssetCreateNestedManyWithoutSpaceInput = {
     create?: XOR<AssetCreateWithoutSpaceInput, AssetUncheckedCreateWithoutSpaceInput> | AssetCreateWithoutSpaceInput[] | AssetUncheckedCreateWithoutSpaceInput[]
     connectOrCreate?: AssetCreateOrConnectWithoutSpaceInput | AssetCreateOrConnectWithoutSpaceInput[]
@@ -47344,6 +52622,13 @@ export namespace Prisma {
     connectOrCreate?: PreventiveCreateOrConnectWithoutSpaceInput | PreventiveCreateOrConnectWithoutSpaceInput[]
     createMany?: PreventiveCreateManySpaceInputEnvelope
     connect?: PreventiveWhereUniqueInput | PreventiveWhereUniqueInput[]
+  }
+
+  export type MeterUncheckedCreateNestedManyWithoutSpaceInput = {
+    create?: XOR<MeterCreateWithoutSpaceInput, MeterUncheckedCreateWithoutSpaceInput> | MeterCreateWithoutSpaceInput[] | MeterUncheckedCreateWithoutSpaceInput[]
+    connectOrCreate?: MeterCreateOrConnectWithoutSpaceInput | MeterCreateOrConnectWithoutSpaceInput[]
+    createMany?: MeterCreateManySpaceInputEnvelope
+    connect?: MeterWhereUniqueInput | MeterWhereUniqueInput[]
   }
 
   export type AssetUncheckedCreateNestedManyWithoutSpaceInput = {
@@ -47416,6 +52701,20 @@ export namespace Prisma {
     deleteMany?: PreventiveScalarWhereInput | PreventiveScalarWhereInput[]
   }
 
+  export type MeterUpdateManyWithoutSpaceNestedInput = {
+    create?: XOR<MeterCreateWithoutSpaceInput, MeterUncheckedCreateWithoutSpaceInput> | MeterCreateWithoutSpaceInput[] | MeterUncheckedCreateWithoutSpaceInput[]
+    connectOrCreate?: MeterCreateOrConnectWithoutSpaceInput | MeterCreateOrConnectWithoutSpaceInput[]
+    upsert?: MeterUpsertWithWhereUniqueWithoutSpaceInput | MeterUpsertWithWhereUniqueWithoutSpaceInput[]
+    createMany?: MeterCreateManySpaceInputEnvelope
+    set?: MeterWhereUniqueInput | MeterWhereUniqueInput[]
+    disconnect?: MeterWhereUniqueInput | MeterWhereUniqueInput[]
+    delete?: MeterWhereUniqueInput | MeterWhereUniqueInput[]
+    connect?: MeterWhereUniqueInput | MeterWhereUniqueInput[]
+    update?: MeterUpdateWithWhereUniqueWithoutSpaceInput | MeterUpdateWithWhereUniqueWithoutSpaceInput[]
+    updateMany?: MeterUpdateManyWithWhereWithoutSpaceInput | MeterUpdateManyWithWhereWithoutSpaceInput[]
+    deleteMany?: MeterScalarWhereInput | MeterScalarWhereInput[]
+  }
+
   export type AssetUpdateManyWithoutSpaceNestedInput = {
     create?: XOR<AssetCreateWithoutSpaceInput, AssetUncheckedCreateWithoutSpaceInput> | AssetCreateWithoutSpaceInput[] | AssetUncheckedCreateWithoutSpaceInput[]
     connectOrCreate?: AssetCreateOrConnectWithoutSpaceInput | AssetCreateOrConnectWithoutSpaceInput[]
@@ -47469,6 +52768,20 @@ export namespace Prisma {
     update?: PreventiveUpdateWithWhereUniqueWithoutSpaceInput | PreventiveUpdateWithWhereUniqueWithoutSpaceInput[]
     updateMany?: PreventiveUpdateManyWithWhereWithoutSpaceInput | PreventiveUpdateManyWithWhereWithoutSpaceInput[]
     deleteMany?: PreventiveScalarWhereInput | PreventiveScalarWhereInput[]
+  }
+
+  export type MeterUncheckedUpdateManyWithoutSpaceNestedInput = {
+    create?: XOR<MeterCreateWithoutSpaceInput, MeterUncheckedCreateWithoutSpaceInput> | MeterCreateWithoutSpaceInput[] | MeterUncheckedCreateWithoutSpaceInput[]
+    connectOrCreate?: MeterCreateOrConnectWithoutSpaceInput | MeterCreateOrConnectWithoutSpaceInput[]
+    upsert?: MeterUpsertWithWhereUniqueWithoutSpaceInput | MeterUpsertWithWhereUniqueWithoutSpaceInput[]
+    createMany?: MeterCreateManySpaceInputEnvelope
+    set?: MeterWhereUniqueInput | MeterWhereUniqueInput[]
+    disconnect?: MeterWhereUniqueInput | MeterWhereUniqueInput[]
+    delete?: MeterWhereUniqueInput | MeterWhereUniqueInput[]
+    connect?: MeterWhereUniqueInput | MeterWhereUniqueInput[]
+    update?: MeterUpdateWithWhereUniqueWithoutSpaceInput | MeterUpdateWithWhereUniqueWithoutSpaceInput[]
+    updateMany?: MeterUpdateManyWithWhereWithoutSpaceInput | MeterUpdateManyWithWhereWithoutSpaceInput[]
+    deleteMany?: MeterScalarWhereInput | MeterScalarWhereInput[]
   }
 
   export type AssetUncheckedUpdateManyWithoutSpaceNestedInput = {
@@ -47570,6 +52883,13 @@ export namespace Prisma {
     connect?: PreventiveWhereUniqueInput | PreventiveWhereUniqueInput[]
   }
 
+  export type MeterCreateNestedManyWithoutAssetInput = {
+    create?: XOR<MeterCreateWithoutAssetInput, MeterUncheckedCreateWithoutAssetInput> | MeterCreateWithoutAssetInput[] | MeterUncheckedCreateWithoutAssetInput[]
+    connectOrCreate?: MeterCreateOrConnectWithoutAssetInput | MeterCreateOrConnectWithoutAssetInput[]
+    createMany?: MeterCreateManyAssetInputEnvelope
+    connect?: MeterWhereUniqueInput | MeterWhereUniqueInput[]
+  }
+
   export type AssetUncheckedCreateNestedManyWithoutParentSystemInput = {
     create?: XOR<AssetCreateWithoutParentSystemInput, AssetUncheckedCreateWithoutParentSystemInput> | AssetCreateWithoutParentSystemInput[] | AssetUncheckedCreateWithoutParentSystemInput[]
     connectOrCreate?: AssetCreateOrConnectWithoutParentSystemInput | AssetCreateOrConnectWithoutParentSystemInput[]
@@ -47589,6 +52909,13 @@ export namespace Prisma {
     connectOrCreate?: PreventiveCreateOrConnectWithoutAssetInput | PreventiveCreateOrConnectWithoutAssetInput[]
     createMany?: PreventiveCreateManyAssetInputEnvelope
     connect?: PreventiveWhereUniqueInput | PreventiveWhereUniqueInput[]
+  }
+
+  export type MeterUncheckedCreateNestedManyWithoutAssetInput = {
+    create?: XOR<MeterCreateWithoutAssetInput, MeterUncheckedCreateWithoutAssetInput> | MeterCreateWithoutAssetInput[] | MeterUncheckedCreateWithoutAssetInput[]
+    connectOrCreate?: MeterCreateOrConnectWithoutAssetInput | MeterCreateOrConnectWithoutAssetInput[]
+    createMany?: MeterCreateManyAssetInputEnvelope
+    connect?: MeterWhereUniqueInput | MeterWhereUniqueInput[]
   }
 
   export type AssetCategoryUpdateOneRequiredWithoutAssetsNestedInput = {
@@ -47661,6 +52988,20 @@ export namespace Prisma {
     deleteMany?: PreventiveScalarWhereInput | PreventiveScalarWhereInput[]
   }
 
+  export type MeterUpdateManyWithoutAssetNestedInput = {
+    create?: XOR<MeterCreateWithoutAssetInput, MeterUncheckedCreateWithoutAssetInput> | MeterCreateWithoutAssetInput[] | MeterUncheckedCreateWithoutAssetInput[]
+    connectOrCreate?: MeterCreateOrConnectWithoutAssetInput | MeterCreateOrConnectWithoutAssetInput[]
+    upsert?: MeterUpsertWithWhereUniqueWithoutAssetInput | MeterUpsertWithWhereUniqueWithoutAssetInput[]
+    createMany?: MeterCreateManyAssetInputEnvelope
+    set?: MeterWhereUniqueInput | MeterWhereUniqueInput[]
+    disconnect?: MeterWhereUniqueInput | MeterWhereUniqueInput[]
+    delete?: MeterWhereUniqueInput | MeterWhereUniqueInput[]
+    connect?: MeterWhereUniqueInput | MeterWhereUniqueInput[]
+    update?: MeterUpdateWithWhereUniqueWithoutAssetInput | MeterUpdateWithWhereUniqueWithoutAssetInput[]
+    updateMany?: MeterUpdateManyWithWhereWithoutAssetInput | MeterUpdateManyWithWhereWithoutAssetInput[]
+    deleteMany?: MeterScalarWhereInput | MeterScalarWhereInput[]
+  }
+
   export type AssetUncheckedUpdateManyWithoutParentSystemNestedInput = {
     create?: XOR<AssetCreateWithoutParentSystemInput, AssetUncheckedCreateWithoutParentSystemInput> | AssetCreateWithoutParentSystemInput[] | AssetUncheckedCreateWithoutParentSystemInput[]
     connectOrCreate?: AssetCreateOrConnectWithoutParentSystemInput | AssetCreateOrConnectWithoutParentSystemInput[]
@@ -47701,6 +53042,20 @@ export namespace Prisma {
     update?: PreventiveUpdateWithWhereUniqueWithoutAssetInput | PreventiveUpdateWithWhereUniqueWithoutAssetInput[]
     updateMany?: PreventiveUpdateManyWithWhereWithoutAssetInput | PreventiveUpdateManyWithWhereWithoutAssetInput[]
     deleteMany?: PreventiveScalarWhereInput | PreventiveScalarWhereInput[]
+  }
+
+  export type MeterUncheckedUpdateManyWithoutAssetNestedInput = {
+    create?: XOR<MeterCreateWithoutAssetInput, MeterUncheckedCreateWithoutAssetInput> | MeterCreateWithoutAssetInput[] | MeterUncheckedCreateWithoutAssetInput[]
+    connectOrCreate?: MeterCreateOrConnectWithoutAssetInput | MeterCreateOrConnectWithoutAssetInput[]
+    upsert?: MeterUpsertWithWhereUniqueWithoutAssetInput | MeterUpsertWithWhereUniqueWithoutAssetInput[]
+    createMany?: MeterCreateManyAssetInputEnvelope
+    set?: MeterWhereUniqueInput | MeterWhereUniqueInput[]
+    disconnect?: MeterWhereUniqueInput | MeterWhereUniqueInput[]
+    delete?: MeterWhereUniqueInput | MeterWhereUniqueInput[]
+    connect?: MeterWhereUniqueInput | MeterWhereUniqueInput[]
+    update?: MeterUpdateWithWhereUniqueWithoutAssetInput | MeterUpdateWithWhereUniqueWithoutAssetInput[]
+    updateMany?: MeterUpdateManyWithWhereWithoutAssetInput | MeterUpdateManyWithWhereWithoutAssetInput[]
+    deleteMany?: MeterScalarWhereInput | MeterScalarWhereInput[]
   }
 
   export type SpaceCreateNestedManyWithoutPhotosInput = {
@@ -48449,12 +53804,6 @@ export namespace Prisma {
     deleteMany?: UserScalarWhereInput | UserScalarWhereInput[]
   }
 
-  export type UserCreateNestedOneWithoutPerformedMaintenancesInput = {
-    create?: XOR<UserCreateWithoutPerformedMaintenancesInput, UserUncheckedCreateWithoutPerformedMaintenancesInput>
-    connectOrCreate?: UserCreateOrConnectWithoutPerformedMaintenancesInput
-    connect?: UserWhereUniqueInput
-  }
-
   export type UserCreateNestedOneWithoutRequestedMaintenancesInput = {
     create?: XOR<UserCreateWithoutRequestedMaintenancesInput, UserUncheckedCreateWithoutRequestedMaintenancesInput>
     connectOrCreate?: UserCreateOrConnectWithoutRequestedMaintenancesInput
@@ -48489,6 +53838,12 @@ export namespace Prisma {
     create?: XOR<FloorCreateWithoutMaintenancesInput, FloorUncheckedCreateWithoutMaintenancesInput>
     connectOrCreate?: FloorCreateOrConnectWithoutMaintenancesInput
     connect?: FloorWhereUniqueInput
+  }
+
+  export type ZoneCreateNestedOneWithoutMaintenancesInput = {
+    create?: XOR<ZoneCreateWithoutMaintenancesInput, ZoneUncheckedCreateWithoutMaintenancesInput>
+    connectOrCreate?: ZoneCreateOrConnectWithoutMaintenancesInput
+    connect?: ZoneWhereUniqueInput
   }
 
   export type SpaceCreateNestedOneWithoutMaintenancesInput = {
@@ -48541,6 +53896,10 @@ export namespace Prisma {
     set?: $Enums.MaintenanceType
   }
 
+  export type NullableEnumPerformerReferenceFieldUpdateOperationsInput = {
+    set?: $Enums.PerformerReference | null
+  }
+
   export type EnumStatusFieldUpdateOperationsInput = {
     set?: $Enums.Status
   }
@@ -48551,16 +53910,6 @@ export namespace Prisma {
 
   export type EnumPriorityFieldUpdateOperationsInput = {
     set?: $Enums.Priority
-  }
-
-  export type UserUpdateOneWithoutPerformedMaintenancesNestedInput = {
-    create?: XOR<UserCreateWithoutPerformedMaintenancesInput, UserUncheckedCreateWithoutPerformedMaintenancesInput>
-    connectOrCreate?: UserCreateOrConnectWithoutPerformedMaintenancesInput
-    upsert?: UserUpsertWithoutPerformedMaintenancesInput
-    disconnect?: UserWhereInput | boolean
-    delete?: UserWhereInput | boolean
-    connect?: UserWhereUniqueInput
-    update?: XOR<XOR<UserUpdateToOneWithWhereWithoutPerformedMaintenancesInput, UserUpdateWithoutPerformedMaintenancesInput>, UserUncheckedUpdateWithoutPerformedMaintenancesInput>
   }
 
   export type UserUpdateOneWithoutRequestedMaintenancesNestedInput = {
@@ -48619,6 +53968,16 @@ export namespace Prisma {
     delete?: FloorWhereInput | boolean
     connect?: FloorWhereUniqueInput
     update?: XOR<XOR<FloorUpdateToOneWithWhereWithoutMaintenancesInput, FloorUpdateWithoutMaintenancesInput>, FloorUncheckedUpdateWithoutMaintenancesInput>
+  }
+
+  export type ZoneUpdateOneWithoutMaintenancesNestedInput = {
+    create?: XOR<ZoneCreateWithoutMaintenancesInput, ZoneUncheckedCreateWithoutMaintenancesInput>
+    connectOrCreate?: ZoneCreateOrConnectWithoutMaintenancesInput
+    upsert?: ZoneUpsertWithoutMaintenancesInput
+    disconnect?: ZoneWhereInput | boolean
+    delete?: ZoneWhereInput | boolean
+    connect?: ZoneWhereUniqueInput
+    update?: XOR<XOR<ZoneUpdateToOneWithWhereWithoutMaintenancesInput, ZoneUpdateWithoutMaintenancesInput>, ZoneUncheckedUpdateWithoutMaintenancesInput>
   }
 
   export type SpaceUpdateOneWithoutMaintenancesNestedInput = {
@@ -48743,6 +54102,20 @@ export namespace Prisma {
     connect?: TeamWhereUniqueInput
   }
 
+  export type MeterMaintenanceTriggerCreateNestedManyWithoutPreventiveInput = {
+    create?: XOR<MeterMaintenanceTriggerCreateWithoutPreventiveInput, MeterMaintenanceTriggerUncheckedCreateWithoutPreventiveInput> | MeterMaintenanceTriggerCreateWithoutPreventiveInput[] | MeterMaintenanceTriggerUncheckedCreateWithoutPreventiveInput[]
+    connectOrCreate?: MeterMaintenanceTriggerCreateOrConnectWithoutPreventiveInput | MeterMaintenanceTriggerCreateOrConnectWithoutPreventiveInput[]
+    createMany?: MeterMaintenanceTriggerCreateManyPreventiveInputEnvelope
+    connect?: MeterMaintenanceTriggerWhereUniqueInput | MeterMaintenanceTriggerWhereUniqueInput[]
+  }
+
+  export type MeterMaintenanceTriggerUncheckedCreateNestedManyWithoutPreventiveInput = {
+    create?: XOR<MeterMaintenanceTriggerCreateWithoutPreventiveInput, MeterMaintenanceTriggerUncheckedCreateWithoutPreventiveInput> | MeterMaintenanceTriggerCreateWithoutPreventiveInput[] | MeterMaintenanceTriggerUncheckedCreateWithoutPreventiveInput[]
+    connectOrCreate?: MeterMaintenanceTriggerCreateOrConnectWithoutPreventiveInput | MeterMaintenanceTriggerCreateOrConnectWithoutPreventiveInput[]
+    createMany?: MeterMaintenanceTriggerCreateManyPreventiveInputEnvelope
+    connect?: MeterMaintenanceTriggerWhereUniqueInput | MeterMaintenanceTriggerWhereUniqueInput[]
+  }
+
   export type EnumFrequencyFieldUpdateOperationsInput = {
     set?: $Enums.Frequency
   }
@@ -48803,6 +54176,34 @@ export namespace Prisma {
     delete?: TeamWhereInput | boolean
     connect?: TeamWhereUniqueInput
     update?: XOR<XOR<TeamUpdateToOneWithWhereWithoutPreventivesInput, TeamUpdateWithoutPreventivesInput>, TeamUncheckedUpdateWithoutPreventivesInput>
+  }
+
+  export type MeterMaintenanceTriggerUpdateManyWithoutPreventiveNestedInput = {
+    create?: XOR<MeterMaintenanceTriggerCreateWithoutPreventiveInput, MeterMaintenanceTriggerUncheckedCreateWithoutPreventiveInput> | MeterMaintenanceTriggerCreateWithoutPreventiveInput[] | MeterMaintenanceTriggerUncheckedCreateWithoutPreventiveInput[]
+    connectOrCreate?: MeterMaintenanceTriggerCreateOrConnectWithoutPreventiveInput | MeterMaintenanceTriggerCreateOrConnectWithoutPreventiveInput[]
+    upsert?: MeterMaintenanceTriggerUpsertWithWhereUniqueWithoutPreventiveInput | MeterMaintenanceTriggerUpsertWithWhereUniqueWithoutPreventiveInput[]
+    createMany?: MeterMaintenanceTriggerCreateManyPreventiveInputEnvelope
+    set?: MeterMaintenanceTriggerWhereUniqueInput | MeterMaintenanceTriggerWhereUniqueInput[]
+    disconnect?: MeterMaintenanceTriggerWhereUniqueInput | MeterMaintenanceTriggerWhereUniqueInput[]
+    delete?: MeterMaintenanceTriggerWhereUniqueInput | MeterMaintenanceTriggerWhereUniqueInput[]
+    connect?: MeterMaintenanceTriggerWhereUniqueInput | MeterMaintenanceTriggerWhereUniqueInput[]
+    update?: MeterMaintenanceTriggerUpdateWithWhereUniqueWithoutPreventiveInput | MeterMaintenanceTriggerUpdateWithWhereUniqueWithoutPreventiveInput[]
+    updateMany?: MeterMaintenanceTriggerUpdateManyWithWhereWithoutPreventiveInput | MeterMaintenanceTriggerUpdateManyWithWhereWithoutPreventiveInput[]
+    deleteMany?: MeterMaintenanceTriggerScalarWhereInput | MeterMaintenanceTriggerScalarWhereInput[]
+  }
+
+  export type MeterMaintenanceTriggerUncheckedUpdateManyWithoutPreventiveNestedInput = {
+    create?: XOR<MeterMaintenanceTriggerCreateWithoutPreventiveInput, MeterMaintenanceTriggerUncheckedCreateWithoutPreventiveInput> | MeterMaintenanceTriggerCreateWithoutPreventiveInput[] | MeterMaintenanceTriggerUncheckedCreateWithoutPreventiveInput[]
+    connectOrCreate?: MeterMaintenanceTriggerCreateOrConnectWithoutPreventiveInput | MeterMaintenanceTriggerCreateOrConnectWithoutPreventiveInput[]
+    upsert?: MeterMaintenanceTriggerUpsertWithWhereUniqueWithoutPreventiveInput | MeterMaintenanceTriggerUpsertWithWhereUniqueWithoutPreventiveInput[]
+    createMany?: MeterMaintenanceTriggerCreateManyPreventiveInputEnvelope
+    set?: MeterMaintenanceTriggerWhereUniqueInput | MeterMaintenanceTriggerWhereUniqueInput[]
+    disconnect?: MeterMaintenanceTriggerWhereUniqueInput | MeterMaintenanceTriggerWhereUniqueInput[]
+    delete?: MeterMaintenanceTriggerWhereUniqueInput | MeterMaintenanceTriggerWhereUniqueInput[]
+    connect?: MeterMaintenanceTriggerWhereUniqueInput | MeterMaintenanceTriggerWhereUniqueInput[]
+    update?: MeterMaintenanceTriggerUpdateWithWhereUniqueWithoutPreventiveInput | MeterMaintenanceTriggerUpdateWithWhereUniqueWithoutPreventiveInput[]
+    updateMany?: MeterMaintenanceTriggerUpdateManyWithWhereWithoutPreventiveInput | MeterMaintenanceTriggerUpdateManyWithWhereWithoutPreventiveInput[]
+    deleteMany?: MeterMaintenanceTriggerScalarWhereInput | MeterMaintenanceTriggerScalarWhereInput[]
   }
 
   export type AddressCreateNestedOneWithoutWarehousesInput = {
@@ -49121,8 +54522,8 @@ export namespace Prisma {
     set?: $Enums.StockMovementType
   }
 
-  export type NullableEnumStockReferenceTypeFieldUpdateOperationsInput = {
-    set?: $Enums.StockReferenceType | null
+  export type EnumStockReferenceTypeFieldUpdateOperationsInput = {
+    set?: $Enums.StockReferenceType
   }
 
   export type ItemUpdateOneRequiredWithoutStockMovementsNestedInput = {
@@ -49163,6 +54564,12 @@ export namespace Prisma {
     connect?: ItemWhereUniqueInput
   }
 
+  export type ZoneCreateNestedOneWithoutItemsInput = {
+    create?: XOR<ZoneCreateWithoutItemsInput, ZoneUncheckedCreateWithoutItemsInput>
+    connectOrCreate?: ZoneCreateOrConnectWithoutItemsInput
+    connect?: ZoneWhereUniqueInput
+  }
+
   export type MaintenanceUpdateOneRequiredWithoutMaintenanceItemsNestedInput = {
     create?: XOR<MaintenanceCreateWithoutMaintenanceItemsInput, MaintenanceUncheckedCreateWithoutMaintenanceItemsInput>
     connectOrCreate?: MaintenanceCreateOrConnectWithoutMaintenanceItemsInput
@@ -49179,6 +54586,16 @@ export namespace Prisma {
     update?: XOR<XOR<ItemUpdateToOneWithWhereWithoutMaintenanceItemsInput, ItemUpdateWithoutMaintenanceItemsInput>, ItemUncheckedUpdateWithoutMaintenanceItemsInput>
   }
 
+  export type ZoneUpdateOneWithoutItemsNestedInput = {
+    create?: XOR<ZoneCreateWithoutItemsInput, ZoneUncheckedCreateWithoutItemsInput>
+    connectOrCreate?: ZoneCreateOrConnectWithoutItemsInput
+    upsert?: ZoneUpsertWithoutItemsInput
+    disconnect?: ZoneWhereInput | boolean
+    delete?: ZoneWhereInput | boolean
+    connect?: ZoneWhereUniqueInput
+    update?: XOR<XOR<ZoneUpdateToOneWithWhereWithoutItemsInput, ZoneUpdateWithoutItemsInput>, ZoneUncheckedUpdateWithoutItemsInput>
+  }
+
   export type UserCreateNestedOneWithoutRefreshTokensInput = {
     create?: XOR<UserCreateWithoutRefreshTokensInput, UserUncheckedCreateWithoutRefreshTokensInput>
     connectOrCreate?: UserCreateOrConnectWithoutRefreshTokensInput
@@ -49191,6 +54608,216 @@ export namespace Prisma {
     upsert?: UserUpsertWithoutRefreshTokensInput
     connect?: UserWhereUniqueInput
     update?: XOR<XOR<UserUpdateToOneWithWhereWithoutRefreshTokensInput, UserUpdateWithoutRefreshTokensInput>, UserUncheckedUpdateWithoutRefreshTokensInput>
+  }
+
+  export type AssetCreateNestedOneWithoutMetersInput = {
+    create?: XOR<AssetCreateWithoutMetersInput, AssetUncheckedCreateWithoutMetersInput>
+    connectOrCreate?: AssetCreateOrConnectWithoutMetersInput
+    connect?: AssetWhereUniqueInput
+  }
+
+  export type BuildingCreateNestedOneWithoutMetersInput = {
+    create?: XOR<BuildingCreateWithoutMetersInput, BuildingUncheckedCreateWithoutMetersInput>
+    connectOrCreate?: BuildingCreateOrConnectWithoutMetersInput
+    connect?: BuildingWhereUniqueInput
+  }
+
+  export type ZoneCreateNestedOneWithoutMetersInput = {
+    create?: XOR<ZoneCreateWithoutMetersInput, ZoneUncheckedCreateWithoutMetersInput>
+    connectOrCreate?: ZoneCreateOrConnectWithoutMetersInput
+    connect?: ZoneWhereUniqueInput
+  }
+
+  export type SpaceCreateNestedOneWithoutMetersInput = {
+    create?: XOR<SpaceCreateWithoutMetersInput, SpaceUncheckedCreateWithoutMetersInput>
+    connectOrCreate?: SpaceCreateOrConnectWithoutMetersInput
+    connect?: SpaceWhereUniqueInput
+  }
+
+  export type MeterReadingCreateNestedManyWithoutMeterInput = {
+    create?: XOR<MeterReadingCreateWithoutMeterInput, MeterReadingUncheckedCreateWithoutMeterInput> | MeterReadingCreateWithoutMeterInput[] | MeterReadingUncheckedCreateWithoutMeterInput[]
+    connectOrCreate?: MeterReadingCreateOrConnectWithoutMeterInput | MeterReadingCreateOrConnectWithoutMeterInput[]
+    createMany?: MeterReadingCreateManyMeterInputEnvelope
+    connect?: MeterReadingWhereUniqueInput | MeterReadingWhereUniqueInput[]
+  }
+
+  export type MeterMaintenanceTriggerCreateNestedManyWithoutMeterInput = {
+    create?: XOR<MeterMaintenanceTriggerCreateWithoutMeterInput, MeterMaintenanceTriggerUncheckedCreateWithoutMeterInput> | MeterMaintenanceTriggerCreateWithoutMeterInput[] | MeterMaintenanceTriggerUncheckedCreateWithoutMeterInput[]
+    connectOrCreate?: MeterMaintenanceTriggerCreateOrConnectWithoutMeterInput | MeterMaintenanceTriggerCreateOrConnectWithoutMeterInput[]
+    createMany?: MeterMaintenanceTriggerCreateManyMeterInputEnvelope
+    connect?: MeterMaintenanceTriggerWhereUniqueInput | MeterMaintenanceTriggerWhereUniqueInput[]
+  }
+
+  export type MeterReadingUncheckedCreateNestedManyWithoutMeterInput = {
+    create?: XOR<MeterReadingCreateWithoutMeterInput, MeterReadingUncheckedCreateWithoutMeterInput> | MeterReadingCreateWithoutMeterInput[] | MeterReadingUncheckedCreateWithoutMeterInput[]
+    connectOrCreate?: MeterReadingCreateOrConnectWithoutMeterInput | MeterReadingCreateOrConnectWithoutMeterInput[]
+    createMany?: MeterReadingCreateManyMeterInputEnvelope
+    connect?: MeterReadingWhereUniqueInput | MeterReadingWhereUniqueInput[]
+  }
+
+  export type MeterMaintenanceTriggerUncheckedCreateNestedManyWithoutMeterInput = {
+    create?: XOR<MeterMaintenanceTriggerCreateWithoutMeterInput, MeterMaintenanceTriggerUncheckedCreateWithoutMeterInput> | MeterMaintenanceTriggerCreateWithoutMeterInput[] | MeterMaintenanceTriggerUncheckedCreateWithoutMeterInput[]
+    connectOrCreate?: MeterMaintenanceTriggerCreateOrConnectWithoutMeterInput | MeterMaintenanceTriggerCreateOrConnectWithoutMeterInput[]
+    createMany?: MeterMaintenanceTriggerCreateManyMeterInputEnvelope
+    connect?: MeterMaintenanceTriggerWhereUniqueInput | MeterMaintenanceTriggerWhereUniqueInput[]
+  }
+
+  export type EnumMeterTypeFieldUpdateOperationsInput = {
+    set?: $Enums.MeterType
+  }
+
+  export type AssetUpdateOneWithoutMetersNestedInput = {
+    create?: XOR<AssetCreateWithoutMetersInput, AssetUncheckedCreateWithoutMetersInput>
+    connectOrCreate?: AssetCreateOrConnectWithoutMetersInput
+    upsert?: AssetUpsertWithoutMetersInput
+    disconnect?: AssetWhereInput | boolean
+    delete?: AssetWhereInput | boolean
+    connect?: AssetWhereUniqueInput
+    update?: XOR<XOR<AssetUpdateToOneWithWhereWithoutMetersInput, AssetUpdateWithoutMetersInput>, AssetUncheckedUpdateWithoutMetersInput>
+  }
+
+  export type BuildingUpdateOneWithoutMetersNestedInput = {
+    create?: XOR<BuildingCreateWithoutMetersInput, BuildingUncheckedCreateWithoutMetersInput>
+    connectOrCreate?: BuildingCreateOrConnectWithoutMetersInput
+    upsert?: BuildingUpsertWithoutMetersInput
+    disconnect?: BuildingWhereInput | boolean
+    delete?: BuildingWhereInput | boolean
+    connect?: BuildingWhereUniqueInput
+    update?: XOR<XOR<BuildingUpdateToOneWithWhereWithoutMetersInput, BuildingUpdateWithoutMetersInput>, BuildingUncheckedUpdateWithoutMetersInput>
+  }
+
+  export type ZoneUpdateOneWithoutMetersNestedInput = {
+    create?: XOR<ZoneCreateWithoutMetersInput, ZoneUncheckedCreateWithoutMetersInput>
+    connectOrCreate?: ZoneCreateOrConnectWithoutMetersInput
+    upsert?: ZoneUpsertWithoutMetersInput
+    disconnect?: ZoneWhereInput | boolean
+    delete?: ZoneWhereInput | boolean
+    connect?: ZoneWhereUniqueInput
+    update?: XOR<XOR<ZoneUpdateToOneWithWhereWithoutMetersInput, ZoneUpdateWithoutMetersInput>, ZoneUncheckedUpdateWithoutMetersInput>
+  }
+
+  export type SpaceUpdateOneWithoutMetersNestedInput = {
+    create?: XOR<SpaceCreateWithoutMetersInput, SpaceUncheckedCreateWithoutMetersInput>
+    connectOrCreate?: SpaceCreateOrConnectWithoutMetersInput
+    upsert?: SpaceUpsertWithoutMetersInput
+    disconnect?: SpaceWhereInput | boolean
+    delete?: SpaceWhereInput | boolean
+    connect?: SpaceWhereUniqueInput
+    update?: XOR<XOR<SpaceUpdateToOneWithWhereWithoutMetersInput, SpaceUpdateWithoutMetersInput>, SpaceUncheckedUpdateWithoutMetersInput>
+  }
+
+  export type MeterReadingUpdateManyWithoutMeterNestedInput = {
+    create?: XOR<MeterReadingCreateWithoutMeterInput, MeterReadingUncheckedCreateWithoutMeterInput> | MeterReadingCreateWithoutMeterInput[] | MeterReadingUncheckedCreateWithoutMeterInput[]
+    connectOrCreate?: MeterReadingCreateOrConnectWithoutMeterInput | MeterReadingCreateOrConnectWithoutMeterInput[]
+    upsert?: MeterReadingUpsertWithWhereUniqueWithoutMeterInput | MeterReadingUpsertWithWhereUniqueWithoutMeterInput[]
+    createMany?: MeterReadingCreateManyMeterInputEnvelope
+    set?: MeterReadingWhereUniqueInput | MeterReadingWhereUniqueInput[]
+    disconnect?: MeterReadingWhereUniqueInput | MeterReadingWhereUniqueInput[]
+    delete?: MeterReadingWhereUniqueInput | MeterReadingWhereUniqueInput[]
+    connect?: MeterReadingWhereUniqueInput | MeterReadingWhereUniqueInput[]
+    update?: MeterReadingUpdateWithWhereUniqueWithoutMeterInput | MeterReadingUpdateWithWhereUniqueWithoutMeterInput[]
+    updateMany?: MeterReadingUpdateManyWithWhereWithoutMeterInput | MeterReadingUpdateManyWithWhereWithoutMeterInput[]
+    deleteMany?: MeterReadingScalarWhereInput | MeterReadingScalarWhereInput[]
+  }
+
+  export type MeterMaintenanceTriggerUpdateManyWithoutMeterNestedInput = {
+    create?: XOR<MeterMaintenanceTriggerCreateWithoutMeterInput, MeterMaintenanceTriggerUncheckedCreateWithoutMeterInput> | MeterMaintenanceTriggerCreateWithoutMeterInput[] | MeterMaintenanceTriggerUncheckedCreateWithoutMeterInput[]
+    connectOrCreate?: MeterMaintenanceTriggerCreateOrConnectWithoutMeterInput | MeterMaintenanceTriggerCreateOrConnectWithoutMeterInput[]
+    upsert?: MeterMaintenanceTriggerUpsertWithWhereUniqueWithoutMeterInput | MeterMaintenanceTriggerUpsertWithWhereUniqueWithoutMeterInput[]
+    createMany?: MeterMaintenanceTriggerCreateManyMeterInputEnvelope
+    set?: MeterMaintenanceTriggerWhereUniqueInput | MeterMaintenanceTriggerWhereUniqueInput[]
+    disconnect?: MeterMaintenanceTriggerWhereUniqueInput | MeterMaintenanceTriggerWhereUniqueInput[]
+    delete?: MeterMaintenanceTriggerWhereUniqueInput | MeterMaintenanceTriggerWhereUniqueInput[]
+    connect?: MeterMaintenanceTriggerWhereUniqueInput | MeterMaintenanceTriggerWhereUniqueInput[]
+    update?: MeterMaintenanceTriggerUpdateWithWhereUniqueWithoutMeterInput | MeterMaintenanceTriggerUpdateWithWhereUniqueWithoutMeterInput[]
+    updateMany?: MeterMaintenanceTriggerUpdateManyWithWhereWithoutMeterInput | MeterMaintenanceTriggerUpdateManyWithWhereWithoutMeterInput[]
+    deleteMany?: MeterMaintenanceTriggerScalarWhereInput | MeterMaintenanceTriggerScalarWhereInput[]
+  }
+
+  export type MeterReadingUncheckedUpdateManyWithoutMeterNestedInput = {
+    create?: XOR<MeterReadingCreateWithoutMeterInput, MeterReadingUncheckedCreateWithoutMeterInput> | MeterReadingCreateWithoutMeterInput[] | MeterReadingUncheckedCreateWithoutMeterInput[]
+    connectOrCreate?: MeterReadingCreateOrConnectWithoutMeterInput | MeterReadingCreateOrConnectWithoutMeterInput[]
+    upsert?: MeterReadingUpsertWithWhereUniqueWithoutMeterInput | MeterReadingUpsertWithWhereUniqueWithoutMeterInput[]
+    createMany?: MeterReadingCreateManyMeterInputEnvelope
+    set?: MeterReadingWhereUniqueInput | MeterReadingWhereUniqueInput[]
+    disconnect?: MeterReadingWhereUniqueInput | MeterReadingWhereUniqueInput[]
+    delete?: MeterReadingWhereUniqueInput | MeterReadingWhereUniqueInput[]
+    connect?: MeterReadingWhereUniqueInput | MeterReadingWhereUniqueInput[]
+    update?: MeterReadingUpdateWithWhereUniqueWithoutMeterInput | MeterReadingUpdateWithWhereUniqueWithoutMeterInput[]
+    updateMany?: MeterReadingUpdateManyWithWhereWithoutMeterInput | MeterReadingUpdateManyWithWhereWithoutMeterInput[]
+    deleteMany?: MeterReadingScalarWhereInput | MeterReadingScalarWhereInput[]
+  }
+
+  export type MeterMaintenanceTriggerUncheckedUpdateManyWithoutMeterNestedInput = {
+    create?: XOR<MeterMaintenanceTriggerCreateWithoutMeterInput, MeterMaintenanceTriggerUncheckedCreateWithoutMeterInput> | MeterMaintenanceTriggerCreateWithoutMeterInput[] | MeterMaintenanceTriggerUncheckedCreateWithoutMeterInput[]
+    connectOrCreate?: MeterMaintenanceTriggerCreateOrConnectWithoutMeterInput | MeterMaintenanceTriggerCreateOrConnectWithoutMeterInput[]
+    upsert?: MeterMaintenanceTriggerUpsertWithWhereUniqueWithoutMeterInput | MeterMaintenanceTriggerUpsertWithWhereUniqueWithoutMeterInput[]
+    createMany?: MeterMaintenanceTriggerCreateManyMeterInputEnvelope
+    set?: MeterMaintenanceTriggerWhereUniqueInput | MeterMaintenanceTriggerWhereUniqueInput[]
+    disconnect?: MeterMaintenanceTriggerWhereUniqueInput | MeterMaintenanceTriggerWhereUniqueInput[]
+    delete?: MeterMaintenanceTriggerWhereUniqueInput | MeterMaintenanceTriggerWhereUniqueInput[]
+    connect?: MeterMaintenanceTriggerWhereUniqueInput | MeterMaintenanceTriggerWhereUniqueInput[]
+    update?: MeterMaintenanceTriggerUpdateWithWhereUniqueWithoutMeterInput | MeterMaintenanceTriggerUpdateWithWhereUniqueWithoutMeterInput[]
+    updateMany?: MeterMaintenanceTriggerUpdateManyWithWhereWithoutMeterInput | MeterMaintenanceTriggerUpdateManyWithWhereWithoutMeterInput[]
+    deleteMany?: MeterMaintenanceTriggerScalarWhereInput | MeterMaintenanceTriggerScalarWhereInput[]
+  }
+
+  export type MeterCreateNestedOneWithoutReadingsInput = {
+    create?: XOR<MeterCreateWithoutReadingsInput, MeterUncheckedCreateWithoutReadingsInput>
+    connectOrCreate?: MeterCreateOrConnectWithoutReadingsInput
+    connect?: MeterWhereUniqueInput
+  }
+
+  export type DecimalFieldUpdateOperationsInput = {
+    set?: Decimal | DecimalJsLike | number | string
+    increment?: Decimal | DecimalJsLike | number | string
+    decrement?: Decimal | DecimalJsLike | number | string
+    multiply?: Decimal | DecimalJsLike | number | string
+    divide?: Decimal | DecimalJsLike | number | string
+  }
+
+  export type EnumMeterReadingSourceFieldUpdateOperationsInput = {
+    set?: $Enums.MeterReadingSource
+  }
+
+  export type MeterUpdateOneRequiredWithoutReadingsNestedInput = {
+    create?: XOR<MeterCreateWithoutReadingsInput, MeterUncheckedCreateWithoutReadingsInput>
+    connectOrCreate?: MeterCreateOrConnectWithoutReadingsInput
+    upsert?: MeterUpsertWithoutReadingsInput
+    connect?: MeterWhereUniqueInput
+    update?: XOR<XOR<MeterUpdateToOneWithWhereWithoutReadingsInput, MeterUpdateWithoutReadingsInput>, MeterUncheckedUpdateWithoutReadingsInput>
+  }
+
+  export type MeterCreateNestedOneWithoutPreventiveTriggersInput = {
+    create?: XOR<MeterCreateWithoutPreventiveTriggersInput, MeterUncheckedCreateWithoutPreventiveTriggersInput>
+    connectOrCreate?: MeterCreateOrConnectWithoutPreventiveTriggersInput
+    connect?: MeterWhereUniqueInput
+  }
+
+  export type PreventiveCreateNestedOneWithoutMeterTriggersInput = {
+    create?: XOR<PreventiveCreateWithoutMeterTriggersInput, PreventiveUncheckedCreateWithoutMeterTriggersInput>
+    connectOrCreate?: PreventiveCreateOrConnectWithoutMeterTriggersInput
+    connect?: PreventiveWhereUniqueInput
+  }
+
+  export type EnumTriggerConditionFieldUpdateOperationsInput = {
+    set?: $Enums.TriggerCondition
+  }
+
+  export type MeterUpdateOneRequiredWithoutPreventiveTriggersNestedInput = {
+    create?: XOR<MeterCreateWithoutPreventiveTriggersInput, MeterUncheckedCreateWithoutPreventiveTriggersInput>
+    connectOrCreate?: MeterCreateOrConnectWithoutPreventiveTriggersInput
+    upsert?: MeterUpsertWithoutPreventiveTriggersInput
+    connect?: MeterWhereUniqueInput
+    update?: XOR<XOR<MeterUpdateToOneWithWhereWithoutPreventiveTriggersInput, MeterUpdateWithoutPreventiveTriggersInput>, MeterUncheckedUpdateWithoutPreventiveTriggersInput>
+  }
+
+  export type PreventiveUpdateOneRequiredWithoutMeterTriggersNestedInput = {
+    create?: XOR<PreventiveCreateWithoutMeterTriggersInput, PreventiveUncheckedCreateWithoutMeterTriggersInput>
+    connectOrCreate?: PreventiveCreateOrConnectWithoutMeterTriggersInput
+    upsert?: PreventiveUpsertWithoutMeterTriggersInput
+    connect?: PreventiveWhereUniqueInput
+    update?: XOR<XOR<PreventiveUpdateToOneWithWhereWithoutMeterTriggersInput, PreventiveUpdateWithoutMeterTriggersInput>, PreventiveUncheckedUpdateWithoutMeterTriggersInput>
   }
 
   export type NestedStringFilter<$PrismaModel = never> = {
@@ -49648,6 +55275,13 @@ export namespace Prisma {
     not?: NestedEnumMaintenanceTypeFilter<$PrismaModel> | $Enums.MaintenanceType
   }
 
+  export type NestedEnumPerformerReferenceNullableFilter<$PrismaModel = never> = {
+    equals?: $Enums.PerformerReference | EnumPerformerReferenceFieldRefInput<$PrismaModel> | null
+    in?: $Enums.PerformerReference[] | ListEnumPerformerReferenceFieldRefInput<$PrismaModel> | null
+    notIn?: $Enums.PerformerReference[] | ListEnumPerformerReferenceFieldRefInput<$PrismaModel> | null
+    not?: NestedEnumPerformerReferenceNullableFilter<$PrismaModel> | $Enums.PerformerReference | null
+  }
+
   export type NestedEnumStatusFilter<$PrismaModel = never> = {
     equals?: $Enums.Status | EnumStatusFieldRefInput<$PrismaModel>
     in?: $Enums.Status[] | ListEnumStatusFieldRefInput<$PrismaModel>
@@ -49700,6 +55334,16 @@ export namespace Prisma {
     gt?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
     gte?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
     not?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
+  }
+
+  export type NestedEnumPerformerReferenceNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.PerformerReference | EnumPerformerReferenceFieldRefInput<$PrismaModel> | null
+    in?: $Enums.PerformerReference[] | ListEnumPerformerReferenceFieldRefInput<$PrismaModel> | null
+    notIn?: $Enums.PerformerReference[] | ListEnumPerformerReferenceFieldRefInput<$PrismaModel> | null
+    not?: NestedEnumPerformerReferenceNullableWithAggregatesFilter<$PrismaModel> | $Enums.PerformerReference | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedEnumPerformerReferenceNullableFilter<$PrismaModel>
+    _max?: NestedEnumPerformerReferenceNullableFilter<$PrismaModel>
   }
 
   export type NestedEnumStatusWithAggregatesFilter<$PrismaModel = never> = {
@@ -49756,11 +55400,11 @@ export namespace Prisma {
     not?: NestedEnumStockMovementTypeFilter<$PrismaModel> | $Enums.StockMovementType
   }
 
-  export type NestedEnumStockReferenceTypeNullableFilter<$PrismaModel = never> = {
-    equals?: $Enums.StockReferenceType | EnumStockReferenceTypeFieldRefInput<$PrismaModel> | null
-    in?: $Enums.StockReferenceType[] | ListEnumStockReferenceTypeFieldRefInput<$PrismaModel> | null
-    notIn?: $Enums.StockReferenceType[] | ListEnumStockReferenceTypeFieldRefInput<$PrismaModel> | null
-    not?: NestedEnumStockReferenceTypeNullableFilter<$PrismaModel> | $Enums.StockReferenceType | null
+  export type NestedEnumStockReferenceTypeFilter<$PrismaModel = never> = {
+    equals?: $Enums.StockReferenceType | EnumStockReferenceTypeFieldRefInput<$PrismaModel>
+    in?: $Enums.StockReferenceType[] | ListEnumStockReferenceTypeFieldRefInput<$PrismaModel>
+    notIn?: $Enums.StockReferenceType[] | ListEnumStockReferenceTypeFieldRefInput<$PrismaModel>
+    not?: NestedEnumStockReferenceTypeFilter<$PrismaModel> | $Enums.StockReferenceType
   }
 
   export type NestedEnumStockMovementTypeWithAggregatesFilter<$PrismaModel = never> = {
@@ -49773,14 +55417,92 @@ export namespace Prisma {
     _max?: NestedEnumStockMovementTypeFilter<$PrismaModel>
   }
 
-  export type NestedEnumStockReferenceTypeNullableWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: $Enums.StockReferenceType | EnumStockReferenceTypeFieldRefInput<$PrismaModel> | null
-    in?: $Enums.StockReferenceType[] | ListEnumStockReferenceTypeFieldRefInput<$PrismaModel> | null
-    notIn?: $Enums.StockReferenceType[] | ListEnumStockReferenceTypeFieldRefInput<$PrismaModel> | null
-    not?: NestedEnumStockReferenceTypeNullableWithAggregatesFilter<$PrismaModel> | $Enums.StockReferenceType | null
-    _count?: NestedIntNullableFilter<$PrismaModel>
-    _min?: NestedEnumStockReferenceTypeNullableFilter<$PrismaModel>
-    _max?: NestedEnumStockReferenceTypeNullableFilter<$PrismaModel>
+  export type NestedEnumStockReferenceTypeWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.StockReferenceType | EnumStockReferenceTypeFieldRefInput<$PrismaModel>
+    in?: $Enums.StockReferenceType[] | ListEnumStockReferenceTypeFieldRefInput<$PrismaModel>
+    notIn?: $Enums.StockReferenceType[] | ListEnumStockReferenceTypeFieldRefInput<$PrismaModel>
+    not?: NestedEnumStockReferenceTypeWithAggregatesFilter<$PrismaModel> | $Enums.StockReferenceType
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumStockReferenceTypeFilter<$PrismaModel>
+    _max?: NestedEnumStockReferenceTypeFilter<$PrismaModel>
+  }
+
+  export type NestedEnumMeterTypeFilter<$PrismaModel = never> = {
+    equals?: $Enums.MeterType | EnumMeterTypeFieldRefInput<$PrismaModel>
+    in?: $Enums.MeterType[] | ListEnumMeterTypeFieldRefInput<$PrismaModel>
+    notIn?: $Enums.MeterType[] | ListEnumMeterTypeFieldRefInput<$PrismaModel>
+    not?: NestedEnumMeterTypeFilter<$PrismaModel> | $Enums.MeterType
+  }
+
+  export type NestedEnumMeterTypeWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.MeterType | EnumMeterTypeFieldRefInput<$PrismaModel>
+    in?: $Enums.MeterType[] | ListEnumMeterTypeFieldRefInput<$PrismaModel>
+    notIn?: $Enums.MeterType[] | ListEnumMeterTypeFieldRefInput<$PrismaModel>
+    not?: NestedEnumMeterTypeWithAggregatesFilter<$PrismaModel> | $Enums.MeterType
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumMeterTypeFilter<$PrismaModel>
+    _max?: NestedEnumMeterTypeFilter<$PrismaModel>
+  }
+
+  export type NestedDecimalFilter<$PrismaModel = never> = {
+    equals?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    in?: Decimal[] | DecimalJsLike[] | number[] | string[] | ListDecimalFieldRefInput<$PrismaModel>
+    notIn?: Decimal[] | DecimalJsLike[] | number[] | string[] | ListDecimalFieldRefInput<$PrismaModel>
+    lt?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    lte?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    gt?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    gte?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    not?: NestedDecimalFilter<$PrismaModel> | Decimal | DecimalJsLike | number | string
+  }
+
+  export type NestedEnumMeterReadingSourceFilter<$PrismaModel = never> = {
+    equals?: $Enums.MeterReadingSource | EnumMeterReadingSourceFieldRefInput<$PrismaModel>
+    in?: $Enums.MeterReadingSource[] | ListEnumMeterReadingSourceFieldRefInput<$PrismaModel>
+    notIn?: $Enums.MeterReadingSource[] | ListEnumMeterReadingSourceFieldRefInput<$PrismaModel>
+    not?: NestedEnumMeterReadingSourceFilter<$PrismaModel> | $Enums.MeterReadingSource
+  }
+
+  export type NestedDecimalWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    in?: Decimal[] | DecimalJsLike[] | number[] | string[] | ListDecimalFieldRefInput<$PrismaModel>
+    notIn?: Decimal[] | DecimalJsLike[] | number[] | string[] | ListDecimalFieldRefInput<$PrismaModel>
+    lt?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    lte?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    gt?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    gte?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    not?: NestedDecimalWithAggregatesFilter<$PrismaModel> | Decimal | DecimalJsLike | number | string
+    _count?: NestedIntFilter<$PrismaModel>
+    _avg?: NestedDecimalFilter<$PrismaModel>
+    _sum?: NestedDecimalFilter<$PrismaModel>
+    _min?: NestedDecimalFilter<$PrismaModel>
+    _max?: NestedDecimalFilter<$PrismaModel>
+  }
+
+  export type NestedEnumMeterReadingSourceWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.MeterReadingSource | EnumMeterReadingSourceFieldRefInput<$PrismaModel>
+    in?: $Enums.MeterReadingSource[] | ListEnumMeterReadingSourceFieldRefInput<$PrismaModel>
+    notIn?: $Enums.MeterReadingSource[] | ListEnumMeterReadingSourceFieldRefInput<$PrismaModel>
+    not?: NestedEnumMeterReadingSourceWithAggregatesFilter<$PrismaModel> | $Enums.MeterReadingSource
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumMeterReadingSourceFilter<$PrismaModel>
+    _max?: NestedEnumMeterReadingSourceFilter<$PrismaModel>
+  }
+
+  export type NestedEnumTriggerConditionFilter<$PrismaModel = never> = {
+    equals?: $Enums.TriggerCondition | EnumTriggerConditionFieldRefInput<$PrismaModel>
+    in?: $Enums.TriggerCondition[] | ListEnumTriggerConditionFieldRefInput<$PrismaModel>
+    notIn?: $Enums.TriggerCondition[] | ListEnumTriggerConditionFieldRefInput<$PrismaModel>
+    not?: NestedEnumTriggerConditionFilter<$PrismaModel> | $Enums.TriggerCondition
+  }
+
+  export type NestedEnumTriggerConditionWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.TriggerCondition | EnumTriggerConditionFieldRefInput<$PrismaModel>
+    in?: $Enums.TriggerCondition[] | ListEnumTriggerConditionFieldRefInput<$PrismaModel>
+    notIn?: $Enums.TriggerCondition[] | ListEnumTriggerConditionFieldRefInput<$PrismaModel>
+    not?: NestedEnumTriggerConditionWithAggregatesFilter<$PrismaModel> | $Enums.TriggerCondition
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumTriggerConditionFilter<$PrismaModel>
+    _max?: NestedEnumTriggerConditionFilter<$PrismaModel>
   }
 
   export type RefreshTokenCreateWithoutUserInput = {
@@ -49957,144 +55679,6 @@ export namespace Prisma {
     create: XOR<TeamCreateWithoutMembersInput, TeamUncheckedCreateWithoutMembersInput>
   }
 
-  export type MaintenanceCreateWithoutPerformerInput = {
-    id?: string
-    type?: $Enums.MaintenanceType
-    code: string
-    description: string
-    startDate?: Date | string | null
-    endDate?: Date | string | null
-    shortDescription?: string | null
-    action?: string | null
-    message?: string | null
-    processNotes?: string | null
-    metadata?: NullableJsonNullValueInput | InputJsonValue
-    processStatus?: $Enums.Status
-    register?: string | null
-    activityIdTimer?: string | null
-    activityStartTime?: Date | string | null
-    activityEndTime?: Date | string | null
-    allDeadlines?: string | null
-    processType?: $Enums.ProcessType
-    ttSysRunning?: Decimal | DecimalJsLike | number | string | null
-    ttWorkRunning?: Decimal | DecimalJsLike | number | string | null
-    sorting?: string | null
-    priority?: $Enums.Priority
-    outcome?: string | null
-    dueAssignedEnd?: Date | string | null
-    execStart?: Date | string | null
-    dueExecEndDate?: Date | string | null
-    execEndDate?: Date | string | null
-    dueClosuerDate?: Date | string | null
-    totalExecTime?: Decimal | DecimalJsLike | number | string | null
-    expStartDate?: Date | string | null
-    suspensionReason?: string | null
-    category?: string | null
-    subCategory?: string | null
-    ttSystemOpening?: Decimal | DecimalJsLike | number | string | null
-    ttWorkOpening?: Decimal | DecimalJsLike | number | string | null
-    ttSystemAssignment?: Decimal | DecimalJsLike | number | string | null
-    ttWorkAssignment?: Decimal | DecimalJsLike | number | string | null
-    ttSystemExecution?: Decimal | DecimalJsLike | number | string | null
-    ttWorkExecution?: Decimal | DecimalJsLike | number | string | null
-    ttSysSuspension?: Decimal | DecimalJsLike | number | string | null
-    ttWorkSuspension?: Decimal | DecimalJsLike | number | string | null
-    ttEstimate?: Decimal | DecimalJsLike | number | string | null
-    prevMaintenanceConfigId?: string | null
-    automaticConfig?: boolean
-    jointAccounting?: boolean
-    hasTasks?: boolean
-    estimateStatus?: $Enums.Status
-    delayNotification?: boolean
-    createdAt?: Date | string
-    updatedAt?: Date | string
-    requester?: UserCreateNestedOneWithoutRequestedMaintenancesInput
-    site: ComplexCreateNestedOneWithoutMaintenancesInput
-    company?: CompanyCreateNestedOneWithoutMaintenancesInput
-    building?: BuildingCreateNestedOneWithoutMaintenancesInput
-    team?: TeamCreateNestedOneWithoutMaintenancesInput
-    floor?: FloorCreateNestedOneWithoutMaintenancesInput
-    space?: SpaceCreateNestedOneWithoutMaintenancesInput
-    assignee?: UserCreateNestedOneWithoutAssignedMaintenancesInput
-    asset?: AssetCreateNestedOneWithoutMaintenancesInput
-    photos?: FileCreateNestedManyWithoutMaintenanceInput
-    maintenanceItems?: MaintenanceItemCreateNestedManyWithoutMaintenanceInput
-  }
-
-  export type MaintenanceUncheckedCreateWithoutPerformerInput = {
-    id?: string
-    type?: $Enums.MaintenanceType
-    code: string
-    description: string
-    startDate?: Date | string | null
-    endDate?: Date | string | null
-    shortDescription?: string | null
-    action?: string | null
-    message?: string | null
-    processNotes?: string | null
-    metadata?: NullableJsonNullValueInput | InputJsonValue
-    processStatus?: $Enums.Status
-    register?: string | null
-    activityIdTimer?: string | null
-    activityStartTime?: Date | string | null
-    activityEndTime?: Date | string | null
-    allDeadlines?: string | null
-    processType?: $Enums.ProcessType
-    ttSysRunning?: Decimal | DecimalJsLike | number | string | null
-    ttWorkRunning?: Decimal | DecimalJsLike | number | string | null
-    sorting?: string | null
-    requesterId?: string | null
-    priority?: $Enums.Priority
-    siteId: string
-    outcome?: string | null
-    dueAssignedEnd?: Date | string | null
-    execStart?: Date | string | null
-    dueExecEndDate?: Date | string | null
-    execEndDate?: Date | string | null
-    dueClosuerDate?: Date | string | null
-    totalExecTime?: Decimal | DecimalJsLike | number | string | null
-    expStartDate?: Date | string | null
-    suspensionReason?: string | null
-    category?: string | null
-    subCategory?: string | null
-    companyId?: string | null
-    buildingId?: string | null
-    teamId?: string | null
-    floorId?: string | null
-    spaceId?: string | null
-    ttSystemOpening?: Decimal | DecimalJsLike | number | string | null
-    ttWorkOpening?: Decimal | DecimalJsLike | number | string | null
-    ttSystemAssignment?: Decimal | DecimalJsLike | number | string | null
-    ttWorkAssignment?: Decimal | DecimalJsLike | number | string | null
-    ttSystemExecution?: Decimal | DecimalJsLike | number | string | null
-    ttWorkExecution?: Decimal | DecimalJsLike | number | string | null
-    ttSysSuspension?: Decimal | DecimalJsLike | number | string | null
-    ttWorkSuspension?: Decimal | DecimalJsLike | number | string | null
-    ttEstimate?: Decimal | DecimalJsLike | number | string | null
-    prevMaintenanceConfigId?: string | null
-    automaticConfig?: boolean
-    jointAccounting?: boolean
-    hasTasks?: boolean
-    estimateStatus?: $Enums.Status
-    delayNotification?: boolean
-    assigneeId?: string | null
-    assetId?: string | null
-    createdAt?: Date | string
-    updatedAt?: Date | string
-    photos?: FileUncheckedCreateNestedManyWithoutMaintenanceInput
-    maintenanceItems?: MaintenanceItemUncheckedCreateNestedManyWithoutMaintenanceInput
-  }
-
-  export type MaintenanceCreateOrConnectWithoutPerformerInput = {
-    where: MaintenanceWhereUniqueInput
-    create: XOR<MaintenanceCreateWithoutPerformerInput, MaintenanceUncheckedCreateWithoutPerformerInput>
-  }
-
-  export type MaintenanceCreateManyPerformerInputEnvelope = {
-    data: MaintenanceCreateManyPerformerInput | MaintenanceCreateManyPerformerInput[]
-    skipDuplicates?: boolean
-  }
-
   export type MaintenanceCreateWithoutRequesterInput = {
     id?: string
     type?: $Enums.MaintenanceType
@@ -50107,6 +55691,8 @@ export namespace Prisma {
     message?: string | null
     processNotes?: string | null
     metadata?: NullableJsonNullValueInput | InputJsonValue
+    performerId?: string | null
+    performerReference?: $Enums.PerformerReference | null
     processStatus?: $Enums.Status
     register?: string | null
     activityIdTimer?: string | null
@@ -50123,7 +55709,7 @@ export namespace Prisma {
     execStart?: Date | string | null
     dueExecEndDate?: Date | string | null
     execEndDate?: Date | string | null
-    dueClosuerDate?: Date | string | null
+    dueClosureDate?: Date | string | null
     totalExecTime?: Decimal | DecimalJsLike | number | string | null
     expStartDate?: Date | string | null
     suspensionReason?: string | null
@@ -50146,12 +55732,12 @@ export namespace Prisma {
     delayNotification?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
-    performer?: UserCreateNestedOneWithoutPerformedMaintenancesInput
     site: ComplexCreateNestedOneWithoutMaintenancesInput
     company?: CompanyCreateNestedOneWithoutMaintenancesInput
     building?: BuildingCreateNestedOneWithoutMaintenancesInput
     team?: TeamCreateNestedOneWithoutMaintenancesInput
     floor?: FloorCreateNestedOneWithoutMaintenancesInput
+    zone?: ZoneCreateNestedOneWithoutMaintenancesInput
     space?: SpaceCreateNestedOneWithoutMaintenancesInput
     assignee?: UserCreateNestedOneWithoutAssignedMaintenancesInput
     asset?: AssetCreateNestedOneWithoutMaintenancesInput
@@ -50172,6 +55758,7 @@ export namespace Prisma {
     processNotes?: string | null
     metadata?: NullableJsonNullValueInput | InputJsonValue
     performerId?: string | null
+    performerReference?: $Enums.PerformerReference | null
     processStatus?: $Enums.Status
     register?: string | null
     activityIdTimer?: string | null
@@ -50189,7 +55776,7 @@ export namespace Prisma {
     execStart?: Date | string | null
     dueExecEndDate?: Date | string | null
     execEndDate?: Date | string | null
-    dueClosuerDate?: Date | string | null
+    dueClosureDate?: Date | string | null
     totalExecTime?: Decimal | DecimalJsLike | number | string | null
     expStartDate?: Date | string | null
     suspensionReason?: string | null
@@ -50199,6 +55786,7 @@ export namespace Prisma {
     buildingId?: string | null
     teamId?: string | null
     floorId?: string | null
+    zoneId?: string | null
     spaceId?: string | null
     ttSystemOpening?: Decimal | DecimalJsLike | number | string | null
     ttWorkOpening?: Decimal | DecimalJsLike | number | string | null
@@ -50245,6 +55833,8 @@ export namespace Prisma {
     message?: string | null
     processNotes?: string | null
     metadata?: NullableJsonNullValueInput | InputJsonValue
+    performerId?: string | null
+    performerReference?: $Enums.PerformerReference | null
     processStatus?: $Enums.Status
     register?: string | null
     activityIdTimer?: string | null
@@ -50261,7 +55851,7 @@ export namespace Prisma {
     execStart?: Date | string | null
     dueExecEndDate?: Date | string | null
     execEndDate?: Date | string | null
-    dueClosuerDate?: Date | string | null
+    dueClosureDate?: Date | string | null
     totalExecTime?: Decimal | DecimalJsLike | number | string | null
     expStartDate?: Date | string | null
     suspensionReason?: string | null
@@ -50284,13 +55874,13 @@ export namespace Prisma {
     delayNotification?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
-    performer?: UserCreateNestedOneWithoutPerformedMaintenancesInput
     requester?: UserCreateNestedOneWithoutRequestedMaintenancesInput
     site: ComplexCreateNestedOneWithoutMaintenancesInput
     company?: CompanyCreateNestedOneWithoutMaintenancesInput
     building?: BuildingCreateNestedOneWithoutMaintenancesInput
     team?: TeamCreateNestedOneWithoutMaintenancesInput
     floor?: FloorCreateNestedOneWithoutMaintenancesInput
+    zone?: ZoneCreateNestedOneWithoutMaintenancesInput
     space?: SpaceCreateNestedOneWithoutMaintenancesInput
     asset?: AssetCreateNestedOneWithoutMaintenancesInput
     photos?: FileCreateNestedManyWithoutMaintenanceInput
@@ -50310,6 +55900,7 @@ export namespace Prisma {
     processNotes?: string | null
     metadata?: NullableJsonNullValueInput | InputJsonValue
     performerId?: string | null
+    performerReference?: $Enums.PerformerReference | null
     processStatus?: $Enums.Status
     register?: string | null
     activityIdTimer?: string | null
@@ -50328,7 +55919,7 @@ export namespace Prisma {
     execStart?: Date | string | null
     dueExecEndDate?: Date | string | null
     execEndDate?: Date | string | null
-    dueClosuerDate?: Date | string | null
+    dueClosureDate?: Date | string | null
     totalExecTime?: Decimal | DecimalJsLike | number | string | null
     expStartDate?: Date | string | null
     suspensionReason?: string | null
@@ -50338,6 +55929,7 @@ export namespace Prisma {
     buildingId?: string | null
     teamId?: string | null
     floorId?: string | null
+    zoneId?: string | null
     spaceId?: string | null
     ttSystemOpening?: Decimal | DecimalJsLike | number | string | null
     ttWorkOpening?: Decimal | DecimalJsLike | number | string | null
@@ -50601,20 +56193,20 @@ export namespace Prisma {
     updatedAt?: DateTimeFilter<"Team"> | Date | string
   }
 
-  export type MaintenanceUpsertWithWhereUniqueWithoutPerformerInput = {
+  export type MaintenanceUpsertWithWhereUniqueWithoutRequesterInput = {
     where: MaintenanceWhereUniqueInput
-    update: XOR<MaintenanceUpdateWithoutPerformerInput, MaintenanceUncheckedUpdateWithoutPerformerInput>
-    create: XOR<MaintenanceCreateWithoutPerformerInput, MaintenanceUncheckedCreateWithoutPerformerInput>
+    update: XOR<MaintenanceUpdateWithoutRequesterInput, MaintenanceUncheckedUpdateWithoutRequesterInput>
+    create: XOR<MaintenanceCreateWithoutRequesterInput, MaintenanceUncheckedCreateWithoutRequesterInput>
   }
 
-  export type MaintenanceUpdateWithWhereUniqueWithoutPerformerInput = {
+  export type MaintenanceUpdateWithWhereUniqueWithoutRequesterInput = {
     where: MaintenanceWhereUniqueInput
-    data: XOR<MaintenanceUpdateWithoutPerformerInput, MaintenanceUncheckedUpdateWithoutPerformerInput>
+    data: XOR<MaintenanceUpdateWithoutRequesterInput, MaintenanceUncheckedUpdateWithoutRequesterInput>
   }
 
-  export type MaintenanceUpdateManyWithWhereWithoutPerformerInput = {
+  export type MaintenanceUpdateManyWithWhereWithoutRequesterInput = {
     where: MaintenanceScalarWhereInput
-    data: XOR<MaintenanceUpdateManyMutationInput, MaintenanceUncheckedUpdateManyWithoutPerformerInput>
+    data: XOR<MaintenanceUpdateManyMutationInput, MaintenanceUncheckedUpdateManyWithoutRequesterInput>
   }
 
   export type MaintenanceScalarWhereInput = {
@@ -50633,6 +56225,7 @@ export namespace Prisma {
     processNotes?: StringNullableFilter<"Maintenance"> | string | null
     metadata?: JsonNullableFilter<"Maintenance">
     performerId?: StringNullableFilter<"Maintenance"> | string | null
+    performerReference?: EnumPerformerReferenceNullableFilter<"Maintenance"> | $Enums.PerformerReference | null
     processStatus?: EnumStatusFilter<"Maintenance"> | $Enums.Status
     register?: StringNullableFilter<"Maintenance"> | string | null
     activityIdTimer?: StringNullableFilter<"Maintenance"> | string | null
@@ -50651,7 +56244,7 @@ export namespace Prisma {
     execStart?: DateTimeNullableFilter<"Maintenance"> | Date | string | null
     dueExecEndDate?: DateTimeNullableFilter<"Maintenance"> | Date | string | null
     execEndDate?: DateTimeNullableFilter<"Maintenance"> | Date | string | null
-    dueClosuerDate?: DateTimeNullableFilter<"Maintenance"> | Date | string | null
+    dueClosureDate?: DateTimeNullableFilter<"Maintenance"> | Date | string | null
     totalExecTime?: DecimalNullableFilter<"Maintenance"> | Decimal | DecimalJsLike | number | string | null
     expStartDate?: DateTimeNullableFilter<"Maintenance"> | Date | string | null
     suspensionReason?: StringNullableFilter<"Maintenance"> | string | null
@@ -50661,6 +56254,7 @@ export namespace Prisma {
     buildingId?: StringNullableFilter<"Maintenance"> | string | null
     teamId?: StringNullableFilter<"Maintenance"> | string | null
     floorId?: StringNullableFilter<"Maintenance"> | string | null
+    zoneId?: StringNullableFilter<"Maintenance"> | string | null
     spaceId?: StringNullableFilter<"Maintenance"> | string | null
     ttSystemOpening?: DecimalNullableFilter<"Maintenance"> | Decimal | DecimalJsLike | number | string | null
     ttWorkOpening?: DecimalNullableFilter<"Maintenance"> | Decimal | DecimalJsLike | number | string | null
@@ -50681,22 +56275,6 @@ export namespace Prisma {
     assetId?: StringNullableFilter<"Maintenance"> | string | null
     createdAt?: DateTimeFilter<"Maintenance"> | Date | string
     updatedAt?: DateTimeFilter<"Maintenance"> | Date | string
-  }
-
-  export type MaintenanceUpsertWithWhereUniqueWithoutRequesterInput = {
-    where: MaintenanceWhereUniqueInput
-    update: XOR<MaintenanceUpdateWithoutRequesterInput, MaintenanceUncheckedUpdateWithoutRequesterInput>
-    create: XOR<MaintenanceCreateWithoutRequesterInput, MaintenanceUncheckedCreateWithoutRequesterInput>
-  }
-
-  export type MaintenanceUpdateWithWhereUniqueWithoutRequesterInput = {
-    where: MaintenanceWhereUniqueInput
-    data: XOR<MaintenanceUpdateWithoutRequesterInput, MaintenanceUncheckedUpdateWithoutRequesterInput>
-  }
-
-  export type MaintenanceUpdateManyWithWhereWithoutRequesterInput = {
-    where: MaintenanceScalarWhereInput
-    data: XOR<MaintenanceUpdateManyMutationInput, MaintenanceUncheckedUpdateManyWithoutRequesterInput>
   }
 
   export type MaintenanceUpsertWithWhereUniqueWithoutAssigneeInput = {
@@ -50779,7 +56357,6 @@ export namespace Prisma {
     company?: CompanyCreateNestedOneWithoutEmployeesInput
     calenderEntity?: CalenderEntityCreateNestedOneWithoutEmployeesInput
     teams?: TeamCreateNestedManyWithoutMembersInput
-    performedMaintenances?: MaintenanceCreateNestedManyWithoutPerformerInput
     requestedMaintenances?: MaintenanceCreateNestedManyWithoutRequesterInput
     assignedMaintenances?: MaintenanceCreateNestedManyWithoutAssigneeInput
     supervisedTeams?: TeamCreateNestedManyWithoutSupervisorInput
@@ -50805,7 +56382,6 @@ export namespace Prisma {
     refreshTokens?: RefreshTokenUncheckedCreateNestedManyWithoutUserInput
     permissions?: PermissionUncheckedCreateNestedManyWithoutUserInput
     teams?: TeamUncheckedCreateNestedManyWithoutMembersInput
-    performedMaintenances?: MaintenanceUncheckedCreateNestedManyWithoutPerformerInput
     requestedMaintenances?: MaintenanceUncheckedCreateNestedManyWithoutRequesterInput
     assignedMaintenances?: MaintenanceUncheckedCreateNestedManyWithoutAssigneeInput
     supervisedTeams?: TeamUncheckedCreateNestedManyWithoutSupervisorInput
@@ -50921,7 +56497,6 @@ export namespace Prisma {
     company?: CompanyCreateNestedOneWithoutEmployeesInput
     calenderEntity?: CalenderEntityCreateNestedOneWithoutEmployeesInput
     teams?: TeamCreateNestedManyWithoutMembersInput
-    performedMaintenances?: MaintenanceCreateNestedManyWithoutPerformerInput
     requestedMaintenances?: MaintenanceCreateNestedManyWithoutRequesterInput
     assignedMaintenances?: MaintenanceCreateNestedManyWithoutAssigneeInput
     supervisedTeams?: TeamCreateNestedManyWithoutSupervisorInput
@@ -50947,7 +56522,6 @@ export namespace Prisma {
     calenderEntityId?: string | null
     refreshTokens?: RefreshTokenUncheckedCreateNestedManyWithoutUserInput
     teams?: TeamUncheckedCreateNestedManyWithoutMembersInput
-    performedMaintenances?: MaintenanceUncheckedCreateNestedManyWithoutPerformerInput
     requestedMaintenances?: MaintenanceUncheckedCreateNestedManyWithoutRequesterInput
     assignedMaintenances?: MaintenanceUncheckedCreateNestedManyWithoutAssigneeInput
     supervisedTeams?: TeamUncheckedCreateNestedManyWithoutSupervisorInput
@@ -51020,7 +56594,6 @@ export namespace Prisma {
     company?: CompanyUpdateOneWithoutEmployeesNestedInput
     calenderEntity?: CalenderEntityUpdateOneWithoutEmployeesNestedInput
     teams?: TeamUpdateManyWithoutMembersNestedInput
-    performedMaintenances?: MaintenanceUpdateManyWithoutPerformerNestedInput
     requestedMaintenances?: MaintenanceUpdateManyWithoutRequesterNestedInput
     assignedMaintenances?: MaintenanceUpdateManyWithoutAssigneeNestedInput
     supervisedTeams?: TeamUpdateManyWithoutSupervisorNestedInput
@@ -51046,7 +56619,6 @@ export namespace Prisma {
     calenderEntityId?: NullableStringFieldUpdateOperationsInput | string | null
     refreshTokens?: RefreshTokenUncheckedUpdateManyWithoutUserNestedInput
     teams?: TeamUncheckedUpdateManyWithoutMembersNestedInput
-    performedMaintenances?: MaintenanceUncheckedUpdateManyWithoutPerformerNestedInput
     requestedMaintenances?: MaintenanceUncheckedUpdateManyWithoutRequesterNestedInput
     assignedMaintenances?: MaintenanceUncheckedUpdateManyWithoutAssigneeNestedInput
     supervisedTeams?: TeamUncheckedUpdateManyWithoutSupervisorNestedInput
@@ -51283,6 +56855,7 @@ export namespace Prisma {
     floors?: FloorCreateNestedManyWithoutBuildingInput
     preventives?: PreventiveCreateNestedManyWithoutBuildingInput
     maintenances?: MaintenanceCreateNestedManyWithoutBuildingInput
+    meters?: MeterCreateNestedManyWithoutBuildingInput
   }
 
   export type BuildingUncheckedCreateWithoutComplexInput = {
@@ -51312,6 +56885,7 @@ export namespace Prisma {
     floors?: FloorUncheckedCreateNestedManyWithoutBuildingInput
     preventives?: PreventiveUncheckedCreateNestedManyWithoutBuildingInput
     maintenances?: MaintenanceUncheckedCreateNestedManyWithoutBuildingInput
+    meters?: MeterUncheckedCreateNestedManyWithoutBuildingInput
   }
 
   export type BuildingCreateOrConnectWithoutComplexInput = {
@@ -51359,6 +56933,8 @@ export namespace Prisma {
     message?: string | null
     processNotes?: string | null
     metadata?: NullableJsonNullValueInput | InputJsonValue
+    performerId?: string | null
+    performerReference?: $Enums.PerformerReference | null
     processStatus?: $Enums.Status
     register?: string | null
     activityIdTimer?: string | null
@@ -51375,7 +56951,7 @@ export namespace Prisma {
     execStart?: Date | string | null
     dueExecEndDate?: Date | string | null
     execEndDate?: Date | string | null
-    dueClosuerDate?: Date | string | null
+    dueClosureDate?: Date | string | null
     totalExecTime?: Decimal | DecimalJsLike | number | string | null
     expStartDate?: Date | string | null
     suspensionReason?: string | null
@@ -51398,12 +56974,12 @@ export namespace Prisma {
     delayNotification?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
-    performer?: UserCreateNestedOneWithoutPerformedMaintenancesInput
     requester?: UserCreateNestedOneWithoutRequestedMaintenancesInput
     company?: CompanyCreateNestedOneWithoutMaintenancesInput
     building?: BuildingCreateNestedOneWithoutMaintenancesInput
     team?: TeamCreateNestedOneWithoutMaintenancesInput
     floor?: FloorCreateNestedOneWithoutMaintenancesInput
+    zone?: ZoneCreateNestedOneWithoutMaintenancesInput
     space?: SpaceCreateNestedOneWithoutMaintenancesInput
     assignee?: UserCreateNestedOneWithoutAssignedMaintenancesInput
     asset?: AssetCreateNestedOneWithoutMaintenancesInput
@@ -51424,6 +57000,7 @@ export namespace Prisma {
     processNotes?: string | null
     metadata?: NullableJsonNullValueInput | InputJsonValue
     performerId?: string | null
+    performerReference?: $Enums.PerformerReference | null
     processStatus?: $Enums.Status
     register?: string | null
     activityIdTimer?: string | null
@@ -51441,7 +57018,7 @@ export namespace Prisma {
     execStart?: Date | string | null
     dueExecEndDate?: Date | string | null
     execEndDate?: Date | string | null
-    dueClosuerDate?: Date | string | null
+    dueClosureDate?: Date | string | null
     totalExecTime?: Decimal | DecimalJsLike | number | string | null
     expStartDate?: Date | string | null
     suspensionReason?: string | null
@@ -51451,6 +57028,7 @@ export namespace Prisma {
     buildingId?: string | null
     teamId?: string | null
     floorId?: string | null
+    zoneId?: string | null
     spaceId?: string | null
     ttSystemOpening?: Decimal | DecimalJsLike | number | string | null
     ttWorkOpening?: Decimal | DecimalJsLike | number | string | null
@@ -51503,6 +57081,7 @@ export namespace Prisma {
     floor?: FloorCreateNestedOneWithoutPreventivesInput
     space?: SpaceCreateNestedOneWithoutPreventivesInput
     team?: TeamCreateNestedOneWithoutPreventivesInput
+    meterTriggers?: MeterMaintenanceTriggerCreateNestedManyWithoutPreventiveInput
   }
 
   export type PreventiveUncheckedCreateWithoutSiteInput = {
@@ -51523,6 +57102,7 @@ export namespace Prisma {
     teamId?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
+    meterTriggers?: MeterMaintenanceTriggerUncheckedCreateNestedManyWithoutPreventiveInput
   }
 
   export type PreventiveCreateOrConnectWithoutSiteInput = {
@@ -51941,6 +57521,7 @@ export namespace Prisma {
     floor?: FloorCreateNestedOneWithoutPreventivesInput
     space?: SpaceCreateNestedOneWithoutPreventivesInput
     team?: TeamCreateNestedOneWithoutPreventivesInput
+    meterTriggers?: MeterMaintenanceTriggerCreateNestedManyWithoutPreventiveInput
   }
 
   export type PreventiveUncheckedCreateWithoutBuildingInput = {
@@ -51961,6 +57542,7 @@ export namespace Prisma {
     teamId?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
+    meterTriggers?: MeterMaintenanceTriggerUncheckedCreateNestedManyWithoutPreventiveInput
   }
 
   export type PreventiveCreateOrConnectWithoutBuildingInput = {
@@ -51985,6 +57567,8 @@ export namespace Prisma {
     message?: string | null
     processNotes?: string | null
     metadata?: NullableJsonNullValueInput | InputJsonValue
+    performerId?: string | null
+    performerReference?: $Enums.PerformerReference | null
     processStatus?: $Enums.Status
     register?: string | null
     activityIdTimer?: string | null
@@ -52001,7 +57585,7 @@ export namespace Prisma {
     execStart?: Date | string | null
     dueExecEndDate?: Date | string | null
     execEndDate?: Date | string | null
-    dueClosuerDate?: Date | string | null
+    dueClosureDate?: Date | string | null
     totalExecTime?: Decimal | DecimalJsLike | number | string | null
     expStartDate?: Date | string | null
     suspensionReason?: string | null
@@ -52024,12 +57608,12 @@ export namespace Prisma {
     delayNotification?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
-    performer?: UserCreateNestedOneWithoutPerformedMaintenancesInput
     requester?: UserCreateNestedOneWithoutRequestedMaintenancesInput
     site: ComplexCreateNestedOneWithoutMaintenancesInput
     company?: CompanyCreateNestedOneWithoutMaintenancesInput
     team?: TeamCreateNestedOneWithoutMaintenancesInput
     floor?: FloorCreateNestedOneWithoutMaintenancesInput
+    zone?: ZoneCreateNestedOneWithoutMaintenancesInput
     space?: SpaceCreateNestedOneWithoutMaintenancesInput
     assignee?: UserCreateNestedOneWithoutAssignedMaintenancesInput
     asset?: AssetCreateNestedOneWithoutMaintenancesInput
@@ -52050,6 +57634,7 @@ export namespace Prisma {
     processNotes?: string | null
     metadata?: NullableJsonNullValueInput | InputJsonValue
     performerId?: string | null
+    performerReference?: $Enums.PerformerReference | null
     processStatus?: $Enums.Status
     register?: string | null
     activityIdTimer?: string | null
@@ -52068,7 +57653,7 @@ export namespace Prisma {
     execStart?: Date | string | null
     dueExecEndDate?: Date | string | null
     execEndDate?: Date | string | null
-    dueClosuerDate?: Date | string | null
+    dueClosureDate?: Date | string | null
     totalExecTime?: Decimal | DecimalJsLike | number | string | null
     expStartDate?: Date | string | null
     suspensionReason?: string | null
@@ -52077,6 +57662,7 @@ export namespace Prisma {
     companyId?: string | null
     teamId?: string | null
     floorId?: string | null
+    zoneId?: string | null
     spaceId?: string | null
     ttSystemOpening?: Decimal | DecimalJsLike | number | string | null
     ttWorkOpening?: Decimal | DecimalJsLike | number | string | null
@@ -52108,6 +57694,44 @@ export namespace Prisma {
 
   export type MaintenanceCreateManyBuildingInputEnvelope = {
     data: MaintenanceCreateManyBuildingInput | MaintenanceCreateManyBuildingInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type MeterCreateWithoutBuildingInput = {
+    id?: string
+    name: string
+    type?: $Enums.MeterType
+    unit: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    asset?: AssetCreateNestedOneWithoutMetersInput
+    zone?: ZoneCreateNestedOneWithoutMetersInput
+    space?: SpaceCreateNestedOneWithoutMetersInput
+    readings?: MeterReadingCreateNestedManyWithoutMeterInput
+    preventiveTriggers?: MeterMaintenanceTriggerCreateNestedManyWithoutMeterInput
+  }
+
+  export type MeterUncheckedCreateWithoutBuildingInput = {
+    id?: string
+    name: string
+    type?: $Enums.MeterType
+    unit: string
+    assetId?: string | null
+    zoneId?: string | null
+    spaceId?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    readings?: MeterReadingUncheckedCreateNestedManyWithoutMeterInput
+    preventiveTriggers?: MeterMaintenanceTriggerUncheckedCreateNestedManyWithoutMeterInput
+  }
+
+  export type MeterCreateOrConnectWithoutBuildingInput = {
+    where: MeterWhereUniqueInput
+    create: XOR<MeterCreateWithoutBuildingInput, MeterUncheckedCreateWithoutBuildingInput>
+  }
+
+  export type MeterCreateManyBuildingInputEnvelope = {
+    data: MeterCreateManyBuildingInput | MeterCreateManyBuildingInput[]
     skipDuplicates?: boolean
   }
 
@@ -52303,6 +57927,38 @@ export namespace Prisma {
     data: XOR<MaintenanceUpdateManyMutationInput, MaintenanceUncheckedUpdateManyWithoutBuildingInput>
   }
 
+  export type MeterUpsertWithWhereUniqueWithoutBuildingInput = {
+    where: MeterWhereUniqueInput
+    update: XOR<MeterUpdateWithoutBuildingInput, MeterUncheckedUpdateWithoutBuildingInput>
+    create: XOR<MeterCreateWithoutBuildingInput, MeterUncheckedCreateWithoutBuildingInput>
+  }
+
+  export type MeterUpdateWithWhereUniqueWithoutBuildingInput = {
+    where: MeterWhereUniqueInput
+    data: XOR<MeterUpdateWithoutBuildingInput, MeterUncheckedUpdateWithoutBuildingInput>
+  }
+
+  export type MeterUpdateManyWithWhereWithoutBuildingInput = {
+    where: MeterScalarWhereInput
+    data: XOR<MeterUpdateManyMutationInput, MeterUncheckedUpdateManyWithoutBuildingInput>
+  }
+
+  export type MeterScalarWhereInput = {
+    AND?: MeterScalarWhereInput | MeterScalarWhereInput[]
+    OR?: MeterScalarWhereInput[]
+    NOT?: MeterScalarWhereInput | MeterScalarWhereInput[]
+    id?: StringFilter<"Meter"> | string
+    name?: StringFilter<"Meter"> | string
+    type?: EnumMeterTypeFilter<"Meter"> | $Enums.MeterType
+    unit?: StringFilter<"Meter"> | string
+    assetId?: StringNullableFilter<"Meter"> | string | null
+    buildingId?: StringNullableFilter<"Meter"> | string | null
+    zoneId?: StringNullableFilter<"Meter"> | string | null
+    spaceId?: StringNullableFilter<"Meter"> | string | null
+    createdAt?: DateTimeFilter<"Meter"> | Date | string
+    updatedAt?: DateTimeFilter<"Meter"> | Date | string
+  }
+
   export type BuildingCreateWithoutFloorsInput = {
     id?: string
     name: string
@@ -52330,6 +57986,7 @@ export namespace Prisma {
     photos?: FileCreateNestedManyWithoutBuildingsInput
     preventives?: PreventiveCreateNestedManyWithoutBuildingInput
     maintenances?: MaintenanceCreateNestedManyWithoutBuildingInput
+    meters?: MeterCreateNestedManyWithoutBuildingInput
   }
 
   export type BuildingUncheckedCreateWithoutFloorsInput = {
@@ -52359,6 +58016,7 @@ export namespace Prisma {
     photos?: FileUncheckedCreateNestedManyWithoutBuildingsInput
     preventives?: PreventiveUncheckedCreateNestedManyWithoutBuildingInput
     maintenances?: MaintenanceUncheckedCreateNestedManyWithoutBuildingInput
+    meters?: MeterUncheckedCreateNestedManyWithoutBuildingInput
   }
 
   export type BuildingCreateOrConnectWithoutFloorsInput = {
@@ -52397,6 +58055,9 @@ export namespace Prisma {
     calenderEntity?: CalenderEntityCreateNestedOneWithoutZonesInput
     rooms?: SpaceCreateNestedManyWithoutZoneInput
     photos?: FileCreateNestedManyWithoutZonesInput
+    items?: MaintenanceItemCreateNestedManyWithoutZoneInput
+    meters?: MeterCreateNestedManyWithoutZoneInput
+    maintenances?: MaintenanceCreateNestedManyWithoutZoneInput
   }
 
   export type ZoneUncheckedCreateWithoutFloorInput = {
@@ -52430,6 +58091,9 @@ export namespace Prisma {
     updatedAt?: Date | string
     rooms?: SpaceUncheckedCreateNestedManyWithoutZoneInput
     photos?: FileUncheckedCreateNestedManyWithoutZonesInput
+    items?: MaintenanceItemUncheckedCreateNestedManyWithoutZoneInput
+    meters?: MeterUncheckedCreateNestedManyWithoutZoneInput
+    maintenances?: MaintenanceUncheckedCreateNestedManyWithoutZoneInput
   }
 
   export type ZoneCreateOrConnectWithoutFloorInput = {
@@ -52454,6 +58118,8 @@ export namespace Prisma {
     message?: string | null
     processNotes?: string | null
     metadata?: NullableJsonNullValueInput | InputJsonValue
+    performerId?: string | null
+    performerReference?: $Enums.PerformerReference | null
     processStatus?: $Enums.Status
     register?: string | null
     activityIdTimer?: string | null
@@ -52470,7 +58136,7 @@ export namespace Prisma {
     execStart?: Date | string | null
     dueExecEndDate?: Date | string | null
     execEndDate?: Date | string | null
-    dueClosuerDate?: Date | string | null
+    dueClosureDate?: Date | string | null
     totalExecTime?: Decimal | DecimalJsLike | number | string | null
     expStartDate?: Date | string | null
     suspensionReason?: string | null
@@ -52493,12 +58159,12 @@ export namespace Prisma {
     delayNotification?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
-    performer?: UserCreateNestedOneWithoutPerformedMaintenancesInput
     requester?: UserCreateNestedOneWithoutRequestedMaintenancesInput
     site: ComplexCreateNestedOneWithoutMaintenancesInput
     company?: CompanyCreateNestedOneWithoutMaintenancesInput
     building?: BuildingCreateNestedOneWithoutMaintenancesInput
     team?: TeamCreateNestedOneWithoutMaintenancesInput
+    zone?: ZoneCreateNestedOneWithoutMaintenancesInput
     space?: SpaceCreateNestedOneWithoutMaintenancesInput
     assignee?: UserCreateNestedOneWithoutAssignedMaintenancesInput
     asset?: AssetCreateNestedOneWithoutMaintenancesInput
@@ -52519,6 +58185,7 @@ export namespace Prisma {
     processNotes?: string | null
     metadata?: NullableJsonNullValueInput | InputJsonValue
     performerId?: string | null
+    performerReference?: $Enums.PerformerReference | null
     processStatus?: $Enums.Status
     register?: string | null
     activityIdTimer?: string | null
@@ -52537,7 +58204,7 @@ export namespace Prisma {
     execStart?: Date | string | null
     dueExecEndDate?: Date | string | null
     execEndDate?: Date | string | null
-    dueClosuerDate?: Date | string | null
+    dueClosureDate?: Date | string | null
     totalExecTime?: Decimal | DecimalJsLike | number | string | null
     expStartDate?: Date | string | null
     suspensionReason?: string | null
@@ -52546,6 +58213,7 @@ export namespace Prisma {
     companyId?: string | null
     buildingId?: string | null
     teamId?: string | null
+    zoneId?: string | null
     spaceId?: string | null
     ttSystemOpening?: Decimal | DecimalJsLike | number | string | null
     ttWorkOpening?: Decimal | DecimalJsLike | number | string | null
@@ -52598,6 +58266,7 @@ export namespace Prisma {
     building?: BuildingCreateNestedOneWithoutPreventivesInput
     space?: SpaceCreateNestedOneWithoutPreventivesInput
     team?: TeamCreateNestedOneWithoutPreventivesInput
+    meterTriggers?: MeterMaintenanceTriggerCreateNestedManyWithoutPreventiveInput
   }
 
   export type PreventiveUncheckedCreateWithoutFloorInput = {
@@ -52618,6 +58287,7 @@ export namespace Prisma {
     teamId?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
+    meterTriggers?: MeterMaintenanceTriggerUncheckedCreateNestedManyWithoutPreventiveInput
   }
 
   export type PreventiveCreateOrConnectWithoutFloorInput = {
@@ -52668,6 +58338,7 @@ export namespace Prisma {
     photos?: FileUpdateManyWithoutBuildingsNestedInput
     preventives?: PreventiveUpdateManyWithoutBuildingNestedInput
     maintenances?: MaintenanceUpdateManyWithoutBuildingNestedInput
+    meters?: MeterUpdateManyWithoutBuildingNestedInput
   }
 
   export type BuildingUncheckedUpdateWithoutFloorsInput = {
@@ -52697,6 +58368,7 @@ export namespace Prisma {
     photos?: FileUncheckedUpdateManyWithoutBuildingsNestedInput
     preventives?: PreventiveUncheckedUpdateManyWithoutBuildingNestedInput
     maintenances?: MaintenanceUncheckedUpdateManyWithoutBuildingNestedInput
+    meters?: MeterUncheckedUpdateManyWithoutBuildingNestedInput
   }
 
   export type ZoneUpsertWithWhereUniqueWithoutFloorInput = {
@@ -52886,6 +58558,7 @@ export namespace Prisma {
     photos?: FileCreateNestedManyWithoutSpacesInput
     maintenances?: MaintenanceCreateNestedManyWithoutSpaceInput
     preventives?: PreventiveCreateNestedManyWithoutSpaceInput
+    meters?: MeterCreateNestedManyWithoutSpaceInput
     assets?: AssetCreateNestedManyWithoutSpaceInput
   }
 
@@ -52911,6 +58584,7 @@ export namespace Prisma {
     photos?: FileUncheckedCreateNestedManyWithoutSpacesInput
     maintenances?: MaintenanceUncheckedCreateNestedManyWithoutSpaceInput
     preventives?: PreventiveUncheckedCreateNestedManyWithoutSpaceInput
+    meters?: MeterUncheckedCreateNestedManyWithoutSpaceInput
     assets?: AssetUncheckedCreateNestedManyWithoutSpaceInput
   }
 
@@ -52945,6 +58619,216 @@ export namespace Prisma {
   export type FileCreateOrConnectWithoutZonesInput = {
     where: FileWhereUniqueInput
     create: XOR<FileCreateWithoutZonesInput, FileUncheckedCreateWithoutZonesInput>
+  }
+
+  export type MaintenanceItemCreateWithoutZoneInput = {
+    id?: string
+    quantity: number
+    cost?: Decimal | DecimalJsLike | number | string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    maintenance: MaintenanceCreateNestedOneWithoutMaintenanceItemsInput
+    item: ItemCreateNestedOneWithoutMaintenanceItemsInput
+  }
+
+  export type MaintenanceItemUncheckedCreateWithoutZoneInput = {
+    id?: string
+    quantity: number
+    cost?: Decimal | DecimalJsLike | number | string | null
+    maintenanceId: string
+    itemId: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type MaintenanceItemCreateOrConnectWithoutZoneInput = {
+    where: MaintenanceItemWhereUniqueInput
+    create: XOR<MaintenanceItemCreateWithoutZoneInput, MaintenanceItemUncheckedCreateWithoutZoneInput>
+  }
+
+  export type MaintenanceItemCreateManyZoneInputEnvelope = {
+    data: MaintenanceItemCreateManyZoneInput | MaintenanceItemCreateManyZoneInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type MeterCreateWithoutZoneInput = {
+    id?: string
+    name: string
+    type?: $Enums.MeterType
+    unit: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    asset?: AssetCreateNestedOneWithoutMetersInput
+    building?: BuildingCreateNestedOneWithoutMetersInput
+    space?: SpaceCreateNestedOneWithoutMetersInput
+    readings?: MeterReadingCreateNestedManyWithoutMeterInput
+    preventiveTriggers?: MeterMaintenanceTriggerCreateNestedManyWithoutMeterInput
+  }
+
+  export type MeterUncheckedCreateWithoutZoneInput = {
+    id?: string
+    name: string
+    type?: $Enums.MeterType
+    unit: string
+    assetId?: string | null
+    buildingId?: string | null
+    spaceId?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    readings?: MeterReadingUncheckedCreateNestedManyWithoutMeterInput
+    preventiveTriggers?: MeterMaintenanceTriggerUncheckedCreateNestedManyWithoutMeterInput
+  }
+
+  export type MeterCreateOrConnectWithoutZoneInput = {
+    where: MeterWhereUniqueInput
+    create: XOR<MeterCreateWithoutZoneInput, MeterUncheckedCreateWithoutZoneInput>
+  }
+
+  export type MeterCreateManyZoneInputEnvelope = {
+    data: MeterCreateManyZoneInput | MeterCreateManyZoneInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type MaintenanceCreateWithoutZoneInput = {
+    id?: string
+    type?: $Enums.MaintenanceType
+    code: string
+    description: string
+    startDate?: Date | string | null
+    endDate?: Date | string | null
+    shortDescription?: string | null
+    action?: string | null
+    message?: string | null
+    processNotes?: string | null
+    metadata?: NullableJsonNullValueInput | InputJsonValue
+    performerId?: string | null
+    performerReference?: $Enums.PerformerReference | null
+    processStatus?: $Enums.Status
+    register?: string | null
+    activityIdTimer?: string | null
+    activityStartTime?: Date | string | null
+    activityEndTime?: Date | string | null
+    allDeadlines?: string | null
+    processType?: $Enums.ProcessType
+    ttSysRunning?: Decimal | DecimalJsLike | number | string | null
+    ttWorkRunning?: Decimal | DecimalJsLike | number | string | null
+    sorting?: string | null
+    priority?: $Enums.Priority
+    outcome?: string | null
+    dueAssignedEnd?: Date | string | null
+    execStart?: Date | string | null
+    dueExecEndDate?: Date | string | null
+    execEndDate?: Date | string | null
+    dueClosureDate?: Date | string | null
+    totalExecTime?: Decimal | DecimalJsLike | number | string | null
+    expStartDate?: Date | string | null
+    suspensionReason?: string | null
+    category?: string | null
+    subCategory?: string | null
+    ttSystemOpening?: Decimal | DecimalJsLike | number | string | null
+    ttWorkOpening?: Decimal | DecimalJsLike | number | string | null
+    ttSystemAssignment?: Decimal | DecimalJsLike | number | string | null
+    ttWorkAssignment?: Decimal | DecimalJsLike | number | string | null
+    ttSystemExecution?: Decimal | DecimalJsLike | number | string | null
+    ttWorkExecution?: Decimal | DecimalJsLike | number | string | null
+    ttSysSuspension?: Decimal | DecimalJsLike | number | string | null
+    ttWorkSuspension?: Decimal | DecimalJsLike | number | string | null
+    ttEstimate?: Decimal | DecimalJsLike | number | string | null
+    prevMaintenanceConfigId?: string | null
+    automaticConfig?: boolean
+    jointAccounting?: boolean
+    hasTasks?: boolean
+    estimateStatus?: $Enums.Status
+    delayNotification?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    requester?: UserCreateNestedOneWithoutRequestedMaintenancesInput
+    site: ComplexCreateNestedOneWithoutMaintenancesInput
+    company?: CompanyCreateNestedOneWithoutMaintenancesInput
+    building?: BuildingCreateNestedOneWithoutMaintenancesInput
+    team?: TeamCreateNestedOneWithoutMaintenancesInput
+    floor?: FloorCreateNestedOneWithoutMaintenancesInput
+    space?: SpaceCreateNestedOneWithoutMaintenancesInput
+    assignee?: UserCreateNestedOneWithoutAssignedMaintenancesInput
+    asset?: AssetCreateNestedOneWithoutMaintenancesInput
+    photos?: FileCreateNestedManyWithoutMaintenanceInput
+    maintenanceItems?: MaintenanceItemCreateNestedManyWithoutMaintenanceInput
+  }
+
+  export type MaintenanceUncheckedCreateWithoutZoneInput = {
+    id?: string
+    type?: $Enums.MaintenanceType
+    code: string
+    description: string
+    startDate?: Date | string | null
+    endDate?: Date | string | null
+    shortDescription?: string | null
+    action?: string | null
+    message?: string | null
+    processNotes?: string | null
+    metadata?: NullableJsonNullValueInput | InputJsonValue
+    performerId?: string | null
+    performerReference?: $Enums.PerformerReference | null
+    processStatus?: $Enums.Status
+    register?: string | null
+    activityIdTimer?: string | null
+    activityStartTime?: Date | string | null
+    activityEndTime?: Date | string | null
+    allDeadlines?: string | null
+    processType?: $Enums.ProcessType
+    ttSysRunning?: Decimal | DecimalJsLike | number | string | null
+    ttWorkRunning?: Decimal | DecimalJsLike | number | string | null
+    sorting?: string | null
+    requesterId?: string | null
+    priority?: $Enums.Priority
+    siteId: string
+    outcome?: string | null
+    dueAssignedEnd?: Date | string | null
+    execStart?: Date | string | null
+    dueExecEndDate?: Date | string | null
+    execEndDate?: Date | string | null
+    dueClosureDate?: Date | string | null
+    totalExecTime?: Decimal | DecimalJsLike | number | string | null
+    expStartDate?: Date | string | null
+    suspensionReason?: string | null
+    category?: string | null
+    subCategory?: string | null
+    companyId?: string | null
+    buildingId?: string | null
+    teamId?: string | null
+    floorId?: string | null
+    spaceId?: string | null
+    ttSystemOpening?: Decimal | DecimalJsLike | number | string | null
+    ttWorkOpening?: Decimal | DecimalJsLike | number | string | null
+    ttSystemAssignment?: Decimal | DecimalJsLike | number | string | null
+    ttWorkAssignment?: Decimal | DecimalJsLike | number | string | null
+    ttSystemExecution?: Decimal | DecimalJsLike | number | string | null
+    ttWorkExecution?: Decimal | DecimalJsLike | number | string | null
+    ttSysSuspension?: Decimal | DecimalJsLike | number | string | null
+    ttWorkSuspension?: Decimal | DecimalJsLike | number | string | null
+    ttEstimate?: Decimal | DecimalJsLike | number | string | null
+    prevMaintenanceConfigId?: string | null
+    automaticConfig?: boolean
+    jointAccounting?: boolean
+    hasTasks?: boolean
+    estimateStatus?: $Enums.Status
+    delayNotification?: boolean
+    assigneeId?: string | null
+    assetId?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    photos?: FileUncheckedCreateNestedManyWithoutMaintenanceInput
+    maintenanceItems?: MaintenanceItemUncheckedCreateNestedManyWithoutMaintenanceInput
+  }
+
+  export type MaintenanceCreateOrConnectWithoutZoneInput = {
+    where: MaintenanceWhereUniqueInput
+    create: XOR<MaintenanceCreateWithoutZoneInput, MaintenanceUncheckedCreateWithoutZoneInput>
+  }
+
+  export type MaintenanceCreateManyZoneInputEnvelope = {
+    data: MaintenanceCreateManyZoneInput | MaintenanceCreateManyZoneInput[]
+    skipDuplicates?: boolean
   }
 
   export type CalenderEntityUpsertWithoutZonesInput = {
@@ -53098,6 +58982,68 @@ export namespace Prisma {
     data: XOR<FileUpdateManyMutationInput, FileUncheckedUpdateManyWithoutZonesInput>
   }
 
+  export type MaintenanceItemUpsertWithWhereUniqueWithoutZoneInput = {
+    where: MaintenanceItemWhereUniqueInput
+    update: XOR<MaintenanceItemUpdateWithoutZoneInput, MaintenanceItemUncheckedUpdateWithoutZoneInput>
+    create: XOR<MaintenanceItemCreateWithoutZoneInput, MaintenanceItemUncheckedCreateWithoutZoneInput>
+  }
+
+  export type MaintenanceItemUpdateWithWhereUniqueWithoutZoneInput = {
+    where: MaintenanceItemWhereUniqueInput
+    data: XOR<MaintenanceItemUpdateWithoutZoneInput, MaintenanceItemUncheckedUpdateWithoutZoneInput>
+  }
+
+  export type MaintenanceItemUpdateManyWithWhereWithoutZoneInput = {
+    where: MaintenanceItemScalarWhereInput
+    data: XOR<MaintenanceItemUpdateManyMutationInput, MaintenanceItemUncheckedUpdateManyWithoutZoneInput>
+  }
+
+  export type MaintenanceItemScalarWhereInput = {
+    AND?: MaintenanceItemScalarWhereInput | MaintenanceItemScalarWhereInput[]
+    OR?: MaintenanceItemScalarWhereInput[]
+    NOT?: MaintenanceItemScalarWhereInput | MaintenanceItemScalarWhereInput[]
+    id?: StringFilter<"MaintenanceItem"> | string
+    quantity?: IntFilter<"MaintenanceItem"> | number
+    cost?: DecimalNullableFilter<"MaintenanceItem"> | Decimal | DecimalJsLike | number | string | null
+    maintenanceId?: StringFilter<"MaintenanceItem"> | string
+    itemId?: StringFilter<"MaintenanceItem"> | string
+    createdAt?: DateTimeFilter<"MaintenanceItem"> | Date | string
+    updatedAt?: DateTimeFilter<"MaintenanceItem"> | Date | string
+    zoneId?: StringNullableFilter<"MaintenanceItem"> | string | null
+  }
+
+  export type MeterUpsertWithWhereUniqueWithoutZoneInput = {
+    where: MeterWhereUniqueInput
+    update: XOR<MeterUpdateWithoutZoneInput, MeterUncheckedUpdateWithoutZoneInput>
+    create: XOR<MeterCreateWithoutZoneInput, MeterUncheckedCreateWithoutZoneInput>
+  }
+
+  export type MeterUpdateWithWhereUniqueWithoutZoneInput = {
+    where: MeterWhereUniqueInput
+    data: XOR<MeterUpdateWithoutZoneInput, MeterUncheckedUpdateWithoutZoneInput>
+  }
+
+  export type MeterUpdateManyWithWhereWithoutZoneInput = {
+    where: MeterScalarWhereInput
+    data: XOR<MeterUpdateManyMutationInput, MeterUncheckedUpdateManyWithoutZoneInput>
+  }
+
+  export type MaintenanceUpsertWithWhereUniqueWithoutZoneInput = {
+    where: MaintenanceWhereUniqueInput
+    update: XOR<MaintenanceUpdateWithoutZoneInput, MaintenanceUncheckedUpdateWithoutZoneInput>
+    create: XOR<MaintenanceCreateWithoutZoneInput, MaintenanceUncheckedCreateWithoutZoneInput>
+  }
+
+  export type MaintenanceUpdateWithWhereUniqueWithoutZoneInput = {
+    where: MaintenanceWhereUniqueInput
+    data: XOR<MaintenanceUpdateWithoutZoneInput, MaintenanceUncheckedUpdateWithoutZoneInput>
+  }
+
+  export type MaintenanceUpdateManyWithWhereWithoutZoneInput = {
+    where: MaintenanceScalarWhereInput
+    data: XOR<MaintenanceUpdateManyMutationInput, MaintenanceUncheckedUpdateManyWithoutZoneInput>
+  }
+
   export type CalenderEntityCreateWithoutSpacesInput = {
     id?: string
     name: string
@@ -53156,6 +59102,9 @@ export namespace Prisma {
     calenderEntity?: CalenderEntityCreateNestedOneWithoutZonesInput
     floor: FloorCreateNestedOneWithoutZonesInput
     photos?: FileCreateNestedManyWithoutZonesInput
+    items?: MaintenanceItemCreateNestedManyWithoutZoneInput
+    meters?: MeterCreateNestedManyWithoutZoneInput
+    maintenances?: MaintenanceCreateNestedManyWithoutZoneInput
   }
 
   export type ZoneUncheckedCreateWithoutRoomsInput = {
@@ -53189,6 +59138,9 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     photos?: FileUncheckedCreateNestedManyWithoutZonesInput
+    items?: MaintenanceItemUncheckedCreateNestedManyWithoutZoneInput
+    meters?: MeterUncheckedCreateNestedManyWithoutZoneInput
+    maintenances?: MaintenanceUncheckedCreateNestedManyWithoutZoneInput
   }
 
   export type ZoneCreateOrConnectWithoutRoomsInput = {
@@ -53231,6 +59183,8 @@ export namespace Prisma {
     message?: string | null
     processNotes?: string | null
     metadata?: NullableJsonNullValueInput | InputJsonValue
+    performerId?: string | null
+    performerReference?: $Enums.PerformerReference | null
     processStatus?: $Enums.Status
     register?: string | null
     activityIdTimer?: string | null
@@ -53247,7 +59201,7 @@ export namespace Prisma {
     execStart?: Date | string | null
     dueExecEndDate?: Date | string | null
     execEndDate?: Date | string | null
-    dueClosuerDate?: Date | string | null
+    dueClosureDate?: Date | string | null
     totalExecTime?: Decimal | DecimalJsLike | number | string | null
     expStartDate?: Date | string | null
     suspensionReason?: string | null
@@ -53270,13 +59224,13 @@ export namespace Prisma {
     delayNotification?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
-    performer?: UserCreateNestedOneWithoutPerformedMaintenancesInput
     requester?: UserCreateNestedOneWithoutRequestedMaintenancesInput
     site: ComplexCreateNestedOneWithoutMaintenancesInput
     company?: CompanyCreateNestedOneWithoutMaintenancesInput
     building?: BuildingCreateNestedOneWithoutMaintenancesInput
     team?: TeamCreateNestedOneWithoutMaintenancesInput
     floor?: FloorCreateNestedOneWithoutMaintenancesInput
+    zone?: ZoneCreateNestedOneWithoutMaintenancesInput
     assignee?: UserCreateNestedOneWithoutAssignedMaintenancesInput
     asset?: AssetCreateNestedOneWithoutMaintenancesInput
     photos?: FileCreateNestedManyWithoutMaintenanceInput
@@ -53296,6 +59250,7 @@ export namespace Prisma {
     processNotes?: string | null
     metadata?: NullableJsonNullValueInput | InputJsonValue
     performerId?: string | null
+    performerReference?: $Enums.PerformerReference | null
     processStatus?: $Enums.Status
     register?: string | null
     activityIdTimer?: string | null
@@ -53314,7 +59269,7 @@ export namespace Prisma {
     execStart?: Date | string | null
     dueExecEndDate?: Date | string | null
     execEndDate?: Date | string | null
-    dueClosuerDate?: Date | string | null
+    dueClosureDate?: Date | string | null
     totalExecTime?: Decimal | DecimalJsLike | number | string | null
     expStartDate?: Date | string | null
     suspensionReason?: string | null
@@ -53324,6 +59279,7 @@ export namespace Prisma {
     buildingId?: string | null
     teamId?: string | null
     floorId?: string | null
+    zoneId?: string | null
     ttSystemOpening?: Decimal | DecimalJsLike | number | string | null
     ttWorkOpening?: Decimal | DecimalJsLike | number | string | null
     ttSystemAssignment?: Decimal | DecimalJsLike | number | string | null
@@ -53375,6 +59331,7 @@ export namespace Prisma {
     building?: BuildingCreateNestedOneWithoutPreventivesInput
     floor?: FloorCreateNestedOneWithoutPreventivesInput
     team?: TeamCreateNestedOneWithoutPreventivesInput
+    meterTriggers?: MeterMaintenanceTriggerCreateNestedManyWithoutPreventiveInput
   }
 
   export type PreventiveUncheckedCreateWithoutSpaceInput = {
@@ -53395,6 +59352,7 @@ export namespace Prisma {
     teamId?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
+    meterTriggers?: MeterMaintenanceTriggerUncheckedCreateNestedManyWithoutPreventiveInput
   }
 
   export type PreventiveCreateOrConnectWithoutSpaceInput = {
@@ -53404,6 +59362,44 @@ export namespace Prisma {
 
   export type PreventiveCreateManySpaceInputEnvelope = {
     data: PreventiveCreateManySpaceInput | PreventiveCreateManySpaceInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type MeterCreateWithoutSpaceInput = {
+    id?: string
+    name: string
+    type?: $Enums.MeterType
+    unit: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    asset?: AssetCreateNestedOneWithoutMetersInput
+    building?: BuildingCreateNestedOneWithoutMetersInput
+    zone?: ZoneCreateNestedOneWithoutMetersInput
+    readings?: MeterReadingCreateNestedManyWithoutMeterInput
+    preventiveTriggers?: MeterMaintenanceTriggerCreateNestedManyWithoutMeterInput
+  }
+
+  export type MeterUncheckedCreateWithoutSpaceInput = {
+    id?: string
+    name: string
+    type?: $Enums.MeterType
+    unit: string
+    assetId?: string | null
+    buildingId?: string | null
+    zoneId?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    readings?: MeterReadingUncheckedCreateNestedManyWithoutMeterInput
+    preventiveTriggers?: MeterMaintenanceTriggerUncheckedCreateNestedManyWithoutMeterInput
+  }
+
+  export type MeterCreateOrConnectWithoutSpaceInput = {
+    where: MeterWhereUniqueInput
+    create: XOR<MeterCreateWithoutSpaceInput, MeterUncheckedCreateWithoutSpaceInput>
+  }
+
+  export type MeterCreateManySpaceInputEnvelope = {
+    data: MeterCreateManySpaceInput | MeterCreateManySpaceInput[]
     skipDuplicates?: boolean
   }
 
@@ -53419,6 +59415,7 @@ export namespace Prisma {
     childAssets?: AssetCreateNestedManyWithoutParentSystemInput
     maintenances?: MaintenanceCreateNestedManyWithoutAssetInput
     preventives?: PreventiveCreateNestedManyWithoutAssetInput
+    meters?: MeterCreateNestedManyWithoutAssetInput
   }
 
   export type AssetUncheckedCreateWithoutSpaceInput = {
@@ -53433,6 +59430,7 @@ export namespace Prisma {
     childAssets?: AssetUncheckedCreateNestedManyWithoutParentSystemInput
     maintenances?: MaintenanceUncheckedCreateNestedManyWithoutAssetInput
     preventives?: PreventiveUncheckedCreateNestedManyWithoutAssetInput
+    meters?: MeterUncheckedCreateNestedManyWithoutAssetInput
   }
 
   export type AssetCreateOrConnectWithoutSpaceInput = {
@@ -53520,6 +59518,9 @@ export namespace Prisma {
     calenderEntity?: CalenderEntityUpdateOneWithoutZonesNestedInput
     floor?: FloorUpdateOneRequiredWithoutZonesNestedInput
     photos?: FileUpdateManyWithoutZonesNestedInput
+    items?: MaintenanceItemUpdateManyWithoutZoneNestedInput
+    meters?: MeterUpdateManyWithoutZoneNestedInput
+    maintenances?: MaintenanceUpdateManyWithoutZoneNestedInput
   }
 
   export type ZoneUncheckedUpdateWithoutRoomsInput = {
@@ -53553,6 +59554,9 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     photos?: FileUncheckedUpdateManyWithoutZonesNestedInput
+    items?: MaintenanceItemUncheckedUpdateManyWithoutZoneNestedInput
+    meters?: MeterUncheckedUpdateManyWithoutZoneNestedInput
+    maintenances?: MaintenanceUncheckedUpdateManyWithoutZoneNestedInput
   }
 
   export type FileUpsertWithWhereUniqueWithoutSpacesInput = {
@@ -53603,6 +59607,22 @@ export namespace Prisma {
     data: XOR<PreventiveUpdateManyMutationInput, PreventiveUncheckedUpdateManyWithoutSpaceInput>
   }
 
+  export type MeterUpsertWithWhereUniqueWithoutSpaceInput = {
+    where: MeterWhereUniqueInput
+    update: XOR<MeterUpdateWithoutSpaceInput, MeterUncheckedUpdateWithoutSpaceInput>
+    create: XOR<MeterCreateWithoutSpaceInput, MeterUncheckedCreateWithoutSpaceInput>
+  }
+
+  export type MeterUpdateWithWhereUniqueWithoutSpaceInput = {
+    where: MeterWhereUniqueInput
+    data: XOR<MeterUpdateWithoutSpaceInput, MeterUncheckedUpdateWithoutSpaceInput>
+  }
+
+  export type MeterUpdateManyWithWhereWithoutSpaceInput = {
+    where: MeterScalarWhereInput
+    data: XOR<MeterUpdateManyMutationInput, MeterUncheckedUpdateManyWithoutSpaceInput>
+  }
+
   export type AssetUpsertWithWhereUniqueWithoutSpaceInput = {
     where: AssetWhereUniqueInput
     update: XOR<AssetUpdateWithoutSpaceInput, AssetUncheckedUpdateWithoutSpaceInput>
@@ -53646,6 +59666,7 @@ export namespace Prisma {
     space?: SpaceCreateNestedOneWithoutAssetsInput
     maintenances?: MaintenanceCreateNestedManyWithoutAssetInput
     preventives?: PreventiveCreateNestedManyWithoutAssetInput
+    meters?: MeterCreateNestedManyWithoutAssetInput
   }
 
   export type AssetUncheckedCreateWithoutCategoryInput = {
@@ -53660,6 +59681,7 @@ export namespace Prisma {
     childAssets?: AssetUncheckedCreateNestedManyWithoutParentSystemInput
     maintenances?: MaintenanceUncheckedCreateNestedManyWithoutAssetInput
     preventives?: PreventiveUncheckedCreateNestedManyWithoutAssetInput
+    meters?: MeterUncheckedCreateNestedManyWithoutAssetInput
   }
 
   export type AssetCreateOrConnectWithoutCategoryInput = {
@@ -53723,6 +59745,7 @@ export namespace Prisma {
     space?: SpaceCreateNestedOneWithoutAssetsInput
     maintenances?: MaintenanceCreateNestedManyWithoutAssetInput
     preventives?: PreventiveCreateNestedManyWithoutAssetInput
+    meters?: MeterCreateNestedManyWithoutAssetInput
   }
 
   export type AssetUncheckedCreateWithoutChildAssetsInput = {
@@ -53737,6 +59760,7 @@ export namespace Prisma {
     updatedAt?: Date | string
     maintenances?: MaintenanceUncheckedCreateNestedManyWithoutAssetInput
     preventives?: PreventiveUncheckedCreateNestedManyWithoutAssetInput
+    meters?: MeterUncheckedCreateNestedManyWithoutAssetInput
   }
 
   export type AssetCreateOrConnectWithoutChildAssetsInput = {
@@ -53756,6 +59780,7 @@ export namespace Prisma {
     space?: SpaceCreateNestedOneWithoutAssetsInput
     maintenances?: MaintenanceCreateNestedManyWithoutAssetInput
     preventives?: PreventiveCreateNestedManyWithoutAssetInput
+    meters?: MeterCreateNestedManyWithoutAssetInput
   }
 
   export type AssetUncheckedCreateWithoutParentSystemInput = {
@@ -53770,6 +59795,7 @@ export namespace Prisma {
     childAssets?: AssetUncheckedCreateNestedManyWithoutParentSystemInput
     maintenances?: MaintenanceUncheckedCreateNestedManyWithoutAssetInput
     preventives?: PreventiveUncheckedCreateNestedManyWithoutAssetInput
+    meters?: MeterUncheckedCreateNestedManyWithoutAssetInput
   }
 
   export type AssetCreateOrConnectWithoutParentSystemInput = {
@@ -53805,6 +59831,7 @@ export namespace Prisma {
     photos?: FileCreateNestedManyWithoutSpacesInput
     maintenances?: MaintenanceCreateNestedManyWithoutSpaceInput
     preventives?: PreventiveCreateNestedManyWithoutSpaceInput
+    meters?: MeterCreateNestedManyWithoutSpaceInput
   }
 
   export type SpaceUncheckedCreateWithoutAssetsInput = {
@@ -53830,6 +59857,7 @@ export namespace Prisma {
     photos?: FileUncheckedCreateNestedManyWithoutSpacesInput
     maintenances?: MaintenanceUncheckedCreateNestedManyWithoutSpaceInput
     preventives?: PreventiveUncheckedCreateNestedManyWithoutSpaceInput
+    meters?: MeterUncheckedCreateNestedManyWithoutSpaceInput
   }
 
   export type SpaceCreateOrConnectWithoutAssetsInput = {
@@ -53849,6 +59877,8 @@ export namespace Prisma {
     message?: string | null
     processNotes?: string | null
     metadata?: NullableJsonNullValueInput | InputJsonValue
+    performerId?: string | null
+    performerReference?: $Enums.PerformerReference | null
     processStatus?: $Enums.Status
     register?: string | null
     activityIdTimer?: string | null
@@ -53865,7 +59895,7 @@ export namespace Prisma {
     execStart?: Date | string | null
     dueExecEndDate?: Date | string | null
     execEndDate?: Date | string | null
-    dueClosuerDate?: Date | string | null
+    dueClosureDate?: Date | string | null
     totalExecTime?: Decimal | DecimalJsLike | number | string | null
     expStartDate?: Date | string | null
     suspensionReason?: string | null
@@ -53888,13 +59918,13 @@ export namespace Prisma {
     delayNotification?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
-    performer?: UserCreateNestedOneWithoutPerformedMaintenancesInput
     requester?: UserCreateNestedOneWithoutRequestedMaintenancesInput
     site: ComplexCreateNestedOneWithoutMaintenancesInput
     company?: CompanyCreateNestedOneWithoutMaintenancesInput
     building?: BuildingCreateNestedOneWithoutMaintenancesInput
     team?: TeamCreateNestedOneWithoutMaintenancesInput
     floor?: FloorCreateNestedOneWithoutMaintenancesInput
+    zone?: ZoneCreateNestedOneWithoutMaintenancesInput
     space?: SpaceCreateNestedOneWithoutMaintenancesInput
     assignee?: UserCreateNestedOneWithoutAssignedMaintenancesInput
     photos?: FileCreateNestedManyWithoutMaintenanceInput
@@ -53914,6 +59944,7 @@ export namespace Prisma {
     processNotes?: string | null
     metadata?: NullableJsonNullValueInput | InputJsonValue
     performerId?: string | null
+    performerReference?: $Enums.PerformerReference | null
     processStatus?: $Enums.Status
     register?: string | null
     activityIdTimer?: string | null
@@ -53932,7 +59963,7 @@ export namespace Prisma {
     execStart?: Date | string | null
     dueExecEndDate?: Date | string | null
     execEndDate?: Date | string | null
-    dueClosuerDate?: Date | string | null
+    dueClosureDate?: Date | string | null
     totalExecTime?: Decimal | DecimalJsLike | number | string | null
     expStartDate?: Date | string | null
     suspensionReason?: string | null
@@ -53942,6 +59973,7 @@ export namespace Prisma {
     buildingId?: string | null
     teamId?: string | null
     floorId?: string | null
+    zoneId?: string | null
     spaceId?: string | null
     ttSystemOpening?: Decimal | DecimalJsLike | number | string | null
     ttWorkOpening?: Decimal | DecimalJsLike | number | string | null
@@ -53993,6 +60025,7 @@ export namespace Prisma {
     floor?: FloorCreateNestedOneWithoutPreventivesInput
     space?: SpaceCreateNestedOneWithoutPreventivesInput
     team?: TeamCreateNestedOneWithoutPreventivesInput
+    meterTriggers?: MeterMaintenanceTriggerCreateNestedManyWithoutPreventiveInput
   }
 
   export type PreventiveUncheckedCreateWithoutAssetInput = {
@@ -54013,6 +60046,7 @@ export namespace Prisma {
     teamId?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
+    meterTriggers?: MeterMaintenanceTriggerUncheckedCreateNestedManyWithoutPreventiveInput
   }
 
   export type PreventiveCreateOrConnectWithoutAssetInput = {
@@ -54022,6 +60056,44 @@ export namespace Prisma {
 
   export type PreventiveCreateManyAssetInputEnvelope = {
     data: PreventiveCreateManyAssetInput | PreventiveCreateManyAssetInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type MeterCreateWithoutAssetInput = {
+    id?: string
+    name: string
+    type?: $Enums.MeterType
+    unit: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    building?: BuildingCreateNestedOneWithoutMetersInput
+    zone?: ZoneCreateNestedOneWithoutMetersInput
+    space?: SpaceCreateNestedOneWithoutMetersInput
+    readings?: MeterReadingCreateNestedManyWithoutMeterInput
+    preventiveTriggers?: MeterMaintenanceTriggerCreateNestedManyWithoutMeterInput
+  }
+
+  export type MeterUncheckedCreateWithoutAssetInput = {
+    id?: string
+    name: string
+    type?: $Enums.MeterType
+    unit: string
+    buildingId?: string | null
+    zoneId?: string | null
+    spaceId?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    readings?: MeterReadingUncheckedCreateNestedManyWithoutMeterInput
+    preventiveTriggers?: MeterMaintenanceTriggerUncheckedCreateNestedManyWithoutMeterInput
+  }
+
+  export type MeterCreateOrConnectWithoutAssetInput = {
+    where: MeterWhereUniqueInput
+    create: XOR<MeterCreateWithoutAssetInput, MeterUncheckedCreateWithoutAssetInput>
+  }
+
+  export type MeterCreateManyAssetInputEnvelope = {
+    data: MeterCreateManyAssetInput | MeterCreateManyAssetInput[]
     skipDuplicates?: boolean
   }
 
@@ -54077,6 +60149,7 @@ export namespace Prisma {
     space?: SpaceUpdateOneWithoutAssetsNestedInput
     maintenances?: MaintenanceUpdateManyWithoutAssetNestedInput
     preventives?: PreventiveUpdateManyWithoutAssetNestedInput
+    meters?: MeterUpdateManyWithoutAssetNestedInput
   }
 
   export type AssetUncheckedUpdateWithoutChildAssetsInput = {
@@ -54091,6 +60164,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     maintenances?: MaintenanceUncheckedUpdateManyWithoutAssetNestedInput
     preventives?: PreventiveUncheckedUpdateManyWithoutAssetNestedInput
+    meters?: MeterUncheckedUpdateManyWithoutAssetNestedInput
   }
 
   export type AssetUpsertWithWhereUniqueWithoutParentSystemInput = {
@@ -54143,6 +60217,7 @@ export namespace Prisma {
     photos?: FileUpdateManyWithoutSpacesNestedInput
     maintenances?: MaintenanceUpdateManyWithoutSpaceNestedInput
     preventives?: PreventiveUpdateManyWithoutSpaceNestedInput
+    meters?: MeterUpdateManyWithoutSpaceNestedInput
   }
 
   export type SpaceUncheckedUpdateWithoutAssetsInput = {
@@ -54168,6 +60243,7 @@ export namespace Prisma {
     photos?: FileUncheckedUpdateManyWithoutSpacesNestedInput
     maintenances?: MaintenanceUncheckedUpdateManyWithoutSpaceNestedInput
     preventives?: PreventiveUncheckedUpdateManyWithoutSpaceNestedInput
+    meters?: MeterUncheckedUpdateManyWithoutSpaceNestedInput
   }
 
   export type MaintenanceUpsertWithWhereUniqueWithoutAssetInput = {
@@ -54202,6 +60278,22 @@ export namespace Prisma {
     data: XOR<PreventiveUpdateManyMutationInput, PreventiveUncheckedUpdateManyWithoutAssetInput>
   }
 
+  export type MeterUpsertWithWhereUniqueWithoutAssetInput = {
+    where: MeterWhereUniqueInput
+    update: XOR<MeterUpdateWithoutAssetInput, MeterUncheckedUpdateWithoutAssetInput>
+    create: XOR<MeterCreateWithoutAssetInput, MeterUncheckedCreateWithoutAssetInput>
+  }
+
+  export type MeterUpdateWithWhereUniqueWithoutAssetInput = {
+    where: MeterWhereUniqueInput
+    data: XOR<MeterUpdateWithoutAssetInput, MeterUncheckedUpdateWithoutAssetInput>
+  }
+
+  export type MeterUpdateManyWithWhereWithoutAssetInput = {
+    where: MeterScalarWhereInput
+    data: XOR<MeterUpdateManyMutationInput, MeterUncheckedUpdateManyWithoutAssetInput>
+  }
+
   export type SpaceCreateWithoutPhotosInput = {
     id?: string
     name: string
@@ -54224,6 +60316,7 @@ export namespace Prisma {
     zone: ZoneCreateNestedOneWithoutRoomsInput
     maintenances?: MaintenanceCreateNestedManyWithoutSpaceInput
     preventives?: PreventiveCreateNestedManyWithoutSpaceInput
+    meters?: MeterCreateNestedManyWithoutSpaceInput
     assets?: AssetCreateNestedManyWithoutSpaceInput
   }
 
@@ -54249,6 +60342,7 @@ export namespace Prisma {
     updatedAt?: Date | string
     maintenances?: MaintenanceUncheckedCreateNestedManyWithoutSpaceInput
     preventives?: PreventiveUncheckedCreateNestedManyWithoutSpaceInput
+    meters?: MeterUncheckedCreateNestedManyWithoutSpaceInput
     assets?: AssetUncheckedCreateNestedManyWithoutSpaceInput
   }
 
@@ -54288,6 +60382,9 @@ export namespace Prisma {
     calenderEntity?: CalenderEntityCreateNestedOneWithoutZonesInput
     floor: FloorCreateNestedOneWithoutZonesInput
     rooms?: SpaceCreateNestedManyWithoutZoneInput
+    items?: MaintenanceItemCreateNestedManyWithoutZoneInput
+    meters?: MeterCreateNestedManyWithoutZoneInput
+    maintenances?: MaintenanceCreateNestedManyWithoutZoneInput
   }
 
   export type ZoneUncheckedCreateWithoutPhotosInput = {
@@ -54321,6 +60418,9 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     rooms?: SpaceUncheckedCreateNestedManyWithoutZoneInput
+    items?: MaintenanceItemUncheckedCreateNestedManyWithoutZoneInput
+    meters?: MeterUncheckedCreateNestedManyWithoutZoneInput
+    maintenances?: MaintenanceUncheckedCreateNestedManyWithoutZoneInput
   }
 
   export type ZoneCreateOrConnectWithoutPhotosInput = {
@@ -54355,6 +60455,7 @@ export namespace Prisma {
     floors?: FloorCreateNestedManyWithoutBuildingInput
     preventives?: PreventiveCreateNestedManyWithoutBuildingInput
     maintenances?: MaintenanceCreateNestedManyWithoutBuildingInput
+    meters?: MeterCreateNestedManyWithoutBuildingInput
   }
 
   export type BuildingUncheckedCreateWithoutPhotosInput = {
@@ -54384,6 +60485,7 @@ export namespace Prisma {
     floors?: FloorUncheckedCreateNestedManyWithoutBuildingInput
     preventives?: PreventiveUncheckedCreateNestedManyWithoutBuildingInput
     maintenances?: MaintenanceUncheckedCreateNestedManyWithoutBuildingInput
+    meters?: MeterUncheckedCreateNestedManyWithoutBuildingInput
   }
 
   export type BuildingCreateOrConnectWithoutPhotosInput = {
@@ -54466,6 +60568,8 @@ export namespace Prisma {
     message?: string | null
     processNotes?: string | null
     metadata?: NullableJsonNullValueInput | InputJsonValue
+    performerId?: string | null
+    performerReference?: $Enums.PerformerReference | null
     processStatus?: $Enums.Status
     register?: string | null
     activityIdTimer?: string | null
@@ -54482,7 +60586,7 @@ export namespace Prisma {
     execStart?: Date | string | null
     dueExecEndDate?: Date | string | null
     execEndDate?: Date | string | null
-    dueClosuerDate?: Date | string | null
+    dueClosureDate?: Date | string | null
     totalExecTime?: Decimal | DecimalJsLike | number | string | null
     expStartDate?: Date | string | null
     suspensionReason?: string | null
@@ -54505,13 +60609,13 @@ export namespace Prisma {
     delayNotification?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
-    performer?: UserCreateNestedOneWithoutPerformedMaintenancesInput
     requester?: UserCreateNestedOneWithoutRequestedMaintenancesInput
     site: ComplexCreateNestedOneWithoutMaintenancesInput
     company?: CompanyCreateNestedOneWithoutMaintenancesInput
     building?: BuildingCreateNestedOneWithoutMaintenancesInput
     team?: TeamCreateNestedOneWithoutMaintenancesInput
     floor?: FloorCreateNestedOneWithoutMaintenancesInput
+    zone?: ZoneCreateNestedOneWithoutMaintenancesInput
     space?: SpaceCreateNestedOneWithoutMaintenancesInput
     assignee?: UserCreateNestedOneWithoutAssignedMaintenancesInput
     asset?: AssetCreateNestedOneWithoutMaintenancesInput
@@ -54531,6 +60635,7 @@ export namespace Prisma {
     processNotes?: string | null
     metadata?: NullableJsonNullValueInput | InputJsonValue
     performerId?: string | null
+    performerReference?: $Enums.PerformerReference | null
     processStatus?: $Enums.Status
     register?: string | null
     activityIdTimer?: string | null
@@ -54549,7 +60654,7 @@ export namespace Prisma {
     execStart?: Date | string | null
     dueExecEndDate?: Date | string | null
     execEndDate?: Date | string | null
-    dueClosuerDate?: Date | string | null
+    dueClosureDate?: Date | string | null
     totalExecTime?: Decimal | DecimalJsLike | number | string | null
     expStartDate?: Date | string | null
     suspensionReason?: string | null
@@ -54559,6 +60664,7 @@ export namespace Prisma {
     buildingId?: string | null
     teamId?: string | null
     floorId?: string | null
+    zoneId?: string | null
     spaceId?: string | null
     ttSystemOpening?: Decimal | DecimalJsLike | number | string | null
     ttWorkOpening?: Decimal | DecimalJsLike | number | string | null
@@ -54674,6 +60780,8 @@ export namespace Prisma {
     message?: NullableStringFieldUpdateOperationsInput | string | null
     processNotes?: NullableStringFieldUpdateOperationsInput | string | null
     metadata?: NullableJsonNullValueInput | InputJsonValue
+    performerId?: NullableStringFieldUpdateOperationsInput | string | null
+    performerReference?: NullableEnumPerformerReferenceFieldUpdateOperationsInput | $Enums.PerformerReference | null
     processStatus?: EnumStatusFieldUpdateOperationsInput | $Enums.Status
     register?: NullableStringFieldUpdateOperationsInput | string | null
     activityIdTimer?: NullableStringFieldUpdateOperationsInput | string | null
@@ -54690,7 +60798,7 @@ export namespace Prisma {
     execStart?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     dueExecEndDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     execEndDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    dueClosuerDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    dueClosureDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     totalExecTime?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     expStartDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     suspensionReason?: NullableStringFieldUpdateOperationsInput | string | null
@@ -54713,13 +60821,13 @@ export namespace Prisma {
     delayNotification?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    performer?: UserUpdateOneWithoutPerformedMaintenancesNestedInput
     requester?: UserUpdateOneWithoutRequestedMaintenancesNestedInput
     site?: ComplexUpdateOneRequiredWithoutMaintenancesNestedInput
     company?: CompanyUpdateOneWithoutMaintenancesNestedInput
     building?: BuildingUpdateOneWithoutMaintenancesNestedInput
     team?: TeamUpdateOneWithoutMaintenancesNestedInput
     floor?: FloorUpdateOneWithoutMaintenancesNestedInput
+    zone?: ZoneUpdateOneWithoutMaintenancesNestedInput
     space?: SpaceUpdateOneWithoutMaintenancesNestedInput
     assignee?: UserUpdateOneWithoutAssignedMaintenancesNestedInput
     asset?: AssetUpdateOneWithoutMaintenancesNestedInput
@@ -54739,6 +60847,7 @@ export namespace Prisma {
     processNotes?: NullableStringFieldUpdateOperationsInput | string | null
     metadata?: NullableJsonNullValueInput | InputJsonValue
     performerId?: NullableStringFieldUpdateOperationsInput | string | null
+    performerReference?: NullableEnumPerformerReferenceFieldUpdateOperationsInput | $Enums.PerformerReference | null
     processStatus?: EnumStatusFieldUpdateOperationsInput | $Enums.Status
     register?: NullableStringFieldUpdateOperationsInput | string | null
     activityIdTimer?: NullableStringFieldUpdateOperationsInput | string | null
@@ -54757,7 +60866,7 @@ export namespace Prisma {
     execStart?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     dueExecEndDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     execEndDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    dueClosuerDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    dueClosureDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     totalExecTime?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     expStartDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     suspensionReason?: NullableStringFieldUpdateOperationsInput | string | null
@@ -54767,6 +60876,7 @@ export namespace Prisma {
     buildingId?: NullableStringFieldUpdateOperationsInput | string | null
     teamId?: NullableStringFieldUpdateOperationsInput | string | null
     floorId?: NullableStringFieldUpdateOperationsInput | string | null
+    zoneId?: NullableStringFieldUpdateOperationsInput | string | null
     spaceId?: NullableStringFieldUpdateOperationsInput | string | null
     ttSystemOpening?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     ttWorkOpening?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
@@ -54839,7 +60949,6 @@ export namespace Prisma {
     permissions?: PermissionCreateNestedManyWithoutUserInput
     calenderEntity?: CalenderEntityCreateNestedOneWithoutEmployeesInput
     teams?: TeamCreateNestedManyWithoutMembersInput
-    performedMaintenances?: MaintenanceCreateNestedManyWithoutPerformerInput
     requestedMaintenances?: MaintenanceCreateNestedManyWithoutRequesterInput
     assignedMaintenances?: MaintenanceCreateNestedManyWithoutAssigneeInput
     supervisedTeams?: TeamCreateNestedManyWithoutSupervisorInput
@@ -54865,7 +60974,6 @@ export namespace Prisma {
     refreshTokens?: RefreshTokenUncheckedCreateNestedManyWithoutUserInput
     permissions?: PermissionUncheckedCreateNestedManyWithoutUserInput
     teams?: TeamUncheckedCreateNestedManyWithoutMembersInput
-    performedMaintenances?: MaintenanceUncheckedCreateNestedManyWithoutPerformerInput
     requestedMaintenances?: MaintenanceUncheckedCreateNestedManyWithoutRequesterInput
     assignedMaintenances?: MaintenanceUncheckedCreateNestedManyWithoutAssigneeInput
     supervisedTeams?: TeamUncheckedCreateNestedManyWithoutSupervisorInput
@@ -54893,6 +61001,8 @@ export namespace Prisma {
     message?: string | null
     processNotes?: string | null
     metadata?: NullableJsonNullValueInput | InputJsonValue
+    performerId?: string | null
+    performerReference?: $Enums.PerformerReference | null
     processStatus?: $Enums.Status
     register?: string | null
     activityIdTimer?: string | null
@@ -54909,7 +61019,7 @@ export namespace Prisma {
     execStart?: Date | string | null
     dueExecEndDate?: Date | string | null
     execEndDate?: Date | string | null
-    dueClosuerDate?: Date | string | null
+    dueClosureDate?: Date | string | null
     totalExecTime?: Decimal | DecimalJsLike | number | string | null
     expStartDate?: Date | string | null
     suspensionReason?: string | null
@@ -54932,12 +61042,12 @@ export namespace Prisma {
     delayNotification?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
-    performer?: UserCreateNestedOneWithoutPerformedMaintenancesInput
     requester?: UserCreateNestedOneWithoutRequestedMaintenancesInput
     site: ComplexCreateNestedOneWithoutMaintenancesInput
     building?: BuildingCreateNestedOneWithoutMaintenancesInput
     team?: TeamCreateNestedOneWithoutMaintenancesInput
     floor?: FloorCreateNestedOneWithoutMaintenancesInput
+    zone?: ZoneCreateNestedOneWithoutMaintenancesInput
     space?: SpaceCreateNestedOneWithoutMaintenancesInput
     assignee?: UserCreateNestedOneWithoutAssignedMaintenancesInput
     asset?: AssetCreateNestedOneWithoutMaintenancesInput
@@ -54958,6 +61068,7 @@ export namespace Prisma {
     processNotes?: string | null
     metadata?: NullableJsonNullValueInput | InputJsonValue
     performerId?: string | null
+    performerReference?: $Enums.PerformerReference | null
     processStatus?: $Enums.Status
     register?: string | null
     activityIdTimer?: string | null
@@ -54976,7 +61087,7 @@ export namespace Prisma {
     execStart?: Date | string | null
     dueExecEndDate?: Date | string | null
     execEndDate?: Date | string | null
-    dueClosuerDate?: Date | string | null
+    dueClosureDate?: Date | string | null
     totalExecTime?: Decimal | DecimalJsLike | number | string | null
     expStartDate?: Date | string | null
     suspensionReason?: string | null
@@ -54985,6 +61096,7 @@ export namespace Prisma {
     buildingId?: string | null
     teamId?: string | null
     floorId?: string | null
+    zoneId?: string | null
     spaceId?: string | null
     ttSystemOpening?: Decimal | DecimalJsLike | number | string | null
     ttWorkOpening?: Decimal | DecimalJsLike | number | string | null
@@ -55107,7 +61219,6 @@ export namespace Prisma {
     company?: CompanyCreateNestedOneWithoutEmployeesInput
     calenderEntity?: CalenderEntityCreateNestedOneWithoutEmployeesInput
     teams?: TeamCreateNestedManyWithoutMembersInput
-    performedMaintenances?: MaintenanceCreateNestedManyWithoutPerformerInput
     requestedMaintenances?: MaintenanceCreateNestedManyWithoutRequesterInput
     assignedMaintenances?: MaintenanceCreateNestedManyWithoutAssigneeInput
   }
@@ -55133,7 +61244,6 @@ export namespace Prisma {
     refreshTokens?: RefreshTokenUncheckedCreateNestedManyWithoutUserInput
     permissions?: PermissionUncheckedCreateNestedManyWithoutUserInput
     teams?: TeamUncheckedCreateNestedManyWithoutMembersInput
-    performedMaintenances?: MaintenanceUncheckedCreateNestedManyWithoutPerformerInput
     requestedMaintenances?: MaintenanceUncheckedCreateNestedManyWithoutRequesterInput
     assignedMaintenances?: MaintenanceUncheckedCreateNestedManyWithoutAssigneeInput
   }
@@ -55155,6 +61265,8 @@ export namespace Prisma {
     message?: string | null
     processNotes?: string | null
     metadata?: NullableJsonNullValueInput | InputJsonValue
+    performerId?: string | null
+    performerReference?: $Enums.PerformerReference | null
     processStatus?: $Enums.Status
     register?: string | null
     activityIdTimer?: string | null
@@ -55171,7 +61283,7 @@ export namespace Prisma {
     execStart?: Date | string | null
     dueExecEndDate?: Date | string | null
     execEndDate?: Date | string | null
-    dueClosuerDate?: Date | string | null
+    dueClosureDate?: Date | string | null
     totalExecTime?: Decimal | DecimalJsLike | number | string | null
     expStartDate?: Date | string | null
     suspensionReason?: string | null
@@ -55194,12 +61306,12 @@ export namespace Prisma {
     delayNotification?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
-    performer?: UserCreateNestedOneWithoutPerformedMaintenancesInput
     requester?: UserCreateNestedOneWithoutRequestedMaintenancesInput
     site: ComplexCreateNestedOneWithoutMaintenancesInput
     company?: CompanyCreateNestedOneWithoutMaintenancesInput
     building?: BuildingCreateNestedOneWithoutMaintenancesInput
     floor?: FloorCreateNestedOneWithoutMaintenancesInput
+    zone?: ZoneCreateNestedOneWithoutMaintenancesInput
     space?: SpaceCreateNestedOneWithoutMaintenancesInput
     assignee?: UserCreateNestedOneWithoutAssignedMaintenancesInput
     asset?: AssetCreateNestedOneWithoutMaintenancesInput
@@ -55220,6 +61332,7 @@ export namespace Prisma {
     processNotes?: string | null
     metadata?: NullableJsonNullValueInput | InputJsonValue
     performerId?: string | null
+    performerReference?: $Enums.PerformerReference | null
     processStatus?: $Enums.Status
     register?: string | null
     activityIdTimer?: string | null
@@ -55238,7 +61351,7 @@ export namespace Prisma {
     execStart?: Date | string | null
     dueExecEndDate?: Date | string | null
     execEndDate?: Date | string | null
-    dueClosuerDate?: Date | string | null
+    dueClosureDate?: Date | string | null
     totalExecTime?: Decimal | DecimalJsLike | number | string | null
     expStartDate?: Date | string | null
     suspensionReason?: string | null
@@ -55247,6 +61360,7 @@ export namespace Prisma {
     companyId?: string | null
     buildingId?: string | null
     floorId?: string | null
+    zoneId?: string | null
     spaceId?: string | null
     ttSystemOpening?: Decimal | DecimalJsLike | number | string | null
     ttWorkOpening?: Decimal | DecimalJsLike | number | string | null
@@ -55299,6 +61413,7 @@ export namespace Prisma {
     building?: BuildingCreateNestedOneWithoutPreventivesInput
     floor?: FloorCreateNestedOneWithoutPreventivesInput
     space?: SpaceCreateNestedOneWithoutPreventivesInput
+    meterTriggers?: MeterMaintenanceTriggerCreateNestedManyWithoutPreventiveInput
   }
 
   export type PreventiveUncheckedCreateWithoutTeamInput = {
@@ -55319,6 +61434,7 @@ export namespace Prisma {
     spaceId?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
+    meterTriggers?: MeterMaintenanceTriggerUncheckedCreateNestedManyWithoutPreventiveInput
   }
 
   export type PreventiveCreateOrConnectWithoutTeamInput = {
@@ -55351,7 +61467,6 @@ export namespace Prisma {
     permissions?: PermissionCreateNestedManyWithoutUserInput
     company?: CompanyCreateNestedOneWithoutEmployeesInput
     calenderEntity?: CalenderEntityCreateNestedOneWithoutEmployeesInput
-    performedMaintenances?: MaintenanceCreateNestedManyWithoutPerformerInput
     requestedMaintenances?: MaintenanceCreateNestedManyWithoutRequesterInput
     assignedMaintenances?: MaintenanceCreateNestedManyWithoutAssigneeInput
     supervisedTeams?: TeamCreateNestedManyWithoutSupervisorInput
@@ -55377,7 +61492,6 @@ export namespace Prisma {
     calenderEntityId?: string | null
     refreshTokens?: RefreshTokenUncheckedCreateNestedManyWithoutUserInput
     permissions?: PermissionUncheckedCreateNestedManyWithoutUserInput
-    performedMaintenances?: MaintenanceUncheckedCreateNestedManyWithoutPerformerInput
     requestedMaintenances?: MaintenanceUncheckedCreateNestedManyWithoutRequesterInput
     assignedMaintenances?: MaintenanceUncheckedCreateNestedManyWithoutAssigneeInput
     supervisedTeams?: TeamUncheckedCreateNestedManyWithoutSupervisorInput
@@ -55420,7 +61534,6 @@ export namespace Prisma {
     company?: CompanyUpdateOneWithoutEmployeesNestedInput
     calenderEntity?: CalenderEntityUpdateOneWithoutEmployeesNestedInput
     teams?: TeamUpdateManyWithoutMembersNestedInput
-    performedMaintenances?: MaintenanceUpdateManyWithoutPerformerNestedInput
     requestedMaintenances?: MaintenanceUpdateManyWithoutRequesterNestedInput
     assignedMaintenances?: MaintenanceUpdateManyWithoutAssigneeNestedInput
   }
@@ -55446,7 +61559,6 @@ export namespace Prisma {
     refreshTokens?: RefreshTokenUncheckedUpdateManyWithoutUserNestedInput
     permissions?: PermissionUncheckedUpdateManyWithoutUserNestedInput
     teams?: TeamUncheckedUpdateManyWithoutMembersNestedInput
-    performedMaintenances?: MaintenanceUncheckedUpdateManyWithoutPerformerNestedInput
     requestedMaintenances?: MaintenanceUncheckedUpdateManyWithoutRequesterNestedInput
     assignedMaintenances?: MaintenanceUncheckedUpdateManyWithoutAssigneeNestedInput
   }
@@ -55721,6 +61833,7 @@ export namespace Prisma {
     floors?: FloorCreateNestedManyWithoutBuildingInput
     preventives?: PreventiveCreateNestedManyWithoutBuildingInput
     maintenances?: MaintenanceCreateNestedManyWithoutBuildingInput
+    meters?: MeterCreateNestedManyWithoutBuildingInput
   }
 
   export type BuildingUncheckedCreateWithoutCalenderEntityInput = {
@@ -55750,6 +61863,7 @@ export namespace Prisma {
     floors?: FloorUncheckedCreateNestedManyWithoutBuildingInput
     preventives?: PreventiveUncheckedCreateNestedManyWithoutBuildingInput
     maintenances?: MaintenanceUncheckedCreateNestedManyWithoutBuildingInput
+    meters?: MeterUncheckedCreateNestedManyWithoutBuildingInput
   }
 
   export type BuildingCreateOrConnectWithoutCalenderEntityInput = {
@@ -55852,6 +61966,7 @@ export namespace Prisma {
     photos?: FileCreateNestedManyWithoutSpacesInput
     maintenances?: MaintenanceCreateNestedManyWithoutSpaceInput
     preventives?: PreventiveCreateNestedManyWithoutSpaceInput
+    meters?: MeterCreateNestedManyWithoutSpaceInput
     assets?: AssetCreateNestedManyWithoutSpaceInput
   }
 
@@ -55877,6 +61992,7 @@ export namespace Prisma {
     photos?: FileUncheckedCreateNestedManyWithoutSpacesInput
     maintenances?: MaintenanceUncheckedCreateNestedManyWithoutSpaceInput
     preventives?: PreventiveUncheckedCreateNestedManyWithoutSpaceInput
+    meters?: MeterUncheckedCreateNestedManyWithoutSpaceInput
     assets?: AssetUncheckedCreateNestedManyWithoutSpaceInput
   }
 
@@ -55921,6 +62037,9 @@ export namespace Prisma {
     floor: FloorCreateNestedOneWithoutZonesInput
     rooms?: SpaceCreateNestedManyWithoutZoneInput
     photos?: FileCreateNestedManyWithoutZonesInput
+    items?: MaintenanceItemCreateNestedManyWithoutZoneInput
+    meters?: MeterCreateNestedManyWithoutZoneInput
+    maintenances?: MaintenanceCreateNestedManyWithoutZoneInput
   }
 
   export type ZoneUncheckedCreateWithoutCalenderEntityInput = {
@@ -55954,6 +62073,9 @@ export namespace Prisma {
     updatedAt?: Date | string
     rooms?: SpaceUncheckedCreateNestedManyWithoutZoneInput
     photos?: FileUncheckedCreateNestedManyWithoutZonesInput
+    items?: MaintenanceItemUncheckedCreateNestedManyWithoutZoneInput
+    meters?: MeterUncheckedCreateNestedManyWithoutZoneInput
+    maintenances?: MaintenanceUncheckedCreateNestedManyWithoutZoneInput
   }
 
   export type ZoneCreateOrConnectWithoutCalenderEntityInput = {
@@ -55986,7 +62108,6 @@ export namespace Prisma {
     permissions?: PermissionCreateNestedManyWithoutUserInput
     company?: CompanyCreateNestedOneWithoutEmployeesInput
     teams?: TeamCreateNestedManyWithoutMembersInput
-    performedMaintenances?: MaintenanceCreateNestedManyWithoutPerformerInput
     requestedMaintenances?: MaintenanceCreateNestedManyWithoutRequesterInput
     assignedMaintenances?: MaintenanceCreateNestedManyWithoutAssigneeInput
     supervisedTeams?: TeamCreateNestedManyWithoutSupervisorInput
@@ -56012,7 +62133,6 @@ export namespace Prisma {
     refreshTokens?: RefreshTokenUncheckedCreateNestedManyWithoutUserInput
     permissions?: PermissionUncheckedCreateNestedManyWithoutUserInput
     teams?: TeamUncheckedCreateNestedManyWithoutMembersInput
-    performedMaintenances?: MaintenanceUncheckedCreateNestedManyWithoutPerformerInput
     requestedMaintenances?: MaintenanceUncheckedCreateNestedManyWithoutRequesterInput
     assignedMaintenances?: MaintenanceUncheckedCreateNestedManyWithoutAssigneeInput
     supervisedTeams?: TeamUncheckedCreateNestedManyWithoutSupervisorInput
@@ -56108,63 +62228,6 @@ export namespace Prisma {
     data: XOR<UserUpdateManyMutationInput, UserUncheckedUpdateManyWithoutCalenderEntityInput>
   }
 
-  export type UserCreateWithoutPerformedMaintenancesInput = {
-    id?: string
-    email: string
-    password: string
-    firstName: string
-    lastName: string
-    status?: $Enums.UserStatus
-    createdAt?: Date | string
-    updatedAt?: Date | string
-    passwordResetToken?: string | null
-    passwordExpiresAt?: Date | string | null
-    passwordResetAt?: Date | string | null
-    employeeCode?: string | null
-    employeeType?: $Enums.EmployeeType | null
-    serviceStatus?: $Enums.ServiceStatus
-    refreshTokens?: RefreshTokenCreateNestedManyWithoutUserInput
-    role: RoleCreateNestedOneWithoutUsersInput
-    permissions?: PermissionCreateNestedManyWithoutUserInput
-    company?: CompanyCreateNestedOneWithoutEmployeesInput
-    calenderEntity?: CalenderEntityCreateNestedOneWithoutEmployeesInput
-    teams?: TeamCreateNestedManyWithoutMembersInput
-    requestedMaintenances?: MaintenanceCreateNestedManyWithoutRequesterInput
-    assignedMaintenances?: MaintenanceCreateNestedManyWithoutAssigneeInput
-    supervisedTeams?: TeamCreateNestedManyWithoutSupervisorInput
-  }
-
-  export type UserUncheckedCreateWithoutPerformedMaintenancesInput = {
-    id?: string
-    email: string
-    password: string
-    firstName: string
-    lastName: string
-    roleId: string
-    status?: $Enums.UserStatus
-    createdAt?: Date | string
-    updatedAt?: Date | string
-    passwordResetToken?: string | null
-    passwordExpiresAt?: Date | string | null
-    passwordResetAt?: Date | string | null
-    employeeCode?: string | null
-    employeeType?: $Enums.EmployeeType | null
-    companyId?: string | null
-    serviceStatus?: $Enums.ServiceStatus
-    calenderEntityId?: string | null
-    refreshTokens?: RefreshTokenUncheckedCreateNestedManyWithoutUserInput
-    permissions?: PermissionUncheckedCreateNestedManyWithoutUserInput
-    teams?: TeamUncheckedCreateNestedManyWithoutMembersInput
-    requestedMaintenances?: MaintenanceUncheckedCreateNestedManyWithoutRequesterInput
-    assignedMaintenances?: MaintenanceUncheckedCreateNestedManyWithoutAssigneeInput
-    supervisedTeams?: TeamUncheckedCreateNestedManyWithoutSupervisorInput
-  }
-
-  export type UserCreateOrConnectWithoutPerformedMaintenancesInput = {
-    where: UserWhereUniqueInput
-    create: XOR<UserCreateWithoutPerformedMaintenancesInput, UserUncheckedCreateWithoutPerformedMaintenancesInput>
-  }
-
   export type UserCreateWithoutRequestedMaintenancesInput = {
     id?: string
     email: string
@@ -56186,7 +62249,6 @@ export namespace Prisma {
     company?: CompanyCreateNestedOneWithoutEmployeesInput
     calenderEntity?: CalenderEntityCreateNestedOneWithoutEmployeesInput
     teams?: TeamCreateNestedManyWithoutMembersInput
-    performedMaintenances?: MaintenanceCreateNestedManyWithoutPerformerInput
     assignedMaintenances?: MaintenanceCreateNestedManyWithoutAssigneeInput
     supervisedTeams?: TeamCreateNestedManyWithoutSupervisorInput
   }
@@ -56212,7 +62274,6 @@ export namespace Prisma {
     refreshTokens?: RefreshTokenUncheckedCreateNestedManyWithoutUserInput
     permissions?: PermissionUncheckedCreateNestedManyWithoutUserInput
     teams?: TeamUncheckedCreateNestedManyWithoutMembersInput
-    performedMaintenances?: MaintenanceUncheckedCreateNestedManyWithoutPerformerInput
     assignedMaintenances?: MaintenanceUncheckedCreateNestedManyWithoutAssigneeInput
     supervisedTeams?: TeamUncheckedCreateNestedManyWithoutSupervisorInput
   }
@@ -56349,6 +62410,7 @@ export namespace Prisma {
     photos?: FileCreateNestedManyWithoutBuildingsInput
     floors?: FloorCreateNestedManyWithoutBuildingInput
     preventives?: PreventiveCreateNestedManyWithoutBuildingInput
+    meters?: MeterCreateNestedManyWithoutBuildingInput
   }
 
   export type BuildingUncheckedCreateWithoutMaintenancesInput = {
@@ -56378,6 +62440,7 @@ export namespace Prisma {
     photos?: FileUncheckedCreateNestedManyWithoutBuildingsInput
     floors?: FloorUncheckedCreateNestedManyWithoutBuildingInput
     preventives?: PreventiveUncheckedCreateNestedManyWithoutBuildingInput
+    meters?: MeterUncheckedCreateNestedManyWithoutBuildingInput
   }
 
   export type BuildingCreateOrConnectWithoutMaintenancesInput = {
@@ -56471,6 +62534,83 @@ export namespace Prisma {
     create: XOR<FloorCreateWithoutMaintenancesInput, FloorUncheckedCreateWithoutMaintenancesInput>
   }
 
+  export type ZoneCreateWithoutMaintenancesInput = {
+    id?: string
+    code: string
+    name: string
+    type?: string | null
+    availability?: $Enums.Availability
+    status?: $Enums.ServiceStatus
+    totalRooms?: number | null
+    glazedArea?: number | null
+    cleanableArea?: number | null
+    coveredArea?: number | null
+    totalNetArea?: number | null
+    totalGrossArea?: number | null
+    totalHeatedVolume?: number | null
+    totalVolume?: number | null
+    cadastralArea?: number | null
+    urbanSection?: string | null
+    sheet?: string | null
+    plot?: string | null
+    subordinate?: string | null
+    class?: number | null
+    size?: number | null
+    propertyRightsAndDuties?: string | null
+    cadastralIncome?: Decimal | DecimalJsLike | number | string | null
+    censusArea?: string | null
+    subArea?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    calenderEntity?: CalenderEntityCreateNestedOneWithoutZonesInput
+    floor: FloorCreateNestedOneWithoutZonesInput
+    rooms?: SpaceCreateNestedManyWithoutZoneInput
+    photos?: FileCreateNestedManyWithoutZonesInput
+    items?: MaintenanceItemCreateNestedManyWithoutZoneInput
+    meters?: MeterCreateNestedManyWithoutZoneInput
+  }
+
+  export type ZoneUncheckedCreateWithoutMaintenancesInput = {
+    id?: string
+    code: string
+    name: string
+    type?: string | null
+    availability?: $Enums.Availability
+    status?: $Enums.ServiceStatus
+    calenderEntityId?: string | null
+    floorId: string
+    totalRooms?: number | null
+    glazedArea?: number | null
+    cleanableArea?: number | null
+    coveredArea?: number | null
+    totalNetArea?: number | null
+    totalGrossArea?: number | null
+    totalHeatedVolume?: number | null
+    totalVolume?: number | null
+    cadastralArea?: number | null
+    urbanSection?: string | null
+    sheet?: string | null
+    plot?: string | null
+    subordinate?: string | null
+    class?: number | null
+    size?: number | null
+    propertyRightsAndDuties?: string | null
+    cadastralIncome?: Decimal | DecimalJsLike | number | string | null
+    censusArea?: string | null
+    subArea?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    rooms?: SpaceUncheckedCreateNestedManyWithoutZoneInput
+    photos?: FileUncheckedCreateNestedManyWithoutZonesInput
+    items?: MaintenanceItemUncheckedCreateNestedManyWithoutZoneInput
+    meters?: MeterUncheckedCreateNestedManyWithoutZoneInput
+  }
+
+  export type ZoneCreateOrConnectWithoutMaintenancesInput = {
+    where: ZoneWhereUniqueInput
+    create: XOR<ZoneCreateWithoutMaintenancesInput, ZoneUncheckedCreateWithoutMaintenancesInput>
+  }
+
   export type SpaceCreateWithoutMaintenancesInput = {
     id?: string
     name: string
@@ -56493,6 +62633,7 @@ export namespace Prisma {
     zone: ZoneCreateNestedOneWithoutRoomsInput
     photos?: FileCreateNestedManyWithoutSpacesInput
     preventives?: PreventiveCreateNestedManyWithoutSpaceInput
+    meters?: MeterCreateNestedManyWithoutSpaceInput
     assets?: AssetCreateNestedManyWithoutSpaceInput
   }
 
@@ -56518,6 +62659,7 @@ export namespace Prisma {
     updatedAt?: Date | string
     photos?: FileUncheckedCreateNestedManyWithoutSpacesInput
     preventives?: PreventiveUncheckedCreateNestedManyWithoutSpaceInput
+    meters?: MeterUncheckedCreateNestedManyWithoutSpaceInput
     assets?: AssetUncheckedCreateNestedManyWithoutSpaceInput
   }
 
@@ -56547,7 +62689,6 @@ export namespace Prisma {
     company?: CompanyCreateNestedOneWithoutEmployeesInput
     calenderEntity?: CalenderEntityCreateNestedOneWithoutEmployeesInput
     teams?: TeamCreateNestedManyWithoutMembersInput
-    performedMaintenances?: MaintenanceCreateNestedManyWithoutPerformerInput
     requestedMaintenances?: MaintenanceCreateNestedManyWithoutRequesterInput
     supervisedTeams?: TeamCreateNestedManyWithoutSupervisorInput
   }
@@ -56573,7 +62714,6 @@ export namespace Prisma {
     refreshTokens?: RefreshTokenUncheckedCreateNestedManyWithoutUserInput
     permissions?: PermissionUncheckedCreateNestedManyWithoutUserInput
     teams?: TeamUncheckedCreateNestedManyWithoutMembersInput
-    performedMaintenances?: MaintenanceUncheckedCreateNestedManyWithoutPerformerInput
     requestedMaintenances?: MaintenanceUncheckedCreateNestedManyWithoutRequesterInput
     supervisedTeams?: TeamUncheckedCreateNestedManyWithoutSupervisorInput
   }
@@ -56595,6 +62735,7 @@ export namespace Prisma {
     childAssets?: AssetCreateNestedManyWithoutParentSystemInput
     space?: SpaceCreateNestedOneWithoutAssetsInput
     preventives?: PreventiveCreateNestedManyWithoutAssetInput
+    meters?: MeterCreateNestedManyWithoutAssetInput
   }
 
   export type AssetUncheckedCreateWithoutMaintenancesInput = {
@@ -56609,6 +62750,7 @@ export namespace Prisma {
     updatedAt?: Date | string
     childAssets?: AssetUncheckedCreateNestedManyWithoutParentSystemInput
     preventives?: PreventiveUncheckedCreateNestedManyWithoutAssetInput
+    meters?: MeterUncheckedCreateNestedManyWithoutAssetInput
   }
 
   export type AssetCreateOrConnectWithoutMaintenancesInput = {
@@ -56651,6 +62793,7 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     item: ItemCreateNestedOneWithoutMaintenanceItemsInput
+    zone?: ZoneCreateNestedOneWithoutItemsInput
   }
 
   export type MaintenanceItemUncheckedCreateWithoutMaintenanceInput = {
@@ -56660,6 +62803,7 @@ export namespace Prisma {
     itemId: string
     createdAt?: Date | string
     updatedAt?: Date | string
+    zoneId?: string | null
   }
 
   export type MaintenanceItemCreateOrConnectWithoutMaintenanceInput = {
@@ -56670,69 +62814,6 @@ export namespace Prisma {
   export type MaintenanceItemCreateManyMaintenanceInputEnvelope = {
     data: MaintenanceItemCreateManyMaintenanceInput | MaintenanceItemCreateManyMaintenanceInput[]
     skipDuplicates?: boolean
-  }
-
-  export type UserUpsertWithoutPerformedMaintenancesInput = {
-    update: XOR<UserUpdateWithoutPerformedMaintenancesInput, UserUncheckedUpdateWithoutPerformedMaintenancesInput>
-    create: XOR<UserCreateWithoutPerformedMaintenancesInput, UserUncheckedCreateWithoutPerformedMaintenancesInput>
-    where?: UserWhereInput
-  }
-
-  export type UserUpdateToOneWithWhereWithoutPerformedMaintenancesInput = {
-    where?: UserWhereInput
-    data: XOR<UserUpdateWithoutPerformedMaintenancesInput, UserUncheckedUpdateWithoutPerformedMaintenancesInput>
-  }
-
-  export type UserUpdateWithoutPerformedMaintenancesInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    email?: StringFieldUpdateOperationsInput | string
-    password?: StringFieldUpdateOperationsInput | string
-    firstName?: StringFieldUpdateOperationsInput | string
-    lastName?: StringFieldUpdateOperationsInput | string
-    status?: EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    passwordResetToken?: NullableStringFieldUpdateOperationsInput | string | null
-    passwordExpiresAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    passwordResetAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    employeeCode?: NullableStringFieldUpdateOperationsInput | string | null
-    employeeType?: NullableEnumEmployeeTypeFieldUpdateOperationsInput | $Enums.EmployeeType | null
-    serviceStatus?: EnumServiceStatusFieldUpdateOperationsInput | $Enums.ServiceStatus
-    refreshTokens?: RefreshTokenUpdateManyWithoutUserNestedInput
-    role?: RoleUpdateOneRequiredWithoutUsersNestedInput
-    permissions?: PermissionUpdateManyWithoutUserNestedInput
-    company?: CompanyUpdateOneWithoutEmployeesNestedInput
-    calenderEntity?: CalenderEntityUpdateOneWithoutEmployeesNestedInput
-    teams?: TeamUpdateManyWithoutMembersNestedInput
-    requestedMaintenances?: MaintenanceUpdateManyWithoutRequesterNestedInput
-    assignedMaintenances?: MaintenanceUpdateManyWithoutAssigneeNestedInput
-    supervisedTeams?: TeamUpdateManyWithoutSupervisorNestedInput
-  }
-
-  export type UserUncheckedUpdateWithoutPerformedMaintenancesInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    email?: StringFieldUpdateOperationsInput | string
-    password?: StringFieldUpdateOperationsInput | string
-    firstName?: StringFieldUpdateOperationsInput | string
-    lastName?: StringFieldUpdateOperationsInput | string
-    roleId?: StringFieldUpdateOperationsInput | string
-    status?: EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    passwordResetToken?: NullableStringFieldUpdateOperationsInput | string | null
-    passwordExpiresAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    passwordResetAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    employeeCode?: NullableStringFieldUpdateOperationsInput | string | null
-    employeeType?: NullableEnumEmployeeTypeFieldUpdateOperationsInput | $Enums.EmployeeType | null
-    companyId?: NullableStringFieldUpdateOperationsInput | string | null
-    serviceStatus?: EnumServiceStatusFieldUpdateOperationsInput | $Enums.ServiceStatus
-    calenderEntityId?: NullableStringFieldUpdateOperationsInput | string | null
-    refreshTokens?: RefreshTokenUncheckedUpdateManyWithoutUserNestedInput
-    permissions?: PermissionUncheckedUpdateManyWithoutUserNestedInput
-    teams?: TeamUncheckedUpdateManyWithoutMembersNestedInput
-    requestedMaintenances?: MaintenanceUncheckedUpdateManyWithoutRequesterNestedInput
-    assignedMaintenances?: MaintenanceUncheckedUpdateManyWithoutAssigneeNestedInput
-    supervisedTeams?: TeamUncheckedUpdateManyWithoutSupervisorNestedInput
   }
 
   export type UserUpsertWithoutRequestedMaintenancesInput = {
@@ -56767,7 +62848,6 @@ export namespace Prisma {
     company?: CompanyUpdateOneWithoutEmployeesNestedInput
     calenderEntity?: CalenderEntityUpdateOneWithoutEmployeesNestedInput
     teams?: TeamUpdateManyWithoutMembersNestedInput
-    performedMaintenances?: MaintenanceUpdateManyWithoutPerformerNestedInput
     assignedMaintenances?: MaintenanceUpdateManyWithoutAssigneeNestedInput
     supervisedTeams?: TeamUpdateManyWithoutSupervisorNestedInput
   }
@@ -56793,7 +62873,6 @@ export namespace Prisma {
     refreshTokens?: RefreshTokenUncheckedUpdateManyWithoutUserNestedInput
     permissions?: PermissionUncheckedUpdateManyWithoutUserNestedInput
     teams?: TeamUncheckedUpdateManyWithoutMembersNestedInput
-    performedMaintenances?: MaintenanceUncheckedUpdateManyWithoutPerformerNestedInput
     assignedMaintenances?: MaintenanceUncheckedUpdateManyWithoutAssigneeNestedInput
     supervisedTeams?: TeamUncheckedUpdateManyWithoutSupervisorNestedInput
   }
@@ -56948,6 +63027,7 @@ export namespace Prisma {
     photos?: FileUpdateManyWithoutBuildingsNestedInput
     floors?: FloorUpdateManyWithoutBuildingNestedInput
     preventives?: PreventiveUpdateManyWithoutBuildingNestedInput
+    meters?: MeterUpdateManyWithoutBuildingNestedInput
   }
 
   export type BuildingUncheckedUpdateWithoutMaintenancesInput = {
@@ -56977,6 +63057,7 @@ export namespace Prisma {
     photos?: FileUncheckedUpdateManyWithoutBuildingsNestedInput
     floors?: FloorUncheckedUpdateManyWithoutBuildingNestedInput
     preventives?: PreventiveUncheckedUpdateManyWithoutBuildingNestedInput
+    meters?: MeterUncheckedUpdateManyWithoutBuildingNestedInput
   }
 
   export type TeamUpsertWithoutMaintenancesInput = {
@@ -57077,6 +63158,89 @@ export namespace Prisma {
     preventives?: PreventiveUncheckedUpdateManyWithoutFloorNestedInput
   }
 
+  export type ZoneUpsertWithoutMaintenancesInput = {
+    update: XOR<ZoneUpdateWithoutMaintenancesInput, ZoneUncheckedUpdateWithoutMaintenancesInput>
+    create: XOR<ZoneCreateWithoutMaintenancesInput, ZoneUncheckedCreateWithoutMaintenancesInput>
+    where?: ZoneWhereInput
+  }
+
+  export type ZoneUpdateToOneWithWhereWithoutMaintenancesInput = {
+    where?: ZoneWhereInput
+    data: XOR<ZoneUpdateWithoutMaintenancesInput, ZoneUncheckedUpdateWithoutMaintenancesInput>
+  }
+
+  export type ZoneUpdateWithoutMaintenancesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    code?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    type?: NullableStringFieldUpdateOperationsInput | string | null
+    availability?: EnumAvailabilityFieldUpdateOperationsInput | $Enums.Availability
+    status?: EnumServiceStatusFieldUpdateOperationsInput | $Enums.ServiceStatus
+    totalRooms?: NullableIntFieldUpdateOperationsInput | number | null
+    glazedArea?: NullableFloatFieldUpdateOperationsInput | number | null
+    cleanableArea?: NullableFloatFieldUpdateOperationsInput | number | null
+    coveredArea?: NullableFloatFieldUpdateOperationsInput | number | null
+    totalNetArea?: NullableFloatFieldUpdateOperationsInput | number | null
+    totalGrossArea?: NullableFloatFieldUpdateOperationsInput | number | null
+    totalHeatedVolume?: NullableFloatFieldUpdateOperationsInput | number | null
+    totalVolume?: NullableFloatFieldUpdateOperationsInput | number | null
+    cadastralArea?: NullableFloatFieldUpdateOperationsInput | number | null
+    urbanSection?: NullableStringFieldUpdateOperationsInput | string | null
+    sheet?: NullableStringFieldUpdateOperationsInput | string | null
+    plot?: NullableStringFieldUpdateOperationsInput | string | null
+    subordinate?: NullableStringFieldUpdateOperationsInput | string | null
+    class?: NullableIntFieldUpdateOperationsInput | number | null
+    size?: NullableFloatFieldUpdateOperationsInput | number | null
+    propertyRightsAndDuties?: NullableStringFieldUpdateOperationsInput | string | null
+    cadastralIncome?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    censusArea?: NullableStringFieldUpdateOperationsInput | string | null
+    subArea?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    calenderEntity?: CalenderEntityUpdateOneWithoutZonesNestedInput
+    floor?: FloorUpdateOneRequiredWithoutZonesNestedInput
+    rooms?: SpaceUpdateManyWithoutZoneNestedInput
+    photos?: FileUpdateManyWithoutZonesNestedInput
+    items?: MaintenanceItemUpdateManyWithoutZoneNestedInput
+    meters?: MeterUpdateManyWithoutZoneNestedInput
+  }
+
+  export type ZoneUncheckedUpdateWithoutMaintenancesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    code?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    type?: NullableStringFieldUpdateOperationsInput | string | null
+    availability?: EnumAvailabilityFieldUpdateOperationsInput | $Enums.Availability
+    status?: EnumServiceStatusFieldUpdateOperationsInput | $Enums.ServiceStatus
+    calenderEntityId?: NullableStringFieldUpdateOperationsInput | string | null
+    floorId?: StringFieldUpdateOperationsInput | string
+    totalRooms?: NullableIntFieldUpdateOperationsInput | number | null
+    glazedArea?: NullableFloatFieldUpdateOperationsInput | number | null
+    cleanableArea?: NullableFloatFieldUpdateOperationsInput | number | null
+    coveredArea?: NullableFloatFieldUpdateOperationsInput | number | null
+    totalNetArea?: NullableFloatFieldUpdateOperationsInput | number | null
+    totalGrossArea?: NullableFloatFieldUpdateOperationsInput | number | null
+    totalHeatedVolume?: NullableFloatFieldUpdateOperationsInput | number | null
+    totalVolume?: NullableFloatFieldUpdateOperationsInput | number | null
+    cadastralArea?: NullableFloatFieldUpdateOperationsInput | number | null
+    urbanSection?: NullableStringFieldUpdateOperationsInput | string | null
+    sheet?: NullableStringFieldUpdateOperationsInput | string | null
+    plot?: NullableStringFieldUpdateOperationsInput | string | null
+    subordinate?: NullableStringFieldUpdateOperationsInput | string | null
+    class?: NullableIntFieldUpdateOperationsInput | number | null
+    size?: NullableFloatFieldUpdateOperationsInput | number | null
+    propertyRightsAndDuties?: NullableStringFieldUpdateOperationsInput | string | null
+    cadastralIncome?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    censusArea?: NullableStringFieldUpdateOperationsInput | string | null
+    subArea?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    rooms?: SpaceUncheckedUpdateManyWithoutZoneNestedInput
+    photos?: FileUncheckedUpdateManyWithoutZonesNestedInput
+    items?: MaintenanceItemUncheckedUpdateManyWithoutZoneNestedInput
+    meters?: MeterUncheckedUpdateManyWithoutZoneNestedInput
+  }
+
   export type SpaceUpsertWithoutMaintenancesInput = {
     update: XOR<SpaceUpdateWithoutMaintenancesInput, SpaceUncheckedUpdateWithoutMaintenancesInput>
     create: XOR<SpaceCreateWithoutMaintenancesInput, SpaceUncheckedCreateWithoutMaintenancesInput>
@@ -57110,6 +63274,7 @@ export namespace Prisma {
     zone?: ZoneUpdateOneRequiredWithoutRoomsNestedInput
     photos?: FileUpdateManyWithoutSpacesNestedInput
     preventives?: PreventiveUpdateManyWithoutSpaceNestedInput
+    meters?: MeterUpdateManyWithoutSpaceNestedInput
     assets?: AssetUpdateManyWithoutSpaceNestedInput
   }
 
@@ -57135,6 +63300,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     photos?: FileUncheckedUpdateManyWithoutSpacesNestedInput
     preventives?: PreventiveUncheckedUpdateManyWithoutSpaceNestedInput
+    meters?: MeterUncheckedUpdateManyWithoutSpaceNestedInput
     assets?: AssetUncheckedUpdateManyWithoutSpaceNestedInput
   }
 
@@ -57170,7 +63336,6 @@ export namespace Prisma {
     company?: CompanyUpdateOneWithoutEmployeesNestedInput
     calenderEntity?: CalenderEntityUpdateOneWithoutEmployeesNestedInput
     teams?: TeamUpdateManyWithoutMembersNestedInput
-    performedMaintenances?: MaintenanceUpdateManyWithoutPerformerNestedInput
     requestedMaintenances?: MaintenanceUpdateManyWithoutRequesterNestedInput
     supervisedTeams?: TeamUpdateManyWithoutSupervisorNestedInput
   }
@@ -57196,7 +63361,6 @@ export namespace Prisma {
     refreshTokens?: RefreshTokenUncheckedUpdateManyWithoutUserNestedInput
     permissions?: PermissionUncheckedUpdateManyWithoutUserNestedInput
     teams?: TeamUncheckedUpdateManyWithoutMembersNestedInput
-    performedMaintenances?: MaintenanceUncheckedUpdateManyWithoutPerformerNestedInput
     requestedMaintenances?: MaintenanceUncheckedUpdateManyWithoutRequesterNestedInput
     supervisedTeams?: TeamUncheckedUpdateManyWithoutSupervisorNestedInput
   }
@@ -57224,6 +63388,7 @@ export namespace Prisma {
     childAssets?: AssetUpdateManyWithoutParentSystemNestedInput
     space?: SpaceUpdateOneWithoutAssetsNestedInput
     preventives?: PreventiveUpdateManyWithoutAssetNestedInput
+    meters?: MeterUpdateManyWithoutAssetNestedInput
   }
 
   export type AssetUncheckedUpdateWithoutMaintenancesInput = {
@@ -57238,6 +63403,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     childAssets?: AssetUncheckedUpdateManyWithoutParentSystemNestedInput
     preventives?: PreventiveUncheckedUpdateManyWithoutAssetNestedInput
+    meters?: MeterUncheckedUpdateManyWithoutAssetNestedInput
   }
 
   export type FileUpsertWithWhereUniqueWithoutMaintenanceInput = {
@@ -57270,19 +63436,6 @@ export namespace Prisma {
   export type MaintenanceItemUpdateManyWithWhereWithoutMaintenanceInput = {
     where: MaintenanceItemScalarWhereInput
     data: XOR<MaintenanceItemUpdateManyMutationInput, MaintenanceItemUncheckedUpdateManyWithoutMaintenanceInput>
-  }
-
-  export type MaintenanceItemScalarWhereInput = {
-    AND?: MaintenanceItemScalarWhereInput | MaintenanceItemScalarWhereInput[]
-    OR?: MaintenanceItemScalarWhereInput[]
-    NOT?: MaintenanceItemScalarWhereInput | MaintenanceItemScalarWhereInput[]
-    id?: StringFilter<"MaintenanceItem"> | string
-    quantity?: IntFilter<"MaintenanceItem"> | number
-    cost?: DecimalNullableFilter<"MaintenanceItem"> | Decimal | DecimalJsLike | number | string | null
-    maintenanceId?: StringFilter<"MaintenanceItem"> | string
-    itemId?: StringFilter<"MaintenanceItem"> | string
-    createdAt?: DateTimeFilter<"MaintenanceItem"> | Date | string
-    updatedAt?: DateTimeFilter<"MaintenanceItem"> | Date | string
   }
 
   export type ComplexCreateWithoutPreventivesInput = {
@@ -57360,6 +63513,7 @@ export namespace Prisma {
     childAssets?: AssetCreateNestedManyWithoutParentSystemInput
     space?: SpaceCreateNestedOneWithoutAssetsInput
     maintenances?: MaintenanceCreateNestedManyWithoutAssetInput
+    meters?: MeterCreateNestedManyWithoutAssetInput
   }
 
   export type AssetUncheckedCreateWithoutPreventivesInput = {
@@ -57374,6 +63528,7 @@ export namespace Prisma {
     updatedAt?: Date | string
     childAssets?: AssetUncheckedCreateNestedManyWithoutParentSystemInput
     maintenances?: MaintenanceUncheckedCreateNestedManyWithoutAssetInput
+    meters?: MeterUncheckedCreateNestedManyWithoutAssetInput
   }
 
   export type AssetCreateOrConnectWithoutPreventivesInput = {
@@ -57408,6 +63563,7 @@ export namespace Prisma {
     photos?: FileCreateNestedManyWithoutBuildingsInput
     floors?: FloorCreateNestedManyWithoutBuildingInput
     maintenances?: MaintenanceCreateNestedManyWithoutBuildingInput
+    meters?: MeterCreateNestedManyWithoutBuildingInput
   }
 
   export type BuildingUncheckedCreateWithoutPreventivesInput = {
@@ -57437,6 +63593,7 @@ export namespace Prisma {
     photos?: FileUncheckedCreateNestedManyWithoutBuildingsInput
     floors?: FloorUncheckedCreateNestedManyWithoutBuildingInput
     maintenances?: MaintenanceUncheckedCreateNestedManyWithoutBuildingInput
+    meters?: MeterUncheckedCreateNestedManyWithoutBuildingInput
   }
 
   export type BuildingCreateOrConnectWithoutPreventivesInput = {
@@ -57521,6 +63678,7 @@ export namespace Prisma {
     zone: ZoneCreateNestedOneWithoutRoomsInput
     photos?: FileCreateNestedManyWithoutSpacesInput
     maintenances?: MaintenanceCreateNestedManyWithoutSpaceInput
+    meters?: MeterCreateNestedManyWithoutSpaceInput
     assets?: AssetCreateNestedManyWithoutSpaceInput
   }
 
@@ -57546,6 +63704,7 @@ export namespace Prisma {
     updatedAt?: Date | string
     photos?: FileUncheckedCreateNestedManyWithoutSpacesInput
     maintenances?: MaintenanceUncheckedCreateNestedManyWithoutSpaceInput
+    meters?: MeterUncheckedCreateNestedManyWithoutSpaceInput
     assets?: AssetUncheckedCreateNestedManyWithoutSpaceInput
   }
 
@@ -57583,6 +63742,36 @@ export namespace Prisma {
   export type TeamCreateOrConnectWithoutPreventivesInput = {
     where: TeamWhereUniqueInput
     create: XOR<TeamCreateWithoutPreventivesInput, TeamUncheckedCreateWithoutPreventivesInput>
+  }
+
+  export type MeterMaintenanceTriggerCreateWithoutPreventiveInput = {
+    id?: string
+    condition: $Enums.TriggerCondition
+    triggerValue: Decimal | DecimalJsLike | number | string
+    lastTriggerReading?: Decimal | DecimalJsLike | number | string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    meter: MeterCreateNestedOneWithoutPreventiveTriggersInput
+  }
+
+  export type MeterMaintenanceTriggerUncheckedCreateWithoutPreventiveInput = {
+    id?: string
+    meterId: string
+    condition: $Enums.TriggerCondition
+    triggerValue: Decimal | DecimalJsLike | number | string
+    lastTriggerReading?: Decimal | DecimalJsLike | number | string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type MeterMaintenanceTriggerCreateOrConnectWithoutPreventiveInput = {
+    where: MeterMaintenanceTriggerWhereUniqueInput
+    create: XOR<MeterMaintenanceTriggerCreateWithoutPreventiveInput, MeterMaintenanceTriggerUncheckedCreateWithoutPreventiveInput>
+  }
+
+  export type MeterMaintenanceTriggerCreateManyPreventiveInputEnvelope = {
+    data: MeterMaintenanceTriggerCreateManyPreventiveInput | MeterMaintenanceTriggerCreateManyPreventiveInput[]
+    skipDuplicates?: boolean
   }
 
   export type ComplexUpsertWithoutPreventivesInput = {
@@ -57677,6 +63866,7 @@ export namespace Prisma {
     childAssets?: AssetUpdateManyWithoutParentSystemNestedInput
     space?: SpaceUpdateOneWithoutAssetsNestedInput
     maintenances?: MaintenanceUpdateManyWithoutAssetNestedInput
+    meters?: MeterUpdateManyWithoutAssetNestedInput
   }
 
   export type AssetUncheckedUpdateWithoutPreventivesInput = {
@@ -57691,6 +63881,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     childAssets?: AssetUncheckedUpdateManyWithoutParentSystemNestedInput
     maintenances?: MaintenanceUncheckedUpdateManyWithoutAssetNestedInput
+    meters?: MeterUncheckedUpdateManyWithoutAssetNestedInput
   }
 
   export type BuildingUpsertWithoutPreventivesInput = {
@@ -57731,6 +63922,7 @@ export namespace Prisma {
     photos?: FileUpdateManyWithoutBuildingsNestedInput
     floors?: FloorUpdateManyWithoutBuildingNestedInput
     maintenances?: MaintenanceUpdateManyWithoutBuildingNestedInput
+    meters?: MeterUpdateManyWithoutBuildingNestedInput
   }
 
   export type BuildingUncheckedUpdateWithoutPreventivesInput = {
@@ -57760,6 +63952,7 @@ export namespace Prisma {
     photos?: FileUncheckedUpdateManyWithoutBuildingsNestedInput
     floors?: FloorUncheckedUpdateManyWithoutBuildingNestedInput
     maintenances?: MaintenanceUncheckedUpdateManyWithoutBuildingNestedInput
+    meters?: MeterUncheckedUpdateManyWithoutBuildingNestedInput
   }
 
   export type FloorUpsertWithoutPreventivesInput = {
@@ -57856,6 +64049,7 @@ export namespace Prisma {
     zone?: ZoneUpdateOneRequiredWithoutRoomsNestedInput
     photos?: FileUpdateManyWithoutSpacesNestedInput
     maintenances?: MaintenanceUpdateManyWithoutSpaceNestedInput
+    meters?: MeterUpdateManyWithoutSpaceNestedInput
     assets?: AssetUpdateManyWithoutSpaceNestedInput
   }
 
@@ -57881,6 +64075,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     photos?: FileUncheckedUpdateManyWithoutSpacesNestedInput
     maintenances?: MaintenanceUncheckedUpdateManyWithoutSpaceNestedInput
+    meters?: MeterUncheckedUpdateManyWithoutSpaceNestedInput
     assets?: AssetUncheckedUpdateManyWithoutSpaceNestedInput
   }
 
@@ -57919,6 +64114,36 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     maintenances?: MaintenanceUncheckedUpdateManyWithoutTeamNestedInput
     members?: UserUncheckedUpdateManyWithoutTeamsNestedInput
+  }
+
+  export type MeterMaintenanceTriggerUpsertWithWhereUniqueWithoutPreventiveInput = {
+    where: MeterMaintenanceTriggerWhereUniqueInput
+    update: XOR<MeterMaintenanceTriggerUpdateWithoutPreventiveInput, MeterMaintenanceTriggerUncheckedUpdateWithoutPreventiveInput>
+    create: XOR<MeterMaintenanceTriggerCreateWithoutPreventiveInput, MeterMaintenanceTriggerUncheckedCreateWithoutPreventiveInput>
+  }
+
+  export type MeterMaintenanceTriggerUpdateWithWhereUniqueWithoutPreventiveInput = {
+    where: MeterMaintenanceTriggerWhereUniqueInput
+    data: XOR<MeterMaintenanceTriggerUpdateWithoutPreventiveInput, MeterMaintenanceTriggerUncheckedUpdateWithoutPreventiveInput>
+  }
+
+  export type MeterMaintenanceTriggerUpdateManyWithWhereWithoutPreventiveInput = {
+    where: MeterMaintenanceTriggerScalarWhereInput
+    data: XOR<MeterMaintenanceTriggerUpdateManyMutationInput, MeterMaintenanceTriggerUncheckedUpdateManyWithoutPreventiveInput>
+  }
+
+  export type MeterMaintenanceTriggerScalarWhereInput = {
+    AND?: MeterMaintenanceTriggerScalarWhereInput | MeterMaintenanceTriggerScalarWhereInput[]
+    OR?: MeterMaintenanceTriggerScalarWhereInput[]
+    NOT?: MeterMaintenanceTriggerScalarWhereInput | MeterMaintenanceTriggerScalarWhereInput[]
+    id?: StringFilter<"MeterMaintenanceTrigger"> | string
+    meterId?: StringFilter<"MeterMaintenanceTrigger"> | string
+    preventiveId?: StringFilter<"MeterMaintenanceTrigger"> | string
+    condition?: EnumTriggerConditionFilter<"MeterMaintenanceTrigger"> | $Enums.TriggerCondition
+    triggerValue?: DecimalFilter<"MeterMaintenanceTrigger"> | Decimal | DecimalJsLike | number | string
+    lastTriggerReading?: DecimalNullableFilter<"MeterMaintenanceTrigger"> | Decimal | DecimalJsLike | number | string | null
+    createdAt?: DateTimeFilter<"MeterMaintenanceTrigger"> | Date | string
+    updatedAt?: DateTimeFilter<"MeterMaintenanceTrigger"> | Date | string
   }
 
   export type AddressCreateWithoutWarehousesInput = {
@@ -57981,7 +64206,7 @@ export namespace Prisma {
     type?: $Enums.StockMovementType
     quantity?: number
     referenceId?: string | null
-    referenceType?: $Enums.StockReferenceType | null
+    referenceType?: $Enums.StockReferenceType
     createdAt?: Date | string
     updatedAt?: Date | string
     item: ItemCreateNestedOneWithoutStockMovementsInput
@@ -57995,7 +64220,7 @@ export namespace Prisma {
     itemId: string
     targetWarehouseId?: string | null
     referenceId?: string | null
-    referenceType?: $Enums.StockReferenceType | null
+    referenceType?: $Enums.StockReferenceType
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -58015,7 +64240,7 @@ export namespace Prisma {
     type?: $Enums.StockMovementType
     quantity?: number
     referenceId?: string | null
-    referenceType?: $Enums.StockReferenceType | null
+    referenceType?: $Enums.StockReferenceType
     createdAt?: Date | string
     updatedAt?: Date | string
     item: ItemCreateNestedOneWithoutStockMovementsInput
@@ -58029,7 +64254,7 @@ export namespace Prisma {
     itemId: string
     warehouseId: string
     referenceId?: string | null
-    referenceType?: $Enums.StockReferenceType | null
+    referenceType?: $Enums.StockReferenceType
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -58134,7 +64359,7 @@ export namespace Prisma {
     warehouseId?: StringFilter<"StockMovement"> | string
     targetWarehouseId?: StringNullableFilter<"StockMovement"> | string | null
     referenceId?: StringNullableFilter<"StockMovement"> | string | null
-    referenceType?: EnumStockReferenceTypeNullableFilter<"StockMovement"> | $Enums.StockReferenceType | null
+    referenceType?: EnumStockReferenceTypeFilter<"StockMovement"> | $Enums.StockReferenceType
     createdAt?: DateTimeFilter<"StockMovement"> | Date | string
     updatedAt?: DateTimeFilter<"StockMovement"> | Date | string
   }
@@ -58186,7 +64411,7 @@ export namespace Prisma {
     type?: $Enums.StockMovementType
     quantity?: number
     referenceId?: string | null
-    referenceType?: $Enums.StockReferenceType | null
+    referenceType?: $Enums.StockReferenceType
     createdAt?: Date | string
     updatedAt?: Date | string
     warehouse: WarehouseCreateNestedOneWithoutStockMovementsInput
@@ -58200,7 +64425,7 @@ export namespace Prisma {
     warehouseId: string
     targetWarehouseId?: string | null
     referenceId?: string | null
-    referenceType?: $Enums.StockReferenceType | null
+    referenceType?: $Enums.StockReferenceType
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -58222,6 +64447,7 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     maintenance: MaintenanceCreateNestedOneWithoutMaintenanceItemsInput
+    zone?: ZoneCreateNestedOneWithoutItemsInput
   }
 
   export type MaintenanceItemUncheckedCreateWithoutItemInput = {
@@ -58231,6 +64457,7 @@ export namespace Prisma {
     maintenanceId: string
     createdAt?: Date | string
     updatedAt?: Date | string
+    zoneId?: string | null
   }
 
   export type MaintenanceItemCreateOrConnectWithoutItemInput = {
@@ -58619,6 +64846,8 @@ export namespace Prisma {
     message?: string | null
     processNotes?: string | null
     metadata?: NullableJsonNullValueInput | InputJsonValue
+    performerId?: string | null
+    performerReference?: $Enums.PerformerReference | null
     processStatus?: $Enums.Status
     register?: string | null
     activityIdTimer?: string | null
@@ -58635,7 +64864,7 @@ export namespace Prisma {
     execStart?: Date | string | null
     dueExecEndDate?: Date | string | null
     execEndDate?: Date | string | null
-    dueClosuerDate?: Date | string | null
+    dueClosureDate?: Date | string | null
     totalExecTime?: Decimal | DecimalJsLike | number | string | null
     expStartDate?: Date | string | null
     suspensionReason?: string | null
@@ -58658,13 +64887,13 @@ export namespace Prisma {
     delayNotification?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
-    performer?: UserCreateNestedOneWithoutPerformedMaintenancesInput
     requester?: UserCreateNestedOneWithoutRequestedMaintenancesInput
     site: ComplexCreateNestedOneWithoutMaintenancesInput
     company?: CompanyCreateNestedOneWithoutMaintenancesInput
     building?: BuildingCreateNestedOneWithoutMaintenancesInput
     team?: TeamCreateNestedOneWithoutMaintenancesInput
     floor?: FloorCreateNestedOneWithoutMaintenancesInput
+    zone?: ZoneCreateNestedOneWithoutMaintenancesInput
     space?: SpaceCreateNestedOneWithoutMaintenancesInput
     assignee?: UserCreateNestedOneWithoutAssignedMaintenancesInput
     asset?: AssetCreateNestedOneWithoutMaintenancesInput
@@ -58684,6 +64913,7 @@ export namespace Prisma {
     processNotes?: string | null
     metadata?: NullableJsonNullValueInput | InputJsonValue
     performerId?: string | null
+    performerReference?: $Enums.PerformerReference | null
     processStatus?: $Enums.Status
     register?: string | null
     activityIdTimer?: string | null
@@ -58702,7 +64932,7 @@ export namespace Prisma {
     execStart?: Date | string | null
     dueExecEndDate?: Date | string | null
     execEndDate?: Date | string | null
-    dueClosuerDate?: Date | string | null
+    dueClosureDate?: Date | string | null
     totalExecTime?: Decimal | DecimalJsLike | number | string | null
     expStartDate?: Date | string | null
     suspensionReason?: string | null
@@ -58712,6 +64942,7 @@ export namespace Prisma {
     buildingId?: string | null
     teamId?: string | null
     floorId?: string | null
+    zoneId?: string | null
     spaceId?: string | null
     ttSystemOpening?: Decimal | DecimalJsLike | number | string | null
     ttWorkOpening?: Decimal | DecimalJsLike | number | string | null
@@ -58771,6 +65002,83 @@ export namespace Prisma {
     create: XOR<ItemCreateWithoutMaintenanceItemsInput, ItemUncheckedCreateWithoutMaintenanceItemsInput>
   }
 
+  export type ZoneCreateWithoutItemsInput = {
+    id?: string
+    code: string
+    name: string
+    type?: string | null
+    availability?: $Enums.Availability
+    status?: $Enums.ServiceStatus
+    totalRooms?: number | null
+    glazedArea?: number | null
+    cleanableArea?: number | null
+    coveredArea?: number | null
+    totalNetArea?: number | null
+    totalGrossArea?: number | null
+    totalHeatedVolume?: number | null
+    totalVolume?: number | null
+    cadastralArea?: number | null
+    urbanSection?: string | null
+    sheet?: string | null
+    plot?: string | null
+    subordinate?: string | null
+    class?: number | null
+    size?: number | null
+    propertyRightsAndDuties?: string | null
+    cadastralIncome?: Decimal | DecimalJsLike | number | string | null
+    censusArea?: string | null
+    subArea?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    calenderEntity?: CalenderEntityCreateNestedOneWithoutZonesInput
+    floor: FloorCreateNestedOneWithoutZonesInput
+    rooms?: SpaceCreateNestedManyWithoutZoneInput
+    photos?: FileCreateNestedManyWithoutZonesInput
+    meters?: MeterCreateNestedManyWithoutZoneInput
+    maintenances?: MaintenanceCreateNestedManyWithoutZoneInput
+  }
+
+  export type ZoneUncheckedCreateWithoutItemsInput = {
+    id?: string
+    code: string
+    name: string
+    type?: string | null
+    availability?: $Enums.Availability
+    status?: $Enums.ServiceStatus
+    calenderEntityId?: string | null
+    floorId: string
+    totalRooms?: number | null
+    glazedArea?: number | null
+    cleanableArea?: number | null
+    coveredArea?: number | null
+    totalNetArea?: number | null
+    totalGrossArea?: number | null
+    totalHeatedVolume?: number | null
+    totalVolume?: number | null
+    cadastralArea?: number | null
+    urbanSection?: string | null
+    sheet?: string | null
+    plot?: string | null
+    subordinate?: string | null
+    class?: number | null
+    size?: number | null
+    propertyRightsAndDuties?: string | null
+    cadastralIncome?: Decimal | DecimalJsLike | number | string | null
+    censusArea?: string | null
+    subArea?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    rooms?: SpaceUncheckedCreateNestedManyWithoutZoneInput
+    photos?: FileUncheckedCreateNestedManyWithoutZonesInput
+    meters?: MeterUncheckedCreateNestedManyWithoutZoneInput
+    maintenances?: MaintenanceUncheckedCreateNestedManyWithoutZoneInput
+  }
+
+  export type ZoneCreateOrConnectWithoutItemsInput = {
+    where: ZoneWhereUniqueInput
+    create: XOR<ZoneCreateWithoutItemsInput, ZoneUncheckedCreateWithoutItemsInput>
+  }
+
   export type MaintenanceUpsertWithoutMaintenanceItemsInput = {
     update: XOR<MaintenanceUpdateWithoutMaintenanceItemsInput, MaintenanceUncheckedUpdateWithoutMaintenanceItemsInput>
     create: XOR<MaintenanceCreateWithoutMaintenanceItemsInput, MaintenanceUncheckedCreateWithoutMaintenanceItemsInput>
@@ -58794,6 +65102,8 @@ export namespace Prisma {
     message?: NullableStringFieldUpdateOperationsInput | string | null
     processNotes?: NullableStringFieldUpdateOperationsInput | string | null
     metadata?: NullableJsonNullValueInput | InputJsonValue
+    performerId?: NullableStringFieldUpdateOperationsInput | string | null
+    performerReference?: NullableEnumPerformerReferenceFieldUpdateOperationsInput | $Enums.PerformerReference | null
     processStatus?: EnumStatusFieldUpdateOperationsInput | $Enums.Status
     register?: NullableStringFieldUpdateOperationsInput | string | null
     activityIdTimer?: NullableStringFieldUpdateOperationsInput | string | null
@@ -58810,7 +65120,7 @@ export namespace Prisma {
     execStart?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     dueExecEndDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     execEndDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    dueClosuerDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    dueClosureDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     totalExecTime?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     expStartDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     suspensionReason?: NullableStringFieldUpdateOperationsInput | string | null
@@ -58833,13 +65143,13 @@ export namespace Prisma {
     delayNotification?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    performer?: UserUpdateOneWithoutPerformedMaintenancesNestedInput
     requester?: UserUpdateOneWithoutRequestedMaintenancesNestedInput
     site?: ComplexUpdateOneRequiredWithoutMaintenancesNestedInput
     company?: CompanyUpdateOneWithoutMaintenancesNestedInput
     building?: BuildingUpdateOneWithoutMaintenancesNestedInput
     team?: TeamUpdateOneWithoutMaintenancesNestedInput
     floor?: FloorUpdateOneWithoutMaintenancesNestedInput
+    zone?: ZoneUpdateOneWithoutMaintenancesNestedInput
     space?: SpaceUpdateOneWithoutMaintenancesNestedInput
     assignee?: UserUpdateOneWithoutAssignedMaintenancesNestedInput
     asset?: AssetUpdateOneWithoutMaintenancesNestedInput
@@ -58859,6 +65169,7 @@ export namespace Prisma {
     processNotes?: NullableStringFieldUpdateOperationsInput | string | null
     metadata?: NullableJsonNullValueInput | InputJsonValue
     performerId?: NullableStringFieldUpdateOperationsInput | string | null
+    performerReference?: NullableEnumPerformerReferenceFieldUpdateOperationsInput | $Enums.PerformerReference | null
     processStatus?: EnumStatusFieldUpdateOperationsInput | $Enums.Status
     register?: NullableStringFieldUpdateOperationsInput | string | null
     activityIdTimer?: NullableStringFieldUpdateOperationsInput | string | null
@@ -58877,7 +65188,7 @@ export namespace Prisma {
     execStart?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     dueExecEndDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     execEndDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    dueClosuerDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    dueClosureDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     totalExecTime?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     expStartDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     suspensionReason?: NullableStringFieldUpdateOperationsInput | string | null
@@ -58887,6 +65198,7 @@ export namespace Prisma {
     buildingId?: NullableStringFieldUpdateOperationsInput | string | null
     teamId?: NullableStringFieldUpdateOperationsInput | string | null
     floorId?: NullableStringFieldUpdateOperationsInput | string | null
+    zoneId?: NullableStringFieldUpdateOperationsInput | string | null
     spaceId?: NullableStringFieldUpdateOperationsInput | string | null
     ttSystemOpening?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     ttWorkOpening?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
@@ -58947,6 +65259,89 @@ export namespace Prisma {
     stockMovements?: StockMovementUncheckedUpdateManyWithoutItemNestedInput
   }
 
+  export type ZoneUpsertWithoutItemsInput = {
+    update: XOR<ZoneUpdateWithoutItemsInput, ZoneUncheckedUpdateWithoutItemsInput>
+    create: XOR<ZoneCreateWithoutItemsInput, ZoneUncheckedCreateWithoutItemsInput>
+    where?: ZoneWhereInput
+  }
+
+  export type ZoneUpdateToOneWithWhereWithoutItemsInput = {
+    where?: ZoneWhereInput
+    data: XOR<ZoneUpdateWithoutItemsInput, ZoneUncheckedUpdateWithoutItemsInput>
+  }
+
+  export type ZoneUpdateWithoutItemsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    code?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    type?: NullableStringFieldUpdateOperationsInput | string | null
+    availability?: EnumAvailabilityFieldUpdateOperationsInput | $Enums.Availability
+    status?: EnumServiceStatusFieldUpdateOperationsInput | $Enums.ServiceStatus
+    totalRooms?: NullableIntFieldUpdateOperationsInput | number | null
+    glazedArea?: NullableFloatFieldUpdateOperationsInput | number | null
+    cleanableArea?: NullableFloatFieldUpdateOperationsInput | number | null
+    coveredArea?: NullableFloatFieldUpdateOperationsInput | number | null
+    totalNetArea?: NullableFloatFieldUpdateOperationsInput | number | null
+    totalGrossArea?: NullableFloatFieldUpdateOperationsInput | number | null
+    totalHeatedVolume?: NullableFloatFieldUpdateOperationsInput | number | null
+    totalVolume?: NullableFloatFieldUpdateOperationsInput | number | null
+    cadastralArea?: NullableFloatFieldUpdateOperationsInput | number | null
+    urbanSection?: NullableStringFieldUpdateOperationsInput | string | null
+    sheet?: NullableStringFieldUpdateOperationsInput | string | null
+    plot?: NullableStringFieldUpdateOperationsInput | string | null
+    subordinate?: NullableStringFieldUpdateOperationsInput | string | null
+    class?: NullableIntFieldUpdateOperationsInput | number | null
+    size?: NullableFloatFieldUpdateOperationsInput | number | null
+    propertyRightsAndDuties?: NullableStringFieldUpdateOperationsInput | string | null
+    cadastralIncome?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    censusArea?: NullableStringFieldUpdateOperationsInput | string | null
+    subArea?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    calenderEntity?: CalenderEntityUpdateOneWithoutZonesNestedInput
+    floor?: FloorUpdateOneRequiredWithoutZonesNestedInput
+    rooms?: SpaceUpdateManyWithoutZoneNestedInput
+    photos?: FileUpdateManyWithoutZonesNestedInput
+    meters?: MeterUpdateManyWithoutZoneNestedInput
+    maintenances?: MaintenanceUpdateManyWithoutZoneNestedInput
+  }
+
+  export type ZoneUncheckedUpdateWithoutItemsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    code?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    type?: NullableStringFieldUpdateOperationsInput | string | null
+    availability?: EnumAvailabilityFieldUpdateOperationsInput | $Enums.Availability
+    status?: EnumServiceStatusFieldUpdateOperationsInput | $Enums.ServiceStatus
+    calenderEntityId?: NullableStringFieldUpdateOperationsInput | string | null
+    floorId?: StringFieldUpdateOperationsInput | string
+    totalRooms?: NullableIntFieldUpdateOperationsInput | number | null
+    glazedArea?: NullableFloatFieldUpdateOperationsInput | number | null
+    cleanableArea?: NullableFloatFieldUpdateOperationsInput | number | null
+    coveredArea?: NullableFloatFieldUpdateOperationsInput | number | null
+    totalNetArea?: NullableFloatFieldUpdateOperationsInput | number | null
+    totalGrossArea?: NullableFloatFieldUpdateOperationsInput | number | null
+    totalHeatedVolume?: NullableFloatFieldUpdateOperationsInput | number | null
+    totalVolume?: NullableFloatFieldUpdateOperationsInput | number | null
+    cadastralArea?: NullableFloatFieldUpdateOperationsInput | number | null
+    urbanSection?: NullableStringFieldUpdateOperationsInput | string | null
+    sheet?: NullableStringFieldUpdateOperationsInput | string | null
+    plot?: NullableStringFieldUpdateOperationsInput | string | null
+    subordinate?: NullableStringFieldUpdateOperationsInput | string | null
+    class?: NullableIntFieldUpdateOperationsInput | number | null
+    size?: NullableFloatFieldUpdateOperationsInput | number | null
+    propertyRightsAndDuties?: NullableStringFieldUpdateOperationsInput | string | null
+    cadastralIncome?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    censusArea?: NullableStringFieldUpdateOperationsInput | string | null
+    subArea?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    rooms?: SpaceUncheckedUpdateManyWithoutZoneNestedInput
+    photos?: FileUncheckedUpdateManyWithoutZonesNestedInput
+    meters?: MeterUncheckedUpdateManyWithoutZoneNestedInput
+    maintenances?: MaintenanceUncheckedUpdateManyWithoutZoneNestedInput
+  }
+
   export type UserCreateWithoutRefreshTokensInput = {
     id?: string
     email: string
@@ -58967,7 +65362,6 @@ export namespace Prisma {
     company?: CompanyCreateNestedOneWithoutEmployeesInput
     calenderEntity?: CalenderEntityCreateNestedOneWithoutEmployeesInput
     teams?: TeamCreateNestedManyWithoutMembersInput
-    performedMaintenances?: MaintenanceCreateNestedManyWithoutPerformerInput
     requestedMaintenances?: MaintenanceCreateNestedManyWithoutRequesterInput
     assignedMaintenances?: MaintenanceCreateNestedManyWithoutAssigneeInput
     supervisedTeams?: TeamCreateNestedManyWithoutSupervisorInput
@@ -58993,7 +65387,6 @@ export namespace Prisma {
     calenderEntityId?: string | null
     permissions?: PermissionUncheckedCreateNestedManyWithoutUserInput
     teams?: TeamUncheckedCreateNestedManyWithoutMembersInput
-    performedMaintenances?: MaintenanceUncheckedCreateNestedManyWithoutPerformerInput
     requestedMaintenances?: MaintenanceUncheckedCreateNestedManyWithoutRequesterInput
     assignedMaintenances?: MaintenanceUncheckedCreateNestedManyWithoutAssigneeInput
     supervisedTeams?: TeamUncheckedCreateNestedManyWithoutSupervisorInput
@@ -59035,7 +65428,6 @@ export namespace Prisma {
     company?: CompanyUpdateOneWithoutEmployeesNestedInput
     calenderEntity?: CalenderEntityUpdateOneWithoutEmployeesNestedInput
     teams?: TeamUpdateManyWithoutMembersNestedInput
-    performedMaintenances?: MaintenanceUpdateManyWithoutPerformerNestedInput
     requestedMaintenances?: MaintenanceUpdateManyWithoutRequesterNestedInput
     assignedMaintenances?: MaintenanceUpdateManyWithoutAssigneeNestedInput
     supervisedTeams?: TeamUpdateManyWithoutSupervisorNestedInput
@@ -59061,10 +65453,848 @@ export namespace Prisma {
     calenderEntityId?: NullableStringFieldUpdateOperationsInput | string | null
     permissions?: PermissionUncheckedUpdateManyWithoutUserNestedInput
     teams?: TeamUncheckedUpdateManyWithoutMembersNestedInput
-    performedMaintenances?: MaintenanceUncheckedUpdateManyWithoutPerformerNestedInput
     requestedMaintenances?: MaintenanceUncheckedUpdateManyWithoutRequesterNestedInput
     assignedMaintenances?: MaintenanceUncheckedUpdateManyWithoutAssigneeNestedInput
     supervisedTeams?: TeamUncheckedUpdateManyWithoutSupervisorNestedInput
+  }
+
+  export type AssetCreateWithoutMetersInput = {
+    id?: string
+    name: string
+    description?: string | null
+    tag?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    category: AssetCategoryCreateNestedOneWithoutAssetsInput
+    parentSystem?: AssetCreateNestedOneWithoutChildAssetsInput
+    childAssets?: AssetCreateNestedManyWithoutParentSystemInput
+    space?: SpaceCreateNestedOneWithoutAssetsInput
+    maintenances?: MaintenanceCreateNestedManyWithoutAssetInput
+    preventives?: PreventiveCreateNestedManyWithoutAssetInput
+  }
+
+  export type AssetUncheckedCreateWithoutMetersInput = {
+    id?: string
+    name: string
+    description?: string | null
+    categoryId: string
+    tag?: string | null
+    parentSystemId?: string | null
+    spaceId?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    childAssets?: AssetUncheckedCreateNestedManyWithoutParentSystemInput
+    maintenances?: MaintenanceUncheckedCreateNestedManyWithoutAssetInput
+    preventives?: PreventiveUncheckedCreateNestedManyWithoutAssetInput
+  }
+
+  export type AssetCreateOrConnectWithoutMetersInput = {
+    where: AssetWhereUniqueInput
+    create: XOR<AssetCreateWithoutMetersInput, AssetUncheckedCreateWithoutMetersInput>
+  }
+
+  export type BuildingCreateWithoutMetersInput = {
+    id?: string
+    name: string
+    code: string
+    mainUse?: $Enums.MainUse
+    availability?: $Enums.Availability
+    status?: $Enums.ServiceStatus
+    condition?: $Enums.Condition
+    criticality?: $Enums.Criticality
+    totalFloors?: number | null
+    totalUnits?: number | null
+    totalRooms?: number | null
+    glazedArea?: number | null
+    cleanableArea?: number | null
+    coveredArea?: number | null
+    totalNetArea?: number | null
+    totalGrossArea?: number | null
+    totalHeatedVolume?: number | null
+    totalVolume?: number | null
+    subAddress?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    complex: ComplexCreateNestedOneWithoutBuildingsInput
+    calenderEntity?: CalenderEntityCreateNestedOneWithoutBuildingsInput
+    photos?: FileCreateNestedManyWithoutBuildingsInput
+    floors?: FloorCreateNestedManyWithoutBuildingInput
+    preventives?: PreventiveCreateNestedManyWithoutBuildingInput
+    maintenances?: MaintenanceCreateNestedManyWithoutBuildingInput
+  }
+
+  export type BuildingUncheckedCreateWithoutMetersInput = {
+    id?: string
+    name: string
+    code: string
+    mainUse?: $Enums.MainUse
+    availability?: $Enums.Availability
+    status?: $Enums.ServiceStatus
+    condition?: $Enums.Condition
+    criticality?: $Enums.Criticality
+    totalFloors?: number | null
+    totalUnits?: number | null
+    totalRooms?: number | null
+    glazedArea?: number | null
+    cleanableArea?: number | null
+    coveredArea?: number | null
+    totalNetArea?: number | null
+    totalGrossArea?: number | null
+    totalHeatedVolume?: number | null
+    totalVolume?: number | null
+    subAddress?: string | null
+    complexId: string
+    calenderEntityId?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    photos?: FileUncheckedCreateNestedManyWithoutBuildingsInput
+    floors?: FloorUncheckedCreateNestedManyWithoutBuildingInput
+    preventives?: PreventiveUncheckedCreateNestedManyWithoutBuildingInput
+    maintenances?: MaintenanceUncheckedCreateNestedManyWithoutBuildingInput
+  }
+
+  export type BuildingCreateOrConnectWithoutMetersInput = {
+    where: BuildingWhereUniqueInput
+    create: XOR<BuildingCreateWithoutMetersInput, BuildingUncheckedCreateWithoutMetersInput>
+  }
+
+  export type ZoneCreateWithoutMetersInput = {
+    id?: string
+    code: string
+    name: string
+    type?: string | null
+    availability?: $Enums.Availability
+    status?: $Enums.ServiceStatus
+    totalRooms?: number | null
+    glazedArea?: number | null
+    cleanableArea?: number | null
+    coveredArea?: number | null
+    totalNetArea?: number | null
+    totalGrossArea?: number | null
+    totalHeatedVolume?: number | null
+    totalVolume?: number | null
+    cadastralArea?: number | null
+    urbanSection?: string | null
+    sheet?: string | null
+    plot?: string | null
+    subordinate?: string | null
+    class?: number | null
+    size?: number | null
+    propertyRightsAndDuties?: string | null
+    cadastralIncome?: Decimal | DecimalJsLike | number | string | null
+    censusArea?: string | null
+    subArea?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    calenderEntity?: CalenderEntityCreateNestedOneWithoutZonesInput
+    floor: FloorCreateNestedOneWithoutZonesInput
+    rooms?: SpaceCreateNestedManyWithoutZoneInput
+    photos?: FileCreateNestedManyWithoutZonesInput
+    items?: MaintenanceItemCreateNestedManyWithoutZoneInput
+    maintenances?: MaintenanceCreateNestedManyWithoutZoneInput
+  }
+
+  export type ZoneUncheckedCreateWithoutMetersInput = {
+    id?: string
+    code: string
+    name: string
+    type?: string | null
+    availability?: $Enums.Availability
+    status?: $Enums.ServiceStatus
+    calenderEntityId?: string | null
+    floorId: string
+    totalRooms?: number | null
+    glazedArea?: number | null
+    cleanableArea?: number | null
+    coveredArea?: number | null
+    totalNetArea?: number | null
+    totalGrossArea?: number | null
+    totalHeatedVolume?: number | null
+    totalVolume?: number | null
+    cadastralArea?: number | null
+    urbanSection?: string | null
+    sheet?: string | null
+    plot?: string | null
+    subordinate?: string | null
+    class?: number | null
+    size?: number | null
+    propertyRightsAndDuties?: string | null
+    cadastralIncome?: Decimal | DecimalJsLike | number | string | null
+    censusArea?: string | null
+    subArea?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    rooms?: SpaceUncheckedCreateNestedManyWithoutZoneInput
+    photos?: FileUncheckedCreateNestedManyWithoutZonesInput
+    items?: MaintenanceItemUncheckedCreateNestedManyWithoutZoneInput
+    maintenances?: MaintenanceUncheckedCreateNestedManyWithoutZoneInput
+  }
+
+  export type ZoneCreateOrConnectWithoutMetersInput = {
+    where: ZoneWhereUniqueInput
+    create: XOR<ZoneCreateWithoutMetersInput, ZoneUncheckedCreateWithoutMetersInput>
+  }
+
+  export type SpaceCreateWithoutMetersInput = {
+    id?: string
+    name: string
+    code: string
+    use?: $Enums.RoomUse
+    status?: $Enums.ServiceStatus
+    condition?: $Enums.Condition
+    criticality?: $Enums.Criticality
+    glazedArea?: number | null
+    cleanableArea?: number | null
+    coveredArea?: number | null
+    totalNetArea?: number | null
+    totalGrossArea?: number | null
+    height?: number | null
+    heated?: boolean
+    totalVolume?: number | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    calenderEntity?: CalenderEntityCreateNestedOneWithoutSpacesInput
+    zone: ZoneCreateNestedOneWithoutRoomsInput
+    photos?: FileCreateNestedManyWithoutSpacesInput
+    maintenances?: MaintenanceCreateNestedManyWithoutSpaceInput
+    preventives?: PreventiveCreateNestedManyWithoutSpaceInput
+    assets?: AssetCreateNestedManyWithoutSpaceInput
+  }
+
+  export type SpaceUncheckedCreateWithoutMetersInput = {
+    id?: string
+    name: string
+    code: string
+    use?: $Enums.RoomUse
+    status?: $Enums.ServiceStatus
+    calenderEntityId?: string | null
+    zoneId: string
+    condition?: $Enums.Condition
+    criticality?: $Enums.Criticality
+    glazedArea?: number | null
+    cleanableArea?: number | null
+    coveredArea?: number | null
+    totalNetArea?: number | null
+    totalGrossArea?: number | null
+    height?: number | null
+    heated?: boolean
+    totalVolume?: number | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    photos?: FileUncheckedCreateNestedManyWithoutSpacesInput
+    maintenances?: MaintenanceUncheckedCreateNestedManyWithoutSpaceInput
+    preventives?: PreventiveUncheckedCreateNestedManyWithoutSpaceInput
+    assets?: AssetUncheckedCreateNestedManyWithoutSpaceInput
+  }
+
+  export type SpaceCreateOrConnectWithoutMetersInput = {
+    where: SpaceWhereUniqueInput
+    create: XOR<SpaceCreateWithoutMetersInput, SpaceUncheckedCreateWithoutMetersInput>
+  }
+
+  export type MeterReadingCreateWithoutMeterInput = {
+    id?: string
+    value: Decimal | DecimalJsLike | number | string
+    timestamp?: Date | string
+    source?: $Enums.MeterReadingSource
+    recordedByUserId?: string | null
+    createdAt?: Date | string
+  }
+
+  export type MeterReadingUncheckedCreateWithoutMeterInput = {
+    id?: string
+    value: Decimal | DecimalJsLike | number | string
+    timestamp?: Date | string
+    source?: $Enums.MeterReadingSource
+    recordedByUserId?: string | null
+    createdAt?: Date | string
+  }
+
+  export type MeterReadingCreateOrConnectWithoutMeterInput = {
+    where: MeterReadingWhereUniqueInput
+    create: XOR<MeterReadingCreateWithoutMeterInput, MeterReadingUncheckedCreateWithoutMeterInput>
+  }
+
+  export type MeterReadingCreateManyMeterInputEnvelope = {
+    data: MeterReadingCreateManyMeterInput | MeterReadingCreateManyMeterInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type MeterMaintenanceTriggerCreateWithoutMeterInput = {
+    id?: string
+    condition: $Enums.TriggerCondition
+    triggerValue: Decimal | DecimalJsLike | number | string
+    lastTriggerReading?: Decimal | DecimalJsLike | number | string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    preventive: PreventiveCreateNestedOneWithoutMeterTriggersInput
+  }
+
+  export type MeterMaintenanceTriggerUncheckedCreateWithoutMeterInput = {
+    id?: string
+    preventiveId: string
+    condition: $Enums.TriggerCondition
+    triggerValue: Decimal | DecimalJsLike | number | string
+    lastTriggerReading?: Decimal | DecimalJsLike | number | string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type MeterMaintenanceTriggerCreateOrConnectWithoutMeterInput = {
+    where: MeterMaintenanceTriggerWhereUniqueInput
+    create: XOR<MeterMaintenanceTriggerCreateWithoutMeterInput, MeterMaintenanceTriggerUncheckedCreateWithoutMeterInput>
+  }
+
+  export type MeterMaintenanceTriggerCreateManyMeterInputEnvelope = {
+    data: MeterMaintenanceTriggerCreateManyMeterInput | MeterMaintenanceTriggerCreateManyMeterInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type AssetUpsertWithoutMetersInput = {
+    update: XOR<AssetUpdateWithoutMetersInput, AssetUncheckedUpdateWithoutMetersInput>
+    create: XOR<AssetCreateWithoutMetersInput, AssetUncheckedCreateWithoutMetersInput>
+    where?: AssetWhereInput
+  }
+
+  export type AssetUpdateToOneWithWhereWithoutMetersInput = {
+    where?: AssetWhereInput
+    data: XOR<AssetUpdateWithoutMetersInput, AssetUncheckedUpdateWithoutMetersInput>
+  }
+
+  export type AssetUpdateWithoutMetersInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    tag?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    category?: AssetCategoryUpdateOneRequiredWithoutAssetsNestedInput
+    parentSystem?: AssetUpdateOneWithoutChildAssetsNestedInput
+    childAssets?: AssetUpdateManyWithoutParentSystemNestedInput
+    space?: SpaceUpdateOneWithoutAssetsNestedInput
+    maintenances?: MaintenanceUpdateManyWithoutAssetNestedInput
+    preventives?: PreventiveUpdateManyWithoutAssetNestedInput
+  }
+
+  export type AssetUncheckedUpdateWithoutMetersInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    categoryId?: StringFieldUpdateOperationsInput | string
+    tag?: NullableStringFieldUpdateOperationsInput | string | null
+    parentSystemId?: NullableStringFieldUpdateOperationsInput | string | null
+    spaceId?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    childAssets?: AssetUncheckedUpdateManyWithoutParentSystemNestedInput
+    maintenances?: MaintenanceUncheckedUpdateManyWithoutAssetNestedInput
+    preventives?: PreventiveUncheckedUpdateManyWithoutAssetNestedInput
+  }
+
+  export type BuildingUpsertWithoutMetersInput = {
+    update: XOR<BuildingUpdateWithoutMetersInput, BuildingUncheckedUpdateWithoutMetersInput>
+    create: XOR<BuildingCreateWithoutMetersInput, BuildingUncheckedCreateWithoutMetersInput>
+    where?: BuildingWhereInput
+  }
+
+  export type BuildingUpdateToOneWithWhereWithoutMetersInput = {
+    where?: BuildingWhereInput
+    data: XOR<BuildingUpdateWithoutMetersInput, BuildingUncheckedUpdateWithoutMetersInput>
+  }
+
+  export type BuildingUpdateWithoutMetersInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    code?: StringFieldUpdateOperationsInput | string
+    mainUse?: EnumMainUseFieldUpdateOperationsInput | $Enums.MainUse
+    availability?: EnumAvailabilityFieldUpdateOperationsInput | $Enums.Availability
+    status?: EnumServiceStatusFieldUpdateOperationsInput | $Enums.ServiceStatus
+    condition?: EnumConditionFieldUpdateOperationsInput | $Enums.Condition
+    criticality?: EnumCriticalityFieldUpdateOperationsInput | $Enums.Criticality
+    totalFloors?: NullableIntFieldUpdateOperationsInput | number | null
+    totalUnits?: NullableIntFieldUpdateOperationsInput | number | null
+    totalRooms?: NullableIntFieldUpdateOperationsInput | number | null
+    glazedArea?: NullableFloatFieldUpdateOperationsInput | number | null
+    cleanableArea?: NullableFloatFieldUpdateOperationsInput | number | null
+    coveredArea?: NullableFloatFieldUpdateOperationsInput | number | null
+    totalNetArea?: NullableFloatFieldUpdateOperationsInput | number | null
+    totalGrossArea?: NullableFloatFieldUpdateOperationsInput | number | null
+    totalHeatedVolume?: NullableFloatFieldUpdateOperationsInput | number | null
+    totalVolume?: NullableFloatFieldUpdateOperationsInput | number | null
+    subAddress?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    complex?: ComplexUpdateOneRequiredWithoutBuildingsNestedInput
+    calenderEntity?: CalenderEntityUpdateOneWithoutBuildingsNestedInput
+    photos?: FileUpdateManyWithoutBuildingsNestedInput
+    floors?: FloorUpdateManyWithoutBuildingNestedInput
+    preventives?: PreventiveUpdateManyWithoutBuildingNestedInput
+    maintenances?: MaintenanceUpdateManyWithoutBuildingNestedInput
+  }
+
+  export type BuildingUncheckedUpdateWithoutMetersInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    code?: StringFieldUpdateOperationsInput | string
+    mainUse?: EnumMainUseFieldUpdateOperationsInput | $Enums.MainUse
+    availability?: EnumAvailabilityFieldUpdateOperationsInput | $Enums.Availability
+    status?: EnumServiceStatusFieldUpdateOperationsInput | $Enums.ServiceStatus
+    condition?: EnumConditionFieldUpdateOperationsInput | $Enums.Condition
+    criticality?: EnumCriticalityFieldUpdateOperationsInput | $Enums.Criticality
+    totalFloors?: NullableIntFieldUpdateOperationsInput | number | null
+    totalUnits?: NullableIntFieldUpdateOperationsInput | number | null
+    totalRooms?: NullableIntFieldUpdateOperationsInput | number | null
+    glazedArea?: NullableFloatFieldUpdateOperationsInput | number | null
+    cleanableArea?: NullableFloatFieldUpdateOperationsInput | number | null
+    coveredArea?: NullableFloatFieldUpdateOperationsInput | number | null
+    totalNetArea?: NullableFloatFieldUpdateOperationsInput | number | null
+    totalGrossArea?: NullableFloatFieldUpdateOperationsInput | number | null
+    totalHeatedVolume?: NullableFloatFieldUpdateOperationsInput | number | null
+    totalVolume?: NullableFloatFieldUpdateOperationsInput | number | null
+    subAddress?: NullableStringFieldUpdateOperationsInput | string | null
+    complexId?: StringFieldUpdateOperationsInput | string
+    calenderEntityId?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    photos?: FileUncheckedUpdateManyWithoutBuildingsNestedInput
+    floors?: FloorUncheckedUpdateManyWithoutBuildingNestedInput
+    preventives?: PreventiveUncheckedUpdateManyWithoutBuildingNestedInput
+    maintenances?: MaintenanceUncheckedUpdateManyWithoutBuildingNestedInput
+  }
+
+  export type ZoneUpsertWithoutMetersInput = {
+    update: XOR<ZoneUpdateWithoutMetersInput, ZoneUncheckedUpdateWithoutMetersInput>
+    create: XOR<ZoneCreateWithoutMetersInput, ZoneUncheckedCreateWithoutMetersInput>
+    where?: ZoneWhereInput
+  }
+
+  export type ZoneUpdateToOneWithWhereWithoutMetersInput = {
+    where?: ZoneWhereInput
+    data: XOR<ZoneUpdateWithoutMetersInput, ZoneUncheckedUpdateWithoutMetersInput>
+  }
+
+  export type ZoneUpdateWithoutMetersInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    code?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    type?: NullableStringFieldUpdateOperationsInput | string | null
+    availability?: EnumAvailabilityFieldUpdateOperationsInput | $Enums.Availability
+    status?: EnumServiceStatusFieldUpdateOperationsInput | $Enums.ServiceStatus
+    totalRooms?: NullableIntFieldUpdateOperationsInput | number | null
+    glazedArea?: NullableFloatFieldUpdateOperationsInput | number | null
+    cleanableArea?: NullableFloatFieldUpdateOperationsInput | number | null
+    coveredArea?: NullableFloatFieldUpdateOperationsInput | number | null
+    totalNetArea?: NullableFloatFieldUpdateOperationsInput | number | null
+    totalGrossArea?: NullableFloatFieldUpdateOperationsInput | number | null
+    totalHeatedVolume?: NullableFloatFieldUpdateOperationsInput | number | null
+    totalVolume?: NullableFloatFieldUpdateOperationsInput | number | null
+    cadastralArea?: NullableFloatFieldUpdateOperationsInput | number | null
+    urbanSection?: NullableStringFieldUpdateOperationsInput | string | null
+    sheet?: NullableStringFieldUpdateOperationsInput | string | null
+    plot?: NullableStringFieldUpdateOperationsInput | string | null
+    subordinate?: NullableStringFieldUpdateOperationsInput | string | null
+    class?: NullableIntFieldUpdateOperationsInput | number | null
+    size?: NullableFloatFieldUpdateOperationsInput | number | null
+    propertyRightsAndDuties?: NullableStringFieldUpdateOperationsInput | string | null
+    cadastralIncome?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    censusArea?: NullableStringFieldUpdateOperationsInput | string | null
+    subArea?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    calenderEntity?: CalenderEntityUpdateOneWithoutZonesNestedInput
+    floor?: FloorUpdateOneRequiredWithoutZonesNestedInput
+    rooms?: SpaceUpdateManyWithoutZoneNestedInput
+    photos?: FileUpdateManyWithoutZonesNestedInput
+    items?: MaintenanceItemUpdateManyWithoutZoneNestedInput
+    maintenances?: MaintenanceUpdateManyWithoutZoneNestedInput
+  }
+
+  export type ZoneUncheckedUpdateWithoutMetersInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    code?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    type?: NullableStringFieldUpdateOperationsInput | string | null
+    availability?: EnumAvailabilityFieldUpdateOperationsInput | $Enums.Availability
+    status?: EnumServiceStatusFieldUpdateOperationsInput | $Enums.ServiceStatus
+    calenderEntityId?: NullableStringFieldUpdateOperationsInput | string | null
+    floorId?: StringFieldUpdateOperationsInput | string
+    totalRooms?: NullableIntFieldUpdateOperationsInput | number | null
+    glazedArea?: NullableFloatFieldUpdateOperationsInput | number | null
+    cleanableArea?: NullableFloatFieldUpdateOperationsInput | number | null
+    coveredArea?: NullableFloatFieldUpdateOperationsInput | number | null
+    totalNetArea?: NullableFloatFieldUpdateOperationsInput | number | null
+    totalGrossArea?: NullableFloatFieldUpdateOperationsInput | number | null
+    totalHeatedVolume?: NullableFloatFieldUpdateOperationsInput | number | null
+    totalVolume?: NullableFloatFieldUpdateOperationsInput | number | null
+    cadastralArea?: NullableFloatFieldUpdateOperationsInput | number | null
+    urbanSection?: NullableStringFieldUpdateOperationsInput | string | null
+    sheet?: NullableStringFieldUpdateOperationsInput | string | null
+    plot?: NullableStringFieldUpdateOperationsInput | string | null
+    subordinate?: NullableStringFieldUpdateOperationsInput | string | null
+    class?: NullableIntFieldUpdateOperationsInput | number | null
+    size?: NullableFloatFieldUpdateOperationsInput | number | null
+    propertyRightsAndDuties?: NullableStringFieldUpdateOperationsInput | string | null
+    cadastralIncome?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    censusArea?: NullableStringFieldUpdateOperationsInput | string | null
+    subArea?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    rooms?: SpaceUncheckedUpdateManyWithoutZoneNestedInput
+    photos?: FileUncheckedUpdateManyWithoutZonesNestedInput
+    items?: MaintenanceItemUncheckedUpdateManyWithoutZoneNestedInput
+    maintenances?: MaintenanceUncheckedUpdateManyWithoutZoneNestedInput
+  }
+
+  export type SpaceUpsertWithoutMetersInput = {
+    update: XOR<SpaceUpdateWithoutMetersInput, SpaceUncheckedUpdateWithoutMetersInput>
+    create: XOR<SpaceCreateWithoutMetersInput, SpaceUncheckedCreateWithoutMetersInput>
+    where?: SpaceWhereInput
+  }
+
+  export type SpaceUpdateToOneWithWhereWithoutMetersInput = {
+    where?: SpaceWhereInput
+    data: XOR<SpaceUpdateWithoutMetersInput, SpaceUncheckedUpdateWithoutMetersInput>
+  }
+
+  export type SpaceUpdateWithoutMetersInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    code?: StringFieldUpdateOperationsInput | string
+    use?: EnumRoomUseFieldUpdateOperationsInput | $Enums.RoomUse
+    status?: EnumServiceStatusFieldUpdateOperationsInput | $Enums.ServiceStatus
+    condition?: EnumConditionFieldUpdateOperationsInput | $Enums.Condition
+    criticality?: EnumCriticalityFieldUpdateOperationsInput | $Enums.Criticality
+    glazedArea?: NullableFloatFieldUpdateOperationsInput | number | null
+    cleanableArea?: NullableFloatFieldUpdateOperationsInput | number | null
+    coveredArea?: NullableFloatFieldUpdateOperationsInput | number | null
+    totalNetArea?: NullableFloatFieldUpdateOperationsInput | number | null
+    totalGrossArea?: NullableFloatFieldUpdateOperationsInput | number | null
+    height?: NullableIntFieldUpdateOperationsInput | number | null
+    heated?: BoolFieldUpdateOperationsInput | boolean
+    totalVolume?: NullableFloatFieldUpdateOperationsInput | number | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    calenderEntity?: CalenderEntityUpdateOneWithoutSpacesNestedInput
+    zone?: ZoneUpdateOneRequiredWithoutRoomsNestedInput
+    photos?: FileUpdateManyWithoutSpacesNestedInput
+    maintenances?: MaintenanceUpdateManyWithoutSpaceNestedInput
+    preventives?: PreventiveUpdateManyWithoutSpaceNestedInput
+    assets?: AssetUpdateManyWithoutSpaceNestedInput
+  }
+
+  export type SpaceUncheckedUpdateWithoutMetersInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    code?: StringFieldUpdateOperationsInput | string
+    use?: EnumRoomUseFieldUpdateOperationsInput | $Enums.RoomUse
+    status?: EnumServiceStatusFieldUpdateOperationsInput | $Enums.ServiceStatus
+    calenderEntityId?: NullableStringFieldUpdateOperationsInput | string | null
+    zoneId?: StringFieldUpdateOperationsInput | string
+    condition?: EnumConditionFieldUpdateOperationsInput | $Enums.Condition
+    criticality?: EnumCriticalityFieldUpdateOperationsInput | $Enums.Criticality
+    glazedArea?: NullableFloatFieldUpdateOperationsInput | number | null
+    cleanableArea?: NullableFloatFieldUpdateOperationsInput | number | null
+    coveredArea?: NullableFloatFieldUpdateOperationsInput | number | null
+    totalNetArea?: NullableFloatFieldUpdateOperationsInput | number | null
+    totalGrossArea?: NullableFloatFieldUpdateOperationsInput | number | null
+    height?: NullableIntFieldUpdateOperationsInput | number | null
+    heated?: BoolFieldUpdateOperationsInput | boolean
+    totalVolume?: NullableFloatFieldUpdateOperationsInput | number | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    photos?: FileUncheckedUpdateManyWithoutSpacesNestedInput
+    maintenances?: MaintenanceUncheckedUpdateManyWithoutSpaceNestedInput
+    preventives?: PreventiveUncheckedUpdateManyWithoutSpaceNestedInput
+    assets?: AssetUncheckedUpdateManyWithoutSpaceNestedInput
+  }
+
+  export type MeterReadingUpsertWithWhereUniqueWithoutMeterInput = {
+    where: MeterReadingWhereUniqueInput
+    update: XOR<MeterReadingUpdateWithoutMeterInput, MeterReadingUncheckedUpdateWithoutMeterInput>
+    create: XOR<MeterReadingCreateWithoutMeterInput, MeterReadingUncheckedCreateWithoutMeterInput>
+  }
+
+  export type MeterReadingUpdateWithWhereUniqueWithoutMeterInput = {
+    where: MeterReadingWhereUniqueInput
+    data: XOR<MeterReadingUpdateWithoutMeterInput, MeterReadingUncheckedUpdateWithoutMeterInput>
+  }
+
+  export type MeterReadingUpdateManyWithWhereWithoutMeterInput = {
+    where: MeterReadingScalarWhereInput
+    data: XOR<MeterReadingUpdateManyMutationInput, MeterReadingUncheckedUpdateManyWithoutMeterInput>
+  }
+
+  export type MeterReadingScalarWhereInput = {
+    AND?: MeterReadingScalarWhereInput | MeterReadingScalarWhereInput[]
+    OR?: MeterReadingScalarWhereInput[]
+    NOT?: MeterReadingScalarWhereInput | MeterReadingScalarWhereInput[]
+    id?: StringFilter<"MeterReading"> | string
+    value?: DecimalFilter<"MeterReading"> | Decimal | DecimalJsLike | number | string
+    timestamp?: DateTimeFilter<"MeterReading"> | Date | string
+    source?: EnumMeterReadingSourceFilter<"MeterReading"> | $Enums.MeterReadingSource
+    meterId?: StringFilter<"MeterReading"> | string
+    recordedByUserId?: StringNullableFilter<"MeterReading"> | string | null
+    createdAt?: DateTimeFilter<"MeterReading"> | Date | string
+  }
+
+  export type MeterMaintenanceTriggerUpsertWithWhereUniqueWithoutMeterInput = {
+    where: MeterMaintenanceTriggerWhereUniqueInput
+    update: XOR<MeterMaintenanceTriggerUpdateWithoutMeterInput, MeterMaintenanceTriggerUncheckedUpdateWithoutMeterInput>
+    create: XOR<MeterMaintenanceTriggerCreateWithoutMeterInput, MeterMaintenanceTriggerUncheckedCreateWithoutMeterInput>
+  }
+
+  export type MeterMaintenanceTriggerUpdateWithWhereUniqueWithoutMeterInput = {
+    where: MeterMaintenanceTriggerWhereUniqueInput
+    data: XOR<MeterMaintenanceTriggerUpdateWithoutMeterInput, MeterMaintenanceTriggerUncheckedUpdateWithoutMeterInput>
+  }
+
+  export type MeterMaintenanceTriggerUpdateManyWithWhereWithoutMeterInput = {
+    where: MeterMaintenanceTriggerScalarWhereInput
+    data: XOR<MeterMaintenanceTriggerUpdateManyMutationInput, MeterMaintenanceTriggerUncheckedUpdateManyWithoutMeterInput>
+  }
+
+  export type MeterCreateWithoutReadingsInput = {
+    id?: string
+    name: string
+    type?: $Enums.MeterType
+    unit: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    asset?: AssetCreateNestedOneWithoutMetersInput
+    building?: BuildingCreateNestedOneWithoutMetersInput
+    zone?: ZoneCreateNestedOneWithoutMetersInput
+    space?: SpaceCreateNestedOneWithoutMetersInput
+    preventiveTriggers?: MeterMaintenanceTriggerCreateNestedManyWithoutMeterInput
+  }
+
+  export type MeterUncheckedCreateWithoutReadingsInput = {
+    id?: string
+    name: string
+    type?: $Enums.MeterType
+    unit: string
+    assetId?: string | null
+    buildingId?: string | null
+    zoneId?: string | null
+    spaceId?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    preventiveTriggers?: MeterMaintenanceTriggerUncheckedCreateNestedManyWithoutMeterInput
+  }
+
+  export type MeterCreateOrConnectWithoutReadingsInput = {
+    where: MeterWhereUniqueInput
+    create: XOR<MeterCreateWithoutReadingsInput, MeterUncheckedCreateWithoutReadingsInput>
+  }
+
+  export type MeterUpsertWithoutReadingsInput = {
+    update: XOR<MeterUpdateWithoutReadingsInput, MeterUncheckedUpdateWithoutReadingsInput>
+    create: XOR<MeterCreateWithoutReadingsInput, MeterUncheckedCreateWithoutReadingsInput>
+    where?: MeterWhereInput
+  }
+
+  export type MeterUpdateToOneWithWhereWithoutReadingsInput = {
+    where?: MeterWhereInput
+    data: XOR<MeterUpdateWithoutReadingsInput, MeterUncheckedUpdateWithoutReadingsInput>
+  }
+
+  export type MeterUpdateWithoutReadingsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    type?: EnumMeterTypeFieldUpdateOperationsInput | $Enums.MeterType
+    unit?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    asset?: AssetUpdateOneWithoutMetersNestedInput
+    building?: BuildingUpdateOneWithoutMetersNestedInput
+    zone?: ZoneUpdateOneWithoutMetersNestedInput
+    space?: SpaceUpdateOneWithoutMetersNestedInput
+    preventiveTriggers?: MeterMaintenanceTriggerUpdateManyWithoutMeterNestedInput
+  }
+
+  export type MeterUncheckedUpdateWithoutReadingsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    type?: EnumMeterTypeFieldUpdateOperationsInput | $Enums.MeterType
+    unit?: StringFieldUpdateOperationsInput | string
+    assetId?: NullableStringFieldUpdateOperationsInput | string | null
+    buildingId?: NullableStringFieldUpdateOperationsInput | string | null
+    zoneId?: NullableStringFieldUpdateOperationsInput | string | null
+    spaceId?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    preventiveTriggers?: MeterMaintenanceTriggerUncheckedUpdateManyWithoutMeterNestedInput
+  }
+
+  export type MeterCreateWithoutPreventiveTriggersInput = {
+    id?: string
+    name: string
+    type?: $Enums.MeterType
+    unit: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    asset?: AssetCreateNestedOneWithoutMetersInput
+    building?: BuildingCreateNestedOneWithoutMetersInput
+    zone?: ZoneCreateNestedOneWithoutMetersInput
+    space?: SpaceCreateNestedOneWithoutMetersInput
+    readings?: MeterReadingCreateNestedManyWithoutMeterInput
+  }
+
+  export type MeterUncheckedCreateWithoutPreventiveTriggersInput = {
+    id?: string
+    name: string
+    type?: $Enums.MeterType
+    unit: string
+    assetId?: string | null
+    buildingId?: string | null
+    zoneId?: string | null
+    spaceId?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    readings?: MeterReadingUncheckedCreateNestedManyWithoutMeterInput
+  }
+
+  export type MeterCreateOrConnectWithoutPreventiveTriggersInput = {
+    where: MeterWhereUniqueInput
+    create: XOR<MeterCreateWithoutPreventiveTriggersInput, MeterUncheckedCreateWithoutPreventiveTriggersInput>
+  }
+
+  export type PreventiveCreateWithoutMeterTriggersInput = {
+    id?: string
+    code: string
+    name: string
+    description: string
+    frequency?: $Enums.Frequency
+    cronExpression?: string | null
+    lastRun?: Date | string | null
+    nextRun: Date | string
+    priority?: $Enums.Priority
+    duration?: number | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    site: ComplexCreateNestedOneWithoutPreventivesInput
+    asset?: AssetCreateNestedOneWithoutPreventivesInput
+    building?: BuildingCreateNestedOneWithoutPreventivesInput
+    floor?: FloorCreateNestedOneWithoutPreventivesInput
+    space?: SpaceCreateNestedOneWithoutPreventivesInput
+    team?: TeamCreateNestedOneWithoutPreventivesInput
+  }
+
+  export type PreventiveUncheckedCreateWithoutMeterTriggersInput = {
+    id?: string
+    code: string
+    name: string
+    description: string
+    frequency?: $Enums.Frequency
+    cronExpression?: string | null
+    lastRun?: Date | string | null
+    nextRun: Date | string
+    priority?: $Enums.Priority
+    duration?: number | null
+    siteId: string
+    assetId?: string | null
+    buildingId?: string | null
+    floorId?: string | null
+    spaceId?: string | null
+    teamId?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type PreventiveCreateOrConnectWithoutMeterTriggersInput = {
+    where: PreventiveWhereUniqueInput
+    create: XOR<PreventiveCreateWithoutMeterTriggersInput, PreventiveUncheckedCreateWithoutMeterTriggersInput>
+  }
+
+  export type MeterUpsertWithoutPreventiveTriggersInput = {
+    update: XOR<MeterUpdateWithoutPreventiveTriggersInput, MeterUncheckedUpdateWithoutPreventiveTriggersInput>
+    create: XOR<MeterCreateWithoutPreventiveTriggersInput, MeterUncheckedCreateWithoutPreventiveTriggersInput>
+    where?: MeterWhereInput
+  }
+
+  export type MeterUpdateToOneWithWhereWithoutPreventiveTriggersInput = {
+    where?: MeterWhereInput
+    data: XOR<MeterUpdateWithoutPreventiveTriggersInput, MeterUncheckedUpdateWithoutPreventiveTriggersInput>
+  }
+
+  export type MeterUpdateWithoutPreventiveTriggersInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    type?: EnumMeterTypeFieldUpdateOperationsInput | $Enums.MeterType
+    unit?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    asset?: AssetUpdateOneWithoutMetersNestedInput
+    building?: BuildingUpdateOneWithoutMetersNestedInput
+    zone?: ZoneUpdateOneWithoutMetersNestedInput
+    space?: SpaceUpdateOneWithoutMetersNestedInput
+    readings?: MeterReadingUpdateManyWithoutMeterNestedInput
+  }
+
+  export type MeterUncheckedUpdateWithoutPreventiveTriggersInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    type?: EnumMeterTypeFieldUpdateOperationsInput | $Enums.MeterType
+    unit?: StringFieldUpdateOperationsInput | string
+    assetId?: NullableStringFieldUpdateOperationsInput | string | null
+    buildingId?: NullableStringFieldUpdateOperationsInput | string | null
+    zoneId?: NullableStringFieldUpdateOperationsInput | string | null
+    spaceId?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    readings?: MeterReadingUncheckedUpdateManyWithoutMeterNestedInput
+  }
+
+  export type PreventiveUpsertWithoutMeterTriggersInput = {
+    update: XOR<PreventiveUpdateWithoutMeterTriggersInput, PreventiveUncheckedUpdateWithoutMeterTriggersInput>
+    create: XOR<PreventiveCreateWithoutMeterTriggersInput, PreventiveUncheckedCreateWithoutMeterTriggersInput>
+    where?: PreventiveWhereInput
+  }
+
+  export type PreventiveUpdateToOneWithWhereWithoutMeterTriggersInput = {
+    where?: PreventiveWhereInput
+    data: XOR<PreventiveUpdateWithoutMeterTriggersInput, PreventiveUncheckedUpdateWithoutMeterTriggersInput>
+  }
+
+  export type PreventiveUpdateWithoutMeterTriggersInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    code?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    description?: StringFieldUpdateOperationsInput | string
+    frequency?: EnumFrequencyFieldUpdateOperationsInput | $Enums.Frequency
+    cronExpression?: NullableStringFieldUpdateOperationsInput | string | null
+    lastRun?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    nextRun?: DateTimeFieldUpdateOperationsInput | Date | string
+    priority?: EnumPriorityFieldUpdateOperationsInput | $Enums.Priority
+    duration?: NullableIntFieldUpdateOperationsInput | number | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    site?: ComplexUpdateOneRequiredWithoutPreventivesNestedInput
+    asset?: AssetUpdateOneWithoutPreventivesNestedInput
+    building?: BuildingUpdateOneWithoutPreventivesNestedInput
+    floor?: FloorUpdateOneWithoutPreventivesNestedInput
+    space?: SpaceUpdateOneWithoutPreventivesNestedInput
+    team?: TeamUpdateOneWithoutPreventivesNestedInput
+  }
+
+  export type PreventiveUncheckedUpdateWithoutMeterTriggersInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    code?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    description?: StringFieldUpdateOperationsInput | string
+    frequency?: EnumFrequencyFieldUpdateOperationsInput | $Enums.Frequency
+    cronExpression?: NullableStringFieldUpdateOperationsInput | string | null
+    lastRun?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    nextRun?: DateTimeFieldUpdateOperationsInput | Date | string
+    priority?: EnumPriorityFieldUpdateOperationsInput | $Enums.Priority
+    duration?: NullableIntFieldUpdateOperationsInput | number | null
+    siteId?: StringFieldUpdateOperationsInput | string
+    assetId?: NullableStringFieldUpdateOperationsInput | string | null
+    buildingId?: NullableStringFieldUpdateOperationsInput | string | null
+    floorId?: NullableStringFieldUpdateOperationsInput | string | null
+    spaceId?: NullableStringFieldUpdateOperationsInput | string | null
+    teamId?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type RefreshTokenCreateManyUserInput = {
@@ -59084,68 +66314,6 @@ export namespace Prisma {
     updatedAt?: Date | string
   }
 
-  export type MaintenanceCreateManyPerformerInput = {
-    id?: string
-    type?: $Enums.MaintenanceType
-    code: string
-    description: string
-    startDate?: Date | string | null
-    endDate?: Date | string | null
-    shortDescription?: string | null
-    action?: string | null
-    message?: string | null
-    processNotes?: string | null
-    metadata?: NullableJsonNullValueInput | InputJsonValue
-    processStatus?: $Enums.Status
-    register?: string | null
-    activityIdTimer?: string | null
-    activityStartTime?: Date | string | null
-    activityEndTime?: Date | string | null
-    allDeadlines?: string | null
-    processType?: $Enums.ProcessType
-    ttSysRunning?: Decimal | DecimalJsLike | number | string | null
-    ttWorkRunning?: Decimal | DecimalJsLike | number | string | null
-    sorting?: string | null
-    requesterId?: string | null
-    priority?: $Enums.Priority
-    siteId: string
-    outcome?: string | null
-    dueAssignedEnd?: Date | string | null
-    execStart?: Date | string | null
-    dueExecEndDate?: Date | string | null
-    execEndDate?: Date | string | null
-    dueClosuerDate?: Date | string | null
-    totalExecTime?: Decimal | DecimalJsLike | number | string | null
-    expStartDate?: Date | string | null
-    suspensionReason?: string | null
-    category?: string | null
-    subCategory?: string | null
-    companyId?: string | null
-    buildingId?: string | null
-    teamId?: string | null
-    floorId?: string | null
-    spaceId?: string | null
-    ttSystemOpening?: Decimal | DecimalJsLike | number | string | null
-    ttWorkOpening?: Decimal | DecimalJsLike | number | string | null
-    ttSystemAssignment?: Decimal | DecimalJsLike | number | string | null
-    ttWorkAssignment?: Decimal | DecimalJsLike | number | string | null
-    ttSystemExecution?: Decimal | DecimalJsLike | number | string | null
-    ttWorkExecution?: Decimal | DecimalJsLike | number | string | null
-    ttSysSuspension?: Decimal | DecimalJsLike | number | string | null
-    ttWorkSuspension?: Decimal | DecimalJsLike | number | string | null
-    ttEstimate?: Decimal | DecimalJsLike | number | string | null
-    prevMaintenanceConfigId?: string | null
-    automaticConfig?: boolean
-    jointAccounting?: boolean
-    hasTasks?: boolean
-    estimateStatus?: $Enums.Status
-    delayNotification?: boolean
-    assigneeId?: string | null
-    assetId?: string | null
-    createdAt?: Date | string
-    updatedAt?: Date | string
-  }
-
   export type MaintenanceCreateManyRequesterInput = {
     id?: string
     type?: $Enums.MaintenanceType
@@ -59159,6 +66327,7 @@ export namespace Prisma {
     processNotes?: string | null
     metadata?: NullableJsonNullValueInput | InputJsonValue
     performerId?: string | null
+    performerReference?: $Enums.PerformerReference | null
     processStatus?: $Enums.Status
     register?: string | null
     activityIdTimer?: string | null
@@ -59176,7 +66345,7 @@ export namespace Prisma {
     execStart?: Date | string | null
     dueExecEndDate?: Date | string | null
     execEndDate?: Date | string | null
-    dueClosuerDate?: Date | string | null
+    dueClosureDate?: Date | string | null
     totalExecTime?: Decimal | DecimalJsLike | number | string | null
     expStartDate?: Date | string | null
     suspensionReason?: string | null
@@ -59186,6 +66355,7 @@ export namespace Prisma {
     buildingId?: string | null
     teamId?: string | null
     floorId?: string | null
+    zoneId?: string | null
     spaceId?: string | null
     ttSystemOpening?: Decimal | DecimalJsLike | number | string | null
     ttWorkOpening?: Decimal | DecimalJsLike | number | string | null
@@ -59221,6 +66391,7 @@ export namespace Prisma {
     processNotes?: string | null
     metadata?: NullableJsonNullValueInput | InputJsonValue
     performerId?: string | null
+    performerReference?: $Enums.PerformerReference | null
     processStatus?: $Enums.Status
     register?: string | null
     activityIdTimer?: string | null
@@ -59239,7 +66410,7 @@ export namespace Prisma {
     execStart?: Date | string | null
     dueExecEndDate?: Date | string | null
     execEndDate?: Date | string | null
-    dueClosuerDate?: Date | string | null
+    dueClosureDate?: Date | string | null
     totalExecTime?: Decimal | DecimalJsLike | number | string | null
     expStartDate?: Date | string | null
     suspensionReason?: string | null
@@ -59249,6 +66420,7 @@ export namespace Prisma {
     buildingId?: string | null
     teamId?: string | null
     floorId?: string | null
+    zoneId?: string | null
     spaceId?: string | null
     ttSystemOpening?: Decimal | DecimalJsLike | number | string | null
     ttWorkOpening?: Decimal | DecimalJsLike | number | string | null
@@ -59368,196 +66540,6 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
-  export type MaintenanceUpdateWithoutPerformerInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    type?: EnumMaintenanceTypeFieldUpdateOperationsInput | $Enums.MaintenanceType
-    code?: StringFieldUpdateOperationsInput | string
-    description?: StringFieldUpdateOperationsInput | string
-    startDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    endDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    shortDescription?: NullableStringFieldUpdateOperationsInput | string | null
-    action?: NullableStringFieldUpdateOperationsInput | string | null
-    message?: NullableStringFieldUpdateOperationsInput | string | null
-    processNotes?: NullableStringFieldUpdateOperationsInput | string | null
-    metadata?: NullableJsonNullValueInput | InputJsonValue
-    processStatus?: EnumStatusFieldUpdateOperationsInput | $Enums.Status
-    register?: NullableStringFieldUpdateOperationsInput | string | null
-    activityIdTimer?: NullableStringFieldUpdateOperationsInput | string | null
-    activityStartTime?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    activityEndTime?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    allDeadlines?: NullableStringFieldUpdateOperationsInput | string | null
-    processType?: EnumProcessTypeFieldUpdateOperationsInput | $Enums.ProcessType
-    ttSysRunning?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
-    ttWorkRunning?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
-    sorting?: NullableStringFieldUpdateOperationsInput | string | null
-    priority?: EnumPriorityFieldUpdateOperationsInput | $Enums.Priority
-    outcome?: NullableStringFieldUpdateOperationsInput | string | null
-    dueAssignedEnd?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    execStart?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    dueExecEndDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    execEndDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    dueClosuerDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    totalExecTime?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
-    expStartDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    suspensionReason?: NullableStringFieldUpdateOperationsInput | string | null
-    category?: NullableStringFieldUpdateOperationsInput | string | null
-    subCategory?: NullableStringFieldUpdateOperationsInput | string | null
-    ttSystemOpening?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
-    ttWorkOpening?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
-    ttSystemAssignment?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
-    ttWorkAssignment?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
-    ttSystemExecution?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
-    ttWorkExecution?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
-    ttSysSuspension?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
-    ttWorkSuspension?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
-    ttEstimate?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
-    prevMaintenanceConfigId?: NullableStringFieldUpdateOperationsInput | string | null
-    automaticConfig?: BoolFieldUpdateOperationsInput | boolean
-    jointAccounting?: BoolFieldUpdateOperationsInput | boolean
-    hasTasks?: BoolFieldUpdateOperationsInput | boolean
-    estimateStatus?: EnumStatusFieldUpdateOperationsInput | $Enums.Status
-    delayNotification?: BoolFieldUpdateOperationsInput | boolean
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    requester?: UserUpdateOneWithoutRequestedMaintenancesNestedInput
-    site?: ComplexUpdateOneRequiredWithoutMaintenancesNestedInput
-    company?: CompanyUpdateOneWithoutMaintenancesNestedInput
-    building?: BuildingUpdateOneWithoutMaintenancesNestedInput
-    team?: TeamUpdateOneWithoutMaintenancesNestedInput
-    floor?: FloorUpdateOneWithoutMaintenancesNestedInput
-    space?: SpaceUpdateOneWithoutMaintenancesNestedInput
-    assignee?: UserUpdateOneWithoutAssignedMaintenancesNestedInput
-    asset?: AssetUpdateOneWithoutMaintenancesNestedInput
-    photos?: FileUpdateManyWithoutMaintenanceNestedInput
-    maintenanceItems?: MaintenanceItemUpdateManyWithoutMaintenanceNestedInput
-  }
-
-  export type MaintenanceUncheckedUpdateWithoutPerformerInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    type?: EnumMaintenanceTypeFieldUpdateOperationsInput | $Enums.MaintenanceType
-    code?: StringFieldUpdateOperationsInput | string
-    description?: StringFieldUpdateOperationsInput | string
-    startDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    endDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    shortDescription?: NullableStringFieldUpdateOperationsInput | string | null
-    action?: NullableStringFieldUpdateOperationsInput | string | null
-    message?: NullableStringFieldUpdateOperationsInput | string | null
-    processNotes?: NullableStringFieldUpdateOperationsInput | string | null
-    metadata?: NullableJsonNullValueInput | InputJsonValue
-    processStatus?: EnumStatusFieldUpdateOperationsInput | $Enums.Status
-    register?: NullableStringFieldUpdateOperationsInput | string | null
-    activityIdTimer?: NullableStringFieldUpdateOperationsInput | string | null
-    activityStartTime?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    activityEndTime?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    allDeadlines?: NullableStringFieldUpdateOperationsInput | string | null
-    processType?: EnumProcessTypeFieldUpdateOperationsInput | $Enums.ProcessType
-    ttSysRunning?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
-    ttWorkRunning?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
-    sorting?: NullableStringFieldUpdateOperationsInput | string | null
-    requesterId?: NullableStringFieldUpdateOperationsInput | string | null
-    priority?: EnumPriorityFieldUpdateOperationsInput | $Enums.Priority
-    siteId?: StringFieldUpdateOperationsInput | string
-    outcome?: NullableStringFieldUpdateOperationsInput | string | null
-    dueAssignedEnd?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    execStart?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    dueExecEndDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    execEndDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    dueClosuerDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    totalExecTime?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
-    expStartDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    suspensionReason?: NullableStringFieldUpdateOperationsInput | string | null
-    category?: NullableStringFieldUpdateOperationsInput | string | null
-    subCategory?: NullableStringFieldUpdateOperationsInput | string | null
-    companyId?: NullableStringFieldUpdateOperationsInput | string | null
-    buildingId?: NullableStringFieldUpdateOperationsInput | string | null
-    teamId?: NullableStringFieldUpdateOperationsInput | string | null
-    floorId?: NullableStringFieldUpdateOperationsInput | string | null
-    spaceId?: NullableStringFieldUpdateOperationsInput | string | null
-    ttSystemOpening?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
-    ttWorkOpening?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
-    ttSystemAssignment?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
-    ttWorkAssignment?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
-    ttSystemExecution?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
-    ttWorkExecution?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
-    ttSysSuspension?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
-    ttWorkSuspension?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
-    ttEstimate?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
-    prevMaintenanceConfigId?: NullableStringFieldUpdateOperationsInput | string | null
-    automaticConfig?: BoolFieldUpdateOperationsInput | boolean
-    jointAccounting?: BoolFieldUpdateOperationsInput | boolean
-    hasTasks?: BoolFieldUpdateOperationsInput | boolean
-    estimateStatus?: EnumStatusFieldUpdateOperationsInput | $Enums.Status
-    delayNotification?: BoolFieldUpdateOperationsInput | boolean
-    assigneeId?: NullableStringFieldUpdateOperationsInput | string | null
-    assetId?: NullableStringFieldUpdateOperationsInput | string | null
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    photos?: FileUncheckedUpdateManyWithoutMaintenanceNestedInput
-    maintenanceItems?: MaintenanceItemUncheckedUpdateManyWithoutMaintenanceNestedInput
-  }
-
-  export type MaintenanceUncheckedUpdateManyWithoutPerformerInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    type?: EnumMaintenanceTypeFieldUpdateOperationsInput | $Enums.MaintenanceType
-    code?: StringFieldUpdateOperationsInput | string
-    description?: StringFieldUpdateOperationsInput | string
-    startDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    endDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    shortDescription?: NullableStringFieldUpdateOperationsInput | string | null
-    action?: NullableStringFieldUpdateOperationsInput | string | null
-    message?: NullableStringFieldUpdateOperationsInput | string | null
-    processNotes?: NullableStringFieldUpdateOperationsInput | string | null
-    metadata?: NullableJsonNullValueInput | InputJsonValue
-    processStatus?: EnumStatusFieldUpdateOperationsInput | $Enums.Status
-    register?: NullableStringFieldUpdateOperationsInput | string | null
-    activityIdTimer?: NullableStringFieldUpdateOperationsInput | string | null
-    activityStartTime?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    activityEndTime?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    allDeadlines?: NullableStringFieldUpdateOperationsInput | string | null
-    processType?: EnumProcessTypeFieldUpdateOperationsInput | $Enums.ProcessType
-    ttSysRunning?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
-    ttWorkRunning?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
-    sorting?: NullableStringFieldUpdateOperationsInput | string | null
-    requesterId?: NullableStringFieldUpdateOperationsInput | string | null
-    priority?: EnumPriorityFieldUpdateOperationsInput | $Enums.Priority
-    siteId?: StringFieldUpdateOperationsInput | string
-    outcome?: NullableStringFieldUpdateOperationsInput | string | null
-    dueAssignedEnd?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    execStart?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    dueExecEndDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    execEndDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    dueClosuerDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    totalExecTime?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
-    expStartDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    suspensionReason?: NullableStringFieldUpdateOperationsInput | string | null
-    category?: NullableStringFieldUpdateOperationsInput | string | null
-    subCategory?: NullableStringFieldUpdateOperationsInput | string | null
-    companyId?: NullableStringFieldUpdateOperationsInput | string | null
-    buildingId?: NullableStringFieldUpdateOperationsInput | string | null
-    teamId?: NullableStringFieldUpdateOperationsInput | string | null
-    floorId?: NullableStringFieldUpdateOperationsInput | string | null
-    spaceId?: NullableStringFieldUpdateOperationsInput | string | null
-    ttSystemOpening?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
-    ttWorkOpening?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
-    ttSystemAssignment?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
-    ttWorkAssignment?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
-    ttSystemExecution?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
-    ttWorkExecution?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
-    ttSysSuspension?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
-    ttWorkSuspension?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
-    ttEstimate?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
-    prevMaintenanceConfigId?: NullableStringFieldUpdateOperationsInput | string | null
-    automaticConfig?: BoolFieldUpdateOperationsInput | boolean
-    jointAccounting?: BoolFieldUpdateOperationsInput | boolean
-    hasTasks?: BoolFieldUpdateOperationsInput | boolean
-    estimateStatus?: EnumStatusFieldUpdateOperationsInput | $Enums.Status
-    delayNotification?: BoolFieldUpdateOperationsInput | boolean
-    assigneeId?: NullableStringFieldUpdateOperationsInput | string | null
-    assetId?: NullableStringFieldUpdateOperationsInput | string | null
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-  }
-
   export type MaintenanceUpdateWithoutRequesterInput = {
     id?: StringFieldUpdateOperationsInput | string
     type?: EnumMaintenanceTypeFieldUpdateOperationsInput | $Enums.MaintenanceType
@@ -59570,6 +66552,8 @@ export namespace Prisma {
     message?: NullableStringFieldUpdateOperationsInput | string | null
     processNotes?: NullableStringFieldUpdateOperationsInput | string | null
     metadata?: NullableJsonNullValueInput | InputJsonValue
+    performerId?: NullableStringFieldUpdateOperationsInput | string | null
+    performerReference?: NullableEnumPerformerReferenceFieldUpdateOperationsInput | $Enums.PerformerReference | null
     processStatus?: EnumStatusFieldUpdateOperationsInput | $Enums.Status
     register?: NullableStringFieldUpdateOperationsInput | string | null
     activityIdTimer?: NullableStringFieldUpdateOperationsInput | string | null
@@ -59586,7 +66570,7 @@ export namespace Prisma {
     execStart?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     dueExecEndDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     execEndDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    dueClosuerDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    dueClosureDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     totalExecTime?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     expStartDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     suspensionReason?: NullableStringFieldUpdateOperationsInput | string | null
@@ -59609,12 +66593,12 @@ export namespace Prisma {
     delayNotification?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    performer?: UserUpdateOneWithoutPerformedMaintenancesNestedInput
     site?: ComplexUpdateOneRequiredWithoutMaintenancesNestedInput
     company?: CompanyUpdateOneWithoutMaintenancesNestedInput
     building?: BuildingUpdateOneWithoutMaintenancesNestedInput
     team?: TeamUpdateOneWithoutMaintenancesNestedInput
     floor?: FloorUpdateOneWithoutMaintenancesNestedInput
+    zone?: ZoneUpdateOneWithoutMaintenancesNestedInput
     space?: SpaceUpdateOneWithoutMaintenancesNestedInput
     assignee?: UserUpdateOneWithoutAssignedMaintenancesNestedInput
     asset?: AssetUpdateOneWithoutMaintenancesNestedInput
@@ -59635,6 +66619,7 @@ export namespace Prisma {
     processNotes?: NullableStringFieldUpdateOperationsInput | string | null
     metadata?: NullableJsonNullValueInput | InputJsonValue
     performerId?: NullableStringFieldUpdateOperationsInput | string | null
+    performerReference?: NullableEnumPerformerReferenceFieldUpdateOperationsInput | $Enums.PerformerReference | null
     processStatus?: EnumStatusFieldUpdateOperationsInput | $Enums.Status
     register?: NullableStringFieldUpdateOperationsInput | string | null
     activityIdTimer?: NullableStringFieldUpdateOperationsInput | string | null
@@ -59652,7 +66637,7 @@ export namespace Prisma {
     execStart?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     dueExecEndDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     execEndDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    dueClosuerDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    dueClosureDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     totalExecTime?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     expStartDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     suspensionReason?: NullableStringFieldUpdateOperationsInput | string | null
@@ -59662,6 +66647,7 @@ export namespace Prisma {
     buildingId?: NullableStringFieldUpdateOperationsInput | string | null
     teamId?: NullableStringFieldUpdateOperationsInput | string | null
     floorId?: NullableStringFieldUpdateOperationsInput | string | null
+    zoneId?: NullableStringFieldUpdateOperationsInput | string | null
     spaceId?: NullableStringFieldUpdateOperationsInput | string | null
     ttSystemOpening?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     ttWorkOpening?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
@@ -59699,6 +66685,7 @@ export namespace Prisma {
     processNotes?: NullableStringFieldUpdateOperationsInput | string | null
     metadata?: NullableJsonNullValueInput | InputJsonValue
     performerId?: NullableStringFieldUpdateOperationsInput | string | null
+    performerReference?: NullableEnumPerformerReferenceFieldUpdateOperationsInput | $Enums.PerformerReference | null
     processStatus?: EnumStatusFieldUpdateOperationsInput | $Enums.Status
     register?: NullableStringFieldUpdateOperationsInput | string | null
     activityIdTimer?: NullableStringFieldUpdateOperationsInput | string | null
@@ -59716,7 +66703,7 @@ export namespace Prisma {
     execStart?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     dueExecEndDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     execEndDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    dueClosuerDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    dueClosureDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     totalExecTime?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     expStartDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     suspensionReason?: NullableStringFieldUpdateOperationsInput | string | null
@@ -59726,6 +66713,7 @@ export namespace Prisma {
     buildingId?: NullableStringFieldUpdateOperationsInput | string | null
     teamId?: NullableStringFieldUpdateOperationsInput | string | null
     floorId?: NullableStringFieldUpdateOperationsInput | string | null
+    zoneId?: NullableStringFieldUpdateOperationsInput | string | null
     spaceId?: NullableStringFieldUpdateOperationsInput | string | null
     ttSystemOpening?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     ttWorkOpening?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
@@ -59760,6 +66748,8 @@ export namespace Prisma {
     message?: NullableStringFieldUpdateOperationsInput | string | null
     processNotes?: NullableStringFieldUpdateOperationsInput | string | null
     metadata?: NullableJsonNullValueInput | InputJsonValue
+    performerId?: NullableStringFieldUpdateOperationsInput | string | null
+    performerReference?: NullableEnumPerformerReferenceFieldUpdateOperationsInput | $Enums.PerformerReference | null
     processStatus?: EnumStatusFieldUpdateOperationsInput | $Enums.Status
     register?: NullableStringFieldUpdateOperationsInput | string | null
     activityIdTimer?: NullableStringFieldUpdateOperationsInput | string | null
@@ -59776,7 +66766,7 @@ export namespace Prisma {
     execStart?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     dueExecEndDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     execEndDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    dueClosuerDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    dueClosureDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     totalExecTime?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     expStartDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     suspensionReason?: NullableStringFieldUpdateOperationsInput | string | null
@@ -59799,13 +66789,13 @@ export namespace Prisma {
     delayNotification?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    performer?: UserUpdateOneWithoutPerformedMaintenancesNestedInput
     requester?: UserUpdateOneWithoutRequestedMaintenancesNestedInput
     site?: ComplexUpdateOneRequiredWithoutMaintenancesNestedInput
     company?: CompanyUpdateOneWithoutMaintenancesNestedInput
     building?: BuildingUpdateOneWithoutMaintenancesNestedInput
     team?: TeamUpdateOneWithoutMaintenancesNestedInput
     floor?: FloorUpdateOneWithoutMaintenancesNestedInput
+    zone?: ZoneUpdateOneWithoutMaintenancesNestedInput
     space?: SpaceUpdateOneWithoutMaintenancesNestedInput
     asset?: AssetUpdateOneWithoutMaintenancesNestedInput
     photos?: FileUpdateManyWithoutMaintenanceNestedInput
@@ -59825,6 +66815,7 @@ export namespace Prisma {
     processNotes?: NullableStringFieldUpdateOperationsInput | string | null
     metadata?: NullableJsonNullValueInput | InputJsonValue
     performerId?: NullableStringFieldUpdateOperationsInput | string | null
+    performerReference?: NullableEnumPerformerReferenceFieldUpdateOperationsInput | $Enums.PerformerReference | null
     processStatus?: EnumStatusFieldUpdateOperationsInput | $Enums.Status
     register?: NullableStringFieldUpdateOperationsInput | string | null
     activityIdTimer?: NullableStringFieldUpdateOperationsInput | string | null
@@ -59843,7 +66834,7 @@ export namespace Prisma {
     execStart?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     dueExecEndDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     execEndDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    dueClosuerDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    dueClosureDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     totalExecTime?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     expStartDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     suspensionReason?: NullableStringFieldUpdateOperationsInput | string | null
@@ -59853,6 +66844,7 @@ export namespace Prisma {
     buildingId?: NullableStringFieldUpdateOperationsInput | string | null
     teamId?: NullableStringFieldUpdateOperationsInput | string | null
     floorId?: NullableStringFieldUpdateOperationsInput | string | null
+    zoneId?: NullableStringFieldUpdateOperationsInput | string | null
     spaceId?: NullableStringFieldUpdateOperationsInput | string | null
     ttSystemOpening?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     ttWorkOpening?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
@@ -59889,6 +66881,7 @@ export namespace Prisma {
     processNotes?: NullableStringFieldUpdateOperationsInput | string | null
     metadata?: NullableJsonNullValueInput | InputJsonValue
     performerId?: NullableStringFieldUpdateOperationsInput | string | null
+    performerReference?: NullableEnumPerformerReferenceFieldUpdateOperationsInput | $Enums.PerformerReference | null
     processStatus?: EnumStatusFieldUpdateOperationsInput | $Enums.Status
     register?: NullableStringFieldUpdateOperationsInput | string | null
     activityIdTimer?: NullableStringFieldUpdateOperationsInput | string | null
@@ -59907,7 +66900,7 @@ export namespace Prisma {
     execStart?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     dueExecEndDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     execEndDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    dueClosuerDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    dueClosureDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     totalExecTime?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     expStartDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     suspensionReason?: NullableStringFieldUpdateOperationsInput | string | null
@@ -59917,6 +66910,7 @@ export namespace Prisma {
     buildingId?: NullableStringFieldUpdateOperationsInput | string | null
     teamId?: NullableStringFieldUpdateOperationsInput | string | null
     floorId?: NullableStringFieldUpdateOperationsInput | string | null
+    zoneId?: NullableStringFieldUpdateOperationsInput | string | null
     spaceId?: NullableStringFieldUpdateOperationsInput | string | null
     ttSystemOpening?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     ttWorkOpening?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
@@ -60049,7 +67043,6 @@ export namespace Prisma {
     company?: CompanyUpdateOneWithoutEmployeesNestedInput
     calenderEntity?: CalenderEntityUpdateOneWithoutEmployeesNestedInput
     teams?: TeamUpdateManyWithoutMembersNestedInput
-    performedMaintenances?: MaintenanceUpdateManyWithoutPerformerNestedInput
     requestedMaintenances?: MaintenanceUpdateManyWithoutRequesterNestedInput
     assignedMaintenances?: MaintenanceUpdateManyWithoutAssigneeNestedInput
     supervisedTeams?: TeamUpdateManyWithoutSupervisorNestedInput
@@ -60075,7 +67068,6 @@ export namespace Prisma {
     refreshTokens?: RefreshTokenUncheckedUpdateManyWithoutUserNestedInput
     permissions?: PermissionUncheckedUpdateManyWithoutUserNestedInput
     teams?: TeamUncheckedUpdateManyWithoutMembersNestedInput
-    performedMaintenances?: MaintenanceUncheckedUpdateManyWithoutPerformerNestedInput
     requestedMaintenances?: MaintenanceUncheckedUpdateManyWithoutRequesterNestedInput
     assignedMaintenances?: MaintenanceUncheckedUpdateManyWithoutAssigneeNestedInput
     supervisedTeams?: TeamUncheckedUpdateManyWithoutSupervisorNestedInput
@@ -60246,6 +67238,7 @@ export namespace Prisma {
     processNotes?: string | null
     metadata?: NullableJsonNullValueInput | InputJsonValue
     performerId?: string | null
+    performerReference?: $Enums.PerformerReference | null
     processStatus?: $Enums.Status
     register?: string | null
     activityIdTimer?: string | null
@@ -60263,7 +67256,7 @@ export namespace Prisma {
     execStart?: Date | string | null
     dueExecEndDate?: Date | string | null
     execEndDate?: Date | string | null
-    dueClosuerDate?: Date | string | null
+    dueClosureDate?: Date | string | null
     totalExecTime?: Decimal | DecimalJsLike | number | string | null
     expStartDate?: Date | string | null
     suspensionReason?: string | null
@@ -60273,6 +67266,7 @@ export namespace Prisma {
     buildingId?: string | null
     teamId?: string | null
     floorId?: string | null
+    zoneId?: string | null
     spaceId?: string | null
     ttSystemOpening?: Decimal | DecimalJsLike | number | string | null
     ttWorkOpening?: Decimal | DecimalJsLike | number | string | null
@@ -60342,6 +67336,7 @@ export namespace Prisma {
     floors?: FloorUpdateManyWithoutBuildingNestedInput
     preventives?: PreventiveUpdateManyWithoutBuildingNestedInput
     maintenances?: MaintenanceUpdateManyWithoutBuildingNestedInput
+    meters?: MeterUpdateManyWithoutBuildingNestedInput
   }
 
   export type BuildingUncheckedUpdateWithoutComplexInput = {
@@ -60371,6 +67366,7 @@ export namespace Prisma {
     floors?: FloorUncheckedUpdateManyWithoutBuildingNestedInput
     preventives?: PreventiveUncheckedUpdateManyWithoutBuildingNestedInput
     maintenances?: MaintenanceUncheckedUpdateManyWithoutBuildingNestedInput
+    meters?: MeterUncheckedUpdateManyWithoutBuildingNestedInput
   }
 
   export type BuildingUncheckedUpdateManyWithoutComplexInput = {
@@ -60434,6 +67430,8 @@ export namespace Prisma {
     message?: NullableStringFieldUpdateOperationsInput | string | null
     processNotes?: NullableStringFieldUpdateOperationsInput | string | null
     metadata?: NullableJsonNullValueInput | InputJsonValue
+    performerId?: NullableStringFieldUpdateOperationsInput | string | null
+    performerReference?: NullableEnumPerformerReferenceFieldUpdateOperationsInput | $Enums.PerformerReference | null
     processStatus?: EnumStatusFieldUpdateOperationsInput | $Enums.Status
     register?: NullableStringFieldUpdateOperationsInput | string | null
     activityIdTimer?: NullableStringFieldUpdateOperationsInput | string | null
@@ -60450,7 +67448,7 @@ export namespace Prisma {
     execStart?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     dueExecEndDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     execEndDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    dueClosuerDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    dueClosureDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     totalExecTime?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     expStartDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     suspensionReason?: NullableStringFieldUpdateOperationsInput | string | null
@@ -60473,12 +67471,12 @@ export namespace Prisma {
     delayNotification?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    performer?: UserUpdateOneWithoutPerformedMaintenancesNestedInput
     requester?: UserUpdateOneWithoutRequestedMaintenancesNestedInput
     company?: CompanyUpdateOneWithoutMaintenancesNestedInput
     building?: BuildingUpdateOneWithoutMaintenancesNestedInput
     team?: TeamUpdateOneWithoutMaintenancesNestedInput
     floor?: FloorUpdateOneWithoutMaintenancesNestedInput
+    zone?: ZoneUpdateOneWithoutMaintenancesNestedInput
     space?: SpaceUpdateOneWithoutMaintenancesNestedInput
     assignee?: UserUpdateOneWithoutAssignedMaintenancesNestedInput
     asset?: AssetUpdateOneWithoutMaintenancesNestedInput
@@ -60499,6 +67497,7 @@ export namespace Prisma {
     processNotes?: NullableStringFieldUpdateOperationsInput | string | null
     metadata?: NullableJsonNullValueInput | InputJsonValue
     performerId?: NullableStringFieldUpdateOperationsInput | string | null
+    performerReference?: NullableEnumPerformerReferenceFieldUpdateOperationsInput | $Enums.PerformerReference | null
     processStatus?: EnumStatusFieldUpdateOperationsInput | $Enums.Status
     register?: NullableStringFieldUpdateOperationsInput | string | null
     activityIdTimer?: NullableStringFieldUpdateOperationsInput | string | null
@@ -60516,7 +67515,7 @@ export namespace Prisma {
     execStart?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     dueExecEndDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     execEndDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    dueClosuerDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    dueClosureDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     totalExecTime?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     expStartDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     suspensionReason?: NullableStringFieldUpdateOperationsInput | string | null
@@ -60526,6 +67525,7 @@ export namespace Prisma {
     buildingId?: NullableStringFieldUpdateOperationsInput | string | null
     teamId?: NullableStringFieldUpdateOperationsInput | string | null
     floorId?: NullableStringFieldUpdateOperationsInput | string | null
+    zoneId?: NullableStringFieldUpdateOperationsInput | string | null
     spaceId?: NullableStringFieldUpdateOperationsInput | string | null
     ttSystemOpening?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     ttWorkOpening?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
@@ -60563,6 +67563,7 @@ export namespace Prisma {
     processNotes?: NullableStringFieldUpdateOperationsInput | string | null
     metadata?: NullableJsonNullValueInput | InputJsonValue
     performerId?: NullableStringFieldUpdateOperationsInput | string | null
+    performerReference?: NullableEnumPerformerReferenceFieldUpdateOperationsInput | $Enums.PerformerReference | null
     processStatus?: EnumStatusFieldUpdateOperationsInput | $Enums.Status
     register?: NullableStringFieldUpdateOperationsInput | string | null
     activityIdTimer?: NullableStringFieldUpdateOperationsInput | string | null
@@ -60580,7 +67581,7 @@ export namespace Prisma {
     execStart?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     dueExecEndDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     execEndDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    dueClosuerDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    dueClosureDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     totalExecTime?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     expStartDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     suspensionReason?: NullableStringFieldUpdateOperationsInput | string | null
@@ -60590,6 +67591,7 @@ export namespace Prisma {
     buildingId?: NullableStringFieldUpdateOperationsInput | string | null
     teamId?: NullableStringFieldUpdateOperationsInput | string | null
     floorId?: NullableStringFieldUpdateOperationsInput | string | null
+    zoneId?: NullableStringFieldUpdateOperationsInput | string | null
     spaceId?: NullableStringFieldUpdateOperationsInput | string | null
     ttSystemOpening?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     ttWorkOpening?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
@@ -60630,6 +67632,7 @@ export namespace Prisma {
     floor?: FloorUpdateOneWithoutPreventivesNestedInput
     space?: SpaceUpdateOneWithoutPreventivesNestedInput
     team?: TeamUpdateOneWithoutPreventivesNestedInput
+    meterTriggers?: MeterMaintenanceTriggerUpdateManyWithoutPreventiveNestedInput
   }
 
   export type PreventiveUncheckedUpdateWithoutSiteInput = {
@@ -60650,6 +67653,7 @@ export namespace Prisma {
     teamId?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    meterTriggers?: MeterMaintenanceTriggerUncheckedUpdateManyWithoutPreventiveNestedInput
   }
 
   export type PreventiveUncheckedUpdateManyWithoutSiteInput = {
@@ -60727,6 +67731,7 @@ export namespace Prisma {
     processNotes?: string | null
     metadata?: NullableJsonNullValueInput | InputJsonValue
     performerId?: string | null
+    performerReference?: $Enums.PerformerReference | null
     processStatus?: $Enums.Status
     register?: string | null
     activityIdTimer?: string | null
@@ -60745,7 +67750,7 @@ export namespace Prisma {
     execStart?: Date | string | null
     dueExecEndDate?: Date | string | null
     execEndDate?: Date | string | null
-    dueClosuerDate?: Date | string | null
+    dueClosureDate?: Date | string | null
     totalExecTime?: Decimal | DecimalJsLike | number | string | null
     expStartDate?: Date | string | null
     suspensionReason?: string | null
@@ -60754,6 +67759,7 @@ export namespace Prisma {
     companyId?: string | null
     teamId?: string | null
     floorId?: string | null
+    zoneId?: string | null
     spaceId?: string | null
     ttSystemOpening?: Decimal | DecimalJsLike | number | string | null
     ttWorkOpening?: Decimal | DecimalJsLike | number | string | null
@@ -60772,6 +67778,18 @@ export namespace Prisma {
     delayNotification?: boolean
     assigneeId?: string | null
     assetId?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type MeterCreateManyBuildingInput = {
+    id?: string
+    name: string
+    type?: $Enums.MeterType
+    unit: string
+    assetId?: string | null
+    zoneId?: string | null
+    spaceId?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -60890,6 +67908,7 @@ export namespace Prisma {
     floor?: FloorUpdateOneWithoutPreventivesNestedInput
     space?: SpaceUpdateOneWithoutPreventivesNestedInput
     team?: TeamUpdateOneWithoutPreventivesNestedInput
+    meterTriggers?: MeterMaintenanceTriggerUpdateManyWithoutPreventiveNestedInput
   }
 
   export type PreventiveUncheckedUpdateWithoutBuildingInput = {
@@ -60910,6 +67929,7 @@ export namespace Prisma {
     teamId?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    meterTriggers?: MeterMaintenanceTriggerUncheckedUpdateManyWithoutPreventiveNestedInput
   }
 
   export type PreventiveUncheckedUpdateManyWithoutBuildingInput = {
@@ -60944,6 +67964,8 @@ export namespace Prisma {
     message?: NullableStringFieldUpdateOperationsInput | string | null
     processNotes?: NullableStringFieldUpdateOperationsInput | string | null
     metadata?: NullableJsonNullValueInput | InputJsonValue
+    performerId?: NullableStringFieldUpdateOperationsInput | string | null
+    performerReference?: NullableEnumPerformerReferenceFieldUpdateOperationsInput | $Enums.PerformerReference | null
     processStatus?: EnumStatusFieldUpdateOperationsInput | $Enums.Status
     register?: NullableStringFieldUpdateOperationsInput | string | null
     activityIdTimer?: NullableStringFieldUpdateOperationsInput | string | null
@@ -60960,7 +67982,7 @@ export namespace Prisma {
     execStart?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     dueExecEndDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     execEndDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    dueClosuerDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    dueClosureDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     totalExecTime?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     expStartDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     suspensionReason?: NullableStringFieldUpdateOperationsInput | string | null
@@ -60983,12 +68005,12 @@ export namespace Prisma {
     delayNotification?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    performer?: UserUpdateOneWithoutPerformedMaintenancesNestedInput
     requester?: UserUpdateOneWithoutRequestedMaintenancesNestedInput
     site?: ComplexUpdateOneRequiredWithoutMaintenancesNestedInput
     company?: CompanyUpdateOneWithoutMaintenancesNestedInput
     team?: TeamUpdateOneWithoutMaintenancesNestedInput
     floor?: FloorUpdateOneWithoutMaintenancesNestedInput
+    zone?: ZoneUpdateOneWithoutMaintenancesNestedInput
     space?: SpaceUpdateOneWithoutMaintenancesNestedInput
     assignee?: UserUpdateOneWithoutAssignedMaintenancesNestedInput
     asset?: AssetUpdateOneWithoutMaintenancesNestedInput
@@ -61009,6 +68031,7 @@ export namespace Prisma {
     processNotes?: NullableStringFieldUpdateOperationsInput | string | null
     metadata?: NullableJsonNullValueInput | InputJsonValue
     performerId?: NullableStringFieldUpdateOperationsInput | string | null
+    performerReference?: NullableEnumPerformerReferenceFieldUpdateOperationsInput | $Enums.PerformerReference | null
     processStatus?: EnumStatusFieldUpdateOperationsInput | $Enums.Status
     register?: NullableStringFieldUpdateOperationsInput | string | null
     activityIdTimer?: NullableStringFieldUpdateOperationsInput | string | null
@@ -61027,7 +68050,7 @@ export namespace Prisma {
     execStart?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     dueExecEndDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     execEndDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    dueClosuerDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    dueClosureDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     totalExecTime?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     expStartDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     suspensionReason?: NullableStringFieldUpdateOperationsInput | string | null
@@ -61036,6 +68059,7 @@ export namespace Prisma {
     companyId?: NullableStringFieldUpdateOperationsInput | string | null
     teamId?: NullableStringFieldUpdateOperationsInput | string | null
     floorId?: NullableStringFieldUpdateOperationsInput | string | null
+    zoneId?: NullableStringFieldUpdateOperationsInput | string | null
     spaceId?: NullableStringFieldUpdateOperationsInput | string | null
     ttSystemOpening?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     ttWorkOpening?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
@@ -61073,6 +68097,7 @@ export namespace Prisma {
     processNotes?: NullableStringFieldUpdateOperationsInput | string | null
     metadata?: NullableJsonNullValueInput | InputJsonValue
     performerId?: NullableStringFieldUpdateOperationsInput | string | null
+    performerReference?: NullableEnumPerformerReferenceFieldUpdateOperationsInput | $Enums.PerformerReference | null
     processStatus?: EnumStatusFieldUpdateOperationsInput | $Enums.Status
     register?: NullableStringFieldUpdateOperationsInput | string | null
     activityIdTimer?: NullableStringFieldUpdateOperationsInput | string | null
@@ -61091,7 +68116,7 @@ export namespace Prisma {
     execStart?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     dueExecEndDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     execEndDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    dueClosuerDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    dueClosureDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     totalExecTime?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     expStartDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     suspensionReason?: NullableStringFieldUpdateOperationsInput | string | null
@@ -61100,6 +68125,7 @@ export namespace Prisma {
     companyId?: NullableStringFieldUpdateOperationsInput | string | null
     teamId?: NullableStringFieldUpdateOperationsInput | string | null
     floorId?: NullableStringFieldUpdateOperationsInput | string | null
+    zoneId?: NullableStringFieldUpdateOperationsInput | string | null
     spaceId?: NullableStringFieldUpdateOperationsInput | string | null
     ttSystemOpening?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     ttWorkOpening?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
@@ -61118,6 +68144,46 @@ export namespace Prisma {
     delayNotification?: BoolFieldUpdateOperationsInput | boolean
     assigneeId?: NullableStringFieldUpdateOperationsInput | string | null
     assetId?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type MeterUpdateWithoutBuildingInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    type?: EnumMeterTypeFieldUpdateOperationsInput | $Enums.MeterType
+    unit?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    asset?: AssetUpdateOneWithoutMetersNestedInput
+    zone?: ZoneUpdateOneWithoutMetersNestedInput
+    space?: SpaceUpdateOneWithoutMetersNestedInput
+    readings?: MeterReadingUpdateManyWithoutMeterNestedInput
+    preventiveTriggers?: MeterMaintenanceTriggerUpdateManyWithoutMeterNestedInput
+  }
+
+  export type MeterUncheckedUpdateWithoutBuildingInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    type?: EnumMeterTypeFieldUpdateOperationsInput | $Enums.MeterType
+    unit?: StringFieldUpdateOperationsInput | string
+    assetId?: NullableStringFieldUpdateOperationsInput | string | null
+    zoneId?: NullableStringFieldUpdateOperationsInput | string | null
+    spaceId?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    readings?: MeterReadingUncheckedUpdateManyWithoutMeterNestedInput
+    preventiveTriggers?: MeterMaintenanceTriggerUncheckedUpdateManyWithoutMeterNestedInput
+  }
+
+  export type MeterUncheckedUpdateManyWithoutBuildingInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    type?: EnumMeterTypeFieldUpdateOperationsInput | $Enums.MeterType
+    unit?: StringFieldUpdateOperationsInput | string
+    assetId?: NullableStringFieldUpdateOperationsInput | string | null
+    zoneId?: NullableStringFieldUpdateOperationsInput | string | null
+    spaceId?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -61166,6 +68232,7 @@ export namespace Prisma {
     processNotes?: string | null
     metadata?: NullableJsonNullValueInput | InputJsonValue
     performerId?: string | null
+    performerReference?: $Enums.PerformerReference | null
     processStatus?: $Enums.Status
     register?: string | null
     activityIdTimer?: string | null
@@ -61184,7 +68251,7 @@ export namespace Prisma {
     execStart?: Date | string | null
     dueExecEndDate?: Date | string | null
     execEndDate?: Date | string | null
-    dueClosuerDate?: Date | string | null
+    dueClosureDate?: Date | string | null
     totalExecTime?: Decimal | DecimalJsLike | number | string | null
     expStartDate?: Date | string | null
     suspensionReason?: string | null
@@ -61193,6 +68260,7 @@ export namespace Prisma {
     companyId?: string | null
     buildingId?: string | null
     teamId?: string | null
+    zoneId?: string | null
     spaceId?: string | null
     ttSystemOpening?: Decimal | DecimalJsLike | number | string | null
     ttWorkOpening?: Decimal | DecimalJsLike | number | string | null
@@ -61266,6 +68334,9 @@ export namespace Prisma {
     calenderEntity?: CalenderEntityUpdateOneWithoutZonesNestedInput
     rooms?: SpaceUpdateManyWithoutZoneNestedInput
     photos?: FileUpdateManyWithoutZonesNestedInput
+    items?: MaintenanceItemUpdateManyWithoutZoneNestedInput
+    meters?: MeterUpdateManyWithoutZoneNestedInput
+    maintenances?: MaintenanceUpdateManyWithoutZoneNestedInput
   }
 
   export type ZoneUncheckedUpdateWithoutFloorInput = {
@@ -61299,6 +68370,9 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     rooms?: SpaceUncheckedUpdateManyWithoutZoneNestedInput
     photos?: FileUncheckedUpdateManyWithoutZonesNestedInput
+    items?: MaintenanceItemUncheckedUpdateManyWithoutZoneNestedInput
+    meters?: MeterUncheckedUpdateManyWithoutZoneNestedInput
+    maintenances?: MaintenanceUncheckedUpdateManyWithoutZoneNestedInput
   }
 
   export type ZoneUncheckedUpdateManyWithoutFloorInput = {
@@ -61344,6 +68418,8 @@ export namespace Prisma {
     message?: NullableStringFieldUpdateOperationsInput | string | null
     processNotes?: NullableStringFieldUpdateOperationsInput | string | null
     metadata?: NullableJsonNullValueInput | InputJsonValue
+    performerId?: NullableStringFieldUpdateOperationsInput | string | null
+    performerReference?: NullableEnumPerformerReferenceFieldUpdateOperationsInput | $Enums.PerformerReference | null
     processStatus?: EnumStatusFieldUpdateOperationsInput | $Enums.Status
     register?: NullableStringFieldUpdateOperationsInput | string | null
     activityIdTimer?: NullableStringFieldUpdateOperationsInput | string | null
@@ -61360,7 +68436,7 @@ export namespace Prisma {
     execStart?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     dueExecEndDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     execEndDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    dueClosuerDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    dueClosureDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     totalExecTime?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     expStartDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     suspensionReason?: NullableStringFieldUpdateOperationsInput | string | null
@@ -61383,12 +68459,12 @@ export namespace Prisma {
     delayNotification?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    performer?: UserUpdateOneWithoutPerformedMaintenancesNestedInput
     requester?: UserUpdateOneWithoutRequestedMaintenancesNestedInput
     site?: ComplexUpdateOneRequiredWithoutMaintenancesNestedInput
     company?: CompanyUpdateOneWithoutMaintenancesNestedInput
     building?: BuildingUpdateOneWithoutMaintenancesNestedInput
     team?: TeamUpdateOneWithoutMaintenancesNestedInput
+    zone?: ZoneUpdateOneWithoutMaintenancesNestedInput
     space?: SpaceUpdateOneWithoutMaintenancesNestedInput
     assignee?: UserUpdateOneWithoutAssignedMaintenancesNestedInput
     asset?: AssetUpdateOneWithoutMaintenancesNestedInput
@@ -61409,6 +68485,7 @@ export namespace Prisma {
     processNotes?: NullableStringFieldUpdateOperationsInput | string | null
     metadata?: NullableJsonNullValueInput | InputJsonValue
     performerId?: NullableStringFieldUpdateOperationsInput | string | null
+    performerReference?: NullableEnumPerformerReferenceFieldUpdateOperationsInput | $Enums.PerformerReference | null
     processStatus?: EnumStatusFieldUpdateOperationsInput | $Enums.Status
     register?: NullableStringFieldUpdateOperationsInput | string | null
     activityIdTimer?: NullableStringFieldUpdateOperationsInput | string | null
@@ -61427,7 +68504,7 @@ export namespace Prisma {
     execStart?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     dueExecEndDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     execEndDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    dueClosuerDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    dueClosureDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     totalExecTime?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     expStartDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     suspensionReason?: NullableStringFieldUpdateOperationsInput | string | null
@@ -61436,6 +68513,7 @@ export namespace Prisma {
     companyId?: NullableStringFieldUpdateOperationsInput | string | null
     buildingId?: NullableStringFieldUpdateOperationsInput | string | null
     teamId?: NullableStringFieldUpdateOperationsInput | string | null
+    zoneId?: NullableStringFieldUpdateOperationsInput | string | null
     spaceId?: NullableStringFieldUpdateOperationsInput | string | null
     ttSystemOpening?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     ttWorkOpening?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
@@ -61473,6 +68551,7 @@ export namespace Prisma {
     processNotes?: NullableStringFieldUpdateOperationsInput | string | null
     metadata?: NullableJsonNullValueInput | InputJsonValue
     performerId?: NullableStringFieldUpdateOperationsInput | string | null
+    performerReference?: NullableEnumPerformerReferenceFieldUpdateOperationsInput | $Enums.PerformerReference | null
     processStatus?: EnumStatusFieldUpdateOperationsInput | $Enums.Status
     register?: NullableStringFieldUpdateOperationsInput | string | null
     activityIdTimer?: NullableStringFieldUpdateOperationsInput | string | null
@@ -61491,7 +68570,7 @@ export namespace Prisma {
     execStart?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     dueExecEndDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     execEndDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    dueClosuerDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    dueClosureDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     totalExecTime?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     expStartDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     suspensionReason?: NullableStringFieldUpdateOperationsInput | string | null
@@ -61500,6 +68579,7 @@ export namespace Prisma {
     companyId?: NullableStringFieldUpdateOperationsInput | string | null
     buildingId?: NullableStringFieldUpdateOperationsInput | string | null
     teamId?: NullableStringFieldUpdateOperationsInput | string | null
+    zoneId?: NullableStringFieldUpdateOperationsInput | string | null
     spaceId?: NullableStringFieldUpdateOperationsInput | string | null
     ttSystemOpening?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     ttWorkOpening?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
@@ -61540,6 +68620,7 @@ export namespace Prisma {
     building?: BuildingUpdateOneWithoutPreventivesNestedInput
     space?: SpaceUpdateOneWithoutPreventivesNestedInput
     team?: TeamUpdateOneWithoutPreventivesNestedInput
+    meterTriggers?: MeterMaintenanceTriggerUpdateManyWithoutPreventiveNestedInput
   }
 
   export type PreventiveUncheckedUpdateWithoutFloorInput = {
@@ -61560,6 +68641,7 @@ export namespace Prisma {
     teamId?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    meterTriggers?: MeterMaintenanceTriggerUncheckedUpdateManyWithoutPreventiveNestedInput
   }
 
   export type PreventiveUncheckedUpdateManyWithoutFloorInput = {
@@ -61603,6 +68685,92 @@ export namespace Prisma {
     updatedAt?: Date | string
   }
 
+  export type MaintenanceItemCreateManyZoneInput = {
+    id?: string
+    quantity: number
+    cost?: Decimal | DecimalJsLike | number | string | null
+    maintenanceId: string
+    itemId: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type MeterCreateManyZoneInput = {
+    id?: string
+    name: string
+    type?: $Enums.MeterType
+    unit: string
+    assetId?: string | null
+    buildingId?: string | null
+    spaceId?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type MaintenanceCreateManyZoneInput = {
+    id?: string
+    type?: $Enums.MaintenanceType
+    code: string
+    description: string
+    startDate?: Date | string | null
+    endDate?: Date | string | null
+    shortDescription?: string | null
+    action?: string | null
+    message?: string | null
+    processNotes?: string | null
+    metadata?: NullableJsonNullValueInput | InputJsonValue
+    performerId?: string | null
+    performerReference?: $Enums.PerformerReference | null
+    processStatus?: $Enums.Status
+    register?: string | null
+    activityIdTimer?: string | null
+    activityStartTime?: Date | string | null
+    activityEndTime?: Date | string | null
+    allDeadlines?: string | null
+    processType?: $Enums.ProcessType
+    ttSysRunning?: Decimal | DecimalJsLike | number | string | null
+    ttWorkRunning?: Decimal | DecimalJsLike | number | string | null
+    sorting?: string | null
+    requesterId?: string | null
+    priority?: $Enums.Priority
+    siteId: string
+    outcome?: string | null
+    dueAssignedEnd?: Date | string | null
+    execStart?: Date | string | null
+    dueExecEndDate?: Date | string | null
+    execEndDate?: Date | string | null
+    dueClosureDate?: Date | string | null
+    totalExecTime?: Decimal | DecimalJsLike | number | string | null
+    expStartDate?: Date | string | null
+    suspensionReason?: string | null
+    category?: string | null
+    subCategory?: string | null
+    companyId?: string | null
+    buildingId?: string | null
+    teamId?: string | null
+    floorId?: string | null
+    spaceId?: string | null
+    ttSystemOpening?: Decimal | DecimalJsLike | number | string | null
+    ttWorkOpening?: Decimal | DecimalJsLike | number | string | null
+    ttSystemAssignment?: Decimal | DecimalJsLike | number | string | null
+    ttWorkAssignment?: Decimal | DecimalJsLike | number | string | null
+    ttSystemExecution?: Decimal | DecimalJsLike | number | string | null
+    ttWorkExecution?: Decimal | DecimalJsLike | number | string | null
+    ttSysSuspension?: Decimal | DecimalJsLike | number | string | null
+    ttWorkSuspension?: Decimal | DecimalJsLike | number | string | null
+    ttEstimate?: Decimal | DecimalJsLike | number | string | null
+    prevMaintenanceConfigId?: string | null
+    automaticConfig?: boolean
+    jointAccounting?: boolean
+    hasTasks?: boolean
+    estimateStatus?: $Enums.Status
+    delayNotification?: boolean
+    assigneeId?: string | null
+    assetId?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
   export type SpaceUpdateWithoutZoneInput = {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
@@ -61625,6 +68793,7 @@ export namespace Prisma {
     photos?: FileUpdateManyWithoutSpacesNestedInput
     maintenances?: MaintenanceUpdateManyWithoutSpaceNestedInput
     preventives?: PreventiveUpdateManyWithoutSpaceNestedInput
+    meters?: MeterUpdateManyWithoutSpaceNestedInput
     assets?: AssetUpdateManyWithoutSpaceNestedInput
   }
 
@@ -61650,6 +68819,7 @@ export namespace Prisma {
     photos?: FileUncheckedUpdateManyWithoutSpacesNestedInput
     maintenances?: MaintenanceUncheckedUpdateManyWithoutSpaceNestedInput
     preventives?: PreventiveUncheckedUpdateManyWithoutSpaceNestedInput
+    meters?: MeterUncheckedUpdateManyWithoutSpaceNestedInput
     assets?: AssetUncheckedUpdateManyWithoutSpaceNestedInput
   }
 
@@ -61698,6 +68868,272 @@ export namespace Prisma {
     maintenanceId?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
+  export type MaintenanceItemUpdateWithoutZoneInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    quantity?: IntFieldUpdateOperationsInput | number
+    cost?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    maintenance?: MaintenanceUpdateOneRequiredWithoutMaintenanceItemsNestedInput
+    item?: ItemUpdateOneRequiredWithoutMaintenanceItemsNestedInput
+  }
+
+  export type MaintenanceItemUncheckedUpdateWithoutZoneInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    quantity?: IntFieldUpdateOperationsInput | number
+    cost?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    maintenanceId?: StringFieldUpdateOperationsInput | string
+    itemId?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type MaintenanceItemUncheckedUpdateManyWithoutZoneInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    quantity?: IntFieldUpdateOperationsInput | number
+    cost?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    maintenanceId?: StringFieldUpdateOperationsInput | string
+    itemId?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type MeterUpdateWithoutZoneInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    type?: EnumMeterTypeFieldUpdateOperationsInput | $Enums.MeterType
+    unit?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    asset?: AssetUpdateOneWithoutMetersNestedInput
+    building?: BuildingUpdateOneWithoutMetersNestedInput
+    space?: SpaceUpdateOneWithoutMetersNestedInput
+    readings?: MeterReadingUpdateManyWithoutMeterNestedInput
+    preventiveTriggers?: MeterMaintenanceTriggerUpdateManyWithoutMeterNestedInput
+  }
+
+  export type MeterUncheckedUpdateWithoutZoneInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    type?: EnumMeterTypeFieldUpdateOperationsInput | $Enums.MeterType
+    unit?: StringFieldUpdateOperationsInput | string
+    assetId?: NullableStringFieldUpdateOperationsInput | string | null
+    buildingId?: NullableStringFieldUpdateOperationsInput | string | null
+    spaceId?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    readings?: MeterReadingUncheckedUpdateManyWithoutMeterNestedInput
+    preventiveTriggers?: MeterMaintenanceTriggerUncheckedUpdateManyWithoutMeterNestedInput
+  }
+
+  export type MeterUncheckedUpdateManyWithoutZoneInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    type?: EnumMeterTypeFieldUpdateOperationsInput | $Enums.MeterType
+    unit?: StringFieldUpdateOperationsInput | string
+    assetId?: NullableStringFieldUpdateOperationsInput | string | null
+    buildingId?: NullableStringFieldUpdateOperationsInput | string | null
+    spaceId?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type MaintenanceUpdateWithoutZoneInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    type?: EnumMaintenanceTypeFieldUpdateOperationsInput | $Enums.MaintenanceType
+    code?: StringFieldUpdateOperationsInput | string
+    description?: StringFieldUpdateOperationsInput | string
+    startDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    endDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    shortDescription?: NullableStringFieldUpdateOperationsInput | string | null
+    action?: NullableStringFieldUpdateOperationsInput | string | null
+    message?: NullableStringFieldUpdateOperationsInput | string | null
+    processNotes?: NullableStringFieldUpdateOperationsInput | string | null
+    metadata?: NullableJsonNullValueInput | InputJsonValue
+    performerId?: NullableStringFieldUpdateOperationsInput | string | null
+    performerReference?: NullableEnumPerformerReferenceFieldUpdateOperationsInput | $Enums.PerformerReference | null
+    processStatus?: EnumStatusFieldUpdateOperationsInput | $Enums.Status
+    register?: NullableStringFieldUpdateOperationsInput | string | null
+    activityIdTimer?: NullableStringFieldUpdateOperationsInput | string | null
+    activityStartTime?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    activityEndTime?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    allDeadlines?: NullableStringFieldUpdateOperationsInput | string | null
+    processType?: EnumProcessTypeFieldUpdateOperationsInput | $Enums.ProcessType
+    ttSysRunning?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    ttWorkRunning?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    sorting?: NullableStringFieldUpdateOperationsInput | string | null
+    priority?: EnumPriorityFieldUpdateOperationsInput | $Enums.Priority
+    outcome?: NullableStringFieldUpdateOperationsInput | string | null
+    dueAssignedEnd?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    execStart?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    dueExecEndDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    execEndDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    dueClosureDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    totalExecTime?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    expStartDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    suspensionReason?: NullableStringFieldUpdateOperationsInput | string | null
+    category?: NullableStringFieldUpdateOperationsInput | string | null
+    subCategory?: NullableStringFieldUpdateOperationsInput | string | null
+    ttSystemOpening?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    ttWorkOpening?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    ttSystemAssignment?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    ttWorkAssignment?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    ttSystemExecution?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    ttWorkExecution?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    ttSysSuspension?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    ttWorkSuspension?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    ttEstimate?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    prevMaintenanceConfigId?: NullableStringFieldUpdateOperationsInput | string | null
+    automaticConfig?: BoolFieldUpdateOperationsInput | boolean
+    jointAccounting?: BoolFieldUpdateOperationsInput | boolean
+    hasTasks?: BoolFieldUpdateOperationsInput | boolean
+    estimateStatus?: EnumStatusFieldUpdateOperationsInput | $Enums.Status
+    delayNotification?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    requester?: UserUpdateOneWithoutRequestedMaintenancesNestedInput
+    site?: ComplexUpdateOneRequiredWithoutMaintenancesNestedInput
+    company?: CompanyUpdateOneWithoutMaintenancesNestedInput
+    building?: BuildingUpdateOneWithoutMaintenancesNestedInput
+    team?: TeamUpdateOneWithoutMaintenancesNestedInput
+    floor?: FloorUpdateOneWithoutMaintenancesNestedInput
+    space?: SpaceUpdateOneWithoutMaintenancesNestedInput
+    assignee?: UserUpdateOneWithoutAssignedMaintenancesNestedInput
+    asset?: AssetUpdateOneWithoutMaintenancesNestedInput
+    photos?: FileUpdateManyWithoutMaintenanceNestedInput
+    maintenanceItems?: MaintenanceItemUpdateManyWithoutMaintenanceNestedInput
+  }
+
+  export type MaintenanceUncheckedUpdateWithoutZoneInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    type?: EnumMaintenanceTypeFieldUpdateOperationsInput | $Enums.MaintenanceType
+    code?: StringFieldUpdateOperationsInput | string
+    description?: StringFieldUpdateOperationsInput | string
+    startDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    endDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    shortDescription?: NullableStringFieldUpdateOperationsInput | string | null
+    action?: NullableStringFieldUpdateOperationsInput | string | null
+    message?: NullableStringFieldUpdateOperationsInput | string | null
+    processNotes?: NullableStringFieldUpdateOperationsInput | string | null
+    metadata?: NullableJsonNullValueInput | InputJsonValue
+    performerId?: NullableStringFieldUpdateOperationsInput | string | null
+    performerReference?: NullableEnumPerformerReferenceFieldUpdateOperationsInput | $Enums.PerformerReference | null
+    processStatus?: EnumStatusFieldUpdateOperationsInput | $Enums.Status
+    register?: NullableStringFieldUpdateOperationsInput | string | null
+    activityIdTimer?: NullableStringFieldUpdateOperationsInput | string | null
+    activityStartTime?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    activityEndTime?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    allDeadlines?: NullableStringFieldUpdateOperationsInput | string | null
+    processType?: EnumProcessTypeFieldUpdateOperationsInput | $Enums.ProcessType
+    ttSysRunning?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    ttWorkRunning?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    sorting?: NullableStringFieldUpdateOperationsInput | string | null
+    requesterId?: NullableStringFieldUpdateOperationsInput | string | null
+    priority?: EnumPriorityFieldUpdateOperationsInput | $Enums.Priority
+    siteId?: StringFieldUpdateOperationsInput | string
+    outcome?: NullableStringFieldUpdateOperationsInput | string | null
+    dueAssignedEnd?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    execStart?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    dueExecEndDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    execEndDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    dueClosureDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    totalExecTime?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    expStartDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    suspensionReason?: NullableStringFieldUpdateOperationsInput | string | null
+    category?: NullableStringFieldUpdateOperationsInput | string | null
+    subCategory?: NullableStringFieldUpdateOperationsInput | string | null
+    companyId?: NullableStringFieldUpdateOperationsInput | string | null
+    buildingId?: NullableStringFieldUpdateOperationsInput | string | null
+    teamId?: NullableStringFieldUpdateOperationsInput | string | null
+    floorId?: NullableStringFieldUpdateOperationsInput | string | null
+    spaceId?: NullableStringFieldUpdateOperationsInput | string | null
+    ttSystemOpening?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    ttWorkOpening?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    ttSystemAssignment?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    ttWorkAssignment?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    ttSystemExecution?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    ttWorkExecution?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    ttSysSuspension?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    ttWorkSuspension?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    ttEstimate?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    prevMaintenanceConfigId?: NullableStringFieldUpdateOperationsInput | string | null
+    automaticConfig?: BoolFieldUpdateOperationsInput | boolean
+    jointAccounting?: BoolFieldUpdateOperationsInput | boolean
+    hasTasks?: BoolFieldUpdateOperationsInput | boolean
+    estimateStatus?: EnumStatusFieldUpdateOperationsInput | $Enums.Status
+    delayNotification?: BoolFieldUpdateOperationsInput | boolean
+    assigneeId?: NullableStringFieldUpdateOperationsInput | string | null
+    assetId?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    photos?: FileUncheckedUpdateManyWithoutMaintenanceNestedInput
+    maintenanceItems?: MaintenanceItemUncheckedUpdateManyWithoutMaintenanceNestedInput
+  }
+
+  export type MaintenanceUncheckedUpdateManyWithoutZoneInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    type?: EnumMaintenanceTypeFieldUpdateOperationsInput | $Enums.MaintenanceType
+    code?: StringFieldUpdateOperationsInput | string
+    description?: StringFieldUpdateOperationsInput | string
+    startDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    endDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    shortDescription?: NullableStringFieldUpdateOperationsInput | string | null
+    action?: NullableStringFieldUpdateOperationsInput | string | null
+    message?: NullableStringFieldUpdateOperationsInput | string | null
+    processNotes?: NullableStringFieldUpdateOperationsInput | string | null
+    metadata?: NullableJsonNullValueInput | InputJsonValue
+    performerId?: NullableStringFieldUpdateOperationsInput | string | null
+    performerReference?: NullableEnumPerformerReferenceFieldUpdateOperationsInput | $Enums.PerformerReference | null
+    processStatus?: EnumStatusFieldUpdateOperationsInput | $Enums.Status
+    register?: NullableStringFieldUpdateOperationsInput | string | null
+    activityIdTimer?: NullableStringFieldUpdateOperationsInput | string | null
+    activityStartTime?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    activityEndTime?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    allDeadlines?: NullableStringFieldUpdateOperationsInput | string | null
+    processType?: EnumProcessTypeFieldUpdateOperationsInput | $Enums.ProcessType
+    ttSysRunning?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    ttWorkRunning?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    sorting?: NullableStringFieldUpdateOperationsInput | string | null
+    requesterId?: NullableStringFieldUpdateOperationsInput | string | null
+    priority?: EnumPriorityFieldUpdateOperationsInput | $Enums.Priority
+    siteId?: StringFieldUpdateOperationsInput | string
+    outcome?: NullableStringFieldUpdateOperationsInput | string | null
+    dueAssignedEnd?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    execStart?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    dueExecEndDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    execEndDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    dueClosureDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    totalExecTime?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    expStartDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    suspensionReason?: NullableStringFieldUpdateOperationsInput | string | null
+    category?: NullableStringFieldUpdateOperationsInput | string | null
+    subCategory?: NullableStringFieldUpdateOperationsInput | string | null
+    companyId?: NullableStringFieldUpdateOperationsInput | string | null
+    buildingId?: NullableStringFieldUpdateOperationsInput | string | null
+    teamId?: NullableStringFieldUpdateOperationsInput | string | null
+    floorId?: NullableStringFieldUpdateOperationsInput | string | null
+    spaceId?: NullableStringFieldUpdateOperationsInput | string | null
+    ttSystemOpening?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    ttWorkOpening?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    ttSystemAssignment?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    ttWorkAssignment?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    ttSystemExecution?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    ttWorkExecution?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    ttSysSuspension?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    ttWorkSuspension?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    ttEstimate?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    prevMaintenanceConfigId?: NullableStringFieldUpdateOperationsInput | string | null
+    automaticConfig?: BoolFieldUpdateOperationsInput | boolean
+    jointAccounting?: BoolFieldUpdateOperationsInput | boolean
+    hasTasks?: BoolFieldUpdateOperationsInput | boolean
+    estimateStatus?: EnumStatusFieldUpdateOperationsInput | $Enums.Status
+    delayNotification?: BoolFieldUpdateOperationsInput | boolean
+    assigneeId?: NullableStringFieldUpdateOperationsInput | string | null
+    assetId?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
   export type MaintenanceCreateManySpaceInput = {
     id?: string
     type?: $Enums.MaintenanceType
@@ -61711,6 +69147,7 @@ export namespace Prisma {
     processNotes?: string | null
     metadata?: NullableJsonNullValueInput | InputJsonValue
     performerId?: string | null
+    performerReference?: $Enums.PerformerReference | null
     processStatus?: $Enums.Status
     register?: string | null
     activityIdTimer?: string | null
@@ -61729,7 +69166,7 @@ export namespace Prisma {
     execStart?: Date | string | null
     dueExecEndDate?: Date | string | null
     execEndDate?: Date | string | null
-    dueClosuerDate?: Date | string | null
+    dueClosureDate?: Date | string | null
     totalExecTime?: Decimal | DecimalJsLike | number | string | null
     expStartDate?: Date | string | null
     suspensionReason?: string | null
@@ -61739,6 +69176,7 @@ export namespace Prisma {
     buildingId?: string | null
     teamId?: string | null
     floorId?: string | null
+    zoneId?: string | null
     ttSystemOpening?: Decimal | DecimalJsLike | number | string | null
     ttWorkOpening?: Decimal | DecimalJsLike | number | string | null
     ttSystemAssignment?: Decimal | DecimalJsLike | number | string | null
@@ -61776,6 +69214,18 @@ export namespace Prisma {
     buildingId?: string | null
     floorId?: string | null
     teamId?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type MeterCreateManySpaceInput = {
+    id?: string
+    name: string
+    type?: $Enums.MeterType
+    unit: string
+    assetId?: string | null
+    buildingId?: string | null
+    zoneId?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -61827,6 +69277,8 @@ export namespace Prisma {
     message?: NullableStringFieldUpdateOperationsInput | string | null
     processNotes?: NullableStringFieldUpdateOperationsInput | string | null
     metadata?: NullableJsonNullValueInput | InputJsonValue
+    performerId?: NullableStringFieldUpdateOperationsInput | string | null
+    performerReference?: NullableEnumPerformerReferenceFieldUpdateOperationsInput | $Enums.PerformerReference | null
     processStatus?: EnumStatusFieldUpdateOperationsInput | $Enums.Status
     register?: NullableStringFieldUpdateOperationsInput | string | null
     activityIdTimer?: NullableStringFieldUpdateOperationsInput | string | null
@@ -61843,7 +69295,7 @@ export namespace Prisma {
     execStart?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     dueExecEndDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     execEndDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    dueClosuerDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    dueClosureDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     totalExecTime?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     expStartDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     suspensionReason?: NullableStringFieldUpdateOperationsInput | string | null
@@ -61866,13 +69318,13 @@ export namespace Prisma {
     delayNotification?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    performer?: UserUpdateOneWithoutPerformedMaintenancesNestedInput
     requester?: UserUpdateOneWithoutRequestedMaintenancesNestedInput
     site?: ComplexUpdateOneRequiredWithoutMaintenancesNestedInput
     company?: CompanyUpdateOneWithoutMaintenancesNestedInput
     building?: BuildingUpdateOneWithoutMaintenancesNestedInput
     team?: TeamUpdateOneWithoutMaintenancesNestedInput
     floor?: FloorUpdateOneWithoutMaintenancesNestedInput
+    zone?: ZoneUpdateOneWithoutMaintenancesNestedInput
     assignee?: UserUpdateOneWithoutAssignedMaintenancesNestedInput
     asset?: AssetUpdateOneWithoutMaintenancesNestedInput
     photos?: FileUpdateManyWithoutMaintenanceNestedInput
@@ -61892,6 +69344,7 @@ export namespace Prisma {
     processNotes?: NullableStringFieldUpdateOperationsInput | string | null
     metadata?: NullableJsonNullValueInput | InputJsonValue
     performerId?: NullableStringFieldUpdateOperationsInput | string | null
+    performerReference?: NullableEnumPerformerReferenceFieldUpdateOperationsInput | $Enums.PerformerReference | null
     processStatus?: EnumStatusFieldUpdateOperationsInput | $Enums.Status
     register?: NullableStringFieldUpdateOperationsInput | string | null
     activityIdTimer?: NullableStringFieldUpdateOperationsInput | string | null
@@ -61910,7 +69363,7 @@ export namespace Prisma {
     execStart?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     dueExecEndDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     execEndDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    dueClosuerDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    dueClosureDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     totalExecTime?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     expStartDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     suspensionReason?: NullableStringFieldUpdateOperationsInput | string | null
@@ -61920,6 +69373,7 @@ export namespace Prisma {
     buildingId?: NullableStringFieldUpdateOperationsInput | string | null
     teamId?: NullableStringFieldUpdateOperationsInput | string | null
     floorId?: NullableStringFieldUpdateOperationsInput | string | null
+    zoneId?: NullableStringFieldUpdateOperationsInput | string | null
     ttSystemOpening?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     ttWorkOpening?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     ttSystemAssignment?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
@@ -61956,6 +69410,7 @@ export namespace Prisma {
     processNotes?: NullableStringFieldUpdateOperationsInput | string | null
     metadata?: NullableJsonNullValueInput | InputJsonValue
     performerId?: NullableStringFieldUpdateOperationsInput | string | null
+    performerReference?: NullableEnumPerformerReferenceFieldUpdateOperationsInput | $Enums.PerformerReference | null
     processStatus?: EnumStatusFieldUpdateOperationsInput | $Enums.Status
     register?: NullableStringFieldUpdateOperationsInput | string | null
     activityIdTimer?: NullableStringFieldUpdateOperationsInput | string | null
@@ -61974,7 +69429,7 @@ export namespace Prisma {
     execStart?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     dueExecEndDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     execEndDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    dueClosuerDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    dueClosureDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     totalExecTime?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     expStartDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     suspensionReason?: NullableStringFieldUpdateOperationsInput | string | null
@@ -61984,6 +69439,7 @@ export namespace Prisma {
     buildingId?: NullableStringFieldUpdateOperationsInput | string | null
     teamId?: NullableStringFieldUpdateOperationsInput | string | null
     floorId?: NullableStringFieldUpdateOperationsInput | string | null
+    zoneId?: NullableStringFieldUpdateOperationsInput | string | null
     ttSystemOpening?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     ttWorkOpening?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     ttSystemAssignment?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
@@ -62023,6 +69479,7 @@ export namespace Prisma {
     building?: BuildingUpdateOneWithoutPreventivesNestedInput
     floor?: FloorUpdateOneWithoutPreventivesNestedInput
     team?: TeamUpdateOneWithoutPreventivesNestedInput
+    meterTriggers?: MeterMaintenanceTriggerUpdateManyWithoutPreventiveNestedInput
   }
 
   export type PreventiveUncheckedUpdateWithoutSpaceInput = {
@@ -62043,6 +69500,7 @@ export namespace Prisma {
     teamId?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    meterTriggers?: MeterMaintenanceTriggerUncheckedUpdateManyWithoutPreventiveNestedInput
   }
 
   export type PreventiveUncheckedUpdateManyWithoutSpaceInput = {
@@ -62065,6 +69523,46 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
+  export type MeterUpdateWithoutSpaceInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    type?: EnumMeterTypeFieldUpdateOperationsInput | $Enums.MeterType
+    unit?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    asset?: AssetUpdateOneWithoutMetersNestedInput
+    building?: BuildingUpdateOneWithoutMetersNestedInput
+    zone?: ZoneUpdateOneWithoutMetersNestedInput
+    readings?: MeterReadingUpdateManyWithoutMeterNestedInput
+    preventiveTriggers?: MeterMaintenanceTriggerUpdateManyWithoutMeterNestedInput
+  }
+
+  export type MeterUncheckedUpdateWithoutSpaceInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    type?: EnumMeterTypeFieldUpdateOperationsInput | $Enums.MeterType
+    unit?: StringFieldUpdateOperationsInput | string
+    assetId?: NullableStringFieldUpdateOperationsInput | string | null
+    buildingId?: NullableStringFieldUpdateOperationsInput | string | null
+    zoneId?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    readings?: MeterReadingUncheckedUpdateManyWithoutMeterNestedInput
+    preventiveTriggers?: MeterMaintenanceTriggerUncheckedUpdateManyWithoutMeterNestedInput
+  }
+
+  export type MeterUncheckedUpdateManyWithoutSpaceInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    type?: EnumMeterTypeFieldUpdateOperationsInput | $Enums.MeterType
+    unit?: StringFieldUpdateOperationsInput | string
+    assetId?: NullableStringFieldUpdateOperationsInput | string | null
+    buildingId?: NullableStringFieldUpdateOperationsInput | string | null
+    zoneId?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
   export type AssetUpdateWithoutSpaceInput = {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
@@ -62077,6 +69575,7 @@ export namespace Prisma {
     childAssets?: AssetUpdateManyWithoutParentSystemNestedInput
     maintenances?: MaintenanceUpdateManyWithoutAssetNestedInput
     preventives?: PreventiveUpdateManyWithoutAssetNestedInput
+    meters?: MeterUpdateManyWithoutAssetNestedInput
   }
 
   export type AssetUncheckedUpdateWithoutSpaceInput = {
@@ -62091,6 +69590,7 @@ export namespace Prisma {
     childAssets?: AssetUncheckedUpdateManyWithoutParentSystemNestedInput
     maintenances?: MaintenanceUncheckedUpdateManyWithoutAssetNestedInput
     preventives?: PreventiveUncheckedUpdateManyWithoutAssetNestedInput
+    meters?: MeterUncheckedUpdateManyWithoutAssetNestedInput
   }
 
   export type AssetUncheckedUpdateManyWithoutSpaceInput = {
@@ -62127,6 +69627,7 @@ export namespace Prisma {
     space?: SpaceUpdateOneWithoutAssetsNestedInput
     maintenances?: MaintenanceUpdateManyWithoutAssetNestedInput
     preventives?: PreventiveUpdateManyWithoutAssetNestedInput
+    meters?: MeterUpdateManyWithoutAssetNestedInput
   }
 
   export type AssetUncheckedUpdateWithoutCategoryInput = {
@@ -62141,6 +69642,7 @@ export namespace Prisma {
     childAssets?: AssetUncheckedUpdateManyWithoutParentSystemNestedInput
     maintenances?: MaintenanceUncheckedUpdateManyWithoutAssetNestedInput
     preventives?: PreventiveUncheckedUpdateManyWithoutAssetNestedInput
+    meters?: MeterUncheckedUpdateManyWithoutAssetNestedInput
   }
 
   export type AssetUncheckedUpdateManyWithoutCategoryInput = {
@@ -62178,6 +69680,7 @@ export namespace Prisma {
     processNotes?: string | null
     metadata?: NullableJsonNullValueInput | InputJsonValue
     performerId?: string | null
+    performerReference?: $Enums.PerformerReference | null
     processStatus?: $Enums.Status
     register?: string | null
     activityIdTimer?: string | null
@@ -62196,7 +69699,7 @@ export namespace Prisma {
     execStart?: Date | string | null
     dueExecEndDate?: Date | string | null
     execEndDate?: Date | string | null
-    dueClosuerDate?: Date | string | null
+    dueClosureDate?: Date | string | null
     totalExecTime?: Decimal | DecimalJsLike | number | string | null
     expStartDate?: Date | string | null
     suspensionReason?: string | null
@@ -62206,6 +69709,7 @@ export namespace Prisma {
     buildingId?: string | null
     teamId?: string | null
     floorId?: string | null
+    zoneId?: string | null
     spaceId?: string | null
     ttSystemOpening?: Decimal | DecimalJsLike | number | string | null
     ttWorkOpening?: Decimal | DecimalJsLike | number | string | null
@@ -62247,6 +69751,18 @@ export namespace Prisma {
     updatedAt?: Date | string
   }
 
+  export type MeterCreateManyAssetInput = {
+    id?: string
+    name: string
+    type?: $Enums.MeterType
+    unit: string
+    buildingId?: string | null
+    zoneId?: string | null
+    spaceId?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
   export type AssetUpdateWithoutParentSystemInput = {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
@@ -62259,6 +69775,7 @@ export namespace Prisma {
     space?: SpaceUpdateOneWithoutAssetsNestedInput
     maintenances?: MaintenanceUpdateManyWithoutAssetNestedInput
     preventives?: PreventiveUpdateManyWithoutAssetNestedInput
+    meters?: MeterUpdateManyWithoutAssetNestedInput
   }
 
   export type AssetUncheckedUpdateWithoutParentSystemInput = {
@@ -62273,6 +69790,7 @@ export namespace Prisma {
     childAssets?: AssetUncheckedUpdateManyWithoutParentSystemNestedInput
     maintenances?: MaintenanceUncheckedUpdateManyWithoutAssetNestedInput
     preventives?: PreventiveUncheckedUpdateManyWithoutAssetNestedInput
+    meters?: MeterUncheckedUpdateManyWithoutAssetNestedInput
   }
 
   export type AssetUncheckedUpdateManyWithoutParentSystemInput = {
@@ -62298,6 +69816,8 @@ export namespace Prisma {
     message?: NullableStringFieldUpdateOperationsInput | string | null
     processNotes?: NullableStringFieldUpdateOperationsInput | string | null
     metadata?: NullableJsonNullValueInput | InputJsonValue
+    performerId?: NullableStringFieldUpdateOperationsInput | string | null
+    performerReference?: NullableEnumPerformerReferenceFieldUpdateOperationsInput | $Enums.PerformerReference | null
     processStatus?: EnumStatusFieldUpdateOperationsInput | $Enums.Status
     register?: NullableStringFieldUpdateOperationsInput | string | null
     activityIdTimer?: NullableStringFieldUpdateOperationsInput | string | null
@@ -62314,7 +69834,7 @@ export namespace Prisma {
     execStart?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     dueExecEndDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     execEndDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    dueClosuerDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    dueClosureDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     totalExecTime?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     expStartDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     suspensionReason?: NullableStringFieldUpdateOperationsInput | string | null
@@ -62337,13 +69857,13 @@ export namespace Prisma {
     delayNotification?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    performer?: UserUpdateOneWithoutPerformedMaintenancesNestedInput
     requester?: UserUpdateOneWithoutRequestedMaintenancesNestedInput
     site?: ComplexUpdateOneRequiredWithoutMaintenancesNestedInput
     company?: CompanyUpdateOneWithoutMaintenancesNestedInput
     building?: BuildingUpdateOneWithoutMaintenancesNestedInput
     team?: TeamUpdateOneWithoutMaintenancesNestedInput
     floor?: FloorUpdateOneWithoutMaintenancesNestedInput
+    zone?: ZoneUpdateOneWithoutMaintenancesNestedInput
     space?: SpaceUpdateOneWithoutMaintenancesNestedInput
     assignee?: UserUpdateOneWithoutAssignedMaintenancesNestedInput
     photos?: FileUpdateManyWithoutMaintenanceNestedInput
@@ -62363,6 +69883,7 @@ export namespace Prisma {
     processNotes?: NullableStringFieldUpdateOperationsInput | string | null
     metadata?: NullableJsonNullValueInput | InputJsonValue
     performerId?: NullableStringFieldUpdateOperationsInput | string | null
+    performerReference?: NullableEnumPerformerReferenceFieldUpdateOperationsInput | $Enums.PerformerReference | null
     processStatus?: EnumStatusFieldUpdateOperationsInput | $Enums.Status
     register?: NullableStringFieldUpdateOperationsInput | string | null
     activityIdTimer?: NullableStringFieldUpdateOperationsInput | string | null
@@ -62381,7 +69902,7 @@ export namespace Prisma {
     execStart?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     dueExecEndDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     execEndDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    dueClosuerDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    dueClosureDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     totalExecTime?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     expStartDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     suspensionReason?: NullableStringFieldUpdateOperationsInput | string | null
@@ -62391,6 +69912,7 @@ export namespace Prisma {
     buildingId?: NullableStringFieldUpdateOperationsInput | string | null
     teamId?: NullableStringFieldUpdateOperationsInput | string | null
     floorId?: NullableStringFieldUpdateOperationsInput | string | null
+    zoneId?: NullableStringFieldUpdateOperationsInput | string | null
     spaceId?: NullableStringFieldUpdateOperationsInput | string | null
     ttSystemOpening?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     ttWorkOpening?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
@@ -62427,6 +69949,7 @@ export namespace Prisma {
     processNotes?: NullableStringFieldUpdateOperationsInput | string | null
     metadata?: NullableJsonNullValueInput | InputJsonValue
     performerId?: NullableStringFieldUpdateOperationsInput | string | null
+    performerReference?: NullableEnumPerformerReferenceFieldUpdateOperationsInput | $Enums.PerformerReference | null
     processStatus?: EnumStatusFieldUpdateOperationsInput | $Enums.Status
     register?: NullableStringFieldUpdateOperationsInput | string | null
     activityIdTimer?: NullableStringFieldUpdateOperationsInput | string | null
@@ -62445,7 +69968,7 @@ export namespace Prisma {
     execStart?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     dueExecEndDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     execEndDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    dueClosuerDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    dueClosureDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     totalExecTime?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     expStartDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     suspensionReason?: NullableStringFieldUpdateOperationsInput | string | null
@@ -62455,6 +69978,7 @@ export namespace Prisma {
     buildingId?: NullableStringFieldUpdateOperationsInput | string | null
     teamId?: NullableStringFieldUpdateOperationsInput | string | null
     floorId?: NullableStringFieldUpdateOperationsInput | string | null
+    zoneId?: NullableStringFieldUpdateOperationsInput | string | null
     spaceId?: NullableStringFieldUpdateOperationsInput | string | null
     ttSystemOpening?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     ttWorkOpening?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
@@ -62494,6 +70018,7 @@ export namespace Prisma {
     floor?: FloorUpdateOneWithoutPreventivesNestedInput
     space?: SpaceUpdateOneWithoutPreventivesNestedInput
     team?: TeamUpdateOneWithoutPreventivesNestedInput
+    meterTriggers?: MeterMaintenanceTriggerUpdateManyWithoutPreventiveNestedInput
   }
 
   export type PreventiveUncheckedUpdateWithoutAssetInput = {
@@ -62514,6 +70039,7 @@ export namespace Prisma {
     teamId?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    meterTriggers?: MeterMaintenanceTriggerUncheckedUpdateManyWithoutPreventiveNestedInput
   }
 
   export type PreventiveUncheckedUpdateManyWithoutAssetInput = {
@@ -62532,6 +70058,46 @@ export namespace Prisma {
     floorId?: NullableStringFieldUpdateOperationsInput | string | null
     spaceId?: NullableStringFieldUpdateOperationsInput | string | null
     teamId?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type MeterUpdateWithoutAssetInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    type?: EnumMeterTypeFieldUpdateOperationsInput | $Enums.MeterType
+    unit?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    building?: BuildingUpdateOneWithoutMetersNestedInput
+    zone?: ZoneUpdateOneWithoutMetersNestedInput
+    space?: SpaceUpdateOneWithoutMetersNestedInput
+    readings?: MeterReadingUpdateManyWithoutMeterNestedInput
+    preventiveTriggers?: MeterMaintenanceTriggerUpdateManyWithoutMeterNestedInput
+  }
+
+  export type MeterUncheckedUpdateWithoutAssetInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    type?: EnumMeterTypeFieldUpdateOperationsInput | $Enums.MeterType
+    unit?: StringFieldUpdateOperationsInput | string
+    buildingId?: NullableStringFieldUpdateOperationsInput | string | null
+    zoneId?: NullableStringFieldUpdateOperationsInput | string | null
+    spaceId?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    readings?: MeterReadingUncheckedUpdateManyWithoutMeterNestedInput
+    preventiveTriggers?: MeterMaintenanceTriggerUncheckedUpdateManyWithoutMeterNestedInput
+  }
+
+  export type MeterUncheckedUpdateManyWithoutAssetInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    type?: EnumMeterTypeFieldUpdateOperationsInput | $Enums.MeterType
+    unit?: StringFieldUpdateOperationsInput | string
+    buildingId?: NullableStringFieldUpdateOperationsInput | string | null
+    zoneId?: NullableStringFieldUpdateOperationsInput | string | null
+    spaceId?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -62558,6 +70124,7 @@ export namespace Prisma {
     zone?: ZoneUpdateOneRequiredWithoutRoomsNestedInput
     maintenances?: MaintenanceUpdateManyWithoutSpaceNestedInput
     preventives?: PreventiveUpdateManyWithoutSpaceNestedInput
+    meters?: MeterUpdateManyWithoutSpaceNestedInput
     assets?: AssetUpdateManyWithoutSpaceNestedInput
   }
 
@@ -62583,6 +70150,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     maintenances?: MaintenanceUncheckedUpdateManyWithoutSpaceNestedInput
     preventives?: PreventiveUncheckedUpdateManyWithoutSpaceNestedInput
+    meters?: MeterUncheckedUpdateManyWithoutSpaceNestedInput
     assets?: AssetUncheckedUpdateManyWithoutSpaceNestedInput
   }
 
@@ -62639,6 +70207,9 @@ export namespace Prisma {
     calenderEntity?: CalenderEntityUpdateOneWithoutZonesNestedInput
     floor?: FloorUpdateOneRequiredWithoutZonesNestedInput
     rooms?: SpaceUpdateManyWithoutZoneNestedInput
+    items?: MaintenanceItemUpdateManyWithoutZoneNestedInput
+    meters?: MeterUpdateManyWithoutZoneNestedInput
+    maintenances?: MaintenanceUpdateManyWithoutZoneNestedInput
   }
 
   export type ZoneUncheckedUpdateWithoutPhotosInput = {
@@ -62672,6 +70243,9 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     rooms?: SpaceUncheckedUpdateManyWithoutZoneNestedInput
+    items?: MaintenanceItemUncheckedUpdateManyWithoutZoneNestedInput
+    meters?: MeterUncheckedUpdateManyWithoutZoneNestedInput
+    maintenances?: MaintenanceUncheckedUpdateManyWithoutZoneNestedInput
   }
 
   export type ZoneUncheckedUpdateManyWithoutPhotosInput = {
@@ -62733,6 +70307,7 @@ export namespace Prisma {
     floors?: FloorUpdateManyWithoutBuildingNestedInput
     preventives?: PreventiveUpdateManyWithoutBuildingNestedInput
     maintenances?: MaintenanceUpdateManyWithoutBuildingNestedInput
+    meters?: MeterUpdateManyWithoutBuildingNestedInput
   }
 
   export type BuildingUncheckedUpdateWithoutPhotosInput = {
@@ -62762,6 +70337,7 @@ export namespace Prisma {
     floors?: FloorUncheckedUpdateManyWithoutBuildingNestedInput
     preventives?: PreventiveUncheckedUpdateManyWithoutBuildingNestedInput
     maintenances?: MaintenanceUncheckedUpdateManyWithoutBuildingNestedInput
+    meters?: MeterUncheckedUpdateManyWithoutBuildingNestedInput
   }
 
   export type BuildingUncheckedUpdateManyWithoutPhotosInput = {
@@ -62906,6 +70482,7 @@ export namespace Prisma {
     processNotes?: string | null
     metadata?: NullableJsonNullValueInput | InputJsonValue
     performerId?: string | null
+    performerReference?: $Enums.PerformerReference | null
     processStatus?: $Enums.Status
     register?: string | null
     activityIdTimer?: string | null
@@ -62924,7 +70501,7 @@ export namespace Prisma {
     execStart?: Date | string | null
     dueExecEndDate?: Date | string | null
     execEndDate?: Date | string | null
-    dueClosuerDate?: Date | string | null
+    dueClosureDate?: Date | string | null
     totalExecTime?: Decimal | DecimalJsLike | number | string | null
     expStartDate?: Date | string | null
     suspensionReason?: string | null
@@ -62933,6 +70510,7 @@ export namespace Prisma {
     buildingId?: string | null
     teamId?: string | null
     floorId?: string | null
+    zoneId?: string | null
     spaceId?: string | null
     ttSystemOpening?: Decimal | DecimalJsLike | number | string | null
     ttWorkOpening?: Decimal | DecimalJsLike | number | string | null
@@ -62975,7 +70553,6 @@ export namespace Prisma {
     permissions?: PermissionUpdateManyWithoutUserNestedInput
     calenderEntity?: CalenderEntityUpdateOneWithoutEmployeesNestedInput
     teams?: TeamUpdateManyWithoutMembersNestedInput
-    performedMaintenances?: MaintenanceUpdateManyWithoutPerformerNestedInput
     requestedMaintenances?: MaintenanceUpdateManyWithoutRequesterNestedInput
     assignedMaintenances?: MaintenanceUpdateManyWithoutAssigneeNestedInput
     supervisedTeams?: TeamUpdateManyWithoutSupervisorNestedInput
@@ -63001,7 +70578,6 @@ export namespace Prisma {
     refreshTokens?: RefreshTokenUncheckedUpdateManyWithoutUserNestedInput
     permissions?: PermissionUncheckedUpdateManyWithoutUserNestedInput
     teams?: TeamUncheckedUpdateManyWithoutMembersNestedInput
-    performedMaintenances?: MaintenanceUncheckedUpdateManyWithoutPerformerNestedInput
     requestedMaintenances?: MaintenanceUncheckedUpdateManyWithoutRequesterNestedInput
     assignedMaintenances?: MaintenanceUncheckedUpdateManyWithoutAssigneeNestedInput
     supervisedTeams?: TeamUncheckedUpdateManyWithoutSupervisorNestedInput
@@ -63038,6 +70614,8 @@ export namespace Prisma {
     message?: NullableStringFieldUpdateOperationsInput | string | null
     processNotes?: NullableStringFieldUpdateOperationsInput | string | null
     metadata?: NullableJsonNullValueInput | InputJsonValue
+    performerId?: NullableStringFieldUpdateOperationsInput | string | null
+    performerReference?: NullableEnumPerformerReferenceFieldUpdateOperationsInput | $Enums.PerformerReference | null
     processStatus?: EnumStatusFieldUpdateOperationsInput | $Enums.Status
     register?: NullableStringFieldUpdateOperationsInput | string | null
     activityIdTimer?: NullableStringFieldUpdateOperationsInput | string | null
@@ -63054,7 +70632,7 @@ export namespace Prisma {
     execStart?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     dueExecEndDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     execEndDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    dueClosuerDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    dueClosureDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     totalExecTime?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     expStartDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     suspensionReason?: NullableStringFieldUpdateOperationsInput | string | null
@@ -63077,12 +70655,12 @@ export namespace Prisma {
     delayNotification?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    performer?: UserUpdateOneWithoutPerformedMaintenancesNestedInput
     requester?: UserUpdateOneWithoutRequestedMaintenancesNestedInput
     site?: ComplexUpdateOneRequiredWithoutMaintenancesNestedInput
     building?: BuildingUpdateOneWithoutMaintenancesNestedInput
     team?: TeamUpdateOneWithoutMaintenancesNestedInput
     floor?: FloorUpdateOneWithoutMaintenancesNestedInput
+    zone?: ZoneUpdateOneWithoutMaintenancesNestedInput
     space?: SpaceUpdateOneWithoutMaintenancesNestedInput
     assignee?: UserUpdateOneWithoutAssignedMaintenancesNestedInput
     asset?: AssetUpdateOneWithoutMaintenancesNestedInput
@@ -63103,6 +70681,7 @@ export namespace Prisma {
     processNotes?: NullableStringFieldUpdateOperationsInput | string | null
     metadata?: NullableJsonNullValueInput | InputJsonValue
     performerId?: NullableStringFieldUpdateOperationsInput | string | null
+    performerReference?: NullableEnumPerformerReferenceFieldUpdateOperationsInput | $Enums.PerformerReference | null
     processStatus?: EnumStatusFieldUpdateOperationsInput | $Enums.Status
     register?: NullableStringFieldUpdateOperationsInput | string | null
     activityIdTimer?: NullableStringFieldUpdateOperationsInput | string | null
@@ -63121,7 +70700,7 @@ export namespace Prisma {
     execStart?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     dueExecEndDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     execEndDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    dueClosuerDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    dueClosureDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     totalExecTime?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     expStartDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     suspensionReason?: NullableStringFieldUpdateOperationsInput | string | null
@@ -63130,6 +70709,7 @@ export namespace Prisma {
     buildingId?: NullableStringFieldUpdateOperationsInput | string | null
     teamId?: NullableStringFieldUpdateOperationsInput | string | null
     floorId?: NullableStringFieldUpdateOperationsInput | string | null
+    zoneId?: NullableStringFieldUpdateOperationsInput | string | null
     spaceId?: NullableStringFieldUpdateOperationsInput | string | null
     ttSystemOpening?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     ttWorkOpening?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
@@ -63167,6 +70747,7 @@ export namespace Prisma {
     processNotes?: NullableStringFieldUpdateOperationsInput | string | null
     metadata?: NullableJsonNullValueInput | InputJsonValue
     performerId?: NullableStringFieldUpdateOperationsInput | string | null
+    performerReference?: NullableEnumPerformerReferenceFieldUpdateOperationsInput | $Enums.PerformerReference | null
     processStatus?: EnumStatusFieldUpdateOperationsInput | $Enums.Status
     register?: NullableStringFieldUpdateOperationsInput | string | null
     activityIdTimer?: NullableStringFieldUpdateOperationsInput | string | null
@@ -63185,7 +70766,7 @@ export namespace Prisma {
     execStart?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     dueExecEndDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     execEndDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    dueClosuerDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    dueClosureDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     totalExecTime?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     expStartDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     suspensionReason?: NullableStringFieldUpdateOperationsInput | string | null
@@ -63194,6 +70775,7 @@ export namespace Prisma {
     buildingId?: NullableStringFieldUpdateOperationsInput | string | null
     teamId?: NullableStringFieldUpdateOperationsInput | string | null
     floorId?: NullableStringFieldUpdateOperationsInput | string | null
+    zoneId?: NullableStringFieldUpdateOperationsInput | string | null
     spaceId?: NullableStringFieldUpdateOperationsInput | string | null
     ttSystemOpening?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     ttWorkOpening?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
@@ -63229,6 +70811,7 @@ export namespace Prisma {
     processNotes?: string | null
     metadata?: NullableJsonNullValueInput | InputJsonValue
     performerId?: string | null
+    performerReference?: $Enums.PerformerReference | null
     processStatus?: $Enums.Status
     register?: string | null
     activityIdTimer?: string | null
@@ -63247,7 +70830,7 @@ export namespace Prisma {
     execStart?: Date | string | null
     dueExecEndDate?: Date | string | null
     execEndDate?: Date | string | null
-    dueClosuerDate?: Date | string | null
+    dueClosureDate?: Date | string | null
     totalExecTime?: Decimal | DecimalJsLike | number | string | null
     expStartDate?: Date | string | null
     suspensionReason?: string | null
@@ -63256,6 +70839,7 @@ export namespace Prisma {
     companyId?: string | null
     buildingId?: string | null
     floorId?: string | null
+    zoneId?: string | null
     spaceId?: string | null
     ttSystemOpening?: Decimal | DecimalJsLike | number | string | null
     ttWorkOpening?: Decimal | DecimalJsLike | number | string | null
@@ -63310,6 +70894,8 @@ export namespace Prisma {
     message?: NullableStringFieldUpdateOperationsInput | string | null
     processNotes?: NullableStringFieldUpdateOperationsInput | string | null
     metadata?: NullableJsonNullValueInput | InputJsonValue
+    performerId?: NullableStringFieldUpdateOperationsInput | string | null
+    performerReference?: NullableEnumPerformerReferenceFieldUpdateOperationsInput | $Enums.PerformerReference | null
     processStatus?: EnumStatusFieldUpdateOperationsInput | $Enums.Status
     register?: NullableStringFieldUpdateOperationsInput | string | null
     activityIdTimer?: NullableStringFieldUpdateOperationsInput | string | null
@@ -63326,7 +70912,7 @@ export namespace Prisma {
     execStart?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     dueExecEndDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     execEndDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    dueClosuerDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    dueClosureDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     totalExecTime?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     expStartDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     suspensionReason?: NullableStringFieldUpdateOperationsInput | string | null
@@ -63349,12 +70935,12 @@ export namespace Prisma {
     delayNotification?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    performer?: UserUpdateOneWithoutPerformedMaintenancesNestedInput
     requester?: UserUpdateOneWithoutRequestedMaintenancesNestedInput
     site?: ComplexUpdateOneRequiredWithoutMaintenancesNestedInput
     company?: CompanyUpdateOneWithoutMaintenancesNestedInput
     building?: BuildingUpdateOneWithoutMaintenancesNestedInput
     floor?: FloorUpdateOneWithoutMaintenancesNestedInput
+    zone?: ZoneUpdateOneWithoutMaintenancesNestedInput
     space?: SpaceUpdateOneWithoutMaintenancesNestedInput
     assignee?: UserUpdateOneWithoutAssignedMaintenancesNestedInput
     asset?: AssetUpdateOneWithoutMaintenancesNestedInput
@@ -63375,6 +70961,7 @@ export namespace Prisma {
     processNotes?: NullableStringFieldUpdateOperationsInput | string | null
     metadata?: NullableJsonNullValueInput | InputJsonValue
     performerId?: NullableStringFieldUpdateOperationsInput | string | null
+    performerReference?: NullableEnumPerformerReferenceFieldUpdateOperationsInput | $Enums.PerformerReference | null
     processStatus?: EnumStatusFieldUpdateOperationsInput | $Enums.Status
     register?: NullableStringFieldUpdateOperationsInput | string | null
     activityIdTimer?: NullableStringFieldUpdateOperationsInput | string | null
@@ -63393,7 +70980,7 @@ export namespace Prisma {
     execStart?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     dueExecEndDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     execEndDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    dueClosuerDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    dueClosureDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     totalExecTime?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     expStartDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     suspensionReason?: NullableStringFieldUpdateOperationsInput | string | null
@@ -63402,6 +70989,7 @@ export namespace Prisma {
     companyId?: NullableStringFieldUpdateOperationsInput | string | null
     buildingId?: NullableStringFieldUpdateOperationsInput | string | null
     floorId?: NullableStringFieldUpdateOperationsInput | string | null
+    zoneId?: NullableStringFieldUpdateOperationsInput | string | null
     spaceId?: NullableStringFieldUpdateOperationsInput | string | null
     ttSystemOpening?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     ttWorkOpening?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
@@ -63439,6 +71027,7 @@ export namespace Prisma {
     processNotes?: NullableStringFieldUpdateOperationsInput | string | null
     metadata?: NullableJsonNullValueInput | InputJsonValue
     performerId?: NullableStringFieldUpdateOperationsInput | string | null
+    performerReference?: NullableEnumPerformerReferenceFieldUpdateOperationsInput | $Enums.PerformerReference | null
     processStatus?: EnumStatusFieldUpdateOperationsInput | $Enums.Status
     register?: NullableStringFieldUpdateOperationsInput | string | null
     activityIdTimer?: NullableStringFieldUpdateOperationsInput | string | null
@@ -63457,7 +71046,7 @@ export namespace Prisma {
     execStart?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     dueExecEndDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     execEndDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    dueClosuerDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    dueClosureDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     totalExecTime?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     expStartDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     suspensionReason?: NullableStringFieldUpdateOperationsInput | string | null
@@ -63466,6 +71055,7 @@ export namespace Prisma {
     companyId?: NullableStringFieldUpdateOperationsInput | string | null
     buildingId?: NullableStringFieldUpdateOperationsInput | string | null
     floorId?: NullableStringFieldUpdateOperationsInput | string | null
+    zoneId?: NullableStringFieldUpdateOperationsInput | string | null
     spaceId?: NullableStringFieldUpdateOperationsInput | string | null
     ttSystemOpening?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     ttWorkOpening?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
@@ -63506,6 +71096,7 @@ export namespace Prisma {
     building?: BuildingUpdateOneWithoutPreventivesNestedInput
     floor?: FloorUpdateOneWithoutPreventivesNestedInput
     space?: SpaceUpdateOneWithoutPreventivesNestedInput
+    meterTriggers?: MeterMaintenanceTriggerUpdateManyWithoutPreventiveNestedInput
   }
 
   export type PreventiveUncheckedUpdateWithoutTeamInput = {
@@ -63526,6 +71117,7 @@ export namespace Prisma {
     spaceId?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    meterTriggers?: MeterMaintenanceTriggerUncheckedUpdateManyWithoutPreventiveNestedInput
   }
 
   export type PreventiveUncheckedUpdateManyWithoutTeamInput = {
@@ -63568,7 +71160,6 @@ export namespace Prisma {
     permissions?: PermissionUpdateManyWithoutUserNestedInput
     company?: CompanyUpdateOneWithoutEmployeesNestedInput
     calenderEntity?: CalenderEntityUpdateOneWithoutEmployeesNestedInput
-    performedMaintenances?: MaintenanceUpdateManyWithoutPerformerNestedInput
     requestedMaintenances?: MaintenanceUpdateManyWithoutRequesterNestedInput
     assignedMaintenances?: MaintenanceUpdateManyWithoutAssigneeNestedInput
     supervisedTeams?: TeamUpdateManyWithoutSupervisorNestedInput
@@ -63594,7 +71185,6 @@ export namespace Prisma {
     calenderEntityId?: NullableStringFieldUpdateOperationsInput | string | null
     refreshTokens?: RefreshTokenUncheckedUpdateManyWithoutUserNestedInput
     permissions?: PermissionUncheckedUpdateManyWithoutUserNestedInput
-    performedMaintenances?: MaintenanceUncheckedUpdateManyWithoutPerformerNestedInput
     requestedMaintenances?: MaintenanceUncheckedUpdateManyWithoutRequesterNestedInput
     assignedMaintenances?: MaintenanceUncheckedUpdateManyWithoutAssigneeNestedInput
     supervisedTeams?: TeamUncheckedUpdateManyWithoutSupervisorNestedInput
@@ -63904,6 +71494,7 @@ export namespace Prisma {
     floors?: FloorUpdateManyWithoutBuildingNestedInput
     preventives?: PreventiveUpdateManyWithoutBuildingNestedInput
     maintenances?: MaintenanceUpdateManyWithoutBuildingNestedInput
+    meters?: MeterUpdateManyWithoutBuildingNestedInput
   }
 
   export type BuildingUncheckedUpdateWithoutCalenderEntityInput = {
@@ -63933,6 +71524,7 @@ export namespace Prisma {
     floors?: FloorUncheckedUpdateManyWithoutBuildingNestedInput
     preventives?: PreventiveUncheckedUpdateManyWithoutBuildingNestedInput
     maintenances?: MaintenanceUncheckedUpdateManyWithoutBuildingNestedInput
+    meters?: MeterUncheckedUpdateManyWithoutBuildingNestedInput
   }
 
   export type BuildingUncheckedUpdateManyWithoutCalenderEntityInput = {
@@ -64065,6 +71657,7 @@ export namespace Prisma {
     photos?: FileUpdateManyWithoutSpacesNestedInput
     maintenances?: MaintenanceUpdateManyWithoutSpaceNestedInput
     preventives?: PreventiveUpdateManyWithoutSpaceNestedInput
+    meters?: MeterUpdateManyWithoutSpaceNestedInput
     assets?: AssetUpdateManyWithoutSpaceNestedInput
   }
 
@@ -64090,6 +71683,7 @@ export namespace Prisma {
     photos?: FileUncheckedUpdateManyWithoutSpacesNestedInput
     maintenances?: MaintenanceUncheckedUpdateManyWithoutSpaceNestedInput
     preventives?: PreventiveUncheckedUpdateManyWithoutSpaceNestedInput
+    meters?: MeterUncheckedUpdateManyWithoutSpaceNestedInput
     assets?: AssetUncheckedUpdateManyWithoutSpaceNestedInput
   }
 
@@ -64145,6 +71739,9 @@ export namespace Prisma {
     floor?: FloorUpdateOneRequiredWithoutZonesNestedInput
     rooms?: SpaceUpdateManyWithoutZoneNestedInput
     photos?: FileUpdateManyWithoutZonesNestedInput
+    items?: MaintenanceItemUpdateManyWithoutZoneNestedInput
+    meters?: MeterUpdateManyWithoutZoneNestedInput
+    maintenances?: MaintenanceUpdateManyWithoutZoneNestedInput
   }
 
   export type ZoneUncheckedUpdateWithoutCalenderEntityInput = {
@@ -64178,6 +71775,9 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     rooms?: SpaceUncheckedUpdateManyWithoutZoneNestedInput
     photos?: FileUncheckedUpdateManyWithoutZonesNestedInput
+    items?: MaintenanceItemUncheckedUpdateManyWithoutZoneNestedInput
+    meters?: MeterUncheckedUpdateManyWithoutZoneNestedInput
+    maintenances?: MaintenanceUncheckedUpdateManyWithoutZoneNestedInput
   }
 
   export type ZoneUncheckedUpdateManyWithoutCalenderEntityInput = {
@@ -64231,7 +71831,6 @@ export namespace Prisma {
     permissions?: PermissionUpdateManyWithoutUserNestedInput
     company?: CompanyUpdateOneWithoutEmployeesNestedInput
     teams?: TeamUpdateManyWithoutMembersNestedInput
-    performedMaintenances?: MaintenanceUpdateManyWithoutPerformerNestedInput
     requestedMaintenances?: MaintenanceUpdateManyWithoutRequesterNestedInput
     assignedMaintenances?: MaintenanceUpdateManyWithoutAssigneeNestedInput
     supervisedTeams?: TeamUpdateManyWithoutSupervisorNestedInput
@@ -64257,7 +71856,6 @@ export namespace Prisma {
     refreshTokens?: RefreshTokenUncheckedUpdateManyWithoutUserNestedInput
     permissions?: PermissionUncheckedUpdateManyWithoutUserNestedInput
     teams?: TeamUncheckedUpdateManyWithoutMembersNestedInput
-    performedMaintenances?: MaintenanceUncheckedUpdateManyWithoutPerformerNestedInput
     requestedMaintenances?: MaintenanceUncheckedUpdateManyWithoutRequesterNestedInput
     assignedMaintenances?: MaintenanceUncheckedUpdateManyWithoutAssigneeNestedInput
     supervisedTeams?: TeamUncheckedUpdateManyWithoutSupervisorNestedInput
@@ -64294,6 +71892,7 @@ export namespace Prisma {
     itemId: string
     createdAt?: Date | string
     updatedAt?: Date | string
+    zoneId?: string | null
   }
 
   export type FileUpdateWithoutMaintenanceInput = {
@@ -64326,6 +71925,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     item?: ItemUpdateOneRequiredWithoutMaintenanceItemsNestedInput
+    zone?: ZoneUpdateOneWithoutItemsNestedInput
   }
 
   export type MaintenanceItemUncheckedUpdateWithoutMaintenanceInput = {
@@ -64335,6 +71935,7 @@ export namespace Prisma {
     itemId?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    zoneId?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type MaintenanceItemUncheckedUpdateManyWithoutMaintenanceInput = {
@@ -64342,6 +71943,47 @@ export namespace Prisma {
     quantity?: IntFieldUpdateOperationsInput | number
     cost?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     itemId?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    zoneId?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
+  export type MeterMaintenanceTriggerCreateManyPreventiveInput = {
+    id?: string
+    meterId: string
+    condition: $Enums.TriggerCondition
+    triggerValue: Decimal | DecimalJsLike | number | string
+    lastTriggerReading?: Decimal | DecimalJsLike | number | string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type MeterMaintenanceTriggerUpdateWithoutPreventiveInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    condition?: EnumTriggerConditionFieldUpdateOperationsInput | $Enums.TriggerCondition
+    triggerValue?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    lastTriggerReading?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    meter?: MeterUpdateOneRequiredWithoutPreventiveTriggersNestedInput
+  }
+
+  export type MeterMaintenanceTriggerUncheckedUpdateWithoutPreventiveInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    meterId?: StringFieldUpdateOperationsInput | string
+    condition?: EnumTriggerConditionFieldUpdateOperationsInput | $Enums.TriggerCondition
+    triggerValue?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    lastTriggerReading?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type MeterMaintenanceTriggerUncheckedUpdateManyWithoutPreventiveInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    meterId?: StringFieldUpdateOperationsInput | string
+    condition?: EnumTriggerConditionFieldUpdateOperationsInput | $Enums.TriggerCondition
+    triggerValue?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    lastTriggerReading?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -64361,7 +72003,7 @@ export namespace Prisma {
     itemId: string
     targetWarehouseId?: string | null
     referenceId?: string | null
-    referenceType?: $Enums.StockReferenceType | null
+    referenceType?: $Enums.StockReferenceType
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -64373,7 +72015,7 @@ export namespace Prisma {
     itemId: string
     warehouseId: string
     referenceId?: string | null
-    referenceType?: $Enums.StockReferenceType | null
+    referenceType?: $Enums.StockReferenceType
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -64407,7 +72049,7 @@ export namespace Prisma {
     type?: EnumStockMovementTypeFieldUpdateOperationsInput | $Enums.StockMovementType
     quantity?: IntFieldUpdateOperationsInput | number
     referenceId?: NullableStringFieldUpdateOperationsInput | string | null
-    referenceType?: NullableEnumStockReferenceTypeFieldUpdateOperationsInput | $Enums.StockReferenceType | null
+    referenceType?: EnumStockReferenceTypeFieldUpdateOperationsInput | $Enums.StockReferenceType
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     item?: ItemUpdateOneRequiredWithoutStockMovementsNestedInput
@@ -64421,7 +72063,7 @@ export namespace Prisma {
     itemId?: StringFieldUpdateOperationsInput | string
     targetWarehouseId?: NullableStringFieldUpdateOperationsInput | string | null
     referenceId?: NullableStringFieldUpdateOperationsInput | string | null
-    referenceType?: NullableEnumStockReferenceTypeFieldUpdateOperationsInput | $Enums.StockReferenceType | null
+    referenceType?: EnumStockReferenceTypeFieldUpdateOperationsInput | $Enums.StockReferenceType
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -64433,7 +72075,7 @@ export namespace Prisma {
     itemId?: StringFieldUpdateOperationsInput | string
     targetWarehouseId?: NullableStringFieldUpdateOperationsInput | string | null
     referenceId?: NullableStringFieldUpdateOperationsInput | string | null
-    referenceType?: NullableEnumStockReferenceTypeFieldUpdateOperationsInput | $Enums.StockReferenceType | null
+    referenceType?: EnumStockReferenceTypeFieldUpdateOperationsInput | $Enums.StockReferenceType
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -64443,7 +72085,7 @@ export namespace Prisma {
     type?: EnumStockMovementTypeFieldUpdateOperationsInput | $Enums.StockMovementType
     quantity?: IntFieldUpdateOperationsInput | number
     referenceId?: NullableStringFieldUpdateOperationsInput | string | null
-    referenceType?: NullableEnumStockReferenceTypeFieldUpdateOperationsInput | $Enums.StockReferenceType | null
+    referenceType?: EnumStockReferenceTypeFieldUpdateOperationsInput | $Enums.StockReferenceType
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     item?: ItemUpdateOneRequiredWithoutStockMovementsNestedInput
@@ -64457,7 +72099,7 @@ export namespace Prisma {
     itemId?: StringFieldUpdateOperationsInput | string
     warehouseId?: StringFieldUpdateOperationsInput | string
     referenceId?: NullableStringFieldUpdateOperationsInput | string | null
-    referenceType?: NullableEnumStockReferenceTypeFieldUpdateOperationsInput | $Enums.StockReferenceType | null
+    referenceType?: EnumStockReferenceTypeFieldUpdateOperationsInput | $Enums.StockReferenceType
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -64469,7 +72111,7 @@ export namespace Prisma {
     itemId?: StringFieldUpdateOperationsInput | string
     warehouseId?: StringFieldUpdateOperationsInput | string
     referenceId?: NullableStringFieldUpdateOperationsInput | string | null
-    referenceType?: NullableEnumStockReferenceTypeFieldUpdateOperationsInput | $Enums.StockReferenceType | null
+    referenceType?: EnumStockReferenceTypeFieldUpdateOperationsInput | $Enums.StockReferenceType
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -64489,7 +72131,7 @@ export namespace Prisma {
     warehouseId: string
     targetWarehouseId?: string | null
     referenceId?: string | null
-    referenceType?: $Enums.StockReferenceType | null
+    referenceType?: $Enums.StockReferenceType
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -64501,6 +72143,7 @@ export namespace Prisma {
     maintenanceId: string
     createdAt?: Date | string
     updatedAt?: Date | string
+    zoneId?: string | null
   }
 
   export type StockUpdateWithoutItemInput = {
@@ -64532,7 +72175,7 @@ export namespace Prisma {
     type?: EnumStockMovementTypeFieldUpdateOperationsInput | $Enums.StockMovementType
     quantity?: IntFieldUpdateOperationsInput | number
     referenceId?: NullableStringFieldUpdateOperationsInput | string | null
-    referenceType?: NullableEnumStockReferenceTypeFieldUpdateOperationsInput | $Enums.StockReferenceType | null
+    referenceType?: EnumStockReferenceTypeFieldUpdateOperationsInput | $Enums.StockReferenceType
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     warehouse?: WarehouseUpdateOneRequiredWithoutStockMovementsNestedInput
@@ -64546,7 +72189,7 @@ export namespace Prisma {
     warehouseId?: StringFieldUpdateOperationsInput | string
     targetWarehouseId?: NullableStringFieldUpdateOperationsInput | string | null
     referenceId?: NullableStringFieldUpdateOperationsInput | string | null
-    referenceType?: NullableEnumStockReferenceTypeFieldUpdateOperationsInput | $Enums.StockReferenceType | null
+    referenceType?: EnumStockReferenceTypeFieldUpdateOperationsInput | $Enums.StockReferenceType
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -64558,7 +72201,7 @@ export namespace Prisma {
     warehouseId?: StringFieldUpdateOperationsInput | string
     targetWarehouseId?: NullableStringFieldUpdateOperationsInput | string | null
     referenceId?: NullableStringFieldUpdateOperationsInput | string | null
-    referenceType?: NullableEnumStockReferenceTypeFieldUpdateOperationsInput | $Enums.StockReferenceType | null
+    referenceType?: EnumStockReferenceTypeFieldUpdateOperationsInput | $Enums.StockReferenceType
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -64570,6 +72213,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     maintenance?: MaintenanceUpdateOneRequiredWithoutMaintenanceItemsNestedInput
+    zone?: ZoneUpdateOneWithoutItemsNestedInput
   }
 
   export type MaintenanceItemUncheckedUpdateWithoutItemInput = {
@@ -64579,6 +72223,7 @@ export namespace Prisma {
     maintenanceId?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    zoneId?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type MaintenanceItemUncheckedUpdateManyWithoutItemInput = {
@@ -64586,6 +72231,83 @@ export namespace Prisma {
     quantity?: IntFieldUpdateOperationsInput | number
     cost?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     maintenanceId?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    zoneId?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
+  export type MeterReadingCreateManyMeterInput = {
+    id?: string
+    value: Decimal | DecimalJsLike | number | string
+    timestamp?: Date | string
+    source?: $Enums.MeterReadingSource
+    recordedByUserId?: string | null
+    createdAt?: Date | string
+  }
+
+  export type MeterMaintenanceTriggerCreateManyMeterInput = {
+    id?: string
+    preventiveId: string
+    condition: $Enums.TriggerCondition
+    triggerValue: Decimal | DecimalJsLike | number | string
+    lastTriggerReading?: Decimal | DecimalJsLike | number | string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type MeterReadingUpdateWithoutMeterInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    value?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    timestamp?: DateTimeFieldUpdateOperationsInput | Date | string
+    source?: EnumMeterReadingSourceFieldUpdateOperationsInput | $Enums.MeterReadingSource
+    recordedByUserId?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type MeterReadingUncheckedUpdateWithoutMeterInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    value?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    timestamp?: DateTimeFieldUpdateOperationsInput | Date | string
+    source?: EnumMeterReadingSourceFieldUpdateOperationsInput | $Enums.MeterReadingSource
+    recordedByUserId?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type MeterReadingUncheckedUpdateManyWithoutMeterInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    value?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    timestamp?: DateTimeFieldUpdateOperationsInput | Date | string
+    source?: EnumMeterReadingSourceFieldUpdateOperationsInput | $Enums.MeterReadingSource
+    recordedByUserId?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type MeterMaintenanceTriggerUpdateWithoutMeterInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    condition?: EnumTriggerConditionFieldUpdateOperationsInput | $Enums.TriggerCondition
+    triggerValue?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    lastTriggerReading?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    preventive?: PreventiveUpdateOneRequiredWithoutMeterTriggersNestedInput
+  }
+
+  export type MeterMaintenanceTriggerUncheckedUpdateWithoutMeterInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    preventiveId?: StringFieldUpdateOperationsInput | string
+    condition?: EnumTriggerConditionFieldUpdateOperationsInput | $Enums.TriggerCondition
+    triggerValue?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    lastTriggerReading?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type MeterMaintenanceTriggerUncheckedUpdateManyWithoutMeterInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    preventiveId?: StringFieldUpdateOperationsInput | string
+    condition?: EnumTriggerConditionFieldUpdateOperationsInput | $Enums.TriggerCondition
+    triggerValue?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    lastTriggerReading?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }

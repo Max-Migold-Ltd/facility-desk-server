@@ -31,6 +31,7 @@ import warehouseRoutes from "./modules/logistics/routes/warehouse.routes";
 
 import teamsRoutes from "./modules/teams/teams.routes";
 import maintenanceRoutes from "./modules/maintenance/maintenance.routes";
+import meteringRoutes from "./modules/metering/metering.routes";
 
 const app: Application = express();
 
@@ -94,14 +95,21 @@ app.use(`/api/${API_VERSION}/spaces`, apiRateLimiter, spaceRoutes);
 app.use(
   `/api/${API_VERSION}/asset-categories`,
   apiRateLimiter,
-  assetCategoryRoutes
+  assetCategoryRoutes,
 );
 app.use(`/api/${API_VERSION}/assets`, apiRateLimiter, assetRoutes);
 
 // LOGISTICS
 app.use(`/api/${API_VERSION}/logistics/items`, apiRateLimiter, itemRoutes);
-app.use(`/api/${API_VERSION}/logistics/warehouses`, apiRateLimiter, warehouseRoutes);
+app.use(
+  `/api/${API_VERSION}/logistics/warehouses`,
+  apiRateLimiter,
+  warehouseRoutes,
+);
 app.use(`/api/${API_VERSION}/logistics/stocks`, apiRateLimiter, stockRoutes);
+
+// METERING
+app.use(`/api/${API_VERSION}/meters`, apiRateLimiter, meteringRoutes);
 
 // 404 handler
 app.use((req: Request, res: Response) => {

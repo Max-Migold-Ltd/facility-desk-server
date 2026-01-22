@@ -15,12 +15,13 @@ export class MaintenanceItemController {
    */
   async addItem(req: Request, res: Response, next: NextFunction) {
     try {
-      const { maintenanceId } = req.params;
+      // const { maintenanceId } = req.params;
+      let maintenanceId = req.params.maintenanceId || req.body.maintenanceId;
       const { itemId, quantity, warehouseId } = req.body;
 
       if (!itemId || !quantity || !warehouseId) {
         throw new BadRequestError(
-          "ItemId, Quantity, and WarehouseId are required"
+          "ItemId, Quantity, and WarehouseId are required",
         );
       }
 

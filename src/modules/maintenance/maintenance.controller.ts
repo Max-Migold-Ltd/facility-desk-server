@@ -10,7 +10,7 @@ export class MaintenanceController {
       const maintenance = await maintenanceService.create(req.body);
       res.status(201).json({
         success: true,
-        data: { maintenance },
+        data: maintenance,
       });
     } catch (error) {
       next(error);
@@ -20,11 +20,12 @@ export class MaintenanceController {
   async getAll(req: Request, res: Response, next: NextFunction) {
     try {
       const result = await maintenanceService.findAll(
-        req.query as unknown as MaintenanceQueryDto
+        req.query as unknown as MaintenanceQueryDto,
       );
       res.status(200).json({
         success: true,
-        data: result,
+        data: result.maintenances,
+        pagination: result.pagination,
       });
     } catch (error) {
       next(error);
@@ -47,11 +48,11 @@ export class MaintenanceController {
     try {
       const maintenance = await maintenanceService.update(
         req.params.id,
-        req.body
+        req.body,
       );
       res.status(200).json({
         success: true,
-        data: { maintenance },
+        data: maintenance,
       });
     } catch (error) {
       next(error);
@@ -75,11 +76,11 @@ export class MaintenanceController {
       const maintenance = await maintenanceService.assign(
         req.params.id,
         assigneeId,
-        teamId
+        teamId,
       );
       res.status(200).json({
         success: true,
-        data: { maintenance },
+        data: maintenance,
       });
     } catch (error) {
       next(error);
@@ -92,11 +93,11 @@ export class MaintenanceController {
       const maintenance = await maintenanceService.updateStatus(
         req.params.id,
         status,
-        notes
+        notes,
       );
       res.status(200).json({
         success: true,
-        data: { maintenance },
+        data: maintenance,
       });
     } catch (error) {
       next(error);
@@ -109,7 +110,7 @@ export class MaintenanceController {
       const maintenance = await maintenanceService.addPhoto(req.params.id, url);
       res.status(200).json({
         success: true,
-        data: { maintenance },
+        data: maintenance,
       });
     } catch (error) {
       next(error);

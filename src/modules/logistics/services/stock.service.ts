@@ -130,7 +130,6 @@ export class StockService {
       targetWarehouseId,
       referenceId,
       referenceType,
-      notes,
     } = data;
 
     // Verify Item and Warehouse exist

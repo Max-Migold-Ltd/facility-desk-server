@@ -7,6 +7,8 @@ import maintenanceItemRouter from "./routes/maintenance-item.routes";
 // import { requirePermission } from "../../middleware/permission.middleware"; // Use if needed
 
 const router = Router();
+
+router.use("/:maintenanceId/items", maintenanceItemRouter);
 const maintenanceController = new MaintenanceController();
 
 router.use(authenticate);
@@ -271,8 +273,5 @@ router.post(
   validate([body("url").isURL().withMessage("Valid URL is required")]),
   maintenanceController.attachPhoto
 );
-
-// Mount Maintenance Item Routes (e.g., /:maintenanceId/items)
-router.use("/:maintenanceId", maintenanceItemRouter);
 
 export default router;

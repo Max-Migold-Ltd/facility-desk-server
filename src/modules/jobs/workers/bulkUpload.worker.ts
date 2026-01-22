@@ -24,7 +24,7 @@ const floorService = new FloorsService();
 const spaceService = new SpacesService();
 const zoneService = new ZonesService();
 
-const connection = new IORedis(process.env.REDIS_URL!, {
+const connection = new IORedis({
   maxRetriesPerRequest: null,
 });
 

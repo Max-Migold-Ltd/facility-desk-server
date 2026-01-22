@@ -392,6 +392,7 @@ exports.Prisma.MaintenanceScalarFieldEnum = {
   processNotes: 'processNotes',
   metadata: 'metadata',
   performerId: 'performerId',
+  performerReference: 'performerReference',
   processStatus: 'processStatus',
   register: 'register',
   activityIdTimer: 'activityIdTimer',
@@ -410,7 +411,7 @@ exports.Prisma.MaintenanceScalarFieldEnum = {
   execStart: 'execStart',
   dueExecEndDate: 'dueExecEndDate',
   execEndDate: 'execEndDate',
-  dueClosuerDate: 'dueClosuerDate',
+  dueClosureDate: 'dueClosureDate',
   totalExecTime: 'totalExecTime',
   expStartDate: 'expStartDate',
   suspensionReason: 'suspensionReason',
@@ -420,6 +421,7 @@ exports.Prisma.MaintenanceScalarFieldEnum = {
   buildingId: 'buildingId',
   teamId: 'teamId',
   floorId: 'floorId',
+  zoneId: 'zoneId',
   spaceId: 'spaceId',
   ttSystemOpening: 'ttSystemOpening',
   ttWorkOpening: 'ttWorkOpening',
@@ -512,7 +514,8 @@ exports.Prisma.MaintenanceItemScalarFieldEnum = {
   maintenanceId: 'maintenanceId',
   itemId: 'itemId',
   createdAt: 'createdAt',
-  updatedAt: 'updatedAt'
+  updatedAt: 'updatedAt',
+  zoneId: 'zoneId'
 };
 
 exports.Prisma.RefreshTokenScalarFieldEnum = {
@@ -520,6 +523,40 @@ exports.Prisma.RefreshTokenScalarFieldEnum = {
   token: 'token',
   userId: 'userId',
   expiresAt: 'expiresAt',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.MeterScalarFieldEnum = {
+  id: 'id',
+  name: 'name',
+  type: 'type',
+  unit: 'unit',
+  assetId: 'assetId',
+  buildingId: 'buildingId',
+  zoneId: 'zoneId',
+  spaceId: 'spaceId',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.MeterReadingScalarFieldEnum = {
+  id: 'id',
+  value: 'value',
+  timestamp: 'timestamp',
+  source: 'source',
+  meterId: 'meterId',
+  recordedByUserId: 'recordedByUserId',
+  createdAt: 'createdAt'
+};
+
+exports.Prisma.MeterMaintenanceTriggerScalarFieldEnum = {
+  id: 'id',
+  meterId: 'meterId',
+  preventiveId: 'preventiveId',
+  condition: 'condition',
+  triggerValue: 'triggerValue',
+  lastTriggerReading: 'lastTriggerReading',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 };
@@ -679,6 +716,12 @@ exports.MaintenanceType = exports.$Enums.MaintenanceType = {
   SOFT_SERVICE: 'SOFT_SERVICE'
 };
 
+exports.PerformerReference = exports.$Enums.PerformerReference = {
+  USER: 'USER',
+  TEAM: 'TEAM',
+  COMPANY: 'COMPANY'
+};
+
 exports.Status = exports.$Enums.Status = {
   PENDING: 'PENDING',
   IN_PROGRESS: 'IN_PROGRESS',
@@ -717,6 +760,23 @@ exports.StockReferenceType = exports.$Enums.StockReferenceType = {
   OTHER: 'OTHER'
 };
 
+exports.MeterType = exports.$Enums.MeterType = {
+  CUMULATIVE: 'CUMULATIVE',
+  GAUGE: 'GAUGE'
+};
+
+exports.MeterReadingSource = exports.$Enums.MeterReadingSource = {
+  MANUAL: 'MANUAL',
+  IOT_API: 'IOT_API',
+  CSV_IMPORT: 'CSV_IMPORT'
+};
+
+exports.TriggerCondition = exports.$Enums.TriggerCondition = {
+  EVERY_X_UNITS: 'EVERY_X_UNITS',
+  ABOVE_THRESHOLD: 'ABOVE_THRESHOLD',
+  BELOW_THRESHOLD: 'BELOW_THRESHOLD'
+};
+
 exports.Prisma.ModelName = {
   User: 'User',
   Role: 'Role',
@@ -743,7 +803,10 @@ exports.Prisma.ModelName = {
   Stock: 'Stock',
   StockMovement: 'StockMovement',
   MaintenanceItem: 'MaintenanceItem',
-  RefreshToken: 'RefreshToken'
+  RefreshToken: 'RefreshToken',
+  Meter: 'Meter',
+  MeterReading: 'MeterReading',
+  MeterMaintenanceTrigger: 'MeterMaintenanceTrigger'
 };
 
 /**

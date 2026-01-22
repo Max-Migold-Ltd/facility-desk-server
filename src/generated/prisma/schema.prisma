@@ -158,6 +158,12 @@ enum StockReferenceType {
   OTHER
 }
 
+enum PerformerReference {
+  USER
+  TEAM
+  COMPANY
+}
+
 enum State {
   Fct
   Abia
@@ -232,7 +238,6 @@ model User {
 
   // Relations
   teams                 Team[]
-  performedMaintenances Maintenance[] @relation("MaintenancePerformer")
   requestedMaintenances Maintenance[] @relation("MaintenanceRequester")
   assignedMaintenances  Maintenance[] @relation("MaintenanceAssignee")
   supervisedTeams       Team[]        @relation("TeamSupervisor")
@@ -374,6 +379,7 @@ model Building {
   updatedAt    DateTime      @updatedAt
   preventives  Preventive[]
   maintenances Maintenance[]
+  meters       Meter[]
 
   @@unique([complexId, name])
   @@map("buildings")
@@ -456,9 +462,12 @@ model Zone {
 
   rooms  Space[]
   photos File[]
+  items  MaintenanceItem[]
+  meters Meter[]
 
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  createdAt    DateTime      @default(now())
+  updatedAt    DateTime      @updatedAt
+  maintenances Maintenance[]
 
   @@unique([floorId, name])
   @@map("zones")
@@ -499,6 +508,7 @@ model Space {
   updatedAt    DateTime      @updatedAt
   maintenances Maintenance[]
   preventives  Preventive[]
+  meters       Meter[]
 
   assets Asset[]
 
@@ -550,6 +560,7 @@ model Asset {
   updatedAt    DateTime      @updatedAt
   maintenances Maintenance[]
   preventives  Preventive[]
+  meters       Meter[]
 
   @@index([name])
   @@map("assets")
@@ -613,13 +624,14 @@ model Team {
 }
 
 model Address {
-  id         String      @id @default(uuid())
-  street     String
-  city       String
-  state      State       @default(Lagos)
-  zipCode    String?
-  latitude   Float?
-  longitude  Float?
+  id        String  @id @default(uuid())
+  street    String
+  city      String
+  state     State   @default(Lagos)
+  zipCode   String?
+  latitude  Float?
+  longitude Float?
+
   companies  Company[]
   sites      Site[]
   warehouses Warehouse[]
@@ -663,8 +675,8 @@ model Maintenance {
   processNotes     String?
   metadata         Json? // Use Zod schema to validate based on type
 
-  performerId String?
-  performer   User?   @relation("MaintenancePerformer", fields: [performerId], references: [id], onDelete: Cascade)
+  performerId        String?
+  performerReference PerformerReference?
 
   processStatus     Status      @default(PENDING)
   register          String?
@@ -690,7 +702,7 @@ model Maintenance {
   execStart      DateTime? // Execution start date
   dueExecEndDate DateTime? // Due execution end date
   execEndDate    DateTime? // Execution end date
-  dueClosuerDate DateTime? // Due closure date
+  dueClosureDate DateTime? // Due closure date
   totalExecTime  Decimal? // Total execution time
 
   expStartDate DateTime?
@@ -710,6 +722,8 @@ model Maintenance {
   team    Team?   @relation(fields: [teamId], references: [id], onDelete: Cascade)
   floorId String?
   floor   Floor?  @relation(fields: [floorId], references: [id], onDelete: Cascade)
+  zoneId  String?
+  zone    Zone?   @relation(fields: [zoneId], references: [id], onDelete: Cascade)
   spaceId String?
   space   Space?  @relation(fields: [spaceId], references: [id], onDelete: Cascade)
 
@@ -782,6 +796,8 @@ model Preventive {
   teamId String?
   team   Team?   @relation(fields: [teamId], references: [id])
 
+  meterTriggers MeterMaintenanceTrigger[]
+
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
@@ -789,24 +805,27 @@ model Preventive {
 }
 
 model Warehouse {
-  id                     String          @id @default(uuid())
+  id          String  @id @default(uuid())
   // status         WarehouseStatus         Abandoned, Active, Inactive
-  name                   String
-  description            String?
-  address                Address         @relation(fields: [addressId], references: [id], onDelete: Cascade)
-  addressId              String
-  createdAt              DateTime        @default(now())
-  updatedAt              DateTime        @updatedAt
+  name        String
+  description String?
+
+  address   Address @relation(fields: [addressId], references: [id], onDelete: Cascade)
+  addressId String
+
   stocks                 Stock[]
   stockMovements         StockMovement[] @relation("WarehouseStockMovements")
   incomingStockMovements StockMovement[] @relation("TargetWarehouseStockMovements")
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 
   @@map("warehouses")
 }
 
 model Item {
   id            String  @id @default(uuid())
-  name          String
+  name          String  @unique
   description   String?
   code          String  @unique
   category      String?
@@ -840,7 +859,7 @@ model Stock {
 
 model StockMovement {
   id       String            @id @default(uuid())
-  type     StockMovementType @default(LOAD)
+  type     StockMovementType @default(LOAD) // transfering stsocks should be done using prisma transactions
   quantity Int               @default(0)
 
   itemId String
@@ -854,7 +873,7 @@ model StockMovement {
 
   // Context & Traceability
   referenceId   String?
-  referenceType StockReferenceType?
+  referenceType StockReferenceType @default(MAINTENANCE)
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
@@ -875,6 +894,8 @@ model MaintenanceItem {
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+  zone      Zone?    @relation(fields: [zoneId], references: [id])
+  zoneId    String?
 
   @@unique([maintenanceId, itemId])
   @@map("maintenance_items")
@@ -892,4 +913,89 @@ model RefreshToken {
   @@index([token])
   @@index([userId])
   @@map("refresh_tokens")
+}
+
+// =======================================================================
+// =========================== METERING ================================== 
+// =======================================================================
+
+enum MeterType {
+  CUMULATIVE // e.g., Odometer, Water Meter (Always increases)
+  GAUGE // e.g., Temperature, Pressure (Fluctuates)
+}
+
+enum MeterReadingSource {
+  MANUAL
+  IOT_API
+  CSV_IMPORT
+}
+
+enum TriggerCondition {
+  EVERY_X_UNITS // For Cumulative: Trigger every 1000 hours
+  ABOVE_THRESHOLD // For Gauge: Trigger if > 80 degrees
+  BELOW_THRESHOLD // For Gauge: Trigger if < 10 psi
+}
+
+model Meter {
+  id   String    @id @default(uuid())
+  name String
+  type MeterType @default(CUMULATIVE)
+  unit String // e.g., "kWh", "Hours", "Degrees"
+
+  // Location/Asset Attachment (Polymorphic-style: Only one should be set)
+  assetId    String?
+  asset      Asset?    @relation(fields: [assetId], references: [id])
+  buildingId String?
+  building   Building? @relation(fields: [buildingId], references: [id])
+  zoneId     String?
+  zone       Zone?     @relation(fields: [zoneId], references: [id])
+  spaceId    String?
+  space      Space?    @relation(fields: [spaceId], references: [id])
+
+  readings           MeterReading[]
+  preventiveTriggers MeterMaintenanceTrigger[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@map("meters")
+}
+
+model MeterReading {
+  id        String             @id @default(uuid())
+  value     Decimal            @db.Decimal(10, 2)
+  timestamp DateTime           @default(now())
+  source    MeterReadingSource @default(MANUAL)
+
+  meterId String
+  meter   Meter  @relation(fields: [meterId], references: [id], onDelete: Cascade)
+
+  // Traceability
+  recordedByUserId String?
+
+  createdAt DateTime @default(now())
+
+  @@index([meterId, timestamp])
+  @@map("meter_readings")
+}
+
+model MeterMaintenanceTrigger {
+  id String @id @default(uuid())
+
+  meterId String
+  meter   Meter  @relation(fields: [meterId], references: [id], onDelete: Cascade)
+
+  preventiveId String
+  preventive   Preventive @relation(fields: [preventiveId], references: [id], onDelete: Cascade)
+
+  condition    TriggerCondition
+  triggerValue Decimal          @db.Decimal(10, 2) // The "X" in Every X, or the Threshold
+
+  // State tracking for Cumulative triggers
+  lastTriggerReading Decimal? @db.Decimal(10, 2) // Reading value when last triggered
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@map("meter_maintenance_triggers")
 }
