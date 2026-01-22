@@ -1,0 +1,21 @@
+{
+  "code": "P2002",
+  "meta": {
+    "modelName": "Preventive",
+    "driverAdapterError": {
+      "name": "DriverAdapterError",
+      "cause": {
+        "originalCode": "23505",
+        "originalMessage": "duplicate key value violates unique constraint \"complexes_code_key\"",
+        "kind": "UniqueConstraintViolation",
+        "constraint": {
+          "fields": [
+            "code"
+          ]
+        }
+      }
+    }
+  },
+  "clientVersion": "7.0.1",
+  "name": "PrismaClientKnownRequestError"
+}
