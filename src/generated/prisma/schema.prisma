@@ -551,6 +551,7 @@ model AssetCategory {
 
 model Asset {
   id          String        @id @default(uuid())
+  assetTag    String?
   name        String
   description String?
   categoryId  String

@@ -133,3 +133,5 @@ Stock movements:
 
 
  An asset is what you maintain; an item is what you consume to maintain it.
+
+Create QRCode for assets

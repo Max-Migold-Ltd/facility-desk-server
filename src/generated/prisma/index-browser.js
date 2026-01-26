@@ -316,6 +316,7 @@ exports.Prisma.AssetCategoryScalarFieldEnum = {
 
 exports.Prisma.AssetScalarFieldEnum = {
   id: 'id',
+  assetTag: 'assetTag',
   name: 'name',
   description: 'description',
   categoryId: 'categoryId',

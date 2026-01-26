@@ -19787,6 +19787,7 @@ export namespace Prisma {
 
   export type AssetMinAggregateOutputType = {
     id: string | null
+    assetTag: string | null
     name: string | null
     description: string | null
     categoryId: string | null
@@ -19800,6 +19801,7 @@ export namespace Prisma {
 
   export type AssetMaxAggregateOutputType = {
     id: string | null
+    assetTag: string | null
     name: string | null
     description: string | null
     categoryId: string | null
@@ -19813,6 +19815,7 @@ export namespace Prisma {
 
   export type AssetCountAggregateOutputType = {
     id: number
+    assetTag: number
     name: number
     description: number
     categoryId: number
@@ -19828,6 +19831,7 @@ export namespace Prisma {
 
   export type AssetMinAggregateInputType = {
     id?: true
+    assetTag?: true
     name?: true
     description?: true
     categoryId?: true
@@ -19841,6 +19845,7 @@ export namespace Prisma {
 
   export type AssetMaxAggregateInputType = {
     id?: true
+    assetTag?: true
     name?: true
     description?: true
     categoryId?: true
@@ -19854,6 +19859,7 @@ export namespace Prisma {
 
   export type AssetCountAggregateInputType = {
     id?: true
+    assetTag?: true
     name?: true
     description?: true
     categoryId?: true
@@ -19940,6 +19946,7 @@ export namespace Prisma {
 
   export type AssetGroupByOutputType = {
     id: string
+    assetTag: string | null
     name: string
     description: string | null
     categoryId: string
@@ -19970,6 +19977,7 @@ export namespace Prisma {
 
   export type AssetSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
+    assetTag?: boolean
     name?: boolean
     description?: boolean
     categoryId?: boolean
@@ -19992,6 +20000,7 @@ export namespace Prisma {
 
   export type AssetSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
+    assetTag?: boolean
     name?: boolean
     description?: boolean
     categoryId?: boolean
@@ -20009,6 +20018,7 @@ export namespace Prisma {
 
   export type AssetSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
+    assetTag?: boolean
     name?: boolean
     description?: boolean
     categoryId?: boolean
@@ -20026,6 +20036,7 @@ export namespace Prisma {
 
   export type AssetSelectScalar = {
     id?: boolean
+    assetTag?: boolean
     name?: boolean
     description?: boolean
     categoryId?: boolean
@@ -20037,7 +20048,7 @@ export namespace Prisma {
     costCenterId?: boolean
   }
 
-  export type AssetOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "description" | "categoryId" | "tag" | "parentSystemId" | "spaceId" | "createdAt" | "updatedAt" | "costCenterId", ExtArgs["result"]["asset"]>
+  export type AssetOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "assetTag" | "name" | "description" | "categoryId" | "tag" | "parentSystemId" | "spaceId" | "createdAt" | "updatedAt" | "costCenterId", ExtArgs["result"]["asset"]>
   export type AssetInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     category?: boolean | AssetCategoryDefaultArgs<ExtArgs>
     parentSystem?: boolean | Asset$parentSystemArgs<ExtArgs>
@@ -20076,6 +20087,7 @@ export namespace Prisma {
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
+      assetTag: string | null
       name: string
       description: string | null
       categoryId: string
@@ -20517,6 +20529,7 @@ export namespace Prisma {
    */
   interface AssetFieldRefs {
     readonly id: FieldRef<"Asset", 'String'>
+    readonly assetTag: FieldRef<"Asset", 'String'>
     readonly name: FieldRef<"Asset", 'String'>
     readonly description: FieldRef<"Asset", 'String'>
     readonly categoryId: FieldRef<"Asset", 'String'>
@@ -47036,6 +47049,7 @@ export namespace Prisma {
 
   export const AssetScalarFieldEnum: {
     id: 'id',
+    assetTag: 'assetTag',
     name: 'name',
     description: 'description',
     categoryId: 'categoryId',
@@ -49133,6 +49147,7 @@ export namespace Prisma {
     OR?: AssetWhereInput[]
     NOT?: AssetWhereInput | AssetWhereInput[]
     id?: StringFilter<"Asset"> | string
+    assetTag?: StringNullableFilter<"Asset"> | string | null
     name?: StringFilter<"Asset"> | string
     description?: StringNullableFilter<"Asset"> | string | null
     categoryId?: StringFilter<"Asset"> | string
@@ -49154,6 +49169,7 @@ export namespace Prisma {
 
   export type AssetOrderByWithRelationInput = {
     id?: SortOrder
+    assetTag?: SortOrderInput | SortOrder
     name?: SortOrder
     description?: SortOrderInput | SortOrder
     categoryId?: SortOrder
@@ -49179,6 +49195,7 @@ export namespace Prisma {
     AND?: AssetWhereInput | AssetWhereInput[]
     OR?: AssetWhereInput[]
     NOT?: AssetWhereInput | AssetWhereInput[]
+    assetTag?: StringNullableFilter<"Asset"> | string | null
     name?: StringFilter<"Asset"> | string
     description?: StringNullableFilter<"Asset"> | string | null
     categoryId?: StringFilter<"Asset"> | string
@@ -49199,6 +49216,7 @@ export namespace Prisma {
 
   export type AssetOrderByWithAggregationInput = {
     id?: SortOrder
+    assetTag?: SortOrderInput | SortOrder
     name?: SortOrder
     description?: SortOrderInput | SortOrder
     categoryId?: SortOrder
@@ -49218,6 +49236,7 @@ export namespace Prisma {
     OR?: AssetScalarWhereWithAggregatesInput[]
     NOT?: AssetScalarWhereWithAggregatesInput | AssetScalarWhereWithAggregatesInput[]
     id?: StringWithAggregatesFilter<"Asset"> | string
+    assetTag?: StringNullableWithAggregatesFilter<"Asset"> | string | null
     name?: StringWithAggregatesFilter<"Asset"> | string
     description?: StringNullableWithAggregatesFilter<"Asset"> | string | null
     categoryId?: StringWithAggregatesFilter<"Asset"> | string
@@ -52632,6 +52651,7 @@ export namespace Prisma {
 
   export type AssetCreateInput = {
     id?: string
+    assetTag?: string | null
     name: string
     description?: string | null
     tag?: string | null
@@ -52649,6 +52669,7 @@ export namespace Prisma {
 
   export type AssetUncheckedCreateInput = {
     id?: string
+    assetTag?: string | null
     name: string
     description?: string | null
     categoryId: string
@@ -52666,6 +52687,7 @@ export namespace Prisma {
 
   export type AssetUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
+    assetTag?: NullableStringFieldUpdateOperationsInput | string | null
     name?: StringFieldUpdateOperationsInput | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
     tag?: NullableStringFieldUpdateOperationsInput | string | null
@@ -52683,6 +52705,7 @@ export namespace Prisma {
 
   export type AssetUncheckedUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
+    assetTag?: NullableStringFieldUpdateOperationsInput | string | null
     name?: StringFieldUpdateOperationsInput | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
     categoryId?: StringFieldUpdateOperationsInput | string
@@ -52700,6 +52723,7 @@ export namespace Prisma {
 
   export type AssetCreateManyInput = {
     id?: string
+    assetTag?: string | null
     name: string
     description?: string | null
     categoryId: string
@@ -52713,6 +52737,7 @@ export namespace Prisma {
 
   export type AssetUpdateManyMutationInput = {
     id?: StringFieldUpdateOperationsInput | string
+    assetTag?: NullableStringFieldUpdateOperationsInput | string | null
     name?: StringFieldUpdateOperationsInput | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
     tag?: NullableStringFieldUpdateOperationsInput | string | null
@@ -52722,6 +52747,7 @@ export namespace Prisma {
 
   export type AssetUncheckedUpdateManyInput = {
     id?: StringFieldUpdateOperationsInput | string
+    assetTag?: NullableStringFieldUpdateOperationsInput | string | null
     name?: StringFieldUpdateOperationsInput | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
     categoryId?: StringFieldUpdateOperationsInput | string
@@ -56195,6 +56221,7 @@ export namespace Prisma {
 
   export type AssetCountOrderByAggregateInput = {
     id?: SortOrder
+    assetTag?: SortOrder
     name?: SortOrder
     description?: SortOrder
     categoryId?: SortOrder
@@ -56208,6 +56235,7 @@ export namespace Prisma {
 
   export type AssetMaxOrderByAggregateInput = {
     id?: SortOrder
+    assetTag?: SortOrder
     name?: SortOrder
     description?: SortOrder
     categoryId?: SortOrder
@@ -56221,6 +56249,7 @@ export namespace Prisma {
 
   export type AssetMinOrderByAggregateInput = {
     id?: SortOrder
+    assetTag?: SortOrder
     name?: SortOrder
     description?: SortOrder
     categoryId?: SortOrder
@@ -66806,6 +66835,7 @@ export namespace Prisma {
 
   export type AssetCreateWithoutSpaceInput = {
     id?: string
+    assetTag?: string | null
     name: string
     description?: string | null
     tag?: string | null
@@ -66822,6 +66852,7 @@ export namespace Prisma {
 
   export type AssetUncheckedCreateWithoutSpaceInput = {
     id?: string
+    assetTag?: string | null
     name: string
     description?: string | null
     categoryId: string
@@ -67049,6 +67080,7 @@ export namespace Prisma {
     OR?: AssetScalarWhereInput[]
     NOT?: AssetScalarWhereInput | AssetScalarWhereInput[]
     id?: StringFilter<"Asset"> | string
+    assetTag?: StringNullableFilter<"Asset"> | string | null
     name?: StringFilter<"Asset"> | string
     description?: StringNullableFilter<"Asset"> | string | null
     categoryId?: StringFilter<"Asset"> | string
@@ -67062,6 +67094,7 @@ export namespace Prisma {
 
   export type AssetCreateWithoutCategoryInput = {
     id?: string
+    assetTag?: string | null
     name: string
     description?: string | null
     tag?: string | null
@@ -67078,6 +67111,7 @@ export namespace Prisma {
 
   export type AssetUncheckedCreateWithoutCategoryInput = {
     id?: string
+    assetTag?: string | null
     name: string
     description?: string | null
     tag?: string | null
@@ -67143,6 +67177,7 @@ export namespace Prisma {
 
   export type AssetCreateWithoutChildAssetsInput = {
     id?: string
+    assetTag?: string | null
     name: string
     description?: string | null
     tag?: string | null
@@ -67159,6 +67194,7 @@ export namespace Prisma {
 
   export type AssetUncheckedCreateWithoutChildAssetsInput = {
     id?: string
+    assetTag?: string | null
     name: string
     description?: string | null
     categoryId: string
@@ -67180,6 +67216,7 @@ export namespace Prisma {
 
   export type AssetCreateWithoutParentSystemInput = {
     id?: string
+    assetTag?: string | null
     name: string
     description?: string | null
     tag?: string | null
@@ -67196,6 +67233,7 @@ export namespace Prisma {
 
   export type AssetUncheckedCreateWithoutParentSystemInput = {
     id?: string
+    assetTag?: string | null
     name: string
     description?: string | null
     categoryId: string
@@ -67596,6 +67634,7 @@ export namespace Prisma {
 
   export type AssetUpdateWithoutChildAssetsInput = {
     id?: StringFieldUpdateOperationsInput | string
+    assetTag?: NullableStringFieldUpdateOperationsInput | string | null
     name?: StringFieldUpdateOperationsInput | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
     tag?: NullableStringFieldUpdateOperationsInput | string | null
@@ -67612,6 +67651,7 @@ export namespace Prisma {
 
   export type AssetUncheckedUpdateWithoutChildAssetsInput = {
     id?: StringFieldUpdateOperationsInput | string
+    assetTag?: NullableStringFieldUpdateOperationsInput | string | null
     name?: StringFieldUpdateOperationsInput | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
     categoryId?: StringFieldUpdateOperationsInput | string
@@ -70388,6 +70428,7 @@ export namespace Prisma {
 
   export type AssetCreateWithoutMaintenancesInput = {
     id?: string
+    assetTag?: string | null
     name: string
     description?: string | null
     tag?: string | null
@@ -70404,6 +70445,7 @@ export namespace Prisma {
 
   export type AssetUncheckedCreateWithoutMaintenancesInput = {
     id?: string
+    assetTag?: string | null
     name: string
     description?: string | null
     categoryId: string
@@ -71104,6 +71146,7 @@ export namespace Prisma {
 
   export type AssetUpdateWithoutMaintenancesInput = {
     id?: StringFieldUpdateOperationsInput | string
+    assetTag?: NullableStringFieldUpdateOperationsInput | string | null
     name?: StringFieldUpdateOperationsInput | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
     tag?: NullableStringFieldUpdateOperationsInput | string | null
@@ -71120,6 +71163,7 @@ export namespace Prisma {
 
   export type AssetUncheckedUpdateWithoutMaintenancesInput = {
     id?: StringFieldUpdateOperationsInput | string
+    assetTag?: NullableStringFieldUpdateOperationsInput | string | null
     name?: StringFieldUpdateOperationsInput | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
     categoryId?: StringFieldUpdateOperationsInput | string
@@ -71231,6 +71275,7 @@ export namespace Prisma {
 
   export type AssetCreateWithoutPreventivesInput = {
     id?: string
+    assetTag?: string | null
     name: string
     description?: string | null
     tag?: string | null
@@ -71247,6 +71292,7 @@ export namespace Prisma {
 
   export type AssetUncheckedCreateWithoutPreventivesInput = {
     id?: string
+    assetTag?: string | null
     name: string
     description?: string | null
     categoryId: string
@@ -71667,6 +71713,7 @@ export namespace Prisma {
 
   export type AssetUpdateWithoutPreventivesInput = {
     id?: StringFieldUpdateOperationsInput | string
+    assetTag?: NullableStringFieldUpdateOperationsInput | string | null
     name?: StringFieldUpdateOperationsInput | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
     tag?: NullableStringFieldUpdateOperationsInput | string | null
@@ -71683,6 +71730,7 @@ export namespace Prisma {
 
   export type AssetUncheckedUpdateWithoutPreventivesInput = {
     id?: StringFieldUpdateOperationsInput | string
+    assetTag?: NullableStringFieldUpdateOperationsInput | string | null
     name?: StringFieldUpdateOperationsInput | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
     categoryId?: StringFieldUpdateOperationsInput | string
@@ -73442,6 +73490,7 @@ export namespace Prisma {
 
   export type AssetCreateWithoutMetersInput = {
     id?: string
+    assetTag?: string | null
     name: string
     description?: string | null
     tag?: string | null
@@ -73458,6 +73507,7 @@ export namespace Prisma {
 
   export type AssetUncheckedCreateWithoutMetersInput = {
     id?: string
+    assetTag?: string | null
     name: string
     description?: string | null
     categoryId: string
@@ -73751,6 +73801,7 @@ export namespace Prisma {
 
   export type AssetUpdateWithoutMetersInput = {
     id?: StringFieldUpdateOperationsInput | string
+    assetTag?: NullableStringFieldUpdateOperationsInput | string | null
     name?: StringFieldUpdateOperationsInput | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
     tag?: NullableStringFieldUpdateOperationsInput | string | null
@@ -73767,6 +73818,7 @@ export namespace Prisma {
 
   export type AssetUncheckedUpdateWithoutMetersInput = {
     id?: StringFieldUpdateOperationsInput | string
+    assetTag?: NullableStringFieldUpdateOperationsInput | string | null
     name?: StringFieldUpdateOperationsInput | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
     categoryId?: StringFieldUpdateOperationsInput | string
@@ -74537,6 +74589,7 @@ export namespace Prisma {
 
   export type AssetCreateWithoutCostCenterInput = {
     id?: string
+    assetTag?: string | null
     name: string
     description?: string | null
     tag?: string | null
@@ -74553,6 +74606,7 @@ export namespace Prisma {
 
   export type AssetUncheckedCreateWithoutCostCenterInput = {
     id?: string
+    assetTag?: string | null
     name: string
     description?: string | null
     categoryId: string
@@ -78302,6 +78356,7 @@ export namespace Prisma {
 
   export type AssetCreateManySpaceInput = {
     id?: string
+    assetTag?: string | null
     name: string
     description?: string | null
     categoryId: string
@@ -78642,6 +78697,7 @@ export namespace Prisma {
 
   export type AssetUpdateWithoutSpaceInput = {
     id?: StringFieldUpdateOperationsInput | string
+    assetTag?: NullableStringFieldUpdateOperationsInput | string | null
     name?: StringFieldUpdateOperationsInput | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
     tag?: NullableStringFieldUpdateOperationsInput | string | null
@@ -78658,6 +78714,7 @@ export namespace Prisma {
 
   export type AssetUncheckedUpdateWithoutSpaceInput = {
     id?: StringFieldUpdateOperationsInput | string
+    assetTag?: NullableStringFieldUpdateOperationsInput | string | null
     name?: StringFieldUpdateOperationsInput | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
     categoryId?: StringFieldUpdateOperationsInput | string
@@ -78674,6 +78731,7 @@ export namespace Prisma {
 
   export type AssetUncheckedUpdateManyWithoutSpaceInput = {
     id?: StringFieldUpdateOperationsInput | string
+    assetTag?: NullableStringFieldUpdateOperationsInput | string | null
     name?: StringFieldUpdateOperationsInput | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
     categoryId?: StringFieldUpdateOperationsInput | string
@@ -78686,6 +78744,7 @@ export namespace Prisma {
 
   export type AssetCreateManyCategoryInput = {
     id?: string
+    assetTag?: string | null
     name: string
     description?: string | null
     tag?: string | null
@@ -78698,6 +78757,7 @@ export namespace Prisma {
 
   export type AssetUpdateWithoutCategoryInput = {
     id?: StringFieldUpdateOperationsInput | string
+    assetTag?: NullableStringFieldUpdateOperationsInput | string | null
     name?: StringFieldUpdateOperationsInput | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
     tag?: NullableStringFieldUpdateOperationsInput | string | null
@@ -78714,6 +78774,7 @@ export namespace Prisma {
 
   export type AssetUncheckedUpdateWithoutCategoryInput = {
     id?: StringFieldUpdateOperationsInput | string
+    assetTag?: NullableStringFieldUpdateOperationsInput | string | null
     name?: StringFieldUpdateOperationsInput | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
     tag?: NullableStringFieldUpdateOperationsInput | string | null
@@ -78730,6 +78791,7 @@ export namespace Prisma {
 
   export type AssetUncheckedUpdateManyWithoutCategoryInput = {
     id?: StringFieldUpdateOperationsInput | string
+    assetTag?: NullableStringFieldUpdateOperationsInput | string | null
     name?: StringFieldUpdateOperationsInput | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
     tag?: NullableStringFieldUpdateOperationsInput | string | null
@@ -78742,6 +78804,7 @@ export namespace Prisma {
 
   export type AssetCreateManyParentSystemInput = {
     id?: string
+    assetTag?: string | null
     name: string
     description?: string | null
     categoryId: string
@@ -78852,6 +78915,7 @@ export namespace Prisma {
 
   export type AssetUpdateWithoutParentSystemInput = {
     id?: StringFieldUpdateOperationsInput | string
+    assetTag?: NullableStringFieldUpdateOperationsInput | string | null
     name?: StringFieldUpdateOperationsInput | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
     tag?: NullableStringFieldUpdateOperationsInput | string | null
@@ -78868,6 +78932,7 @@ export namespace Prisma {
 
   export type AssetUncheckedUpdateWithoutParentSystemInput = {
     id?: StringFieldUpdateOperationsInput | string
+    assetTag?: NullableStringFieldUpdateOperationsInput | string | null
     name?: StringFieldUpdateOperationsInput | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
     categoryId?: StringFieldUpdateOperationsInput | string
@@ -78884,6 +78949,7 @@ export namespace Prisma {
 
   export type AssetUncheckedUpdateManyWithoutParentSystemInput = {
     id?: StringFieldUpdateOperationsInput | string
+    assetTag?: NullableStringFieldUpdateOperationsInput | string | null
     name?: StringFieldUpdateOperationsInput | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
     categoryId?: StringFieldUpdateOperationsInput | string
@@ -81621,6 +81687,7 @@ export namespace Prisma {
 
   export type AssetCreateManyCostCenterInput = {
     id?: string
+    assetTag?: string | null
     name: string
     description?: string | null
     categoryId: string
@@ -81964,6 +82031,7 @@ export namespace Prisma {
 
   export type AssetUpdateWithoutCostCenterInput = {
     id?: StringFieldUpdateOperationsInput | string
+    assetTag?: NullableStringFieldUpdateOperationsInput | string | null
     name?: StringFieldUpdateOperationsInput | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
     tag?: NullableStringFieldUpdateOperationsInput | string | null
@@ -81980,6 +82048,7 @@ export namespace Prisma {
 
   export type AssetUncheckedUpdateWithoutCostCenterInput = {
     id?: StringFieldUpdateOperationsInput | string
+    assetTag?: NullableStringFieldUpdateOperationsInput | string | null
     name?: StringFieldUpdateOperationsInput | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
     categoryId?: StringFieldUpdateOperationsInput | string
@@ -81996,6 +82065,7 @@ export namespace Prisma {
 
   export type AssetUncheckedUpdateManyWithoutCostCenterInput = {
     id?: StringFieldUpdateOperationsInput | string
+    assetTag?: NullableStringFieldUpdateOperationsInput | string | null
     name?: StringFieldUpdateOperationsInput | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
     categoryId?: StringFieldUpdateOperationsInput | string

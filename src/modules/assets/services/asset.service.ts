@@ -1,3 +1,4 @@
+import qrcode from "qrcode";
 import { NotFoundError } from "../../../errors";
 import prisma from "../../../lib/prisma";
 import {
@@ -9,6 +10,12 @@ import {
 } from "../dto/asset.dto";
 
 export class AssetService {
+
+  private async generateQrCode(assetId: string): Promise<string> {
+    
+    const qrCode = await qrcode.toDataURL(`/assets/${assetId}`);
+    return qrCode;
+  }
   async findAll(query: QueryAssetDto): Promise<PaginatedAssetResponseDto> {
     const {
       categoryId,
@@ -104,16 +111,13 @@ export class AssetService {
 
     const asset = await prisma.asset.create({
       data,
-      include: {
-        category: {
-          select: {
-            id: true,
-            name: true,
-            type: true,
-          },
-        },
-      },
     });
+
+    // const qrCode = await this.generateQrCode(asset.id);
+    // await prisma.asset.update({
+    //   where: { id: asset.id },
+    //   data: { qrCode },
+    // });
 
     return asset as AssetResponseDto;
   }
