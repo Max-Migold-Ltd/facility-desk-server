@@ -774,7 +774,6 @@ model Maintenance {
   createdAt        DateTime          @default(now())
   updatedAt        DateTime          @updatedAt
   maintenanceItems MaintenanceItem[]
-  consumedParts    ConsumedPart[]
 
   @@map("maintenances")
 }
@@ -861,7 +860,6 @@ model Item {
   purchaseOrderItems   PurchaseOrderItem[]
   purchaseRequestItems PurchaseRequestItem[]
   goodsReceiptItems    GoodsReceiptItem[]
-  consumedParts        ConsumedPart[]
 
   @@map("items")
 }
@@ -906,26 +904,26 @@ model StockMovement {
   @@map("stock_movements")
 }
 
-model ConsumedPart {
-  id       String @id @default(uuid())
-  quantity Int
+// model ConsumedPart {
+//   id       String @id @default(uuid())
+//   quantity Int
 
-  referenceId   String?
-  referenceType StockReferenceType
+//   referenceId   String?
+//   referenceType StockReferenceType
 
-  itemId String
-  item   Item   @relation(fields: [itemId], references: [id], onDelete: Restrict)
+//   itemId String
+//   item   Item   @relation(fields: [itemId], references: [id], onDelete: Restrict)
 
-  // usedBy User? @relation(fields: [usedById], references: [id], onDelete: SetNull)
-  // usedById String?
+//   // usedBy User? @relation(fields: [usedById], references: [id], onDelete: SetNull)
+//   // usedById String?
 
-  createdAt     DateTime     @default(now())
-  updatedAt     DateTime     @updatedAt
-  maintenance   Maintenance? @relation(fields: [maintenanceId], references: [id])
-  maintenanceId String?
+//   createdAt     DateTime     @default(now())
+//   updatedAt     DateTime     @updatedAt
+//   maintenance   Maintenance? @relation(fields: [maintenanceId], references: [id])
+//   maintenanceId String?
 
-  @@map("consumed_parts")
-}
+//   @@map("consumed_parts")
+// }
 
 model MaintenanceItem {
   id       String   @id @default(uuid())

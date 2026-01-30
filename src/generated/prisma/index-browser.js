@@ -512,17 +512,6 @@ exports.Prisma.StockMovementScalarFieldEnum = {
   updatedAt: 'updatedAt'
 };
 
-exports.Prisma.ConsumedPartScalarFieldEnum = {
-  id: 'id',
-  quantity: 'quantity',
-  referenceId: 'referenceId',
-  referenceType: 'referenceType',
-  itemId: 'itemId',
-  createdAt: 'createdAt',
-  updatedAt: 'updatedAt',
-  maintenanceId: 'maintenanceId'
-};
-
 exports.Prisma.MaintenanceItemScalarFieldEnum = {
   id: 'id',
   quantity: 'quantity',
@@ -902,7 +891,6 @@ exports.Prisma.ModelName = {
   Item: 'Item',
   Stock: 'Stock',
   StockMovement: 'StockMovement',
-  ConsumedPart: 'ConsumedPart',
   MaintenanceItem: 'MaintenanceItem',
   RefreshToken: 'RefreshToken',
   Meter: 'Meter',

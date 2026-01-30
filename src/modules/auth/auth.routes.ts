@@ -307,6 +307,37 @@ router.post("/refresh", authController.refresh);
  */
 router.get("/me", authenticate, authController.me);
 
+/**
+ * @swagger
+ * /api/v1/auth/permissions:
+ *   post:
+ *     summary: Add permissions to user
+ *     description: specialized endpoint to add permissions to a user (Admin only)
+ *     tags: [Auth]
+ *     security:
+ *       - bearerAuth: []
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             required:
+ *               - userId
+ *               - permissions
+ *             properties:
+ *               userId:
+ *                 type: string
+ *               permissions:
+ *                 type: array
+ *                 items:
+ *                   type: string
+ *     responses:
+ *       200:
+ *         description: Permissions added
+ *       403:
+ *         description: Insufficient permissions
+ */
 router.post(
   "/permissions",
   authenticate,

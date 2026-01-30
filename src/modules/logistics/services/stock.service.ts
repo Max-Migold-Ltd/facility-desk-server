@@ -1,5 +1,9 @@
 import prisma from "../../../lib/prisma";
-import { Prisma, StockMovementType, StockReferenceType } from "../../../generated/prisma";
+import {
+  Prisma,
+  StockMovementType,
+  StockReferenceType,
+} from "../../../generated/prisma";
 import {
   CreateStockMovementDto,
   StockFilterDto,
@@ -8,7 +12,6 @@ import {
 import { BadRequestError, NotFoundError } from "../../../errors";
 
 export class StockService {
-
   async getStocks(filters: StockFilterDto & { page?: number; limit?: number }) {
     const { warehouseId, itemId, page = 1, limit = 10 } = filters;
     const skip = (page - 1) * limit;
@@ -53,7 +56,7 @@ export class StockService {
    * Get stock movements history
    */
   async getStockMovements(
-    filters: StockMovementFilterDto & { page?: number; limit?: number }
+    filters: StockMovementFilterDto & { page?: number; limit?: number },
   ) {
     const {
       warehouseId,
@@ -121,7 +124,10 @@ export class StockService {
   /**
    * Create a new stock movement (Load, Unload, Transfer)
    */
-  async createMovement(data: CreateStockMovementDto) {
+  async createMovement(
+    data: CreateStockMovementDto,
+    externalTx?: Prisma.TransactionClient,
+  ) {
     const {
       type,
       quantity,
@@ -132,16 +138,16 @@ export class StockService {
       referenceType,
     } = data;
 
-    // Verify Item and Warehouse exist
-    const [item, warehouse] = await Promise.all([
-      prisma.item.findUnique({ where: { id: itemId } }),
-      prisma.warehouse.findUnique({ where: { id: warehouseId } }),
-    ]);
+    const execute = async (tx: Prisma.TransactionClient) => {
+      // Verify Item and Warehouse exist
+      const [item, warehouse] = await Promise.all([
+        tx.item.findUnique({ where: { id: itemId } }),
+        tx.warehouse.findUnique({ where: { id: warehouseId } }),
+      ]);
 
-    if (!item) throw new NotFoundError("Item");
-    if (!warehouse) throw new NotFoundError("Warehouse");
+      if (!item) throw new NotFoundError("Item");
+      if (!warehouse) throw new NotFoundError("Warehouse");
 
-    return await prisma.$transaction(async (tx) => {
       // 1. Create the movement record
       const movement = await tx.stockMovement.create({
         data: {
@@ -184,16 +190,6 @@ export class StockService {
           throw new BadRequestError("Insufficient stock in this warehouse");
         }
 
-        await tx.consumedPart.create({
-          data: {
-            referenceId: referenceId || null,
-            referenceType: referenceType || StockReferenceType.MAINTENANCE,
-            itemId,
-            quantity,
-            // usedById: req.user.id // Might not be the person who used it, but the person who logged it
-          }
-        })
-
         const updatedStock = await tx.stock.update({
           where: {
             itemId_warehouseId: { itemId, warehouseId },
@@ -204,9 +200,9 @@ export class StockService {
         // 3. Check for Low Stock (Alert Simulation)
         if (updatedStock.quantity <= updatedStock.minQuantity) {
           console.warn(
-            `[LOW STOCK ALERT] Item ${itemId} in Warehouse ${warehouseId} is below minimum level (${updatedStock.quantity} <= ${updatedStock.minQuantity})`
+            `[LOW STOCK ALERT] Item ${itemId} in Warehouse ${warehouseId} is below minimum level (${updatedStock.quantity} <= ${updatedStock.minQuantity})`,
           );
-          // In a real system, trigger email/notification here
+          // Send notification (Email or whatever we're using)
         }
       } else if (type === StockMovementType.TRANSFER) {
         if (!targetWarehouseId) {
@@ -255,6 +251,12 @@ export class StockService {
       }
 
       return movement;
-    });
+    };
+
+    if (externalTx) {
+      return execute(externalTx);
+    } else {
+      return prisma.$transaction(execute);
+    }
   }
 }
