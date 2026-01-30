@@ -246,6 +246,7 @@ model User {
   costCenter       CostCenter?       @relation(fields: [costCenterId], references: [id])
   purchaseRequests PurchaseRequest[]
   goodsReceipts    GoodsReceipt[]
+  maintenanceTasks MaintenanceTask[]
 
   @@index([email])
   @@index([roleId])
@@ -774,6 +775,7 @@ model Maintenance {
   createdAt        DateTime          @default(now())
   updatedAt        DateTime          @updatedAt
   maintenanceItems MaintenanceItem[]
+  maintenanceTasks MaintenanceTask[]
 
   @@map("maintenances")
 }
@@ -818,10 +820,42 @@ model Preventive {
 
   meterTriggers MeterMaintenanceTrigger[]
 
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  createdAt       DateTime         @default(now())
+  updatedAt       DateTime         @updatedAt
+  preventiveTasks PreventiveTask[]
 
   @@map("preventives")
+}
+
+// The "Template" (What SHOULD be done)
+model PreventiveTask {
+  id          String  @id @default(uuid())
+  description String // e.g. "Check Oil Level"
+  order       Int // To keep steps 1, 2, 3 in sequence
+  isMandatory Boolean @default(true)
+
+  preventiveId String
+  preventive   Preventive @relation(fields: [preventiveId], references: [id], onDelete: Cascade)
+
+  @@map("preventive_tasks")
+}
+
+// The "Instance" (What WAS done on a specific ticket)
+model MaintenanceTask {
+  id          String    @id @default(uuid())
+  description String
+  isCompleted Boolean   @default(false)
+  completedAt DateTime?
+  notes       String? // e.g. "Oil was extremely dirty"
+
+  maintenanceId String
+  maintenance   Maintenance @relation(fields: [maintenanceId], references: [id], onDelete: Cascade)
+
+  // Link to the user who checked the box? (Optional but good for audit)
+  completedById String?
+  completedBy   User?   @relation(fields: [completedById], references: [id])
+
+  @@map("maintenance_tasks")
 }
 
 model Warehouse {
@@ -850,6 +884,7 @@ model Item {
   code          String  @unique
   category      String?
   unitOfMeasure String?
+  cost          Decimal @db.Decimal(15, 2)
 
   stocks           Stock[]
   stockMovements   StockMovement[]

@@ -131,6 +131,33 @@ The core facility management workflow is well-established.
 2.  **Phase 2: Auth & Security** - ✅ Done (JWT, RBAC, Rate Limits).
 3.  **Phase 3: Digital Twin/Location Model** - ✅ Done (Sites -> Spaces).
 4.  **Phase 4: Asset Registry** - ✅ Done.
-5.  **Phase 5: Maintenance Workflows** - ✅ Done (CRUD, Assign, Status).
-6.  **Phase 6: API Docs** - ✅ Done.
-7.  **Phase 7: IoT Integration** - ⏳ **Pending**.
+5.  **Phase 5: Maintenance Workflows** - ✅ Done (CRUD, Assign, Status, Checklists).
+6.  **Phase 6: API Docs** - ✅ Done (Comprehensive Swagger coverage).
+7.  **Phase 7: Finance & Logistics** - ✅ Functionally Enhanced (PO Receipt value calc, Stock consumption during Maintenance).
+8.  **Phase 8: IoT Integration** - ⏳ **Pending**.
+
+## Recent Updates (2026-01-30)
+
+### 1. API Documentation
+- **Comprehensive Swagger Coverage:**
+  - **Auth**: extensive updates including `/register`, `/login`, `/me`, and `/permissions`.
+  - **Permissions**: Added full CRUD documentation.
+  - **Finance**: Added documentation for Cost Centers, Purchase Requests, and Purchase Orders.
+  - **Logistics**: Added documentation for Items, Stocks, Movements, and Warehouses.
+  - **Metering**: Added documentation for Meters and Readings.
+
+### 2. Maintenance Module
+- **Consumables Logic:** Implemented `MaintenanceItemService` to handle spare parts consumption.
+  - Automatically creates a stock movement (UNLOAD) when a part is added to maintenance.
+  - Calculates cost based on item cost and quantity.
+- **Checklists/Tasks:**
+  - Added `PreventiveTask` model for template checklists.
+  - Added `MaintenanceTask` model for per-job checklists with completion status and notes.
+
+### 3. Finance & Logistics
+- **Purchase Orders:**
+  - Updated `PurchaseOrderService` to calculate and update `totalAmount` when goods are received.
+- **Item Cost:**
+  - Added `cost` field to `Item` model (Decimal) to support value tracking.
+- **Logistics Schema:**
+  - Updated `createItemSchema` to include `cost` validation.

@@ -15,6 +15,7 @@ interface ReceivePurchaseOrderDto {
   items: {
     itemId: string;
     quantity: number;
+    cost: number;
   }[];
 }
 
@@ -126,7 +127,15 @@ export class PurchaseOrderService {
 
       await tx.purchaseOrder.update({
         where: { id: data.purchaseOrderId },
-        data: { status },
+        data: {
+          status,
+          totalAmount: {
+            increment: data.items.reduce(
+              (acc, item) => item.quantity * item.cost + acc,
+              0,
+            ),
+          },
+        },
       });
 
       return goodsReceipt;

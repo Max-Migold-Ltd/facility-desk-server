@@ -9,6 +9,7 @@ import { BadRequestError, NotFoundError } from "../../../errors";
 
 const stockService = new StockService();
 
+
 export class MaintenanceItemController {
   /**
    * Add Item to Maintenance (Consumes stock)
@@ -59,6 +60,7 @@ export class MaintenanceItemController {
           maintenanceId,
           itemId,
           quantity,
+          // cost: item.cost * quantity,
         },
       });
 
@@ -67,6 +69,7 @@ export class MaintenanceItemController {
       next(error);
     }
   }
+
 
   /**
    * Get items for a maintenance request

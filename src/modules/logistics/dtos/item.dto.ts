@@ -6,6 +6,7 @@ export const createItemSchema = z.object({
   code: z.string().min(1, "Code is required"),
   category: z.string().optional(),
   unitOfMeasure: z.string().optional(),
+  cost: z.number(),
 });
 
 export const updateItemSchema = createItemSchema.partial();

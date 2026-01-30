@@ -114,6 +114,16 @@ export type Maintenance = $Result.DefaultSelection<Prisma.$MaintenancePayload>
  */
 export type Preventive = $Result.DefaultSelection<Prisma.$PreventivePayload>
 /**
+ * Model PreventiveTask
+ * 
+ */
+export type PreventiveTask = $Result.DefaultSelection<Prisma.$PreventiveTaskPayload>
+/**
+ * Model MaintenanceTask
+ * 
+ */
+export type MaintenanceTask = $Result.DefaultSelection<Prisma.$MaintenanceTaskPayload>
+/**
  * Model Warehouse
  * 
  */
@@ -928,6 +938,26 @@ export class PrismaClient<
   get preventive(): Prisma.PreventiveDelegate<ExtArgs, ClientOptions>;
 
   /**
+   * `prisma.preventiveTask`: Exposes CRUD operations for the **PreventiveTask** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more PreventiveTasks
+    * const preventiveTasks = await prisma.preventiveTask.findMany()
+    * ```
+    */
+  get preventiveTask(): Prisma.PreventiveTaskDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.maintenanceTask`: Exposes CRUD operations for the **MaintenanceTask** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more MaintenanceTasks
+    * const maintenanceTasks = await prisma.maintenanceTask.findMany()
+    * ```
+    */
+  get maintenanceTask(): Prisma.MaintenanceTaskDelegate<ExtArgs, ClientOptions>;
+
+  /**
    * `prisma.warehouse`: Exposes CRUD operations for the **Warehouse** model.
     * Example usage:
     * ```ts
@@ -1540,6 +1570,8 @@ export namespace Prisma {
     CalenderEntity: 'CalenderEntity',
     Maintenance: 'Maintenance',
     Preventive: 'Preventive',
+    PreventiveTask: 'PreventiveTask',
+    MaintenanceTask: 'MaintenanceTask',
     Warehouse: 'Warehouse',
     Item: 'Item',
     Stock: 'Stock',
@@ -1571,7 +1603,7 @@ export namespace Prisma {
       omit: GlobalOmitOptions
     }
     meta: {
-      modelProps: "user" | "role" | "permission" | "site" | "complex" | "building" | "floor" | "zone" | "space" | "assetType" | "assetCategory" | "asset" | "file" | "company" | "team" | "address" | "contract" | "calenderEntity" | "maintenance" | "preventive" | "warehouse" | "item" | "stock" | "stockMovement" | "maintenanceItem" | "refreshToken" | "meter" | "meterReading" | "meterMaintenanceTrigger" | "costCenter" | "purchaseRequest" | "purchaseRequestItem" | "purchaseOrder" | "purchaseOrderItem" | "goodsReceipt" | "goodsReceiptItem"
+      modelProps: "user" | "role" | "permission" | "site" | "complex" | "building" | "floor" | "zone" | "space" | "assetType" | "assetCategory" | "asset" | "file" | "company" | "team" | "address" | "contract" | "calenderEntity" | "maintenance" | "preventive" | "preventiveTask" | "maintenanceTask" | "warehouse" | "item" | "stock" | "stockMovement" | "maintenanceItem" | "refreshToken" | "meter" | "meterReading" | "meterMaintenanceTrigger" | "costCenter" | "purchaseRequest" | "purchaseRequestItem" | "purchaseOrder" | "purchaseOrderItem" | "goodsReceipt" | "goodsReceiptItem"
       txIsolationLevel: Prisma.TransactionIsolationLevel
     }
     model: {
@@ -3055,6 +3087,154 @@ export namespace Prisma {
           }
         }
       }
+      PreventiveTask: {
+        payload: Prisma.$PreventiveTaskPayload<ExtArgs>
+        fields: Prisma.PreventiveTaskFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.PreventiveTaskFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PreventiveTaskPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.PreventiveTaskFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PreventiveTaskPayload>
+          }
+          findFirst: {
+            args: Prisma.PreventiveTaskFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PreventiveTaskPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.PreventiveTaskFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PreventiveTaskPayload>
+          }
+          findMany: {
+            args: Prisma.PreventiveTaskFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PreventiveTaskPayload>[]
+          }
+          create: {
+            args: Prisma.PreventiveTaskCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PreventiveTaskPayload>
+          }
+          createMany: {
+            args: Prisma.PreventiveTaskCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.PreventiveTaskCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PreventiveTaskPayload>[]
+          }
+          delete: {
+            args: Prisma.PreventiveTaskDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PreventiveTaskPayload>
+          }
+          update: {
+            args: Prisma.PreventiveTaskUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PreventiveTaskPayload>
+          }
+          deleteMany: {
+            args: Prisma.PreventiveTaskDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.PreventiveTaskUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.PreventiveTaskUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PreventiveTaskPayload>[]
+          }
+          upsert: {
+            args: Prisma.PreventiveTaskUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PreventiveTaskPayload>
+          }
+          aggregate: {
+            args: Prisma.PreventiveTaskAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregatePreventiveTask>
+          }
+          groupBy: {
+            args: Prisma.PreventiveTaskGroupByArgs<ExtArgs>
+            result: $Utils.Optional<PreventiveTaskGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.PreventiveTaskCountArgs<ExtArgs>
+            result: $Utils.Optional<PreventiveTaskCountAggregateOutputType> | number
+          }
+        }
+      }
+      MaintenanceTask: {
+        payload: Prisma.$MaintenanceTaskPayload<ExtArgs>
+        fields: Prisma.MaintenanceTaskFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.MaintenanceTaskFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MaintenanceTaskPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.MaintenanceTaskFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MaintenanceTaskPayload>
+          }
+          findFirst: {
+            args: Prisma.MaintenanceTaskFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MaintenanceTaskPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.MaintenanceTaskFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MaintenanceTaskPayload>
+          }
+          findMany: {
+            args: Prisma.MaintenanceTaskFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MaintenanceTaskPayload>[]
+          }
+          create: {
+            args: Prisma.MaintenanceTaskCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MaintenanceTaskPayload>
+          }
+          createMany: {
+            args: Prisma.MaintenanceTaskCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.MaintenanceTaskCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MaintenanceTaskPayload>[]
+          }
+          delete: {
+            args: Prisma.MaintenanceTaskDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MaintenanceTaskPayload>
+          }
+          update: {
+            args: Prisma.MaintenanceTaskUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MaintenanceTaskPayload>
+          }
+          deleteMany: {
+            args: Prisma.MaintenanceTaskDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.MaintenanceTaskUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.MaintenanceTaskUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MaintenanceTaskPayload>[]
+          }
+          upsert: {
+            args: Prisma.MaintenanceTaskUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MaintenanceTaskPayload>
+          }
+          aggregate: {
+            args: Prisma.MaintenanceTaskAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateMaintenanceTask>
+          }
+          groupBy: {
+            args: Prisma.MaintenanceTaskGroupByArgs<ExtArgs>
+            result: $Utils.Optional<MaintenanceTaskGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.MaintenanceTaskCountArgs<ExtArgs>
+            result: $Utils.Optional<MaintenanceTaskCountAggregateOutputType> | number
+          }
+        }
+      }
       Warehouse: {
         payload: Prisma.$WarehousePayload<ExtArgs>
         fields: Prisma.WarehouseFieldRefs
@@ -4351,6 +4531,8 @@ export namespace Prisma {
     calenderEntity?: CalenderEntityOmit
     maintenance?: MaintenanceOmit
     preventive?: PreventiveOmit
+    preventiveTask?: PreventiveTaskOmit
+    maintenanceTask?: MaintenanceTaskOmit
     warehouse?: WarehouseOmit
     item?: ItemOmit
     stock?: StockOmit
@@ -4455,6 +4637,7 @@ export namespace Prisma {
     supervisedTeams: number
     purchaseRequests: number
     goodsReceipts: number
+    maintenanceTasks: number
   }
 
   export type UserCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -4466,6 +4649,7 @@ export namespace Prisma {
     supervisedTeams?: boolean | UserCountOutputTypeCountSupervisedTeamsArgs
     purchaseRequests?: boolean | UserCountOutputTypeCountPurchaseRequestsArgs
     goodsReceipts?: boolean | UserCountOutputTypeCountGoodsReceiptsArgs
+    maintenanceTasks?: boolean | UserCountOutputTypeCountMaintenanceTasksArgs
   }
 
   // Custom InputTypes
@@ -4533,6 +4717,13 @@ export namespace Prisma {
    */
   export type UserCountOutputTypeCountGoodsReceiptsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: GoodsReceiptWhereInput
+  }
+
+  /**
+   * UserCountOutputType without action
+   */
+  export type UserCountOutputTypeCountMaintenanceTasksArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: MaintenanceTaskWhereInput
   }
 
 
@@ -5301,11 +5492,13 @@ export namespace Prisma {
   export type MaintenanceCountOutputType = {
     photos: number
     maintenanceItems: number
+    maintenanceTasks: number
   }
 
   export type MaintenanceCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     photos?: boolean | MaintenanceCountOutputTypeCountPhotosArgs
     maintenanceItems?: boolean | MaintenanceCountOutputTypeCountMaintenanceItemsArgs
+    maintenanceTasks?: boolean | MaintenanceCountOutputTypeCountMaintenanceTasksArgs
   }
 
   // Custom InputTypes
@@ -5333,6 +5526,13 @@ export namespace Prisma {
     where?: MaintenanceItemWhereInput
   }
 
+  /**
+   * MaintenanceCountOutputType without action
+   */
+  export type MaintenanceCountOutputTypeCountMaintenanceTasksArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: MaintenanceTaskWhereInput
+  }
+
 
   /**
    * Count Type PreventiveCountOutputType
@@ -5340,10 +5540,12 @@ export namespace Prisma {
 
   export type PreventiveCountOutputType = {
     meterTriggers: number
+    preventiveTasks: number
   }
 
   export type PreventiveCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     meterTriggers?: boolean | PreventiveCountOutputTypeCountMeterTriggersArgs
+    preventiveTasks?: boolean | PreventiveCountOutputTypeCountPreventiveTasksArgs
   }
 
   // Custom InputTypes
@@ -5362,6 +5564,13 @@ export namespace Prisma {
    */
   export type PreventiveCountOutputTypeCountMeterTriggersArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: MeterMaintenanceTriggerWhereInput
+  }
+
+  /**
+   * PreventiveCountOutputType without action
+   */
+  export type PreventiveCountOutputTypeCountPreventiveTasksArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: PreventiveTaskWhereInput
   }
 
 
@@ -6001,6 +6210,7 @@ export namespace Prisma {
     costCenter?: boolean | User$costCenterArgs<ExtArgs>
     purchaseRequests?: boolean | User$purchaseRequestsArgs<ExtArgs>
     goodsReceipts?: boolean | User$goodsReceiptsArgs<ExtArgs>
+    maintenanceTasks?: boolean | User$maintenanceTasksArgs<ExtArgs>
     _count?: boolean | UserCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["user"]>
 
@@ -6089,6 +6299,7 @@ export namespace Prisma {
     costCenter?: boolean | User$costCenterArgs<ExtArgs>
     purchaseRequests?: boolean | User$purchaseRequestsArgs<ExtArgs>
     goodsReceipts?: boolean | User$goodsReceiptsArgs<ExtArgs>
+    maintenanceTasks?: boolean | User$maintenanceTasksArgs<ExtArgs>
     _count?: boolean | UserCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type UserIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -6119,6 +6330,7 @@ export namespace Prisma {
       costCenter: Prisma.$CostCenterPayload<ExtArgs> | null
       purchaseRequests: Prisma.$PurchaseRequestPayload<ExtArgs>[]
       goodsReceipts: Prisma.$GoodsReceiptPayload<ExtArgs>[]
+      maintenanceTasks: Prisma.$MaintenanceTaskPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -6545,6 +6757,7 @@ export namespace Prisma {
     costCenter<T extends User$costCenterArgs<ExtArgs> = {}>(args?: Subset<T, User$costCenterArgs<ExtArgs>>): Prisma__CostCenterClient<$Result.GetResult<Prisma.$CostCenterPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
     purchaseRequests<T extends User$purchaseRequestsArgs<ExtArgs> = {}>(args?: Subset<T, User$purchaseRequestsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PurchaseRequestPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     goodsReceipts<T extends User$goodsReceiptsArgs<ExtArgs> = {}>(args?: Subset<T, User$goodsReceiptsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$GoodsReceiptPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    maintenanceTasks<T extends User$maintenanceTasksArgs<ExtArgs> = {}>(args?: Subset<T, User$maintenanceTasksArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$MaintenanceTaskPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -7234,6 +7447,30 @@ export namespace Prisma {
     take?: number
     skip?: number
     distinct?: GoodsReceiptScalarFieldEnum | GoodsReceiptScalarFieldEnum[]
+  }
+
+  /**
+   * User.maintenanceTasks
+   */
+  export type User$maintenanceTasksArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MaintenanceTask
+     */
+    select?: MaintenanceTaskSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the MaintenanceTask
+     */
+    omit?: MaintenanceTaskOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MaintenanceTaskInclude<ExtArgs> | null
+    where?: MaintenanceTaskWhereInput
+    orderBy?: MaintenanceTaskOrderByWithRelationInput | MaintenanceTaskOrderByWithRelationInput[]
+    cursor?: MaintenanceTaskWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: MaintenanceTaskScalarFieldEnum | MaintenanceTaskScalarFieldEnum[]
   }
 
   /**
@@ -29201,6 +29438,7 @@ export namespace Prisma {
     asset?: boolean | Maintenance$assetArgs<ExtArgs>
     photos?: boolean | Maintenance$photosArgs<ExtArgs>
     maintenanceItems?: boolean | Maintenance$maintenanceItemsArgs<ExtArgs>
+    maintenanceTasks?: boolean | Maintenance$maintenanceTasksArgs<ExtArgs>
     _count?: boolean | MaintenanceCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["maintenance"]>
 
@@ -29439,6 +29677,7 @@ export namespace Prisma {
     asset?: boolean | Maintenance$assetArgs<ExtArgs>
     photos?: boolean | Maintenance$photosArgs<ExtArgs>
     maintenanceItems?: boolean | Maintenance$maintenanceItemsArgs<ExtArgs>
+    maintenanceTasks?: boolean | Maintenance$maintenanceTasksArgs<ExtArgs>
     _count?: boolean | MaintenanceCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type MaintenanceIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -29484,6 +29723,7 @@ export namespace Prisma {
       asset: Prisma.$AssetPayload<ExtArgs> | null
       photos: Prisma.$FilePayload<ExtArgs>[]
       maintenanceItems: Prisma.$MaintenanceItemPayload<ExtArgs>[]
+      maintenanceTasks: Prisma.$MaintenanceTaskPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -29956,6 +30196,7 @@ export namespace Prisma {
     asset<T extends Maintenance$assetArgs<ExtArgs> = {}>(args?: Subset<T, Maintenance$assetArgs<ExtArgs>>): Prisma__AssetClient<$Result.GetResult<Prisma.$AssetPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
     photos<T extends Maintenance$photosArgs<ExtArgs> = {}>(args?: Subset<T, Maintenance$photosArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$FilePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     maintenanceItems<T extends Maintenance$maintenanceItemsArgs<ExtArgs> = {}>(args?: Subset<T, Maintenance$maintenanceItemsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$MaintenanceItemPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    maintenanceTasks<T extends Maintenance$maintenanceTasksArgs<ExtArgs> = {}>(args?: Subset<T, Maintenance$maintenanceTasksArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$MaintenanceTaskPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -30682,6 +30923,30 @@ export namespace Prisma {
   }
 
   /**
+   * Maintenance.maintenanceTasks
+   */
+  export type Maintenance$maintenanceTasksArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MaintenanceTask
+     */
+    select?: MaintenanceTaskSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the MaintenanceTask
+     */
+    omit?: MaintenanceTaskOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MaintenanceTaskInclude<ExtArgs> | null
+    where?: MaintenanceTaskWhereInput
+    orderBy?: MaintenanceTaskOrderByWithRelationInput | MaintenanceTaskOrderByWithRelationInput[]
+    cursor?: MaintenanceTaskWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: MaintenanceTaskScalarFieldEnum | MaintenanceTaskScalarFieldEnum[]
+  }
+
+  /**
    * Maintenance without action
    */
   export type MaintenanceDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -31018,6 +31283,7 @@ export namespace Prisma {
     space?: boolean | Preventive$spaceArgs<ExtArgs>
     team?: boolean | Preventive$teamArgs<ExtArgs>
     meterTriggers?: boolean | Preventive$meterTriggersArgs<ExtArgs>
+    preventiveTasks?: boolean | Preventive$preventiveTasksArgs<ExtArgs>
     _count?: boolean | PreventiveCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["preventive"]>
 
@@ -31111,6 +31377,7 @@ export namespace Prisma {
     space?: boolean | Preventive$spaceArgs<ExtArgs>
     team?: boolean | Preventive$teamArgs<ExtArgs>
     meterTriggers?: boolean | Preventive$meterTriggersArgs<ExtArgs>
+    preventiveTasks?: boolean | Preventive$preventiveTasksArgs<ExtArgs>
     _count?: boolean | PreventiveCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type PreventiveIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -31143,6 +31410,7 @@ export namespace Prisma {
       space: Prisma.$SpacePayload<ExtArgs> | null
       team: Prisma.$TeamPayload<ExtArgs> | null
       meterTriggers: Prisma.$MeterMaintenanceTriggerPayload<ExtArgs>[]
+      preventiveTasks: Prisma.$PreventiveTaskPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -31566,6 +31834,7 @@ export namespace Prisma {
     space<T extends Preventive$spaceArgs<ExtArgs> = {}>(args?: Subset<T, Preventive$spaceArgs<ExtArgs>>): Prisma__SpaceClient<$Result.GetResult<Prisma.$SpacePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
     team<T extends Preventive$teamArgs<ExtArgs> = {}>(args?: Subset<T, Preventive$teamArgs<ExtArgs>>): Prisma__TeamClient<$Result.GetResult<Prisma.$TeamPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
     meterTriggers<T extends Preventive$meterTriggersArgs<ExtArgs> = {}>(args?: Subset<T, Preventive$meterTriggersArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$MeterMaintenanceTriggerPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    preventiveTasks<T extends Preventive$preventiveTasksArgs<ExtArgs> = {}>(args?: Subset<T, Preventive$preventiveTasksArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PreventiveTaskPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -32148,6 +32417,30 @@ export namespace Prisma {
   }
 
   /**
+   * Preventive.preventiveTasks
+   */
+  export type Preventive$preventiveTasksArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PreventiveTask
+     */
+    select?: PreventiveTaskSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the PreventiveTask
+     */
+    omit?: PreventiveTaskOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PreventiveTaskInclude<ExtArgs> | null
+    where?: PreventiveTaskWhereInput
+    orderBy?: PreventiveTaskOrderByWithRelationInput | PreventiveTaskOrderByWithRelationInput[]
+    cursor?: PreventiveTaskWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: PreventiveTaskScalarFieldEnum | PreventiveTaskScalarFieldEnum[]
+  }
+
+  /**
    * Preventive without action
    */
   export type PreventiveDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -32163,6 +32456,2209 @@ export namespace Prisma {
      * Choose, which related nodes to fetch as well
      */
     include?: PreventiveInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model PreventiveTask
+   */
+
+  export type AggregatePreventiveTask = {
+    _count: PreventiveTaskCountAggregateOutputType | null
+    _avg: PreventiveTaskAvgAggregateOutputType | null
+    _sum: PreventiveTaskSumAggregateOutputType | null
+    _min: PreventiveTaskMinAggregateOutputType | null
+    _max: PreventiveTaskMaxAggregateOutputType | null
+  }
+
+  export type PreventiveTaskAvgAggregateOutputType = {
+    order: number | null
+  }
+
+  export type PreventiveTaskSumAggregateOutputType = {
+    order: number | null
+  }
+
+  export type PreventiveTaskMinAggregateOutputType = {
+    id: string | null
+    description: string | null
+    order: number | null
+    isMandatory: boolean | null
+    preventiveId: string | null
+  }
+
+  export type PreventiveTaskMaxAggregateOutputType = {
+    id: string | null
+    description: string | null
+    order: number | null
+    isMandatory: boolean | null
+    preventiveId: string | null
+  }
+
+  export type PreventiveTaskCountAggregateOutputType = {
+    id: number
+    description: number
+    order: number
+    isMandatory: number
+    preventiveId: number
+    _all: number
+  }
+
+
+  export type PreventiveTaskAvgAggregateInputType = {
+    order?: true
+  }
+
+  export type PreventiveTaskSumAggregateInputType = {
+    order?: true
+  }
+
+  export type PreventiveTaskMinAggregateInputType = {
+    id?: true
+    description?: true
+    order?: true
+    isMandatory?: true
+    preventiveId?: true
+  }
+
+  export type PreventiveTaskMaxAggregateInputType = {
+    id?: true
+    description?: true
+    order?: true
+    isMandatory?: true
+    preventiveId?: true
+  }
+
+  export type PreventiveTaskCountAggregateInputType = {
+    id?: true
+    description?: true
+    order?: true
+    isMandatory?: true
+    preventiveId?: true
+    _all?: true
+  }
+
+  export type PreventiveTaskAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which PreventiveTask to aggregate.
+     */
+    where?: PreventiveTaskWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of PreventiveTasks to fetch.
+     */
+    orderBy?: PreventiveTaskOrderByWithRelationInput | PreventiveTaskOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: PreventiveTaskWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` PreventiveTasks from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` PreventiveTasks.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned PreventiveTasks
+    **/
+    _count?: true | PreventiveTaskCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: PreventiveTaskAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: PreventiveTaskSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: PreventiveTaskMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: PreventiveTaskMaxAggregateInputType
+  }
+
+  export type GetPreventiveTaskAggregateType<T extends PreventiveTaskAggregateArgs> = {
+        [P in keyof T & keyof AggregatePreventiveTask]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregatePreventiveTask[P]>
+      : GetScalarType<T[P], AggregatePreventiveTask[P]>
+  }
+
+
+
+
+  export type PreventiveTaskGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: PreventiveTaskWhereInput
+    orderBy?: PreventiveTaskOrderByWithAggregationInput | PreventiveTaskOrderByWithAggregationInput[]
+    by: PreventiveTaskScalarFieldEnum[] | PreventiveTaskScalarFieldEnum
+    having?: PreventiveTaskScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: PreventiveTaskCountAggregateInputType | true
+    _avg?: PreventiveTaskAvgAggregateInputType
+    _sum?: PreventiveTaskSumAggregateInputType
+    _min?: PreventiveTaskMinAggregateInputType
+    _max?: PreventiveTaskMaxAggregateInputType
+  }
+
+  export type PreventiveTaskGroupByOutputType = {
+    id: string
+    description: string
+    order: number
+    isMandatory: boolean
+    preventiveId: string
+    _count: PreventiveTaskCountAggregateOutputType | null
+    _avg: PreventiveTaskAvgAggregateOutputType | null
+    _sum: PreventiveTaskSumAggregateOutputType | null
+    _min: PreventiveTaskMinAggregateOutputType | null
+    _max: PreventiveTaskMaxAggregateOutputType | null
+  }
+
+  type GetPreventiveTaskGroupByPayload<T extends PreventiveTaskGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<PreventiveTaskGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof PreventiveTaskGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], PreventiveTaskGroupByOutputType[P]>
+            : GetScalarType<T[P], PreventiveTaskGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type PreventiveTaskSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    description?: boolean
+    order?: boolean
+    isMandatory?: boolean
+    preventiveId?: boolean
+    preventive?: boolean | PreventiveDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["preventiveTask"]>
+
+  export type PreventiveTaskSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    description?: boolean
+    order?: boolean
+    isMandatory?: boolean
+    preventiveId?: boolean
+    preventive?: boolean | PreventiveDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["preventiveTask"]>
+
+  export type PreventiveTaskSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    description?: boolean
+    order?: boolean
+    isMandatory?: boolean
+    preventiveId?: boolean
+    preventive?: boolean | PreventiveDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["preventiveTask"]>
+
+  export type PreventiveTaskSelectScalar = {
+    id?: boolean
+    description?: boolean
+    order?: boolean
+    isMandatory?: boolean
+    preventiveId?: boolean
+  }
+
+  export type PreventiveTaskOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "description" | "order" | "isMandatory" | "preventiveId", ExtArgs["result"]["preventiveTask"]>
+  export type PreventiveTaskInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    preventive?: boolean | PreventiveDefaultArgs<ExtArgs>
+  }
+  export type PreventiveTaskIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    preventive?: boolean | PreventiveDefaultArgs<ExtArgs>
+  }
+  export type PreventiveTaskIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    preventive?: boolean | PreventiveDefaultArgs<ExtArgs>
+  }
+
+  export type $PreventiveTaskPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "PreventiveTask"
+    objects: {
+      preventive: Prisma.$PreventivePayload<ExtArgs>
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      description: string
+      order: number
+      isMandatory: boolean
+      preventiveId: string
+    }, ExtArgs["result"]["preventiveTask"]>
+    composites: {}
+  }
+
+  type PreventiveTaskGetPayload<S extends boolean | null | undefined | PreventiveTaskDefaultArgs> = $Result.GetResult<Prisma.$PreventiveTaskPayload, S>
+
+  type PreventiveTaskCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<PreventiveTaskFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: PreventiveTaskCountAggregateInputType | true
+    }
+
+  export interface PreventiveTaskDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['PreventiveTask'], meta: { name: 'PreventiveTask' } }
+    /**
+     * Find zero or one PreventiveTask that matches the filter.
+     * @param {PreventiveTaskFindUniqueArgs} args - Arguments to find a PreventiveTask
+     * @example
+     * // Get one PreventiveTask
+     * const preventiveTask = await prisma.preventiveTask.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends PreventiveTaskFindUniqueArgs>(args: SelectSubset<T, PreventiveTaskFindUniqueArgs<ExtArgs>>): Prisma__PreventiveTaskClient<$Result.GetResult<Prisma.$PreventiveTaskPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one PreventiveTask that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {PreventiveTaskFindUniqueOrThrowArgs} args - Arguments to find a PreventiveTask
+     * @example
+     * // Get one PreventiveTask
+     * const preventiveTask = await prisma.preventiveTask.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends PreventiveTaskFindUniqueOrThrowArgs>(args: SelectSubset<T, PreventiveTaskFindUniqueOrThrowArgs<ExtArgs>>): Prisma__PreventiveTaskClient<$Result.GetResult<Prisma.$PreventiveTaskPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first PreventiveTask that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {PreventiveTaskFindFirstArgs} args - Arguments to find a PreventiveTask
+     * @example
+     * // Get one PreventiveTask
+     * const preventiveTask = await prisma.preventiveTask.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends PreventiveTaskFindFirstArgs>(args?: SelectSubset<T, PreventiveTaskFindFirstArgs<ExtArgs>>): Prisma__PreventiveTaskClient<$Result.GetResult<Prisma.$PreventiveTaskPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first PreventiveTask that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {PreventiveTaskFindFirstOrThrowArgs} args - Arguments to find a PreventiveTask
+     * @example
+     * // Get one PreventiveTask
+     * const preventiveTask = await prisma.preventiveTask.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends PreventiveTaskFindFirstOrThrowArgs>(args?: SelectSubset<T, PreventiveTaskFindFirstOrThrowArgs<ExtArgs>>): Prisma__PreventiveTaskClient<$Result.GetResult<Prisma.$PreventiveTaskPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more PreventiveTasks that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {PreventiveTaskFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all PreventiveTasks
+     * const preventiveTasks = await prisma.preventiveTask.findMany()
+     * 
+     * // Get first 10 PreventiveTasks
+     * const preventiveTasks = await prisma.preventiveTask.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const preventiveTaskWithIdOnly = await prisma.preventiveTask.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends PreventiveTaskFindManyArgs>(args?: SelectSubset<T, PreventiveTaskFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PreventiveTaskPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a PreventiveTask.
+     * @param {PreventiveTaskCreateArgs} args - Arguments to create a PreventiveTask.
+     * @example
+     * // Create one PreventiveTask
+     * const PreventiveTask = await prisma.preventiveTask.create({
+     *   data: {
+     *     // ... data to create a PreventiveTask
+     *   }
+     * })
+     * 
+     */
+    create<T extends PreventiveTaskCreateArgs>(args: SelectSubset<T, PreventiveTaskCreateArgs<ExtArgs>>): Prisma__PreventiveTaskClient<$Result.GetResult<Prisma.$PreventiveTaskPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many PreventiveTasks.
+     * @param {PreventiveTaskCreateManyArgs} args - Arguments to create many PreventiveTasks.
+     * @example
+     * // Create many PreventiveTasks
+     * const preventiveTask = await prisma.preventiveTask.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends PreventiveTaskCreateManyArgs>(args?: SelectSubset<T, PreventiveTaskCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many PreventiveTasks and returns the data saved in the database.
+     * @param {PreventiveTaskCreateManyAndReturnArgs} args - Arguments to create many PreventiveTasks.
+     * @example
+     * // Create many PreventiveTasks
+     * const preventiveTask = await prisma.preventiveTask.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many PreventiveTasks and only return the `id`
+     * const preventiveTaskWithIdOnly = await prisma.preventiveTask.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends PreventiveTaskCreateManyAndReturnArgs>(args?: SelectSubset<T, PreventiveTaskCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PreventiveTaskPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a PreventiveTask.
+     * @param {PreventiveTaskDeleteArgs} args - Arguments to delete one PreventiveTask.
+     * @example
+     * // Delete one PreventiveTask
+     * const PreventiveTask = await prisma.preventiveTask.delete({
+     *   where: {
+     *     // ... filter to delete one PreventiveTask
+     *   }
+     * })
+     * 
+     */
+    delete<T extends PreventiveTaskDeleteArgs>(args: SelectSubset<T, PreventiveTaskDeleteArgs<ExtArgs>>): Prisma__PreventiveTaskClient<$Result.GetResult<Prisma.$PreventiveTaskPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one PreventiveTask.
+     * @param {PreventiveTaskUpdateArgs} args - Arguments to update one PreventiveTask.
+     * @example
+     * // Update one PreventiveTask
+     * const preventiveTask = await prisma.preventiveTask.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends PreventiveTaskUpdateArgs>(args: SelectSubset<T, PreventiveTaskUpdateArgs<ExtArgs>>): Prisma__PreventiveTaskClient<$Result.GetResult<Prisma.$PreventiveTaskPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more PreventiveTasks.
+     * @param {PreventiveTaskDeleteManyArgs} args - Arguments to filter PreventiveTasks to delete.
+     * @example
+     * // Delete a few PreventiveTasks
+     * const { count } = await prisma.preventiveTask.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends PreventiveTaskDeleteManyArgs>(args?: SelectSubset<T, PreventiveTaskDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more PreventiveTasks.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {PreventiveTaskUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many PreventiveTasks
+     * const preventiveTask = await prisma.preventiveTask.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends PreventiveTaskUpdateManyArgs>(args: SelectSubset<T, PreventiveTaskUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more PreventiveTasks and returns the data updated in the database.
+     * @param {PreventiveTaskUpdateManyAndReturnArgs} args - Arguments to update many PreventiveTasks.
+     * @example
+     * // Update many PreventiveTasks
+     * const preventiveTask = await prisma.preventiveTask.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more PreventiveTasks and only return the `id`
+     * const preventiveTaskWithIdOnly = await prisma.preventiveTask.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends PreventiveTaskUpdateManyAndReturnArgs>(args: SelectSubset<T, PreventiveTaskUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PreventiveTaskPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one PreventiveTask.
+     * @param {PreventiveTaskUpsertArgs} args - Arguments to update or create a PreventiveTask.
+     * @example
+     * // Update or create a PreventiveTask
+     * const preventiveTask = await prisma.preventiveTask.upsert({
+     *   create: {
+     *     // ... data to create a PreventiveTask
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the PreventiveTask we want to update
+     *   }
+     * })
+     */
+    upsert<T extends PreventiveTaskUpsertArgs>(args: SelectSubset<T, PreventiveTaskUpsertArgs<ExtArgs>>): Prisma__PreventiveTaskClient<$Result.GetResult<Prisma.$PreventiveTaskPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of PreventiveTasks.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {PreventiveTaskCountArgs} args - Arguments to filter PreventiveTasks to count.
+     * @example
+     * // Count the number of PreventiveTasks
+     * const count = await prisma.preventiveTask.count({
+     *   where: {
+     *     // ... the filter for the PreventiveTasks we want to count
+     *   }
+     * })
+    **/
+    count<T extends PreventiveTaskCountArgs>(
+      args?: Subset<T, PreventiveTaskCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], PreventiveTaskCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a PreventiveTask.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {PreventiveTaskAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends PreventiveTaskAggregateArgs>(args: Subset<T, PreventiveTaskAggregateArgs>): Prisma.PrismaPromise<GetPreventiveTaskAggregateType<T>>
+
+    /**
+     * Group by PreventiveTask.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {PreventiveTaskGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends PreventiveTaskGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: PreventiveTaskGroupByArgs['orderBy'] }
+        : { orderBy?: PreventiveTaskGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, PreventiveTaskGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetPreventiveTaskGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the PreventiveTask model
+   */
+  readonly fields: PreventiveTaskFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for PreventiveTask.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__PreventiveTaskClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    preventive<T extends PreventiveDefaultArgs<ExtArgs> = {}>(args?: Subset<T, PreventiveDefaultArgs<ExtArgs>>): Prisma__PreventiveClient<$Result.GetResult<Prisma.$PreventivePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the PreventiveTask model
+   */
+  interface PreventiveTaskFieldRefs {
+    readonly id: FieldRef<"PreventiveTask", 'String'>
+    readonly description: FieldRef<"PreventiveTask", 'String'>
+    readonly order: FieldRef<"PreventiveTask", 'Int'>
+    readonly isMandatory: FieldRef<"PreventiveTask", 'Boolean'>
+    readonly preventiveId: FieldRef<"PreventiveTask", 'String'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * PreventiveTask findUnique
+   */
+  export type PreventiveTaskFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PreventiveTask
+     */
+    select?: PreventiveTaskSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the PreventiveTask
+     */
+    omit?: PreventiveTaskOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PreventiveTaskInclude<ExtArgs> | null
+    /**
+     * Filter, which PreventiveTask to fetch.
+     */
+    where: PreventiveTaskWhereUniqueInput
+  }
+
+  /**
+   * PreventiveTask findUniqueOrThrow
+   */
+  export type PreventiveTaskFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PreventiveTask
+     */
+    select?: PreventiveTaskSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the PreventiveTask
+     */
+    omit?: PreventiveTaskOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PreventiveTaskInclude<ExtArgs> | null
+    /**
+     * Filter, which PreventiveTask to fetch.
+     */
+    where: PreventiveTaskWhereUniqueInput
+  }
+
+  /**
+   * PreventiveTask findFirst
+   */
+  export type PreventiveTaskFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PreventiveTask
+     */
+    select?: PreventiveTaskSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the PreventiveTask
+     */
+    omit?: PreventiveTaskOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PreventiveTaskInclude<ExtArgs> | null
+    /**
+     * Filter, which PreventiveTask to fetch.
+     */
+    where?: PreventiveTaskWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of PreventiveTasks to fetch.
+     */
+    orderBy?: PreventiveTaskOrderByWithRelationInput | PreventiveTaskOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for PreventiveTasks.
+     */
+    cursor?: PreventiveTaskWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` PreventiveTasks from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` PreventiveTasks.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of PreventiveTasks.
+     */
+    distinct?: PreventiveTaskScalarFieldEnum | PreventiveTaskScalarFieldEnum[]
+  }
+
+  /**
+   * PreventiveTask findFirstOrThrow
+   */
+  export type PreventiveTaskFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PreventiveTask
+     */
+    select?: PreventiveTaskSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the PreventiveTask
+     */
+    omit?: PreventiveTaskOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PreventiveTaskInclude<ExtArgs> | null
+    /**
+     * Filter, which PreventiveTask to fetch.
+     */
+    where?: PreventiveTaskWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of PreventiveTasks to fetch.
+     */
+    orderBy?: PreventiveTaskOrderByWithRelationInput | PreventiveTaskOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for PreventiveTasks.
+     */
+    cursor?: PreventiveTaskWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` PreventiveTasks from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` PreventiveTasks.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of PreventiveTasks.
+     */
+    distinct?: PreventiveTaskScalarFieldEnum | PreventiveTaskScalarFieldEnum[]
+  }
+
+  /**
+   * PreventiveTask findMany
+   */
+  export type PreventiveTaskFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PreventiveTask
+     */
+    select?: PreventiveTaskSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the PreventiveTask
+     */
+    omit?: PreventiveTaskOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PreventiveTaskInclude<ExtArgs> | null
+    /**
+     * Filter, which PreventiveTasks to fetch.
+     */
+    where?: PreventiveTaskWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of PreventiveTasks to fetch.
+     */
+    orderBy?: PreventiveTaskOrderByWithRelationInput | PreventiveTaskOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing PreventiveTasks.
+     */
+    cursor?: PreventiveTaskWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` PreventiveTasks from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` PreventiveTasks.
+     */
+    skip?: number
+    distinct?: PreventiveTaskScalarFieldEnum | PreventiveTaskScalarFieldEnum[]
+  }
+
+  /**
+   * PreventiveTask create
+   */
+  export type PreventiveTaskCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PreventiveTask
+     */
+    select?: PreventiveTaskSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the PreventiveTask
+     */
+    omit?: PreventiveTaskOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PreventiveTaskInclude<ExtArgs> | null
+    /**
+     * The data needed to create a PreventiveTask.
+     */
+    data: XOR<PreventiveTaskCreateInput, PreventiveTaskUncheckedCreateInput>
+  }
+
+  /**
+   * PreventiveTask createMany
+   */
+  export type PreventiveTaskCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many PreventiveTasks.
+     */
+    data: PreventiveTaskCreateManyInput | PreventiveTaskCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * PreventiveTask createManyAndReturn
+   */
+  export type PreventiveTaskCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PreventiveTask
+     */
+    select?: PreventiveTaskSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the PreventiveTask
+     */
+    omit?: PreventiveTaskOmit<ExtArgs> | null
+    /**
+     * The data used to create many PreventiveTasks.
+     */
+    data: PreventiveTaskCreateManyInput | PreventiveTaskCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PreventiveTaskIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * PreventiveTask update
+   */
+  export type PreventiveTaskUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PreventiveTask
+     */
+    select?: PreventiveTaskSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the PreventiveTask
+     */
+    omit?: PreventiveTaskOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PreventiveTaskInclude<ExtArgs> | null
+    /**
+     * The data needed to update a PreventiveTask.
+     */
+    data: XOR<PreventiveTaskUpdateInput, PreventiveTaskUncheckedUpdateInput>
+    /**
+     * Choose, which PreventiveTask to update.
+     */
+    where: PreventiveTaskWhereUniqueInput
+  }
+
+  /**
+   * PreventiveTask updateMany
+   */
+  export type PreventiveTaskUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update PreventiveTasks.
+     */
+    data: XOR<PreventiveTaskUpdateManyMutationInput, PreventiveTaskUncheckedUpdateManyInput>
+    /**
+     * Filter which PreventiveTasks to update
+     */
+    where?: PreventiveTaskWhereInput
+    /**
+     * Limit how many PreventiveTasks to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * PreventiveTask updateManyAndReturn
+   */
+  export type PreventiveTaskUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PreventiveTask
+     */
+    select?: PreventiveTaskSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the PreventiveTask
+     */
+    omit?: PreventiveTaskOmit<ExtArgs> | null
+    /**
+     * The data used to update PreventiveTasks.
+     */
+    data: XOR<PreventiveTaskUpdateManyMutationInput, PreventiveTaskUncheckedUpdateManyInput>
+    /**
+     * Filter which PreventiveTasks to update
+     */
+    where?: PreventiveTaskWhereInput
+    /**
+     * Limit how many PreventiveTasks to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PreventiveTaskIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * PreventiveTask upsert
+   */
+  export type PreventiveTaskUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PreventiveTask
+     */
+    select?: PreventiveTaskSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the PreventiveTask
+     */
+    omit?: PreventiveTaskOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PreventiveTaskInclude<ExtArgs> | null
+    /**
+     * The filter to search for the PreventiveTask to update in case it exists.
+     */
+    where: PreventiveTaskWhereUniqueInput
+    /**
+     * In case the PreventiveTask found by the `where` argument doesn't exist, create a new PreventiveTask with this data.
+     */
+    create: XOR<PreventiveTaskCreateInput, PreventiveTaskUncheckedCreateInput>
+    /**
+     * In case the PreventiveTask was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<PreventiveTaskUpdateInput, PreventiveTaskUncheckedUpdateInput>
+  }
+
+  /**
+   * PreventiveTask delete
+   */
+  export type PreventiveTaskDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PreventiveTask
+     */
+    select?: PreventiveTaskSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the PreventiveTask
+     */
+    omit?: PreventiveTaskOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PreventiveTaskInclude<ExtArgs> | null
+    /**
+     * Filter which PreventiveTask to delete.
+     */
+    where: PreventiveTaskWhereUniqueInput
+  }
+
+  /**
+   * PreventiveTask deleteMany
+   */
+  export type PreventiveTaskDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which PreventiveTasks to delete
+     */
+    where?: PreventiveTaskWhereInput
+    /**
+     * Limit how many PreventiveTasks to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * PreventiveTask without action
+   */
+  export type PreventiveTaskDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PreventiveTask
+     */
+    select?: PreventiveTaskSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the PreventiveTask
+     */
+    omit?: PreventiveTaskOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PreventiveTaskInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model MaintenanceTask
+   */
+
+  export type AggregateMaintenanceTask = {
+    _count: MaintenanceTaskCountAggregateOutputType | null
+    _min: MaintenanceTaskMinAggregateOutputType | null
+    _max: MaintenanceTaskMaxAggregateOutputType | null
+  }
+
+  export type MaintenanceTaskMinAggregateOutputType = {
+    id: string | null
+    description: string | null
+    isCompleted: boolean | null
+    completedAt: Date | null
+    notes: string | null
+    maintenanceId: string | null
+    completedById: string | null
+  }
+
+  export type MaintenanceTaskMaxAggregateOutputType = {
+    id: string | null
+    description: string | null
+    isCompleted: boolean | null
+    completedAt: Date | null
+    notes: string | null
+    maintenanceId: string | null
+    completedById: string | null
+  }
+
+  export type MaintenanceTaskCountAggregateOutputType = {
+    id: number
+    description: number
+    isCompleted: number
+    completedAt: number
+    notes: number
+    maintenanceId: number
+    completedById: number
+    _all: number
+  }
+
+
+  export type MaintenanceTaskMinAggregateInputType = {
+    id?: true
+    description?: true
+    isCompleted?: true
+    completedAt?: true
+    notes?: true
+    maintenanceId?: true
+    completedById?: true
+  }
+
+  export type MaintenanceTaskMaxAggregateInputType = {
+    id?: true
+    description?: true
+    isCompleted?: true
+    completedAt?: true
+    notes?: true
+    maintenanceId?: true
+    completedById?: true
+  }
+
+  export type MaintenanceTaskCountAggregateInputType = {
+    id?: true
+    description?: true
+    isCompleted?: true
+    completedAt?: true
+    notes?: true
+    maintenanceId?: true
+    completedById?: true
+    _all?: true
+  }
+
+  export type MaintenanceTaskAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which MaintenanceTask to aggregate.
+     */
+    where?: MaintenanceTaskWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of MaintenanceTasks to fetch.
+     */
+    orderBy?: MaintenanceTaskOrderByWithRelationInput | MaintenanceTaskOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: MaintenanceTaskWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` MaintenanceTasks from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` MaintenanceTasks.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned MaintenanceTasks
+    **/
+    _count?: true | MaintenanceTaskCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: MaintenanceTaskMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: MaintenanceTaskMaxAggregateInputType
+  }
+
+  export type GetMaintenanceTaskAggregateType<T extends MaintenanceTaskAggregateArgs> = {
+        [P in keyof T & keyof AggregateMaintenanceTask]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateMaintenanceTask[P]>
+      : GetScalarType<T[P], AggregateMaintenanceTask[P]>
+  }
+
+
+
+
+  export type MaintenanceTaskGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: MaintenanceTaskWhereInput
+    orderBy?: MaintenanceTaskOrderByWithAggregationInput | MaintenanceTaskOrderByWithAggregationInput[]
+    by: MaintenanceTaskScalarFieldEnum[] | MaintenanceTaskScalarFieldEnum
+    having?: MaintenanceTaskScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: MaintenanceTaskCountAggregateInputType | true
+    _min?: MaintenanceTaskMinAggregateInputType
+    _max?: MaintenanceTaskMaxAggregateInputType
+  }
+
+  export type MaintenanceTaskGroupByOutputType = {
+    id: string
+    description: string
+    isCompleted: boolean
+    completedAt: Date | null
+    notes: string | null
+    maintenanceId: string
+    completedById: string | null
+    _count: MaintenanceTaskCountAggregateOutputType | null
+    _min: MaintenanceTaskMinAggregateOutputType | null
+    _max: MaintenanceTaskMaxAggregateOutputType | null
+  }
+
+  type GetMaintenanceTaskGroupByPayload<T extends MaintenanceTaskGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<MaintenanceTaskGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof MaintenanceTaskGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], MaintenanceTaskGroupByOutputType[P]>
+            : GetScalarType<T[P], MaintenanceTaskGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type MaintenanceTaskSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    description?: boolean
+    isCompleted?: boolean
+    completedAt?: boolean
+    notes?: boolean
+    maintenanceId?: boolean
+    completedById?: boolean
+    maintenance?: boolean | MaintenanceDefaultArgs<ExtArgs>
+    completedBy?: boolean | MaintenanceTask$completedByArgs<ExtArgs>
+  }, ExtArgs["result"]["maintenanceTask"]>
+
+  export type MaintenanceTaskSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    description?: boolean
+    isCompleted?: boolean
+    completedAt?: boolean
+    notes?: boolean
+    maintenanceId?: boolean
+    completedById?: boolean
+    maintenance?: boolean | MaintenanceDefaultArgs<ExtArgs>
+    completedBy?: boolean | MaintenanceTask$completedByArgs<ExtArgs>
+  }, ExtArgs["result"]["maintenanceTask"]>
+
+  export type MaintenanceTaskSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    description?: boolean
+    isCompleted?: boolean
+    completedAt?: boolean
+    notes?: boolean
+    maintenanceId?: boolean
+    completedById?: boolean
+    maintenance?: boolean | MaintenanceDefaultArgs<ExtArgs>
+    completedBy?: boolean | MaintenanceTask$completedByArgs<ExtArgs>
+  }, ExtArgs["result"]["maintenanceTask"]>
+
+  export type MaintenanceTaskSelectScalar = {
+    id?: boolean
+    description?: boolean
+    isCompleted?: boolean
+    completedAt?: boolean
+    notes?: boolean
+    maintenanceId?: boolean
+    completedById?: boolean
+  }
+
+  export type MaintenanceTaskOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "description" | "isCompleted" | "completedAt" | "notes" | "maintenanceId" | "completedById", ExtArgs["result"]["maintenanceTask"]>
+  export type MaintenanceTaskInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    maintenance?: boolean | MaintenanceDefaultArgs<ExtArgs>
+    completedBy?: boolean | MaintenanceTask$completedByArgs<ExtArgs>
+  }
+  export type MaintenanceTaskIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    maintenance?: boolean | MaintenanceDefaultArgs<ExtArgs>
+    completedBy?: boolean | MaintenanceTask$completedByArgs<ExtArgs>
+  }
+  export type MaintenanceTaskIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    maintenance?: boolean | MaintenanceDefaultArgs<ExtArgs>
+    completedBy?: boolean | MaintenanceTask$completedByArgs<ExtArgs>
+  }
+
+  export type $MaintenanceTaskPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "MaintenanceTask"
+    objects: {
+      maintenance: Prisma.$MaintenancePayload<ExtArgs>
+      completedBy: Prisma.$UserPayload<ExtArgs> | null
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      description: string
+      isCompleted: boolean
+      completedAt: Date | null
+      notes: string | null
+      maintenanceId: string
+      completedById: string | null
+    }, ExtArgs["result"]["maintenanceTask"]>
+    composites: {}
+  }
+
+  type MaintenanceTaskGetPayload<S extends boolean | null | undefined | MaintenanceTaskDefaultArgs> = $Result.GetResult<Prisma.$MaintenanceTaskPayload, S>
+
+  type MaintenanceTaskCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<MaintenanceTaskFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: MaintenanceTaskCountAggregateInputType | true
+    }
+
+  export interface MaintenanceTaskDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['MaintenanceTask'], meta: { name: 'MaintenanceTask' } }
+    /**
+     * Find zero or one MaintenanceTask that matches the filter.
+     * @param {MaintenanceTaskFindUniqueArgs} args - Arguments to find a MaintenanceTask
+     * @example
+     * // Get one MaintenanceTask
+     * const maintenanceTask = await prisma.maintenanceTask.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends MaintenanceTaskFindUniqueArgs>(args: SelectSubset<T, MaintenanceTaskFindUniqueArgs<ExtArgs>>): Prisma__MaintenanceTaskClient<$Result.GetResult<Prisma.$MaintenanceTaskPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one MaintenanceTask that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {MaintenanceTaskFindUniqueOrThrowArgs} args - Arguments to find a MaintenanceTask
+     * @example
+     * // Get one MaintenanceTask
+     * const maintenanceTask = await prisma.maintenanceTask.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends MaintenanceTaskFindUniqueOrThrowArgs>(args: SelectSubset<T, MaintenanceTaskFindUniqueOrThrowArgs<ExtArgs>>): Prisma__MaintenanceTaskClient<$Result.GetResult<Prisma.$MaintenanceTaskPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first MaintenanceTask that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {MaintenanceTaskFindFirstArgs} args - Arguments to find a MaintenanceTask
+     * @example
+     * // Get one MaintenanceTask
+     * const maintenanceTask = await prisma.maintenanceTask.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends MaintenanceTaskFindFirstArgs>(args?: SelectSubset<T, MaintenanceTaskFindFirstArgs<ExtArgs>>): Prisma__MaintenanceTaskClient<$Result.GetResult<Prisma.$MaintenanceTaskPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first MaintenanceTask that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {MaintenanceTaskFindFirstOrThrowArgs} args - Arguments to find a MaintenanceTask
+     * @example
+     * // Get one MaintenanceTask
+     * const maintenanceTask = await prisma.maintenanceTask.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends MaintenanceTaskFindFirstOrThrowArgs>(args?: SelectSubset<T, MaintenanceTaskFindFirstOrThrowArgs<ExtArgs>>): Prisma__MaintenanceTaskClient<$Result.GetResult<Prisma.$MaintenanceTaskPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more MaintenanceTasks that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {MaintenanceTaskFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all MaintenanceTasks
+     * const maintenanceTasks = await prisma.maintenanceTask.findMany()
+     * 
+     * // Get first 10 MaintenanceTasks
+     * const maintenanceTasks = await prisma.maintenanceTask.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const maintenanceTaskWithIdOnly = await prisma.maintenanceTask.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends MaintenanceTaskFindManyArgs>(args?: SelectSubset<T, MaintenanceTaskFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$MaintenanceTaskPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a MaintenanceTask.
+     * @param {MaintenanceTaskCreateArgs} args - Arguments to create a MaintenanceTask.
+     * @example
+     * // Create one MaintenanceTask
+     * const MaintenanceTask = await prisma.maintenanceTask.create({
+     *   data: {
+     *     // ... data to create a MaintenanceTask
+     *   }
+     * })
+     * 
+     */
+    create<T extends MaintenanceTaskCreateArgs>(args: SelectSubset<T, MaintenanceTaskCreateArgs<ExtArgs>>): Prisma__MaintenanceTaskClient<$Result.GetResult<Prisma.$MaintenanceTaskPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many MaintenanceTasks.
+     * @param {MaintenanceTaskCreateManyArgs} args - Arguments to create many MaintenanceTasks.
+     * @example
+     * // Create many MaintenanceTasks
+     * const maintenanceTask = await prisma.maintenanceTask.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends MaintenanceTaskCreateManyArgs>(args?: SelectSubset<T, MaintenanceTaskCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many MaintenanceTasks and returns the data saved in the database.
+     * @param {MaintenanceTaskCreateManyAndReturnArgs} args - Arguments to create many MaintenanceTasks.
+     * @example
+     * // Create many MaintenanceTasks
+     * const maintenanceTask = await prisma.maintenanceTask.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many MaintenanceTasks and only return the `id`
+     * const maintenanceTaskWithIdOnly = await prisma.maintenanceTask.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends MaintenanceTaskCreateManyAndReturnArgs>(args?: SelectSubset<T, MaintenanceTaskCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$MaintenanceTaskPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a MaintenanceTask.
+     * @param {MaintenanceTaskDeleteArgs} args - Arguments to delete one MaintenanceTask.
+     * @example
+     * // Delete one MaintenanceTask
+     * const MaintenanceTask = await prisma.maintenanceTask.delete({
+     *   where: {
+     *     // ... filter to delete one MaintenanceTask
+     *   }
+     * })
+     * 
+     */
+    delete<T extends MaintenanceTaskDeleteArgs>(args: SelectSubset<T, MaintenanceTaskDeleteArgs<ExtArgs>>): Prisma__MaintenanceTaskClient<$Result.GetResult<Prisma.$MaintenanceTaskPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one MaintenanceTask.
+     * @param {MaintenanceTaskUpdateArgs} args - Arguments to update one MaintenanceTask.
+     * @example
+     * // Update one MaintenanceTask
+     * const maintenanceTask = await prisma.maintenanceTask.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends MaintenanceTaskUpdateArgs>(args: SelectSubset<T, MaintenanceTaskUpdateArgs<ExtArgs>>): Prisma__MaintenanceTaskClient<$Result.GetResult<Prisma.$MaintenanceTaskPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more MaintenanceTasks.
+     * @param {MaintenanceTaskDeleteManyArgs} args - Arguments to filter MaintenanceTasks to delete.
+     * @example
+     * // Delete a few MaintenanceTasks
+     * const { count } = await prisma.maintenanceTask.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends MaintenanceTaskDeleteManyArgs>(args?: SelectSubset<T, MaintenanceTaskDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more MaintenanceTasks.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {MaintenanceTaskUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many MaintenanceTasks
+     * const maintenanceTask = await prisma.maintenanceTask.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends MaintenanceTaskUpdateManyArgs>(args: SelectSubset<T, MaintenanceTaskUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more MaintenanceTasks and returns the data updated in the database.
+     * @param {MaintenanceTaskUpdateManyAndReturnArgs} args - Arguments to update many MaintenanceTasks.
+     * @example
+     * // Update many MaintenanceTasks
+     * const maintenanceTask = await prisma.maintenanceTask.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more MaintenanceTasks and only return the `id`
+     * const maintenanceTaskWithIdOnly = await prisma.maintenanceTask.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends MaintenanceTaskUpdateManyAndReturnArgs>(args: SelectSubset<T, MaintenanceTaskUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$MaintenanceTaskPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one MaintenanceTask.
+     * @param {MaintenanceTaskUpsertArgs} args - Arguments to update or create a MaintenanceTask.
+     * @example
+     * // Update or create a MaintenanceTask
+     * const maintenanceTask = await prisma.maintenanceTask.upsert({
+     *   create: {
+     *     // ... data to create a MaintenanceTask
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the MaintenanceTask we want to update
+     *   }
+     * })
+     */
+    upsert<T extends MaintenanceTaskUpsertArgs>(args: SelectSubset<T, MaintenanceTaskUpsertArgs<ExtArgs>>): Prisma__MaintenanceTaskClient<$Result.GetResult<Prisma.$MaintenanceTaskPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of MaintenanceTasks.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {MaintenanceTaskCountArgs} args - Arguments to filter MaintenanceTasks to count.
+     * @example
+     * // Count the number of MaintenanceTasks
+     * const count = await prisma.maintenanceTask.count({
+     *   where: {
+     *     // ... the filter for the MaintenanceTasks we want to count
+     *   }
+     * })
+    **/
+    count<T extends MaintenanceTaskCountArgs>(
+      args?: Subset<T, MaintenanceTaskCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], MaintenanceTaskCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a MaintenanceTask.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {MaintenanceTaskAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends MaintenanceTaskAggregateArgs>(args: Subset<T, MaintenanceTaskAggregateArgs>): Prisma.PrismaPromise<GetMaintenanceTaskAggregateType<T>>
+
+    /**
+     * Group by MaintenanceTask.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {MaintenanceTaskGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends MaintenanceTaskGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: MaintenanceTaskGroupByArgs['orderBy'] }
+        : { orderBy?: MaintenanceTaskGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, MaintenanceTaskGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetMaintenanceTaskGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the MaintenanceTask model
+   */
+  readonly fields: MaintenanceTaskFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for MaintenanceTask.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__MaintenanceTaskClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    maintenance<T extends MaintenanceDefaultArgs<ExtArgs> = {}>(args?: Subset<T, MaintenanceDefaultArgs<ExtArgs>>): Prisma__MaintenanceClient<$Result.GetResult<Prisma.$MaintenancePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    completedBy<T extends MaintenanceTask$completedByArgs<ExtArgs> = {}>(args?: Subset<T, MaintenanceTask$completedByArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the MaintenanceTask model
+   */
+  interface MaintenanceTaskFieldRefs {
+    readonly id: FieldRef<"MaintenanceTask", 'String'>
+    readonly description: FieldRef<"MaintenanceTask", 'String'>
+    readonly isCompleted: FieldRef<"MaintenanceTask", 'Boolean'>
+    readonly completedAt: FieldRef<"MaintenanceTask", 'DateTime'>
+    readonly notes: FieldRef<"MaintenanceTask", 'String'>
+    readonly maintenanceId: FieldRef<"MaintenanceTask", 'String'>
+    readonly completedById: FieldRef<"MaintenanceTask", 'String'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * MaintenanceTask findUnique
+   */
+  export type MaintenanceTaskFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MaintenanceTask
+     */
+    select?: MaintenanceTaskSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the MaintenanceTask
+     */
+    omit?: MaintenanceTaskOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MaintenanceTaskInclude<ExtArgs> | null
+    /**
+     * Filter, which MaintenanceTask to fetch.
+     */
+    where: MaintenanceTaskWhereUniqueInput
+  }
+
+  /**
+   * MaintenanceTask findUniqueOrThrow
+   */
+  export type MaintenanceTaskFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MaintenanceTask
+     */
+    select?: MaintenanceTaskSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the MaintenanceTask
+     */
+    omit?: MaintenanceTaskOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MaintenanceTaskInclude<ExtArgs> | null
+    /**
+     * Filter, which MaintenanceTask to fetch.
+     */
+    where: MaintenanceTaskWhereUniqueInput
+  }
+
+  /**
+   * MaintenanceTask findFirst
+   */
+  export type MaintenanceTaskFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MaintenanceTask
+     */
+    select?: MaintenanceTaskSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the MaintenanceTask
+     */
+    omit?: MaintenanceTaskOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MaintenanceTaskInclude<ExtArgs> | null
+    /**
+     * Filter, which MaintenanceTask to fetch.
+     */
+    where?: MaintenanceTaskWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of MaintenanceTasks to fetch.
+     */
+    orderBy?: MaintenanceTaskOrderByWithRelationInput | MaintenanceTaskOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for MaintenanceTasks.
+     */
+    cursor?: MaintenanceTaskWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` MaintenanceTasks from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` MaintenanceTasks.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of MaintenanceTasks.
+     */
+    distinct?: MaintenanceTaskScalarFieldEnum | MaintenanceTaskScalarFieldEnum[]
+  }
+
+  /**
+   * MaintenanceTask findFirstOrThrow
+   */
+  export type MaintenanceTaskFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MaintenanceTask
+     */
+    select?: MaintenanceTaskSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the MaintenanceTask
+     */
+    omit?: MaintenanceTaskOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MaintenanceTaskInclude<ExtArgs> | null
+    /**
+     * Filter, which MaintenanceTask to fetch.
+     */
+    where?: MaintenanceTaskWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of MaintenanceTasks to fetch.
+     */
+    orderBy?: MaintenanceTaskOrderByWithRelationInput | MaintenanceTaskOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for MaintenanceTasks.
+     */
+    cursor?: MaintenanceTaskWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` MaintenanceTasks from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` MaintenanceTasks.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of MaintenanceTasks.
+     */
+    distinct?: MaintenanceTaskScalarFieldEnum | MaintenanceTaskScalarFieldEnum[]
+  }
+
+  /**
+   * MaintenanceTask findMany
+   */
+  export type MaintenanceTaskFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MaintenanceTask
+     */
+    select?: MaintenanceTaskSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the MaintenanceTask
+     */
+    omit?: MaintenanceTaskOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MaintenanceTaskInclude<ExtArgs> | null
+    /**
+     * Filter, which MaintenanceTasks to fetch.
+     */
+    where?: MaintenanceTaskWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of MaintenanceTasks to fetch.
+     */
+    orderBy?: MaintenanceTaskOrderByWithRelationInput | MaintenanceTaskOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing MaintenanceTasks.
+     */
+    cursor?: MaintenanceTaskWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` MaintenanceTasks from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` MaintenanceTasks.
+     */
+    skip?: number
+    distinct?: MaintenanceTaskScalarFieldEnum | MaintenanceTaskScalarFieldEnum[]
+  }
+
+  /**
+   * MaintenanceTask create
+   */
+  export type MaintenanceTaskCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MaintenanceTask
+     */
+    select?: MaintenanceTaskSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the MaintenanceTask
+     */
+    omit?: MaintenanceTaskOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MaintenanceTaskInclude<ExtArgs> | null
+    /**
+     * The data needed to create a MaintenanceTask.
+     */
+    data: XOR<MaintenanceTaskCreateInput, MaintenanceTaskUncheckedCreateInput>
+  }
+
+  /**
+   * MaintenanceTask createMany
+   */
+  export type MaintenanceTaskCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many MaintenanceTasks.
+     */
+    data: MaintenanceTaskCreateManyInput | MaintenanceTaskCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * MaintenanceTask createManyAndReturn
+   */
+  export type MaintenanceTaskCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MaintenanceTask
+     */
+    select?: MaintenanceTaskSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the MaintenanceTask
+     */
+    omit?: MaintenanceTaskOmit<ExtArgs> | null
+    /**
+     * The data used to create many MaintenanceTasks.
+     */
+    data: MaintenanceTaskCreateManyInput | MaintenanceTaskCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MaintenanceTaskIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * MaintenanceTask update
+   */
+  export type MaintenanceTaskUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MaintenanceTask
+     */
+    select?: MaintenanceTaskSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the MaintenanceTask
+     */
+    omit?: MaintenanceTaskOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MaintenanceTaskInclude<ExtArgs> | null
+    /**
+     * The data needed to update a MaintenanceTask.
+     */
+    data: XOR<MaintenanceTaskUpdateInput, MaintenanceTaskUncheckedUpdateInput>
+    /**
+     * Choose, which MaintenanceTask to update.
+     */
+    where: MaintenanceTaskWhereUniqueInput
+  }
+
+  /**
+   * MaintenanceTask updateMany
+   */
+  export type MaintenanceTaskUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update MaintenanceTasks.
+     */
+    data: XOR<MaintenanceTaskUpdateManyMutationInput, MaintenanceTaskUncheckedUpdateManyInput>
+    /**
+     * Filter which MaintenanceTasks to update
+     */
+    where?: MaintenanceTaskWhereInput
+    /**
+     * Limit how many MaintenanceTasks to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * MaintenanceTask updateManyAndReturn
+   */
+  export type MaintenanceTaskUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MaintenanceTask
+     */
+    select?: MaintenanceTaskSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the MaintenanceTask
+     */
+    omit?: MaintenanceTaskOmit<ExtArgs> | null
+    /**
+     * The data used to update MaintenanceTasks.
+     */
+    data: XOR<MaintenanceTaskUpdateManyMutationInput, MaintenanceTaskUncheckedUpdateManyInput>
+    /**
+     * Filter which MaintenanceTasks to update
+     */
+    where?: MaintenanceTaskWhereInput
+    /**
+     * Limit how many MaintenanceTasks to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MaintenanceTaskIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * MaintenanceTask upsert
+   */
+  export type MaintenanceTaskUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MaintenanceTask
+     */
+    select?: MaintenanceTaskSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the MaintenanceTask
+     */
+    omit?: MaintenanceTaskOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MaintenanceTaskInclude<ExtArgs> | null
+    /**
+     * The filter to search for the MaintenanceTask to update in case it exists.
+     */
+    where: MaintenanceTaskWhereUniqueInput
+    /**
+     * In case the MaintenanceTask found by the `where` argument doesn't exist, create a new MaintenanceTask with this data.
+     */
+    create: XOR<MaintenanceTaskCreateInput, MaintenanceTaskUncheckedCreateInput>
+    /**
+     * In case the MaintenanceTask was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<MaintenanceTaskUpdateInput, MaintenanceTaskUncheckedUpdateInput>
+  }
+
+  /**
+   * MaintenanceTask delete
+   */
+  export type MaintenanceTaskDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MaintenanceTask
+     */
+    select?: MaintenanceTaskSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the MaintenanceTask
+     */
+    omit?: MaintenanceTaskOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MaintenanceTaskInclude<ExtArgs> | null
+    /**
+     * Filter which MaintenanceTask to delete.
+     */
+    where: MaintenanceTaskWhereUniqueInput
+  }
+
+  /**
+   * MaintenanceTask deleteMany
+   */
+  export type MaintenanceTaskDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which MaintenanceTasks to delete
+     */
+    where?: MaintenanceTaskWhereInput
+    /**
+     * Limit how many MaintenanceTasks to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * MaintenanceTask.completedBy
+   */
+  export type MaintenanceTask$completedByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the User
+     */
+    select?: UserSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the User
+     */
+    omit?: UserOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserInclude<ExtArgs> | null
+    where?: UserWhereInput
+  }
+
+  /**
+   * MaintenanceTask without action
+   */
+  export type MaintenanceTaskDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MaintenanceTask
+     */
+    select?: MaintenanceTaskSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the MaintenanceTask
+     */
+    omit?: MaintenanceTaskOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MaintenanceTaskInclude<ExtArgs> | null
   }
 
 
@@ -33329,8 +35825,18 @@ export namespace Prisma {
 
   export type AggregateItem = {
     _count: ItemCountAggregateOutputType | null
+    _avg: ItemAvgAggregateOutputType | null
+    _sum: ItemSumAggregateOutputType | null
     _min: ItemMinAggregateOutputType | null
     _max: ItemMaxAggregateOutputType | null
+  }
+
+  export type ItemAvgAggregateOutputType = {
+    cost: Decimal | null
+  }
+
+  export type ItemSumAggregateOutputType = {
+    cost: Decimal | null
   }
 
   export type ItemMinAggregateOutputType = {
@@ -33340,6 +35846,7 @@ export namespace Prisma {
     code: string | null
     category: string | null
     unitOfMeasure: string | null
+    cost: Decimal | null
     createdAt: Date | null
     updatedAt: Date | null
   }
@@ -33351,6 +35858,7 @@ export namespace Prisma {
     code: string | null
     category: string | null
     unitOfMeasure: string | null
+    cost: Decimal | null
     createdAt: Date | null
     updatedAt: Date | null
   }
@@ -33362,11 +35870,20 @@ export namespace Prisma {
     code: number
     category: number
     unitOfMeasure: number
+    cost: number
     createdAt: number
     updatedAt: number
     _all: number
   }
 
+
+  export type ItemAvgAggregateInputType = {
+    cost?: true
+  }
+
+  export type ItemSumAggregateInputType = {
+    cost?: true
+  }
 
   export type ItemMinAggregateInputType = {
     id?: true
@@ -33375,6 +35892,7 @@ export namespace Prisma {
     code?: true
     category?: true
     unitOfMeasure?: true
+    cost?: true
     createdAt?: true
     updatedAt?: true
   }
@@ -33386,6 +35904,7 @@ export namespace Prisma {
     code?: true
     category?: true
     unitOfMeasure?: true
+    cost?: true
     createdAt?: true
     updatedAt?: true
   }
@@ -33397,6 +35916,7 @@ export namespace Prisma {
     code?: true
     category?: true
     unitOfMeasure?: true
+    cost?: true
     createdAt?: true
     updatedAt?: true
     _all?: true
@@ -33440,6 +35960,18 @@ export namespace Prisma {
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
      * 
+     * Select which fields to average
+    **/
+    _avg?: ItemAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: ItemSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
      * Select which fields to find the minimum value
     **/
     _min?: ItemMinAggregateInputType
@@ -33470,6 +36002,8 @@ export namespace Prisma {
     take?: number
     skip?: number
     _count?: ItemCountAggregateInputType | true
+    _avg?: ItemAvgAggregateInputType
+    _sum?: ItemSumAggregateInputType
     _min?: ItemMinAggregateInputType
     _max?: ItemMaxAggregateInputType
   }
@@ -33481,9 +36015,12 @@ export namespace Prisma {
     code: string
     category: string | null
     unitOfMeasure: string | null
+    cost: Decimal
     createdAt: Date
     updatedAt: Date
     _count: ItemCountAggregateOutputType | null
+    _avg: ItemAvgAggregateOutputType | null
+    _sum: ItemSumAggregateOutputType | null
     _min: ItemMinAggregateOutputType | null
     _max: ItemMaxAggregateOutputType | null
   }
@@ -33509,6 +36046,7 @@ export namespace Prisma {
     code?: boolean
     category?: boolean
     unitOfMeasure?: boolean
+    cost?: boolean
     createdAt?: boolean
     updatedAt?: boolean
     stocks?: boolean | Item$stocksArgs<ExtArgs>
@@ -33527,6 +36065,7 @@ export namespace Prisma {
     code?: boolean
     category?: boolean
     unitOfMeasure?: boolean
+    cost?: boolean
     createdAt?: boolean
     updatedAt?: boolean
   }, ExtArgs["result"]["item"]>
@@ -33538,6 +36077,7 @@ export namespace Prisma {
     code?: boolean
     category?: boolean
     unitOfMeasure?: boolean
+    cost?: boolean
     createdAt?: boolean
     updatedAt?: boolean
   }, ExtArgs["result"]["item"]>
@@ -33549,11 +36089,12 @@ export namespace Prisma {
     code?: boolean
     category?: boolean
     unitOfMeasure?: boolean
+    cost?: boolean
     createdAt?: boolean
     updatedAt?: boolean
   }
 
-  export type ItemOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "description" | "code" | "category" | "unitOfMeasure" | "createdAt" | "updatedAt", ExtArgs["result"]["item"]>
+  export type ItemOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "description" | "code" | "category" | "unitOfMeasure" | "cost" | "createdAt" | "updatedAt", ExtArgs["result"]["item"]>
   export type ItemInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     stocks?: boolean | Item$stocksArgs<ExtArgs>
     stockMovements?: boolean | Item$stockMovementsArgs<ExtArgs>
@@ -33583,6 +36124,7 @@ export namespace Prisma {
       code: string
       category: string | null
       unitOfMeasure: string | null
+      cost: Prisma.Decimal
       createdAt: Date
       updatedAt: Date
     }, ExtArgs["result"]["item"]>
@@ -34020,6 +36562,7 @@ export namespace Prisma {
     readonly code: FieldRef<"Item", 'String'>
     readonly category: FieldRef<"Item", 'String'>
     readonly unitOfMeasure: FieldRef<"Item", 'String'>
+    readonly cost: FieldRef<"Item", 'Decimal'>
     readonly createdAt: FieldRef<"Item", 'DateTime'>
     readonly updatedAt: FieldRef<"Item", 'DateTime'>
   }
@@ -51232,6 +53775,30 @@ export namespace Prisma {
   export type PreventiveScalarFieldEnum = (typeof PreventiveScalarFieldEnum)[keyof typeof PreventiveScalarFieldEnum]
 
 
+  export const PreventiveTaskScalarFieldEnum: {
+    id: 'id',
+    description: 'description',
+    order: 'order',
+    isMandatory: 'isMandatory',
+    preventiveId: 'preventiveId'
+  };
+
+  export type PreventiveTaskScalarFieldEnum = (typeof PreventiveTaskScalarFieldEnum)[keyof typeof PreventiveTaskScalarFieldEnum]
+
+
+  export const MaintenanceTaskScalarFieldEnum: {
+    id: 'id',
+    description: 'description',
+    isCompleted: 'isCompleted',
+    completedAt: 'completedAt',
+    notes: 'notes',
+    maintenanceId: 'maintenanceId',
+    completedById: 'completedById'
+  };
+
+  export type MaintenanceTaskScalarFieldEnum = (typeof MaintenanceTaskScalarFieldEnum)[keyof typeof MaintenanceTaskScalarFieldEnum]
+
+
   export const WarehouseScalarFieldEnum: {
     id: 'id',
     name: 'name',
@@ -51251,6 +53818,7 @@ export namespace Prisma {
     code: 'code',
     category: 'category',
     unitOfMeasure: 'unitOfMeasure',
+    cost: 'cost',
     createdAt: 'createdAt',
     updatedAt: 'updatedAt'
   };
@@ -51970,6 +54538,7 @@ export namespace Prisma {
     costCenter?: XOR<CostCenterNullableScalarRelationFilter, CostCenterWhereInput> | null
     purchaseRequests?: PurchaseRequestListRelationFilter
     goodsReceipts?: GoodsReceiptListRelationFilter
+    maintenanceTasks?: MaintenanceTaskListRelationFilter
   }
 
   export type UserOrderByWithRelationInput = {
@@ -52003,6 +54572,7 @@ export namespace Prisma {
     costCenter?: CostCenterOrderByWithRelationInput
     purchaseRequests?: PurchaseRequestOrderByRelationAggregateInput
     goodsReceipts?: GoodsReceiptOrderByRelationAggregateInput
+    maintenanceTasks?: MaintenanceTaskOrderByRelationAggregateInput
   }
 
   export type UserWhereUniqueInput = Prisma.AtLeast<{
@@ -52039,6 +54609,7 @@ export namespace Prisma {
     costCenter?: XOR<CostCenterNullableScalarRelationFilter, CostCenterWhereInput> | null
     purchaseRequests?: PurchaseRequestListRelationFilter
     goodsReceipts?: GoodsReceiptListRelationFilter
+    maintenanceTasks?: MaintenanceTaskListRelationFilter
   }, "id" | "email" | "employeeCode">
 
   export type UserOrderByWithAggregationInput = {
@@ -53807,6 +56378,7 @@ export namespace Prisma {
     asset?: XOR<AssetNullableScalarRelationFilter, AssetWhereInput> | null
     photos?: FileListRelationFilter
     maintenanceItems?: MaintenanceItemListRelationFilter
+    maintenanceTasks?: MaintenanceTaskListRelationFilter
   }
 
   export type MaintenanceOrderByWithRelationInput = {
@@ -53886,6 +56458,7 @@ export namespace Prisma {
     asset?: AssetOrderByWithRelationInput
     photos?: FileOrderByRelationAggregateInput
     maintenanceItems?: MaintenanceItemOrderByRelationAggregateInput
+    maintenanceTasks?: MaintenanceTaskOrderByRelationAggregateInput
   }
 
   export type MaintenanceWhereUniqueInput = Prisma.AtLeast<{
@@ -53968,6 +56541,7 @@ export namespace Prisma {
     asset?: XOR<AssetNullableScalarRelationFilter, AssetWhereInput> | null
     photos?: FileListRelationFilter
     maintenanceItems?: MaintenanceItemListRelationFilter
+    maintenanceTasks?: MaintenanceTaskListRelationFilter
   }, "id" | "code">
 
   export type MaintenanceOrderByWithAggregationInput = {
@@ -54141,6 +56715,7 @@ export namespace Prisma {
     space?: XOR<SpaceNullableScalarRelationFilter, SpaceWhereInput> | null
     team?: XOR<TeamNullableScalarRelationFilter, TeamWhereInput> | null
     meterTriggers?: MeterMaintenanceTriggerListRelationFilter
+    preventiveTasks?: PreventiveTaskListRelationFilter
   }
 
   export type PreventiveOrderByWithRelationInput = {
@@ -54171,6 +56746,7 @@ export namespace Prisma {
     space?: SpaceOrderByWithRelationInput
     team?: TeamOrderByWithRelationInput
     meterTriggers?: MeterMaintenanceTriggerOrderByRelationAggregateInput
+    preventiveTasks?: PreventiveTaskOrderByRelationAggregateInput
   }
 
   export type PreventiveWhereUniqueInput = Prisma.AtLeast<{
@@ -54204,6 +56780,7 @@ export namespace Prisma {
     space?: XOR<SpaceNullableScalarRelationFilter, SpaceWhereInput> | null
     team?: XOR<TeamNullableScalarRelationFilter, TeamWhereInput> | null
     meterTriggers?: MeterMaintenanceTriggerListRelationFilter
+    preventiveTasks?: PreventiveTaskListRelationFilter
   }, "id" | "code">
 
   export type PreventiveOrderByWithAggregationInput = {
@@ -54256,6 +56833,131 @@ export namespace Prisma {
     teamId?: StringNullableWithAggregatesFilter<"Preventive"> | string | null
     createdAt?: DateTimeWithAggregatesFilter<"Preventive"> | Date | string
     updatedAt?: DateTimeWithAggregatesFilter<"Preventive"> | Date | string
+  }
+
+  export type PreventiveTaskWhereInput = {
+    AND?: PreventiveTaskWhereInput | PreventiveTaskWhereInput[]
+    OR?: PreventiveTaskWhereInput[]
+    NOT?: PreventiveTaskWhereInput | PreventiveTaskWhereInput[]
+    id?: StringFilter<"PreventiveTask"> | string
+    description?: StringFilter<"PreventiveTask"> | string
+    order?: IntFilter<"PreventiveTask"> | number
+    isMandatory?: BoolFilter<"PreventiveTask"> | boolean
+    preventiveId?: StringFilter<"PreventiveTask"> | string
+    preventive?: XOR<PreventiveScalarRelationFilter, PreventiveWhereInput>
+  }
+
+  export type PreventiveTaskOrderByWithRelationInput = {
+    id?: SortOrder
+    description?: SortOrder
+    order?: SortOrder
+    isMandatory?: SortOrder
+    preventiveId?: SortOrder
+    preventive?: PreventiveOrderByWithRelationInput
+  }
+
+  export type PreventiveTaskWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    AND?: PreventiveTaskWhereInput | PreventiveTaskWhereInput[]
+    OR?: PreventiveTaskWhereInput[]
+    NOT?: PreventiveTaskWhereInput | PreventiveTaskWhereInput[]
+    description?: StringFilter<"PreventiveTask"> | string
+    order?: IntFilter<"PreventiveTask"> | number
+    isMandatory?: BoolFilter<"PreventiveTask"> | boolean
+    preventiveId?: StringFilter<"PreventiveTask"> | string
+    preventive?: XOR<PreventiveScalarRelationFilter, PreventiveWhereInput>
+  }, "id">
+
+  export type PreventiveTaskOrderByWithAggregationInput = {
+    id?: SortOrder
+    description?: SortOrder
+    order?: SortOrder
+    isMandatory?: SortOrder
+    preventiveId?: SortOrder
+    _count?: PreventiveTaskCountOrderByAggregateInput
+    _avg?: PreventiveTaskAvgOrderByAggregateInput
+    _max?: PreventiveTaskMaxOrderByAggregateInput
+    _min?: PreventiveTaskMinOrderByAggregateInput
+    _sum?: PreventiveTaskSumOrderByAggregateInput
+  }
+
+  export type PreventiveTaskScalarWhereWithAggregatesInput = {
+    AND?: PreventiveTaskScalarWhereWithAggregatesInput | PreventiveTaskScalarWhereWithAggregatesInput[]
+    OR?: PreventiveTaskScalarWhereWithAggregatesInput[]
+    NOT?: PreventiveTaskScalarWhereWithAggregatesInput | PreventiveTaskScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"PreventiveTask"> | string
+    description?: StringWithAggregatesFilter<"PreventiveTask"> | string
+    order?: IntWithAggregatesFilter<"PreventiveTask"> | number
+    isMandatory?: BoolWithAggregatesFilter<"PreventiveTask"> | boolean
+    preventiveId?: StringWithAggregatesFilter<"PreventiveTask"> | string
+  }
+
+  export type MaintenanceTaskWhereInput = {
+    AND?: MaintenanceTaskWhereInput | MaintenanceTaskWhereInput[]
+    OR?: MaintenanceTaskWhereInput[]
+    NOT?: MaintenanceTaskWhereInput | MaintenanceTaskWhereInput[]
+    id?: StringFilter<"MaintenanceTask"> | string
+    description?: StringFilter<"MaintenanceTask"> | string
+    isCompleted?: BoolFilter<"MaintenanceTask"> | boolean
+    completedAt?: DateTimeNullableFilter<"MaintenanceTask"> | Date | string | null
+    notes?: StringNullableFilter<"MaintenanceTask"> | string | null
+    maintenanceId?: StringFilter<"MaintenanceTask"> | string
+    completedById?: StringNullableFilter<"MaintenanceTask"> | string | null
+    maintenance?: XOR<MaintenanceScalarRelationFilter, MaintenanceWhereInput>
+    completedBy?: XOR<UserNullableScalarRelationFilter, UserWhereInput> | null
+  }
+
+  export type MaintenanceTaskOrderByWithRelationInput = {
+    id?: SortOrder
+    description?: SortOrder
+    isCompleted?: SortOrder
+    completedAt?: SortOrderInput | SortOrder
+    notes?: SortOrderInput | SortOrder
+    maintenanceId?: SortOrder
+    completedById?: SortOrderInput | SortOrder
+    maintenance?: MaintenanceOrderByWithRelationInput
+    completedBy?: UserOrderByWithRelationInput
+  }
+
+  export type MaintenanceTaskWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    AND?: MaintenanceTaskWhereInput | MaintenanceTaskWhereInput[]
+    OR?: MaintenanceTaskWhereInput[]
+    NOT?: MaintenanceTaskWhereInput | MaintenanceTaskWhereInput[]
+    description?: StringFilter<"MaintenanceTask"> | string
+    isCompleted?: BoolFilter<"MaintenanceTask"> | boolean
+    completedAt?: DateTimeNullableFilter<"MaintenanceTask"> | Date | string | null
+    notes?: StringNullableFilter<"MaintenanceTask"> | string | null
+    maintenanceId?: StringFilter<"MaintenanceTask"> | string
+    completedById?: StringNullableFilter<"MaintenanceTask"> | string | null
+    maintenance?: XOR<MaintenanceScalarRelationFilter, MaintenanceWhereInput>
+    completedBy?: XOR<UserNullableScalarRelationFilter, UserWhereInput> | null
+  }, "id">
+
+  export type MaintenanceTaskOrderByWithAggregationInput = {
+    id?: SortOrder
+    description?: SortOrder
+    isCompleted?: SortOrder
+    completedAt?: SortOrderInput | SortOrder
+    notes?: SortOrderInput | SortOrder
+    maintenanceId?: SortOrder
+    completedById?: SortOrderInput | SortOrder
+    _count?: MaintenanceTaskCountOrderByAggregateInput
+    _max?: MaintenanceTaskMaxOrderByAggregateInput
+    _min?: MaintenanceTaskMinOrderByAggregateInput
+  }
+
+  export type MaintenanceTaskScalarWhereWithAggregatesInput = {
+    AND?: MaintenanceTaskScalarWhereWithAggregatesInput | MaintenanceTaskScalarWhereWithAggregatesInput[]
+    OR?: MaintenanceTaskScalarWhereWithAggregatesInput[]
+    NOT?: MaintenanceTaskScalarWhereWithAggregatesInput | MaintenanceTaskScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"MaintenanceTask"> | string
+    description?: StringWithAggregatesFilter<"MaintenanceTask"> | string
+    isCompleted?: BoolWithAggregatesFilter<"MaintenanceTask"> | boolean
+    completedAt?: DateTimeNullableWithAggregatesFilter<"MaintenanceTask"> | Date | string | null
+    notes?: StringNullableWithAggregatesFilter<"MaintenanceTask"> | string | null
+    maintenanceId?: StringWithAggregatesFilter<"MaintenanceTask"> | string
+    completedById?: StringNullableWithAggregatesFilter<"MaintenanceTask"> | string | null
   }
 
   export type WarehouseWhereInput = {
@@ -54337,6 +57039,7 @@ export namespace Prisma {
     code?: StringFilter<"Item"> | string
     category?: StringNullableFilter<"Item"> | string | null
     unitOfMeasure?: StringNullableFilter<"Item"> | string | null
+    cost?: DecimalFilter<"Item"> | Decimal | DecimalJsLike | number | string
     createdAt?: DateTimeFilter<"Item"> | Date | string
     updatedAt?: DateTimeFilter<"Item"> | Date | string
     stocks?: StockListRelationFilter
@@ -54354,6 +57057,7 @@ export namespace Prisma {
     code?: SortOrder
     category?: SortOrderInput | SortOrder
     unitOfMeasure?: SortOrderInput | SortOrder
+    cost?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     stocks?: StockOrderByRelationAggregateInput
@@ -54374,6 +57078,7 @@ export namespace Prisma {
     description?: StringNullableFilter<"Item"> | string | null
     category?: StringNullableFilter<"Item"> | string | null
     unitOfMeasure?: StringNullableFilter<"Item"> | string | null
+    cost?: DecimalFilter<"Item"> | Decimal | DecimalJsLike | number | string
     createdAt?: DateTimeFilter<"Item"> | Date | string
     updatedAt?: DateTimeFilter<"Item"> | Date | string
     stocks?: StockListRelationFilter
@@ -54391,11 +57096,14 @@ export namespace Prisma {
     code?: SortOrder
     category?: SortOrderInput | SortOrder
     unitOfMeasure?: SortOrderInput | SortOrder
+    cost?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     _count?: ItemCountOrderByAggregateInput
+    _avg?: ItemAvgOrderByAggregateInput
     _max?: ItemMaxOrderByAggregateInput
     _min?: ItemMinOrderByAggregateInput
+    _sum?: ItemSumOrderByAggregateInput
   }
 
   export type ItemScalarWhereWithAggregatesInput = {
@@ -54408,6 +57116,7 @@ export namespace Prisma {
     code?: StringWithAggregatesFilter<"Item"> | string
     category?: StringNullableWithAggregatesFilter<"Item"> | string | null
     unitOfMeasure?: StringNullableWithAggregatesFilter<"Item"> | string | null
+    cost?: DecimalWithAggregatesFilter<"Item"> | Decimal | DecimalJsLike | number | string
     createdAt?: DateTimeWithAggregatesFilter<"Item"> | Date | string
     updatedAt?: DateTimeWithAggregatesFilter<"Item"> | Date | string
   }
@@ -55488,6 +58197,7 @@ export namespace Prisma {
     costCenter?: CostCenterCreateNestedOneWithoutUsersInput
     purchaseRequests?: PurchaseRequestCreateNestedManyWithoutRequesterInput
     goodsReceipts?: GoodsReceiptCreateNestedManyWithoutReceiverInput
+    maintenanceTasks?: MaintenanceTaskCreateNestedManyWithoutCompletedByInput
   }
 
   export type UserUncheckedCreateInput = {
@@ -55517,6 +58227,7 @@ export namespace Prisma {
     supervisedTeams?: TeamUncheckedCreateNestedManyWithoutSupervisorInput
     purchaseRequests?: PurchaseRequestUncheckedCreateNestedManyWithoutRequesterInput
     goodsReceipts?: GoodsReceiptUncheckedCreateNestedManyWithoutReceiverInput
+    maintenanceTasks?: MaintenanceTaskUncheckedCreateNestedManyWithoutCompletedByInput
   }
 
   export type UserUpdateInput = {
@@ -55546,6 +58257,7 @@ export namespace Prisma {
     costCenter?: CostCenterUpdateOneWithoutUsersNestedInput
     purchaseRequests?: PurchaseRequestUpdateManyWithoutRequesterNestedInput
     goodsReceipts?: GoodsReceiptUpdateManyWithoutReceiverNestedInput
+    maintenanceTasks?: MaintenanceTaskUpdateManyWithoutCompletedByNestedInput
   }
 
   export type UserUncheckedUpdateInput = {
@@ -55575,6 +58287,7 @@ export namespace Prisma {
     supervisedTeams?: TeamUncheckedUpdateManyWithoutSupervisorNestedInput
     purchaseRequests?: PurchaseRequestUncheckedUpdateManyWithoutRequesterNestedInput
     goodsReceipts?: GoodsReceiptUncheckedUpdateManyWithoutReceiverNestedInput
+    maintenanceTasks?: MaintenanceTaskUncheckedUpdateManyWithoutCompletedByNestedInput
   }
 
   export type UserCreateManyInput = {
@@ -57569,6 +60282,7 @@ export namespace Prisma {
     asset?: AssetCreateNestedOneWithoutMaintenancesInput
     photos?: FileCreateNestedManyWithoutMaintenanceInput
     maintenanceItems?: MaintenanceItemCreateNestedManyWithoutMaintenanceInput
+    maintenanceTasks?: MaintenanceTaskCreateNestedManyWithoutMaintenanceInput
   }
 
   export type MaintenanceUncheckedCreateInput = {
@@ -57637,6 +60351,7 @@ export namespace Prisma {
     updatedAt?: Date | string
     photos?: FileUncheckedCreateNestedManyWithoutMaintenanceInput
     maintenanceItems?: MaintenanceItemUncheckedCreateNestedManyWithoutMaintenanceInput
+    maintenanceTasks?: MaintenanceTaskUncheckedCreateNestedManyWithoutMaintenanceInput
   }
 
   export type MaintenanceUpdateInput = {
@@ -57705,6 +60420,7 @@ export namespace Prisma {
     asset?: AssetUpdateOneWithoutMaintenancesNestedInput
     photos?: FileUpdateManyWithoutMaintenanceNestedInput
     maintenanceItems?: MaintenanceItemUpdateManyWithoutMaintenanceNestedInput
+    maintenanceTasks?: MaintenanceTaskUpdateManyWithoutMaintenanceNestedInput
   }
 
   export type MaintenanceUncheckedUpdateInput = {
@@ -57773,6 +60489,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     photos?: FileUncheckedUpdateManyWithoutMaintenanceNestedInput
     maintenanceItems?: MaintenanceItemUncheckedUpdateManyWithoutMaintenanceNestedInput
+    maintenanceTasks?: MaintenanceTaskUncheckedUpdateManyWithoutMaintenanceNestedInput
   }
 
   export type MaintenanceCreateManyInput = {
@@ -57983,6 +60700,7 @@ export namespace Prisma {
     space?: SpaceCreateNestedOneWithoutPreventivesInput
     team?: TeamCreateNestedOneWithoutPreventivesInput
     meterTriggers?: MeterMaintenanceTriggerCreateNestedManyWithoutPreventiveInput
+    preventiveTasks?: PreventiveTaskCreateNestedManyWithoutPreventiveInput
   }
 
   export type PreventiveUncheckedCreateInput = {
@@ -58006,6 +60724,7 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     meterTriggers?: MeterMaintenanceTriggerUncheckedCreateNestedManyWithoutPreventiveInput
+    preventiveTasks?: PreventiveTaskUncheckedCreateNestedManyWithoutPreventiveInput
   }
 
   export type PreventiveUpdateInput = {
@@ -58029,6 +60748,7 @@ export namespace Prisma {
     space?: SpaceUpdateOneWithoutPreventivesNestedInput
     team?: TeamUpdateOneWithoutPreventivesNestedInput
     meterTriggers?: MeterMaintenanceTriggerUpdateManyWithoutPreventiveNestedInput
+    preventiveTasks?: PreventiveTaskUpdateManyWithoutPreventiveNestedInput
   }
 
   export type PreventiveUncheckedUpdateInput = {
@@ -58052,6 +60772,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     meterTriggers?: MeterMaintenanceTriggerUncheckedUpdateManyWithoutPreventiveNestedInput
+    preventiveTasks?: PreventiveTaskUncheckedUpdateManyWithoutPreventiveNestedInput
   }
 
   export type PreventiveCreateManyInput = {
@@ -58111,6 +60832,129 @@ export namespace Prisma {
     teamId?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type PreventiveTaskCreateInput = {
+    id?: string
+    description: string
+    order: number
+    isMandatory?: boolean
+    preventive: PreventiveCreateNestedOneWithoutPreventiveTasksInput
+  }
+
+  export type PreventiveTaskUncheckedCreateInput = {
+    id?: string
+    description: string
+    order: number
+    isMandatory?: boolean
+    preventiveId: string
+  }
+
+  export type PreventiveTaskUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    description?: StringFieldUpdateOperationsInput | string
+    order?: IntFieldUpdateOperationsInput | number
+    isMandatory?: BoolFieldUpdateOperationsInput | boolean
+    preventive?: PreventiveUpdateOneRequiredWithoutPreventiveTasksNestedInput
+  }
+
+  export type PreventiveTaskUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    description?: StringFieldUpdateOperationsInput | string
+    order?: IntFieldUpdateOperationsInput | number
+    isMandatory?: BoolFieldUpdateOperationsInput | boolean
+    preventiveId?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type PreventiveTaskCreateManyInput = {
+    id?: string
+    description: string
+    order: number
+    isMandatory?: boolean
+    preventiveId: string
+  }
+
+  export type PreventiveTaskUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    description?: StringFieldUpdateOperationsInput | string
+    order?: IntFieldUpdateOperationsInput | number
+    isMandatory?: BoolFieldUpdateOperationsInput | boolean
+  }
+
+  export type PreventiveTaskUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    description?: StringFieldUpdateOperationsInput | string
+    order?: IntFieldUpdateOperationsInput | number
+    isMandatory?: BoolFieldUpdateOperationsInput | boolean
+    preventiveId?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type MaintenanceTaskCreateInput = {
+    id?: string
+    description: string
+    isCompleted?: boolean
+    completedAt?: Date | string | null
+    notes?: string | null
+    maintenance: MaintenanceCreateNestedOneWithoutMaintenanceTasksInput
+    completedBy?: UserCreateNestedOneWithoutMaintenanceTasksInput
+  }
+
+  export type MaintenanceTaskUncheckedCreateInput = {
+    id?: string
+    description: string
+    isCompleted?: boolean
+    completedAt?: Date | string | null
+    notes?: string | null
+    maintenanceId: string
+    completedById?: string | null
+  }
+
+  export type MaintenanceTaskUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    description?: StringFieldUpdateOperationsInput | string
+    isCompleted?: BoolFieldUpdateOperationsInput | boolean
+    completedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
+    maintenance?: MaintenanceUpdateOneRequiredWithoutMaintenanceTasksNestedInput
+    completedBy?: UserUpdateOneWithoutMaintenanceTasksNestedInput
+  }
+
+  export type MaintenanceTaskUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    description?: StringFieldUpdateOperationsInput | string
+    isCompleted?: BoolFieldUpdateOperationsInput | boolean
+    completedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
+    maintenanceId?: StringFieldUpdateOperationsInput | string
+    completedById?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
+  export type MaintenanceTaskCreateManyInput = {
+    id?: string
+    description: string
+    isCompleted?: boolean
+    completedAt?: Date | string | null
+    notes?: string | null
+    maintenanceId: string
+    completedById?: string | null
+  }
+
+  export type MaintenanceTaskUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    description?: StringFieldUpdateOperationsInput | string
+    isCompleted?: BoolFieldUpdateOperationsInput | boolean
+    completedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
+  export type MaintenanceTaskUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    description?: StringFieldUpdateOperationsInput | string
+    isCompleted?: BoolFieldUpdateOperationsInput | boolean
+    completedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
+    maintenanceId?: StringFieldUpdateOperationsInput | string
+    completedById?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type WarehouseCreateInput = {
@@ -58194,6 +61038,7 @@ export namespace Prisma {
     code: string
     category?: string | null
     unitOfMeasure?: string | null
+    cost: Decimal | DecimalJsLike | number | string
     createdAt?: Date | string
     updatedAt?: Date | string
     stocks?: StockCreateNestedManyWithoutItemInput
@@ -58211,6 +61056,7 @@ export namespace Prisma {
     code: string
     category?: string | null
     unitOfMeasure?: string | null
+    cost: Decimal | DecimalJsLike | number | string
     createdAt?: Date | string
     updatedAt?: Date | string
     stocks?: StockUncheckedCreateNestedManyWithoutItemInput
@@ -58228,6 +61074,7 @@ export namespace Prisma {
     code?: StringFieldUpdateOperationsInput | string
     category?: NullableStringFieldUpdateOperationsInput | string | null
     unitOfMeasure?: NullableStringFieldUpdateOperationsInput | string | null
+    cost?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     stocks?: StockUpdateManyWithoutItemNestedInput
@@ -58245,6 +61092,7 @@ export namespace Prisma {
     code?: StringFieldUpdateOperationsInput | string
     category?: NullableStringFieldUpdateOperationsInput | string | null
     unitOfMeasure?: NullableStringFieldUpdateOperationsInput | string | null
+    cost?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     stocks?: StockUncheckedUpdateManyWithoutItemNestedInput
@@ -58262,6 +61110,7 @@ export namespace Prisma {
     code: string
     category?: string | null
     unitOfMeasure?: string | null
+    cost: Decimal | DecimalJsLike | number | string
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -58273,6 +61122,7 @@ export namespace Prisma {
     code?: StringFieldUpdateOperationsInput | string
     category?: NullableStringFieldUpdateOperationsInput | string | null
     unitOfMeasure?: NullableStringFieldUpdateOperationsInput | string | null
+    cost?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -58284,6 +61134,7 @@ export namespace Prisma {
     code?: StringFieldUpdateOperationsInput | string
     category?: NullableStringFieldUpdateOperationsInput | string | null
     unitOfMeasure?: NullableStringFieldUpdateOperationsInput | string | null
+    cost?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -59461,6 +62312,12 @@ export namespace Prisma {
     none?: GoodsReceiptWhereInput
   }
 
+  export type MaintenanceTaskListRelationFilter = {
+    every?: MaintenanceTaskWhereInput
+    some?: MaintenanceTaskWhereInput
+    none?: MaintenanceTaskWhereInput
+  }
+
   export type SortOrderInput = {
     sort: SortOrder
     nulls?: NullsOrder
@@ -59487,6 +62344,10 @@ export namespace Prisma {
   }
 
   export type GoodsReceiptOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type MaintenanceTaskOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
 
@@ -61425,7 +64286,17 @@ export namespace Prisma {
     none?: MeterMaintenanceTriggerWhereInput
   }
 
+  export type PreventiveTaskListRelationFilter = {
+    every?: PreventiveTaskWhereInput
+    some?: PreventiveTaskWhereInput
+    none?: PreventiveTaskWhereInput
+  }
+
   export type MeterMaintenanceTriggerOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type PreventiveTaskOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
 
@@ -61513,6 +64384,78 @@ export namespace Prisma {
     _max?: NestedEnumFrequencyFilter<$PrismaModel>
   }
 
+  export type PreventiveScalarRelationFilter = {
+    is?: PreventiveWhereInput
+    isNot?: PreventiveWhereInput
+  }
+
+  export type PreventiveTaskCountOrderByAggregateInput = {
+    id?: SortOrder
+    description?: SortOrder
+    order?: SortOrder
+    isMandatory?: SortOrder
+    preventiveId?: SortOrder
+  }
+
+  export type PreventiveTaskAvgOrderByAggregateInput = {
+    order?: SortOrder
+  }
+
+  export type PreventiveTaskMaxOrderByAggregateInput = {
+    id?: SortOrder
+    description?: SortOrder
+    order?: SortOrder
+    isMandatory?: SortOrder
+    preventiveId?: SortOrder
+  }
+
+  export type PreventiveTaskMinOrderByAggregateInput = {
+    id?: SortOrder
+    description?: SortOrder
+    order?: SortOrder
+    isMandatory?: SortOrder
+    preventiveId?: SortOrder
+  }
+
+  export type PreventiveTaskSumOrderByAggregateInput = {
+    order?: SortOrder
+  }
+
+  export type MaintenanceScalarRelationFilter = {
+    is?: MaintenanceWhereInput
+    isNot?: MaintenanceWhereInput
+  }
+
+  export type MaintenanceTaskCountOrderByAggregateInput = {
+    id?: SortOrder
+    description?: SortOrder
+    isCompleted?: SortOrder
+    completedAt?: SortOrder
+    notes?: SortOrder
+    maintenanceId?: SortOrder
+    completedById?: SortOrder
+  }
+
+  export type MaintenanceTaskMaxOrderByAggregateInput = {
+    id?: SortOrder
+    description?: SortOrder
+    isCompleted?: SortOrder
+    completedAt?: SortOrder
+    notes?: SortOrder
+    maintenanceId?: SortOrder
+    completedById?: SortOrder
+  }
+
+  export type MaintenanceTaskMinOrderByAggregateInput = {
+    id?: SortOrder
+    description?: SortOrder
+    isCompleted?: SortOrder
+    completedAt?: SortOrder
+    notes?: SortOrder
+    maintenanceId?: SortOrder
+    completedById?: SortOrder
+  }
+
   export type StockListRelationFilter = {
     every?: StockWhereInput
     some?: StockWhereInput
@@ -61560,6 +64503,17 @@ export namespace Prisma {
     updatedAt?: SortOrder
   }
 
+  export type DecimalFilter<$PrismaModel = never> = {
+    equals?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    in?: Decimal[] | DecimalJsLike[] | number[] | string[] | ListDecimalFieldRefInput<$PrismaModel>
+    notIn?: Decimal[] | DecimalJsLike[] | number[] | string[] | ListDecimalFieldRefInput<$PrismaModel>
+    lt?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    lte?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    gt?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    gte?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    not?: NestedDecimalFilter<$PrismaModel> | Decimal | DecimalJsLike | number | string
+  }
+
   export type PurchaseOrderItemListRelationFilter = {
     every?: PurchaseOrderItemWhereInput
     some?: PurchaseOrderItemWhereInput
@@ -61597,8 +64551,13 @@ export namespace Prisma {
     code?: SortOrder
     category?: SortOrder
     unitOfMeasure?: SortOrder
+    cost?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
+  }
+
+  export type ItemAvgOrderByAggregateInput = {
+    cost?: SortOrder
   }
 
   export type ItemMaxOrderByAggregateInput = {
@@ -61608,6 +64567,7 @@ export namespace Prisma {
     code?: SortOrder
     category?: SortOrder
     unitOfMeasure?: SortOrder
+    cost?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
@@ -61619,8 +64579,29 @@ export namespace Prisma {
     code?: SortOrder
     category?: SortOrder
     unitOfMeasure?: SortOrder
+    cost?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
+  }
+
+  export type ItemSumOrderByAggregateInput = {
+    cost?: SortOrder
+  }
+
+  export type DecimalWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    in?: Decimal[] | DecimalJsLike[] | number[] | string[] | ListDecimalFieldRefInput<$PrismaModel>
+    notIn?: Decimal[] | DecimalJsLike[] | number[] | string[] | ListDecimalFieldRefInput<$PrismaModel>
+    lt?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    lte?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    gt?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    gte?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    not?: NestedDecimalWithAggregatesFilter<$PrismaModel> | Decimal | DecimalJsLike | number | string
+    _count?: NestedIntFilter<$PrismaModel>
+    _avg?: NestedDecimalFilter<$PrismaModel>
+    _sum?: NestedDecimalFilter<$PrismaModel>
+    _min?: NestedDecimalFilter<$PrismaModel>
+    _max?: NestedDecimalFilter<$PrismaModel>
   }
 
   export type ItemScalarRelationFilter = {
@@ -61761,11 +64742,6 @@ export namespace Prisma {
     _count?: NestedIntFilter<$PrismaModel>
     _min?: NestedEnumStockReferenceTypeFilter<$PrismaModel>
     _max?: NestedEnumStockReferenceTypeFilter<$PrismaModel>
-  }
-
-  export type MaintenanceScalarRelationFilter = {
-    is?: MaintenanceWhereInput
-    isNot?: MaintenanceWhereInput
   }
 
   export type MaintenanceItemMaintenanceIdItemIdCompoundUniqueInput = {
@@ -61909,17 +64885,6 @@ export namespace Prisma {
     _max?: NestedEnumMeterTypeFilter<$PrismaModel>
   }
 
-  export type DecimalFilter<$PrismaModel = never> = {
-    equals?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
-    in?: Decimal[] | DecimalJsLike[] | number[] | string[] | ListDecimalFieldRefInput<$PrismaModel>
-    notIn?: Decimal[] | DecimalJsLike[] | number[] | string[] | ListDecimalFieldRefInput<$PrismaModel>
-    lt?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
-    lte?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
-    gt?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
-    gte?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
-    not?: NestedDecimalFilter<$PrismaModel> | Decimal | DecimalJsLike | number | string
-  }
-
   export type EnumMeterReadingSourceFilter<$PrismaModel = never> = {
     equals?: $Enums.MeterReadingSource | EnumMeterReadingSourceFieldRefInput<$PrismaModel>
     in?: $Enums.MeterReadingSource[] | ListEnumMeterReadingSourceFieldRefInput<$PrismaModel>
@@ -61970,22 +64935,6 @@ export namespace Prisma {
     value?: SortOrder
   }
 
-  export type DecimalWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
-    in?: Decimal[] | DecimalJsLike[] | number[] | string[] | ListDecimalFieldRefInput<$PrismaModel>
-    notIn?: Decimal[] | DecimalJsLike[] | number[] | string[] | ListDecimalFieldRefInput<$PrismaModel>
-    lt?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
-    lte?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
-    gt?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
-    gte?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
-    not?: NestedDecimalWithAggregatesFilter<$PrismaModel> | Decimal | DecimalJsLike | number | string
-    _count?: NestedIntFilter<$PrismaModel>
-    _avg?: NestedDecimalFilter<$PrismaModel>
-    _sum?: NestedDecimalFilter<$PrismaModel>
-    _min?: NestedDecimalFilter<$PrismaModel>
-    _max?: NestedDecimalFilter<$PrismaModel>
-  }
-
   export type EnumMeterReadingSourceWithAggregatesFilter<$PrismaModel = never> = {
     equals?: $Enums.MeterReadingSource | EnumMeterReadingSourceFieldRefInput<$PrismaModel>
     in?: $Enums.MeterReadingSource[] | ListEnumMeterReadingSourceFieldRefInput<$PrismaModel>
@@ -62001,11 +64950,6 @@ export namespace Prisma {
     in?: $Enums.TriggerCondition[] | ListEnumTriggerConditionFieldRefInput<$PrismaModel>
     notIn?: $Enums.TriggerCondition[] | ListEnumTriggerConditionFieldRefInput<$PrismaModel>
     not?: NestedEnumTriggerConditionFilter<$PrismaModel> | $Enums.TriggerCondition
-  }
-
-  export type PreventiveScalarRelationFilter = {
-    is?: PreventiveWhereInput
-    isNot?: PreventiveWhereInput
   }
 
   export type MeterMaintenanceTriggerCountOrderByAggregateInput = {
@@ -62459,6 +65403,13 @@ export namespace Prisma {
     connect?: GoodsReceiptWhereUniqueInput | GoodsReceiptWhereUniqueInput[]
   }
 
+  export type MaintenanceTaskCreateNestedManyWithoutCompletedByInput = {
+    create?: XOR<MaintenanceTaskCreateWithoutCompletedByInput, MaintenanceTaskUncheckedCreateWithoutCompletedByInput> | MaintenanceTaskCreateWithoutCompletedByInput[] | MaintenanceTaskUncheckedCreateWithoutCompletedByInput[]
+    connectOrCreate?: MaintenanceTaskCreateOrConnectWithoutCompletedByInput | MaintenanceTaskCreateOrConnectWithoutCompletedByInput[]
+    createMany?: MaintenanceTaskCreateManyCompletedByInputEnvelope
+    connect?: MaintenanceTaskWhereUniqueInput | MaintenanceTaskWhereUniqueInput[]
+  }
+
   export type RefreshTokenUncheckedCreateNestedManyWithoutUserInput = {
     create?: XOR<RefreshTokenCreateWithoutUserInput, RefreshTokenUncheckedCreateWithoutUserInput> | RefreshTokenCreateWithoutUserInput[] | RefreshTokenUncheckedCreateWithoutUserInput[]
     connectOrCreate?: RefreshTokenCreateOrConnectWithoutUserInput | RefreshTokenCreateOrConnectWithoutUserInput[]
@@ -62512,6 +65463,13 @@ export namespace Prisma {
     connectOrCreate?: GoodsReceiptCreateOrConnectWithoutReceiverInput | GoodsReceiptCreateOrConnectWithoutReceiverInput[]
     createMany?: GoodsReceiptCreateManyReceiverInputEnvelope
     connect?: GoodsReceiptWhereUniqueInput | GoodsReceiptWhereUniqueInput[]
+  }
+
+  export type MaintenanceTaskUncheckedCreateNestedManyWithoutCompletedByInput = {
+    create?: XOR<MaintenanceTaskCreateWithoutCompletedByInput, MaintenanceTaskUncheckedCreateWithoutCompletedByInput> | MaintenanceTaskCreateWithoutCompletedByInput[] | MaintenanceTaskUncheckedCreateWithoutCompletedByInput[]
+    connectOrCreate?: MaintenanceTaskCreateOrConnectWithoutCompletedByInput | MaintenanceTaskCreateOrConnectWithoutCompletedByInput[]
+    createMany?: MaintenanceTaskCreateManyCompletedByInputEnvelope
+    connect?: MaintenanceTaskWhereUniqueInput | MaintenanceTaskWhereUniqueInput[]
   }
 
   export type StringFieldUpdateOperationsInput = {
@@ -62691,6 +65649,20 @@ export namespace Prisma {
     deleteMany?: GoodsReceiptScalarWhereInput | GoodsReceiptScalarWhereInput[]
   }
 
+  export type MaintenanceTaskUpdateManyWithoutCompletedByNestedInput = {
+    create?: XOR<MaintenanceTaskCreateWithoutCompletedByInput, MaintenanceTaskUncheckedCreateWithoutCompletedByInput> | MaintenanceTaskCreateWithoutCompletedByInput[] | MaintenanceTaskUncheckedCreateWithoutCompletedByInput[]
+    connectOrCreate?: MaintenanceTaskCreateOrConnectWithoutCompletedByInput | MaintenanceTaskCreateOrConnectWithoutCompletedByInput[]
+    upsert?: MaintenanceTaskUpsertWithWhereUniqueWithoutCompletedByInput | MaintenanceTaskUpsertWithWhereUniqueWithoutCompletedByInput[]
+    createMany?: MaintenanceTaskCreateManyCompletedByInputEnvelope
+    set?: MaintenanceTaskWhereUniqueInput | MaintenanceTaskWhereUniqueInput[]
+    disconnect?: MaintenanceTaskWhereUniqueInput | MaintenanceTaskWhereUniqueInput[]
+    delete?: MaintenanceTaskWhereUniqueInput | MaintenanceTaskWhereUniqueInput[]
+    connect?: MaintenanceTaskWhereUniqueInput | MaintenanceTaskWhereUniqueInput[]
+    update?: MaintenanceTaskUpdateWithWhereUniqueWithoutCompletedByInput | MaintenanceTaskUpdateWithWhereUniqueWithoutCompletedByInput[]
+    updateMany?: MaintenanceTaskUpdateManyWithWhereWithoutCompletedByInput | MaintenanceTaskUpdateManyWithWhereWithoutCompletedByInput[]
+    deleteMany?: MaintenanceTaskScalarWhereInput | MaintenanceTaskScalarWhereInput[]
+  }
+
   export type RefreshTokenUncheckedUpdateManyWithoutUserNestedInput = {
     create?: XOR<RefreshTokenCreateWithoutUserInput, RefreshTokenUncheckedCreateWithoutUserInput> | RefreshTokenCreateWithoutUserInput[] | RefreshTokenUncheckedCreateWithoutUserInput[]
     connectOrCreate?: RefreshTokenCreateOrConnectWithoutUserInput | RefreshTokenCreateOrConnectWithoutUserInput[]
@@ -62800,6 +65772,20 @@ export namespace Prisma {
     update?: GoodsReceiptUpdateWithWhereUniqueWithoutReceiverInput | GoodsReceiptUpdateWithWhereUniqueWithoutReceiverInput[]
     updateMany?: GoodsReceiptUpdateManyWithWhereWithoutReceiverInput | GoodsReceiptUpdateManyWithWhereWithoutReceiverInput[]
     deleteMany?: GoodsReceiptScalarWhereInput | GoodsReceiptScalarWhereInput[]
+  }
+
+  export type MaintenanceTaskUncheckedUpdateManyWithoutCompletedByNestedInput = {
+    create?: XOR<MaintenanceTaskCreateWithoutCompletedByInput, MaintenanceTaskUncheckedCreateWithoutCompletedByInput> | MaintenanceTaskCreateWithoutCompletedByInput[] | MaintenanceTaskUncheckedCreateWithoutCompletedByInput[]
+    connectOrCreate?: MaintenanceTaskCreateOrConnectWithoutCompletedByInput | MaintenanceTaskCreateOrConnectWithoutCompletedByInput[]
+    upsert?: MaintenanceTaskUpsertWithWhereUniqueWithoutCompletedByInput | MaintenanceTaskUpsertWithWhereUniqueWithoutCompletedByInput[]
+    createMany?: MaintenanceTaskCreateManyCompletedByInputEnvelope
+    set?: MaintenanceTaskWhereUniqueInput | MaintenanceTaskWhereUniqueInput[]
+    disconnect?: MaintenanceTaskWhereUniqueInput | MaintenanceTaskWhereUniqueInput[]
+    delete?: MaintenanceTaskWhereUniqueInput | MaintenanceTaskWhereUniqueInput[]
+    connect?: MaintenanceTaskWhereUniqueInput | MaintenanceTaskWhereUniqueInput[]
+    update?: MaintenanceTaskUpdateWithWhereUniqueWithoutCompletedByInput | MaintenanceTaskUpdateWithWhereUniqueWithoutCompletedByInput[]
+    updateMany?: MaintenanceTaskUpdateManyWithWhereWithoutCompletedByInput | MaintenanceTaskUpdateManyWithWhereWithoutCompletedByInput[]
+    deleteMany?: MaintenanceTaskScalarWhereInput | MaintenanceTaskScalarWhereInput[]
   }
 
   export type PermissionCreateNestedManyWithoutRoleInput = {
@@ -65318,6 +68304,13 @@ export namespace Prisma {
     connect?: MaintenanceItemWhereUniqueInput | MaintenanceItemWhereUniqueInput[]
   }
 
+  export type MaintenanceTaskCreateNestedManyWithoutMaintenanceInput = {
+    create?: XOR<MaintenanceTaskCreateWithoutMaintenanceInput, MaintenanceTaskUncheckedCreateWithoutMaintenanceInput> | MaintenanceTaskCreateWithoutMaintenanceInput[] | MaintenanceTaskUncheckedCreateWithoutMaintenanceInput[]
+    connectOrCreate?: MaintenanceTaskCreateOrConnectWithoutMaintenanceInput | MaintenanceTaskCreateOrConnectWithoutMaintenanceInput[]
+    createMany?: MaintenanceTaskCreateManyMaintenanceInputEnvelope
+    connect?: MaintenanceTaskWhereUniqueInput | MaintenanceTaskWhereUniqueInput[]
+  }
+
   export type FileUncheckedCreateNestedManyWithoutMaintenanceInput = {
     create?: XOR<FileCreateWithoutMaintenanceInput, FileUncheckedCreateWithoutMaintenanceInput> | FileCreateWithoutMaintenanceInput[] | FileUncheckedCreateWithoutMaintenanceInput[]
     connectOrCreate?: FileCreateOrConnectWithoutMaintenanceInput | FileCreateOrConnectWithoutMaintenanceInput[]
@@ -65330,6 +68323,13 @@ export namespace Prisma {
     connectOrCreate?: MaintenanceItemCreateOrConnectWithoutMaintenanceInput | MaintenanceItemCreateOrConnectWithoutMaintenanceInput[]
     createMany?: MaintenanceItemCreateManyMaintenanceInputEnvelope
     connect?: MaintenanceItemWhereUniqueInput | MaintenanceItemWhereUniqueInput[]
+  }
+
+  export type MaintenanceTaskUncheckedCreateNestedManyWithoutMaintenanceInput = {
+    create?: XOR<MaintenanceTaskCreateWithoutMaintenanceInput, MaintenanceTaskUncheckedCreateWithoutMaintenanceInput> | MaintenanceTaskCreateWithoutMaintenanceInput[] | MaintenanceTaskUncheckedCreateWithoutMaintenanceInput[]
+    connectOrCreate?: MaintenanceTaskCreateOrConnectWithoutMaintenanceInput | MaintenanceTaskCreateOrConnectWithoutMaintenanceInput[]
+    createMany?: MaintenanceTaskCreateManyMaintenanceInputEnvelope
+    connect?: MaintenanceTaskWhereUniqueInput | MaintenanceTaskWhereUniqueInput[]
   }
 
   export type EnumMaintenanceTypeFieldUpdateOperationsInput = {
@@ -65488,6 +68488,20 @@ export namespace Prisma {
     deleteMany?: MaintenanceItemScalarWhereInput | MaintenanceItemScalarWhereInput[]
   }
 
+  export type MaintenanceTaskUpdateManyWithoutMaintenanceNestedInput = {
+    create?: XOR<MaintenanceTaskCreateWithoutMaintenanceInput, MaintenanceTaskUncheckedCreateWithoutMaintenanceInput> | MaintenanceTaskCreateWithoutMaintenanceInput[] | MaintenanceTaskUncheckedCreateWithoutMaintenanceInput[]
+    connectOrCreate?: MaintenanceTaskCreateOrConnectWithoutMaintenanceInput | MaintenanceTaskCreateOrConnectWithoutMaintenanceInput[]
+    upsert?: MaintenanceTaskUpsertWithWhereUniqueWithoutMaintenanceInput | MaintenanceTaskUpsertWithWhereUniqueWithoutMaintenanceInput[]
+    createMany?: MaintenanceTaskCreateManyMaintenanceInputEnvelope
+    set?: MaintenanceTaskWhereUniqueInput | MaintenanceTaskWhereUniqueInput[]
+    disconnect?: MaintenanceTaskWhereUniqueInput | MaintenanceTaskWhereUniqueInput[]
+    delete?: MaintenanceTaskWhereUniqueInput | MaintenanceTaskWhereUniqueInput[]
+    connect?: MaintenanceTaskWhereUniqueInput | MaintenanceTaskWhereUniqueInput[]
+    update?: MaintenanceTaskUpdateWithWhereUniqueWithoutMaintenanceInput | MaintenanceTaskUpdateWithWhereUniqueWithoutMaintenanceInput[]
+    updateMany?: MaintenanceTaskUpdateManyWithWhereWithoutMaintenanceInput | MaintenanceTaskUpdateManyWithWhereWithoutMaintenanceInput[]
+    deleteMany?: MaintenanceTaskScalarWhereInput | MaintenanceTaskScalarWhereInput[]
+  }
+
   export type FileUncheckedUpdateManyWithoutMaintenanceNestedInput = {
     create?: XOR<FileCreateWithoutMaintenanceInput, FileUncheckedCreateWithoutMaintenanceInput> | FileCreateWithoutMaintenanceInput[] | FileUncheckedCreateWithoutMaintenanceInput[]
     connectOrCreate?: FileCreateOrConnectWithoutMaintenanceInput | FileCreateOrConnectWithoutMaintenanceInput[]
@@ -65514,6 +68528,20 @@ export namespace Prisma {
     update?: MaintenanceItemUpdateWithWhereUniqueWithoutMaintenanceInput | MaintenanceItemUpdateWithWhereUniqueWithoutMaintenanceInput[]
     updateMany?: MaintenanceItemUpdateManyWithWhereWithoutMaintenanceInput | MaintenanceItemUpdateManyWithWhereWithoutMaintenanceInput[]
     deleteMany?: MaintenanceItemScalarWhereInput | MaintenanceItemScalarWhereInput[]
+  }
+
+  export type MaintenanceTaskUncheckedUpdateManyWithoutMaintenanceNestedInput = {
+    create?: XOR<MaintenanceTaskCreateWithoutMaintenanceInput, MaintenanceTaskUncheckedCreateWithoutMaintenanceInput> | MaintenanceTaskCreateWithoutMaintenanceInput[] | MaintenanceTaskUncheckedCreateWithoutMaintenanceInput[]
+    connectOrCreate?: MaintenanceTaskCreateOrConnectWithoutMaintenanceInput | MaintenanceTaskCreateOrConnectWithoutMaintenanceInput[]
+    upsert?: MaintenanceTaskUpsertWithWhereUniqueWithoutMaintenanceInput | MaintenanceTaskUpsertWithWhereUniqueWithoutMaintenanceInput[]
+    createMany?: MaintenanceTaskCreateManyMaintenanceInputEnvelope
+    set?: MaintenanceTaskWhereUniqueInput | MaintenanceTaskWhereUniqueInput[]
+    disconnect?: MaintenanceTaskWhereUniqueInput | MaintenanceTaskWhereUniqueInput[]
+    delete?: MaintenanceTaskWhereUniqueInput | MaintenanceTaskWhereUniqueInput[]
+    connect?: MaintenanceTaskWhereUniqueInput | MaintenanceTaskWhereUniqueInput[]
+    update?: MaintenanceTaskUpdateWithWhereUniqueWithoutMaintenanceInput | MaintenanceTaskUpdateWithWhereUniqueWithoutMaintenanceInput[]
+    updateMany?: MaintenanceTaskUpdateManyWithWhereWithoutMaintenanceInput | MaintenanceTaskUpdateManyWithWhereWithoutMaintenanceInput[]
+    deleteMany?: MaintenanceTaskScalarWhereInput | MaintenanceTaskScalarWhereInput[]
   }
 
   export type ComplexCreateNestedOneWithoutPreventivesInput = {
@@ -65565,11 +68593,25 @@ export namespace Prisma {
     connect?: MeterMaintenanceTriggerWhereUniqueInput | MeterMaintenanceTriggerWhereUniqueInput[]
   }
 
+  export type PreventiveTaskCreateNestedManyWithoutPreventiveInput = {
+    create?: XOR<PreventiveTaskCreateWithoutPreventiveInput, PreventiveTaskUncheckedCreateWithoutPreventiveInput> | PreventiveTaskCreateWithoutPreventiveInput[] | PreventiveTaskUncheckedCreateWithoutPreventiveInput[]
+    connectOrCreate?: PreventiveTaskCreateOrConnectWithoutPreventiveInput | PreventiveTaskCreateOrConnectWithoutPreventiveInput[]
+    createMany?: PreventiveTaskCreateManyPreventiveInputEnvelope
+    connect?: PreventiveTaskWhereUniqueInput | PreventiveTaskWhereUniqueInput[]
+  }
+
   export type MeterMaintenanceTriggerUncheckedCreateNestedManyWithoutPreventiveInput = {
     create?: XOR<MeterMaintenanceTriggerCreateWithoutPreventiveInput, MeterMaintenanceTriggerUncheckedCreateWithoutPreventiveInput> | MeterMaintenanceTriggerCreateWithoutPreventiveInput[] | MeterMaintenanceTriggerUncheckedCreateWithoutPreventiveInput[]
     connectOrCreate?: MeterMaintenanceTriggerCreateOrConnectWithoutPreventiveInput | MeterMaintenanceTriggerCreateOrConnectWithoutPreventiveInput[]
     createMany?: MeterMaintenanceTriggerCreateManyPreventiveInputEnvelope
     connect?: MeterMaintenanceTriggerWhereUniqueInput | MeterMaintenanceTriggerWhereUniqueInput[]
+  }
+
+  export type PreventiveTaskUncheckedCreateNestedManyWithoutPreventiveInput = {
+    create?: XOR<PreventiveTaskCreateWithoutPreventiveInput, PreventiveTaskUncheckedCreateWithoutPreventiveInput> | PreventiveTaskCreateWithoutPreventiveInput[] | PreventiveTaskUncheckedCreateWithoutPreventiveInput[]
+    connectOrCreate?: PreventiveTaskCreateOrConnectWithoutPreventiveInput | PreventiveTaskCreateOrConnectWithoutPreventiveInput[]
+    createMany?: PreventiveTaskCreateManyPreventiveInputEnvelope
+    connect?: PreventiveTaskWhereUniqueInput | PreventiveTaskWhereUniqueInput[]
   }
 
   export type EnumFrequencyFieldUpdateOperationsInput = {
@@ -65658,6 +68700,20 @@ export namespace Prisma {
     deleteMany?: MeterMaintenanceTriggerScalarWhereInput | MeterMaintenanceTriggerScalarWhereInput[]
   }
 
+  export type PreventiveTaskUpdateManyWithoutPreventiveNestedInput = {
+    create?: XOR<PreventiveTaskCreateWithoutPreventiveInput, PreventiveTaskUncheckedCreateWithoutPreventiveInput> | PreventiveTaskCreateWithoutPreventiveInput[] | PreventiveTaskUncheckedCreateWithoutPreventiveInput[]
+    connectOrCreate?: PreventiveTaskCreateOrConnectWithoutPreventiveInput | PreventiveTaskCreateOrConnectWithoutPreventiveInput[]
+    upsert?: PreventiveTaskUpsertWithWhereUniqueWithoutPreventiveInput | PreventiveTaskUpsertWithWhereUniqueWithoutPreventiveInput[]
+    createMany?: PreventiveTaskCreateManyPreventiveInputEnvelope
+    set?: PreventiveTaskWhereUniqueInput | PreventiveTaskWhereUniqueInput[]
+    disconnect?: PreventiveTaskWhereUniqueInput | PreventiveTaskWhereUniqueInput[]
+    delete?: PreventiveTaskWhereUniqueInput | PreventiveTaskWhereUniqueInput[]
+    connect?: PreventiveTaskWhereUniqueInput | PreventiveTaskWhereUniqueInput[]
+    update?: PreventiveTaskUpdateWithWhereUniqueWithoutPreventiveInput | PreventiveTaskUpdateWithWhereUniqueWithoutPreventiveInput[]
+    updateMany?: PreventiveTaskUpdateManyWithWhereWithoutPreventiveInput | PreventiveTaskUpdateManyWithWhereWithoutPreventiveInput[]
+    deleteMany?: PreventiveTaskScalarWhereInput | PreventiveTaskScalarWhereInput[]
+  }
+
   export type MeterMaintenanceTriggerUncheckedUpdateManyWithoutPreventiveNestedInput = {
     create?: XOR<MeterMaintenanceTriggerCreateWithoutPreventiveInput, MeterMaintenanceTriggerUncheckedCreateWithoutPreventiveInput> | MeterMaintenanceTriggerCreateWithoutPreventiveInput[] | MeterMaintenanceTriggerUncheckedCreateWithoutPreventiveInput[]
     connectOrCreate?: MeterMaintenanceTriggerCreateOrConnectWithoutPreventiveInput | MeterMaintenanceTriggerCreateOrConnectWithoutPreventiveInput[]
@@ -65670,6 +68726,64 @@ export namespace Prisma {
     update?: MeterMaintenanceTriggerUpdateWithWhereUniqueWithoutPreventiveInput | MeterMaintenanceTriggerUpdateWithWhereUniqueWithoutPreventiveInput[]
     updateMany?: MeterMaintenanceTriggerUpdateManyWithWhereWithoutPreventiveInput | MeterMaintenanceTriggerUpdateManyWithWhereWithoutPreventiveInput[]
     deleteMany?: MeterMaintenanceTriggerScalarWhereInput | MeterMaintenanceTriggerScalarWhereInput[]
+  }
+
+  export type PreventiveTaskUncheckedUpdateManyWithoutPreventiveNestedInput = {
+    create?: XOR<PreventiveTaskCreateWithoutPreventiveInput, PreventiveTaskUncheckedCreateWithoutPreventiveInput> | PreventiveTaskCreateWithoutPreventiveInput[] | PreventiveTaskUncheckedCreateWithoutPreventiveInput[]
+    connectOrCreate?: PreventiveTaskCreateOrConnectWithoutPreventiveInput | PreventiveTaskCreateOrConnectWithoutPreventiveInput[]
+    upsert?: PreventiveTaskUpsertWithWhereUniqueWithoutPreventiveInput | PreventiveTaskUpsertWithWhereUniqueWithoutPreventiveInput[]
+    createMany?: PreventiveTaskCreateManyPreventiveInputEnvelope
+    set?: PreventiveTaskWhereUniqueInput | PreventiveTaskWhereUniqueInput[]
+    disconnect?: PreventiveTaskWhereUniqueInput | PreventiveTaskWhereUniqueInput[]
+    delete?: PreventiveTaskWhereUniqueInput | PreventiveTaskWhereUniqueInput[]
+    connect?: PreventiveTaskWhereUniqueInput | PreventiveTaskWhereUniqueInput[]
+    update?: PreventiveTaskUpdateWithWhereUniqueWithoutPreventiveInput | PreventiveTaskUpdateWithWhereUniqueWithoutPreventiveInput[]
+    updateMany?: PreventiveTaskUpdateManyWithWhereWithoutPreventiveInput | PreventiveTaskUpdateManyWithWhereWithoutPreventiveInput[]
+    deleteMany?: PreventiveTaskScalarWhereInput | PreventiveTaskScalarWhereInput[]
+  }
+
+  export type PreventiveCreateNestedOneWithoutPreventiveTasksInput = {
+    create?: XOR<PreventiveCreateWithoutPreventiveTasksInput, PreventiveUncheckedCreateWithoutPreventiveTasksInput>
+    connectOrCreate?: PreventiveCreateOrConnectWithoutPreventiveTasksInput
+    connect?: PreventiveWhereUniqueInput
+  }
+
+  export type PreventiveUpdateOneRequiredWithoutPreventiveTasksNestedInput = {
+    create?: XOR<PreventiveCreateWithoutPreventiveTasksInput, PreventiveUncheckedCreateWithoutPreventiveTasksInput>
+    connectOrCreate?: PreventiveCreateOrConnectWithoutPreventiveTasksInput
+    upsert?: PreventiveUpsertWithoutPreventiveTasksInput
+    connect?: PreventiveWhereUniqueInput
+    update?: XOR<XOR<PreventiveUpdateToOneWithWhereWithoutPreventiveTasksInput, PreventiveUpdateWithoutPreventiveTasksInput>, PreventiveUncheckedUpdateWithoutPreventiveTasksInput>
+  }
+
+  export type MaintenanceCreateNestedOneWithoutMaintenanceTasksInput = {
+    create?: XOR<MaintenanceCreateWithoutMaintenanceTasksInput, MaintenanceUncheckedCreateWithoutMaintenanceTasksInput>
+    connectOrCreate?: MaintenanceCreateOrConnectWithoutMaintenanceTasksInput
+    connect?: MaintenanceWhereUniqueInput
+  }
+
+  export type UserCreateNestedOneWithoutMaintenanceTasksInput = {
+    create?: XOR<UserCreateWithoutMaintenanceTasksInput, UserUncheckedCreateWithoutMaintenanceTasksInput>
+    connectOrCreate?: UserCreateOrConnectWithoutMaintenanceTasksInput
+    connect?: UserWhereUniqueInput
+  }
+
+  export type MaintenanceUpdateOneRequiredWithoutMaintenanceTasksNestedInput = {
+    create?: XOR<MaintenanceCreateWithoutMaintenanceTasksInput, MaintenanceUncheckedCreateWithoutMaintenanceTasksInput>
+    connectOrCreate?: MaintenanceCreateOrConnectWithoutMaintenanceTasksInput
+    upsert?: MaintenanceUpsertWithoutMaintenanceTasksInput
+    connect?: MaintenanceWhereUniqueInput
+    update?: XOR<XOR<MaintenanceUpdateToOneWithWhereWithoutMaintenanceTasksInput, MaintenanceUpdateWithoutMaintenanceTasksInput>, MaintenanceUncheckedUpdateWithoutMaintenanceTasksInput>
+  }
+
+  export type UserUpdateOneWithoutMaintenanceTasksNestedInput = {
+    create?: XOR<UserCreateWithoutMaintenanceTasksInput, UserUncheckedCreateWithoutMaintenanceTasksInput>
+    connectOrCreate?: UserCreateOrConnectWithoutMaintenanceTasksInput
+    upsert?: UserUpsertWithoutMaintenanceTasksInput
+    disconnect?: UserWhereInput | boolean
+    delete?: UserWhereInput | boolean
+    connect?: UserWhereUniqueInput
+    update?: XOR<XOR<UserUpdateToOneWithWhereWithoutMaintenanceTasksInput, UserUpdateWithoutMaintenanceTasksInput>, UserUncheckedUpdateWithoutMaintenanceTasksInput>
   }
 
   export type AddressCreateNestedOneWithoutWarehousesInput = {
@@ -65894,6 +69008,14 @@ export namespace Prisma {
     connectOrCreate?: GoodsReceiptItemCreateOrConnectWithoutItemInput | GoodsReceiptItemCreateOrConnectWithoutItemInput[]
     createMany?: GoodsReceiptItemCreateManyItemInputEnvelope
     connect?: GoodsReceiptItemWhereUniqueInput | GoodsReceiptItemWhereUniqueInput[]
+  }
+
+  export type DecimalFieldUpdateOperationsInput = {
+    set?: Decimal | DecimalJsLike | number | string
+    increment?: Decimal | DecimalJsLike | number | string
+    decrement?: Decimal | DecimalJsLike | number | string
+    multiply?: Decimal | DecimalJsLike | number | string
+    divide?: Decimal | DecimalJsLike | number | string
   }
 
   export type StockUpdateManyWithoutItemNestedInput = {
@@ -66358,14 +69480,6 @@ export namespace Prisma {
     create?: XOR<MeterCreateWithoutReadingsInput, MeterUncheckedCreateWithoutReadingsInput>
     connectOrCreate?: MeterCreateOrConnectWithoutReadingsInput
     connect?: MeterWhereUniqueInput
-  }
-
-  export type DecimalFieldUpdateOperationsInput = {
-    set?: Decimal | DecimalJsLike | number | string
-    increment?: Decimal | DecimalJsLike | number | string
-    decrement?: Decimal | DecimalJsLike | number | string
-    multiply?: Decimal | DecimalJsLike | number | string
-    divide?: Decimal | DecimalJsLike | number | string
   }
 
   export type EnumMeterReadingSourceFieldUpdateOperationsInput = {
@@ -67651,6 +70765,33 @@ export namespace Prisma {
     _max?: NestedEnumFrequencyFilter<$PrismaModel>
   }
 
+  export type NestedDecimalFilter<$PrismaModel = never> = {
+    equals?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    in?: Decimal[] | DecimalJsLike[] | number[] | string[] | ListDecimalFieldRefInput<$PrismaModel>
+    notIn?: Decimal[] | DecimalJsLike[] | number[] | string[] | ListDecimalFieldRefInput<$PrismaModel>
+    lt?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    lte?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    gt?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    gte?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    not?: NestedDecimalFilter<$PrismaModel> | Decimal | DecimalJsLike | number | string
+  }
+
+  export type NestedDecimalWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    in?: Decimal[] | DecimalJsLike[] | number[] | string[] | ListDecimalFieldRefInput<$PrismaModel>
+    notIn?: Decimal[] | DecimalJsLike[] | number[] | string[] | ListDecimalFieldRefInput<$PrismaModel>
+    lt?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    lte?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    gt?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    gte?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    not?: NestedDecimalWithAggregatesFilter<$PrismaModel> | Decimal | DecimalJsLike | number | string
+    _count?: NestedIntFilter<$PrismaModel>
+    _avg?: NestedDecimalFilter<$PrismaModel>
+    _sum?: NestedDecimalFilter<$PrismaModel>
+    _min?: NestedDecimalFilter<$PrismaModel>
+    _max?: NestedDecimalFilter<$PrismaModel>
+  }
+
   export type NestedEnumStockMovementTypeFilter<$PrismaModel = never> = {
     equals?: $Enums.StockMovementType | EnumStockMovementTypeFieldRefInput<$PrismaModel>
     in?: $Enums.StockMovementType[] | ListEnumStockMovementTypeFieldRefInput<$PrismaModel>
@@ -67702,38 +70843,11 @@ export namespace Prisma {
     _max?: NestedEnumMeterTypeFilter<$PrismaModel>
   }
 
-  export type NestedDecimalFilter<$PrismaModel = never> = {
-    equals?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
-    in?: Decimal[] | DecimalJsLike[] | number[] | string[] | ListDecimalFieldRefInput<$PrismaModel>
-    notIn?: Decimal[] | DecimalJsLike[] | number[] | string[] | ListDecimalFieldRefInput<$PrismaModel>
-    lt?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
-    lte?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
-    gt?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
-    gte?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
-    not?: NestedDecimalFilter<$PrismaModel> | Decimal | DecimalJsLike | number | string
-  }
-
   export type NestedEnumMeterReadingSourceFilter<$PrismaModel = never> = {
     equals?: $Enums.MeterReadingSource | EnumMeterReadingSourceFieldRefInput<$PrismaModel>
     in?: $Enums.MeterReadingSource[] | ListEnumMeterReadingSourceFieldRefInput<$PrismaModel>
     notIn?: $Enums.MeterReadingSource[] | ListEnumMeterReadingSourceFieldRefInput<$PrismaModel>
     not?: NestedEnumMeterReadingSourceFilter<$PrismaModel> | $Enums.MeterReadingSource
-  }
-
-  export type NestedDecimalWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
-    in?: Decimal[] | DecimalJsLike[] | number[] | string[] | ListDecimalFieldRefInput<$PrismaModel>
-    notIn?: Decimal[] | DecimalJsLike[] | number[] | string[] | ListDecimalFieldRefInput<$PrismaModel>
-    lt?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
-    lte?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
-    gt?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
-    gte?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
-    not?: NestedDecimalWithAggregatesFilter<$PrismaModel> | Decimal | DecimalJsLike | number | string
-    _count?: NestedIntFilter<$PrismaModel>
-    _avg?: NestedDecimalFilter<$PrismaModel>
-    _sum?: NestedDecimalFilter<$PrismaModel>
-    _min?: NestedDecimalFilter<$PrismaModel>
-    _max?: NestedDecimalFilter<$PrismaModel>
   }
 
   export type NestedEnumMeterReadingSourceWithAggregatesFilter<$PrismaModel = never> = {
@@ -68040,6 +71154,7 @@ export namespace Prisma {
     asset?: AssetCreateNestedOneWithoutMaintenancesInput
     photos?: FileCreateNestedManyWithoutMaintenanceInput
     maintenanceItems?: MaintenanceItemCreateNestedManyWithoutMaintenanceInput
+    maintenanceTasks?: MaintenanceTaskCreateNestedManyWithoutMaintenanceInput
   }
 
   export type MaintenanceUncheckedCreateWithoutRequesterInput = {
@@ -68107,6 +71222,7 @@ export namespace Prisma {
     updatedAt?: Date | string
     photos?: FileUncheckedCreateNestedManyWithoutMaintenanceInput
     maintenanceItems?: MaintenanceItemUncheckedCreateNestedManyWithoutMaintenanceInput
+    maintenanceTasks?: MaintenanceTaskUncheckedCreateNestedManyWithoutMaintenanceInput
   }
 
   export type MaintenanceCreateOrConnectWithoutRequesterInput = {
@@ -68184,6 +71300,7 @@ export namespace Prisma {
     asset?: AssetCreateNestedOneWithoutMaintenancesInput
     photos?: FileCreateNestedManyWithoutMaintenanceInput
     maintenanceItems?: MaintenanceItemCreateNestedManyWithoutMaintenanceInput
+    maintenanceTasks?: MaintenanceTaskCreateNestedManyWithoutMaintenanceInput
   }
 
   export type MaintenanceUncheckedCreateWithoutAssigneeInput = {
@@ -68251,6 +71368,7 @@ export namespace Prisma {
     updatedAt?: Date | string
     photos?: FileUncheckedCreateNestedManyWithoutMaintenanceInput
     maintenanceItems?: MaintenanceItemUncheckedCreateNestedManyWithoutMaintenanceInput
+    maintenanceTasks?: MaintenanceTaskUncheckedCreateNestedManyWithoutMaintenanceInput
   }
 
   export type MaintenanceCreateOrConnectWithoutAssigneeInput = {
@@ -68401,6 +71519,34 @@ export namespace Prisma {
 
   export type GoodsReceiptCreateManyReceiverInputEnvelope = {
     data: GoodsReceiptCreateManyReceiverInput | GoodsReceiptCreateManyReceiverInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type MaintenanceTaskCreateWithoutCompletedByInput = {
+    id?: string
+    description: string
+    isCompleted?: boolean
+    completedAt?: Date | string | null
+    notes?: string | null
+    maintenance: MaintenanceCreateNestedOneWithoutMaintenanceTasksInput
+  }
+
+  export type MaintenanceTaskUncheckedCreateWithoutCompletedByInput = {
+    id?: string
+    description: string
+    isCompleted?: boolean
+    completedAt?: Date | string | null
+    notes?: string | null
+    maintenanceId: string
+  }
+
+  export type MaintenanceTaskCreateOrConnectWithoutCompletedByInput = {
+    where: MaintenanceTaskWhereUniqueInput
+    create: XOR<MaintenanceTaskCreateWithoutCompletedByInput, MaintenanceTaskUncheckedCreateWithoutCompletedByInput>
+  }
+
+  export type MaintenanceTaskCreateManyCompletedByInputEnvelope = {
+    data: MaintenanceTaskCreateManyCompletedByInput | MaintenanceTaskCreateManyCompletedByInput[]
     skipDuplicates?: boolean
   }
 
@@ -68827,6 +71973,35 @@ export namespace Prisma {
     companyId?: StringFilter<"GoodsReceipt"> | string
   }
 
+  export type MaintenanceTaskUpsertWithWhereUniqueWithoutCompletedByInput = {
+    where: MaintenanceTaskWhereUniqueInput
+    update: XOR<MaintenanceTaskUpdateWithoutCompletedByInput, MaintenanceTaskUncheckedUpdateWithoutCompletedByInput>
+    create: XOR<MaintenanceTaskCreateWithoutCompletedByInput, MaintenanceTaskUncheckedCreateWithoutCompletedByInput>
+  }
+
+  export type MaintenanceTaskUpdateWithWhereUniqueWithoutCompletedByInput = {
+    where: MaintenanceTaskWhereUniqueInput
+    data: XOR<MaintenanceTaskUpdateWithoutCompletedByInput, MaintenanceTaskUncheckedUpdateWithoutCompletedByInput>
+  }
+
+  export type MaintenanceTaskUpdateManyWithWhereWithoutCompletedByInput = {
+    where: MaintenanceTaskScalarWhereInput
+    data: XOR<MaintenanceTaskUpdateManyMutationInput, MaintenanceTaskUncheckedUpdateManyWithoutCompletedByInput>
+  }
+
+  export type MaintenanceTaskScalarWhereInput = {
+    AND?: MaintenanceTaskScalarWhereInput | MaintenanceTaskScalarWhereInput[]
+    OR?: MaintenanceTaskScalarWhereInput[]
+    NOT?: MaintenanceTaskScalarWhereInput | MaintenanceTaskScalarWhereInput[]
+    id?: StringFilter<"MaintenanceTask"> | string
+    description?: StringFilter<"MaintenanceTask"> | string
+    isCompleted?: BoolFilter<"MaintenanceTask"> | boolean
+    completedAt?: DateTimeNullableFilter<"MaintenanceTask"> | Date | string | null
+    notes?: StringNullableFilter<"MaintenanceTask"> | string | null
+    maintenanceId?: StringFilter<"MaintenanceTask"> | string
+    completedById?: StringNullableFilter<"MaintenanceTask"> | string | null
+  }
+
   export type PermissionCreateWithoutRoleInput = {
     id?: string
     resource: string
@@ -68881,6 +72056,7 @@ export namespace Prisma {
     costCenter?: CostCenterCreateNestedOneWithoutUsersInput
     purchaseRequests?: PurchaseRequestCreateNestedManyWithoutRequesterInput
     goodsReceipts?: GoodsReceiptCreateNestedManyWithoutReceiverInput
+    maintenanceTasks?: MaintenanceTaskCreateNestedManyWithoutCompletedByInput
   }
 
   export type UserUncheckedCreateWithoutRoleInput = {
@@ -68909,6 +72085,7 @@ export namespace Prisma {
     supervisedTeams?: TeamUncheckedCreateNestedManyWithoutSupervisorInput
     purchaseRequests?: PurchaseRequestUncheckedCreateNestedManyWithoutRequesterInput
     goodsReceipts?: GoodsReceiptUncheckedCreateNestedManyWithoutReceiverInput
+    maintenanceTasks?: MaintenanceTaskUncheckedCreateNestedManyWithoutCompletedByInput
   }
 
   export type UserCreateOrConnectWithoutRoleInput = {
@@ -69028,6 +72205,7 @@ export namespace Prisma {
     costCenter?: CostCenterCreateNestedOneWithoutUsersInput
     purchaseRequests?: PurchaseRequestCreateNestedManyWithoutRequesterInput
     goodsReceipts?: GoodsReceiptCreateNestedManyWithoutReceiverInput
+    maintenanceTasks?: MaintenanceTaskCreateNestedManyWithoutCompletedByInput
   }
 
   export type UserUncheckedCreateWithoutPermissionsInput = {
@@ -69056,6 +72234,7 @@ export namespace Prisma {
     supervisedTeams?: TeamUncheckedCreateNestedManyWithoutSupervisorInput
     purchaseRequests?: PurchaseRequestUncheckedCreateNestedManyWithoutRequesterInput
     goodsReceipts?: GoodsReceiptUncheckedCreateNestedManyWithoutReceiverInput
+    maintenanceTasks?: MaintenanceTaskUncheckedCreateNestedManyWithoutCompletedByInput
   }
 
   export type UserCreateOrConnectWithoutPermissionsInput = {
@@ -69131,6 +72310,7 @@ export namespace Prisma {
     costCenter?: CostCenterUpdateOneWithoutUsersNestedInput
     purchaseRequests?: PurchaseRequestUpdateManyWithoutRequesterNestedInput
     goodsReceipts?: GoodsReceiptUpdateManyWithoutReceiverNestedInput
+    maintenanceTasks?: MaintenanceTaskUpdateManyWithoutCompletedByNestedInput
   }
 
   export type UserUncheckedUpdateWithoutPermissionsInput = {
@@ -69159,6 +72339,7 @@ export namespace Prisma {
     supervisedTeams?: TeamUncheckedUpdateManyWithoutSupervisorNestedInput
     purchaseRequests?: PurchaseRequestUncheckedUpdateManyWithoutRequesterNestedInput
     goodsReceipts?: GoodsReceiptUncheckedUpdateManyWithoutReceiverNestedInput
+    maintenanceTasks?: MaintenanceTaskUncheckedUpdateManyWithoutCompletedByNestedInput
   }
 
   export type AddressCreateWithoutSitesInput = {
@@ -69525,6 +72706,7 @@ export namespace Prisma {
     asset?: AssetCreateNestedOneWithoutMaintenancesInput
     photos?: FileCreateNestedManyWithoutMaintenanceInput
     maintenanceItems?: MaintenanceItemCreateNestedManyWithoutMaintenanceInput
+    maintenanceTasks?: MaintenanceTaskCreateNestedManyWithoutMaintenanceInput
   }
 
   export type MaintenanceUncheckedCreateWithoutSiteInput = {
@@ -69592,6 +72774,7 @@ export namespace Prisma {
     updatedAt?: Date | string
     photos?: FileUncheckedCreateNestedManyWithoutMaintenanceInput
     maintenanceItems?: MaintenanceItemUncheckedCreateNestedManyWithoutMaintenanceInput
+    maintenanceTasks?: MaintenanceTaskUncheckedCreateNestedManyWithoutMaintenanceInput
   }
 
   export type MaintenanceCreateOrConnectWithoutSiteInput = {
@@ -69624,6 +72807,7 @@ export namespace Prisma {
     space?: SpaceCreateNestedOneWithoutPreventivesInput
     team?: TeamCreateNestedOneWithoutPreventivesInput
     meterTriggers?: MeterMaintenanceTriggerCreateNestedManyWithoutPreventiveInput
+    preventiveTasks?: PreventiveTaskCreateNestedManyWithoutPreventiveInput
   }
 
   export type PreventiveUncheckedCreateWithoutSiteInput = {
@@ -69646,6 +72830,7 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     meterTriggers?: MeterMaintenanceTriggerUncheckedCreateNestedManyWithoutPreventiveInput
+    preventiveTasks?: PreventiveTaskUncheckedCreateNestedManyWithoutPreventiveInput
   }
 
   export type PreventiveCreateOrConnectWithoutSiteInput = {
@@ -70068,6 +73253,7 @@ export namespace Prisma {
     space?: SpaceCreateNestedOneWithoutPreventivesInput
     team?: TeamCreateNestedOneWithoutPreventivesInput
     meterTriggers?: MeterMaintenanceTriggerCreateNestedManyWithoutPreventiveInput
+    preventiveTasks?: PreventiveTaskCreateNestedManyWithoutPreventiveInput
   }
 
   export type PreventiveUncheckedCreateWithoutBuildingInput = {
@@ -70090,6 +73276,7 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     meterTriggers?: MeterMaintenanceTriggerUncheckedCreateNestedManyWithoutPreventiveInput
+    preventiveTasks?: PreventiveTaskUncheckedCreateNestedManyWithoutPreventiveInput
   }
 
   export type PreventiveCreateOrConnectWithoutBuildingInput = {
@@ -70167,6 +73354,7 @@ export namespace Prisma {
     asset?: AssetCreateNestedOneWithoutMaintenancesInput
     photos?: FileCreateNestedManyWithoutMaintenanceInput
     maintenanceItems?: MaintenanceItemCreateNestedManyWithoutMaintenanceInput
+    maintenanceTasks?: MaintenanceTaskCreateNestedManyWithoutMaintenanceInput
   }
 
   export type MaintenanceUncheckedCreateWithoutBuildingInput = {
@@ -70234,6 +73422,7 @@ export namespace Prisma {
     updatedAt?: Date | string
     photos?: FileUncheckedCreateNestedManyWithoutMaintenanceInput
     maintenanceItems?: MaintenanceItemUncheckedCreateNestedManyWithoutMaintenanceInput
+    maintenanceTasks?: MaintenanceTaskUncheckedCreateNestedManyWithoutMaintenanceInput
   }
 
   export type MaintenanceCreateOrConnectWithoutBuildingInput = {
@@ -70820,6 +74009,7 @@ export namespace Prisma {
     asset?: AssetCreateNestedOneWithoutMaintenancesInput
     photos?: FileCreateNestedManyWithoutMaintenanceInput
     maintenanceItems?: MaintenanceItemCreateNestedManyWithoutMaintenanceInput
+    maintenanceTasks?: MaintenanceTaskCreateNestedManyWithoutMaintenanceInput
   }
 
   export type MaintenanceUncheckedCreateWithoutFloorInput = {
@@ -70887,6 +74077,7 @@ export namespace Prisma {
     updatedAt?: Date | string
     photos?: FileUncheckedCreateNestedManyWithoutMaintenanceInput
     maintenanceItems?: MaintenanceItemUncheckedCreateNestedManyWithoutMaintenanceInput
+    maintenanceTasks?: MaintenanceTaskUncheckedCreateNestedManyWithoutMaintenanceInput
   }
 
   export type MaintenanceCreateOrConnectWithoutFloorInput = {
@@ -70919,6 +74110,7 @@ export namespace Prisma {
     space?: SpaceCreateNestedOneWithoutPreventivesInput
     team?: TeamCreateNestedOneWithoutPreventivesInput
     meterTriggers?: MeterMaintenanceTriggerCreateNestedManyWithoutPreventiveInput
+    preventiveTasks?: PreventiveTaskCreateNestedManyWithoutPreventiveInput
   }
 
   export type PreventiveUncheckedCreateWithoutFloorInput = {
@@ -70941,6 +74133,7 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     meterTriggers?: MeterMaintenanceTriggerUncheckedCreateNestedManyWithoutPreventiveInput
+    preventiveTasks?: PreventiveTaskUncheckedCreateNestedManyWithoutPreventiveInput
   }
 
   export type PreventiveCreateOrConnectWithoutFloorInput = {
@@ -71409,6 +74602,7 @@ export namespace Prisma {
     asset?: AssetCreateNestedOneWithoutMaintenancesInput
     photos?: FileCreateNestedManyWithoutMaintenanceInput
     maintenanceItems?: MaintenanceItemCreateNestedManyWithoutMaintenanceInput
+    maintenanceTasks?: MaintenanceTaskCreateNestedManyWithoutMaintenanceInput
   }
 
   export type MaintenanceUncheckedCreateWithoutZoneInput = {
@@ -71476,6 +74670,7 @@ export namespace Prisma {
     updatedAt?: Date | string
     photos?: FileUncheckedCreateNestedManyWithoutMaintenanceInput
     maintenanceItems?: MaintenanceItemUncheckedCreateNestedManyWithoutMaintenanceInput
+    maintenanceTasks?: MaintenanceTaskUncheckedCreateNestedManyWithoutMaintenanceInput
   }
 
   export type MaintenanceCreateOrConnectWithoutZoneInput = {
@@ -71508,6 +74703,7 @@ export namespace Prisma {
     space?: SpaceCreateNestedOneWithoutPreventivesInput
     team?: TeamCreateNestedOneWithoutPreventivesInput
     meterTriggers?: MeterMaintenanceTriggerCreateNestedManyWithoutPreventiveInput
+    preventiveTasks?: PreventiveTaskCreateNestedManyWithoutPreventiveInput
   }
 
   export type PreventiveUncheckedCreateWithoutZoneInput = {
@@ -71530,6 +74726,7 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     meterTriggers?: MeterMaintenanceTriggerUncheckedCreateNestedManyWithoutPreventiveInput
+    preventiveTasks?: PreventiveTaskUncheckedCreateNestedManyWithoutPreventiveInput
   }
 
   export type PreventiveCreateOrConnectWithoutZoneInput = {
@@ -71965,6 +75162,7 @@ export namespace Prisma {
     asset?: AssetCreateNestedOneWithoutMaintenancesInput
     photos?: FileCreateNestedManyWithoutMaintenanceInput
     maintenanceItems?: MaintenanceItemCreateNestedManyWithoutMaintenanceInput
+    maintenanceTasks?: MaintenanceTaskCreateNestedManyWithoutMaintenanceInput
   }
 
   export type MaintenanceUncheckedCreateWithoutSpaceInput = {
@@ -72032,6 +75230,7 @@ export namespace Prisma {
     updatedAt?: Date | string
     photos?: FileUncheckedCreateNestedManyWithoutMaintenanceInput
     maintenanceItems?: MaintenanceItemUncheckedCreateNestedManyWithoutMaintenanceInput
+    maintenanceTasks?: MaintenanceTaskUncheckedCreateNestedManyWithoutMaintenanceInput
   }
 
   export type MaintenanceCreateOrConnectWithoutSpaceInput = {
@@ -72064,6 +75263,7 @@ export namespace Prisma {
     zone?: ZoneCreateNestedOneWithoutPreventivesInput
     team?: TeamCreateNestedOneWithoutPreventivesInput
     meterTriggers?: MeterMaintenanceTriggerCreateNestedManyWithoutPreventiveInput
+    preventiveTasks?: PreventiveTaskCreateNestedManyWithoutPreventiveInput
   }
 
   export type PreventiveUncheckedCreateWithoutSpaceInput = {
@@ -72086,6 +75286,7 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     meterTriggers?: MeterMaintenanceTriggerUncheckedCreateNestedManyWithoutPreventiveInput
+    preventiveTasks?: PreventiveTaskUncheckedCreateNestedManyWithoutPreventiveInput
   }
 
   export type PreventiveCreateOrConnectWithoutSpaceInput = {
@@ -72674,6 +75875,7 @@ export namespace Prisma {
     assignee?: UserCreateNestedOneWithoutAssignedMaintenancesInput
     photos?: FileCreateNestedManyWithoutMaintenanceInput
     maintenanceItems?: MaintenanceItemCreateNestedManyWithoutMaintenanceInput
+    maintenanceTasks?: MaintenanceTaskCreateNestedManyWithoutMaintenanceInput
   }
 
   export type MaintenanceUncheckedCreateWithoutAssetInput = {
@@ -72741,6 +75943,7 @@ export namespace Prisma {
     updatedAt?: Date | string
     photos?: FileUncheckedCreateNestedManyWithoutMaintenanceInput
     maintenanceItems?: MaintenanceItemUncheckedCreateNestedManyWithoutMaintenanceInput
+    maintenanceTasks?: MaintenanceTaskUncheckedCreateNestedManyWithoutMaintenanceInput
   }
 
   export type MaintenanceCreateOrConnectWithoutAssetInput = {
@@ -72773,6 +75976,7 @@ export namespace Prisma {
     space?: SpaceCreateNestedOneWithoutPreventivesInput
     team?: TeamCreateNestedOneWithoutPreventivesInput
     meterTriggers?: MeterMaintenanceTriggerCreateNestedManyWithoutPreventiveInput
+    preventiveTasks?: PreventiveTaskCreateNestedManyWithoutPreventiveInput
   }
 
   export type PreventiveUncheckedCreateWithoutAssetInput = {
@@ -72795,6 +75999,7 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     meterTriggers?: MeterMaintenanceTriggerUncheckedCreateNestedManyWithoutPreventiveInput
+    preventiveTasks?: PreventiveTaskUncheckedCreateNestedManyWithoutPreventiveInput
   }
 
   export type PreventiveCreateOrConnectWithoutAssetInput = {
@@ -73471,6 +76676,7 @@ export namespace Prisma {
     assignee?: UserCreateNestedOneWithoutAssignedMaintenancesInput
     asset?: AssetCreateNestedOneWithoutMaintenancesInput
     maintenanceItems?: MaintenanceItemCreateNestedManyWithoutMaintenanceInput
+    maintenanceTasks?: MaintenanceTaskCreateNestedManyWithoutMaintenanceInput
   }
 
   export type MaintenanceUncheckedCreateWithoutPhotosInput = {
@@ -73538,6 +76744,7 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     maintenanceItems?: MaintenanceItemUncheckedCreateNestedManyWithoutMaintenanceInput
+    maintenanceTasks?: MaintenanceTaskUncheckedCreateNestedManyWithoutMaintenanceInput
   }
 
   export type MaintenanceCreateOrConnectWithoutPhotosInput = {
@@ -73685,6 +76892,7 @@ export namespace Prisma {
     assignee?: UserUpdateOneWithoutAssignedMaintenancesNestedInput
     asset?: AssetUpdateOneWithoutMaintenancesNestedInput
     maintenanceItems?: MaintenanceItemUpdateManyWithoutMaintenanceNestedInput
+    maintenanceTasks?: MaintenanceTaskUpdateManyWithoutMaintenanceNestedInput
   }
 
   export type MaintenanceUncheckedUpdateWithoutPhotosInput = {
@@ -73752,6 +76960,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     maintenanceItems?: MaintenanceItemUncheckedUpdateManyWithoutMaintenanceNestedInput
+    maintenanceTasks?: MaintenanceTaskUncheckedUpdateManyWithoutMaintenanceNestedInput
   }
 
   export type AddressCreateWithoutCompaniesInput = {
@@ -73809,6 +77018,7 @@ export namespace Prisma {
     costCenter?: CostCenterCreateNestedOneWithoutUsersInput
     purchaseRequests?: PurchaseRequestCreateNestedManyWithoutRequesterInput
     goodsReceipts?: GoodsReceiptCreateNestedManyWithoutReceiverInput
+    maintenanceTasks?: MaintenanceTaskCreateNestedManyWithoutCompletedByInput
   }
 
   export type UserUncheckedCreateWithoutCompanyInput = {
@@ -73837,6 +77047,7 @@ export namespace Prisma {
     supervisedTeams?: TeamUncheckedCreateNestedManyWithoutSupervisorInput
     purchaseRequests?: PurchaseRequestUncheckedCreateNestedManyWithoutRequesterInput
     goodsReceipts?: GoodsReceiptUncheckedCreateNestedManyWithoutReceiverInput
+    maintenanceTasks?: MaintenanceTaskUncheckedCreateNestedManyWithoutCompletedByInput
   }
 
   export type UserCreateOrConnectWithoutCompanyInput = {
@@ -73914,6 +77125,7 @@ export namespace Prisma {
     asset?: AssetCreateNestedOneWithoutMaintenancesInput
     photos?: FileCreateNestedManyWithoutMaintenanceInput
     maintenanceItems?: MaintenanceItemCreateNestedManyWithoutMaintenanceInput
+    maintenanceTasks?: MaintenanceTaskCreateNestedManyWithoutMaintenanceInput
   }
 
   export type MaintenanceUncheckedCreateWithoutCompanyInput = {
@@ -73981,6 +77193,7 @@ export namespace Prisma {
     updatedAt?: Date | string
     photos?: FileUncheckedCreateNestedManyWithoutMaintenanceInput
     maintenanceItems?: MaintenanceItemUncheckedCreateNestedManyWithoutMaintenanceInput
+    maintenanceTasks?: MaintenanceTaskUncheckedCreateNestedManyWithoutMaintenanceInput
   }
 
   export type MaintenanceCreateOrConnectWithoutCompanyInput = {
@@ -74194,6 +77407,7 @@ export namespace Prisma {
     costCenter?: CostCenterCreateNestedOneWithoutUsersInput
     purchaseRequests?: PurchaseRequestCreateNestedManyWithoutRequesterInput
     goodsReceipts?: GoodsReceiptCreateNestedManyWithoutReceiverInput
+    maintenanceTasks?: MaintenanceTaskCreateNestedManyWithoutCompletedByInput
   }
 
   export type UserUncheckedCreateWithoutSupervisedTeamsInput = {
@@ -74222,6 +77436,7 @@ export namespace Prisma {
     assignedMaintenances?: MaintenanceUncheckedCreateNestedManyWithoutAssigneeInput
     purchaseRequests?: PurchaseRequestUncheckedCreateNestedManyWithoutRequesterInput
     goodsReceipts?: GoodsReceiptUncheckedCreateNestedManyWithoutReceiverInput
+    maintenanceTasks?: MaintenanceTaskUncheckedCreateNestedManyWithoutCompletedByInput
   }
 
   export type UserCreateOrConnectWithoutSupervisedTeamsInput = {
@@ -74294,6 +77509,7 @@ export namespace Prisma {
     asset?: AssetCreateNestedOneWithoutMaintenancesInput
     photos?: FileCreateNestedManyWithoutMaintenanceInput
     maintenanceItems?: MaintenanceItemCreateNestedManyWithoutMaintenanceInput
+    maintenanceTasks?: MaintenanceTaskCreateNestedManyWithoutMaintenanceInput
   }
 
   export type MaintenanceUncheckedCreateWithoutTeamInput = {
@@ -74361,6 +77577,7 @@ export namespace Prisma {
     updatedAt?: Date | string
     photos?: FileUncheckedCreateNestedManyWithoutMaintenanceInput
     maintenanceItems?: MaintenanceItemUncheckedCreateNestedManyWithoutMaintenanceInput
+    maintenanceTasks?: MaintenanceTaskUncheckedCreateNestedManyWithoutMaintenanceInput
   }
 
   export type MaintenanceCreateOrConnectWithoutTeamInput = {
@@ -74393,6 +77610,7 @@ export namespace Prisma {
     zone?: ZoneCreateNestedOneWithoutPreventivesInput
     space?: SpaceCreateNestedOneWithoutPreventivesInput
     meterTriggers?: MeterMaintenanceTriggerCreateNestedManyWithoutPreventiveInput
+    preventiveTasks?: PreventiveTaskCreateNestedManyWithoutPreventiveInput
   }
 
   export type PreventiveUncheckedCreateWithoutTeamInput = {
@@ -74415,6 +77633,7 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     meterTriggers?: MeterMaintenanceTriggerUncheckedCreateNestedManyWithoutPreventiveInput
+    preventiveTasks?: PreventiveTaskUncheckedCreateNestedManyWithoutPreventiveInput
   }
 
   export type PreventiveCreateOrConnectWithoutTeamInput = {
@@ -74453,6 +77672,7 @@ export namespace Prisma {
     costCenter?: CostCenterCreateNestedOneWithoutUsersInput
     purchaseRequests?: PurchaseRequestCreateNestedManyWithoutRequesterInput
     goodsReceipts?: GoodsReceiptCreateNestedManyWithoutReceiverInput
+    maintenanceTasks?: MaintenanceTaskCreateNestedManyWithoutCompletedByInput
   }
 
   export type UserUncheckedCreateWithoutTeamsInput = {
@@ -74481,6 +77701,7 @@ export namespace Prisma {
     supervisedTeams?: TeamUncheckedCreateNestedManyWithoutSupervisorInput
     purchaseRequests?: PurchaseRequestUncheckedCreateNestedManyWithoutRequesterInput
     goodsReceipts?: GoodsReceiptUncheckedCreateNestedManyWithoutReceiverInput
+    maintenanceTasks?: MaintenanceTaskUncheckedCreateNestedManyWithoutCompletedByInput
   }
 
   export type UserCreateOrConnectWithoutTeamsInput = {
@@ -74525,6 +77746,7 @@ export namespace Prisma {
     costCenter?: CostCenterUpdateOneWithoutUsersNestedInput
     purchaseRequests?: PurchaseRequestUpdateManyWithoutRequesterNestedInput
     goodsReceipts?: GoodsReceiptUpdateManyWithoutReceiverNestedInput
+    maintenanceTasks?: MaintenanceTaskUpdateManyWithoutCompletedByNestedInput
   }
 
   export type UserUncheckedUpdateWithoutSupervisedTeamsInput = {
@@ -74553,6 +77775,7 @@ export namespace Prisma {
     assignedMaintenances?: MaintenanceUncheckedUpdateManyWithoutAssigneeNestedInput
     purchaseRequests?: PurchaseRequestUncheckedUpdateManyWithoutRequesterNestedInput
     goodsReceipts?: GoodsReceiptUncheckedUpdateManyWithoutReceiverNestedInput
+    maintenanceTasks?: MaintenanceTaskUncheckedUpdateManyWithoutCompletedByNestedInput
   }
 
   export type MaintenanceUpsertWithWhereUniqueWithoutTeamInput = {
@@ -75114,6 +78337,7 @@ export namespace Prisma {
     costCenter?: CostCenterCreateNestedOneWithoutUsersInput
     purchaseRequests?: PurchaseRequestCreateNestedManyWithoutRequesterInput
     goodsReceipts?: GoodsReceiptCreateNestedManyWithoutReceiverInput
+    maintenanceTasks?: MaintenanceTaskCreateNestedManyWithoutCompletedByInput
   }
 
   export type UserUncheckedCreateWithoutCalenderEntityInput = {
@@ -75142,6 +78366,7 @@ export namespace Prisma {
     supervisedTeams?: TeamUncheckedCreateNestedManyWithoutSupervisorInput
     purchaseRequests?: PurchaseRequestUncheckedCreateNestedManyWithoutRequesterInput
     goodsReceipts?: GoodsReceiptUncheckedCreateNestedManyWithoutReceiverInput
+    maintenanceTasks?: MaintenanceTaskUncheckedCreateNestedManyWithoutCompletedByInput
   }
 
   export type UserCreateOrConnectWithoutCalenderEntityInput = {
@@ -75260,6 +78485,7 @@ export namespace Prisma {
     costCenter?: CostCenterCreateNestedOneWithoutUsersInput
     purchaseRequests?: PurchaseRequestCreateNestedManyWithoutRequesterInput
     goodsReceipts?: GoodsReceiptCreateNestedManyWithoutReceiverInput
+    maintenanceTasks?: MaintenanceTaskCreateNestedManyWithoutCompletedByInput
   }
 
   export type UserUncheckedCreateWithoutRequestedMaintenancesInput = {
@@ -75288,6 +78514,7 @@ export namespace Prisma {
     supervisedTeams?: TeamUncheckedCreateNestedManyWithoutSupervisorInput
     purchaseRequests?: PurchaseRequestUncheckedCreateNestedManyWithoutRequesterInput
     goodsReceipts?: GoodsReceiptUncheckedCreateNestedManyWithoutReceiverInput
+    maintenanceTasks?: MaintenanceTaskUncheckedCreateNestedManyWithoutCompletedByInput
   }
 
   export type UserCreateOrConnectWithoutRequestedMaintenancesInput = {
@@ -75759,6 +78986,7 @@ export namespace Prisma {
     costCenter?: CostCenterCreateNestedOneWithoutUsersInput
     purchaseRequests?: PurchaseRequestCreateNestedManyWithoutRequesterInput
     goodsReceipts?: GoodsReceiptCreateNestedManyWithoutReceiverInput
+    maintenanceTasks?: MaintenanceTaskCreateNestedManyWithoutCompletedByInput
   }
 
   export type UserUncheckedCreateWithoutAssignedMaintenancesInput = {
@@ -75787,6 +79015,7 @@ export namespace Prisma {
     supervisedTeams?: TeamUncheckedCreateNestedManyWithoutSupervisorInput
     purchaseRequests?: PurchaseRequestUncheckedCreateNestedManyWithoutRequesterInput
     goodsReceipts?: GoodsReceiptUncheckedCreateNestedManyWithoutReceiverInput
+    maintenanceTasks?: MaintenanceTaskUncheckedCreateNestedManyWithoutCompletedByInput
   }
 
   export type UserCreateOrConnectWithoutAssignedMaintenancesInput = {
@@ -75889,6 +79118,34 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
+  export type MaintenanceTaskCreateWithoutMaintenanceInput = {
+    id?: string
+    description: string
+    isCompleted?: boolean
+    completedAt?: Date | string | null
+    notes?: string | null
+    completedBy?: UserCreateNestedOneWithoutMaintenanceTasksInput
+  }
+
+  export type MaintenanceTaskUncheckedCreateWithoutMaintenanceInput = {
+    id?: string
+    description: string
+    isCompleted?: boolean
+    completedAt?: Date | string | null
+    notes?: string | null
+    completedById?: string | null
+  }
+
+  export type MaintenanceTaskCreateOrConnectWithoutMaintenanceInput = {
+    where: MaintenanceTaskWhereUniqueInput
+    create: XOR<MaintenanceTaskCreateWithoutMaintenanceInput, MaintenanceTaskUncheckedCreateWithoutMaintenanceInput>
+  }
+
+  export type MaintenanceTaskCreateManyMaintenanceInputEnvelope = {
+    data: MaintenanceTaskCreateManyMaintenanceInput | MaintenanceTaskCreateManyMaintenanceInput[]
+    skipDuplicates?: boolean
+  }
+
   export type UserUpsertWithoutRequestedMaintenancesInput = {
     update: XOR<UserUpdateWithoutRequestedMaintenancesInput, UserUncheckedUpdateWithoutRequestedMaintenancesInput>
     create: XOR<UserCreateWithoutRequestedMaintenancesInput, UserUncheckedCreateWithoutRequestedMaintenancesInput>
@@ -75926,6 +79183,7 @@ export namespace Prisma {
     costCenter?: CostCenterUpdateOneWithoutUsersNestedInput
     purchaseRequests?: PurchaseRequestUpdateManyWithoutRequesterNestedInput
     goodsReceipts?: GoodsReceiptUpdateManyWithoutReceiverNestedInput
+    maintenanceTasks?: MaintenanceTaskUpdateManyWithoutCompletedByNestedInput
   }
 
   export type UserUncheckedUpdateWithoutRequestedMaintenancesInput = {
@@ -75954,6 +79212,7 @@ export namespace Prisma {
     supervisedTeams?: TeamUncheckedUpdateManyWithoutSupervisorNestedInput
     purchaseRequests?: PurchaseRequestUncheckedUpdateManyWithoutRequesterNestedInput
     goodsReceipts?: GoodsReceiptUncheckedUpdateManyWithoutReceiverNestedInput
+    maintenanceTasks?: MaintenanceTaskUncheckedUpdateManyWithoutCompletedByNestedInput
   }
 
   export type ComplexUpsertWithoutMaintenancesInput = {
@@ -76479,6 +79738,7 @@ export namespace Prisma {
     costCenter?: CostCenterUpdateOneWithoutUsersNestedInput
     purchaseRequests?: PurchaseRequestUpdateManyWithoutRequesterNestedInput
     goodsReceipts?: GoodsReceiptUpdateManyWithoutReceiverNestedInput
+    maintenanceTasks?: MaintenanceTaskUpdateManyWithoutCompletedByNestedInput
   }
 
   export type UserUncheckedUpdateWithoutAssignedMaintenancesInput = {
@@ -76507,6 +79767,7 @@ export namespace Prisma {
     supervisedTeams?: TeamUncheckedUpdateManyWithoutSupervisorNestedInput
     purchaseRequests?: PurchaseRequestUncheckedUpdateManyWithoutRequesterNestedInput
     goodsReceipts?: GoodsReceiptUncheckedUpdateManyWithoutReceiverNestedInput
+    maintenanceTasks?: MaintenanceTaskUncheckedUpdateManyWithoutCompletedByNestedInput
   }
 
   export type AssetUpsertWithoutMaintenancesInput = {
@@ -76582,6 +79843,22 @@ export namespace Prisma {
   export type MaintenanceItemUpdateManyWithWhereWithoutMaintenanceInput = {
     where: MaintenanceItemScalarWhereInput
     data: XOR<MaintenanceItemUpdateManyMutationInput, MaintenanceItemUncheckedUpdateManyWithoutMaintenanceInput>
+  }
+
+  export type MaintenanceTaskUpsertWithWhereUniqueWithoutMaintenanceInput = {
+    where: MaintenanceTaskWhereUniqueInput
+    update: XOR<MaintenanceTaskUpdateWithoutMaintenanceInput, MaintenanceTaskUncheckedUpdateWithoutMaintenanceInput>
+    create: XOR<MaintenanceTaskCreateWithoutMaintenanceInput, MaintenanceTaskUncheckedCreateWithoutMaintenanceInput>
+  }
+
+  export type MaintenanceTaskUpdateWithWhereUniqueWithoutMaintenanceInput = {
+    where: MaintenanceTaskWhereUniqueInput
+    data: XOR<MaintenanceTaskUpdateWithoutMaintenanceInput, MaintenanceTaskUncheckedUpdateWithoutMaintenanceInput>
+  }
+
+  export type MaintenanceTaskUpdateManyWithWhereWithoutMaintenanceInput = {
+    where: MaintenanceTaskScalarWhereInput
+    data: XOR<MaintenanceTaskUpdateManyMutationInput, MaintenanceTaskUncheckedUpdateManyWithoutMaintenanceInput>
   }
 
   export type ComplexCreateWithoutPreventivesInput = {
@@ -77000,6 +80277,30 @@ export namespace Prisma {
 
   export type MeterMaintenanceTriggerCreateManyPreventiveInputEnvelope = {
     data: MeterMaintenanceTriggerCreateManyPreventiveInput | MeterMaintenanceTriggerCreateManyPreventiveInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type PreventiveTaskCreateWithoutPreventiveInput = {
+    id?: string
+    description: string
+    order: number
+    isMandatory?: boolean
+  }
+
+  export type PreventiveTaskUncheckedCreateWithoutPreventiveInput = {
+    id?: string
+    description: string
+    order: number
+    isMandatory?: boolean
+  }
+
+  export type PreventiveTaskCreateOrConnectWithoutPreventiveInput = {
+    where: PreventiveTaskWhereUniqueInput
+    create: XOR<PreventiveTaskCreateWithoutPreventiveInput, PreventiveTaskUncheckedCreateWithoutPreventiveInput>
+  }
+
+  export type PreventiveTaskCreateManyPreventiveInputEnvelope = {
+    data: PreventiveTaskCreateManyPreventiveInput | PreventiveTaskCreateManyPreventiveInput[]
     skipDuplicates?: boolean
   }
 
@@ -77462,6 +80763,561 @@ export namespace Prisma {
     lastTriggerReading?: DecimalNullableFilter<"MeterMaintenanceTrigger"> | Decimal | DecimalJsLike | number | string | null
     createdAt?: DateTimeFilter<"MeterMaintenanceTrigger"> | Date | string
     updatedAt?: DateTimeFilter<"MeterMaintenanceTrigger"> | Date | string
+  }
+
+  export type PreventiveTaskUpsertWithWhereUniqueWithoutPreventiveInput = {
+    where: PreventiveTaskWhereUniqueInput
+    update: XOR<PreventiveTaskUpdateWithoutPreventiveInput, PreventiveTaskUncheckedUpdateWithoutPreventiveInput>
+    create: XOR<PreventiveTaskCreateWithoutPreventiveInput, PreventiveTaskUncheckedCreateWithoutPreventiveInput>
+  }
+
+  export type PreventiveTaskUpdateWithWhereUniqueWithoutPreventiveInput = {
+    where: PreventiveTaskWhereUniqueInput
+    data: XOR<PreventiveTaskUpdateWithoutPreventiveInput, PreventiveTaskUncheckedUpdateWithoutPreventiveInput>
+  }
+
+  export type PreventiveTaskUpdateManyWithWhereWithoutPreventiveInput = {
+    where: PreventiveTaskScalarWhereInput
+    data: XOR<PreventiveTaskUpdateManyMutationInput, PreventiveTaskUncheckedUpdateManyWithoutPreventiveInput>
+  }
+
+  export type PreventiveTaskScalarWhereInput = {
+    AND?: PreventiveTaskScalarWhereInput | PreventiveTaskScalarWhereInput[]
+    OR?: PreventiveTaskScalarWhereInput[]
+    NOT?: PreventiveTaskScalarWhereInput | PreventiveTaskScalarWhereInput[]
+    id?: StringFilter<"PreventiveTask"> | string
+    description?: StringFilter<"PreventiveTask"> | string
+    order?: IntFilter<"PreventiveTask"> | number
+    isMandatory?: BoolFilter<"PreventiveTask"> | boolean
+    preventiveId?: StringFilter<"PreventiveTask"> | string
+  }
+
+  export type PreventiveCreateWithoutPreventiveTasksInput = {
+    id?: string
+    code: string
+    name: string
+    description: string
+    frequency?: $Enums.Frequency
+    cronExpression?: string | null
+    lastRun?: Date | string | null
+    nextRun: Date | string
+    priority?: $Enums.Priority
+    duration?: number | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    site: ComplexCreateNestedOneWithoutPreventivesInput
+    asset?: AssetCreateNestedOneWithoutPreventivesInput
+    building?: BuildingCreateNestedOneWithoutPreventivesInput
+    floor?: FloorCreateNestedOneWithoutPreventivesInput
+    zone?: ZoneCreateNestedOneWithoutPreventivesInput
+    space?: SpaceCreateNestedOneWithoutPreventivesInput
+    team?: TeamCreateNestedOneWithoutPreventivesInput
+    meterTriggers?: MeterMaintenanceTriggerCreateNestedManyWithoutPreventiveInput
+  }
+
+  export type PreventiveUncheckedCreateWithoutPreventiveTasksInput = {
+    id?: string
+    code: string
+    name: string
+    description: string
+    frequency?: $Enums.Frequency
+    cronExpression?: string | null
+    lastRun?: Date | string | null
+    nextRun: Date | string
+    priority?: $Enums.Priority
+    duration?: number | null
+    siteId: string
+    assetId?: string | null
+    buildingId?: string | null
+    floorId?: string | null
+    zoneId?: string | null
+    spaceId?: string | null
+    teamId?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    meterTriggers?: MeterMaintenanceTriggerUncheckedCreateNestedManyWithoutPreventiveInput
+  }
+
+  export type PreventiveCreateOrConnectWithoutPreventiveTasksInput = {
+    where: PreventiveWhereUniqueInput
+    create: XOR<PreventiveCreateWithoutPreventiveTasksInput, PreventiveUncheckedCreateWithoutPreventiveTasksInput>
+  }
+
+  export type PreventiveUpsertWithoutPreventiveTasksInput = {
+    update: XOR<PreventiveUpdateWithoutPreventiveTasksInput, PreventiveUncheckedUpdateWithoutPreventiveTasksInput>
+    create: XOR<PreventiveCreateWithoutPreventiveTasksInput, PreventiveUncheckedCreateWithoutPreventiveTasksInput>
+    where?: PreventiveWhereInput
+  }
+
+  export type PreventiveUpdateToOneWithWhereWithoutPreventiveTasksInput = {
+    where?: PreventiveWhereInput
+    data: XOR<PreventiveUpdateWithoutPreventiveTasksInput, PreventiveUncheckedUpdateWithoutPreventiveTasksInput>
+  }
+
+  export type PreventiveUpdateWithoutPreventiveTasksInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    code?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    description?: StringFieldUpdateOperationsInput | string
+    frequency?: EnumFrequencyFieldUpdateOperationsInput | $Enums.Frequency
+    cronExpression?: NullableStringFieldUpdateOperationsInput | string | null
+    lastRun?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    nextRun?: DateTimeFieldUpdateOperationsInput | Date | string
+    priority?: EnumPriorityFieldUpdateOperationsInput | $Enums.Priority
+    duration?: NullableIntFieldUpdateOperationsInput | number | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    site?: ComplexUpdateOneRequiredWithoutPreventivesNestedInput
+    asset?: AssetUpdateOneWithoutPreventivesNestedInput
+    building?: BuildingUpdateOneWithoutPreventivesNestedInput
+    floor?: FloorUpdateOneWithoutPreventivesNestedInput
+    zone?: ZoneUpdateOneWithoutPreventivesNestedInput
+    space?: SpaceUpdateOneWithoutPreventivesNestedInput
+    team?: TeamUpdateOneWithoutPreventivesNestedInput
+    meterTriggers?: MeterMaintenanceTriggerUpdateManyWithoutPreventiveNestedInput
+  }
+
+  export type PreventiveUncheckedUpdateWithoutPreventiveTasksInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    code?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    description?: StringFieldUpdateOperationsInput | string
+    frequency?: EnumFrequencyFieldUpdateOperationsInput | $Enums.Frequency
+    cronExpression?: NullableStringFieldUpdateOperationsInput | string | null
+    lastRun?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    nextRun?: DateTimeFieldUpdateOperationsInput | Date | string
+    priority?: EnumPriorityFieldUpdateOperationsInput | $Enums.Priority
+    duration?: NullableIntFieldUpdateOperationsInput | number | null
+    siteId?: StringFieldUpdateOperationsInput | string
+    assetId?: NullableStringFieldUpdateOperationsInput | string | null
+    buildingId?: NullableStringFieldUpdateOperationsInput | string | null
+    floorId?: NullableStringFieldUpdateOperationsInput | string | null
+    zoneId?: NullableStringFieldUpdateOperationsInput | string | null
+    spaceId?: NullableStringFieldUpdateOperationsInput | string | null
+    teamId?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    meterTriggers?: MeterMaintenanceTriggerUncheckedUpdateManyWithoutPreventiveNestedInput
+  }
+
+  export type MaintenanceCreateWithoutMaintenanceTasksInput = {
+    id?: string
+    type?: $Enums.MaintenanceType
+    code: string
+    description: string
+    startDate?: Date | string | null
+    endDate?: Date | string | null
+    shortDescription?: string | null
+    action?: string | null
+    message?: string | null
+    processNotes?: string | null
+    metadata?: NullableJsonNullValueInput | InputJsonValue
+    performerId?: string | null
+    performerReference?: $Enums.PerformerReference | null
+    processStatus?: $Enums.Status
+    register?: string | null
+    activityIdTimer?: string | null
+    activityStartTime?: Date | string | null
+    activityEndTime?: Date | string | null
+    allDeadlines?: string | null
+    processType?: $Enums.ProcessType
+    ttSysRunning?: Decimal | DecimalJsLike | number | string | null
+    ttWorkRunning?: Decimal | DecimalJsLike | number | string | null
+    sorting?: string | null
+    priority?: $Enums.Priority
+    outcome?: string | null
+    dueAssignedEnd?: Date | string | null
+    execStart?: Date | string | null
+    dueExecEndDate?: Date | string | null
+    execEndDate?: Date | string | null
+    dueClosureDate?: Date | string | null
+    totalExecTime?: Decimal | DecimalJsLike | number | string | null
+    expStartDate?: Date | string | null
+    suspensionReason?: string | null
+    category?: string | null
+    subCategory?: string | null
+    ttSystemOpening?: Decimal | DecimalJsLike | number | string | null
+    ttWorkOpening?: Decimal | DecimalJsLike | number | string | null
+    ttSystemAssignment?: Decimal | DecimalJsLike | number | string | null
+    ttWorkAssignment?: Decimal | DecimalJsLike | number | string | null
+    ttSystemExecution?: Decimal | DecimalJsLike | number | string | null
+    ttWorkExecution?: Decimal | DecimalJsLike | number | string | null
+    ttSysSuspension?: Decimal | DecimalJsLike | number | string | null
+    ttWorkSuspension?: Decimal | DecimalJsLike | number | string | null
+    ttEstimate?: Decimal | DecimalJsLike | number | string | null
+    prevMaintenanceConfigId?: string | null
+    automaticConfig?: boolean
+    jointAccounting?: boolean
+    hasTasks?: boolean
+    estimateStatus?: $Enums.Status
+    delayNotification?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    requester?: UserCreateNestedOneWithoutRequestedMaintenancesInput
+    site: ComplexCreateNestedOneWithoutMaintenancesInput
+    costCenter?: CostCenterCreateNestedOneWithoutMaintenancesInput
+    company?: CompanyCreateNestedOneWithoutMaintenancesInput
+    building?: BuildingCreateNestedOneWithoutMaintenancesInput
+    team?: TeamCreateNestedOneWithoutMaintenancesInput
+    floor?: FloorCreateNestedOneWithoutMaintenancesInput
+    zone?: ZoneCreateNestedOneWithoutMaintenancesInput
+    space?: SpaceCreateNestedOneWithoutMaintenancesInput
+    assignee?: UserCreateNestedOneWithoutAssignedMaintenancesInput
+    asset?: AssetCreateNestedOneWithoutMaintenancesInput
+    photos?: FileCreateNestedManyWithoutMaintenanceInput
+    maintenanceItems?: MaintenanceItemCreateNestedManyWithoutMaintenanceInput
+  }
+
+  export type MaintenanceUncheckedCreateWithoutMaintenanceTasksInput = {
+    id?: string
+    type?: $Enums.MaintenanceType
+    code: string
+    description: string
+    startDate?: Date | string | null
+    endDate?: Date | string | null
+    shortDescription?: string | null
+    action?: string | null
+    message?: string | null
+    processNotes?: string | null
+    metadata?: NullableJsonNullValueInput | InputJsonValue
+    performerId?: string | null
+    performerReference?: $Enums.PerformerReference | null
+    processStatus?: $Enums.Status
+    register?: string | null
+    activityIdTimer?: string | null
+    activityStartTime?: Date | string | null
+    activityEndTime?: Date | string | null
+    allDeadlines?: string | null
+    processType?: $Enums.ProcessType
+    ttSysRunning?: Decimal | DecimalJsLike | number | string | null
+    ttWorkRunning?: Decimal | DecimalJsLike | number | string | null
+    sorting?: string | null
+    requesterId?: string | null
+    priority?: $Enums.Priority
+    siteId: string
+    costCenterId?: string | null
+    outcome?: string | null
+    dueAssignedEnd?: Date | string | null
+    execStart?: Date | string | null
+    dueExecEndDate?: Date | string | null
+    execEndDate?: Date | string | null
+    dueClosureDate?: Date | string | null
+    totalExecTime?: Decimal | DecimalJsLike | number | string | null
+    expStartDate?: Date | string | null
+    suspensionReason?: string | null
+    category?: string | null
+    subCategory?: string | null
+    companyId?: string | null
+    buildingId?: string | null
+    teamId?: string | null
+    floorId?: string | null
+    zoneId?: string | null
+    spaceId?: string | null
+    ttSystemOpening?: Decimal | DecimalJsLike | number | string | null
+    ttWorkOpening?: Decimal | DecimalJsLike | number | string | null
+    ttSystemAssignment?: Decimal | DecimalJsLike | number | string | null
+    ttWorkAssignment?: Decimal | DecimalJsLike | number | string | null
+    ttSystemExecution?: Decimal | DecimalJsLike | number | string | null
+    ttWorkExecution?: Decimal | DecimalJsLike | number | string | null
+    ttSysSuspension?: Decimal | DecimalJsLike | number | string | null
+    ttWorkSuspension?: Decimal | DecimalJsLike | number | string | null
+    ttEstimate?: Decimal | DecimalJsLike | number | string | null
+    prevMaintenanceConfigId?: string | null
+    automaticConfig?: boolean
+    jointAccounting?: boolean
+    hasTasks?: boolean
+    estimateStatus?: $Enums.Status
+    delayNotification?: boolean
+    assigneeId?: string | null
+    assetId?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    photos?: FileUncheckedCreateNestedManyWithoutMaintenanceInput
+    maintenanceItems?: MaintenanceItemUncheckedCreateNestedManyWithoutMaintenanceInput
+  }
+
+  export type MaintenanceCreateOrConnectWithoutMaintenanceTasksInput = {
+    where: MaintenanceWhereUniqueInput
+    create: XOR<MaintenanceCreateWithoutMaintenanceTasksInput, MaintenanceUncheckedCreateWithoutMaintenanceTasksInput>
+  }
+
+  export type UserCreateWithoutMaintenanceTasksInput = {
+    id?: string
+    email: string
+    password: string
+    firstName: string
+    lastName: string
+    status?: $Enums.UserStatus
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    passwordResetToken?: string | null
+    passwordExpiresAt?: Date | string | null
+    passwordResetAt?: Date | string | null
+    employeeCode?: string | null
+    employeeType?: $Enums.EmployeeType | null
+    serviceStatus?: $Enums.ServiceStatus
+    refreshTokens?: RefreshTokenCreateNestedManyWithoutUserInput
+    role: RoleCreateNestedOneWithoutUsersInput
+    permissions?: PermissionCreateNestedManyWithoutUserInput
+    company?: CompanyCreateNestedOneWithoutEmployeesInput
+    calenderEntity?: CalenderEntityCreateNestedOneWithoutEmployeesInput
+    teams?: TeamCreateNestedManyWithoutMembersInput
+    requestedMaintenances?: MaintenanceCreateNestedManyWithoutRequesterInput
+    assignedMaintenances?: MaintenanceCreateNestedManyWithoutAssigneeInput
+    supervisedTeams?: TeamCreateNestedManyWithoutSupervisorInput
+    costCenter?: CostCenterCreateNestedOneWithoutUsersInput
+    purchaseRequests?: PurchaseRequestCreateNestedManyWithoutRequesterInput
+    goodsReceipts?: GoodsReceiptCreateNestedManyWithoutReceiverInput
+  }
+
+  export type UserUncheckedCreateWithoutMaintenanceTasksInput = {
+    id?: string
+    email: string
+    password: string
+    firstName: string
+    lastName: string
+    roleId: string
+    status?: $Enums.UserStatus
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    passwordResetToken?: string | null
+    passwordExpiresAt?: Date | string | null
+    passwordResetAt?: Date | string | null
+    employeeCode?: string | null
+    employeeType?: $Enums.EmployeeType | null
+    companyId?: string | null
+    serviceStatus?: $Enums.ServiceStatus
+    calenderEntityId?: string | null
+    costCenterId?: string | null
+    refreshTokens?: RefreshTokenUncheckedCreateNestedManyWithoutUserInput
+    permissions?: PermissionUncheckedCreateNestedManyWithoutUserInput
+    teams?: TeamUncheckedCreateNestedManyWithoutMembersInput
+    requestedMaintenances?: MaintenanceUncheckedCreateNestedManyWithoutRequesterInput
+    assignedMaintenances?: MaintenanceUncheckedCreateNestedManyWithoutAssigneeInput
+    supervisedTeams?: TeamUncheckedCreateNestedManyWithoutSupervisorInput
+    purchaseRequests?: PurchaseRequestUncheckedCreateNestedManyWithoutRequesterInput
+    goodsReceipts?: GoodsReceiptUncheckedCreateNestedManyWithoutReceiverInput
+  }
+
+  export type UserCreateOrConnectWithoutMaintenanceTasksInput = {
+    where: UserWhereUniqueInput
+    create: XOR<UserCreateWithoutMaintenanceTasksInput, UserUncheckedCreateWithoutMaintenanceTasksInput>
+  }
+
+  export type MaintenanceUpsertWithoutMaintenanceTasksInput = {
+    update: XOR<MaintenanceUpdateWithoutMaintenanceTasksInput, MaintenanceUncheckedUpdateWithoutMaintenanceTasksInput>
+    create: XOR<MaintenanceCreateWithoutMaintenanceTasksInput, MaintenanceUncheckedCreateWithoutMaintenanceTasksInput>
+    where?: MaintenanceWhereInput
+  }
+
+  export type MaintenanceUpdateToOneWithWhereWithoutMaintenanceTasksInput = {
+    where?: MaintenanceWhereInput
+    data: XOR<MaintenanceUpdateWithoutMaintenanceTasksInput, MaintenanceUncheckedUpdateWithoutMaintenanceTasksInput>
+  }
+
+  export type MaintenanceUpdateWithoutMaintenanceTasksInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    type?: EnumMaintenanceTypeFieldUpdateOperationsInput | $Enums.MaintenanceType
+    code?: StringFieldUpdateOperationsInput | string
+    description?: StringFieldUpdateOperationsInput | string
+    startDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    endDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    shortDescription?: NullableStringFieldUpdateOperationsInput | string | null
+    action?: NullableStringFieldUpdateOperationsInput | string | null
+    message?: NullableStringFieldUpdateOperationsInput | string | null
+    processNotes?: NullableStringFieldUpdateOperationsInput | string | null
+    metadata?: NullableJsonNullValueInput | InputJsonValue
+    performerId?: NullableStringFieldUpdateOperationsInput | string | null
+    performerReference?: NullableEnumPerformerReferenceFieldUpdateOperationsInput | $Enums.PerformerReference | null
+    processStatus?: EnumStatusFieldUpdateOperationsInput | $Enums.Status
+    register?: NullableStringFieldUpdateOperationsInput | string | null
+    activityIdTimer?: NullableStringFieldUpdateOperationsInput | string | null
+    activityStartTime?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    activityEndTime?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    allDeadlines?: NullableStringFieldUpdateOperationsInput | string | null
+    processType?: EnumProcessTypeFieldUpdateOperationsInput | $Enums.ProcessType
+    ttSysRunning?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    ttWorkRunning?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    sorting?: NullableStringFieldUpdateOperationsInput | string | null
+    priority?: EnumPriorityFieldUpdateOperationsInput | $Enums.Priority
+    outcome?: NullableStringFieldUpdateOperationsInput | string | null
+    dueAssignedEnd?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    execStart?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    dueExecEndDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    execEndDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    dueClosureDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    totalExecTime?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    expStartDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    suspensionReason?: NullableStringFieldUpdateOperationsInput | string | null
+    category?: NullableStringFieldUpdateOperationsInput | string | null
+    subCategory?: NullableStringFieldUpdateOperationsInput | string | null
+    ttSystemOpening?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    ttWorkOpening?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    ttSystemAssignment?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    ttWorkAssignment?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    ttSystemExecution?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    ttWorkExecution?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    ttSysSuspension?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    ttWorkSuspension?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    ttEstimate?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    prevMaintenanceConfigId?: NullableStringFieldUpdateOperationsInput | string | null
+    automaticConfig?: BoolFieldUpdateOperationsInput | boolean
+    jointAccounting?: BoolFieldUpdateOperationsInput | boolean
+    hasTasks?: BoolFieldUpdateOperationsInput | boolean
+    estimateStatus?: EnumStatusFieldUpdateOperationsInput | $Enums.Status
+    delayNotification?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    requester?: UserUpdateOneWithoutRequestedMaintenancesNestedInput
+    site?: ComplexUpdateOneRequiredWithoutMaintenancesNestedInput
+    costCenter?: CostCenterUpdateOneWithoutMaintenancesNestedInput
+    company?: CompanyUpdateOneWithoutMaintenancesNestedInput
+    building?: BuildingUpdateOneWithoutMaintenancesNestedInput
+    team?: TeamUpdateOneWithoutMaintenancesNestedInput
+    floor?: FloorUpdateOneWithoutMaintenancesNestedInput
+    zone?: ZoneUpdateOneWithoutMaintenancesNestedInput
+    space?: SpaceUpdateOneWithoutMaintenancesNestedInput
+    assignee?: UserUpdateOneWithoutAssignedMaintenancesNestedInput
+    asset?: AssetUpdateOneWithoutMaintenancesNestedInput
+    photos?: FileUpdateManyWithoutMaintenanceNestedInput
+    maintenanceItems?: MaintenanceItemUpdateManyWithoutMaintenanceNestedInput
+  }
+
+  export type MaintenanceUncheckedUpdateWithoutMaintenanceTasksInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    type?: EnumMaintenanceTypeFieldUpdateOperationsInput | $Enums.MaintenanceType
+    code?: StringFieldUpdateOperationsInput | string
+    description?: StringFieldUpdateOperationsInput | string
+    startDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    endDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    shortDescription?: NullableStringFieldUpdateOperationsInput | string | null
+    action?: NullableStringFieldUpdateOperationsInput | string | null
+    message?: NullableStringFieldUpdateOperationsInput | string | null
+    processNotes?: NullableStringFieldUpdateOperationsInput | string | null
+    metadata?: NullableJsonNullValueInput | InputJsonValue
+    performerId?: NullableStringFieldUpdateOperationsInput | string | null
+    performerReference?: NullableEnumPerformerReferenceFieldUpdateOperationsInput | $Enums.PerformerReference | null
+    processStatus?: EnumStatusFieldUpdateOperationsInput | $Enums.Status
+    register?: NullableStringFieldUpdateOperationsInput | string | null
+    activityIdTimer?: NullableStringFieldUpdateOperationsInput | string | null
+    activityStartTime?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    activityEndTime?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    allDeadlines?: NullableStringFieldUpdateOperationsInput | string | null
+    processType?: EnumProcessTypeFieldUpdateOperationsInput | $Enums.ProcessType
+    ttSysRunning?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    ttWorkRunning?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    sorting?: NullableStringFieldUpdateOperationsInput | string | null
+    requesterId?: NullableStringFieldUpdateOperationsInput | string | null
+    priority?: EnumPriorityFieldUpdateOperationsInput | $Enums.Priority
+    siteId?: StringFieldUpdateOperationsInput | string
+    costCenterId?: NullableStringFieldUpdateOperationsInput | string | null
+    outcome?: NullableStringFieldUpdateOperationsInput | string | null
+    dueAssignedEnd?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    execStart?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    dueExecEndDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    execEndDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    dueClosureDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    totalExecTime?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    expStartDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    suspensionReason?: NullableStringFieldUpdateOperationsInput | string | null
+    category?: NullableStringFieldUpdateOperationsInput | string | null
+    subCategory?: NullableStringFieldUpdateOperationsInput | string | null
+    companyId?: NullableStringFieldUpdateOperationsInput | string | null
+    buildingId?: NullableStringFieldUpdateOperationsInput | string | null
+    teamId?: NullableStringFieldUpdateOperationsInput | string | null
+    floorId?: NullableStringFieldUpdateOperationsInput | string | null
+    zoneId?: NullableStringFieldUpdateOperationsInput | string | null
+    spaceId?: NullableStringFieldUpdateOperationsInput | string | null
+    ttSystemOpening?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    ttWorkOpening?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    ttSystemAssignment?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    ttWorkAssignment?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    ttSystemExecution?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    ttWorkExecution?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    ttSysSuspension?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    ttWorkSuspension?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    ttEstimate?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    prevMaintenanceConfigId?: NullableStringFieldUpdateOperationsInput | string | null
+    automaticConfig?: BoolFieldUpdateOperationsInput | boolean
+    jointAccounting?: BoolFieldUpdateOperationsInput | boolean
+    hasTasks?: BoolFieldUpdateOperationsInput | boolean
+    estimateStatus?: EnumStatusFieldUpdateOperationsInput | $Enums.Status
+    delayNotification?: BoolFieldUpdateOperationsInput | boolean
+    assigneeId?: NullableStringFieldUpdateOperationsInput | string | null
+    assetId?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    photos?: FileUncheckedUpdateManyWithoutMaintenanceNestedInput
+    maintenanceItems?: MaintenanceItemUncheckedUpdateManyWithoutMaintenanceNestedInput
+  }
+
+  export type UserUpsertWithoutMaintenanceTasksInput = {
+    update: XOR<UserUpdateWithoutMaintenanceTasksInput, UserUncheckedUpdateWithoutMaintenanceTasksInput>
+    create: XOR<UserCreateWithoutMaintenanceTasksInput, UserUncheckedCreateWithoutMaintenanceTasksInput>
+    where?: UserWhereInput
+  }
+
+  export type UserUpdateToOneWithWhereWithoutMaintenanceTasksInput = {
+    where?: UserWhereInput
+    data: XOR<UserUpdateWithoutMaintenanceTasksInput, UserUncheckedUpdateWithoutMaintenanceTasksInput>
+  }
+
+  export type UserUpdateWithoutMaintenanceTasksInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    password?: StringFieldUpdateOperationsInput | string
+    firstName?: StringFieldUpdateOperationsInput | string
+    lastName?: StringFieldUpdateOperationsInput | string
+    status?: EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    passwordResetToken?: NullableStringFieldUpdateOperationsInput | string | null
+    passwordExpiresAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    passwordResetAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    employeeCode?: NullableStringFieldUpdateOperationsInput | string | null
+    employeeType?: NullableEnumEmployeeTypeFieldUpdateOperationsInput | $Enums.EmployeeType | null
+    serviceStatus?: EnumServiceStatusFieldUpdateOperationsInput | $Enums.ServiceStatus
+    refreshTokens?: RefreshTokenUpdateManyWithoutUserNestedInput
+    role?: RoleUpdateOneRequiredWithoutUsersNestedInput
+    permissions?: PermissionUpdateManyWithoutUserNestedInput
+    company?: CompanyUpdateOneWithoutEmployeesNestedInput
+    calenderEntity?: CalenderEntityUpdateOneWithoutEmployeesNestedInput
+    teams?: TeamUpdateManyWithoutMembersNestedInput
+    requestedMaintenances?: MaintenanceUpdateManyWithoutRequesterNestedInput
+    assignedMaintenances?: MaintenanceUpdateManyWithoutAssigneeNestedInput
+    supervisedTeams?: TeamUpdateManyWithoutSupervisorNestedInput
+    costCenter?: CostCenterUpdateOneWithoutUsersNestedInput
+    purchaseRequests?: PurchaseRequestUpdateManyWithoutRequesterNestedInput
+    goodsReceipts?: GoodsReceiptUpdateManyWithoutReceiverNestedInput
+  }
+
+  export type UserUncheckedUpdateWithoutMaintenanceTasksInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    password?: StringFieldUpdateOperationsInput | string
+    firstName?: StringFieldUpdateOperationsInput | string
+    lastName?: StringFieldUpdateOperationsInput | string
+    roleId?: StringFieldUpdateOperationsInput | string
+    status?: EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    passwordResetToken?: NullableStringFieldUpdateOperationsInput | string | null
+    passwordExpiresAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    passwordResetAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    employeeCode?: NullableStringFieldUpdateOperationsInput | string | null
+    employeeType?: NullableEnumEmployeeTypeFieldUpdateOperationsInput | $Enums.EmployeeType | null
+    companyId?: NullableStringFieldUpdateOperationsInput | string | null
+    serviceStatus?: EnumServiceStatusFieldUpdateOperationsInput | $Enums.ServiceStatus
+    calenderEntityId?: NullableStringFieldUpdateOperationsInput | string | null
+    costCenterId?: NullableStringFieldUpdateOperationsInput | string | null
+    refreshTokens?: RefreshTokenUncheckedUpdateManyWithoutUserNestedInput
+    permissions?: PermissionUncheckedUpdateManyWithoutUserNestedInput
+    teams?: TeamUncheckedUpdateManyWithoutMembersNestedInput
+    requestedMaintenances?: MaintenanceUncheckedUpdateManyWithoutRequesterNestedInput
+    assignedMaintenances?: MaintenanceUncheckedUpdateManyWithoutAssigneeNestedInput
+    supervisedTeams?: TeamUncheckedUpdateManyWithoutSupervisorNestedInput
+    purchaseRequests?: PurchaseRequestUncheckedUpdateManyWithoutRequesterNestedInput
+    goodsReceipts?: GoodsReceiptUncheckedUpdateManyWithoutReceiverNestedInput
   }
 
   export type AddressCreateWithoutWarehousesInput = {
@@ -77999,6 +81855,7 @@ export namespace Prisma {
     code: string
     category?: string | null
     unitOfMeasure?: string | null
+    cost: Decimal | DecimalJsLike | number | string
     createdAt?: Date | string
     updatedAt?: Date | string
     stockMovements?: StockMovementCreateNestedManyWithoutItemInput
@@ -78015,6 +81872,7 @@ export namespace Prisma {
     code: string
     category?: string | null
     unitOfMeasure?: string | null
+    cost: Decimal | DecimalJsLike | number | string
     createdAt?: Date | string
     updatedAt?: Date | string
     stockMovements?: StockMovementUncheckedCreateNestedManyWithoutItemInput
@@ -78074,6 +81932,7 @@ export namespace Prisma {
     code?: StringFieldUpdateOperationsInput | string
     category?: NullableStringFieldUpdateOperationsInput | string | null
     unitOfMeasure?: NullableStringFieldUpdateOperationsInput | string | null
+    cost?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     stockMovements?: StockMovementUpdateManyWithoutItemNestedInput
@@ -78090,6 +81949,7 @@ export namespace Prisma {
     code?: StringFieldUpdateOperationsInput | string
     category?: NullableStringFieldUpdateOperationsInput | string | null
     unitOfMeasure?: NullableStringFieldUpdateOperationsInput | string | null
+    cost?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     stockMovements?: StockMovementUncheckedUpdateManyWithoutItemNestedInput
@@ -78139,6 +81999,7 @@ export namespace Prisma {
     code: string
     category?: string | null
     unitOfMeasure?: string | null
+    cost: Decimal | DecimalJsLike | number | string
     createdAt?: Date | string
     updatedAt?: Date | string
     stocks?: StockCreateNestedManyWithoutItemInput
@@ -78155,6 +82016,7 @@ export namespace Prisma {
     code: string
     category?: string | null
     unitOfMeasure?: string | null
+    cost: Decimal | DecimalJsLike | number | string
     createdAt?: Date | string
     updatedAt?: Date | string
     stocks?: StockUncheckedCreateNestedManyWithoutItemInput
@@ -78241,6 +82103,7 @@ export namespace Prisma {
     code?: StringFieldUpdateOperationsInput | string
     category?: NullableStringFieldUpdateOperationsInput | string | null
     unitOfMeasure?: NullableStringFieldUpdateOperationsInput | string | null
+    cost?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     stocks?: StockUpdateManyWithoutItemNestedInput
@@ -78257,6 +82120,7 @@ export namespace Prisma {
     code?: StringFieldUpdateOperationsInput | string
     category?: NullableStringFieldUpdateOperationsInput | string | null
     unitOfMeasure?: NullableStringFieldUpdateOperationsInput | string | null
+    cost?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     stocks?: StockUncheckedUpdateManyWithoutItemNestedInput
@@ -78397,6 +82261,7 @@ export namespace Prisma {
     assignee?: UserCreateNestedOneWithoutAssignedMaintenancesInput
     asset?: AssetCreateNestedOneWithoutMaintenancesInput
     photos?: FileCreateNestedManyWithoutMaintenanceInput
+    maintenanceTasks?: MaintenanceTaskCreateNestedManyWithoutMaintenanceInput
   }
 
   export type MaintenanceUncheckedCreateWithoutMaintenanceItemsInput = {
@@ -78464,6 +82329,7 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     photos?: FileUncheckedCreateNestedManyWithoutMaintenanceInput
+    maintenanceTasks?: MaintenanceTaskUncheckedCreateNestedManyWithoutMaintenanceInput
   }
 
   export type MaintenanceCreateOrConnectWithoutMaintenanceItemsInput = {
@@ -78478,6 +82344,7 @@ export namespace Prisma {
     code: string
     category?: string | null
     unitOfMeasure?: string | null
+    cost: Decimal | DecimalJsLike | number | string
     createdAt?: Date | string
     updatedAt?: Date | string
     stocks?: StockCreateNestedManyWithoutItemInput
@@ -78494,6 +82361,7 @@ export namespace Prisma {
     code: string
     category?: string | null
     unitOfMeasure?: string | null
+    cost: Decimal | DecimalJsLike | number | string
     createdAt?: Date | string
     updatedAt?: Date | string
     stocks?: StockUncheckedCreateNestedManyWithoutItemInput
@@ -78663,6 +82531,7 @@ export namespace Prisma {
     assignee?: UserUpdateOneWithoutAssignedMaintenancesNestedInput
     asset?: AssetUpdateOneWithoutMaintenancesNestedInput
     photos?: FileUpdateManyWithoutMaintenanceNestedInput
+    maintenanceTasks?: MaintenanceTaskUpdateManyWithoutMaintenanceNestedInput
   }
 
   export type MaintenanceUncheckedUpdateWithoutMaintenanceItemsInput = {
@@ -78730,6 +82599,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     photos?: FileUncheckedUpdateManyWithoutMaintenanceNestedInput
+    maintenanceTasks?: MaintenanceTaskUncheckedUpdateManyWithoutMaintenanceNestedInput
   }
 
   export type ItemUpsertWithoutMaintenanceItemsInput = {
@@ -78750,6 +82620,7 @@ export namespace Prisma {
     code?: StringFieldUpdateOperationsInput | string
     category?: NullableStringFieldUpdateOperationsInput | string | null
     unitOfMeasure?: NullableStringFieldUpdateOperationsInput | string | null
+    cost?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     stocks?: StockUpdateManyWithoutItemNestedInput
@@ -78766,6 +82637,7 @@ export namespace Prisma {
     code?: StringFieldUpdateOperationsInput | string
     category?: NullableStringFieldUpdateOperationsInput | string | null
     unitOfMeasure?: NullableStringFieldUpdateOperationsInput | string | null
+    cost?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     stocks?: StockUncheckedUpdateManyWithoutItemNestedInput
@@ -78886,6 +82758,7 @@ export namespace Prisma {
     costCenter?: CostCenterCreateNestedOneWithoutUsersInput
     purchaseRequests?: PurchaseRequestCreateNestedManyWithoutRequesterInput
     goodsReceipts?: GoodsReceiptCreateNestedManyWithoutReceiverInput
+    maintenanceTasks?: MaintenanceTaskCreateNestedManyWithoutCompletedByInput
   }
 
   export type UserUncheckedCreateWithoutRefreshTokensInput = {
@@ -78914,6 +82787,7 @@ export namespace Prisma {
     supervisedTeams?: TeamUncheckedCreateNestedManyWithoutSupervisorInput
     purchaseRequests?: PurchaseRequestUncheckedCreateNestedManyWithoutRequesterInput
     goodsReceipts?: GoodsReceiptUncheckedCreateNestedManyWithoutReceiverInput
+    maintenanceTasks?: MaintenanceTaskUncheckedCreateNestedManyWithoutCompletedByInput
   }
 
   export type UserCreateOrConnectWithoutRefreshTokensInput = {
@@ -78958,6 +82832,7 @@ export namespace Prisma {
     costCenter?: CostCenterUpdateOneWithoutUsersNestedInput
     purchaseRequests?: PurchaseRequestUpdateManyWithoutRequesterNestedInput
     goodsReceipts?: GoodsReceiptUpdateManyWithoutReceiverNestedInput
+    maintenanceTasks?: MaintenanceTaskUpdateManyWithoutCompletedByNestedInput
   }
 
   export type UserUncheckedUpdateWithoutRefreshTokensInput = {
@@ -78986,6 +82861,7 @@ export namespace Prisma {
     supervisedTeams?: TeamUncheckedUpdateManyWithoutSupervisorNestedInput
     purchaseRequests?: PurchaseRequestUncheckedUpdateManyWithoutRequesterNestedInput
     goodsReceipts?: GoodsReceiptUncheckedUpdateManyWithoutReceiverNestedInput
+    maintenanceTasks?: MaintenanceTaskUncheckedUpdateManyWithoutCompletedByNestedInput
   }
 
   export type AssetCreateWithoutMetersInput = {
@@ -79720,6 +83596,7 @@ export namespace Prisma {
     zone?: ZoneCreateNestedOneWithoutPreventivesInput
     space?: SpaceCreateNestedOneWithoutPreventivesInput
     team?: TeamCreateNestedOneWithoutPreventivesInput
+    preventiveTasks?: PreventiveTaskCreateNestedManyWithoutPreventiveInput
   }
 
   export type PreventiveUncheckedCreateWithoutMeterTriggersInput = {
@@ -79742,6 +83619,7 @@ export namespace Prisma {
     teamId?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
+    preventiveTasks?: PreventiveTaskUncheckedCreateNestedManyWithoutPreventiveInput
   }
 
   export type PreventiveCreateOrConnectWithoutMeterTriggersInput = {
@@ -79819,6 +83697,7 @@ export namespace Prisma {
     zone?: ZoneUpdateOneWithoutPreventivesNestedInput
     space?: SpaceUpdateOneWithoutPreventivesNestedInput
     team?: TeamUpdateOneWithoutPreventivesNestedInput
+    preventiveTasks?: PreventiveTaskUpdateManyWithoutPreventiveNestedInput
   }
 
   export type PreventiveUncheckedUpdateWithoutMeterTriggersInput = {
@@ -79841,6 +83720,7 @@ export namespace Prisma {
     teamId?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    preventiveTasks?: PreventiveTaskUncheckedUpdateManyWithoutPreventiveNestedInput
   }
 
   export type PurchaseOrderCreateWithoutCostCenterInput = {
@@ -79942,6 +83822,7 @@ export namespace Prisma {
     asset?: AssetCreateNestedOneWithoutMaintenancesInput
     photos?: FileCreateNestedManyWithoutMaintenanceInput
     maintenanceItems?: MaintenanceItemCreateNestedManyWithoutMaintenanceInput
+    maintenanceTasks?: MaintenanceTaskCreateNestedManyWithoutMaintenanceInput
   }
 
   export type MaintenanceUncheckedCreateWithoutCostCenterInput = {
@@ -80009,6 +83890,7 @@ export namespace Prisma {
     updatedAt?: Date | string
     photos?: FileUncheckedCreateNestedManyWithoutMaintenanceInput
     maintenanceItems?: MaintenanceItemUncheckedCreateNestedManyWithoutMaintenanceInput
+    maintenanceTasks?: MaintenanceTaskUncheckedCreateNestedManyWithoutMaintenanceInput
   }
 
   export type MaintenanceCreateOrConnectWithoutCostCenterInput = {
@@ -80047,6 +83929,7 @@ export namespace Prisma {
     supervisedTeams?: TeamCreateNestedManyWithoutSupervisorInput
     purchaseRequests?: PurchaseRequestCreateNestedManyWithoutRequesterInput
     goodsReceipts?: GoodsReceiptCreateNestedManyWithoutReceiverInput
+    maintenanceTasks?: MaintenanceTaskCreateNestedManyWithoutCompletedByInput
   }
 
   export type UserUncheckedCreateWithoutCostCenterInput = {
@@ -80075,6 +83958,7 @@ export namespace Prisma {
     supervisedTeams?: TeamUncheckedCreateNestedManyWithoutSupervisorInput
     purchaseRequests?: PurchaseRequestUncheckedCreateNestedManyWithoutRequesterInput
     goodsReceipts?: GoodsReceiptUncheckedCreateNestedManyWithoutReceiverInput
+    maintenanceTasks?: MaintenanceTaskUncheckedCreateNestedManyWithoutCompletedByInput
   }
 
   export type UserCreateOrConnectWithoutCostCenterInput = {
@@ -80355,6 +84239,7 @@ export namespace Prisma {
     supervisedTeams?: TeamCreateNestedManyWithoutSupervisorInput
     costCenter?: CostCenterCreateNestedOneWithoutUsersInput
     goodsReceipts?: GoodsReceiptCreateNestedManyWithoutReceiverInput
+    maintenanceTasks?: MaintenanceTaskCreateNestedManyWithoutCompletedByInput
   }
 
   export type UserUncheckedCreateWithoutPurchaseRequestsInput = {
@@ -80383,6 +84268,7 @@ export namespace Prisma {
     assignedMaintenances?: MaintenanceUncheckedCreateNestedManyWithoutAssigneeInput
     supervisedTeams?: TeamUncheckedCreateNestedManyWithoutSupervisorInput
     goodsReceipts?: GoodsReceiptUncheckedCreateNestedManyWithoutReceiverInput
+    maintenanceTasks?: MaintenanceTaskUncheckedCreateNestedManyWithoutCompletedByInput
   }
 
   export type UserCreateOrConnectWithoutPurchaseRequestsInput = {
@@ -80532,6 +84418,7 @@ export namespace Prisma {
     supervisedTeams?: TeamUpdateManyWithoutSupervisorNestedInput
     costCenter?: CostCenterUpdateOneWithoutUsersNestedInput
     goodsReceipts?: GoodsReceiptUpdateManyWithoutReceiverNestedInput
+    maintenanceTasks?: MaintenanceTaskUpdateManyWithoutCompletedByNestedInput
   }
 
   export type UserUncheckedUpdateWithoutPurchaseRequestsInput = {
@@ -80560,6 +84447,7 @@ export namespace Prisma {
     assignedMaintenances?: MaintenanceUncheckedUpdateManyWithoutAssigneeNestedInput
     supervisedTeams?: TeamUncheckedUpdateManyWithoutSupervisorNestedInput
     goodsReceipts?: GoodsReceiptUncheckedUpdateManyWithoutReceiverNestedInput
+    maintenanceTasks?: MaintenanceTaskUncheckedUpdateManyWithoutCompletedByNestedInput
   }
 
   export type CostCenterUpsertWithoutPurchaseRequestsInput = {
@@ -80679,6 +84567,7 @@ export namespace Prisma {
     code: string
     category?: string | null
     unitOfMeasure?: string | null
+    cost: Decimal | DecimalJsLike | number | string
     createdAt?: Date | string
     updatedAt?: Date | string
     stocks?: StockCreateNestedManyWithoutItemInput
@@ -80695,6 +84584,7 @@ export namespace Prisma {
     code: string
     category?: string | null
     unitOfMeasure?: string | null
+    cost: Decimal | DecimalJsLike | number | string
     createdAt?: Date | string
     updatedAt?: Date | string
     stocks?: StockUncheckedCreateNestedManyWithoutItemInput
@@ -80760,6 +84650,7 @@ export namespace Prisma {
     code?: StringFieldUpdateOperationsInput | string
     category?: NullableStringFieldUpdateOperationsInput | string | null
     unitOfMeasure?: NullableStringFieldUpdateOperationsInput | string | null
+    cost?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     stocks?: StockUpdateManyWithoutItemNestedInput
@@ -80776,6 +84667,7 @@ export namespace Prisma {
     code?: StringFieldUpdateOperationsInput | string
     category?: NullableStringFieldUpdateOperationsInput | string | null
     unitOfMeasure?: NullableStringFieldUpdateOperationsInput | string | null
+    cost?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     stocks?: StockUncheckedUpdateManyWithoutItemNestedInput
@@ -81151,6 +85043,7 @@ export namespace Prisma {
     code: string
     category?: string | null
     unitOfMeasure?: string | null
+    cost: Decimal | DecimalJsLike | number | string
     createdAt?: Date | string
     updatedAt?: Date | string
     stocks?: StockCreateNestedManyWithoutItemInput
@@ -81167,6 +85060,7 @@ export namespace Prisma {
     code: string
     category?: string | null
     unitOfMeasure?: string | null
+    cost: Decimal | DecimalJsLike | number | string
     createdAt?: Date | string
     updatedAt?: Date | string
     stocks?: StockUncheckedCreateNestedManyWithoutItemInput
@@ -81234,6 +85128,7 @@ export namespace Prisma {
     code?: StringFieldUpdateOperationsInput | string
     category?: NullableStringFieldUpdateOperationsInput | string | null
     unitOfMeasure?: NullableStringFieldUpdateOperationsInput | string | null
+    cost?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     stocks?: StockUpdateManyWithoutItemNestedInput
@@ -81250,6 +85145,7 @@ export namespace Prisma {
     code?: StringFieldUpdateOperationsInput | string
     category?: NullableStringFieldUpdateOperationsInput | string | null
     unitOfMeasure?: NullableStringFieldUpdateOperationsInput | string | null
+    cost?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     stocks?: StockUncheckedUpdateManyWithoutItemNestedInput
@@ -81336,6 +85232,7 @@ export namespace Prisma {
     supervisedTeams?: TeamCreateNestedManyWithoutSupervisorInput
     costCenter?: CostCenterCreateNestedOneWithoutUsersInput
     purchaseRequests?: PurchaseRequestCreateNestedManyWithoutRequesterInput
+    maintenanceTasks?: MaintenanceTaskCreateNestedManyWithoutCompletedByInput
   }
 
   export type UserUncheckedCreateWithoutGoodsReceiptsInput = {
@@ -81364,6 +85261,7 @@ export namespace Prisma {
     assignedMaintenances?: MaintenanceUncheckedCreateNestedManyWithoutAssigneeInput
     supervisedTeams?: TeamUncheckedCreateNestedManyWithoutSupervisorInput
     purchaseRequests?: PurchaseRequestUncheckedCreateNestedManyWithoutRequesterInput
+    maintenanceTasks?: MaintenanceTaskUncheckedCreateNestedManyWithoutCompletedByInput
   }
 
   export type UserCreateOrConnectWithoutGoodsReceiptsInput = {
@@ -81500,6 +85398,7 @@ export namespace Prisma {
     supervisedTeams?: TeamUpdateManyWithoutSupervisorNestedInput
     costCenter?: CostCenterUpdateOneWithoutUsersNestedInput
     purchaseRequests?: PurchaseRequestUpdateManyWithoutRequesterNestedInput
+    maintenanceTasks?: MaintenanceTaskUpdateManyWithoutCompletedByNestedInput
   }
 
   export type UserUncheckedUpdateWithoutGoodsReceiptsInput = {
@@ -81528,6 +85427,7 @@ export namespace Prisma {
     assignedMaintenances?: MaintenanceUncheckedUpdateManyWithoutAssigneeNestedInput
     supervisedTeams?: TeamUncheckedUpdateManyWithoutSupervisorNestedInput
     purchaseRequests?: PurchaseRequestUncheckedUpdateManyWithoutRequesterNestedInput
+    maintenanceTasks?: MaintenanceTaskUncheckedUpdateManyWithoutCompletedByNestedInput
   }
 
   export type CompanyUpsertWithoutGoodsReceiptsInput = {
@@ -81607,6 +85507,7 @@ export namespace Prisma {
     code: string
     category?: string | null
     unitOfMeasure?: string | null
+    cost: Decimal | DecimalJsLike | number | string
     createdAt?: Date | string
     updatedAt?: Date | string
     stocks?: StockCreateNestedManyWithoutItemInput
@@ -81623,6 +85524,7 @@ export namespace Prisma {
     code: string
     category?: string | null
     unitOfMeasure?: string | null
+    cost: Decimal | DecimalJsLike | number | string
     createdAt?: Date | string
     updatedAt?: Date | string
     stocks?: StockUncheckedCreateNestedManyWithoutItemInput
@@ -81684,6 +85586,7 @@ export namespace Prisma {
     code?: StringFieldUpdateOperationsInput | string
     category?: NullableStringFieldUpdateOperationsInput | string | null
     unitOfMeasure?: NullableStringFieldUpdateOperationsInput | string | null
+    cost?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     stocks?: StockUpdateManyWithoutItemNestedInput
@@ -81700,6 +85603,7 @@ export namespace Prisma {
     code?: StringFieldUpdateOperationsInput | string
     category?: NullableStringFieldUpdateOperationsInput | string | null
     unitOfMeasure?: NullableStringFieldUpdateOperationsInput | string | null
+    cost?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     stocks?: StockUncheckedUpdateManyWithoutItemNestedInput
@@ -81883,6 +85787,15 @@ export namespace Prisma {
     companyId: string
   }
 
+  export type MaintenanceTaskCreateManyCompletedByInput = {
+    id?: string
+    description: string
+    isCompleted?: boolean
+    completedAt?: Date | string | null
+    notes?: string | null
+    maintenanceId: string
+  }
+
   export type RefreshTokenUpdateWithoutUserInput = {
     id?: StringFieldUpdateOperationsInput | string
     token?: StringFieldUpdateOperationsInput | string
@@ -82036,6 +85949,7 @@ export namespace Prisma {
     asset?: AssetUpdateOneWithoutMaintenancesNestedInput
     photos?: FileUpdateManyWithoutMaintenanceNestedInput
     maintenanceItems?: MaintenanceItemUpdateManyWithoutMaintenanceNestedInput
+    maintenanceTasks?: MaintenanceTaskUpdateManyWithoutMaintenanceNestedInput
   }
 
   export type MaintenanceUncheckedUpdateWithoutRequesterInput = {
@@ -82103,6 +86017,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     photos?: FileUncheckedUpdateManyWithoutMaintenanceNestedInput
     maintenanceItems?: MaintenanceItemUncheckedUpdateManyWithoutMaintenanceNestedInput
+    maintenanceTasks?: MaintenanceTaskUncheckedUpdateManyWithoutMaintenanceNestedInput
   }
 
   export type MaintenanceUncheckedUpdateManyWithoutRequesterInput = {
@@ -82235,6 +86150,7 @@ export namespace Prisma {
     asset?: AssetUpdateOneWithoutMaintenancesNestedInput
     photos?: FileUpdateManyWithoutMaintenanceNestedInput
     maintenanceItems?: MaintenanceItemUpdateManyWithoutMaintenanceNestedInput
+    maintenanceTasks?: MaintenanceTaskUpdateManyWithoutMaintenanceNestedInput
   }
 
   export type MaintenanceUncheckedUpdateWithoutAssigneeInput = {
@@ -82302,6 +86218,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     photos?: FileUncheckedUpdateManyWithoutMaintenanceNestedInput
     maintenanceItems?: MaintenanceItemUncheckedUpdateManyWithoutMaintenanceNestedInput
+    maintenanceTasks?: MaintenanceTaskUncheckedUpdateManyWithoutMaintenanceNestedInput
   }
 
   export type MaintenanceUncheckedUpdateManyWithoutAssigneeInput = {
@@ -82462,6 +86379,33 @@ export namespace Prisma {
     companyId?: StringFieldUpdateOperationsInput | string
   }
 
+  export type MaintenanceTaskUpdateWithoutCompletedByInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    description?: StringFieldUpdateOperationsInput | string
+    isCompleted?: BoolFieldUpdateOperationsInput | boolean
+    completedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
+    maintenance?: MaintenanceUpdateOneRequiredWithoutMaintenanceTasksNestedInput
+  }
+
+  export type MaintenanceTaskUncheckedUpdateWithoutCompletedByInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    description?: StringFieldUpdateOperationsInput | string
+    isCompleted?: BoolFieldUpdateOperationsInput | boolean
+    completedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
+    maintenanceId?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type MaintenanceTaskUncheckedUpdateManyWithoutCompletedByInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    description?: StringFieldUpdateOperationsInput | string
+    isCompleted?: BoolFieldUpdateOperationsInput | boolean
+    completedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
+    maintenanceId?: StringFieldUpdateOperationsInput | string
+  }
+
   export type PermissionCreateManyRoleInput = {
     id?: string
     resource: string
@@ -82544,6 +86488,7 @@ export namespace Prisma {
     costCenter?: CostCenterUpdateOneWithoutUsersNestedInput
     purchaseRequests?: PurchaseRequestUpdateManyWithoutRequesterNestedInput
     goodsReceipts?: GoodsReceiptUpdateManyWithoutReceiverNestedInput
+    maintenanceTasks?: MaintenanceTaskUpdateManyWithoutCompletedByNestedInput
   }
 
   export type UserUncheckedUpdateWithoutRoleInput = {
@@ -82572,6 +86517,7 @@ export namespace Prisma {
     supervisedTeams?: TeamUncheckedUpdateManyWithoutSupervisorNestedInput
     purchaseRequests?: PurchaseRequestUncheckedUpdateManyWithoutRequesterNestedInput
     goodsReceipts?: GoodsReceiptUncheckedUpdateManyWithoutReceiverNestedInput
+    maintenanceTasks?: MaintenanceTaskUncheckedUpdateManyWithoutCompletedByNestedInput
   }
 
   export type UserUncheckedUpdateManyWithoutRoleInput = {
@@ -82991,6 +86937,7 @@ export namespace Prisma {
     asset?: AssetUpdateOneWithoutMaintenancesNestedInput
     photos?: FileUpdateManyWithoutMaintenanceNestedInput
     maintenanceItems?: MaintenanceItemUpdateManyWithoutMaintenanceNestedInput
+    maintenanceTasks?: MaintenanceTaskUpdateManyWithoutMaintenanceNestedInput
   }
 
   export type MaintenanceUncheckedUpdateWithoutSiteInput = {
@@ -83058,6 +87005,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     photos?: FileUncheckedUpdateManyWithoutMaintenanceNestedInput
     maintenanceItems?: MaintenanceItemUncheckedUpdateManyWithoutMaintenanceNestedInput
+    maintenanceTasks?: MaintenanceTaskUncheckedUpdateManyWithoutMaintenanceNestedInput
   }
 
   export type MaintenanceUncheckedUpdateManyWithoutSiteInput = {
@@ -83145,6 +87093,7 @@ export namespace Prisma {
     space?: SpaceUpdateOneWithoutPreventivesNestedInput
     team?: TeamUpdateOneWithoutPreventivesNestedInput
     meterTriggers?: MeterMaintenanceTriggerUpdateManyWithoutPreventiveNestedInput
+    preventiveTasks?: PreventiveTaskUpdateManyWithoutPreventiveNestedInput
   }
 
   export type PreventiveUncheckedUpdateWithoutSiteInput = {
@@ -83167,6 +87116,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     meterTriggers?: MeterMaintenanceTriggerUncheckedUpdateManyWithoutPreventiveNestedInput
+    preventiveTasks?: PreventiveTaskUncheckedUpdateManyWithoutPreventiveNestedInput
   }
 
   export type PreventiveUncheckedUpdateManyWithoutSiteInput = {
@@ -83426,6 +87376,7 @@ export namespace Prisma {
     space?: SpaceUpdateOneWithoutPreventivesNestedInput
     team?: TeamUpdateOneWithoutPreventivesNestedInput
     meterTriggers?: MeterMaintenanceTriggerUpdateManyWithoutPreventiveNestedInput
+    preventiveTasks?: PreventiveTaskUpdateManyWithoutPreventiveNestedInput
   }
 
   export type PreventiveUncheckedUpdateWithoutBuildingInput = {
@@ -83448,6 +87399,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     meterTriggers?: MeterMaintenanceTriggerUncheckedUpdateManyWithoutPreventiveNestedInput
+    preventiveTasks?: PreventiveTaskUncheckedUpdateManyWithoutPreventiveNestedInput
   }
 
   export type PreventiveUncheckedUpdateManyWithoutBuildingInput = {
@@ -83536,6 +87488,7 @@ export namespace Prisma {
     asset?: AssetUpdateOneWithoutMaintenancesNestedInput
     photos?: FileUpdateManyWithoutMaintenanceNestedInput
     maintenanceItems?: MaintenanceItemUpdateManyWithoutMaintenanceNestedInput
+    maintenanceTasks?: MaintenanceTaskUpdateManyWithoutMaintenanceNestedInput
   }
 
   export type MaintenanceUncheckedUpdateWithoutBuildingInput = {
@@ -83603,6 +87556,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     photos?: FileUncheckedUpdateManyWithoutMaintenanceNestedInput
     maintenanceItems?: MaintenanceItemUncheckedUpdateManyWithoutMaintenanceNestedInput
+    maintenanceTasks?: MaintenanceTaskUncheckedUpdateManyWithoutMaintenanceNestedInput
   }
 
   export type MaintenanceUncheckedUpdateManyWithoutBuildingInput = {
@@ -83997,6 +87951,7 @@ export namespace Prisma {
     asset?: AssetUpdateOneWithoutMaintenancesNestedInput
     photos?: FileUpdateManyWithoutMaintenanceNestedInput
     maintenanceItems?: MaintenanceItemUpdateManyWithoutMaintenanceNestedInput
+    maintenanceTasks?: MaintenanceTaskUpdateManyWithoutMaintenanceNestedInput
   }
 
   export type MaintenanceUncheckedUpdateWithoutFloorInput = {
@@ -84064,6 +88019,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     photos?: FileUncheckedUpdateManyWithoutMaintenanceNestedInput
     maintenanceItems?: MaintenanceItemUncheckedUpdateManyWithoutMaintenanceNestedInput
+    maintenanceTasks?: MaintenanceTaskUncheckedUpdateManyWithoutMaintenanceNestedInput
   }
 
   export type MaintenanceUncheckedUpdateManyWithoutFloorInput = {
@@ -84151,6 +88107,7 @@ export namespace Prisma {
     space?: SpaceUpdateOneWithoutPreventivesNestedInput
     team?: TeamUpdateOneWithoutPreventivesNestedInput
     meterTriggers?: MeterMaintenanceTriggerUpdateManyWithoutPreventiveNestedInput
+    preventiveTasks?: PreventiveTaskUpdateManyWithoutPreventiveNestedInput
   }
 
   export type PreventiveUncheckedUpdateWithoutFloorInput = {
@@ -84173,6 +88130,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     meterTriggers?: MeterMaintenanceTriggerUncheckedUpdateManyWithoutPreventiveNestedInput
+    preventiveTasks?: PreventiveTaskUncheckedUpdateManyWithoutPreventiveNestedInput
   }
 
   export type PreventiveUncheckedUpdateManyWithoutFloorInput = {
@@ -84557,6 +88515,7 @@ export namespace Prisma {
     asset?: AssetUpdateOneWithoutMaintenancesNestedInput
     photos?: FileUpdateManyWithoutMaintenanceNestedInput
     maintenanceItems?: MaintenanceItemUpdateManyWithoutMaintenanceNestedInput
+    maintenanceTasks?: MaintenanceTaskUpdateManyWithoutMaintenanceNestedInput
   }
 
   export type MaintenanceUncheckedUpdateWithoutZoneInput = {
@@ -84624,6 +88583,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     photos?: FileUncheckedUpdateManyWithoutMaintenanceNestedInput
     maintenanceItems?: MaintenanceItemUncheckedUpdateManyWithoutMaintenanceNestedInput
+    maintenanceTasks?: MaintenanceTaskUncheckedUpdateManyWithoutMaintenanceNestedInput
   }
 
   export type MaintenanceUncheckedUpdateManyWithoutZoneInput = {
@@ -84711,6 +88671,7 @@ export namespace Prisma {
     space?: SpaceUpdateOneWithoutPreventivesNestedInput
     team?: TeamUpdateOneWithoutPreventivesNestedInput
     meterTriggers?: MeterMaintenanceTriggerUpdateManyWithoutPreventiveNestedInput
+    preventiveTasks?: PreventiveTaskUpdateManyWithoutPreventiveNestedInput
   }
 
   export type PreventiveUncheckedUpdateWithoutZoneInput = {
@@ -84733,6 +88694,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     meterTriggers?: MeterMaintenanceTriggerUncheckedUpdateManyWithoutPreventiveNestedInput
+    preventiveTasks?: PreventiveTaskUncheckedUpdateManyWithoutPreventiveNestedInput
   }
 
   export type PreventiveUncheckedUpdateManyWithoutZoneInput = {
@@ -84955,6 +88917,7 @@ export namespace Prisma {
     asset?: AssetUpdateOneWithoutMaintenancesNestedInput
     photos?: FileUpdateManyWithoutMaintenanceNestedInput
     maintenanceItems?: MaintenanceItemUpdateManyWithoutMaintenanceNestedInput
+    maintenanceTasks?: MaintenanceTaskUpdateManyWithoutMaintenanceNestedInput
   }
 
   export type MaintenanceUncheckedUpdateWithoutSpaceInput = {
@@ -85022,6 +88985,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     photos?: FileUncheckedUpdateManyWithoutMaintenanceNestedInput
     maintenanceItems?: MaintenanceItemUncheckedUpdateManyWithoutMaintenanceNestedInput
+    maintenanceTasks?: MaintenanceTaskUncheckedUpdateManyWithoutMaintenanceNestedInput
   }
 
   export type MaintenanceUncheckedUpdateManyWithoutSpaceInput = {
@@ -85109,6 +89073,7 @@ export namespace Prisma {
     zone?: ZoneUpdateOneWithoutPreventivesNestedInput
     team?: TeamUpdateOneWithoutPreventivesNestedInput
     meterTriggers?: MeterMaintenanceTriggerUpdateManyWithoutPreventiveNestedInput
+    preventiveTasks?: PreventiveTaskUpdateManyWithoutPreventiveNestedInput
   }
 
   export type PreventiveUncheckedUpdateWithoutSpaceInput = {
@@ -85131,6 +89096,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     meterTriggers?: MeterMaintenanceTriggerUncheckedUpdateManyWithoutPreventiveNestedInput
+    preventiveTasks?: PreventiveTaskUncheckedUpdateManyWithoutPreventiveNestedInput
   }
 
   export type PreventiveUncheckedUpdateManyWithoutSpaceInput = {
@@ -85513,6 +89479,7 @@ export namespace Prisma {
     assignee?: UserUpdateOneWithoutAssignedMaintenancesNestedInput
     photos?: FileUpdateManyWithoutMaintenanceNestedInput
     maintenanceItems?: MaintenanceItemUpdateManyWithoutMaintenanceNestedInput
+    maintenanceTasks?: MaintenanceTaskUpdateManyWithoutMaintenanceNestedInput
   }
 
   export type MaintenanceUncheckedUpdateWithoutAssetInput = {
@@ -85580,6 +89547,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     photos?: FileUncheckedUpdateManyWithoutMaintenanceNestedInput
     maintenanceItems?: MaintenanceItemUncheckedUpdateManyWithoutMaintenanceNestedInput
+    maintenanceTasks?: MaintenanceTaskUncheckedUpdateManyWithoutMaintenanceNestedInput
   }
 
   export type MaintenanceUncheckedUpdateManyWithoutAssetInput = {
@@ -85667,6 +89635,7 @@ export namespace Prisma {
     space?: SpaceUpdateOneWithoutPreventivesNestedInput
     team?: TeamUpdateOneWithoutPreventivesNestedInput
     meterTriggers?: MeterMaintenanceTriggerUpdateManyWithoutPreventiveNestedInput
+    preventiveTasks?: PreventiveTaskUpdateManyWithoutPreventiveNestedInput
   }
 
   export type PreventiveUncheckedUpdateWithoutAssetInput = {
@@ -85689,6 +89658,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     meterTriggers?: MeterMaintenanceTriggerUncheckedUpdateManyWithoutPreventiveNestedInput
+    preventiveTasks?: PreventiveTaskUncheckedUpdateManyWithoutPreventiveNestedInput
   }
 
   export type PreventiveUncheckedUpdateManyWithoutAssetInput = {
@@ -86234,6 +90204,7 @@ export namespace Prisma {
     costCenter?: CostCenterUpdateOneWithoutUsersNestedInput
     purchaseRequests?: PurchaseRequestUpdateManyWithoutRequesterNestedInput
     goodsReceipts?: GoodsReceiptUpdateManyWithoutReceiverNestedInput
+    maintenanceTasks?: MaintenanceTaskUpdateManyWithoutCompletedByNestedInput
   }
 
   export type UserUncheckedUpdateWithoutCompanyInput = {
@@ -86262,6 +90233,7 @@ export namespace Prisma {
     supervisedTeams?: TeamUncheckedUpdateManyWithoutSupervisorNestedInput
     purchaseRequests?: PurchaseRequestUncheckedUpdateManyWithoutRequesterNestedInput
     goodsReceipts?: GoodsReceiptUncheckedUpdateManyWithoutReceiverNestedInput
+    maintenanceTasks?: MaintenanceTaskUncheckedUpdateManyWithoutCompletedByNestedInput
   }
 
   export type UserUncheckedUpdateManyWithoutCompanyInput = {
@@ -86349,6 +90321,7 @@ export namespace Prisma {
     asset?: AssetUpdateOneWithoutMaintenancesNestedInput
     photos?: FileUpdateManyWithoutMaintenanceNestedInput
     maintenanceItems?: MaintenanceItemUpdateManyWithoutMaintenanceNestedInput
+    maintenanceTasks?: MaintenanceTaskUpdateManyWithoutMaintenanceNestedInput
   }
 
   export type MaintenanceUncheckedUpdateWithoutCompanyInput = {
@@ -86416,6 +90389,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     photos?: FileUncheckedUpdateManyWithoutMaintenanceNestedInput
     maintenanceItems?: MaintenanceItemUncheckedUpdateManyWithoutMaintenanceNestedInput
+    maintenanceTasks?: MaintenanceTaskUncheckedUpdateManyWithoutMaintenanceNestedInput
   }
 
   export type MaintenanceUncheckedUpdateManyWithoutCompanyInput = {
@@ -86694,6 +90668,7 @@ export namespace Prisma {
     asset?: AssetUpdateOneWithoutMaintenancesNestedInput
     photos?: FileUpdateManyWithoutMaintenanceNestedInput
     maintenanceItems?: MaintenanceItemUpdateManyWithoutMaintenanceNestedInput
+    maintenanceTasks?: MaintenanceTaskUpdateManyWithoutMaintenanceNestedInput
   }
 
   export type MaintenanceUncheckedUpdateWithoutTeamInput = {
@@ -86761,6 +90736,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     photos?: FileUncheckedUpdateManyWithoutMaintenanceNestedInput
     maintenanceItems?: MaintenanceItemUncheckedUpdateManyWithoutMaintenanceNestedInput
+    maintenanceTasks?: MaintenanceTaskUncheckedUpdateManyWithoutMaintenanceNestedInput
   }
 
   export type MaintenanceUncheckedUpdateManyWithoutTeamInput = {
@@ -86848,6 +90824,7 @@ export namespace Prisma {
     zone?: ZoneUpdateOneWithoutPreventivesNestedInput
     space?: SpaceUpdateOneWithoutPreventivesNestedInput
     meterTriggers?: MeterMaintenanceTriggerUpdateManyWithoutPreventiveNestedInput
+    preventiveTasks?: PreventiveTaskUpdateManyWithoutPreventiveNestedInput
   }
 
   export type PreventiveUncheckedUpdateWithoutTeamInput = {
@@ -86870,6 +90847,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     meterTriggers?: MeterMaintenanceTriggerUncheckedUpdateManyWithoutPreventiveNestedInput
+    preventiveTasks?: PreventiveTaskUncheckedUpdateManyWithoutPreventiveNestedInput
   }
 
   export type PreventiveUncheckedUpdateManyWithoutTeamInput = {
@@ -86919,6 +90897,7 @@ export namespace Prisma {
     costCenter?: CostCenterUpdateOneWithoutUsersNestedInput
     purchaseRequests?: PurchaseRequestUpdateManyWithoutRequesterNestedInput
     goodsReceipts?: GoodsReceiptUpdateManyWithoutReceiverNestedInput
+    maintenanceTasks?: MaintenanceTaskUpdateManyWithoutCompletedByNestedInput
   }
 
   export type UserUncheckedUpdateWithoutTeamsInput = {
@@ -86947,6 +90926,7 @@ export namespace Prisma {
     supervisedTeams?: TeamUncheckedUpdateManyWithoutSupervisorNestedInput
     purchaseRequests?: PurchaseRequestUncheckedUpdateManyWithoutRequesterNestedInput
     goodsReceipts?: GoodsReceiptUncheckedUpdateManyWithoutReceiverNestedInput
+    maintenanceTasks?: MaintenanceTaskUncheckedUpdateManyWithoutCompletedByNestedInput
   }
 
   export type UserUncheckedUpdateManyWithoutTeamsInput = {
@@ -87608,6 +91588,7 @@ export namespace Prisma {
     costCenter?: CostCenterUpdateOneWithoutUsersNestedInput
     purchaseRequests?: PurchaseRequestUpdateManyWithoutRequesterNestedInput
     goodsReceipts?: GoodsReceiptUpdateManyWithoutReceiverNestedInput
+    maintenanceTasks?: MaintenanceTaskUpdateManyWithoutCompletedByNestedInput
   }
 
   export type UserUncheckedUpdateWithoutCalenderEntityInput = {
@@ -87636,6 +91617,7 @@ export namespace Prisma {
     supervisedTeams?: TeamUncheckedUpdateManyWithoutSupervisorNestedInput
     purchaseRequests?: PurchaseRequestUncheckedUpdateManyWithoutRequesterNestedInput
     goodsReceipts?: GoodsReceiptUncheckedUpdateManyWithoutReceiverNestedInput
+    maintenanceTasks?: MaintenanceTaskUncheckedUpdateManyWithoutCompletedByNestedInput
   }
 
   export type UserUncheckedUpdateManyWithoutCalenderEntityInput = {
@@ -87671,6 +91653,15 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     zoneId?: string | null
+  }
+
+  export type MaintenanceTaskCreateManyMaintenanceInput = {
+    id?: string
+    description: string
+    isCompleted?: boolean
+    completedAt?: Date | string | null
+    notes?: string | null
+    completedById?: string | null
   }
 
   export type FileUpdateWithoutMaintenanceInput = {
@@ -87726,6 +91717,33 @@ export namespace Prisma {
     zoneId?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
+  export type MaintenanceTaskUpdateWithoutMaintenanceInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    description?: StringFieldUpdateOperationsInput | string
+    isCompleted?: BoolFieldUpdateOperationsInput | boolean
+    completedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
+    completedBy?: UserUpdateOneWithoutMaintenanceTasksNestedInput
+  }
+
+  export type MaintenanceTaskUncheckedUpdateWithoutMaintenanceInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    description?: StringFieldUpdateOperationsInput | string
+    isCompleted?: BoolFieldUpdateOperationsInput | boolean
+    completedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
+    completedById?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
+  export type MaintenanceTaskUncheckedUpdateManyWithoutMaintenanceInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    description?: StringFieldUpdateOperationsInput | string
+    isCompleted?: BoolFieldUpdateOperationsInput | boolean
+    completedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
+    completedById?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
   export type MeterMaintenanceTriggerCreateManyPreventiveInput = {
     id?: string
     meterId: string
@@ -87734,6 +91752,13 @@ export namespace Prisma {
     lastTriggerReading?: Decimal | DecimalJsLike | number | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
+  }
+
+  export type PreventiveTaskCreateManyPreventiveInput = {
+    id?: string
+    description: string
+    order: number
+    isMandatory?: boolean
   }
 
   export type MeterMaintenanceTriggerUpdateWithoutPreventiveInput = {
@@ -87764,6 +91789,27 @@ export namespace Prisma {
     lastTriggerReading?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type PreventiveTaskUpdateWithoutPreventiveInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    description?: StringFieldUpdateOperationsInput | string
+    order?: IntFieldUpdateOperationsInput | number
+    isMandatory?: BoolFieldUpdateOperationsInput | boolean
+  }
+
+  export type PreventiveTaskUncheckedUpdateWithoutPreventiveInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    description?: StringFieldUpdateOperationsInput | string
+    order?: IntFieldUpdateOperationsInput | number
+    isMandatory?: BoolFieldUpdateOperationsInput | boolean
+  }
+
+  export type PreventiveTaskUncheckedUpdateManyWithoutPreventiveInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    description?: StringFieldUpdateOperationsInput | string
+    order?: IntFieldUpdateOperationsInput | number
+    isMandatory?: BoolFieldUpdateOperationsInput | boolean
   }
 
   export type StockCreateManyWarehouseInput = {
@@ -88419,6 +92465,7 @@ export namespace Prisma {
     asset?: AssetUpdateOneWithoutMaintenancesNestedInput
     photos?: FileUpdateManyWithoutMaintenanceNestedInput
     maintenanceItems?: MaintenanceItemUpdateManyWithoutMaintenanceNestedInput
+    maintenanceTasks?: MaintenanceTaskUpdateManyWithoutMaintenanceNestedInput
   }
 
   export type MaintenanceUncheckedUpdateWithoutCostCenterInput = {
@@ -88486,6 +92533,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     photos?: FileUncheckedUpdateManyWithoutMaintenanceNestedInput
     maintenanceItems?: MaintenanceItemUncheckedUpdateManyWithoutMaintenanceNestedInput
+    maintenanceTasks?: MaintenanceTaskUncheckedUpdateManyWithoutMaintenanceNestedInput
   }
 
   export type MaintenanceUncheckedUpdateManyWithoutCostCenterInput = {
@@ -88579,6 +92627,7 @@ export namespace Prisma {
     supervisedTeams?: TeamUpdateManyWithoutSupervisorNestedInput
     purchaseRequests?: PurchaseRequestUpdateManyWithoutRequesterNestedInput
     goodsReceipts?: GoodsReceiptUpdateManyWithoutReceiverNestedInput
+    maintenanceTasks?: MaintenanceTaskUpdateManyWithoutCompletedByNestedInput
   }
 
   export type UserUncheckedUpdateWithoutCostCenterInput = {
@@ -88607,6 +92656,7 @@ export namespace Prisma {
     supervisedTeams?: TeamUncheckedUpdateManyWithoutSupervisorNestedInput
     purchaseRequests?: PurchaseRequestUncheckedUpdateManyWithoutRequesterNestedInput
     goodsReceipts?: GoodsReceiptUncheckedUpdateManyWithoutReceiverNestedInput
+    maintenanceTasks?: MaintenanceTaskUncheckedUpdateManyWithoutCompletedByNestedInput
   }
 
   export type UserUncheckedUpdateManyWithoutCostCenterInput = {

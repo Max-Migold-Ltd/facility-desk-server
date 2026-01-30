@@ -1,5 +1,0 @@
-{
-  "message": "❌ Maintenance created prematurely!",
-  "stack": "Error: ❌ Maintenance created prematurely!\n    at main (C:\\Users\\Temiloluwa\\facility-desk-server\\scripts\\verify-metering.ts:88:26)\n    at processTicksAndRejections (node:internal/process/task_queues:105:5)",
-  "full": {}
-}

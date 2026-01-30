@@ -470,6 +470,24 @@ exports.Prisma.PreventiveScalarFieldEnum = {
   updatedAt: 'updatedAt'
 };
 
+exports.Prisma.PreventiveTaskScalarFieldEnum = {
+  id: 'id',
+  description: 'description',
+  order: 'order',
+  isMandatory: 'isMandatory',
+  preventiveId: 'preventiveId'
+};
+
+exports.Prisma.MaintenanceTaskScalarFieldEnum = {
+  id: 'id',
+  description: 'description',
+  isCompleted: 'isCompleted',
+  completedAt: 'completedAt',
+  notes: 'notes',
+  maintenanceId: 'maintenanceId',
+  completedById: 'completedById'
+};
+
 exports.Prisma.WarehouseScalarFieldEnum = {
   id: 'id',
   name: 'name',
@@ -486,6 +504,7 @@ exports.Prisma.ItemScalarFieldEnum = {
   code: 'code',
   category: 'category',
   unitOfMeasure: 'unitOfMeasure',
+  cost: 'cost',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 };
@@ -887,6 +906,8 @@ exports.Prisma.ModelName = {
   CalenderEntity: 'CalenderEntity',
   Maintenance: 'Maintenance',
   Preventive: 'Preventive',
+  PreventiveTask: 'PreventiveTask',
+  MaintenanceTask: 'MaintenanceTask',
   Warehouse: 'Warehouse',
   Item: 'Item',
   Stock: 'Stock',
