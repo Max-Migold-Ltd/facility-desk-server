@@ -78,7 +78,7 @@ export class CostCenterService {
         budgetSpent: new Prisma.Decimal(currentSpent + requested),
         budgetCommitted: new Prisma.Decimal(currentSpent - requested), // Since the money has been paid, it's no longer committed
       },
-    }); // or use Upsert?
+    }); // or use Upsert? Create Invoice?
   }
 
   /**

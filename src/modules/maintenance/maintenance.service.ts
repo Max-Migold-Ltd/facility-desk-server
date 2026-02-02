@@ -30,29 +30,23 @@ export class MaintenanceService {
     return `${prefix}-${Date.now()}-${Math.floor(Math.random() * 1000)}`;
   }
 
-  // async getMaintenanceCost(maintenanceId: string) {
-  //   const ticket = await this.prisma.maintenance.findUnique({
-  //     where: { id: maintenanceId },
-  //     include: {
-  //       maintenanceItems: true, // The Spare Parts
-  //       workLogs: true,      // The Labor (Assume you add this relation to Maintenance model)
-  //     },
-  //   });
+  async getMaterialCost(maintenanceId: string) {
+    const maintenance = await prisma.maintenance.findUnique({
+      where: { id: maintenanceId },
+      include: {
+        maintenanceItems: true,
+      },
+    });
 
-  //   // 1. Sum Parts Cost
-  //   const partsCost = ticket.maintenanceItems.reduce(
-  //     (sum, item) => sum + Number(item.cost),
-  //     0,
-  //   );
+    if (!maintenance) throw new NotFoundError("Maintenance not found");
 
-  //   // 2. Sum Labor Cost (Assuming we fetched workLogs)
-  //   const laborCost = ticket.workLogs.reduce(
-  //     (sum, log) => sum + Number(log.totalCost),
-  //     0
-  //   );
+    const materialCost = maintenance.maintenanceItems.reduce(
+      (sum, item) => sum + Number(item.cost),
+      0,
+    );
 
-  //   return { partsCost, laborCost, total: partsCost + laborCost };
-  // }
+    return materialCost;
+  }
 
   async logWork(userId: string, data: LogworkDto) {
     // Calculate duration in minutes
@@ -101,6 +95,48 @@ export class MaintenanceService {
 
       return workLog;
     });
+  }
+
+  async getLaborCost(maintenanceId: string): Promise<number> {
+    const workLogs = await prisma.workLog.findMany({
+      where: { maintenanceId },
+    });
+
+    const laborCost = workLogs.reduce(
+      (sum, log) => sum + Number(log.totalCost),
+      0,
+    );
+
+    return laborCost;
+  }
+
+  async getFinancialSummary(maintenanceId: string) {
+    const maintenance = await prisma.maintenance.findUnique({
+      where: { id: maintenanceId },
+      include: {
+        maintenanceItems: true,
+        workLogs: true,
+      },
+    });
+
+    if (!maintenance) throw new NotFoundError("Maintenance not found");
+
+    const materialCost = maintenance.maintenanceItems.reduce(
+      (sum, item) => sum + Number(item.cost),
+      0,
+    );
+
+    const laborCost = maintenance.workLogs.reduce(
+      (sum, log) => sum + Number(log.totalCost),
+      0,
+    );
+
+    return {
+      maintenanceId,
+      currency: "NGN",
+      breakdown: { materialCost, laborCost },
+      total: materialCost + laborCost,
+    };
   }
 
   async create(data: CreateMaintenanceDto) {

@@ -974,31 +974,11 @@ model StockMovement {
   @@map("stock_movements")
 }
 
-// model ConsumedPart {
-//   id       String @id @default(uuid())
-//   quantity Int
-
-//   referenceId   String?
-//   referenceType StockReferenceType
-
-//   itemId String
-//   item   Item   @relation(fields: [itemId], references: [id], onDelete: Restrict)
-
-//   // usedBy User? @relation(fields: [usedById], references: [id], onDelete: SetNull)
-//   // usedById String?
-
-//   createdAt     DateTime     @default(now())
-//   updatedAt     DateTime     @updatedAt
-//   maintenance   Maintenance? @relation(fields: [maintenanceId], references: [id])
-//   maintenanceId String?
-
-//   @@map("consumed_parts")
-// }
 
 model MaintenanceItem {
   id       String   @id @default(uuid())
   quantity Int
-  cost     Decimal? @default(0)
+  cost     Decimal @default(0) @db.Decimal(10, 2)
 
   maintenanceId String
   maintenance   Maintenance @relation(fields: [maintenanceId], references: [id], onDelete: Cascade)

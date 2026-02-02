@@ -136,7 +136,7 @@ The core facility management workflow is well-established.
 7.  **Phase 7: Finance & Logistics** - ✅ Functionally Enhanced (PO Receipt value calc, Stock consumption during Maintenance).
 8.  **Phase 8: IoT Integration** - ⏳ **Pending**.
 
-## Recent Updates (2026-01-30)
+## Recent Updates (2026-02-02)
 
 ### 1. API Documentation
 - **Comprehensive Swagger Coverage:**
@@ -145,6 +145,8 @@ The core facility management workflow is well-established.
   - **Finance**: Added documentation for Cost Centers, Purchase Requests, and Purchase Orders.
   - **Logistics**: Added documentation for Items, Stocks, Movements, and Warehouses.
   - **Metering**: Added documentation for Meters and Readings.
+  - **Maintenance**: Added documentation for maintenance items, financial summary, work logs, and cost breakdown.
+
 
 ### 2. Maintenance Module
 - **Consumables Logic:** Implemented `MaintenanceItemService` to handle spare parts consumption.

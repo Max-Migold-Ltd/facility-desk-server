@@ -5,6 +5,53 @@ import { MaintenanceQueryDto } from "./dto/maintenance-query.dto";
 const maintenanceService = new MaintenanceService();
 
 export class MaintenanceController {
+  async getFinancialSummary(req: Request, res: Response, next: NextFunction) {
+    try {
+      const maintenance = await maintenanceService.getFinancialSummary(req.params.id);
+      res.status(200).json({
+        success: true,
+        data: maintenance,
+      });
+    } catch (error) {
+      next(error);
+    }
+  }
+
+  async getLaborCost(req: Request, res: Response, next: NextFunction) {
+    try {
+      const maintenance = await maintenanceService.getLaborCost(req.params.id);
+      res.status(200).json({
+        success: true,
+        data: maintenance,
+      });
+    } catch (error) {
+      next(error);
+    }
+  }
+
+  async getMaterialCost(req: Request, res: Response, next: NextFunction) {
+    try {
+      const maintenance = await maintenanceService.getMaterialCost(req.params.id);
+      res.status(200).json({
+        success: true,
+        data: maintenance,
+      });
+    } catch (error) {
+      next(error);
+    }
+  }
+
+  async getLogWork(req: Request, res: Response, next: NextFunction) {
+    try {
+      const maintenance = await maintenanceService.logWork(req.params.id, req.body);
+      res.status(200).json({
+        success: true,
+        data: maintenance,
+      });
+    } catch (error) {
+      next(error);
+    }
+  }
   async create(req: Request, res: Response, next: NextFunction) {
     try {
       const maintenance = await maintenanceService.create(req.body);

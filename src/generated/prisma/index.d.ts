@@ -41033,7 +41033,7 @@ export namespace Prisma {
   export type MaintenanceItemGroupByOutputType = {
     id: string
     quantity: number
-    cost: Decimal | null
+    cost: Decimal
     maintenanceId: string
     itemId: string
     createdAt: Date
@@ -41140,7 +41140,7 @@ export namespace Prisma {
     scalars: $Extensions.GetPayloadResult<{
       id: string
       quantity: number
-      cost: Prisma.Decimal | null
+      cost: Prisma.Decimal
       maintenanceId: string
       itemId: string
       createdAt: Date
@@ -58823,7 +58823,7 @@ export namespace Prisma {
     NOT?: MaintenanceItemWhereInput | MaintenanceItemWhereInput[]
     id?: StringFilter<"MaintenanceItem"> | string
     quantity?: IntFilter<"MaintenanceItem"> | number
-    cost?: DecimalNullableFilter<"MaintenanceItem"> | Decimal | DecimalJsLike | number | string | null
+    cost?: DecimalFilter<"MaintenanceItem"> | Decimal | DecimalJsLike | number | string
     maintenanceId?: StringFilter<"MaintenanceItem"> | string
     itemId?: StringFilter<"MaintenanceItem"> | string
     createdAt?: DateTimeFilter<"MaintenanceItem"> | Date | string
@@ -58837,7 +58837,7 @@ export namespace Prisma {
   export type MaintenanceItemOrderByWithRelationInput = {
     id?: SortOrder
     quantity?: SortOrder
-    cost?: SortOrderInput | SortOrder
+    cost?: SortOrder
     maintenanceId?: SortOrder
     itemId?: SortOrder
     createdAt?: SortOrder
@@ -58855,7 +58855,7 @@ export namespace Prisma {
     OR?: MaintenanceItemWhereInput[]
     NOT?: MaintenanceItemWhereInput | MaintenanceItemWhereInput[]
     quantity?: IntFilter<"MaintenanceItem"> | number
-    cost?: DecimalNullableFilter<"MaintenanceItem"> | Decimal | DecimalJsLike | number | string | null
+    cost?: DecimalFilter<"MaintenanceItem"> | Decimal | DecimalJsLike | number | string
     maintenanceId?: StringFilter<"MaintenanceItem"> | string
     itemId?: StringFilter<"MaintenanceItem"> | string
     createdAt?: DateTimeFilter<"MaintenanceItem"> | Date | string
@@ -58869,7 +58869,7 @@ export namespace Prisma {
   export type MaintenanceItemOrderByWithAggregationInput = {
     id?: SortOrder
     quantity?: SortOrder
-    cost?: SortOrderInput | SortOrder
+    cost?: SortOrder
     maintenanceId?: SortOrder
     itemId?: SortOrder
     createdAt?: SortOrder
@@ -58888,7 +58888,7 @@ export namespace Prisma {
     NOT?: MaintenanceItemScalarWhereWithAggregatesInput | MaintenanceItemScalarWhereWithAggregatesInput[]
     id?: StringWithAggregatesFilter<"MaintenanceItem"> | string
     quantity?: IntWithAggregatesFilter<"MaintenanceItem"> | number
-    cost?: DecimalNullableWithAggregatesFilter<"MaintenanceItem"> | Decimal | DecimalJsLike | number | string | null
+    cost?: DecimalWithAggregatesFilter<"MaintenanceItem"> | Decimal | DecimalJsLike | number | string
     maintenanceId?: StringWithAggregatesFilter<"MaintenanceItem"> | string
     itemId?: StringWithAggregatesFilter<"MaintenanceItem"> | string
     createdAt?: DateTimeWithAggregatesFilter<"MaintenanceItem"> | Date | string
@@ -62951,7 +62951,7 @@ export namespace Prisma {
   export type MaintenanceItemCreateInput = {
     id?: string
     quantity: number
-    cost?: Decimal | DecimalJsLike | number | string | null
+    cost?: Decimal | DecimalJsLike | number | string
     createdAt?: Date | string
     updatedAt?: Date | string
     maintenance: MaintenanceCreateNestedOneWithoutMaintenanceItemsInput
@@ -62962,7 +62962,7 @@ export namespace Prisma {
   export type MaintenanceItemUncheckedCreateInput = {
     id?: string
     quantity: number
-    cost?: Decimal | DecimalJsLike | number | string | null
+    cost?: Decimal | DecimalJsLike | number | string
     maintenanceId: string
     itemId: string
     createdAt?: Date | string
@@ -62973,7 +62973,7 @@ export namespace Prisma {
   export type MaintenanceItemUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
     quantity?: IntFieldUpdateOperationsInput | number
-    cost?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    cost?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     maintenance?: MaintenanceUpdateOneRequiredWithoutMaintenanceItemsNestedInput
@@ -62984,7 +62984,7 @@ export namespace Prisma {
   export type MaintenanceItemUncheckedUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
     quantity?: IntFieldUpdateOperationsInput | number
-    cost?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    cost?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     maintenanceId?: StringFieldUpdateOperationsInput | string
     itemId?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -62995,7 +62995,7 @@ export namespace Prisma {
   export type MaintenanceItemCreateManyInput = {
     id?: string
     quantity: number
-    cost?: Decimal | DecimalJsLike | number | string | null
+    cost?: Decimal | DecimalJsLike | number | string
     maintenanceId: string
     itemId: string
     createdAt?: Date | string
@@ -63006,7 +63006,7 @@ export namespace Prisma {
   export type MaintenanceItemUpdateManyMutationInput = {
     id?: StringFieldUpdateOperationsInput | string
     quantity?: IntFieldUpdateOperationsInput | number
-    cost?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    cost?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -63014,7 +63014,7 @@ export namespace Prisma {
   export type MaintenanceItemUncheckedUpdateManyInput = {
     id?: StringFieldUpdateOperationsInput | string
     quantity?: IntFieldUpdateOperationsInput | number
-    cost?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    cost?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     maintenanceId?: StringFieldUpdateOperationsInput | string
     itemId?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -76863,7 +76863,7 @@ export namespace Prisma {
   export type MaintenanceItemCreateWithoutZoneInput = {
     id?: string
     quantity: number
-    cost?: Decimal | DecimalJsLike | number | string | null
+    cost?: Decimal | DecimalJsLike | number | string
     createdAt?: Date | string
     updatedAt?: Date | string
     maintenance: MaintenanceCreateNestedOneWithoutMaintenanceItemsInput
@@ -76873,7 +76873,7 @@ export namespace Prisma {
   export type MaintenanceItemUncheckedCreateWithoutZoneInput = {
     id?: string
     quantity: number
-    cost?: Decimal | DecimalJsLike | number | string | null
+    cost?: Decimal | DecimalJsLike | number | string
     maintenanceId: string
     itemId: string
     createdAt?: Date | string
@@ -77307,7 +77307,7 @@ export namespace Prisma {
     NOT?: MaintenanceItemScalarWhereInput | MaintenanceItemScalarWhereInput[]
     id?: StringFilter<"MaintenanceItem"> | string
     quantity?: IntFilter<"MaintenanceItem"> | number
-    cost?: DecimalNullableFilter<"MaintenanceItem"> | Decimal | DecimalJsLike | number | string | null
+    cost?: DecimalFilter<"MaintenanceItem"> | Decimal | DecimalJsLike | number | string
     maintenanceId?: StringFilter<"MaintenanceItem"> | string
     itemId?: StringFilter<"MaintenanceItem"> | string
     createdAt?: DateTimeFilter<"MaintenanceItem"> | Date | string
@@ -81538,7 +81538,7 @@ export namespace Prisma {
   export type MaintenanceItemCreateWithoutMaintenanceInput = {
     id?: string
     quantity: number
-    cost?: Decimal | DecimalJsLike | number | string | null
+    cost?: Decimal | DecimalJsLike | number | string
     createdAt?: Date | string
     updatedAt?: Date | string
     item: ItemCreateNestedOneWithoutMaintenanceItemsInput
@@ -81548,7 +81548,7 @@ export namespace Prisma {
   export type MaintenanceItemUncheckedCreateWithoutMaintenanceInput = {
     id?: string
     quantity: number
-    cost?: Decimal | DecimalJsLike | number | string | null
+    cost?: Decimal | DecimalJsLike | number | string
     itemId: string
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -84140,7 +84140,7 @@ export namespace Prisma {
   export type MaintenanceItemCreateWithoutItemInput = {
     id?: string
     quantity: number
-    cost?: Decimal | DecimalJsLike | number | string | null
+    cost?: Decimal | DecimalJsLike | number | string
     createdAt?: Date | string
     updatedAt?: Date | string
     maintenance: MaintenanceCreateNestedOneWithoutMaintenanceItemsInput
@@ -84150,7 +84150,7 @@ export namespace Prisma {
   export type MaintenanceItemUncheckedCreateWithoutItemInput = {
     id?: string
     quantity: number
-    cost?: Decimal | DecimalJsLike | number | string | null
+    cost?: Decimal | DecimalJsLike | number | string
     maintenanceId: string
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -90829,7 +90829,7 @@ export namespace Prisma {
   export type MaintenanceItemCreateManyZoneInput = {
     id?: string
     quantity: number
-    cost?: Decimal | DecimalJsLike | number | string | null
+    cost?: Decimal | DecimalJsLike | number | string
     maintenanceId: string
     itemId: string
     createdAt?: Date | string
@@ -91035,7 +91035,7 @@ export namespace Prisma {
   export type MaintenanceItemUpdateWithoutZoneInput = {
     id?: StringFieldUpdateOperationsInput | string
     quantity?: IntFieldUpdateOperationsInput | number
-    cost?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    cost?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     maintenance?: MaintenanceUpdateOneRequiredWithoutMaintenanceItemsNestedInput
@@ -91045,7 +91045,7 @@ export namespace Prisma {
   export type MaintenanceItemUncheckedUpdateWithoutZoneInput = {
     id?: StringFieldUpdateOperationsInput | string
     quantity?: IntFieldUpdateOperationsInput | number
-    cost?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    cost?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     maintenanceId?: StringFieldUpdateOperationsInput | string
     itemId?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -91055,7 +91055,7 @@ export namespace Prisma {
   export type MaintenanceItemUncheckedUpdateManyWithoutZoneInput = {
     id?: StringFieldUpdateOperationsInput | string
     quantity?: IntFieldUpdateOperationsInput | number
-    cost?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    cost?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     maintenanceId?: StringFieldUpdateOperationsInput | string
     itemId?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -94346,7 +94346,7 @@ export namespace Prisma {
   export type MaintenanceItemCreateManyMaintenanceInput = {
     id?: string
     quantity: number
-    cost?: Decimal | DecimalJsLike | number | string | null
+    cost?: Decimal | DecimalJsLike | number | string
     itemId: string
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -94401,7 +94401,7 @@ export namespace Prisma {
   export type MaintenanceItemUpdateWithoutMaintenanceInput = {
     id?: StringFieldUpdateOperationsInput | string
     quantity?: IntFieldUpdateOperationsInput | number
-    cost?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    cost?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     item?: ItemUpdateOneRequiredWithoutMaintenanceItemsNestedInput
@@ -94411,7 +94411,7 @@ export namespace Prisma {
   export type MaintenanceItemUncheckedUpdateWithoutMaintenanceInput = {
     id?: StringFieldUpdateOperationsInput | string
     quantity?: IntFieldUpdateOperationsInput | number
-    cost?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    cost?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     itemId?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -94421,7 +94421,7 @@ export namespace Prisma {
   export type MaintenanceItemUncheckedUpdateManyWithoutMaintenanceInput = {
     id?: StringFieldUpdateOperationsInput | string
     quantity?: IntFieldUpdateOperationsInput | number
-    cost?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    cost?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     itemId?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -94713,7 +94713,7 @@ export namespace Prisma {
   export type MaintenanceItemCreateManyItemInput = {
     id?: string
     quantity: number
-    cost?: Decimal | DecimalJsLike | number | string | null
+    cost?: Decimal | DecimalJsLike | number | string
     maintenanceId: string
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -94805,7 +94805,7 @@ export namespace Prisma {
   export type MaintenanceItemUpdateWithoutItemInput = {
     id?: StringFieldUpdateOperationsInput | string
     quantity?: IntFieldUpdateOperationsInput | number
-    cost?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    cost?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     maintenance?: MaintenanceUpdateOneRequiredWithoutMaintenanceItemsNestedInput
@@ -94815,7 +94815,7 @@ export namespace Prisma {
   export type MaintenanceItemUncheckedUpdateWithoutItemInput = {
     id?: StringFieldUpdateOperationsInput | string
     quantity?: IntFieldUpdateOperationsInput | number
-    cost?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    cost?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     maintenanceId?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -94825,7 +94825,7 @@ export namespace Prisma {
   export type MaintenanceItemUncheckedUpdateManyWithoutItemInput = {
     id?: StringFieldUpdateOperationsInput | string
     quantity?: IntFieldUpdateOperationsInput | number
-    cost?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    cost?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     maintenanceId?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string

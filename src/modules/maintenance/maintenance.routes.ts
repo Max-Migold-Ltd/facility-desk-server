@@ -70,7 +70,7 @@ router.post(
     body("startDate").optional().isISO8601().withMessage("Invalid start date"),
     body("endDate").optional().isISO8601().withMessage("Invalid end date"),
   ]),
-  maintenanceController.create
+  maintenanceController.create,
 );
 
 /**
@@ -206,7 +206,7 @@ router.patch(
       .withMessage("Valid Assignee ID is required"),
     body("teamId").optional().isUUID().withMessage("Valid Team ID is required"),
   ]),
-  maintenanceController.assign
+  maintenanceController.assign,
 );
 
 /**
@@ -239,7 +239,7 @@ router.patch(
       .withMessage("Invalid status"),
     body("notes").optional().isString(),
   ]),
-  maintenanceController.updateStatus
+  maintenanceController.updateStatus,
 );
 
 /**
@@ -271,7 +271,83 @@ router.patch(
 router.post(
   "/:id/photos",
   validate([body("url").isURL().withMessage("Valid URL is required")]),
-  maintenanceController.attachPhoto
+  maintenanceController.attachPhoto,
 );
+
+/**
+ * @swagger
+ * /api/v1/maintenance/{id}/log-work:
+ *   get:
+ *     summary: Get work logs for a maintenance request
+ *     tags: [Maintenance]
+ *     security:
+ *       - bearerAuth: []
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         schema: { type: string, format: uuid }
+ *     responses:
+ *       200:
+ *         description: List of work logs
+ */
+router.get("/:id/log-work", maintenanceController.getLogWork);
+
+/**
+ * @swagger
+ * /api/v1/maintenance/{id}/financial-summary:
+ *   get:
+ *     summary: Get financial summary of a maintenance request
+ *     tags: [Maintenance]
+ *     security:
+ *       - bearerAuth: []
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         schema: { type: string, format: uuid }
+ *     responses:
+ *       200:
+ *         description: Financial summary including labor and material costs
+ */
+router.get("/:id/financial-summary", maintenanceController.getFinancialSummary);
+
+/**
+ * @swagger
+ * /api/v1/maintenance/{id}/labor-cost:
+ *   get:
+ *     summary: Get labor cost details
+ *     tags: [Maintenance]
+ *     security:
+ *       - bearerAuth: []
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         schema: { type: string, format: uuid }
+ *     responses:
+ *       200:
+ *         description: Labor cost breakdown
+ */
+router.get("/:id/labor-cost", maintenanceController.getLaborCost);
+
+/**
+ * @swagger
+ * /api/v1/maintenance/{id}/material-cost:
+ *   get:
+ *     summary: Get material cost details
+ *     tags: [Maintenance]
+ *     security:
+ *       - bearerAuth: []
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         schema: { type: string, format: uuid }
+ *     responses:
+ *       200:
+ *         description: Material cost breakdown
+ */
+router.get("/:id/material-cost", maintenanceController.getMaterialCost);
 
 export default router;
