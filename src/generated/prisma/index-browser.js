@@ -576,8 +576,35 @@ exports.Prisma.MeterScalarFieldEnum = {
   buildingId: 'buildingId',
   zoneId: 'zoneId',
   spaceId: 'spaceId',
+  isSmartMeter: 'isSmartMeter',
+  deviceId: 'deviceId',
+  currentPower: 'currentPower',
+  currentVoltage: 'currentVoltage',
+  currentBalance: 'currentBalance',
+  tariffRate: 'tariffRate',
+  lowBalanceLimit: 'lowBalanceLimit',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
+};
+
+exports.Prisma.MeterTelemetryScalarFieldEnum = {
+  id: 'id',
+  meterId: 'meterId',
+  timestamp: 'timestamp',
+  kwh: 'kwh',
+  voltage: 'voltage',
+  current: 'current',
+  power: 'power'
+};
+
+exports.Prisma.UtilityPaymentScalarFieldEnum = {
+  id: 'id',
+  amount: 'amount',
+  kwhPurchased: 'kwhPurchased',
+  meterId: 'meterId',
+  paidByUserId: 'paidByUserId',
+  transactionRef: 'transactionRef',
+  createdAt: 'createdAt'
 };
 
 exports.Prisma.MeterReadingScalarFieldEnum = {
@@ -932,6 +959,8 @@ exports.Prisma.ModelName = {
   MaintenanceItem: 'MaintenanceItem',
   RefreshToken: 'RefreshToken',
   Meter: 'Meter',
+  MeterTelemetry: 'MeterTelemetry',
+  UtilityPayment: 'UtilityPayment',
   MeterReading: 'MeterReading',
   MeterMaintenanceTrigger: 'MeterMaintenanceTrigger',
   CostCenter: 'CostCenter',

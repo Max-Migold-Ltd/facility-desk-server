@@ -250,6 +250,7 @@ model User {
   goodsReceipts    GoodsReceipt[]
   maintenanceTasks MaintenanceTask[]
   workLogs         WorkLog[]
+  utilityPayments  UtilityPayment[]
 
   @@index([email])
   @@index([roleId])
@@ -977,7 +978,7 @@ model StockMovement {
 model MaintenanceItem {
   id       String  @id @default(uuid())
   quantity Int
-  cost     Decimal @default(0) @db.Decimal(10, 2)
+  cost     Decimal @db.Decimal(10, 2)
 
   maintenanceId String
   maintenance   Maintenance @relation(fields: [maintenanceId], references: [id], onDelete: Cascade)
@@ -1045,13 +1046,61 @@ model Meter {
   spaceId    String?
   space      Space?    @relation(fields: [spaceId], references: [id])
 
+  isSmartMeter Boolean @default(false)
+  deviceId     String? @unique
+
+  // Realtime Data
+  currentPower   Decimal @default(0) @db.Decimal(10, 2)
+  currentVoltage Decimal @default(0) @db.Decimal(10, 2)
+  currentBalance Decimal @default(0) @db.Decimal(10, 2)
+
+  // Configuration
+  tariffRate      Decimal @default(0) // Cost per kWh (e.g. NGN 70.00)
+  lowBalanceLimit Decimal @default(500) // Alert when balance < NGN 500
+
   readings           MeterReading[]
   preventiveTriggers MeterMaintenanceTrigger[]
 
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  createdAt        DateTime         @default(now())
+  updatedAt        DateTime         @updatedAt
+  meterTelemetries MeterTelemetry[]
+  utilityPayments  UtilityPayment[]
 
   @@map("meters")
+}
+
+model MeterTelemetry {
+  id      String @id @default(uuid())
+  meterId String
+  meter   Meter  @relation(fields: [meterId], references: [id], onDelete: Cascade)
+
+  timestamp DateTime @default(now())
+
+  kwh     Decimal  @db.Decimal(10, 4) // Cumulative Reading
+  voltage Decimal? @db.Decimal(5, 2)
+  current Decimal? @db.Decimal(5, 2)
+  power   Decimal? @db.Decimal(10, 2) // Instantaneous Load
+
+  @@index([meterId, timestamp])
+  @@map("meter_telemetry")
+}
+
+// --- NEW: PAYMENT HISTORY ---
+model UtilityPayment {
+  id           String   @id @default(uuid())
+  amount       Decimal
+  kwhPurchased Decimal? // Optional: if you convert money to kwh immediately
+
+  meterId String
+  meter   Meter  @relation(fields: [meterId], references: [id])
+
+  paidByUserId String
+  paidBy       User   @relation(fields: [paidByUserId], references: [id])
+
+  transactionRef String // Paystack/Stripe reference
+  createdAt      DateTime @default(now())
+
+  @@map("utility_payments")
 }
 
 model MeterReading {

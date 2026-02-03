@@ -164,6 +164,16 @@ export type RefreshToken = $Result.DefaultSelection<Prisma.$RefreshTokenPayload>
  */
 export type Meter = $Result.DefaultSelection<Prisma.$MeterPayload>
 /**
+ * Model MeterTelemetry
+ * 
+ */
+export type MeterTelemetry = $Result.DefaultSelection<Prisma.$MeterTelemetryPayload>
+/**
+ * Model UtilityPayment
+ * 
+ */
+export type UtilityPayment = $Result.DefaultSelection<Prisma.$UtilityPaymentPayload>
+/**
  * Model MeterReading
  * 
  */
@@ -1043,6 +1053,26 @@ export class PrismaClient<
   get meter(): Prisma.MeterDelegate<ExtArgs, ClientOptions>;
 
   /**
+   * `prisma.meterTelemetry`: Exposes CRUD operations for the **MeterTelemetry** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more MeterTelemetries
+    * const meterTelemetries = await prisma.meterTelemetry.findMany()
+    * ```
+    */
+  get meterTelemetry(): Prisma.MeterTelemetryDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.utilityPayment`: Exposes CRUD operations for the **UtilityPayment** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more UtilityPayments
+    * const utilityPayments = await prisma.utilityPayment.findMany()
+    * ```
+    */
+  get utilityPayment(): Prisma.UtilityPaymentDelegate<ExtArgs, ClientOptions>;
+
+  /**
    * `prisma.meterReading`: Exposes CRUD operations for the **MeterReading** model.
     * Example usage:
     * ```ts
@@ -1595,6 +1625,8 @@ export namespace Prisma {
     MaintenanceItem: 'MaintenanceItem',
     RefreshToken: 'RefreshToken',
     Meter: 'Meter',
+    MeterTelemetry: 'MeterTelemetry',
+    UtilityPayment: 'UtilityPayment',
     MeterReading: 'MeterReading',
     MeterMaintenanceTrigger: 'MeterMaintenanceTrigger',
     CostCenter: 'CostCenter',
@@ -1619,7 +1651,7 @@ export namespace Prisma {
       omit: GlobalOmitOptions
     }
     meta: {
-      modelProps: "user" | "workLog" | "role" | "permission" | "site" | "complex" | "building" | "floor" | "zone" | "space" | "assetType" | "assetCategory" | "asset" | "file" | "company" | "team" | "address" | "contract" | "calenderEntity" | "maintenance" | "preventive" | "preventiveTask" | "maintenanceTask" | "warehouse" | "item" | "stock" | "stockMovement" | "maintenanceItem" | "refreshToken" | "meter" | "meterReading" | "meterMaintenanceTrigger" | "costCenter" | "purchaseRequest" | "purchaseRequestItem" | "purchaseOrder" | "purchaseOrderItem" | "goodsReceipt" | "goodsReceiptItem"
+      modelProps: "user" | "workLog" | "role" | "permission" | "site" | "complex" | "building" | "floor" | "zone" | "space" | "assetType" | "assetCategory" | "asset" | "file" | "company" | "team" | "address" | "contract" | "calenderEntity" | "maintenance" | "preventive" | "preventiveTask" | "maintenanceTask" | "warehouse" | "item" | "stock" | "stockMovement" | "maintenanceItem" | "refreshToken" | "meter" | "meterTelemetry" | "utilityPayment" | "meterReading" | "meterMaintenanceTrigger" | "costCenter" | "purchaseRequest" | "purchaseRequestItem" | "purchaseOrder" | "purchaseOrderItem" | "goodsReceipt" | "goodsReceiptItem"
       txIsolationLevel: Prisma.TransactionIsolationLevel
     }
     model: {
@@ -3843,6 +3875,154 @@ export namespace Prisma {
           }
         }
       }
+      MeterTelemetry: {
+        payload: Prisma.$MeterTelemetryPayload<ExtArgs>
+        fields: Prisma.MeterTelemetryFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.MeterTelemetryFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MeterTelemetryPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.MeterTelemetryFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MeterTelemetryPayload>
+          }
+          findFirst: {
+            args: Prisma.MeterTelemetryFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MeterTelemetryPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.MeterTelemetryFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MeterTelemetryPayload>
+          }
+          findMany: {
+            args: Prisma.MeterTelemetryFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MeterTelemetryPayload>[]
+          }
+          create: {
+            args: Prisma.MeterTelemetryCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MeterTelemetryPayload>
+          }
+          createMany: {
+            args: Prisma.MeterTelemetryCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.MeterTelemetryCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MeterTelemetryPayload>[]
+          }
+          delete: {
+            args: Prisma.MeterTelemetryDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MeterTelemetryPayload>
+          }
+          update: {
+            args: Prisma.MeterTelemetryUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MeterTelemetryPayload>
+          }
+          deleteMany: {
+            args: Prisma.MeterTelemetryDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.MeterTelemetryUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.MeterTelemetryUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MeterTelemetryPayload>[]
+          }
+          upsert: {
+            args: Prisma.MeterTelemetryUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MeterTelemetryPayload>
+          }
+          aggregate: {
+            args: Prisma.MeterTelemetryAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateMeterTelemetry>
+          }
+          groupBy: {
+            args: Prisma.MeterTelemetryGroupByArgs<ExtArgs>
+            result: $Utils.Optional<MeterTelemetryGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.MeterTelemetryCountArgs<ExtArgs>
+            result: $Utils.Optional<MeterTelemetryCountAggregateOutputType> | number
+          }
+        }
+      }
+      UtilityPayment: {
+        payload: Prisma.$UtilityPaymentPayload<ExtArgs>
+        fields: Prisma.UtilityPaymentFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.UtilityPaymentFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$UtilityPaymentPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.UtilityPaymentFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$UtilityPaymentPayload>
+          }
+          findFirst: {
+            args: Prisma.UtilityPaymentFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$UtilityPaymentPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.UtilityPaymentFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$UtilityPaymentPayload>
+          }
+          findMany: {
+            args: Prisma.UtilityPaymentFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$UtilityPaymentPayload>[]
+          }
+          create: {
+            args: Prisma.UtilityPaymentCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$UtilityPaymentPayload>
+          }
+          createMany: {
+            args: Prisma.UtilityPaymentCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.UtilityPaymentCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$UtilityPaymentPayload>[]
+          }
+          delete: {
+            args: Prisma.UtilityPaymentDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$UtilityPaymentPayload>
+          }
+          update: {
+            args: Prisma.UtilityPaymentUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$UtilityPaymentPayload>
+          }
+          deleteMany: {
+            args: Prisma.UtilityPaymentDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.UtilityPaymentUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.UtilityPaymentUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$UtilityPaymentPayload>[]
+          }
+          upsert: {
+            args: Prisma.UtilityPaymentUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$UtilityPaymentPayload>
+          }
+          aggregate: {
+            args: Prisma.UtilityPaymentAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateUtilityPayment>
+          }
+          groupBy: {
+            args: Prisma.UtilityPaymentGroupByArgs<ExtArgs>
+            result: $Utils.Optional<UtilityPaymentGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.UtilityPaymentCountArgs<ExtArgs>
+            result: $Utils.Optional<UtilityPaymentCountAggregateOutputType> | number
+          }
+        }
+      }
       MeterReading: {
         payload: Prisma.$MeterReadingPayload<ExtArgs>
         fields: Prisma.MeterReadingFieldRefs
@@ -4631,6 +4811,8 @@ export namespace Prisma {
     maintenanceItem?: MaintenanceItemOmit
     refreshToken?: RefreshTokenOmit
     meter?: MeterOmit
+    meterTelemetry?: MeterTelemetryOmit
+    utilityPayment?: UtilityPaymentOmit
     meterReading?: MeterReadingOmit
     meterMaintenanceTrigger?: MeterMaintenanceTriggerOmit
     costCenter?: CostCenterOmit
@@ -4730,6 +4912,7 @@ export namespace Prisma {
     goodsReceipts: number
     maintenanceTasks: number
     workLogs: number
+    utilityPayments: number
   }
 
   export type UserCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -4743,6 +4926,7 @@ export namespace Prisma {
     goodsReceipts?: boolean | UserCountOutputTypeCountGoodsReceiptsArgs
     maintenanceTasks?: boolean | UserCountOutputTypeCountMaintenanceTasksArgs
     workLogs?: boolean | UserCountOutputTypeCountWorkLogsArgs
+    utilityPayments?: boolean | UserCountOutputTypeCountUtilityPaymentsArgs
   }
 
   // Custom InputTypes
@@ -4824,6 +5008,13 @@ export namespace Prisma {
    */
   export type UserCountOutputTypeCountWorkLogsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: WorkLogWhereInput
+  }
+
+  /**
+   * UserCountOutputType without action
+   */
+  export type UserCountOutputTypeCountUtilityPaymentsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: UtilityPaymentWhereInput
   }
 
 
@@ -5815,11 +6006,15 @@ export namespace Prisma {
   export type MeterCountOutputType = {
     readings: number
     preventiveTriggers: number
+    meterTelemetries: number
+    utilityPayments: number
   }
 
   export type MeterCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     readings?: boolean | MeterCountOutputTypeCountReadingsArgs
     preventiveTriggers?: boolean | MeterCountOutputTypeCountPreventiveTriggersArgs
+    meterTelemetries?: boolean | MeterCountOutputTypeCountMeterTelemetriesArgs
+    utilityPayments?: boolean | MeterCountOutputTypeCountUtilityPaymentsArgs
   }
 
   // Custom InputTypes
@@ -5845,6 +6040,20 @@ export namespace Prisma {
    */
   export type MeterCountOutputTypeCountPreventiveTriggersArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: MeterMaintenanceTriggerWhereInput
+  }
+
+  /**
+   * MeterCountOutputType without action
+   */
+  export type MeterCountOutputTypeCountMeterTelemetriesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: MeterTelemetryWhereInput
+  }
+
+  /**
+   * MeterCountOutputType without action
+   */
+  export type MeterCountOutputTypeCountUtilityPaymentsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: UtilityPaymentWhereInput
   }
 
 
@@ -6363,6 +6572,7 @@ export namespace Prisma {
     goodsReceipts?: boolean | User$goodsReceiptsArgs<ExtArgs>
     maintenanceTasks?: boolean | User$maintenanceTasksArgs<ExtArgs>
     workLogs?: boolean | User$workLogsArgs<ExtArgs>
+    utilityPayments?: boolean | User$utilityPaymentsArgs<ExtArgs>
     _count?: boolean | UserCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["user"]>
 
@@ -6456,6 +6666,7 @@ export namespace Prisma {
     goodsReceipts?: boolean | User$goodsReceiptsArgs<ExtArgs>
     maintenanceTasks?: boolean | User$maintenanceTasksArgs<ExtArgs>
     workLogs?: boolean | User$workLogsArgs<ExtArgs>
+    utilityPayments?: boolean | User$utilityPaymentsArgs<ExtArgs>
     _count?: boolean | UserCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type UserIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -6488,6 +6699,7 @@ export namespace Prisma {
       goodsReceipts: Prisma.$GoodsReceiptPayload<ExtArgs>[]
       maintenanceTasks: Prisma.$MaintenanceTaskPayload<ExtArgs>[]
       workLogs: Prisma.$WorkLogPayload<ExtArgs>[]
+      utilityPayments: Prisma.$UtilityPaymentPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -6917,6 +7129,7 @@ export namespace Prisma {
     goodsReceipts<T extends User$goodsReceiptsArgs<ExtArgs> = {}>(args?: Subset<T, User$goodsReceiptsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$GoodsReceiptPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     maintenanceTasks<T extends User$maintenanceTasksArgs<ExtArgs> = {}>(args?: Subset<T, User$maintenanceTasksArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$MaintenanceTaskPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     workLogs<T extends User$workLogsArgs<ExtArgs> = {}>(args?: Subset<T, User$workLogsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$WorkLogPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    utilityPayments<T extends User$utilityPaymentsArgs<ExtArgs> = {}>(args?: Subset<T, User$utilityPaymentsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$UtilityPaymentPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -7655,6 +7868,30 @@ export namespace Prisma {
     take?: number
     skip?: number
     distinct?: WorkLogScalarFieldEnum | WorkLogScalarFieldEnum[]
+  }
+
+  /**
+   * User.utilityPayments
+   */
+  export type User$utilityPaymentsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the UtilityPayment
+     */
+    select?: UtilityPaymentSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the UtilityPayment
+     */
+    omit?: UtilityPaymentOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UtilityPaymentInclude<ExtArgs> | null
+    where?: UtilityPaymentWhereInput
+    orderBy?: UtilityPaymentOrderByWithRelationInput | UtilityPaymentOrderByWithRelationInput[]
+    cursor?: UtilityPaymentWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: UtilityPaymentScalarFieldEnum | UtilityPaymentScalarFieldEnum[]
   }
 
   /**
@@ -43090,8 +43327,26 @@ export namespace Prisma {
 
   export type AggregateMeter = {
     _count: MeterCountAggregateOutputType | null
+    _avg: MeterAvgAggregateOutputType | null
+    _sum: MeterSumAggregateOutputType | null
     _min: MeterMinAggregateOutputType | null
     _max: MeterMaxAggregateOutputType | null
+  }
+
+  export type MeterAvgAggregateOutputType = {
+    currentPower: Decimal | null
+    currentVoltage: Decimal | null
+    currentBalance: Decimal | null
+    tariffRate: Decimal | null
+    lowBalanceLimit: Decimal | null
+  }
+
+  export type MeterSumAggregateOutputType = {
+    currentPower: Decimal | null
+    currentVoltage: Decimal | null
+    currentBalance: Decimal | null
+    tariffRate: Decimal | null
+    lowBalanceLimit: Decimal | null
   }
 
   export type MeterMinAggregateOutputType = {
@@ -43103,6 +43358,13 @@ export namespace Prisma {
     buildingId: string | null
     zoneId: string | null
     spaceId: string | null
+    isSmartMeter: boolean | null
+    deviceId: string | null
+    currentPower: Decimal | null
+    currentVoltage: Decimal | null
+    currentBalance: Decimal | null
+    tariffRate: Decimal | null
+    lowBalanceLimit: Decimal | null
     createdAt: Date | null
     updatedAt: Date | null
   }
@@ -43116,6 +43378,13 @@ export namespace Prisma {
     buildingId: string | null
     zoneId: string | null
     spaceId: string | null
+    isSmartMeter: boolean | null
+    deviceId: string | null
+    currentPower: Decimal | null
+    currentVoltage: Decimal | null
+    currentBalance: Decimal | null
+    tariffRate: Decimal | null
+    lowBalanceLimit: Decimal | null
     createdAt: Date | null
     updatedAt: Date | null
   }
@@ -43129,11 +43398,34 @@ export namespace Prisma {
     buildingId: number
     zoneId: number
     spaceId: number
+    isSmartMeter: number
+    deviceId: number
+    currentPower: number
+    currentVoltage: number
+    currentBalance: number
+    tariffRate: number
+    lowBalanceLimit: number
     createdAt: number
     updatedAt: number
     _all: number
   }
 
+
+  export type MeterAvgAggregateInputType = {
+    currentPower?: true
+    currentVoltage?: true
+    currentBalance?: true
+    tariffRate?: true
+    lowBalanceLimit?: true
+  }
+
+  export type MeterSumAggregateInputType = {
+    currentPower?: true
+    currentVoltage?: true
+    currentBalance?: true
+    tariffRate?: true
+    lowBalanceLimit?: true
+  }
 
   export type MeterMinAggregateInputType = {
     id?: true
@@ -43144,6 +43436,13 @@ export namespace Prisma {
     buildingId?: true
     zoneId?: true
     spaceId?: true
+    isSmartMeter?: true
+    deviceId?: true
+    currentPower?: true
+    currentVoltage?: true
+    currentBalance?: true
+    tariffRate?: true
+    lowBalanceLimit?: true
     createdAt?: true
     updatedAt?: true
   }
@@ -43157,6 +43456,13 @@ export namespace Prisma {
     buildingId?: true
     zoneId?: true
     spaceId?: true
+    isSmartMeter?: true
+    deviceId?: true
+    currentPower?: true
+    currentVoltage?: true
+    currentBalance?: true
+    tariffRate?: true
+    lowBalanceLimit?: true
     createdAt?: true
     updatedAt?: true
   }
@@ -43170,6 +43476,13 @@ export namespace Prisma {
     buildingId?: true
     zoneId?: true
     spaceId?: true
+    isSmartMeter?: true
+    deviceId?: true
+    currentPower?: true
+    currentVoltage?: true
+    currentBalance?: true
+    tariffRate?: true
+    lowBalanceLimit?: true
     createdAt?: true
     updatedAt?: true
     _all?: true
@@ -43213,6 +43526,18 @@ export namespace Prisma {
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
      * 
+     * Select which fields to average
+    **/
+    _avg?: MeterAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: MeterSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
      * Select which fields to find the minimum value
     **/
     _min?: MeterMinAggregateInputType
@@ -43243,6 +43568,8 @@ export namespace Prisma {
     take?: number
     skip?: number
     _count?: MeterCountAggregateInputType | true
+    _avg?: MeterAvgAggregateInputType
+    _sum?: MeterSumAggregateInputType
     _min?: MeterMinAggregateInputType
     _max?: MeterMaxAggregateInputType
   }
@@ -43256,9 +43583,18 @@ export namespace Prisma {
     buildingId: string | null
     zoneId: string | null
     spaceId: string | null
+    isSmartMeter: boolean
+    deviceId: string | null
+    currentPower: Decimal
+    currentVoltage: Decimal
+    currentBalance: Decimal
+    tariffRate: Decimal
+    lowBalanceLimit: Decimal
     createdAt: Date
     updatedAt: Date
     _count: MeterCountAggregateOutputType | null
+    _avg: MeterAvgAggregateOutputType | null
+    _sum: MeterSumAggregateOutputType | null
     _min: MeterMinAggregateOutputType | null
     _max: MeterMaxAggregateOutputType | null
   }
@@ -43286,6 +43622,13 @@ export namespace Prisma {
     buildingId?: boolean
     zoneId?: boolean
     spaceId?: boolean
+    isSmartMeter?: boolean
+    deviceId?: boolean
+    currentPower?: boolean
+    currentVoltage?: boolean
+    currentBalance?: boolean
+    tariffRate?: boolean
+    lowBalanceLimit?: boolean
     createdAt?: boolean
     updatedAt?: boolean
     asset?: boolean | Meter$assetArgs<ExtArgs>
@@ -43294,6 +43637,8 @@ export namespace Prisma {
     space?: boolean | Meter$spaceArgs<ExtArgs>
     readings?: boolean | Meter$readingsArgs<ExtArgs>
     preventiveTriggers?: boolean | Meter$preventiveTriggersArgs<ExtArgs>
+    meterTelemetries?: boolean | Meter$meterTelemetriesArgs<ExtArgs>
+    utilityPayments?: boolean | Meter$utilityPaymentsArgs<ExtArgs>
     _count?: boolean | MeterCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["meter"]>
 
@@ -43306,6 +43651,13 @@ export namespace Prisma {
     buildingId?: boolean
     zoneId?: boolean
     spaceId?: boolean
+    isSmartMeter?: boolean
+    deviceId?: boolean
+    currentPower?: boolean
+    currentVoltage?: boolean
+    currentBalance?: boolean
+    tariffRate?: boolean
+    lowBalanceLimit?: boolean
     createdAt?: boolean
     updatedAt?: boolean
     asset?: boolean | Meter$assetArgs<ExtArgs>
@@ -43323,6 +43675,13 @@ export namespace Prisma {
     buildingId?: boolean
     zoneId?: boolean
     spaceId?: boolean
+    isSmartMeter?: boolean
+    deviceId?: boolean
+    currentPower?: boolean
+    currentVoltage?: boolean
+    currentBalance?: boolean
+    tariffRate?: boolean
+    lowBalanceLimit?: boolean
     createdAt?: boolean
     updatedAt?: boolean
     asset?: boolean | Meter$assetArgs<ExtArgs>
@@ -43340,11 +43699,18 @@ export namespace Prisma {
     buildingId?: boolean
     zoneId?: boolean
     spaceId?: boolean
+    isSmartMeter?: boolean
+    deviceId?: boolean
+    currentPower?: boolean
+    currentVoltage?: boolean
+    currentBalance?: boolean
+    tariffRate?: boolean
+    lowBalanceLimit?: boolean
     createdAt?: boolean
     updatedAt?: boolean
   }
 
-  export type MeterOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "type" | "unit" | "assetId" | "buildingId" | "zoneId" | "spaceId" | "createdAt" | "updatedAt", ExtArgs["result"]["meter"]>
+  export type MeterOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "type" | "unit" | "assetId" | "buildingId" | "zoneId" | "spaceId" | "isSmartMeter" | "deviceId" | "currentPower" | "currentVoltage" | "currentBalance" | "tariffRate" | "lowBalanceLimit" | "createdAt" | "updatedAt", ExtArgs["result"]["meter"]>
   export type MeterInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     asset?: boolean | Meter$assetArgs<ExtArgs>
     building?: boolean | Meter$buildingArgs<ExtArgs>
@@ -43352,6 +43718,8 @@ export namespace Prisma {
     space?: boolean | Meter$spaceArgs<ExtArgs>
     readings?: boolean | Meter$readingsArgs<ExtArgs>
     preventiveTriggers?: boolean | Meter$preventiveTriggersArgs<ExtArgs>
+    meterTelemetries?: boolean | Meter$meterTelemetriesArgs<ExtArgs>
+    utilityPayments?: boolean | Meter$utilityPaymentsArgs<ExtArgs>
     _count?: boolean | MeterCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type MeterIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -43376,6 +43744,8 @@ export namespace Prisma {
       space: Prisma.$SpacePayload<ExtArgs> | null
       readings: Prisma.$MeterReadingPayload<ExtArgs>[]
       preventiveTriggers: Prisma.$MeterMaintenanceTriggerPayload<ExtArgs>[]
+      meterTelemetries: Prisma.$MeterTelemetryPayload<ExtArgs>[]
+      utilityPayments: Prisma.$UtilityPaymentPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -43386,6 +43756,13 @@ export namespace Prisma {
       buildingId: string | null
       zoneId: string | null
       spaceId: string | null
+      isSmartMeter: boolean
+      deviceId: string | null
+      currentPower: Prisma.Decimal
+      currentVoltage: Prisma.Decimal
+      currentBalance: Prisma.Decimal
+      tariffRate: Prisma.Decimal
+      lowBalanceLimit: Prisma.Decimal
       createdAt: Date
       updatedAt: Date
     }, ExtArgs["result"]["meter"]>
@@ -43788,6 +44165,8 @@ export namespace Prisma {
     space<T extends Meter$spaceArgs<ExtArgs> = {}>(args?: Subset<T, Meter$spaceArgs<ExtArgs>>): Prisma__SpaceClient<$Result.GetResult<Prisma.$SpacePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
     readings<T extends Meter$readingsArgs<ExtArgs> = {}>(args?: Subset<T, Meter$readingsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$MeterReadingPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     preventiveTriggers<T extends Meter$preventiveTriggersArgs<ExtArgs> = {}>(args?: Subset<T, Meter$preventiveTriggersArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$MeterMaintenanceTriggerPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    meterTelemetries<T extends Meter$meterTelemetriesArgs<ExtArgs> = {}>(args?: Subset<T, Meter$meterTelemetriesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$MeterTelemetryPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    utilityPayments<T extends Meter$utilityPaymentsArgs<ExtArgs> = {}>(args?: Subset<T, Meter$utilityPaymentsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$UtilityPaymentPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -43825,6 +44204,13 @@ export namespace Prisma {
     readonly buildingId: FieldRef<"Meter", 'String'>
     readonly zoneId: FieldRef<"Meter", 'String'>
     readonly spaceId: FieldRef<"Meter", 'String'>
+    readonly isSmartMeter: FieldRef<"Meter", 'Boolean'>
+    readonly deviceId: FieldRef<"Meter", 'String'>
+    readonly currentPower: FieldRef<"Meter", 'Decimal'>
+    readonly currentVoltage: FieldRef<"Meter", 'Decimal'>
+    readonly currentBalance: FieldRef<"Meter", 'Decimal'>
+    readonly tariffRate: FieldRef<"Meter", 'Decimal'>
+    readonly lowBalanceLimit: FieldRef<"Meter", 'Decimal'>
     readonly createdAt: FieldRef<"Meter", 'DateTime'>
     readonly updatedAt: FieldRef<"Meter", 'DateTime'>
   }
@@ -44347,6 +44733,54 @@ export namespace Prisma {
   }
 
   /**
+   * Meter.meterTelemetries
+   */
+  export type Meter$meterTelemetriesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MeterTelemetry
+     */
+    select?: MeterTelemetrySelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the MeterTelemetry
+     */
+    omit?: MeterTelemetryOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MeterTelemetryInclude<ExtArgs> | null
+    where?: MeterTelemetryWhereInput
+    orderBy?: MeterTelemetryOrderByWithRelationInput | MeterTelemetryOrderByWithRelationInput[]
+    cursor?: MeterTelemetryWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: MeterTelemetryScalarFieldEnum | MeterTelemetryScalarFieldEnum[]
+  }
+
+  /**
+   * Meter.utilityPayments
+   */
+  export type Meter$utilityPaymentsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the UtilityPayment
+     */
+    select?: UtilityPaymentSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the UtilityPayment
+     */
+    omit?: UtilityPaymentOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UtilityPaymentInclude<ExtArgs> | null
+    where?: UtilityPaymentWhereInput
+    orderBy?: UtilityPaymentOrderByWithRelationInput | UtilityPaymentOrderByWithRelationInput[]
+    cursor?: UtilityPaymentWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: UtilityPaymentScalarFieldEnum | UtilityPaymentScalarFieldEnum[]
+  }
+
+  /**
    * Meter without action
    */
   export type MeterDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -44362,6 +44796,2266 @@ export namespace Prisma {
      * Choose, which related nodes to fetch as well
      */
     include?: MeterInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model MeterTelemetry
+   */
+
+  export type AggregateMeterTelemetry = {
+    _count: MeterTelemetryCountAggregateOutputType | null
+    _avg: MeterTelemetryAvgAggregateOutputType | null
+    _sum: MeterTelemetrySumAggregateOutputType | null
+    _min: MeterTelemetryMinAggregateOutputType | null
+    _max: MeterTelemetryMaxAggregateOutputType | null
+  }
+
+  export type MeterTelemetryAvgAggregateOutputType = {
+    kwh: Decimal | null
+    voltage: Decimal | null
+    current: Decimal | null
+    power: Decimal | null
+  }
+
+  export type MeterTelemetrySumAggregateOutputType = {
+    kwh: Decimal | null
+    voltage: Decimal | null
+    current: Decimal | null
+    power: Decimal | null
+  }
+
+  export type MeterTelemetryMinAggregateOutputType = {
+    id: string | null
+    meterId: string | null
+    timestamp: Date | null
+    kwh: Decimal | null
+    voltage: Decimal | null
+    current: Decimal | null
+    power: Decimal | null
+  }
+
+  export type MeterTelemetryMaxAggregateOutputType = {
+    id: string | null
+    meterId: string | null
+    timestamp: Date | null
+    kwh: Decimal | null
+    voltage: Decimal | null
+    current: Decimal | null
+    power: Decimal | null
+  }
+
+  export type MeterTelemetryCountAggregateOutputType = {
+    id: number
+    meterId: number
+    timestamp: number
+    kwh: number
+    voltage: number
+    current: number
+    power: number
+    _all: number
+  }
+
+
+  export type MeterTelemetryAvgAggregateInputType = {
+    kwh?: true
+    voltage?: true
+    current?: true
+    power?: true
+  }
+
+  export type MeterTelemetrySumAggregateInputType = {
+    kwh?: true
+    voltage?: true
+    current?: true
+    power?: true
+  }
+
+  export type MeterTelemetryMinAggregateInputType = {
+    id?: true
+    meterId?: true
+    timestamp?: true
+    kwh?: true
+    voltage?: true
+    current?: true
+    power?: true
+  }
+
+  export type MeterTelemetryMaxAggregateInputType = {
+    id?: true
+    meterId?: true
+    timestamp?: true
+    kwh?: true
+    voltage?: true
+    current?: true
+    power?: true
+  }
+
+  export type MeterTelemetryCountAggregateInputType = {
+    id?: true
+    meterId?: true
+    timestamp?: true
+    kwh?: true
+    voltage?: true
+    current?: true
+    power?: true
+    _all?: true
+  }
+
+  export type MeterTelemetryAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which MeterTelemetry to aggregate.
+     */
+    where?: MeterTelemetryWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of MeterTelemetries to fetch.
+     */
+    orderBy?: MeterTelemetryOrderByWithRelationInput | MeterTelemetryOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: MeterTelemetryWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` MeterTelemetries from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` MeterTelemetries.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned MeterTelemetries
+    **/
+    _count?: true | MeterTelemetryCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: MeterTelemetryAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: MeterTelemetrySumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: MeterTelemetryMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: MeterTelemetryMaxAggregateInputType
+  }
+
+  export type GetMeterTelemetryAggregateType<T extends MeterTelemetryAggregateArgs> = {
+        [P in keyof T & keyof AggregateMeterTelemetry]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateMeterTelemetry[P]>
+      : GetScalarType<T[P], AggregateMeterTelemetry[P]>
+  }
+
+
+
+
+  export type MeterTelemetryGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: MeterTelemetryWhereInput
+    orderBy?: MeterTelemetryOrderByWithAggregationInput | MeterTelemetryOrderByWithAggregationInput[]
+    by: MeterTelemetryScalarFieldEnum[] | MeterTelemetryScalarFieldEnum
+    having?: MeterTelemetryScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: MeterTelemetryCountAggregateInputType | true
+    _avg?: MeterTelemetryAvgAggregateInputType
+    _sum?: MeterTelemetrySumAggregateInputType
+    _min?: MeterTelemetryMinAggregateInputType
+    _max?: MeterTelemetryMaxAggregateInputType
+  }
+
+  export type MeterTelemetryGroupByOutputType = {
+    id: string
+    meterId: string
+    timestamp: Date
+    kwh: Decimal
+    voltage: Decimal | null
+    current: Decimal | null
+    power: Decimal | null
+    _count: MeterTelemetryCountAggregateOutputType | null
+    _avg: MeterTelemetryAvgAggregateOutputType | null
+    _sum: MeterTelemetrySumAggregateOutputType | null
+    _min: MeterTelemetryMinAggregateOutputType | null
+    _max: MeterTelemetryMaxAggregateOutputType | null
+  }
+
+  type GetMeterTelemetryGroupByPayload<T extends MeterTelemetryGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<MeterTelemetryGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof MeterTelemetryGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], MeterTelemetryGroupByOutputType[P]>
+            : GetScalarType<T[P], MeterTelemetryGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type MeterTelemetrySelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    meterId?: boolean
+    timestamp?: boolean
+    kwh?: boolean
+    voltage?: boolean
+    current?: boolean
+    power?: boolean
+    meter?: boolean | MeterDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["meterTelemetry"]>
+
+  export type MeterTelemetrySelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    meterId?: boolean
+    timestamp?: boolean
+    kwh?: boolean
+    voltage?: boolean
+    current?: boolean
+    power?: boolean
+    meter?: boolean | MeterDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["meterTelemetry"]>
+
+  export type MeterTelemetrySelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    meterId?: boolean
+    timestamp?: boolean
+    kwh?: boolean
+    voltage?: boolean
+    current?: boolean
+    power?: boolean
+    meter?: boolean | MeterDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["meterTelemetry"]>
+
+  export type MeterTelemetrySelectScalar = {
+    id?: boolean
+    meterId?: boolean
+    timestamp?: boolean
+    kwh?: boolean
+    voltage?: boolean
+    current?: boolean
+    power?: boolean
+  }
+
+  export type MeterTelemetryOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "meterId" | "timestamp" | "kwh" | "voltage" | "current" | "power", ExtArgs["result"]["meterTelemetry"]>
+  export type MeterTelemetryInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    meter?: boolean | MeterDefaultArgs<ExtArgs>
+  }
+  export type MeterTelemetryIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    meter?: boolean | MeterDefaultArgs<ExtArgs>
+  }
+  export type MeterTelemetryIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    meter?: boolean | MeterDefaultArgs<ExtArgs>
+  }
+
+  export type $MeterTelemetryPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "MeterTelemetry"
+    objects: {
+      meter: Prisma.$MeterPayload<ExtArgs>
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      meterId: string
+      timestamp: Date
+      kwh: Prisma.Decimal
+      voltage: Prisma.Decimal | null
+      current: Prisma.Decimal | null
+      power: Prisma.Decimal | null
+    }, ExtArgs["result"]["meterTelemetry"]>
+    composites: {}
+  }
+
+  type MeterTelemetryGetPayload<S extends boolean | null | undefined | MeterTelemetryDefaultArgs> = $Result.GetResult<Prisma.$MeterTelemetryPayload, S>
+
+  type MeterTelemetryCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<MeterTelemetryFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: MeterTelemetryCountAggregateInputType | true
+    }
+
+  export interface MeterTelemetryDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['MeterTelemetry'], meta: { name: 'MeterTelemetry' } }
+    /**
+     * Find zero or one MeterTelemetry that matches the filter.
+     * @param {MeterTelemetryFindUniqueArgs} args - Arguments to find a MeterTelemetry
+     * @example
+     * // Get one MeterTelemetry
+     * const meterTelemetry = await prisma.meterTelemetry.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends MeterTelemetryFindUniqueArgs>(args: SelectSubset<T, MeterTelemetryFindUniqueArgs<ExtArgs>>): Prisma__MeterTelemetryClient<$Result.GetResult<Prisma.$MeterTelemetryPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one MeterTelemetry that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {MeterTelemetryFindUniqueOrThrowArgs} args - Arguments to find a MeterTelemetry
+     * @example
+     * // Get one MeterTelemetry
+     * const meterTelemetry = await prisma.meterTelemetry.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends MeterTelemetryFindUniqueOrThrowArgs>(args: SelectSubset<T, MeterTelemetryFindUniqueOrThrowArgs<ExtArgs>>): Prisma__MeterTelemetryClient<$Result.GetResult<Prisma.$MeterTelemetryPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first MeterTelemetry that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {MeterTelemetryFindFirstArgs} args - Arguments to find a MeterTelemetry
+     * @example
+     * // Get one MeterTelemetry
+     * const meterTelemetry = await prisma.meterTelemetry.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends MeterTelemetryFindFirstArgs>(args?: SelectSubset<T, MeterTelemetryFindFirstArgs<ExtArgs>>): Prisma__MeterTelemetryClient<$Result.GetResult<Prisma.$MeterTelemetryPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first MeterTelemetry that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {MeterTelemetryFindFirstOrThrowArgs} args - Arguments to find a MeterTelemetry
+     * @example
+     * // Get one MeterTelemetry
+     * const meterTelemetry = await prisma.meterTelemetry.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends MeterTelemetryFindFirstOrThrowArgs>(args?: SelectSubset<T, MeterTelemetryFindFirstOrThrowArgs<ExtArgs>>): Prisma__MeterTelemetryClient<$Result.GetResult<Prisma.$MeterTelemetryPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more MeterTelemetries that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {MeterTelemetryFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all MeterTelemetries
+     * const meterTelemetries = await prisma.meterTelemetry.findMany()
+     * 
+     * // Get first 10 MeterTelemetries
+     * const meterTelemetries = await prisma.meterTelemetry.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const meterTelemetryWithIdOnly = await prisma.meterTelemetry.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends MeterTelemetryFindManyArgs>(args?: SelectSubset<T, MeterTelemetryFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$MeterTelemetryPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a MeterTelemetry.
+     * @param {MeterTelemetryCreateArgs} args - Arguments to create a MeterTelemetry.
+     * @example
+     * // Create one MeterTelemetry
+     * const MeterTelemetry = await prisma.meterTelemetry.create({
+     *   data: {
+     *     // ... data to create a MeterTelemetry
+     *   }
+     * })
+     * 
+     */
+    create<T extends MeterTelemetryCreateArgs>(args: SelectSubset<T, MeterTelemetryCreateArgs<ExtArgs>>): Prisma__MeterTelemetryClient<$Result.GetResult<Prisma.$MeterTelemetryPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many MeterTelemetries.
+     * @param {MeterTelemetryCreateManyArgs} args - Arguments to create many MeterTelemetries.
+     * @example
+     * // Create many MeterTelemetries
+     * const meterTelemetry = await prisma.meterTelemetry.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends MeterTelemetryCreateManyArgs>(args?: SelectSubset<T, MeterTelemetryCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many MeterTelemetries and returns the data saved in the database.
+     * @param {MeterTelemetryCreateManyAndReturnArgs} args - Arguments to create many MeterTelemetries.
+     * @example
+     * // Create many MeterTelemetries
+     * const meterTelemetry = await prisma.meterTelemetry.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many MeterTelemetries and only return the `id`
+     * const meterTelemetryWithIdOnly = await prisma.meterTelemetry.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends MeterTelemetryCreateManyAndReturnArgs>(args?: SelectSubset<T, MeterTelemetryCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$MeterTelemetryPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a MeterTelemetry.
+     * @param {MeterTelemetryDeleteArgs} args - Arguments to delete one MeterTelemetry.
+     * @example
+     * // Delete one MeterTelemetry
+     * const MeterTelemetry = await prisma.meterTelemetry.delete({
+     *   where: {
+     *     // ... filter to delete one MeterTelemetry
+     *   }
+     * })
+     * 
+     */
+    delete<T extends MeterTelemetryDeleteArgs>(args: SelectSubset<T, MeterTelemetryDeleteArgs<ExtArgs>>): Prisma__MeterTelemetryClient<$Result.GetResult<Prisma.$MeterTelemetryPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one MeterTelemetry.
+     * @param {MeterTelemetryUpdateArgs} args - Arguments to update one MeterTelemetry.
+     * @example
+     * // Update one MeterTelemetry
+     * const meterTelemetry = await prisma.meterTelemetry.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends MeterTelemetryUpdateArgs>(args: SelectSubset<T, MeterTelemetryUpdateArgs<ExtArgs>>): Prisma__MeterTelemetryClient<$Result.GetResult<Prisma.$MeterTelemetryPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more MeterTelemetries.
+     * @param {MeterTelemetryDeleteManyArgs} args - Arguments to filter MeterTelemetries to delete.
+     * @example
+     * // Delete a few MeterTelemetries
+     * const { count } = await prisma.meterTelemetry.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends MeterTelemetryDeleteManyArgs>(args?: SelectSubset<T, MeterTelemetryDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more MeterTelemetries.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {MeterTelemetryUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many MeterTelemetries
+     * const meterTelemetry = await prisma.meterTelemetry.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends MeterTelemetryUpdateManyArgs>(args: SelectSubset<T, MeterTelemetryUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more MeterTelemetries and returns the data updated in the database.
+     * @param {MeterTelemetryUpdateManyAndReturnArgs} args - Arguments to update many MeterTelemetries.
+     * @example
+     * // Update many MeterTelemetries
+     * const meterTelemetry = await prisma.meterTelemetry.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more MeterTelemetries and only return the `id`
+     * const meterTelemetryWithIdOnly = await prisma.meterTelemetry.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends MeterTelemetryUpdateManyAndReturnArgs>(args: SelectSubset<T, MeterTelemetryUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$MeterTelemetryPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one MeterTelemetry.
+     * @param {MeterTelemetryUpsertArgs} args - Arguments to update or create a MeterTelemetry.
+     * @example
+     * // Update or create a MeterTelemetry
+     * const meterTelemetry = await prisma.meterTelemetry.upsert({
+     *   create: {
+     *     // ... data to create a MeterTelemetry
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the MeterTelemetry we want to update
+     *   }
+     * })
+     */
+    upsert<T extends MeterTelemetryUpsertArgs>(args: SelectSubset<T, MeterTelemetryUpsertArgs<ExtArgs>>): Prisma__MeterTelemetryClient<$Result.GetResult<Prisma.$MeterTelemetryPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of MeterTelemetries.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {MeterTelemetryCountArgs} args - Arguments to filter MeterTelemetries to count.
+     * @example
+     * // Count the number of MeterTelemetries
+     * const count = await prisma.meterTelemetry.count({
+     *   where: {
+     *     // ... the filter for the MeterTelemetries we want to count
+     *   }
+     * })
+    **/
+    count<T extends MeterTelemetryCountArgs>(
+      args?: Subset<T, MeterTelemetryCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], MeterTelemetryCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a MeterTelemetry.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {MeterTelemetryAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends MeterTelemetryAggregateArgs>(args: Subset<T, MeterTelemetryAggregateArgs>): Prisma.PrismaPromise<GetMeterTelemetryAggregateType<T>>
+
+    /**
+     * Group by MeterTelemetry.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {MeterTelemetryGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends MeterTelemetryGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: MeterTelemetryGroupByArgs['orderBy'] }
+        : { orderBy?: MeterTelemetryGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, MeterTelemetryGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetMeterTelemetryGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the MeterTelemetry model
+   */
+  readonly fields: MeterTelemetryFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for MeterTelemetry.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__MeterTelemetryClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    meter<T extends MeterDefaultArgs<ExtArgs> = {}>(args?: Subset<T, MeterDefaultArgs<ExtArgs>>): Prisma__MeterClient<$Result.GetResult<Prisma.$MeterPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the MeterTelemetry model
+   */
+  interface MeterTelemetryFieldRefs {
+    readonly id: FieldRef<"MeterTelemetry", 'String'>
+    readonly meterId: FieldRef<"MeterTelemetry", 'String'>
+    readonly timestamp: FieldRef<"MeterTelemetry", 'DateTime'>
+    readonly kwh: FieldRef<"MeterTelemetry", 'Decimal'>
+    readonly voltage: FieldRef<"MeterTelemetry", 'Decimal'>
+    readonly current: FieldRef<"MeterTelemetry", 'Decimal'>
+    readonly power: FieldRef<"MeterTelemetry", 'Decimal'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * MeterTelemetry findUnique
+   */
+  export type MeterTelemetryFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MeterTelemetry
+     */
+    select?: MeterTelemetrySelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the MeterTelemetry
+     */
+    omit?: MeterTelemetryOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MeterTelemetryInclude<ExtArgs> | null
+    /**
+     * Filter, which MeterTelemetry to fetch.
+     */
+    where: MeterTelemetryWhereUniqueInput
+  }
+
+  /**
+   * MeterTelemetry findUniqueOrThrow
+   */
+  export type MeterTelemetryFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MeterTelemetry
+     */
+    select?: MeterTelemetrySelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the MeterTelemetry
+     */
+    omit?: MeterTelemetryOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MeterTelemetryInclude<ExtArgs> | null
+    /**
+     * Filter, which MeterTelemetry to fetch.
+     */
+    where: MeterTelemetryWhereUniqueInput
+  }
+
+  /**
+   * MeterTelemetry findFirst
+   */
+  export type MeterTelemetryFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MeterTelemetry
+     */
+    select?: MeterTelemetrySelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the MeterTelemetry
+     */
+    omit?: MeterTelemetryOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MeterTelemetryInclude<ExtArgs> | null
+    /**
+     * Filter, which MeterTelemetry to fetch.
+     */
+    where?: MeterTelemetryWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of MeterTelemetries to fetch.
+     */
+    orderBy?: MeterTelemetryOrderByWithRelationInput | MeterTelemetryOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for MeterTelemetries.
+     */
+    cursor?: MeterTelemetryWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` MeterTelemetries from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` MeterTelemetries.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of MeterTelemetries.
+     */
+    distinct?: MeterTelemetryScalarFieldEnum | MeterTelemetryScalarFieldEnum[]
+  }
+
+  /**
+   * MeterTelemetry findFirstOrThrow
+   */
+  export type MeterTelemetryFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MeterTelemetry
+     */
+    select?: MeterTelemetrySelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the MeterTelemetry
+     */
+    omit?: MeterTelemetryOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MeterTelemetryInclude<ExtArgs> | null
+    /**
+     * Filter, which MeterTelemetry to fetch.
+     */
+    where?: MeterTelemetryWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of MeterTelemetries to fetch.
+     */
+    orderBy?: MeterTelemetryOrderByWithRelationInput | MeterTelemetryOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for MeterTelemetries.
+     */
+    cursor?: MeterTelemetryWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` MeterTelemetries from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` MeterTelemetries.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of MeterTelemetries.
+     */
+    distinct?: MeterTelemetryScalarFieldEnum | MeterTelemetryScalarFieldEnum[]
+  }
+
+  /**
+   * MeterTelemetry findMany
+   */
+  export type MeterTelemetryFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MeterTelemetry
+     */
+    select?: MeterTelemetrySelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the MeterTelemetry
+     */
+    omit?: MeterTelemetryOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MeterTelemetryInclude<ExtArgs> | null
+    /**
+     * Filter, which MeterTelemetries to fetch.
+     */
+    where?: MeterTelemetryWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of MeterTelemetries to fetch.
+     */
+    orderBy?: MeterTelemetryOrderByWithRelationInput | MeterTelemetryOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing MeterTelemetries.
+     */
+    cursor?: MeterTelemetryWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` MeterTelemetries from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` MeterTelemetries.
+     */
+    skip?: number
+    distinct?: MeterTelemetryScalarFieldEnum | MeterTelemetryScalarFieldEnum[]
+  }
+
+  /**
+   * MeterTelemetry create
+   */
+  export type MeterTelemetryCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MeterTelemetry
+     */
+    select?: MeterTelemetrySelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the MeterTelemetry
+     */
+    omit?: MeterTelemetryOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MeterTelemetryInclude<ExtArgs> | null
+    /**
+     * The data needed to create a MeterTelemetry.
+     */
+    data: XOR<MeterTelemetryCreateInput, MeterTelemetryUncheckedCreateInput>
+  }
+
+  /**
+   * MeterTelemetry createMany
+   */
+  export type MeterTelemetryCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many MeterTelemetries.
+     */
+    data: MeterTelemetryCreateManyInput | MeterTelemetryCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * MeterTelemetry createManyAndReturn
+   */
+  export type MeterTelemetryCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MeterTelemetry
+     */
+    select?: MeterTelemetrySelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the MeterTelemetry
+     */
+    omit?: MeterTelemetryOmit<ExtArgs> | null
+    /**
+     * The data used to create many MeterTelemetries.
+     */
+    data: MeterTelemetryCreateManyInput | MeterTelemetryCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MeterTelemetryIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * MeterTelemetry update
+   */
+  export type MeterTelemetryUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MeterTelemetry
+     */
+    select?: MeterTelemetrySelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the MeterTelemetry
+     */
+    omit?: MeterTelemetryOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MeterTelemetryInclude<ExtArgs> | null
+    /**
+     * The data needed to update a MeterTelemetry.
+     */
+    data: XOR<MeterTelemetryUpdateInput, MeterTelemetryUncheckedUpdateInput>
+    /**
+     * Choose, which MeterTelemetry to update.
+     */
+    where: MeterTelemetryWhereUniqueInput
+  }
+
+  /**
+   * MeterTelemetry updateMany
+   */
+  export type MeterTelemetryUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update MeterTelemetries.
+     */
+    data: XOR<MeterTelemetryUpdateManyMutationInput, MeterTelemetryUncheckedUpdateManyInput>
+    /**
+     * Filter which MeterTelemetries to update
+     */
+    where?: MeterTelemetryWhereInput
+    /**
+     * Limit how many MeterTelemetries to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * MeterTelemetry updateManyAndReturn
+   */
+  export type MeterTelemetryUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MeterTelemetry
+     */
+    select?: MeterTelemetrySelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the MeterTelemetry
+     */
+    omit?: MeterTelemetryOmit<ExtArgs> | null
+    /**
+     * The data used to update MeterTelemetries.
+     */
+    data: XOR<MeterTelemetryUpdateManyMutationInput, MeterTelemetryUncheckedUpdateManyInput>
+    /**
+     * Filter which MeterTelemetries to update
+     */
+    where?: MeterTelemetryWhereInput
+    /**
+     * Limit how many MeterTelemetries to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MeterTelemetryIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * MeterTelemetry upsert
+   */
+  export type MeterTelemetryUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MeterTelemetry
+     */
+    select?: MeterTelemetrySelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the MeterTelemetry
+     */
+    omit?: MeterTelemetryOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MeterTelemetryInclude<ExtArgs> | null
+    /**
+     * The filter to search for the MeterTelemetry to update in case it exists.
+     */
+    where: MeterTelemetryWhereUniqueInput
+    /**
+     * In case the MeterTelemetry found by the `where` argument doesn't exist, create a new MeterTelemetry with this data.
+     */
+    create: XOR<MeterTelemetryCreateInput, MeterTelemetryUncheckedCreateInput>
+    /**
+     * In case the MeterTelemetry was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<MeterTelemetryUpdateInput, MeterTelemetryUncheckedUpdateInput>
+  }
+
+  /**
+   * MeterTelemetry delete
+   */
+  export type MeterTelemetryDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MeterTelemetry
+     */
+    select?: MeterTelemetrySelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the MeterTelemetry
+     */
+    omit?: MeterTelemetryOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MeterTelemetryInclude<ExtArgs> | null
+    /**
+     * Filter which MeterTelemetry to delete.
+     */
+    where: MeterTelemetryWhereUniqueInput
+  }
+
+  /**
+   * MeterTelemetry deleteMany
+   */
+  export type MeterTelemetryDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which MeterTelemetries to delete
+     */
+    where?: MeterTelemetryWhereInput
+    /**
+     * Limit how many MeterTelemetries to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * MeterTelemetry without action
+   */
+  export type MeterTelemetryDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MeterTelemetry
+     */
+    select?: MeterTelemetrySelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the MeterTelemetry
+     */
+    omit?: MeterTelemetryOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MeterTelemetryInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model UtilityPayment
+   */
+
+  export type AggregateUtilityPayment = {
+    _count: UtilityPaymentCountAggregateOutputType | null
+    _avg: UtilityPaymentAvgAggregateOutputType | null
+    _sum: UtilityPaymentSumAggregateOutputType | null
+    _min: UtilityPaymentMinAggregateOutputType | null
+    _max: UtilityPaymentMaxAggregateOutputType | null
+  }
+
+  export type UtilityPaymentAvgAggregateOutputType = {
+    amount: Decimal | null
+    kwhPurchased: Decimal | null
+  }
+
+  export type UtilityPaymentSumAggregateOutputType = {
+    amount: Decimal | null
+    kwhPurchased: Decimal | null
+  }
+
+  export type UtilityPaymentMinAggregateOutputType = {
+    id: string | null
+    amount: Decimal | null
+    kwhPurchased: Decimal | null
+    meterId: string | null
+    paidByUserId: string | null
+    transactionRef: string | null
+    createdAt: Date | null
+  }
+
+  export type UtilityPaymentMaxAggregateOutputType = {
+    id: string | null
+    amount: Decimal | null
+    kwhPurchased: Decimal | null
+    meterId: string | null
+    paidByUserId: string | null
+    transactionRef: string | null
+    createdAt: Date | null
+  }
+
+  export type UtilityPaymentCountAggregateOutputType = {
+    id: number
+    amount: number
+    kwhPurchased: number
+    meterId: number
+    paidByUserId: number
+    transactionRef: number
+    createdAt: number
+    _all: number
+  }
+
+
+  export type UtilityPaymentAvgAggregateInputType = {
+    amount?: true
+    kwhPurchased?: true
+  }
+
+  export type UtilityPaymentSumAggregateInputType = {
+    amount?: true
+    kwhPurchased?: true
+  }
+
+  export type UtilityPaymentMinAggregateInputType = {
+    id?: true
+    amount?: true
+    kwhPurchased?: true
+    meterId?: true
+    paidByUserId?: true
+    transactionRef?: true
+    createdAt?: true
+  }
+
+  export type UtilityPaymentMaxAggregateInputType = {
+    id?: true
+    amount?: true
+    kwhPurchased?: true
+    meterId?: true
+    paidByUserId?: true
+    transactionRef?: true
+    createdAt?: true
+  }
+
+  export type UtilityPaymentCountAggregateInputType = {
+    id?: true
+    amount?: true
+    kwhPurchased?: true
+    meterId?: true
+    paidByUserId?: true
+    transactionRef?: true
+    createdAt?: true
+    _all?: true
+  }
+
+  export type UtilityPaymentAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which UtilityPayment to aggregate.
+     */
+    where?: UtilityPaymentWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of UtilityPayments to fetch.
+     */
+    orderBy?: UtilityPaymentOrderByWithRelationInput | UtilityPaymentOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: UtilityPaymentWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` UtilityPayments from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` UtilityPayments.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned UtilityPayments
+    **/
+    _count?: true | UtilityPaymentCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: UtilityPaymentAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: UtilityPaymentSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: UtilityPaymentMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: UtilityPaymentMaxAggregateInputType
+  }
+
+  export type GetUtilityPaymentAggregateType<T extends UtilityPaymentAggregateArgs> = {
+        [P in keyof T & keyof AggregateUtilityPayment]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateUtilityPayment[P]>
+      : GetScalarType<T[P], AggregateUtilityPayment[P]>
+  }
+
+
+
+
+  export type UtilityPaymentGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: UtilityPaymentWhereInput
+    orderBy?: UtilityPaymentOrderByWithAggregationInput | UtilityPaymentOrderByWithAggregationInput[]
+    by: UtilityPaymentScalarFieldEnum[] | UtilityPaymentScalarFieldEnum
+    having?: UtilityPaymentScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: UtilityPaymentCountAggregateInputType | true
+    _avg?: UtilityPaymentAvgAggregateInputType
+    _sum?: UtilityPaymentSumAggregateInputType
+    _min?: UtilityPaymentMinAggregateInputType
+    _max?: UtilityPaymentMaxAggregateInputType
+  }
+
+  export type UtilityPaymentGroupByOutputType = {
+    id: string
+    amount: Decimal
+    kwhPurchased: Decimal | null
+    meterId: string
+    paidByUserId: string
+    transactionRef: string
+    createdAt: Date
+    _count: UtilityPaymentCountAggregateOutputType | null
+    _avg: UtilityPaymentAvgAggregateOutputType | null
+    _sum: UtilityPaymentSumAggregateOutputType | null
+    _min: UtilityPaymentMinAggregateOutputType | null
+    _max: UtilityPaymentMaxAggregateOutputType | null
+  }
+
+  type GetUtilityPaymentGroupByPayload<T extends UtilityPaymentGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<UtilityPaymentGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof UtilityPaymentGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], UtilityPaymentGroupByOutputType[P]>
+            : GetScalarType<T[P], UtilityPaymentGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type UtilityPaymentSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    amount?: boolean
+    kwhPurchased?: boolean
+    meterId?: boolean
+    paidByUserId?: boolean
+    transactionRef?: boolean
+    createdAt?: boolean
+    meter?: boolean | MeterDefaultArgs<ExtArgs>
+    paidBy?: boolean | UserDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["utilityPayment"]>
+
+  export type UtilityPaymentSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    amount?: boolean
+    kwhPurchased?: boolean
+    meterId?: boolean
+    paidByUserId?: boolean
+    transactionRef?: boolean
+    createdAt?: boolean
+    meter?: boolean | MeterDefaultArgs<ExtArgs>
+    paidBy?: boolean | UserDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["utilityPayment"]>
+
+  export type UtilityPaymentSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    amount?: boolean
+    kwhPurchased?: boolean
+    meterId?: boolean
+    paidByUserId?: boolean
+    transactionRef?: boolean
+    createdAt?: boolean
+    meter?: boolean | MeterDefaultArgs<ExtArgs>
+    paidBy?: boolean | UserDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["utilityPayment"]>
+
+  export type UtilityPaymentSelectScalar = {
+    id?: boolean
+    amount?: boolean
+    kwhPurchased?: boolean
+    meterId?: boolean
+    paidByUserId?: boolean
+    transactionRef?: boolean
+    createdAt?: boolean
+  }
+
+  export type UtilityPaymentOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "amount" | "kwhPurchased" | "meterId" | "paidByUserId" | "transactionRef" | "createdAt", ExtArgs["result"]["utilityPayment"]>
+  export type UtilityPaymentInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    meter?: boolean | MeterDefaultArgs<ExtArgs>
+    paidBy?: boolean | UserDefaultArgs<ExtArgs>
+  }
+  export type UtilityPaymentIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    meter?: boolean | MeterDefaultArgs<ExtArgs>
+    paidBy?: boolean | UserDefaultArgs<ExtArgs>
+  }
+  export type UtilityPaymentIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    meter?: boolean | MeterDefaultArgs<ExtArgs>
+    paidBy?: boolean | UserDefaultArgs<ExtArgs>
+  }
+
+  export type $UtilityPaymentPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "UtilityPayment"
+    objects: {
+      meter: Prisma.$MeterPayload<ExtArgs>
+      paidBy: Prisma.$UserPayload<ExtArgs>
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      amount: Prisma.Decimal
+      kwhPurchased: Prisma.Decimal | null
+      meterId: string
+      paidByUserId: string
+      transactionRef: string
+      createdAt: Date
+    }, ExtArgs["result"]["utilityPayment"]>
+    composites: {}
+  }
+
+  type UtilityPaymentGetPayload<S extends boolean | null | undefined | UtilityPaymentDefaultArgs> = $Result.GetResult<Prisma.$UtilityPaymentPayload, S>
+
+  type UtilityPaymentCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<UtilityPaymentFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: UtilityPaymentCountAggregateInputType | true
+    }
+
+  export interface UtilityPaymentDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['UtilityPayment'], meta: { name: 'UtilityPayment' } }
+    /**
+     * Find zero or one UtilityPayment that matches the filter.
+     * @param {UtilityPaymentFindUniqueArgs} args - Arguments to find a UtilityPayment
+     * @example
+     * // Get one UtilityPayment
+     * const utilityPayment = await prisma.utilityPayment.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends UtilityPaymentFindUniqueArgs>(args: SelectSubset<T, UtilityPaymentFindUniqueArgs<ExtArgs>>): Prisma__UtilityPaymentClient<$Result.GetResult<Prisma.$UtilityPaymentPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one UtilityPayment that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {UtilityPaymentFindUniqueOrThrowArgs} args - Arguments to find a UtilityPayment
+     * @example
+     * // Get one UtilityPayment
+     * const utilityPayment = await prisma.utilityPayment.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends UtilityPaymentFindUniqueOrThrowArgs>(args: SelectSubset<T, UtilityPaymentFindUniqueOrThrowArgs<ExtArgs>>): Prisma__UtilityPaymentClient<$Result.GetResult<Prisma.$UtilityPaymentPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first UtilityPayment that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {UtilityPaymentFindFirstArgs} args - Arguments to find a UtilityPayment
+     * @example
+     * // Get one UtilityPayment
+     * const utilityPayment = await prisma.utilityPayment.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends UtilityPaymentFindFirstArgs>(args?: SelectSubset<T, UtilityPaymentFindFirstArgs<ExtArgs>>): Prisma__UtilityPaymentClient<$Result.GetResult<Prisma.$UtilityPaymentPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first UtilityPayment that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {UtilityPaymentFindFirstOrThrowArgs} args - Arguments to find a UtilityPayment
+     * @example
+     * // Get one UtilityPayment
+     * const utilityPayment = await prisma.utilityPayment.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends UtilityPaymentFindFirstOrThrowArgs>(args?: SelectSubset<T, UtilityPaymentFindFirstOrThrowArgs<ExtArgs>>): Prisma__UtilityPaymentClient<$Result.GetResult<Prisma.$UtilityPaymentPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more UtilityPayments that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {UtilityPaymentFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all UtilityPayments
+     * const utilityPayments = await prisma.utilityPayment.findMany()
+     * 
+     * // Get first 10 UtilityPayments
+     * const utilityPayments = await prisma.utilityPayment.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const utilityPaymentWithIdOnly = await prisma.utilityPayment.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends UtilityPaymentFindManyArgs>(args?: SelectSubset<T, UtilityPaymentFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$UtilityPaymentPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a UtilityPayment.
+     * @param {UtilityPaymentCreateArgs} args - Arguments to create a UtilityPayment.
+     * @example
+     * // Create one UtilityPayment
+     * const UtilityPayment = await prisma.utilityPayment.create({
+     *   data: {
+     *     // ... data to create a UtilityPayment
+     *   }
+     * })
+     * 
+     */
+    create<T extends UtilityPaymentCreateArgs>(args: SelectSubset<T, UtilityPaymentCreateArgs<ExtArgs>>): Prisma__UtilityPaymentClient<$Result.GetResult<Prisma.$UtilityPaymentPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many UtilityPayments.
+     * @param {UtilityPaymentCreateManyArgs} args - Arguments to create many UtilityPayments.
+     * @example
+     * // Create many UtilityPayments
+     * const utilityPayment = await prisma.utilityPayment.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends UtilityPaymentCreateManyArgs>(args?: SelectSubset<T, UtilityPaymentCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many UtilityPayments and returns the data saved in the database.
+     * @param {UtilityPaymentCreateManyAndReturnArgs} args - Arguments to create many UtilityPayments.
+     * @example
+     * // Create many UtilityPayments
+     * const utilityPayment = await prisma.utilityPayment.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many UtilityPayments and only return the `id`
+     * const utilityPaymentWithIdOnly = await prisma.utilityPayment.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends UtilityPaymentCreateManyAndReturnArgs>(args?: SelectSubset<T, UtilityPaymentCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$UtilityPaymentPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a UtilityPayment.
+     * @param {UtilityPaymentDeleteArgs} args - Arguments to delete one UtilityPayment.
+     * @example
+     * // Delete one UtilityPayment
+     * const UtilityPayment = await prisma.utilityPayment.delete({
+     *   where: {
+     *     // ... filter to delete one UtilityPayment
+     *   }
+     * })
+     * 
+     */
+    delete<T extends UtilityPaymentDeleteArgs>(args: SelectSubset<T, UtilityPaymentDeleteArgs<ExtArgs>>): Prisma__UtilityPaymentClient<$Result.GetResult<Prisma.$UtilityPaymentPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one UtilityPayment.
+     * @param {UtilityPaymentUpdateArgs} args - Arguments to update one UtilityPayment.
+     * @example
+     * // Update one UtilityPayment
+     * const utilityPayment = await prisma.utilityPayment.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends UtilityPaymentUpdateArgs>(args: SelectSubset<T, UtilityPaymentUpdateArgs<ExtArgs>>): Prisma__UtilityPaymentClient<$Result.GetResult<Prisma.$UtilityPaymentPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more UtilityPayments.
+     * @param {UtilityPaymentDeleteManyArgs} args - Arguments to filter UtilityPayments to delete.
+     * @example
+     * // Delete a few UtilityPayments
+     * const { count } = await prisma.utilityPayment.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends UtilityPaymentDeleteManyArgs>(args?: SelectSubset<T, UtilityPaymentDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more UtilityPayments.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {UtilityPaymentUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many UtilityPayments
+     * const utilityPayment = await prisma.utilityPayment.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends UtilityPaymentUpdateManyArgs>(args: SelectSubset<T, UtilityPaymentUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more UtilityPayments and returns the data updated in the database.
+     * @param {UtilityPaymentUpdateManyAndReturnArgs} args - Arguments to update many UtilityPayments.
+     * @example
+     * // Update many UtilityPayments
+     * const utilityPayment = await prisma.utilityPayment.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more UtilityPayments and only return the `id`
+     * const utilityPaymentWithIdOnly = await prisma.utilityPayment.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends UtilityPaymentUpdateManyAndReturnArgs>(args: SelectSubset<T, UtilityPaymentUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$UtilityPaymentPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one UtilityPayment.
+     * @param {UtilityPaymentUpsertArgs} args - Arguments to update or create a UtilityPayment.
+     * @example
+     * // Update or create a UtilityPayment
+     * const utilityPayment = await prisma.utilityPayment.upsert({
+     *   create: {
+     *     // ... data to create a UtilityPayment
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the UtilityPayment we want to update
+     *   }
+     * })
+     */
+    upsert<T extends UtilityPaymentUpsertArgs>(args: SelectSubset<T, UtilityPaymentUpsertArgs<ExtArgs>>): Prisma__UtilityPaymentClient<$Result.GetResult<Prisma.$UtilityPaymentPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of UtilityPayments.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {UtilityPaymentCountArgs} args - Arguments to filter UtilityPayments to count.
+     * @example
+     * // Count the number of UtilityPayments
+     * const count = await prisma.utilityPayment.count({
+     *   where: {
+     *     // ... the filter for the UtilityPayments we want to count
+     *   }
+     * })
+    **/
+    count<T extends UtilityPaymentCountArgs>(
+      args?: Subset<T, UtilityPaymentCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], UtilityPaymentCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a UtilityPayment.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {UtilityPaymentAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends UtilityPaymentAggregateArgs>(args: Subset<T, UtilityPaymentAggregateArgs>): Prisma.PrismaPromise<GetUtilityPaymentAggregateType<T>>
+
+    /**
+     * Group by UtilityPayment.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {UtilityPaymentGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends UtilityPaymentGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: UtilityPaymentGroupByArgs['orderBy'] }
+        : { orderBy?: UtilityPaymentGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, UtilityPaymentGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetUtilityPaymentGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the UtilityPayment model
+   */
+  readonly fields: UtilityPaymentFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for UtilityPayment.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__UtilityPaymentClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    meter<T extends MeterDefaultArgs<ExtArgs> = {}>(args?: Subset<T, MeterDefaultArgs<ExtArgs>>): Prisma__MeterClient<$Result.GetResult<Prisma.$MeterPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    paidBy<T extends UserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserDefaultArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the UtilityPayment model
+   */
+  interface UtilityPaymentFieldRefs {
+    readonly id: FieldRef<"UtilityPayment", 'String'>
+    readonly amount: FieldRef<"UtilityPayment", 'Decimal'>
+    readonly kwhPurchased: FieldRef<"UtilityPayment", 'Decimal'>
+    readonly meterId: FieldRef<"UtilityPayment", 'String'>
+    readonly paidByUserId: FieldRef<"UtilityPayment", 'String'>
+    readonly transactionRef: FieldRef<"UtilityPayment", 'String'>
+    readonly createdAt: FieldRef<"UtilityPayment", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * UtilityPayment findUnique
+   */
+  export type UtilityPaymentFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the UtilityPayment
+     */
+    select?: UtilityPaymentSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the UtilityPayment
+     */
+    omit?: UtilityPaymentOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UtilityPaymentInclude<ExtArgs> | null
+    /**
+     * Filter, which UtilityPayment to fetch.
+     */
+    where: UtilityPaymentWhereUniqueInput
+  }
+
+  /**
+   * UtilityPayment findUniqueOrThrow
+   */
+  export type UtilityPaymentFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the UtilityPayment
+     */
+    select?: UtilityPaymentSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the UtilityPayment
+     */
+    omit?: UtilityPaymentOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UtilityPaymentInclude<ExtArgs> | null
+    /**
+     * Filter, which UtilityPayment to fetch.
+     */
+    where: UtilityPaymentWhereUniqueInput
+  }
+
+  /**
+   * UtilityPayment findFirst
+   */
+  export type UtilityPaymentFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the UtilityPayment
+     */
+    select?: UtilityPaymentSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the UtilityPayment
+     */
+    omit?: UtilityPaymentOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UtilityPaymentInclude<ExtArgs> | null
+    /**
+     * Filter, which UtilityPayment to fetch.
+     */
+    where?: UtilityPaymentWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of UtilityPayments to fetch.
+     */
+    orderBy?: UtilityPaymentOrderByWithRelationInput | UtilityPaymentOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for UtilityPayments.
+     */
+    cursor?: UtilityPaymentWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` UtilityPayments from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` UtilityPayments.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of UtilityPayments.
+     */
+    distinct?: UtilityPaymentScalarFieldEnum | UtilityPaymentScalarFieldEnum[]
+  }
+
+  /**
+   * UtilityPayment findFirstOrThrow
+   */
+  export type UtilityPaymentFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the UtilityPayment
+     */
+    select?: UtilityPaymentSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the UtilityPayment
+     */
+    omit?: UtilityPaymentOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UtilityPaymentInclude<ExtArgs> | null
+    /**
+     * Filter, which UtilityPayment to fetch.
+     */
+    where?: UtilityPaymentWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of UtilityPayments to fetch.
+     */
+    orderBy?: UtilityPaymentOrderByWithRelationInput | UtilityPaymentOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for UtilityPayments.
+     */
+    cursor?: UtilityPaymentWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` UtilityPayments from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` UtilityPayments.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of UtilityPayments.
+     */
+    distinct?: UtilityPaymentScalarFieldEnum | UtilityPaymentScalarFieldEnum[]
+  }
+
+  /**
+   * UtilityPayment findMany
+   */
+  export type UtilityPaymentFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the UtilityPayment
+     */
+    select?: UtilityPaymentSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the UtilityPayment
+     */
+    omit?: UtilityPaymentOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UtilityPaymentInclude<ExtArgs> | null
+    /**
+     * Filter, which UtilityPayments to fetch.
+     */
+    where?: UtilityPaymentWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of UtilityPayments to fetch.
+     */
+    orderBy?: UtilityPaymentOrderByWithRelationInput | UtilityPaymentOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing UtilityPayments.
+     */
+    cursor?: UtilityPaymentWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` UtilityPayments from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` UtilityPayments.
+     */
+    skip?: number
+    distinct?: UtilityPaymentScalarFieldEnum | UtilityPaymentScalarFieldEnum[]
+  }
+
+  /**
+   * UtilityPayment create
+   */
+  export type UtilityPaymentCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the UtilityPayment
+     */
+    select?: UtilityPaymentSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the UtilityPayment
+     */
+    omit?: UtilityPaymentOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UtilityPaymentInclude<ExtArgs> | null
+    /**
+     * The data needed to create a UtilityPayment.
+     */
+    data: XOR<UtilityPaymentCreateInput, UtilityPaymentUncheckedCreateInput>
+  }
+
+  /**
+   * UtilityPayment createMany
+   */
+  export type UtilityPaymentCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many UtilityPayments.
+     */
+    data: UtilityPaymentCreateManyInput | UtilityPaymentCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * UtilityPayment createManyAndReturn
+   */
+  export type UtilityPaymentCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the UtilityPayment
+     */
+    select?: UtilityPaymentSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the UtilityPayment
+     */
+    omit?: UtilityPaymentOmit<ExtArgs> | null
+    /**
+     * The data used to create many UtilityPayments.
+     */
+    data: UtilityPaymentCreateManyInput | UtilityPaymentCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UtilityPaymentIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * UtilityPayment update
+   */
+  export type UtilityPaymentUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the UtilityPayment
+     */
+    select?: UtilityPaymentSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the UtilityPayment
+     */
+    omit?: UtilityPaymentOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UtilityPaymentInclude<ExtArgs> | null
+    /**
+     * The data needed to update a UtilityPayment.
+     */
+    data: XOR<UtilityPaymentUpdateInput, UtilityPaymentUncheckedUpdateInput>
+    /**
+     * Choose, which UtilityPayment to update.
+     */
+    where: UtilityPaymentWhereUniqueInput
+  }
+
+  /**
+   * UtilityPayment updateMany
+   */
+  export type UtilityPaymentUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update UtilityPayments.
+     */
+    data: XOR<UtilityPaymentUpdateManyMutationInput, UtilityPaymentUncheckedUpdateManyInput>
+    /**
+     * Filter which UtilityPayments to update
+     */
+    where?: UtilityPaymentWhereInput
+    /**
+     * Limit how many UtilityPayments to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * UtilityPayment updateManyAndReturn
+   */
+  export type UtilityPaymentUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the UtilityPayment
+     */
+    select?: UtilityPaymentSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the UtilityPayment
+     */
+    omit?: UtilityPaymentOmit<ExtArgs> | null
+    /**
+     * The data used to update UtilityPayments.
+     */
+    data: XOR<UtilityPaymentUpdateManyMutationInput, UtilityPaymentUncheckedUpdateManyInput>
+    /**
+     * Filter which UtilityPayments to update
+     */
+    where?: UtilityPaymentWhereInput
+    /**
+     * Limit how many UtilityPayments to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UtilityPaymentIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * UtilityPayment upsert
+   */
+  export type UtilityPaymentUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the UtilityPayment
+     */
+    select?: UtilityPaymentSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the UtilityPayment
+     */
+    omit?: UtilityPaymentOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UtilityPaymentInclude<ExtArgs> | null
+    /**
+     * The filter to search for the UtilityPayment to update in case it exists.
+     */
+    where: UtilityPaymentWhereUniqueInput
+    /**
+     * In case the UtilityPayment found by the `where` argument doesn't exist, create a new UtilityPayment with this data.
+     */
+    create: XOR<UtilityPaymentCreateInput, UtilityPaymentUncheckedCreateInput>
+    /**
+     * In case the UtilityPayment was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<UtilityPaymentUpdateInput, UtilityPaymentUncheckedUpdateInput>
+  }
+
+  /**
+   * UtilityPayment delete
+   */
+  export type UtilityPaymentDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the UtilityPayment
+     */
+    select?: UtilityPaymentSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the UtilityPayment
+     */
+    omit?: UtilityPaymentOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UtilityPaymentInclude<ExtArgs> | null
+    /**
+     * Filter which UtilityPayment to delete.
+     */
+    where: UtilityPaymentWhereUniqueInput
+  }
+
+  /**
+   * UtilityPayment deleteMany
+   */
+  export type UtilityPaymentDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which UtilityPayments to delete
+     */
+    where?: UtilityPaymentWhereInput
+    /**
+     * Limit how many UtilityPayments to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * UtilityPayment without action
+   */
+  export type UtilityPaymentDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the UtilityPayment
+     */
+    select?: UtilityPaymentSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the UtilityPayment
+     */
+    omit?: UtilityPaymentOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UtilityPaymentInclude<ExtArgs> | null
   }
 
 
@@ -55323,11 +58017,44 @@ export namespace Prisma {
     buildingId: 'buildingId',
     zoneId: 'zoneId',
     spaceId: 'spaceId',
+    isSmartMeter: 'isSmartMeter',
+    deviceId: 'deviceId',
+    currentPower: 'currentPower',
+    currentVoltage: 'currentVoltage',
+    currentBalance: 'currentBalance',
+    tariffRate: 'tariffRate',
+    lowBalanceLimit: 'lowBalanceLimit',
     createdAt: 'createdAt',
     updatedAt: 'updatedAt'
   };
 
   export type MeterScalarFieldEnum = (typeof MeterScalarFieldEnum)[keyof typeof MeterScalarFieldEnum]
+
+
+  export const MeterTelemetryScalarFieldEnum: {
+    id: 'id',
+    meterId: 'meterId',
+    timestamp: 'timestamp',
+    kwh: 'kwh',
+    voltage: 'voltage',
+    current: 'current',
+    power: 'power'
+  };
+
+  export type MeterTelemetryScalarFieldEnum = (typeof MeterTelemetryScalarFieldEnum)[keyof typeof MeterTelemetryScalarFieldEnum]
+
+
+  export const UtilityPaymentScalarFieldEnum: {
+    id: 'id',
+    amount: 'amount',
+    kwhPurchased: 'kwhPurchased',
+    meterId: 'meterId',
+    paidByUserId: 'paidByUserId',
+    transactionRef: 'transactionRef',
+    createdAt: 'createdAt'
+  };
+
+  export type UtilityPaymentScalarFieldEnum = (typeof UtilityPaymentScalarFieldEnum)[keyof typeof UtilityPaymentScalarFieldEnum]
 
 
   export const MeterReadingScalarFieldEnum: {
@@ -55975,6 +58702,7 @@ export namespace Prisma {
     goodsReceipts?: GoodsReceiptListRelationFilter
     maintenanceTasks?: MaintenanceTaskListRelationFilter
     workLogs?: WorkLogListRelationFilter
+    utilityPayments?: UtilityPaymentListRelationFilter
   }
 
   export type UserOrderByWithRelationInput = {
@@ -56011,6 +58739,7 @@ export namespace Prisma {
     goodsReceipts?: GoodsReceiptOrderByRelationAggregateInput
     maintenanceTasks?: MaintenanceTaskOrderByRelationAggregateInput
     workLogs?: WorkLogOrderByRelationAggregateInput
+    utilityPayments?: UtilityPaymentOrderByRelationAggregateInput
   }
 
   export type UserWhereUniqueInput = Prisma.AtLeast<{
@@ -56050,6 +58779,7 @@ export namespace Prisma {
     goodsReceipts?: GoodsReceiptListRelationFilter
     maintenanceTasks?: MaintenanceTaskListRelationFilter
     workLogs?: WorkLogListRelationFilter
+    utilityPayments?: UtilityPaymentListRelationFilter
   }, "id" | "email" | "employeeCode">
 
   export type UserOrderByWithAggregationInput = {
@@ -58968,6 +61698,13 @@ export namespace Prisma {
     buildingId?: StringNullableFilter<"Meter"> | string | null
     zoneId?: StringNullableFilter<"Meter"> | string | null
     spaceId?: StringNullableFilter<"Meter"> | string | null
+    isSmartMeter?: BoolFilter<"Meter"> | boolean
+    deviceId?: StringNullableFilter<"Meter"> | string | null
+    currentPower?: DecimalFilter<"Meter"> | Decimal | DecimalJsLike | number | string
+    currentVoltage?: DecimalFilter<"Meter"> | Decimal | DecimalJsLike | number | string
+    currentBalance?: DecimalFilter<"Meter"> | Decimal | DecimalJsLike | number | string
+    tariffRate?: DecimalFilter<"Meter"> | Decimal | DecimalJsLike | number | string
+    lowBalanceLimit?: DecimalFilter<"Meter"> | Decimal | DecimalJsLike | number | string
     createdAt?: DateTimeFilter<"Meter"> | Date | string
     updatedAt?: DateTimeFilter<"Meter"> | Date | string
     asset?: XOR<AssetNullableScalarRelationFilter, AssetWhereInput> | null
@@ -58976,6 +61713,8 @@ export namespace Prisma {
     space?: XOR<SpaceNullableScalarRelationFilter, SpaceWhereInput> | null
     readings?: MeterReadingListRelationFilter
     preventiveTriggers?: MeterMaintenanceTriggerListRelationFilter
+    meterTelemetries?: MeterTelemetryListRelationFilter
+    utilityPayments?: UtilityPaymentListRelationFilter
   }
 
   export type MeterOrderByWithRelationInput = {
@@ -58987,6 +61726,13 @@ export namespace Prisma {
     buildingId?: SortOrderInput | SortOrder
     zoneId?: SortOrderInput | SortOrder
     spaceId?: SortOrderInput | SortOrder
+    isSmartMeter?: SortOrder
+    deviceId?: SortOrderInput | SortOrder
+    currentPower?: SortOrder
+    currentVoltage?: SortOrder
+    currentBalance?: SortOrder
+    tariffRate?: SortOrder
+    lowBalanceLimit?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     asset?: AssetOrderByWithRelationInput
@@ -58995,10 +61741,13 @@ export namespace Prisma {
     space?: SpaceOrderByWithRelationInput
     readings?: MeterReadingOrderByRelationAggregateInput
     preventiveTriggers?: MeterMaintenanceTriggerOrderByRelationAggregateInput
+    meterTelemetries?: MeterTelemetryOrderByRelationAggregateInput
+    utilityPayments?: UtilityPaymentOrderByRelationAggregateInput
   }
 
   export type MeterWhereUniqueInput = Prisma.AtLeast<{
     id?: string
+    deviceId?: string
     AND?: MeterWhereInput | MeterWhereInput[]
     OR?: MeterWhereInput[]
     NOT?: MeterWhereInput | MeterWhereInput[]
@@ -59009,6 +61758,12 @@ export namespace Prisma {
     buildingId?: StringNullableFilter<"Meter"> | string | null
     zoneId?: StringNullableFilter<"Meter"> | string | null
     spaceId?: StringNullableFilter<"Meter"> | string | null
+    isSmartMeter?: BoolFilter<"Meter"> | boolean
+    currentPower?: DecimalFilter<"Meter"> | Decimal | DecimalJsLike | number | string
+    currentVoltage?: DecimalFilter<"Meter"> | Decimal | DecimalJsLike | number | string
+    currentBalance?: DecimalFilter<"Meter"> | Decimal | DecimalJsLike | number | string
+    tariffRate?: DecimalFilter<"Meter"> | Decimal | DecimalJsLike | number | string
+    lowBalanceLimit?: DecimalFilter<"Meter"> | Decimal | DecimalJsLike | number | string
     createdAt?: DateTimeFilter<"Meter"> | Date | string
     updatedAt?: DateTimeFilter<"Meter"> | Date | string
     asset?: XOR<AssetNullableScalarRelationFilter, AssetWhereInput> | null
@@ -59017,7 +61772,9 @@ export namespace Prisma {
     space?: XOR<SpaceNullableScalarRelationFilter, SpaceWhereInput> | null
     readings?: MeterReadingListRelationFilter
     preventiveTriggers?: MeterMaintenanceTriggerListRelationFilter
-  }, "id">
+    meterTelemetries?: MeterTelemetryListRelationFilter
+    utilityPayments?: UtilityPaymentListRelationFilter
+  }, "id" | "deviceId">
 
   export type MeterOrderByWithAggregationInput = {
     id?: SortOrder
@@ -59028,11 +61785,20 @@ export namespace Prisma {
     buildingId?: SortOrderInput | SortOrder
     zoneId?: SortOrderInput | SortOrder
     spaceId?: SortOrderInput | SortOrder
+    isSmartMeter?: SortOrder
+    deviceId?: SortOrderInput | SortOrder
+    currentPower?: SortOrder
+    currentVoltage?: SortOrder
+    currentBalance?: SortOrder
+    tariffRate?: SortOrder
+    lowBalanceLimit?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     _count?: MeterCountOrderByAggregateInput
+    _avg?: MeterAvgOrderByAggregateInput
     _max?: MeterMaxOrderByAggregateInput
     _min?: MeterMinOrderByAggregateInput
+    _sum?: MeterSumOrderByAggregateInput
   }
 
   export type MeterScalarWhereWithAggregatesInput = {
@@ -59047,8 +61813,152 @@ export namespace Prisma {
     buildingId?: StringNullableWithAggregatesFilter<"Meter"> | string | null
     zoneId?: StringNullableWithAggregatesFilter<"Meter"> | string | null
     spaceId?: StringNullableWithAggregatesFilter<"Meter"> | string | null
+    isSmartMeter?: BoolWithAggregatesFilter<"Meter"> | boolean
+    deviceId?: StringNullableWithAggregatesFilter<"Meter"> | string | null
+    currentPower?: DecimalWithAggregatesFilter<"Meter"> | Decimal | DecimalJsLike | number | string
+    currentVoltage?: DecimalWithAggregatesFilter<"Meter"> | Decimal | DecimalJsLike | number | string
+    currentBalance?: DecimalWithAggregatesFilter<"Meter"> | Decimal | DecimalJsLike | number | string
+    tariffRate?: DecimalWithAggregatesFilter<"Meter"> | Decimal | DecimalJsLike | number | string
+    lowBalanceLimit?: DecimalWithAggregatesFilter<"Meter"> | Decimal | DecimalJsLike | number | string
     createdAt?: DateTimeWithAggregatesFilter<"Meter"> | Date | string
     updatedAt?: DateTimeWithAggregatesFilter<"Meter"> | Date | string
+  }
+
+  export type MeterTelemetryWhereInput = {
+    AND?: MeterTelemetryWhereInput | MeterTelemetryWhereInput[]
+    OR?: MeterTelemetryWhereInput[]
+    NOT?: MeterTelemetryWhereInput | MeterTelemetryWhereInput[]
+    id?: StringFilter<"MeterTelemetry"> | string
+    meterId?: StringFilter<"MeterTelemetry"> | string
+    timestamp?: DateTimeFilter<"MeterTelemetry"> | Date | string
+    kwh?: DecimalFilter<"MeterTelemetry"> | Decimal | DecimalJsLike | number | string
+    voltage?: DecimalNullableFilter<"MeterTelemetry"> | Decimal | DecimalJsLike | number | string | null
+    current?: DecimalNullableFilter<"MeterTelemetry"> | Decimal | DecimalJsLike | number | string | null
+    power?: DecimalNullableFilter<"MeterTelemetry"> | Decimal | DecimalJsLike | number | string | null
+    meter?: XOR<MeterScalarRelationFilter, MeterWhereInput>
+  }
+
+  export type MeterTelemetryOrderByWithRelationInput = {
+    id?: SortOrder
+    meterId?: SortOrder
+    timestamp?: SortOrder
+    kwh?: SortOrder
+    voltage?: SortOrderInput | SortOrder
+    current?: SortOrderInput | SortOrder
+    power?: SortOrderInput | SortOrder
+    meter?: MeterOrderByWithRelationInput
+  }
+
+  export type MeterTelemetryWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    AND?: MeterTelemetryWhereInput | MeterTelemetryWhereInput[]
+    OR?: MeterTelemetryWhereInput[]
+    NOT?: MeterTelemetryWhereInput | MeterTelemetryWhereInput[]
+    meterId?: StringFilter<"MeterTelemetry"> | string
+    timestamp?: DateTimeFilter<"MeterTelemetry"> | Date | string
+    kwh?: DecimalFilter<"MeterTelemetry"> | Decimal | DecimalJsLike | number | string
+    voltage?: DecimalNullableFilter<"MeterTelemetry"> | Decimal | DecimalJsLike | number | string | null
+    current?: DecimalNullableFilter<"MeterTelemetry"> | Decimal | DecimalJsLike | number | string | null
+    power?: DecimalNullableFilter<"MeterTelemetry"> | Decimal | DecimalJsLike | number | string | null
+    meter?: XOR<MeterScalarRelationFilter, MeterWhereInput>
+  }, "id">
+
+  export type MeterTelemetryOrderByWithAggregationInput = {
+    id?: SortOrder
+    meterId?: SortOrder
+    timestamp?: SortOrder
+    kwh?: SortOrder
+    voltage?: SortOrderInput | SortOrder
+    current?: SortOrderInput | SortOrder
+    power?: SortOrderInput | SortOrder
+    _count?: MeterTelemetryCountOrderByAggregateInput
+    _avg?: MeterTelemetryAvgOrderByAggregateInput
+    _max?: MeterTelemetryMaxOrderByAggregateInput
+    _min?: MeterTelemetryMinOrderByAggregateInput
+    _sum?: MeterTelemetrySumOrderByAggregateInput
+  }
+
+  export type MeterTelemetryScalarWhereWithAggregatesInput = {
+    AND?: MeterTelemetryScalarWhereWithAggregatesInput | MeterTelemetryScalarWhereWithAggregatesInput[]
+    OR?: MeterTelemetryScalarWhereWithAggregatesInput[]
+    NOT?: MeterTelemetryScalarWhereWithAggregatesInput | MeterTelemetryScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"MeterTelemetry"> | string
+    meterId?: StringWithAggregatesFilter<"MeterTelemetry"> | string
+    timestamp?: DateTimeWithAggregatesFilter<"MeterTelemetry"> | Date | string
+    kwh?: DecimalWithAggregatesFilter<"MeterTelemetry"> | Decimal | DecimalJsLike | number | string
+    voltage?: DecimalNullableWithAggregatesFilter<"MeterTelemetry"> | Decimal | DecimalJsLike | number | string | null
+    current?: DecimalNullableWithAggregatesFilter<"MeterTelemetry"> | Decimal | DecimalJsLike | number | string | null
+    power?: DecimalNullableWithAggregatesFilter<"MeterTelemetry"> | Decimal | DecimalJsLike | number | string | null
+  }
+
+  export type UtilityPaymentWhereInput = {
+    AND?: UtilityPaymentWhereInput | UtilityPaymentWhereInput[]
+    OR?: UtilityPaymentWhereInput[]
+    NOT?: UtilityPaymentWhereInput | UtilityPaymentWhereInput[]
+    id?: StringFilter<"UtilityPayment"> | string
+    amount?: DecimalFilter<"UtilityPayment"> | Decimal | DecimalJsLike | number | string
+    kwhPurchased?: DecimalNullableFilter<"UtilityPayment"> | Decimal | DecimalJsLike | number | string | null
+    meterId?: StringFilter<"UtilityPayment"> | string
+    paidByUserId?: StringFilter<"UtilityPayment"> | string
+    transactionRef?: StringFilter<"UtilityPayment"> | string
+    createdAt?: DateTimeFilter<"UtilityPayment"> | Date | string
+    meter?: XOR<MeterScalarRelationFilter, MeterWhereInput>
+    paidBy?: XOR<UserScalarRelationFilter, UserWhereInput>
+  }
+
+  export type UtilityPaymentOrderByWithRelationInput = {
+    id?: SortOrder
+    amount?: SortOrder
+    kwhPurchased?: SortOrderInput | SortOrder
+    meterId?: SortOrder
+    paidByUserId?: SortOrder
+    transactionRef?: SortOrder
+    createdAt?: SortOrder
+    meter?: MeterOrderByWithRelationInput
+    paidBy?: UserOrderByWithRelationInput
+  }
+
+  export type UtilityPaymentWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    AND?: UtilityPaymentWhereInput | UtilityPaymentWhereInput[]
+    OR?: UtilityPaymentWhereInput[]
+    NOT?: UtilityPaymentWhereInput | UtilityPaymentWhereInput[]
+    amount?: DecimalFilter<"UtilityPayment"> | Decimal | DecimalJsLike | number | string
+    kwhPurchased?: DecimalNullableFilter<"UtilityPayment"> | Decimal | DecimalJsLike | number | string | null
+    meterId?: StringFilter<"UtilityPayment"> | string
+    paidByUserId?: StringFilter<"UtilityPayment"> | string
+    transactionRef?: StringFilter<"UtilityPayment"> | string
+    createdAt?: DateTimeFilter<"UtilityPayment"> | Date | string
+    meter?: XOR<MeterScalarRelationFilter, MeterWhereInput>
+    paidBy?: XOR<UserScalarRelationFilter, UserWhereInput>
+  }, "id">
+
+  export type UtilityPaymentOrderByWithAggregationInput = {
+    id?: SortOrder
+    amount?: SortOrder
+    kwhPurchased?: SortOrderInput | SortOrder
+    meterId?: SortOrder
+    paidByUserId?: SortOrder
+    transactionRef?: SortOrder
+    createdAt?: SortOrder
+    _count?: UtilityPaymentCountOrderByAggregateInput
+    _avg?: UtilityPaymentAvgOrderByAggregateInput
+    _max?: UtilityPaymentMaxOrderByAggregateInput
+    _min?: UtilityPaymentMinOrderByAggregateInput
+    _sum?: UtilityPaymentSumOrderByAggregateInput
+  }
+
+  export type UtilityPaymentScalarWhereWithAggregatesInput = {
+    AND?: UtilityPaymentScalarWhereWithAggregatesInput | UtilityPaymentScalarWhereWithAggregatesInput[]
+    OR?: UtilityPaymentScalarWhereWithAggregatesInput[]
+    NOT?: UtilityPaymentScalarWhereWithAggregatesInput | UtilityPaymentScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"UtilityPayment"> | string
+    amount?: DecimalWithAggregatesFilter<"UtilityPayment"> | Decimal | DecimalJsLike | number | string
+    kwhPurchased?: DecimalNullableWithAggregatesFilter<"UtilityPayment"> | Decimal | DecimalJsLike | number | string | null
+    meterId?: StringWithAggregatesFilter<"UtilityPayment"> | string
+    paidByUserId?: StringWithAggregatesFilter<"UtilityPayment"> | string
+    transactionRef?: StringWithAggregatesFilter<"UtilityPayment"> | string
+    createdAt?: DateTimeWithAggregatesFilter<"UtilityPayment"> | Date | string
   }
 
   export type MeterReadingWhereInput = {
@@ -59742,6 +62652,7 @@ export namespace Prisma {
     goodsReceipts?: GoodsReceiptCreateNestedManyWithoutReceiverInput
     maintenanceTasks?: MaintenanceTaskCreateNestedManyWithoutCompletedByInput
     workLogs?: WorkLogCreateNestedManyWithoutTechnicianInput
+    utilityPayments?: UtilityPaymentCreateNestedManyWithoutPaidByInput
   }
 
   export type UserUncheckedCreateInput = {
@@ -59774,6 +62685,7 @@ export namespace Prisma {
     goodsReceipts?: GoodsReceiptUncheckedCreateNestedManyWithoutReceiverInput
     maintenanceTasks?: MaintenanceTaskUncheckedCreateNestedManyWithoutCompletedByInput
     workLogs?: WorkLogUncheckedCreateNestedManyWithoutTechnicianInput
+    utilityPayments?: UtilityPaymentUncheckedCreateNestedManyWithoutPaidByInput
   }
 
   export type UserUpdateInput = {
@@ -59806,6 +62718,7 @@ export namespace Prisma {
     goodsReceipts?: GoodsReceiptUpdateManyWithoutReceiverNestedInput
     maintenanceTasks?: MaintenanceTaskUpdateManyWithoutCompletedByNestedInput
     workLogs?: WorkLogUpdateManyWithoutTechnicianNestedInput
+    utilityPayments?: UtilityPaymentUpdateManyWithoutPaidByNestedInput
   }
 
   export type UserUncheckedUpdateInput = {
@@ -59838,6 +62751,7 @@ export namespace Prisma {
     goodsReceipts?: GoodsReceiptUncheckedUpdateManyWithoutReceiverNestedInput
     maintenanceTasks?: MaintenanceTaskUncheckedUpdateManyWithoutCompletedByNestedInput
     workLogs?: WorkLogUncheckedUpdateManyWithoutTechnicianNestedInput
+    utilityPayments?: UtilityPaymentUncheckedUpdateManyWithoutPaidByNestedInput
   }
 
   export type UserCreateManyInput = {
@@ -62951,7 +65865,7 @@ export namespace Prisma {
   export type MaintenanceItemCreateInput = {
     id?: string
     quantity: number
-    cost?: Decimal | DecimalJsLike | number | string
+    cost: Decimal | DecimalJsLike | number | string
     createdAt?: Date | string
     updatedAt?: Date | string
     maintenance: MaintenanceCreateNestedOneWithoutMaintenanceItemsInput
@@ -62962,7 +65876,7 @@ export namespace Prisma {
   export type MaintenanceItemUncheckedCreateInput = {
     id?: string
     quantity: number
-    cost?: Decimal | DecimalJsLike | number | string
+    cost: Decimal | DecimalJsLike | number | string
     maintenanceId: string
     itemId: string
     createdAt?: Date | string
@@ -62995,7 +65909,7 @@ export namespace Prisma {
   export type MaintenanceItemCreateManyInput = {
     id?: string
     quantity: number
-    cost?: Decimal | DecimalJsLike | number | string
+    cost: Decimal | DecimalJsLike | number | string
     maintenanceId: string
     itemId: string
     createdAt?: Date | string
@@ -63089,6 +66003,13 @@ export namespace Prisma {
     name: string
     type?: $Enums.MeterType
     unit: string
+    isSmartMeter?: boolean
+    deviceId?: string | null
+    currentPower?: Decimal | DecimalJsLike | number | string
+    currentVoltage?: Decimal | DecimalJsLike | number | string
+    currentBalance?: Decimal | DecimalJsLike | number | string
+    tariffRate?: Decimal | DecimalJsLike | number | string
+    lowBalanceLimit?: Decimal | DecimalJsLike | number | string
     createdAt?: Date | string
     updatedAt?: Date | string
     asset?: AssetCreateNestedOneWithoutMetersInput
@@ -63097,6 +66018,8 @@ export namespace Prisma {
     space?: SpaceCreateNestedOneWithoutMetersInput
     readings?: MeterReadingCreateNestedManyWithoutMeterInput
     preventiveTriggers?: MeterMaintenanceTriggerCreateNestedManyWithoutMeterInput
+    meterTelemetries?: MeterTelemetryCreateNestedManyWithoutMeterInput
+    utilityPayments?: UtilityPaymentCreateNestedManyWithoutMeterInput
   }
 
   export type MeterUncheckedCreateInput = {
@@ -63108,10 +66031,19 @@ export namespace Prisma {
     buildingId?: string | null
     zoneId?: string | null
     spaceId?: string | null
+    isSmartMeter?: boolean
+    deviceId?: string | null
+    currentPower?: Decimal | DecimalJsLike | number | string
+    currentVoltage?: Decimal | DecimalJsLike | number | string
+    currentBalance?: Decimal | DecimalJsLike | number | string
+    tariffRate?: Decimal | DecimalJsLike | number | string
+    lowBalanceLimit?: Decimal | DecimalJsLike | number | string
     createdAt?: Date | string
     updatedAt?: Date | string
     readings?: MeterReadingUncheckedCreateNestedManyWithoutMeterInput
     preventiveTriggers?: MeterMaintenanceTriggerUncheckedCreateNestedManyWithoutMeterInput
+    meterTelemetries?: MeterTelemetryUncheckedCreateNestedManyWithoutMeterInput
+    utilityPayments?: UtilityPaymentUncheckedCreateNestedManyWithoutMeterInput
   }
 
   export type MeterUpdateInput = {
@@ -63119,6 +66051,13 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     type?: EnumMeterTypeFieldUpdateOperationsInput | $Enums.MeterType
     unit?: StringFieldUpdateOperationsInput | string
+    isSmartMeter?: BoolFieldUpdateOperationsInput | boolean
+    deviceId?: NullableStringFieldUpdateOperationsInput | string | null
+    currentPower?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    currentVoltage?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    currentBalance?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    tariffRate?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    lowBalanceLimit?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     asset?: AssetUpdateOneWithoutMetersNestedInput
@@ -63127,6 +66066,8 @@ export namespace Prisma {
     space?: SpaceUpdateOneWithoutMetersNestedInput
     readings?: MeterReadingUpdateManyWithoutMeterNestedInput
     preventiveTriggers?: MeterMaintenanceTriggerUpdateManyWithoutMeterNestedInput
+    meterTelemetries?: MeterTelemetryUpdateManyWithoutMeterNestedInput
+    utilityPayments?: UtilityPaymentUpdateManyWithoutMeterNestedInput
   }
 
   export type MeterUncheckedUpdateInput = {
@@ -63138,10 +66079,19 @@ export namespace Prisma {
     buildingId?: NullableStringFieldUpdateOperationsInput | string | null
     zoneId?: NullableStringFieldUpdateOperationsInput | string | null
     spaceId?: NullableStringFieldUpdateOperationsInput | string | null
+    isSmartMeter?: BoolFieldUpdateOperationsInput | boolean
+    deviceId?: NullableStringFieldUpdateOperationsInput | string | null
+    currentPower?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    currentVoltage?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    currentBalance?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    tariffRate?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    lowBalanceLimit?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     readings?: MeterReadingUncheckedUpdateManyWithoutMeterNestedInput
     preventiveTriggers?: MeterMaintenanceTriggerUncheckedUpdateManyWithoutMeterNestedInput
+    meterTelemetries?: MeterTelemetryUncheckedUpdateManyWithoutMeterNestedInput
+    utilityPayments?: UtilityPaymentUncheckedUpdateManyWithoutMeterNestedInput
   }
 
   export type MeterCreateManyInput = {
@@ -63153,6 +66103,13 @@ export namespace Prisma {
     buildingId?: string | null
     zoneId?: string | null
     spaceId?: string | null
+    isSmartMeter?: boolean
+    deviceId?: string | null
+    currentPower?: Decimal | DecimalJsLike | number | string
+    currentVoltage?: Decimal | DecimalJsLike | number | string
+    currentBalance?: Decimal | DecimalJsLike | number | string
+    tariffRate?: Decimal | DecimalJsLike | number | string
+    lowBalanceLimit?: Decimal | DecimalJsLike | number | string
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -63162,6 +66119,13 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     type?: EnumMeterTypeFieldUpdateOperationsInput | $Enums.MeterType
     unit?: StringFieldUpdateOperationsInput | string
+    isSmartMeter?: BoolFieldUpdateOperationsInput | boolean
+    deviceId?: NullableStringFieldUpdateOperationsInput | string | null
+    currentPower?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    currentVoltage?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    currentBalance?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    tariffRate?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    lowBalanceLimit?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -63175,8 +66139,152 @@ export namespace Prisma {
     buildingId?: NullableStringFieldUpdateOperationsInput | string | null
     zoneId?: NullableStringFieldUpdateOperationsInput | string | null
     spaceId?: NullableStringFieldUpdateOperationsInput | string | null
+    isSmartMeter?: BoolFieldUpdateOperationsInput | boolean
+    deviceId?: NullableStringFieldUpdateOperationsInput | string | null
+    currentPower?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    currentVoltage?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    currentBalance?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    tariffRate?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    lowBalanceLimit?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type MeterTelemetryCreateInput = {
+    id?: string
+    timestamp?: Date | string
+    kwh: Decimal | DecimalJsLike | number | string
+    voltage?: Decimal | DecimalJsLike | number | string | null
+    current?: Decimal | DecimalJsLike | number | string | null
+    power?: Decimal | DecimalJsLike | number | string | null
+    meter: MeterCreateNestedOneWithoutMeterTelemetriesInput
+  }
+
+  export type MeterTelemetryUncheckedCreateInput = {
+    id?: string
+    meterId: string
+    timestamp?: Date | string
+    kwh: Decimal | DecimalJsLike | number | string
+    voltage?: Decimal | DecimalJsLike | number | string | null
+    current?: Decimal | DecimalJsLike | number | string | null
+    power?: Decimal | DecimalJsLike | number | string | null
+  }
+
+  export type MeterTelemetryUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    timestamp?: DateTimeFieldUpdateOperationsInput | Date | string
+    kwh?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    voltage?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    current?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    power?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    meter?: MeterUpdateOneRequiredWithoutMeterTelemetriesNestedInput
+  }
+
+  export type MeterTelemetryUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    meterId?: StringFieldUpdateOperationsInput | string
+    timestamp?: DateTimeFieldUpdateOperationsInput | Date | string
+    kwh?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    voltage?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    current?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    power?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+  }
+
+  export type MeterTelemetryCreateManyInput = {
+    id?: string
+    meterId: string
+    timestamp?: Date | string
+    kwh: Decimal | DecimalJsLike | number | string
+    voltage?: Decimal | DecimalJsLike | number | string | null
+    current?: Decimal | DecimalJsLike | number | string | null
+    power?: Decimal | DecimalJsLike | number | string | null
+  }
+
+  export type MeterTelemetryUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    timestamp?: DateTimeFieldUpdateOperationsInput | Date | string
+    kwh?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    voltage?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    current?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    power?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+  }
+
+  export type MeterTelemetryUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    meterId?: StringFieldUpdateOperationsInput | string
+    timestamp?: DateTimeFieldUpdateOperationsInput | Date | string
+    kwh?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    voltage?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    current?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    power?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+  }
+
+  export type UtilityPaymentCreateInput = {
+    id?: string
+    amount: Decimal | DecimalJsLike | number | string
+    kwhPurchased?: Decimal | DecimalJsLike | number | string | null
+    transactionRef: string
+    createdAt?: Date | string
+    meter: MeterCreateNestedOneWithoutUtilityPaymentsInput
+    paidBy: UserCreateNestedOneWithoutUtilityPaymentsInput
+  }
+
+  export type UtilityPaymentUncheckedCreateInput = {
+    id?: string
+    amount: Decimal | DecimalJsLike | number | string
+    kwhPurchased?: Decimal | DecimalJsLike | number | string | null
+    meterId: string
+    paidByUserId: string
+    transactionRef: string
+    createdAt?: Date | string
+  }
+
+  export type UtilityPaymentUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    amount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    kwhPurchased?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    transactionRef?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    meter?: MeterUpdateOneRequiredWithoutUtilityPaymentsNestedInput
+    paidBy?: UserUpdateOneRequiredWithoutUtilityPaymentsNestedInput
+  }
+
+  export type UtilityPaymentUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    amount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    kwhPurchased?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    meterId?: StringFieldUpdateOperationsInput | string
+    paidByUserId?: StringFieldUpdateOperationsInput | string
+    transactionRef?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type UtilityPaymentCreateManyInput = {
+    id?: string
+    amount: Decimal | DecimalJsLike | number | string
+    kwhPurchased?: Decimal | DecimalJsLike | number | string | null
+    meterId: string
+    paidByUserId: string
+    transactionRef: string
+    createdAt?: Date | string
+  }
+
+  export type UtilityPaymentUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    amount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    kwhPurchased?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    transactionRef?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type UtilityPaymentUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    amount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    kwhPurchased?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    meterId?: StringFieldUpdateOperationsInput | string
+    paidByUserId?: StringFieldUpdateOperationsInput | string
+    transactionRef?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type MeterReadingCreateInput = {
@@ -63995,6 +67103,12 @@ export namespace Prisma {
     none?: WorkLogWhereInput
   }
 
+  export type UtilityPaymentListRelationFilter = {
+    every?: UtilityPaymentWhereInput
+    some?: UtilityPaymentWhereInput
+    none?: UtilityPaymentWhereInput
+  }
+
   export type SortOrderInput = {
     sort: SortOrder
     nulls?: NullsOrder
@@ -64029,6 +67143,10 @@ export namespace Prisma {
   }
 
   export type WorkLogOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type UtilityPaymentOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
 
@@ -66572,7 +69690,17 @@ export namespace Prisma {
     none?: MeterReadingWhereInput
   }
 
+  export type MeterTelemetryListRelationFilter = {
+    every?: MeterTelemetryWhereInput
+    some?: MeterTelemetryWhereInput
+    none?: MeterTelemetryWhereInput
+  }
+
   export type MeterReadingOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type MeterTelemetryOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
 
@@ -66585,8 +69713,23 @@ export namespace Prisma {
     buildingId?: SortOrder
     zoneId?: SortOrder
     spaceId?: SortOrder
+    isSmartMeter?: SortOrder
+    deviceId?: SortOrder
+    currentPower?: SortOrder
+    currentVoltage?: SortOrder
+    currentBalance?: SortOrder
+    tariffRate?: SortOrder
+    lowBalanceLimit?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
+  }
+
+  export type MeterAvgOrderByAggregateInput = {
+    currentPower?: SortOrder
+    currentVoltage?: SortOrder
+    currentBalance?: SortOrder
+    tariffRate?: SortOrder
+    lowBalanceLimit?: SortOrder
   }
 
   export type MeterMaxOrderByAggregateInput = {
@@ -66598,6 +69741,13 @@ export namespace Prisma {
     buildingId?: SortOrder
     zoneId?: SortOrder
     spaceId?: SortOrder
+    isSmartMeter?: SortOrder
+    deviceId?: SortOrder
+    currentPower?: SortOrder
+    currentVoltage?: SortOrder
+    currentBalance?: SortOrder
+    tariffRate?: SortOrder
+    lowBalanceLimit?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
@@ -66611,8 +69761,23 @@ export namespace Prisma {
     buildingId?: SortOrder
     zoneId?: SortOrder
     spaceId?: SortOrder
+    isSmartMeter?: SortOrder
+    deviceId?: SortOrder
+    currentPower?: SortOrder
+    currentVoltage?: SortOrder
+    currentBalance?: SortOrder
+    tariffRate?: SortOrder
+    lowBalanceLimit?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
+  }
+
+  export type MeterSumOrderByAggregateInput = {
+    currentPower?: SortOrder
+    currentVoltage?: SortOrder
+    currentBalance?: SortOrder
+    tariffRate?: SortOrder
+    lowBalanceLimit?: SortOrder
   }
 
   export type EnumMeterTypeWithAggregatesFilter<$PrismaModel = never> = {
@@ -66625,16 +69790,100 @@ export namespace Prisma {
     _max?: NestedEnumMeterTypeFilter<$PrismaModel>
   }
 
+  export type MeterScalarRelationFilter = {
+    is?: MeterWhereInput
+    isNot?: MeterWhereInput
+  }
+
+  export type MeterTelemetryCountOrderByAggregateInput = {
+    id?: SortOrder
+    meterId?: SortOrder
+    timestamp?: SortOrder
+    kwh?: SortOrder
+    voltage?: SortOrder
+    current?: SortOrder
+    power?: SortOrder
+  }
+
+  export type MeterTelemetryAvgOrderByAggregateInput = {
+    kwh?: SortOrder
+    voltage?: SortOrder
+    current?: SortOrder
+    power?: SortOrder
+  }
+
+  export type MeterTelemetryMaxOrderByAggregateInput = {
+    id?: SortOrder
+    meterId?: SortOrder
+    timestamp?: SortOrder
+    kwh?: SortOrder
+    voltage?: SortOrder
+    current?: SortOrder
+    power?: SortOrder
+  }
+
+  export type MeterTelemetryMinOrderByAggregateInput = {
+    id?: SortOrder
+    meterId?: SortOrder
+    timestamp?: SortOrder
+    kwh?: SortOrder
+    voltage?: SortOrder
+    current?: SortOrder
+    power?: SortOrder
+  }
+
+  export type MeterTelemetrySumOrderByAggregateInput = {
+    kwh?: SortOrder
+    voltage?: SortOrder
+    current?: SortOrder
+    power?: SortOrder
+  }
+
+  export type UtilityPaymentCountOrderByAggregateInput = {
+    id?: SortOrder
+    amount?: SortOrder
+    kwhPurchased?: SortOrder
+    meterId?: SortOrder
+    paidByUserId?: SortOrder
+    transactionRef?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type UtilityPaymentAvgOrderByAggregateInput = {
+    amount?: SortOrder
+    kwhPurchased?: SortOrder
+  }
+
+  export type UtilityPaymentMaxOrderByAggregateInput = {
+    id?: SortOrder
+    amount?: SortOrder
+    kwhPurchased?: SortOrder
+    meterId?: SortOrder
+    paidByUserId?: SortOrder
+    transactionRef?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type UtilityPaymentMinOrderByAggregateInput = {
+    id?: SortOrder
+    amount?: SortOrder
+    kwhPurchased?: SortOrder
+    meterId?: SortOrder
+    paidByUserId?: SortOrder
+    transactionRef?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type UtilityPaymentSumOrderByAggregateInput = {
+    amount?: SortOrder
+    kwhPurchased?: SortOrder
+  }
+
   export type EnumMeterReadingSourceFilter<$PrismaModel = never> = {
     equals?: $Enums.MeterReadingSource | EnumMeterReadingSourceFieldRefInput<$PrismaModel>
     in?: $Enums.MeterReadingSource[] | ListEnumMeterReadingSourceFieldRefInput<$PrismaModel>
     notIn?: $Enums.MeterReadingSource[] | ListEnumMeterReadingSourceFieldRefInput<$PrismaModel>
     not?: NestedEnumMeterReadingSourceFilter<$PrismaModel> | $Enums.MeterReadingSource
-  }
-
-  export type MeterScalarRelationFilter = {
-    is?: MeterWhereInput
-    isNot?: MeterWhereInput
   }
 
   export type MeterReadingCountOrderByAggregateInput = {
@@ -67157,6 +70406,13 @@ export namespace Prisma {
     connect?: WorkLogWhereUniqueInput | WorkLogWhereUniqueInput[]
   }
 
+  export type UtilityPaymentCreateNestedManyWithoutPaidByInput = {
+    create?: XOR<UtilityPaymentCreateWithoutPaidByInput, UtilityPaymentUncheckedCreateWithoutPaidByInput> | UtilityPaymentCreateWithoutPaidByInput[] | UtilityPaymentUncheckedCreateWithoutPaidByInput[]
+    connectOrCreate?: UtilityPaymentCreateOrConnectWithoutPaidByInput | UtilityPaymentCreateOrConnectWithoutPaidByInput[]
+    createMany?: UtilityPaymentCreateManyPaidByInputEnvelope
+    connect?: UtilityPaymentWhereUniqueInput | UtilityPaymentWhereUniqueInput[]
+  }
+
   export type RefreshTokenUncheckedCreateNestedManyWithoutUserInput = {
     create?: XOR<RefreshTokenCreateWithoutUserInput, RefreshTokenUncheckedCreateWithoutUserInput> | RefreshTokenCreateWithoutUserInput[] | RefreshTokenUncheckedCreateWithoutUserInput[]
     connectOrCreate?: RefreshTokenCreateOrConnectWithoutUserInput | RefreshTokenCreateOrConnectWithoutUserInput[]
@@ -67224,6 +70480,13 @@ export namespace Prisma {
     connectOrCreate?: WorkLogCreateOrConnectWithoutTechnicianInput | WorkLogCreateOrConnectWithoutTechnicianInput[]
     createMany?: WorkLogCreateManyTechnicianInputEnvelope
     connect?: WorkLogWhereUniqueInput | WorkLogWhereUniqueInput[]
+  }
+
+  export type UtilityPaymentUncheckedCreateNestedManyWithoutPaidByInput = {
+    create?: XOR<UtilityPaymentCreateWithoutPaidByInput, UtilityPaymentUncheckedCreateWithoutPaidByInput> | UtilityPaymentCreateWithoutPaidByInput[] | UtilityPaymentUncheckedCreateWithoutPaidByInput[]
+    connectOrCreate?: UtilityPaymentCreateOrConnectWithoutPaidByInput | UtilityPaymentCreateOrConnectWithoutPaidByInput[]
+    createMany?: UtilityPaymentCreateManyPaidByInputEnvelope
+    connect?: UtilityPaymentWhereUniqueInput | UtilityPaymentWhereUniqueInput[]
   }
 
   export type StringFieldUpdateOperationsInput = {
@@ -67439,6 +70702,20 @@ export namespace Prisma {
     deleteMany?: WorkLogScalarWhereInput | WorkLogScalarWhereInput[]
   }
 
+  export type UtilityPaymentUpdateManyWithoutPaidByNestedInput = {
+    create?: XOR<UtilityPaymentCreateWithoutPaidByInput, UtilityPaymentUncheckedCreateWithoutPaidByInput> | UtilityPaymentCreateWithoutPaidByInput[] | UtilityPaymentUncheckedCreateWithoutPaidByInput[]
+    connectOrCreate?: UtilityPaymentCreateOrConnectWithoutPaidByInput | UtilityPaymentCreateOrConnectWithoutPaidByInput[]
+    upsert?: UtilityPaymentUpsertWithWhereUniqueWithoutPaidByInput | UtilityPaymentUpsertWithWhereUniqueWithoutPaidByInput[]
+    createMany?: UtilityPaymentCreateManyPaidByInputEnvelope
+    set?: UtilityPaymentWhereUniqueInput | UtilityPaymentWhereUniqueInput[]
+    disconnect?: UtilityPaymentWhereUniqueInput | UtilityPaymentWhereUniqueInput[]
+    delete?: UtilityPaymentWhereUniqueInput | UtilityPaymentWhereUniqueInput[]
+    connect?: UtilityPaymentWhereUniqueInput | UtilityPaymentWhereUniqueInput[]
+    update?: UtilityPaymentUpdateWithWhereUniqueWithoutPaidByInput | UtilityPaymentUpdateWithWhereUniqueWithoutPaidByInput[]
+    updateMany?: UtilityPaymentUpdateManyWithWhereWithoutPaidByInput | UtilityPaymentUpdateManyWithWhereWithoutPaidByInput[]
+    deleteMany?: UtilityPaymentScalarWhereInput | UtilityPaymentScalarWhereInput[]
+  }
+
   export type RefreshTokenUncheckedUpdateManyWithoutUserNestedInput = {
     create?: XOR<RefreshTokenCreateWithoutUserInput, RefreshTokenUncheckedCreateWithoutUserInput> | RefreshTokenCreateWithoutUserInput[] | RefreshTokenUncheckedCreateWithoutUserInput[]
     connectOrCreate?: RefreshTokenCreateOrConnectWithoutUserInput | RefreshTokenCreateOrConnectWithoutUserInput[]
@@ -67576,6 +70853,20 @@ export namespace Prisma {
     update?: WorkLogUpdateWithWhereUniqueWithoutTechnicianInput | WorkLogUpdateWithWhereUniqueWithoutTechnicianInput[]
     updateMany?: WorkLogUpdateManyWithWhereWithoutTechnicianInput | WorkLogUpdateManyWithWhereWithoutTechnicianInput[]
     deleteMany?: WorkLogScalarWhereInput | WorkLogScalarWhereInput[]
+  }
+
+  export type UtilityPaymentUncheckedUpdateManyWithoutPaidByNestedInput = {
+    create?: XOR<UtilityPaymentCreateWithoutPaidByInput, UtilityPaymentUncheckedCreateWithoutPaidByInput> | UtilityPaymentCreateWithoutPaidByInput[] | UtilityPaymentUncheckedCreateWithoutPaidByInput[]
+    connectOrCreate?: UtilityPaymentCreateOrConnectWithoutPaidByInput | UtilityPaymentCreateOrConnectWithoutPaidByInput[]
+    upsert?: UtilityPaymentUpsertWithWhereUniqueWithoutPaidByInput | UtilityPaymentUpsertWithWhereUniqueWithoutPaidByInput[]
+    createMany?: UtilityPaymentCreateManyPaidByInputEnvelope
+    set?: UtilityPaymentWhereUniqueInput | UtilityPaymentWhereUniqueInput[]
+    disconnect?: UtilityPaymentWhereUniqueInput | UtilityPaymentWhereUniqueInput[]
+    delete?: UtilityPaymentWhereUniqueInput | UtilityPaymentWhereUniqueInput[]
+    connect?: UtilityPaymentWhereUniqueInput | UtilityPaymentWhereUniqueInput[]
+    update?: UtilityPaymentUpdateWithWhereUniqueWithoutPaidByInput | UtilityPaymentUpdateWithWhereUniqueWithoutPaidByInput[]
+    updateMany?: UtilityPaymentUpdateManyWithWhereWithoutPaidByInput | UtilityPaymentUpdateManyWithWhereWithoutPaidByInput[]
+    deleteMany?: UtilityPaymentScalarWhereInput | UtilityPaymentScalarWhereInput[]
   }
 
   export type UserCreateNestedOneWithoutWorkLogsInput = {
@@ -71214,6 +74505,20 @@ export namespace Prisma {
     connect?: MeterMaintenanceTriggerWhereUniqueInput | MeterMaintenanceTriggerWhereUniqueInput[]
   }
 
+  export type MeterTelemetryCreateNestedManyWithoutMeterInput = {
+    create?: XOR<MeterTelemetryCreateWithoutMeterInput, MeterTelemetryUncheckedCreateWithoutMeterInput> | MeterTelemetryCreateWithoutMeterInput[] | MeterTelemetryUncheckedCreateWithoutMeterInput[]
+    connectOrCreate?: MeterTelemetryCreateOrConnectWithoutMeterInput | MeterTelemetryCreateOrConnectWithoutMeterInput[]
+    createMany?: MeterTelemetryCreateManyMeterInputEnvelope
+    connect?: MeterTelemetryWhereUniqueInput | MeterTelemetryWhereUniqueInput[]
+  }
+
+  export type UtilityPaymentCreateNestedManyWithoutMeterInput = {
+    create?: XOR<UtilityPaymentCreateWithoutMeterInput, UtilityPaymentUncheckedCreateWithoutMeterInput> | UtilityPaymentCreateWithoutMeterInput[] | UtilityPaymentUncheckedCreateWithoutMeterInput[]
+    connectOrCreate?: UtilityPaymentCreateOrConnectWithoutMeterInput | UtilityPaymentCreateOrConnectWithoutMeterInput[]
+    createMany?: UtilityPaymentCreateManyMeterInputEnvelope
+    connect?: UtilityPaymentWhereUniqueInput | UtilityPaymentWhereUniqueInput[]
+  }
+
   export type MeterReadingUncheckedCreateNestedManyWithoutMeterInput = {
     create?: XOR<MeterReadingCreateWithoutMeterInput, MeterReadingUncheckedCreateWithoutMeterInput> | MeterReadingCreateWithoutMeterInput[] | MeterReadingUncheckedCreateWithoutMeterInput[]
     connectOrCreate?: MeterReadingCreateOrConnectWithoutMeterInput | MeterReadingCreateOrConnectWithoutMeterInput[]
@@ -71226,6 +74531,20 @@ export namespace Prisma {
     connectOrCreate?: MeterMaintenanceTriggerCreateOrConnectWithoutMeterInput | MeterMaintenanceTriggerCreateOrConnectWithoutMeterInput[]
     createMany?: MeterMaintenanceTriggerCreateManyMeterInputEnvelope
     connect?: MeterMaintenanceTriggerWhereUniqueInput | MeterMaintenanceTriggerWhereUniqueInput[]
+  }
+
+  export type MeterTelemetryUncheckedCreateNestedManyWithoutMeterInput = {
+    create?: XOR<MeterTelemetryCreateWithoutMeterInput, MeterTelemetryUncheckedCreateWithoutMeterInput> | MeterTelemetryCreateWithoutMeterInput[] | MeterTelemetryUncheckedCreateWithoutMeterInput[]
+    connectOrCreate?: MeterTelemetryCreateOrConnectWithoutMeterInput | MeterTelemetryCreateOrConnectWithoutMeterInput[]
+    createMany?: MeterTelemetryCreateManyMeterInputEnvelope
+    connect?: MeterTelemetryWhereUniqueInput | MeterTelemetryWhereUniqueInput[]
+  }
+
+  export type UtilityPaymentUncheckedCreateNestedManyWithoutMeterInput = {
+    create?: XOR<UtilityPaymentCreateWithoutMeterInput, UtilityPaymentUncheckedCreateWithoutMeterInput> | UtilityPaymentCreateWithoutMeterInput[] | UtilityPaymentUncheckedCreateWithoutMeterInput[]
+    connectOrCreate?: UtilityPaymentCreateOrConnectWithoutMeterInput | UtilityPaymentCreateOrConnectWithoutMeterInput[]
+    createMany?: UtilityPaymentCreateManyMeterInputEnvelope
+    connect?: UtilityPaymentWhereUniqueInput | UtilityPaymentWhereUniqueInput[]
   }
 
   export type EnumMeterTypeFieldUpdateOperationsInput = {
@@ -71300,6 +74619,34 @@ export namespace Prisma {
     deleteMany?: MeterMaintenanceTriggerScalarWhereInput | MeterMaintenanceTriggerScalarWhereInput[]
   }
 
+  export type MeterTelemetryUpdateManyWithoutMeterNestedInput = {
+    create?: XOR<MeterTelemetryCreateWithoutMeterInput, MeterTelemetryUncheckedCreateWithoutMeterInput> | MeterTelemetryCreateWithoutMeterInput[] | MeterTelemetryUncheckedCreateWithoutMeterInput[]
+    connectOrCreate?: MeterTelemetryCreateOrConnectWithoutMeterInput | MeterTelemetryCreateOrConnectWithoutMeterInput[]
+    upsert?: MeterTelemetryUpsertWithWhereUniqueWithoutMeterInput | MeterTelemetryUpsertWithWhereUniqueWithoutMeterInput[]
+    createMany?: MeterTelemetryCreateManyMeterInputEnvelope
+    set?: MeterTelemetryWhereUniqueInput | MeterTelemetryWhereUniqueInput[]
+    disconnect?: MeterTelemetryWhereUniqueInput | MeterTelemetryWhereUniqueInput[]
+    delete?: MeterTelemetryWhereUniqueInput | MeterTelemetryWhereUniqueInput[]
+    connect?: MeterTelemetryWhereUniqueInput | MeterTelemetryWhereUniqueInput[]
+    update?: MeterTelemetryUpdateWithWhereUniqueWithoutMeterInput | MeterTelemetryUpdateWithWhereUniqueWithoutMeterInput[]
+    updateMany?: MeterTelemetryUpdateManyWithWhereWithoutMeterInput | MeterTelemetryUpdateManyWithWhereWithoutMeterInput[]
+    deleteMany?: MeterTelemetryScalarWhereInput | MeterTelemetryScalarWhereInput[]
+  }
+
+  export type UtilityPaymentUpdateManyWithoutMeterNestedInput = {
+    create?: XOR<UtilityPaymentCreateWithoutMeterInput, UtilityPaymentUncheckedCreateWithoutMeterInput> | UtilityPaymentCreateWithoutMeterInput[] | UtilityPaymentUncheckedCreateWithoutMeterInput[]
+    connectOrCreate?: UtilityPaymentCreateOrConnectWithoutMeterInput | UtilityPaymentCreateOrConnectWithoutMeterInput[]
+    upsert?: UtilityPaymentUpsertWithWhereUniqueWithoutMeterInput | UtilityPaymentUpsertWithWhereUniqueWithoutMeterInput[]
+    createMany?: UtilityPaymentCreateManyMeterInputEnvelope
+    set?: UtilityPaymentWhereUniqueInput | UtilityPaymentWhereUniqueInput[]
+    disconnect?: UtilityPaymentWhereUniqueInput | UtilityPaymentWhereUniqueInput[]
+    delete?: UtilityPaymentWhereUniqueInput | UtilityPaymentWhereUniqueInput[]
+    connect?: UtilityPaymentWhereUniqueInput | UtilityPaymentWhereUniqueInput[]
+    update?: UtilityPaymentUpdateWithWhereUniqueWithoutMeterInput | UtilityPaymentUpdateWithWhereUniqueWithoutMeterInput[]
+    updateMany?: UtilityPaymentUpdateManyWithWhereWithoutMeterInput | UtilityPaymentUpdateManyWithWhereWithoutMeterInput[]
+    deleteMany?: UtilityPaymentScalarWhereInput | UtilityPaymentScalarWhereInput[]
+  }
+
   export type MeterReadingUncheckedUpdateManyWithoutMeterNestedInput = {
     create?: XOR<MeterReadingCreateWithoutMeterInput, MeterReadingUncheckedCreateWithoutMeterInput> | MeterReadingCreateWithoutMeterInput[] | MeterReadingUncheckedCreateWithoutMeterInput[]
     connectOrCreate?: MeterReadingCreateOrConnectWithoutMeterInput | MeterReadingCreateOrConnectWithoutMeterInput[]
@@ -71326,6 +74673,76 @@ export namespace Prisma {
     update?: MeterMaintenanceTriggerUpdateWithWhereUniqueWithoutMeterInput | MeterMaintenanceTriggerUpdateWithWhereUniqueWithoutMeterInput[]
     updateMany?: MeterMaintenanceTriggerUpdateManyWithWhereWithoutMeterInput | MeterMaintenanceTriggerUpdateManyWithWhereWithoutMeterInput[]
     deleteMany?: MeterMaintenanceTriggerScalarWhereInput | MeterMaintenanceTriggerScalarWhereInput[]
+  }
+
+  export type MeterTelemetryUncheckedUpdateManyWithoutMeterNestedInput = {
+    create?: XOR<MeterTelemetryCreateWithoutMeterInput, MeterTelemetryUncheckedCreateWithoutMeterInput> | MeterTelemetryCreateWithoutMeterInput[] | MeterTelemetryUncheckedCreateWithoutMeterInput[]
+    connectOrCreate?: MeterTelemetryCreateOrConnectWithoutMeterInput | MeterTelemetryCreateOrConnectWithoutMeterInput[]
+    upsert?: MeterTelemetryUpsertWithWhereUniqueWithoutMeterInput | MeterTelemetryUpsertWithWhereUniqueWithoutMeterInput[]
+    createMany?: MeterTelemetryCreateManyMeterInputEnvelope
+    set?: MeterTelemetryWhereUniqueInput | MeterTelemetryWhereUniqueInput[]
+    disconnect?: MeterTelemetryWhereUniqueInput | MeterTelemetryWhereUniqueInput[]
+    delete?: MeterTelemetryWhereUniqueInput | MeterTelemetryWhereUniqueInput[]
+    connect?: MeterTelemetryWhereUniqueInput | MeterTelemetryWhereUniqueInput[]
+    update?: MeterTelemetryUpdateWithWhereUniqueWithoutMeterInput | MeterTelemetryUpdateWithWhereUniqueWithoutMeterInput[]
+    updateMany?: MeterTelemetryUpdateManyWithWhereWithoutMeterInput | MeterTelemetryUpdateManyWithWhereWithoutMeterInput[]
+    deleteMany?: MeterTelemetryScalarWhereInput | MeterTelemetryScalarWhereInput[]
+  }
+
+  export type UtilityPaymentUncheckedUpdateManyWithoutMeterNestedInput = {
+    create?: XOR<UtilityPaymentCreateWithoutMeterInput, UtilityPaymentUncheckedCreateWithoutMeterInput> | UtilityPaymentCreateWithoutMeterInput[] | UtilityPaymentUncheckedCreateWithoutMeterInput[]
+    connectOrCreate?: UtilityPaymentCreateOrConnectWithoutMeterInput | UtilityPaymentCreateOrConnectWithoutMeterInput[]
+    upsert?: UtilityPaymentUpsertWithWhereUniqueWithoutMeterInput | UtilityPaymentUpsertWithWhereUniqueWithoutMeterInput[]
+    createMany?: UtilityPaymentCreateManyMeterInputEnvelope
+    set?: UtilityPaymentWhereUniqueInput | UtilityPaymentWhereUniqueInput[]
+    disconnect?: UtilityPaymentWhereUniqueInput | UtilityPaymentWhereUniqueInput[]
+    delete?: UtilityPaymentWhereUniqueInput | UtilityPaymentWhereUniqueInput[]
+    connect?: UtilityPaymentWhereUniqueInput | UtilityPaymentWhereUniqueInput[]
+    update?: UtilityPaymentUpdateWithWhereUniqueWithoutMeterInput | UtilityPaymentUpdateWithWhereUniqueWithoutMeterInput[]
+    updateMany?: UtilityPaymentUpdateManyWithWhereWithoutMeterInput | UtilityPaymentUpdateManyWithWhereWithoutMeterInput[]
+    deleteMany?: UtilityPaymentScalarWhereInput | UtilityPaymentScalarWhereInput[]
+  }
+
+  export type MeterCreateNestedOneWithoutMeterTelemetriesInput = {
+    create?: XOR<MeterCreateWithoutMeterTelemetriesInput, MeterUncheckedCreateWithoutMeterTelemetriesInput>
+    connectOrCreate?: MeterCreateOrConnectWithoutMeterTelemetriesInput
+    connect?: MeterWhereUniqueInput
+  }
+
+  export type MeterUpdateOneRequiredWithoutMeterTelemetriesNestedInput = {
+    create?: XOR<MeterCreateWithoutMeterTelemetriesInput, MeterUncheckedCreateWithoutMeterTelemetriesInput>
+    connectOrCreate?: MeterCreateOrConnectWithoutMeterTelemetriesInput
+    upsert?: MeterUpsertWithoutMeterTelemetriesInput
+    connect?: MeterWhereUniqueInput
+    update?: XOR<XOR<MeterUpdateToOneWithWhereWithoutMeterTelemetriesInput, MeterUpdateWithoutMeterTelemetriesInput>, MeterUncheckedUpdateWithoutMeterTelemetriesInput>
+  }
+
+  export type MeterCreateNestedOneWithoutUtilityPaymentsInput = {
+    create?: XOR<MeterCreateWithoutUtilityPaymentsInput, MeterUncheckedCreateWithoutUtilityPaymentsInput>
+    connectOrCreate?: MeterCreateOrConnectWithoutUtilityPaymentsInput
+    connect?: MeterWhereUniqueInput
+  }
+
+  export type UserCreateNestedOneWithoutUtilityPaymentsInput = {
+    create?: XOR<UserCreateWithoutUtilityPaymentsInput, UserUncheckedCreateWithoutUtilityPaymentsInput>
+    connectOrCreate?: UserCreateOrConnectWithoutUtilityPaymentsInput
+    connect?: UserWhereUniqueInput
+  }
+
+  export type MeterUpdateOneRequiredWithoutUtilityPaymentsNestedInput = {
+    create?: XOR<MeterCreateWithoutUtilityPaymentsInput, MeterUncheckedCreateWithoutUtilityPaymentsInput>
+    connectOrCreate?: MeterCreateOrConnectWithoutUtilityPaymentsInput
+    upsert?: MeterUpsertWithoutUtilityPaymentsInput
+    connect?: MeterWhereUniqueInput
+    update?: XOR<XOR<MeterUpdateToOneWithWhereWithoutUtilityPaymentsInput, MeterUpdateWithoutUtilityPaymentsInput>, MeterUncheckedUpdateWithoutUtilityPaymentsInput>
+  }
+
+  export type UserUpdateOneRequiredWithoutUtilityPaymentsNestedInput = {
+    create?: XOR<UserCreateWithoutUtilityPaymentsInput, UserUncheckedCreateWithoutUtilityPaymentsInput>
+    connectOrCreate?: UserCreateOrConnectWithoutUtilityPaymentsInput
+    upsert?: UserUpsertWithoutUtilityPaymentsInput
+    connect?: UserWhereUniqueInput
+    update?: XOR<XOR<UserUpdateToOneWithWhereWithoutUtilityPaymentsInput, UserUpdateWithoutUtilityPaymentsInput>, UserUncheckedUpdateWithoutUtilityPaymentsInput>
   }
 
   export type MeterCreateNestedOneWithoutReadingsInput = {
@@ -73446,6 +76863,34 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
+  export type UtilityPaymentCreateWithoutPaidByInput = {
+    id?: string
+    amount: Decimal | DecimalJsLike | number | string
+    kwhPurchased?: Decimal | DecimalJsLike | number | string | null
+    transactionRef: string
+    createdAt?: Date | string
+    meter: MeterCreateNestedOneWithoutUtilityPaymentsInput
+  }
+
+  export type UtilityPaymentUncheckedCreateWithoutPaidByInput = {
+    id?: string
+    amount: Decimal | DecimalJsLike | number | string
+    kwhPurchased?: Decimal | DecimalJsLike | number | string | null
+    meterId: string
+    transactionRef: string
+    createdAt?: Date | string
+  }
+
+  export type UtilityPaymentCreateOrConnectWithoutPaidByInput = {
+    where: UtilityPaymentWhereUniqueInput
+    create: XOR<UtilityPaymentCreateWithoutPaidByInput, UtilityPaymentUncheckedCreateWithoutPaidByInput>
+  }
+
+  export type UtilityPaymentCreateManyPaidByInputEnvelope = {
+    data: UtilityPaymentCreateManyPaidByInput | UtilityPaymentCreateManyPaidByInput[]
+    skipDuplicates?: boolean
+  }
+
   export type RefreshTokenUpsertWithWhereUniqueWithoutUserInput = {
     where: RefreshTokenWhereUniqueInput
     update: XOR<RefreshTokenUpdateWithoutUserInput, RefreshTokenUncheckedUpdateWithoutUserInput>
@@ -73932,6 +77377,35 @@ export namespace Prisma {
     updatedAt?: DateTimeFilter<"WorkLog"> | Date | string
   }
 
+  export type UtilityPaymentUpsertWithWhereUniqueWithoutPaidByInput = {
+    where: UtilityPaymentWhereUniqueInput
+    update: XOR<UtilityPaymentUpdateWithoutPaidByInput, UtilityPaymentUncheckedUpdateWithoutPaidByInput>
+    create: XOR<UtilityPaymentCreateWithoutPaidByInput, UtilityPaymentUncheckedCreateWithoutPaidByInput>
+  }
+
+  export type UtilityPaymentUpdateWithWhereUniqueWithoutPaidByInput = {
+    where: UtilityPaymentWhereUniqueInput
+    data: XOR<UtilityPaymentUpdateWithoutPaidByInput, UtilityPaymentUncheckedUpdateWithoutPaidByInput>
+  }
+
+  export type UtilityPaymentUpdateManyWithWhereWithoutPaidByInput = {
+    where: UtilityPaymentScalarWhereInput
+    data: XOR<UtilityPaymentUpdateManyMutationInput, UtilityPaymentUncheckedUpdateManyWithoutPaidByInput>
+  }
+
+  export type UtilityPaymentScalarWhereInput = {
+    AND?: UtilityPaymentScalarWhereInput | UtilityPaymentScalarWhereInput[]
+    OR?: UtilityPaymentScalarWhereInput[]
+    NOT?: UtilityPaymentScalarWhereInput | UtilityPaymentScalarWhereInput[]
+    id?: StringFilter<"UtilityPayment"> | string
+    amount?: DecimalFilter<"UtilityPayment"> | Decimal | DecimalJsLike | number | string
+    kwhPurchased?: DecimalNullableFilter<"UtilityPayment"> | Decimal | DecimalJsLike | number | string | null
+    meterId?: StringFilter<"UtilityPayment"> | string
+    paidByUserId?: StringFilter<"UtilityPayment"> | string
+    transactionRef?: StringFilter<"UtilityPayment"> | string
+    createdAt?: DateTimeFilter<"UtilityPayment"> | Date | string
+  }
+
   export type UserCreateWithoutWorkLogsInput = {
     id?: string
     email: string
@@ -73961,6 +77435,7 @@ export namespace Prisma {
     purchaseRequests?: PurchaseRequestCreateNestedManyWithoutRequesterInput
     goodsReceipts?: GoodsReceiptCreateNestedManyWithoutReceiverInput
     maintenanceTasks?: MaintenanceTaskCreateNestedManyWithoutCompletedByInput
+    utilityPayments?: UtilityPaymentCreateNestedManyWithoutPaidByInput
   }
 
   export type UserUncheckedCreateWithoutWorkLogsInput = {
@@ -73992,6 +77467,7 @@ export namespace Prisma {
     purchaseRequests?: PurchaseRequestUncheckedCreateNestedManyWithoutRequesterInput
     goodsReceipts?: GoodsReceiptUncheckedCreateNestedManyWithoutReceiverInput
     maintenanceTasks?: MaintenanceTaskUncheckedCreateNestedManyWithoutCompletedByInput
+    utilityPayments?: UtilityPaymentUncheckedCreateNestedManyWithoutPaidByInput
   }
 
   export type UserCreateOrConnectWithoutWorkLogsInput = {
@@ -74184,6 +77660,7 @@ export namespace Prisma {
     purchaseRequests?: PurchaseRequestUpdateManyWithoutRequesterNestedInput
     goodsReceipts?: GoodsReceiptUpdateManyWithoutReceiverNestedInput
     maintenanceTasks?: MaintenanceTaskUpdateManyWithoutCompletedByNestedInput
+    utilityPayments?: UtilityPaymentUpdateManyWithoutPaidByNestedInput
   }
 
   export type UserUncheckedUpdateWithoutWorkLogsInput = {
@@ -74215,6 +77692,7 @@ export namespace Prisma {
     purchaseRequests?: PurchaseRequestUncheckedUpdateManyWithoutRequesterNestedInput
     goodsReceipts?: GoodsReceiptUncheckedUpdateManyWithoutReceiverNestedInput
     maintenanceTasks?: MaintenanceTaskUncheckedUpdateManyWithoutCompletedByNestedInput
+    utilityPayments?: UtilityPaymentUncheckedUpdateManyWithoutPaidByNestedInput
   }
 
   export type MaintenanceUpsertWithoutWorkLogsInput = {
@@ -74425,6 +77903,7 @@ export namespace Prisma {
     goodsReceipts?: GoodsReceiptCreateNestedManyWithoutReceiverInput
     maintenanceTasks?: MaintenanceTaskCreateNestedManyWithoutCompletedByInput
     workLogs?: WorkLogCreateNestedManyWithoutTechnicianInput
+    utilityPayments?: UtilityPaymentCreateNestedManyWithoutPaidByInput
   }
 
   export type UserUncheckedCreateWithoutRoleInput = {
@@ -74456,6 +77935,7 @@ export namespace Prisma {
     goodsReceipts?: GoodsReceiptUncheckedCreateNestedManyWithoutReceiverInput
     maintenanceTasks?: MaintenanceTaskUncheckedCreateNestedManyWithoutCompletedByInput
     workLogs?: WorkLogUncheckedCreateNestedManyWithoutTechnicianInput
+    utilityPayments?: UtilityPaymentUncheckedCreateNestedManyWithoutPaidByInput
   }
 
   export type UserCreateOrConnectWithoutRoleInput = {
@@ -74579,6 +78059,7 @@ export namespace Prisma {
     goodsReceipts?: GoodsReceiptCreateNestedManyWithoutReceiverInput
     maintenanceTasks?: MaintenanceTaskCreateNestedManyWithoutCompletedByInput
     workLogs?: WorkLogCreateNestedManyWithoutTechnicianInput
+    utilityPayments?: UtilityPaymentCreateNestedManyWithoutPaidByInput
   }
 
   export type UserUncheckedCreateWithoutPermissionsInput = {
@@ -74610,6 +78091,7 @@ export namespace Prisma {
     goodsReceipts?: GoodsReceiptUncheckedCreateNestedManyWithoutReceiverInput
     maintenanceTasks?: MaintenanceTaskUncheckedCreateNestedManyWithoutCompletedByInput
     workLogs?: WorkLogUncheckedCreateNestedManyWithoutTechnicianInput
+    utilityPayments?: UtilityPaymentUncheckedCreateNestedManyWithoutPaidByInput
   }
 
   export type UserCreateOrConnectWithoutPermissionsInput = {
@@ -74688,6 +78170,7 @@ export namespace Prisma {
     goodsReceipts?: GoodsReceiptUpdateManyWithoutReceiverNestedInput
     maintenanceTasks?: MaintenanceTaskUpdateManyWithoutCompletedByNestedInput
     workLogs?: WorkLogUpdateManyWithoutTechnicianNestedInput
+    utilityPayments?: UtilityPaymentUpdateManyWithoutPaidByNestedInput
   }
 
   export type UserUncheckedUpdateWithoutPermissionsInput = {
@@ -74719,6 +78202,7 @@ export namespace Prisma {
     goodsReceipts?: GoodsReceiptUncheckedUpdateManyWithoutReceiverNestedInput
     maintenanceTasks?: MaintenanceTaskUncheckedUpdateManyWithoutCompletedByNestedInput
     workLogs?: WorkLogUncheckedUpdateManyWithoutTechnicianNestedInput
+    utilityPayments?: UtilityPaymentUncheckedUpdateManyWithoutPaidByNestedInput
   }
 
   export type AddressCreateWithoutSitesInput = {
@@ -75827,6 +79311,13 @@ export namespace Prisma {
     name: string
     type?: $Enums.MeterType
     unit: string
+    isSmartMeter?: boolean
+    deviceId?: string | null
+    currentPower?: Decimal | DecimalJsLike | number | string
+    currentVoltage?: Decimal | DecimalJsLike | number | string
+    currentBalance?: Decimal | DecimalJsLike | number | string
+    tariffRate?: Decimal | DecimalJsLike | number | string
+    lowBalanceLimit?: Decimal | DecimalJsLike | number | string
     createdAt?: Date | string
     updatedAt?: Date | string
     asset?: AssetCreateNestedOneWithoutMetersInput
@@ -75834,6 +79325,8 @@ export namespace Prisma {
     space?: SpaceCreateNestedOneWithoutMetersInput
     readings?: MeterReadingCreateNestedManyWithoutMeterInput
     preventiveTriggers?: MeterMaintenanceTriggerCreateNestedManyWithoutMeterInput
+    meterTelemetries?: MeterTelemetryCreateNestedManyWithoutMeterInput
+    utilityPayments?: UtilityPaymentCreateNestedManyWithoutMeterInput
   }
 
   export type MeterUncheckedCreateWithoutBuildingInput = {
@@ -75844,10 +79337,19 @@ export namespace Prisma {
     assetId?: string | null
     zoneId?: string | null
     spaceId?: string | null
+    isSmartMeter?: boolean
+    deviceId?: string | null
+    currentPower?: Decimal | DecimalJsLike | number | string
+    currentVoltage?: Decimal | DecimalJsLike | number | string
+    currentBalance?: Decimal | DecimalJsLike | number | string
+    tariffRate?: Decimal | DecimalJsLike | number | string
+    lowBalanceLimit?: Decimal | DecimalJsLike | number | string
     createdAt?: Date | string
     updatedAt?: Date | string
     readings?: MeterReadingUncheckedCreateNestedManyWithoutMeterInput
     preventiveTriggers?: MeterMaintenanceTriggerUncheckedCreateNestedManyWithoutMeterInput
+    meterTelemetries?: MeterTelemetryUncheckedCreateNestedManyWithoutMeterInput
+    utilityPayments?: UtilityPaymentUncheckedCreateNestedManyWithoutMeterInput
   }
 
   export type MeterCreateOrConnectWithoutBuildingInput = {
@@ -76125,6 +79627,13 @@ export namespace Prisma {
     buildingId?: StringNullableFilter<"Meter"> | string | null
     zoneId?: StringNullableFilter<"Meter"> | string | null
     spaceId?: StringNullableFilter<"Meter"> | string | null
+    isSmartMeter?: BoolFilter<"Meter"> | boolean
+    deviceId?: StringNullableFilter<"Meter"> | string | null
+    currentPower?: DecimalFilter<"Meter"> | Decimal | DecimalJsLike | number | string
+    currentVoltage?: DecimalFilter<"Meter"> | Decimal | DecimalJsLike | number | string
+    currentBalance?: DecimalFilter<"Meter"> | Decimal | DecimalJsLike | number | string
+    tariffRate?: DecimalFilter<"Meter"> | Decimal | DecimalJsLike | number | string
+    lowBalanceLimit?: DecimalFilter<"Meter"> | Decimal | DecimalJsLike | number | string
     createdAt?: DateTimeFilter<"Meter"> | Date | string
     updatedAt?: DateTimeFilter<"Meter"> | Date | string
   }
@@ -76863,7 +80372,7 @@ export namespace Prisma {
   export type MaintenanceItemCreateWithoutZoneInput = {
     id?: string
     quantity: number
-    cost?: Decimal | DecimalJsLike | number | string
+    cost: Decimal | DecimalJsLike | number | string
     createdAt?: Date | string
     updatedAt?: Date | string
     maintenance: MaintenanceCreateNestedOneWithoutMaintenanceItemsInput
@@ -76873,7 +80382,7 @@ export namespace Prisma {
   export type MaintenanceItemUncheckedCreateWithoutZoneInput = {
     id?: string
     quantity: number
-    cost?: Decimal | DecimalJsLike | number | string
+    cost: Decimal | DecimalJsLike | number | string
     maintenanceId: string
     itemId: string
     createdAt?: Date | string
@@ -76895,6 +80404,13 @@ export namespace Prisma {
     name: string
     type?: $Enums.MeterType
     unit: string
+    isSmartMeter?: boolean
+    deviceId?: string | null
+    currentPower?: Decimal | DecimalJsLike | number | string
+    currentVoltage?: Decimal | DecimalJsLike | number | string
+    currentBalance?: Decimal | DecimalJsLike | number | string
+    tariffRate?: Decimal | DecimalJsLike | number | string
+    lowBalanceLimit?: Decimal | DecimalJsLike | number | string
     createdAt?: Date | string
     updatedAt?: Date | string
     asset?: AssetCreateNestedOneWithoutMetersInput
@@ -76902,6 +80418,8 @@ export namespace Prisma {
     space?: SpaceCreateNestedOneWithoutMetersInput
     readings?: MeterReadingCreateNestedManyWithoutMeterInput
     preventiveTriggers?: MeterMaintenanceTriggerCreateNestedManyWithoutMeterInput
+    meterTelemetries?: MeterTelemetryCreateNestedManyWithoutMeterInput
+    utilityPayments?: UtilityPaymentCreateNestedManyWithoutMeterInput
   }
 
   export type MeterUncheckedCreateWithoutZoneInput = {
@@ -76912,10 +80430,19 @@ export namespace Prisma {
     assetId?: string | null
     buildingId?: string | null
     spaceId?: string | null
+    isSmartMeter?: boolean
+    deviceId?: string | null
+    currentPower?: Decimal | DecimalJsLike | number | string
+    currentVoltage?: Decimal | DecimalJsLike | number | string
+    currentBalance?: Decimal | DecimalJsLike | number | string
+    tariffRate?: Decimal | DecimalJsLike | number | string
+    lowBalanceLimit?: Decimal | DecimalJsLike | number | string
     createdAt?: Date | string
     updatedAt?: Date | string
     readings?: MeterReadingUncheckedCreateNestedManyWithoutMeterInput
     preventiveTriggers?: MeterMaintenanceTriggerUncheckedCreateNestedManyWithoutMeterInput
+    meterTelemetries?: MeterTelemetryUncheckedCreateNestedManyWithoutMeterInput
+    utilityPayments?: UtilityPaymentUncheckedCreateNestedManyWithoutMeterInput
   }
 
   export type MeterCreateOrConnectWithoutZoneInput = {
@@ -77703,6 +81230,13 @@ export namespace Prisma {
     name: string
     type?: $Enums.MeterType
     unit: string
+    isSmartMeter?: boolean
+    deviceId?: string | null
+    currentPower?: Decimal | DecimalJsLike | number | string
+    currentVoltage?: Decimal | DecimalJsLike | number | string
+    currentBalance?: Decimal | DecimalJsLike | number | string
+    tariffRate?: Decimal | DecimalJsLike | number | string
+    lowBalanceLimit?: Decimal | DecimalJsLike | number | string
     createdAt?: Date | string
     updatedAt?: Date | string
     asset?: AssetCreateNestedOneWithoutMetersInput
@@ -77710,6 +81244,8 @@ export namespace Prisma {
     zone?: ZoneCreateNestedOneWithoutMetersInput
     readings?: MeterReadingCreateNestedManyWithoutMeterInput
     preventiveTriggers?: MeterMaintenanceTriggerCreateNestedManyWithoutMeterInput
+    meterTelemetries?: MeterTelemetryCreateNestedManyWithoutMeterInput
+    utilityPayments?: UtilityPaymentCreateNestedManyWithoutMeterInput
   }
 
   export type MeterUncheckedCreateWithoutSpaceInput = {
@@ -77720,10 +81256,19 @@ export namespace Prisma {
     assetId?: string | null
     buildingId?: string | null
     zoneId?: string | null
+    isSmartMeter?: boolean
+    deviceId?: string | null
+    currentPower?: Decimal | DecimalJsLike | number | string
+    currentVoltage?: Decimal | DecimalJsLike | number | string
+    currentBalance?: Decimal | DecimalJsLike | number | string
+    tariffRate?: Decimal | DecimalJsLike | number | string
+    lowBalanceLimit?: Decimal | DecimalJsLike | number | string
     createdAt?: Date | string
     updatedAt?: Date | string
     readings?: MeterReadingUncheckedCreateNestedManyWithoutMeterInput
     preventiveTriggers?: MeterMaintenanceTriggerUncheckedCreateNestedManyWithoutMeterInput
+    meterTelemetries?: MeterTelemetryUncheckedCreateNestedManyWithoutMeterInput
+    utilityPayments?: UtilityPaymentUncheckedCreateNestedManyWithoutMeterInput
   }
 
   export type MeterCreateOrConnectWithoutSpaceInput = {
@@ -78420,6 +81965,13 @@ export namespace Prisma {
     name: string
     type?: $Enums.MeterType
     unit: string
+    isSmartMeter?: boolean
+    deviceId?: string | null
+    currentPower?: Decimal | DecimalJsLike | number | string
+    currentVoltage?: Decimal | DecimalJsLike | number | string
+    currentBalance?: Decimal | DecimalJsLike | number | string
+    tariffRate?: Decimal | DecimalJsLike | number | string
+    lowBalanceLimit?: Decimal | DecimalJsLike | number | string
     createdAt?: Date | string
     updatedAt?: Date | string
     building?: BuildingCreateNestedOneWithoutMetersInput
@@ -78427,6 +81979,8 @@ export namespace Prisma {
     space?: SpaceCreateNestedOneWithoutMetersInput
     readings?: MeterReadingCreateNestedManyWithoutMeterInput
     preventiveTriggers?: MeterMaintenanceTriggerCreateNestedManyWithoutMeterInput
+    meterTelemetries?: MeterTelemetryCreateNestedManyWithoutMeterInput
+    utilityPayments?: UtilityPaymentCreateNestedManyWithoutMeterInput
   }
 
   export type MeterUncheckedCreateWithoutAssetInput = {
@@ -78437,10 +81991,19 @@ export namespace Prisma {
     buildingId?: string | null
     zoneId?: string | null
     spaceId?: string | null
+    isSmartMeter?: boolean
+    deviceId?: string | null
+    currentPower?: Decimal | DecimalJsLike | number | string
+    currentVoltage?: Decimal | DecimalJsLike | number | string
+    currentBalance?: Decimal | DecimalJsLike | number | string
+    tariffRate?: Decimal | DecimalJsLike | number | string
+    lowBalanceLimit?: Decimal | DecimalJsLike | number | string
     createdAt?: Date | string
     updatedAt?: Date | string
     readings?: MeterReadingUncheckedCreateNestedManyWithoutMeterInput
     preventiveTriggers?: MeterMaintenanceTriggerUncheckedCreateNestedManyWithoutMeterInput
+    meterTelemetries?: MeterTelemetryUncheckedCreateNestedManyWithoutMeterInput
+    utilityPayments?: UtilityPaymentUncheckedCreateNestedManyWithoutMeterInput
   }
 
   export type MeterCreateOrConnectWithoutAssetInput = {
@@ -79432,6 +82995,7 @@ export namespace Prisma {
     goodsReceipts?: GoodsReceiptCreateNestedManyWithoutReceiverInput
     maintenanceTasks?: MaintenanceTaskCreateNestedManyWithoutCompletedByInput
     workLogs?: WorkLogCreateNestedManyWithoutTechnicianInput
+    utilityPayments?: UtilityPaymentCreateNestedManyWithoutPaidByInput
   }
 
   export type UserUncheckedCreateWithoutCompanyInput = {
@@ -79463,6 +83027,7 @@ export namespace Prisma {
     goodsReceipts?: GoodsReceiptUncheckedCreateNestedManyWithoutReceiverInput
     maintenanceTasks?: MaintenanceTaskUncheckedCreateNestedManyWithoutCompletedByInput
     workLogs?: WorkLogUncheckedCreateNestedManyWithoutTechnicianInput
+    utilityPayments?: UtilityPaymentUncheckedCreateNestedManyWithoutPaidByInput
   }
 
   export type UserCreateOrConnectWithoutCompanyInput = {
@@ -79829,6 +83394,7 @@ export namespace Prisma {
     goodsReceipts?: GoodsReceiptCreateNestedManyWithoutReceiverInput
     maintenanceTasks?: MaintenanceTaskCreateNestedManyWithoutCompletedByInput
     workLogs?: WorkLogCreateNestedManyWithoutTechnicianInput
+    utilityPayments?: UtilityPaymentCreateNestedManyWithoutPaidByInput
   }
 
   export type UserUncheckedCreateWithoutSupervisedTeamsInput = {
@@ -79860,6 +83426,7 @@ export namespace Prisma {
     goodsReceipts?: GoodsReceiptUncheckedCreateNestedManyWithoutReceiverInput
     maintenanceTasks?: MaintenanceTaskUncheckedCreateNestedManyWithoutCompletedByInput
     workLogs?: WorkLogUncheckedCreateNestedManyWithoutTechnicianInput
+    utilityPayments?: UtilityPaymentUncheckedCreateNestedManyWithoutPaidByInput
   }
 
   export type UserCreateOrConnectWithoutSupervisedTeamsInput = {
@@ -80102,6 +83669,7 @@ export namespace Prisma {
     goodsReceipts?: GoodsReceiptCreateNestedManyWithoutReceiverInput
     maintenanceTasks?: MaintenanceTaskCreateNestedManyWithoutCompletedByInput
     workLogs?: WorkLogCreateNestedManyWithoutTechnicianInput
+    utilityPayments?: UtilityPaymentCreateNestedManyWithoutPaidByInput
   }
 
   export type UserUncheckedCreateWithoutTeamsInput = {
@@ -80133,6 +83701,7 @@ export namespace Prisma {
     goodsReceipts?: GoodsReceiptUncheckedCreateNestedManyWithoutReceiverInput
     maintenanceTasks?: MaintenanceTaskUncheckedCreateNestedManyWithoutCompletedByInput
     workLogs?: WorkLogUncheckedCreateNestedManyWithoutTechnicianInput
+    utilityPayments?: UtilityPaymentUncheckedCreateNestedManyWithoutPaidByInput
   }
 
   export type UserCreateOrConnectWithoutTeamsInput = {
@@ -80180,6 +83749,7 @@ export namespace Prisma {
     goodsReceipts?: GoodsReceiptUpdateManyWithoutReceiverNestedInput
     maintenanceTasks?: MaintenanceTaskUpdateManyWithoutCompletedByNestedInput
     workLogs?: WorkLogUpdateManyWithoutTechnicianNestedInput
+    utilityPayments?: UtilityPaymentUpdateManyWithoutPaidByNestedInput
   }
 
   export type UserUncheckedUpdateWithoutSupervisedTeamsInput = {
@@ -80211,6 +83781,7 @@ export namespace Prisma {
     goodsReceipts?: GoodsReceiptUncheckedUpdateManyWithoutReceiverNestedInput
     maintenanceTasks?: MaintenanceTaskUncheckedUpdateManyWithoutCompletedByNestedInput
     workLogs?: WorkLogUncheckedUpdateManyWithoutTechnicianNestedInput
+    utilityPayments?: UtilityPaymentUncheckedUpdateManyWithoutPaidByNestedInput
   }
 
   export type MaintenanceUpsertWithWhereUniqueWithoutTeamInput = {
@@ -80775,6 +84346,7 @@ export namespace Prisma {
     goodsReceipts?: GoodsReceiptCreateNestedManyWithoutReceiverInput
     maintenanceTasks?: MaintenanceTaskCreateNestedManyWithoutCompletedByInput
     workLogs?: WorkLogCreateNestedManyWithoutTechnicianInput
+    utilityPayments?: UtilityPaymentCreateNestedManyWithoutPaidByInput
   }
 
   export type UserUncheckedCreateWithoutCalenderEntityInput = {
@@ -80806,6 +84378,7 @@ export namespace Prisma {
     goodsReceipts?: GoodsReceiptUncheckedCreateNestedManyWithoutReceiverInput
     maintenanceTasks?: MaintenanceTaskUncheckedCreateNestedManyWithoutCompletedByInput
     workLogs?: WorkLogUncheckedCreateNestedManyWithoutTechnicianInput
+    utilityPayments?: UtilityPaymentUncheckedCreateNestedManyWithoutPaidByInput
   }
 
   export type UserCreateOrConnectWithoutCalenderEntityInput = {
@@ -80927,6 +84500,7 @@ export namespace Prisma {
     goodsReceipts?: GoodsReceiptCreateNestedManyWithoutReceiverInput
     maintenanceTasks?: MaintenanceTaskCreateNestedManyWithoutCompletedByInput
     workLogs?: WorkLogCreateNestedManyWithoutTechnicianInput
+    utilityPayments?: UtilityPaymentCreateNestedManyWithoutPaidByInput
   }
 
   export type UserUncheckedCreateWithoutRequestedMaintenancesInput = {
@@ -80958,6 +84532,7 @@ export namespace Prisma {
     goodsReceipts?: GoodsReceiptUncheckedCreateNestedManyWithoutReceiverInput
     maintenanceTasks?: MaintenanceTaskUncheckedCreateNestedManyWithoutCompletedByInput
     workLogs?: WorkLogUncheckedCreateNestedManyWithoutTechnicianInput
+    utilityPayments?: UtilityPaymentUncheckedCreateNestedManyWithoutPaidByInput
   }
 
   export type UserCreateOrConnectWithoutRequestedMaintenancesInput = {
@@ -81432,6 +85007,7 @@ export namespace Prisma {
     goodsReceipts?: GoodsReceiptCreateNestedManyWithoutReceiverInput
     maintenanceTasks?: MaintenanceTaskCreateNestedManyWithoutCompletedByInput
     workLogs?: WorkLogCreateNestedManyWithoutTechnicianInput
+    utilityPayments?: UtilityPaymentCreateNestedManyWithoutPaidByInput
   }
 
   export type UserUncheckedCreateWithoutAssignedMaintenancesInput = {
@@ -81463,6 +85039,7 @@ export namespace Prisma {
     goodsReceipts?: GoodsReceiptUncheckedCreateNestedManyWithoutReceiverInput
     maintenanceTasks?: MaintenanceTaskUncheckedCreateNestedManyWithoutCompletedByInput
     workLogs?: WorkLogUncheckedCreateNestedManyWithoutTechnicianInput
+    utilityPayments?: UtilityPaymentUncheckedCreateNestedManyWithoutPaidByInput
   }
 
   export type UserCreateOrConnectWithoutAssignedMaintenancesInput = {
@@ -81538,7 +85115,7 @@ export namespace Prisma {
   export type MaintenanceItemCreateWithoutMaintenanceInput = {
     id?: string
     quantity: number
-    cost?: Decimal | DecimalJsLike | number | string
+    cost: Decimal | DecimalJsLike | number | string
     createdAt?: Date | string
     updatedAt?: Date | string
     item: ItemCreateNestedOneWithoutMaintenanceItemsInput
@@ -81548,7 +85125,7 @@ export namespace Prisma {
   export type MaintenanceItemUncheckedCreateWithoutMaintenanceInput = {
     id?: string
     quantity: number
-    cost?: Decimal | DecimalJsLike | number | string
+    cost: Decimal | DecimalJsLike | number | string
     itemId: string
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -81669,6 +85246,7 @@ export namespace Prisma {
     goodsReceipts?: GoodsReceiptUpdateManyWithoutReceiverNestedInput
     maintenanceTasks?: MaintenanceTaskUpdateManyWithoutCompletedByNestedInput
     workLogs?: WorkLogUpdateManyWithoutTechnicianNestedInput
+    utilityPayments?: UtilityPaymentUpdateManyWithoutPaidByNestedInput
   }
 
   export type UserUncheckedUpdateWithoutRequestedMaintenancesInput = {
@@ -81700,6 +85278,7 @@ export namespace Prisma {
     goodsReceipts?: GoodsReceiptUncheckedUpdateManyWithoutReceiverNestedInput
     maintenanceTasks?: MaintenanceTaskUncheckedUpdateManyWithoutCompletedByNestedInput
     workLogs?: WorkLogUncheckedUpdateManyWithoutTechnicianNestedInput
+    utilityPayments?: UtilityPaymentUncheckedUpdateManyWithoutPaidByNestedInput
   }
 
   export type ComplexUpsertWithoutMaintenancesInput = {
@@ -82228,6 +85807,7 @@ export namespace Prisma {
     goodsReceipts?: GoodsReceiptUpdateManyWithoutReceiverNestedInput
     maintenanceTasks?: MaintenanceTaskUpdateManyWithoutCompletedByNestedInput
     workLogs?: WorkLogUpdateManyWithoutTechnicianNestedInput
+    utilityPayments?: UtilityPaymentUpdateManyWithoutPaidByNestedInput
   }
 
   export type UserUncheckedUpdateWithoutAssignedMaintenancesInput = {
@@ -82259,6 +85839,7 @@ export namespace Prisma {
     goodsReceipts?: GoodsReceiptUncheckedUpdateManyWithoutReceiverNestedInput
     maintenanceTasks?: MaintenanceTaskUncheckedUpdateManyWithoutCompletedByNestedInput
     workLogs?: WorkLogUncheckedUpdateManyWithoutTechnicianNestedInput
+    utilityPayments?: UtilityPaymentUncheckedUpdateManyWithoutPaidByNestedInput
   }
 
   export type AssetUpsertWithoutMaintenancesInput = {
@@ -83581,6 +87162,7 @@ export namespace Prisma {
     purchaseRequests?: PurchaseRequestCreateNestedManyWithoutRequesterInput
     goodsReceipts?: GoodsReceiptCreateNestedManyWithoutReceiverInput
     workLogs?: WorkLogCreateNestedManyWithoutTechnicianInput
+    utilityPayments?: UtilityPaymentCreateNestedManyWithoutPaidByInput
   }
 
   export type UserUncheckedCreateWithoutMaintenanceTasksInput = {
@@ -83612,6 +87194,7 @@ export namespace Prisma {
     purchaseRequests?: PurchaseRequestUncheckedCreateNestedManyWithoutRequesterInput
     goodsReceipts?: GoodsReceiptUncheckedCreateNestedManyWithoutReceiverInput
     workLogs?: WorkLogUncheckedCreateNestedManyWithoutTechnicianInput
+    utilityPayments?: UtilityPaymentUncheckedCreateNestedManyWithoutPaidByInput
   }
 
   export type UserCreateOrConnectWithoutMaintenanceTasksInput = {
@@ -83810,6 +87393,7 @@ export namespace Prisma {
     purchaseRequests?: PurchaseRequestUpdateManyWithoutRequesterNestedInput
     goodsReceipts?: GoodsReceiptUpdateManyWithoutReceiverNestedInput
     workLogs?: WorkLogUpdateManyWithoutTechnicianNestedInput
+    utilityPayments?: UtilityPaymentUpdateManyWithoutPaidByNestedInput
   }
 
   export type UserUncheckedUpdateWithoutMaintenanceTasksInput = {
@@ -83841,6 +87425,7 @@ export namespace Prisma {
     purchaseRequests?: PurchaseRequestUncheckedUpdateManyWithoutRequesterNestedInput
     goodsReceipts?: GoodsReceiptUncheckedUpdateManyWithoutReceiverNestedInput
     workLogs?: WorkLogUncheckedUpdateManyWithoutTechnicianNestedInput
+    utilityPayments?: UtilityPaymentUncheckedUpdateManyWithoutPaidByNestedInput
   }
 
   export type AddressCreateWithoutWarehousesInput = {
@@ -84140,7 +87725,7 @@ export namespace Prisma {
   export type MaintenanceItemCreateWithoutItemInput = {
     id?: string
     quantity: number
-    cost?: Decimal | DecimalJsLike | number | string
+    cost: Decimal | DecimalJsLike | number | string
     createdAt?: Date | string
     updatedAt?: Date | string
     maintenance: MaintenanceCreateNestedOneWithoutMaintenanceItemsInput
@@ -84150,7 +87735,7 @@ export namespace Prisma {
   export type MaintenanceItemUncheckedCreateWithoutItemInput = {
     id?: string
     quantity: number
-    cost?: Decimal | DecimalJsLike | number | string
+    cost: Decimal | DecimalJsLike | number | string
     maintenanceId: string
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -85292,6 +88877,7 @@ export namespace Prisma {
     goodsReceipts?: GoodsReceiptCreateNestedManyWithoutReceiverInput
     maintenanceTasks?: MaintenanceTaskCreateNestedManyWithoutCompletedByInput
     workLogs?: WorkLogCreateNestedManyWithoutTechnicianInput
+    utilityPayments?: UtilityPaymentCreateNestedManyWithoutPaidByInput
   }
 
   export type UserUncheckedCreateWithoutRefreshTokensInput = {
@@ -85323,6 +88909,7 @@ export namespace Prisma {
     goodsReceipts?: GoodsReceiptUncheckedCreateNestedManyWithoutReceiverInput
     maintenanceTasks?: MaintenanceTaskUncheckedCreateNestedManyWithoutCompletedByInput
     workLogs?: WorkLogUncheckedCreateNestedManyWithoutTechnicianInput
+    utilityPayments?: UtilityPaymentUncheckedCreateNestedManyWithoutPaidByInput
   }
 
   export type UserCreateOrConnectWithoutRefreshTokensInput = {
@@ -85370,6 +88957,7 @@ export namespace Prisma {
     goodsReceipts?: GoodsReceiptUpdateManyWithoutReceiverNestedInput
     maintenanceTasks?: MaintenanceTaskUpdateManyWithoutCompletedByNestedInput
     workLogs?: WorkLogUpdateManyWithoutTechnicianNestedInput
+    utilityPayments?: UtilityPaymentUpdateManyWithoutPaidByNestedInput
   }
 
   export type UserUncheckedUpdateWithoutRefreshTokensInput = {
@@ -85401,6 +88989,7 @@ export namespace Prisma {
     goodsReceipts?: GoodsReceiptUncheckedUpdateManyWithoutReceiverNestedInput
     maintenanceTasks?: MaintenanceTaskUncheckedUpdateManyWithoutCompletedByNestedInput
     workLogs?: WorkLogUncheckedUpdateManyWithoutTechnicianNestedInput
+    utilityPayments?: UtilityPaymentUncheckedUpdateManyWithoutPaidByNestedInput
   }
 
   export type AssetCreateWithoutMetersInput = {
@@ -85698,6 +89287,62 @@ export namespace Prisma {
 
   export type MeterMaintenanceTriggerCreateManyMeterInputEnvelope = {
     data: MeterMaintenanceTriggerCreateManyMeterInput | MeterMaintenanceTriggerCreateManyMeterInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type MeterTelemetryCreateWithoutMeterInput = {
+    id?: string
+    timestamp?: Date | string
+    kwh: Decimal | DecimalJsLike | number | string
+    voltage?: Decimal | DecimalJsLike | number | string | null
+    current?: Decimal | DecimalJsLike | number | string | null
+    power?: Decimal | DecimalJsLike | number | string | null
+  }
+
+  export type MeterTelemetryUncheckedCreateWithoutMeterInput = {
+    id?: string
+    timestamp?: Date | string
+    kwh: Decimal | DecimalJsLike | number | string
+    voltage?: Decimal | DecimalJsLike | number | string | null
+    current?: Decimal | DecimalJsLike | number | string | null
+    power?: Decimal | DecimalJsLike | number | string | null
+  }
+
+  export type MeterTelemetryCreateOrConnectWithoutMeterInput = {
+    where: MeterTelemetryWhereUniqueInput
+    create: XOR<MeterTelemetryCreateWithoutMeterInput, MeterTelemetryUncheckedCreateWithoutMeterInput>
+  }
+
+  export type MeterTelemetryCreateManyMeterInputEnvelope = {
+    data: MeterTelemetryCreateManyMeterInput | MeterTelemetryCreateManyMeterInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type UtilityPaymentCreateWithoutMeterInput = {
+    id?: string
+    amount: Decimal | DecimalJsLike | number | string
+    kwhPurchased?: Decimal | DecimalJsLike | number | string | null
+    transactionRef: string
+    createdAt?: Date | string
+    paidBy: UserCreateNestedOneWithoutUtilityPaymentsInput
+  }
+
+  export type UtilityPaymentUncheckedCreateWithoutMeterInput = {
+    id?: string
+    amount: Decimal | DecimalJsLike | number | string
+    kwhPurchased?: Decimal | DecimalJsLike | number | string | null
+    paidByUserId: string
+    transactionRef: string
+    createdAt?: Date | string
+  }
+
+  export type UtilityPaymentCreateOrConnectWithoutMeterInput = {
+    where: UtilityPaymentWhereUniqueInput
+    create: XOR<UtilityPaymentCreateWithoutMeterInput, UtilityPaymentUncheckedCreateWithoutMeterInput>
+  }
+
+  export type UtilityPaymentCreateManyMeterInputEnvelope = {
+    data: UtilityPaymentCreateManyMeterInput | UtilityPaymentCreateManyMeterInput[]
     skipDuplicates?: boolean
   }
 
@@ -86010,11 +89655,423 @@ export namespace Prisma {
     data: XOR<MeterMaintenanceTriggerUpdateManyMutationInput, MeterMaintenanceTriggerUncheckedUpdateManyWithoutMeterInput>
   }
 
+  export type MeterTelemetryUpsertWithWhereUniqueWithoutMeterInput = {
+    where: MeterTelemetryWhereUniqueInput
+    update: XOR<MeterTelemetryUpdateWithoutMeterInput, MeterTelemetryUncheckedUpdateWithoutMeterInput>
+    create: XOR<MeterTelemetryCreateWithoutMeterInput, MeterTelemetryUncheckedCreateWithoutMeterInput>
+  }
+
+  export type MeterTelemetryUpdateWithWhereUniqueWithoutMeterInput = {
+    where: MeterTelemetryWhereUniqueInput
+    data: XOR<MeterTelemetryUpdateWithoutMeterInput, MeterTelemetryUncheckedUpdateWithoutMeterInput>
+  }
+
+  export type MeterTelemetryUpdateManyWithWhereWithoutMeterInput = {
+    where: MeterTelemetryScalarWhereInput
+    data: XOR<MeterTelemetryUpdateManyMutationInput, MeterTelemetryUncheckedUpdateManyWithoutMeterInput>
+  }
+
+  export type MeterTelemetryScalarWhereInput = {
+    AND?: MeterTelemetryScalarWhereInput | MeterTelemetryScalarWhereInput[]
+    OR?: MeterTelemetryScalarWhereInput[]
+    NOT?: MeterTelemetryScalarWhereInput | MeterTelemetryScalarWhereInput[]
+    id?: StringFilter<"MeterTelemetry"> | string
+    meterId?: StringFilter<"MeterTelemetry"> | string
+    timestamp?: DateTimeFilter<"MeterTelemetry"> | Date | string
+    kwh?: DecimalFilter<"MeterTelemetry"> | Decimal | DecimalJsLike | number | string
+    voltage?: DecimalNullableFilter<"MeterTelemetry"> | Decimal | DecimalJsLike | number | string | null
+    current?: DecimalNullableFilter<"MeterTelemetry"> | Decimal | DecimalJsLike | number | string | null
+    power?: DecimalNullableFilter<"MeterTelemetry"> | Decimal | DecimalJsLike | number | string | null
+  }
+
+  export type UtilityPaymentUpsertWithWhereUniqueWithoutMeterInput = {
+    where: UtilityPaymentWhereUniqueInput
+    update: XOR<UtilityPaymentUpdateWithoutMeterInput, UtilityPaymentUncheckedUpdateWithoutMeterInput>
+    create: XOR<UtilityPaymentCreateWithoutMeterInput, UtilityPaymentUncheckedCreateWithoutMeterInput>
+  }
+
+  export type UtilityPaymentUpdateWithWhereUniqueWithoutMeterInput = {
+    where: UtilityPaymentWhereUniqueInput
+    data: XOR<UtilityPaymentUpdateWithoutMeterInput, UtilityPaymentUncheckedUpdateWithoutMeterInput>
+  }
+
+  export type UtilityPaymentUpdateManyWithWhereWithoutMeterInput = {
+    where: UtilityPaymentScalarWhereInput
+    data: XOR<UtilityPaymentUpdateManyMutationInput, UtilityPaymentUncheckedUpdateManyWithoutMeterInput>
+  }
+
+  export type MeterCreateWithoutMeterTelemetriesInput = {
+    id?: string
+    name: string
+    type?: $Enums.MeterType
+    unit: string
+    isSmartMeter?: boolean
+    deviceId?: string | null
+    currentPower?: Decimal | DecimalJsLike | number | string
+    currentVoltage?: Decimal | DecimalJsLike | number | string
+    currentBalance?: Decimal | DecimalJsLike | number | string
+    tariffRate?: Decimal | DecimalJsLike | number | string
+    lowBalanceLimit?: Decimal | DecimalJsLike | number | string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    asset?: AssetCreateNestedOneWithoutMetersInput
+    building?: BuildingCreateNestedOneWithoutMetersInput
+    zone?: ZoneCreateNestedOneWithoutMetersInput
+    space?: SpaceCreateNestedOneWithoutMetersInput
+    readings?: MeterReadingCreateNestedManyWithoutMeterInput
+    preventiveTriggers?: MeterMaintenanceTriggerCreateNestedManyWithoutMeterInput
+    utilityPayments?: UtilityPaymentCreateNestedManyWithoutMeterInput
+  }
+
+  export type MeterUncheckedCreateWithoutMeterTelemetriesInput = {
+    id?: string
+    name: string
+    type?: $Enums.MeterType
+    unit: string
+    assetId?: string | null
+    buildingId?: string | null
+    zoneId?: string | null
+    spaceId?: string | null
+    isSmartMeter?: boolean
+    deviceId?: string | null
+    currentPower?: Decimal | DecimalJsLike | number | string
+    currentVoltage?: Decimal | DecimalJsLike | number | string
+    currentBalance?: Decimal | DecimalJsLike | number | string
+    tariffRate?: Decimal | DecimalJsLike | number | string
+    lowBalanceLimit?: Decimal | DecimalJsLike | number | string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    readings?: MeterReadingUncheckedCreateNestedManyWithoutMeterInput
+    preventiveTriggers?: MeterMaintenanceTriggerUncheckedCreateNestedManyWithoutMeterInput
+    utilityPayments?: UtilityPaymentUncheckedCreateNestedManyWithoutMeterInput
+  }
+
+  export type MeterCreateOrConnectWithoutMeterTelemetriesInput = {
+    where: MeterWhereUniqueInput
+    create: XOR<MeterCreateWithoutMeterTelemetriesInput, MeterUncheckedCreateWithoutMeterTelemetriesInput>
+  }
+
+  export type MeterUpsertWithoutMeterTelemetriesInput = {
+    update: XOR<MeterUpdateWithoutMeterTelemetriesInput, MeterUncheckedUpdateWithoutMeterTelemetriesInput>
+    create: XOR<MeterCreateWithoutMeterTelemetriesInput, MeterUncheckedCreateWithoutMeterTelemetriesInput>
+    where?: MeterWhereInput
+  }
+
+  export type MeterUpdateToOneWithWhereWithoutMeterTelemetriesInput = {
+    where?: MeterWhereInput
+    data: XOR<MeterUpdateWithoutMeterTelemetriesInput, MeterUncheckedUpdateWithoutMeterTelemetriesInput>
+  }
+
+  export type MeterUpdateWithoutMeterTelemetriesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    type?: EnumMeterTypeFieldUpdateOperationsInput | $Enums.MeterType
+    unit?: StringFieldUpdateOperationsInput | string
+    isSmartMeter?: BoolFieldUpdateOperationsInput | boolean
+    deviceId?: NullableStringFieldUpdateOperationsInput | string | null
+    currentPower?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    currentVoltage?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    currentBalance?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    tariffRate?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    lowBalanceLimit?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    asset?: AssetUpdateOneWithoutMetersNestedInput
+    building?: BuildingUpdateOneWithoutMetersNestedInput
+    zone?: ZoneUpdateOneWithoutMetersNestedInput
+    space?: SpaceUpdateOneWithoutMetersNestedInput
+    readings?: MeterReadingUpdateManyWithoutMeterNestedInput
+    preventiveTriggers?: MeterMaintenanceTriggerUpdateManyWithoutMeterNestedInput
+    utilityPayments?: UtilityPaymentUpdateManyWithoutMeterNestedInput
+  }
+
+  export type MeterUncheckedUpdateWithoutMeterTelemetriesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    type?: EnumMeterTypeFieldUpdateOperationsInput | $Enums.MeterType
+    unit?: StringFieldUpdateOperationsInput | string
+    assetId?: NullableStringFieldUpdateOperationsInput | string | null
+    buildingId?: NullableStringFieldUpdateOperationsInput | string | null
+    zoneId?: NullableStringFieldUpdateOperationsInput | string | null
+    spaceId?: NullableStringFieldUpdateOperationsInput | string | null
+    isSmartMeter?: BoolFieldUpdateOperationsInput | boolean
+    deviceId?: NullableStringFieldUpdateOperationsInput | string | null
+    currentPower?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    currentVoltage?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    currentBalance?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    tariffRate?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    lowBalanceLimit?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    readings?: MeterReadingUncheckedUpdateManyWithoutMeterNestedInput
+    preventiveTriggers?: MeterMaintenanceTriggerUncheckedUpdateManyWithoutMeterNestedInput
+    utilityPayments?: UtilityPaymentUncheckedUpdateManyWithoutMeterNestedInput
+  }
+
+  export type MeterCreateWithoutUtilityPaymentsInput = {
+    id?: string
+    name: string
+    type?: $Enums.MeterType
+    unit: string
+    isSmartMeter?: boolean
+    deviceId?: string | null
+    currentPower?: Decimal | DecimalJsLike | number | string
+    currentVoltage?: Decimal | DecimalJsLike | number | string
+    currentBalance?: Decimal | DecimalJsLike | number | string
+    tariffRate?: Decimal | DecimalJsLike | number | string
+    lowBalanceLimit?: Decimal | DecimalJsLike | number | string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    asset?: AssetCreateNestedOneWithoutMetersInput
+    building?: BuildingCreateNestedOneWithoutMetersInput
+    zone?: ZoneCreateNestedOneWithoutMetersInput
+    space?: SpaceCreateNestedOneWithoutMetersInput
+    readings?: MeterReadingCreateNestedManyWithoutMeterInput
+    preventiveTriggers?: MeterMaintenanceTriggerCreateNestedManyWithoutMeterInput
+    meterTelemetries?: MeterTelemetryCreateNestedManyWithoutMeterInput
+  }
+
+  export type MeterUncheckedCreateWithoutUtilityPaymentsInput = {
+    id?: string
+    name: string
+    type?: $Enums.MeterType
+    unit: string
+    assetId?: string | null
+    buildingId?: string | null
+    zoneId?: string | null
+    spaceId?: string | null
+    isSmartMeter?: boolean
+    deviceId?: string | null
+    currentPower?: Decimal | DecimalJsLike | number | string
+    currentVoltage?: Decimal | DecimalJsLike | number | string
+    currentBalance?: Decimal | DecimalJsLike | number | string
+    tariffRate?: Decimal | DecimalJsLike | number | string
+    lowBalanceLimit?: Decimal | DecimalJsLike | number | string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    readings?: MeterReadingUncheckedCreateNestedManyWithoutMeterInput
+    preventiveTriggers?: MeterMaintenanceTriggerUncheckedCreateNestedManyWithoutMeterInput
+    meterTelemetries?: MeterTelemetryUncheckedCreateNestedManyWithoutMeterInput
+  }
+
+  export type MeterCreateOrConnectWithoutUtilityPaymentsInput = {
+    where: MeterWhereUniqueInput
+    create: XOR<MeterCreateWithoutUtilityPaymentsInput, MeterUncheckedCreateWithoutUtilityPaymentsInput>
+  }
+
+  export type UserCreateWithoutUtilityPaymentsInput = {
+    id?: string
+    email: string
+    password: string
+    firstName: string
+    lastName: string
+    status?: $Enums.UserStatus
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    passwordResetToken?: string | null
+    passwordExpiresAt?: Date | string | null
+    passwordResetAt?: Date | string | null
+    employeeCode?: string | null
+    employeeType?: $Enums.EmployeeType | null
+    serviceStatus?: $Enums.ServiceStatus
+    hourlyRate?: Decimal | DecimalJsLike | number | string
+    refreshTokens?: RefreshTokenCreateNestedManyWithoutUserInput
+    role: RoleCreateNestedOneWithoutUsersInput
+    permissions?: PermissionCreateNestedManyWithoutUserInput
+    company?: CompanyCreateNestedOneWithoutEmployeesInput
+    calenderEntity?: CalenderEntityCreateNestedOneWithoutEmployeesInput
+    teams?: TeamCreateNestedManyWithoutMembersInput
+    requestedMaintenances?: MaintenanceCreateNestedManyWithoutRequesterInput
+    assignedMaintenances?: MaintenanceCreateNestedManyWithoutAssigneeInput
+    supervisedTeams?: TeamCreateNestedManyWithoutSupervisorInput
+    costCenter?: CostCenterCreateNestedOneWithoutUsersInput
+    purchaseRequests?: PurchaseRequestCreateNestedManyWithoutRequesterInput
+    goodsReceipts?: GoodsReceiptCreateNestedManyWithoutReceiverInput
+    maintenanceTasks?: MaintenanceTaskCreateNestedManyWithoutCompletedByInput
+    workLogs?: WorkLogCreateNestedManyWithoutTechnicianInput
+  }
+
+  export type UserUncheckedCreateWithoutUtilityPaymentsInput = {
+    id?: string
+    email: string
+    password: string
+    firstName: string
+    lastName: string
+    roleId: string
+    status?: $Enums.UserStatus
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    passwordResetToken?: string | null
+    passwordExpiresAt?: Date | string | null
+    passwordResetAt?: Date | string | null
+    employeeCode?: string | null
+    employeeType?: $Enums.EmployeeType | null
+    companyId?: string | null
+    serviceStatus?: $Enums.ServiceStatus
+    hourlyRate?: Decimal | DecimalJsLike | number | string
+    calenderEntityId?: string | null
+    costCenterId?: string | null
+    refreshTokens?: RefreshTokenUncheckedCreateNestedManyWithoutUserInput
+    permissions?: PermissionUncheckedCreateNestedManyWithoutUserInput
+    teams?: TeamUncheckedCreateNestedManyWithoutMembersInput
+    requestedMaintenances?: MaintenanceUncheckedCreateNestedManyWithoutRequesterInput
+    assignedMaintenances?: MaintenanceUncheckedCreateNestedManyWithoutAssigneeInput
+    supervisedTeams?: TeamUncheckedCreateNestedManyWithoutSupervisorInput
+    purchaseRequests?: PurchaseRequestUncheckedCreateNestedManyWithoutRequesterInput
+    goodsReceipts?: GoodsReceiptUncheckedCreateNestedManyWithoutReceiverInput
+    maintenanceTasks?: MaintenanceTaskUncheckedCreateNestedManyWithoutCompletedByInput
+    workLogs?: WorkLogUncheckedCreateNestedManyWithoutTechnicianInput
+  }
+
+  export type UserCreateOrConnectWithoutUtilityPaymentsInput = {
+    where: UserWhereUniqueInput
+    create: XOR<UserCreateWithoutUtilityPaymentsInput, UserUncheckedCreateWithoutUtilityPaymentsInput>
+  }
+
+  export type MeterUpsertWithoutUtilityPaymentsInput = {
+    update: XOR<MeterUpdateWithoutUtilityPaymentsInput, MeterUncheckedUpdateWithoutUtilityPaymentsInput>
+    create: XOR<MeterCreateWithoutUtilityPaymentsInput, MeterUncheckedCreateWithoutUtilityPaymentsInput>
+    where?: MeterWhereInput
+  }
+
+  export type MeterUpdateToOneWithWhereWithoutUtilityPaymentsInput = {
+    where?: MeterWhereInput
+    data: XOR<MeterUpdateWithoutUtilityPaymentsInput, MeterUncheckedUpdateWithoutUtilityPaymentsInput>
+  }
+
+  export type MeterUpdateWithoutUtilityPaymentsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    type?: EnumMeterTypeFieldUpdateOperationsInput | $Enums.MeterType
+    unit?: StringFieldUpdateOperationsInput | string
+    isSmartMeter?: BoolFieldUpdateOperationsInput | boolean
+    deviceId?: NullableStringFieldUpdateOperationsInput | string | null
+    currentPower?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    currentVoltage?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    currentBalance?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    tariffRate?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    lowBalanceLimit?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    asset?: AssetUpdateOneWithoutMetersNestedInput
+    building?: BuildingUpdateOneWithoutMetersNestedInput
+    zone?: ZoneUpdateOneWithoutMetersNestedInput
+    space?: SpaceUpdateOneWithoutMetersNestedInput
+    readings?: MeterReadingUpdateManyWithoutMeterNestedInput
+    preventiveTriggers?: MeterMaintenanceTriggerUpdateManyWithoutMeterNestedInput
+    meterTelemetries?: MeterTelemetryUpdateManyWithoutMeterNestedInput
+  }
+
+  export type MeterUncheckedUpdateWithoutUtilityPaymentsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    type?: EnumMeterTypeFieldUpdateOperationsInput | $Enums.MeterType
+    unit?: StringFieldUpdateOperationsInput | string
+    assetId?: NullableStringFieldUpdateOperationsInput | string | null
+    buildingId?: NullableStringFieldUpdateOperationsInput | string | null
+    zoneId?: NullableStringFieldUpdateOperationsInput | string | null
+    spaceId?: NullableStringFieldUpdateOperationsInput | string | null
+    isSmartMeter?: BoolFieldUpdateOperationsInput | boolean
+    deviceId?: NullableStringFieldUpdateOperationsInput | string | null
+    currentPower?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    currentVoltage?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    currentBalance?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    tariffRate?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    lowBalanceLimit?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    readings?: MeterReadingUncheckedUpdateManyWithoutMeterNestedInput
+    preventiveTriggers?: MeterMaintenanceTriggerUncheckedUpdateManyWithoutMeterNestedInput
+    meterTelemetries?: MeterTelemetryUncheckedUpdateManyWithoutMeterNestedInput
+  }
+
+  export type UserUpsertWithoutUtilityPaymentsInput = {
+    update: XOR<UserUpdateWithoutUtilityPaymentsInput, UserUncheckedUpdateWithoutUtilityPaymentsInput>
+    create: XOR<UserCreateWithoutUtilityPaymentsInput, UserUncheckedCreateWithoutUtilityPaymentsInput>
+    where?: UserWhereInput
+  }
+
+  export type UserUpdateToOneWithWhereWithoutUtilityPaymentsInput = {
+    where?: UserWhereInput
+    data: XOR<UserUpdateWithoutUtilityPaymentsInput, UserUncheckedUpdateWithoutUtilityPaymentsInput>
+  }
+
+  export type UserUpdateWithoutUtilityPaymentsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    password?: StringFieldUpdateOperationsInput | string
+    firstName?: StringFieldUpdateOperationsInput | string
+    lastName?: StringFieldUpdateOperationsInput | string
+    status?: EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    passwordResetToken?: NullableStringFieldUpdateOperationsInput | string | null
+    passwordExpiresAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    passwordResetAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    employeeCode?: NullableStringFieldUpdateOperationsInput | string | null
+    employeeType?: NullableEnumEmployeeTypeFieldUpdateOperationsInput | $Enums.EmployeeType | null
+    serviceStatus?: EnumServiceStatusFieldUpdateOperationsInput | $Enums.ServiceStatus
+    hourlyRate?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    refreshTokens?: RefreshTokenUpdateManyWithoutUserNestedInput
+    role?: RoleUpdateOneRequiredWithoutUsersNestedInput
+    permissions?: PermissionUpdateManyWithoutUserNestedInput
+    company?: CompanyUpdateOneWithoutEmployeesNestedInput
+    calenderEntity?: CalenderEntityUpdateOneWithoutEmployeesNestedInput
+    teams?: TeamUpdateManyWithoutMembersNestedInput
+    requestedMaintenances?: MaintenanceUpdateManyWithoutRequesterNestedInput
+    assignedMaintenances?: MaintenanceUpdateManyWithoutAssigneeNestedInput
+    supervisedTeams?: TeamUpdateManyWithoutSupervisorNestedInput
+    costCenter?: CostCenterUpdateOneWithoutUsersNestedInput
+    purchaseRequests?: PurchaseRequestUpdateManyWithoutRequesterNestedInput
+    goodsReceipts?: GoodsReceiptUpdateManyWithoutReceiverNestedInput
+    maintenanceTasks?: MaintenanceTaskUpdateManyWithoutCompletedByNestedInput
+    workLogs?: WorkLogUpdateManyWithoutTechnicianNestedInput
+  }
+
+  export type UserUncheckedUpdateWithoutUtilityPaymentsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    password?: StringFieldUpdateOperationsInput | string
+    firstName?: StringFieldUpdateOperationsInput | string
+    lastName?: StringFieldUpdateOperationsInput | string
+    roleId?: StringFieldUpdateOperationsInput | string
+    status?: EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    passwordResetToken?: NullableStringFieldUpdateOperationsInput | string | null
+    passwordExpiresAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    passwordResetAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    employeeCode?: NullableStringFieldUpdateOperationsInput | string | null
+    employeeType?: NullableEnumEmployeeTypeFieldUpdateOperationsInput | $Enums.EmployeeType | null
+    companyId?: NullableStringFieldUpdateOperationsInput | string | null
+    serviceStatus?: EnumServiceStatusFieldUpdateOperationsInput | $Enums.ServiceStatus
+    hourlyRate?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    calenderEntityId?: NullableStringFieldUpdateOperationsInput | string | null
+    costCenterId?: NullableStringFieldUpdateOperationsInput | string | null
+    refreshTokens?: RefreshTokenUncheckedUpdateManyWithoutUserNestedInput
+    permissions?: PermissionUncheckedUpdateManyWithoutUserNestedInput
+    teams?: TeamUncheckedUpdateManyWithoutMembersNestedInput
+    requestedMaintenances?: MaintenanceUncheckedUpdateManyWithoutRequesterNestedInput
+    assignedMaintenances?: MaintenanceUncheckedUpdateManyWithoutAssigneeNestedInput
+    supervisedTeams?: TeamUncheckedUpdateManyWithoutSupervisorNestedInput
+    purchaseRequests?: PurchaseRequestUncheckedUpdateManyWithoutRequesterNestedInput
+    goodsReceipts?: GoodsReceiptUncheckedUpdateManyWithoutReceiverNestedInput
+    maintenanceTasks?: MaintenanceTaskUncheckedUpdateManyWithoutCompletedByNestedInput
+    workLogs?: WorkLogUncheckedUpdateManyWithoutTechnicianNestedInput
+  }
+
   export type MeterCreateWithoutReadingsInput = {
     id?: string
     name: string
     type?: $Enums.MeterType
     unit: string
+    isSmartMeter?: boolean
+    deviceId?: string | null
+    currentPower?: Decimal | DecimalJsLike | number | string
+    currentVoltage?: Decimal | DecimalJsLike | number | string
+    currentBalance?: Decimal | DecimalJsLike | number | string
+    tariffRate?: Decimal | DecimalJsLike | number | string
+    lowBalanceLimit?: Decimal | DecimalJsLike | number | string
     createdAt?: Date | string
     updatedAt?: Date | string
     asset?: AssetCreateNestedOneWithoutMetersInput
@@ -86022,6 +90079,8 @@ export namespace Prisma {
     zone?: ZoneCreateNestedOneWithoutMetersInput
     space?: SpaceCreateNestedOneWithoutMetersInput
     preventiveTriggers?: MeterMaintenanceTriggerCreateNestedManyWithoutMeterInput
+    meterTelemetries?: MeterTelemetryCreateNestedManyWithoutMeterInput
+    utilityPayments?: UtilityPaymentCreateNestedManyWithoutMeterInput
   }
 
   export type MeterUncheckedCreateWithoutReadingsInput = {
@@ -86033,9 +90092,18 @@ export namespace Prisma {
     buildingId?: string | null
     zoneId?: string | null
     spaceId?: string | null
+    isSmartMeter?: boolean
+    deviceId?: string | null
+    currentPower?: Decimal | DecimalJsLike | number | string
+    currentVoltage?: Decimal | DecimalJsLike | number | string
+    currentBalance?: Decimal | DecimalJsLike | number | string
+    tariffRate?: Decimal | DecimalJsLike | number | string
+    lowBalanceLimit?: Decimal | DecimalJsLike | number | string
     createdAt?: Date | string
     updatedAt?: Date | string
     preventiveTriggers?: MeterMaintenanceTriggerUncheckedCreateNestedManyWithoutMeterInput
+    meterTelemetries?: MeterTelemetryUncheckedCreateNestedManyWithoutMeterInput
+    utilityPayments?: UtilityPaymentUncheckedCreateNestedManyWithoutMeterInput
   }
 
   export type MeterCreateOrConnectWithoutReadingsInput = {
@@ -86059,6 +90127,13 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     type?: EnumMeterTypeFieldUpdateOperationsInput | $Enums.MeterType
     unit?: StringFieldUpdateOperationsInput | string
+    isSmartMeter?: BoolFieldUpdateOperationsInput | boolean
+    deviceId?: NullableStringFieldUpdateOperationsInput | string | null
+    currentPower?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    currentVoltage?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    currentBalance?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    tariffRate?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    lowBalanceLimit?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     asset?: AssetUpdateOneWithoutMetersNestedInput
@@ -86066,6 +90141,8 @@ export namespace Prisma {
     zone?: ZoneUpdateOneWithoutMetersNestedInput
     space?: SpaceUpdateOneWithoutMetersNestedInput
     preventiveTriggers?: MeterMaintenanceTriggerUpdateManyWithoutMeterNestedInput
+    meterTelemetries?: MeterTelemetryUpdateManyWithoutMeterNestedInput
+    utilityPayments?: UtilityPaymentUpdateManyWithoutMeterNestedInput
   }
 
   export type MeterUncheckedUpdateWithoutReadingsInput = {
@@ -86077,9 +90154,18 @@ export namespace Prisma {
     buildingId?: NullableStringFieldUpdateOperationsInput | string | null
     zoneId?: NullableStringFieldUpdateOperationsInput | string | null
     spaceId?: NullableStringFieldUpdateOperationsInput | string | null
+    isSmartMeter?: BoolFieldUpdateOperationsInput | boolean
+    deviceId?: NullableStringFieldUpdateOperationsInput | string | null
+    currentPower?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    currentVoltage?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    currentBalance?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    tariffRate?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    lowBalanceLimit?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     preventiveTriggers?: MeterMaintenanceTriggerUncheckedUpdateManyWithoutMeterNestedInput
+    meterTelemetries?: MeterTelemetryUncheckedUpdateManyWithoutMeterNestedInput
+    utilityPayments?: UtilityPaymentUncheckedUpdateManyWithoutMeterNestedInput
   }
 
   export type MeterCreateWithoutPreventiveTriggersInput = {
@@ -86087,6 +90173,13 @@ export namespace Prisma {
     name: string
     type?: $Enums.MeterType
     unit: string
+    isSmartMeter?: boolean
+    deviceId?: string | null
+    currentPower?: Decimal | DecimalJsLike | number | string
+    currentVoltage?: Decimal | DecimalJsLike | number | string
+    currentBalance?: Decimal | DecimalJsLike | number | string
+    tariffRate?: Decimal | DecimalJsLike | number | string
+    lowBalanceLimit?: Decimal | DecimalJsLike | number | string
     createdAt?: Date | string
     updatedAt?: Date | string
     asset?: AssetCreateNestedOneWithoutMetersInput
@@ -86094,6 +90187,8 @@ export namespace Prisma {
     zone?: ZoneCreateNestedOneWithoutMetersInput
     space?: SpaceCreateNestedOneWithoutMetersInput
     readings?: MeterReadingCreateNestedManyWithoutMeterInput
+    meterTelemetries?: MeterTelemetryCreateNestedManyWithoutMeterInput
+    utilityPayments?: UtilityPaymentCreateNestedManyWithoutMeterInput
   }
 
   export type MeterUncheckedCreateWithoutPreventiveTriggersInput = {
@@ -86105,9 +90200,18 @@ export namespace Prisma {
     buildingId?: string | null
     zoneId?: string | null
     spaceId?: string | null
+    isSmartMeter?: boolean
+    deviceId?: string | null
+    currentPower?: Decimal | DecimalJsLike | number | string
+    currentVoltage?: Decimal | DecimalJsLike | number | string
+    currentBalance?: Decimal | DecimalJsLike | number | string
+    tariffRate?: Decimal | DecimalJsLike | number | string
+    lowBalanceLimit?: Decimal | DecimalJsLike | number | string
     createdAt?: Date | string
     updatedAt?: Date | string
     readings?: MeterReadingUncheckedCreateNestedManyWithoutMeterInput
+    meterTelemetries?: MeterTelemetryUncheckedCreateNestedManyWithoutMeterInput
+    utilityPayments?: UtilityPaymentUncheckedCreateNestedManyWithoutMeterInput
   }
 
   export type MeterCreateOrConnectWithoutPreventiveTriggersInput = {
@@ -86182,6 +90286,13 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     type?: EnumMeterTypeFieldUpdateOperationsInput | $Enums.MeterType
     unit?: StringFieldUpdateOperationsInput | string
+    isSmartMeter?: BoolFieldUpdateOperationsInput | boolean
+    deviceId?: NullableStringFieldUpdateOperationsInput | string | null
+    currentPower?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    currentVoltage?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    currentBalance?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    tariffRate?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    lowBalanceLimit?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     asset?: AssetUpdateOneWithoutMetersNestedInput
@@ -86189,6 +90300,8 @@ export namespace Prisma {
     zone?: ZoneUpdateOneWithoutMetersNestedInput
     space?: SpaceUpdateOneWithoutMetersNestedInput
     readings?: MeterReadingUpdateManyWithoutMeterNestedInput
+    meterTelemetries?: MeterTelemetryUpdateManyWithoutMeterNestedInput
+    utilityPayments?: UtilityPaymentUpdateManyWithoutMeterNestedInput
   }
 
   export type MeterUncheckedUpdateWithoutPreventiveTriggersInput = {
@@ -86200,9 +90313,18 @@ export namespace Prisma {
     buildingId?: NullableStringFieldUpdateOperationsInput | string | null
     zoneId?: NullableStringFieldUpdateOperationsInput | string | null
     spaceId?: NullableStringFieldUpdateOperationsInput | string | null
+    isSmartMeter?: BoolFieldUpdateOperationsInput | boolean
+    deviceId?: NullableStringFieldUpdateOperationsInput | string | null
+    currentPower?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    currentVoltage?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    currentBalance?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    tariffRate?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    lowBalanceLimit?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     readings?: MeterReadingUncheckedUpdateManyWithoutMeterNestedInput
+    meterTelemetries?: MeterTelemetryUncheckedUpdateManyWithoutMeterNestedInput
+    utilityPayments?: UtilityPaymentUncheckedUpdateManyWithoutMeterNestedInput
   }
 
   export type PreventiveUpsertWithoutMeterTriggersInput = {
@@ -86475,6 +90597,7 @@ export namespace Prisma {
     goodsReceipts?: GoodsReceiptCreateNestedManyWithoutReceiverInput
     maintenanceTasks?: MaintenanceTaskCreateNestedManyWithoutCompletedByInput
     workLogs?: WorkLogCreateNestedManyWithoutTechnicianInput
+    utilityPayments?: UtilityPaymentCreateNestedManyWithoutPaidByInput
   }
 
   export type UserUncheckedCreateWithoutCostCenterInput = {
@@ -86506,6 +90629,7 @@ export namespace Prisma {
     goodsReceipts?: GoodsReceiptUncheckedCreateNestedManyWithoutReceiverInput
     maintenanceTasks?: MaintenanceTaskUncheckedCreateNestedManyWithoutCompletedByInput
     workLogs?: WorkLogUncheckedCreateNestedManyWithoutTechnicianInput
+    utilityPayments?: UtilityPaymentUncheckedCreateNestedManyWithoutPaidByInput
   }
 
   export type UserCreateOrConnectWithoutCostCenterInput = {
@@ -86789,6 +90913,7 @@ export namespace Prisma {
     goodsReceipts?: GoodsReceiptCreateNestedManyWithoutReceiverInput
     maintenanceTasks?: MaintenanceTaskCreateNestedManyWithoutCompletedByInput
     workLogs?: WorkLogCreateNestedManyWithoutTechnicianInput
+    utilityPayments?: UtilityPaymentCreateNestedManyWithoutPaidByInput
   }
 
   export type UserUncheckedCreateWithoutPurchaseRequestsInput = {
@@ -86820,6 +90945,7 @@ export namespace Prisma {
     goodsReceipts?: GoodsReceiptUncheckedCreateNestedManyWithoutReceiverInput
     maintenanceTasks?: MaintenanceTaskUncheckedCreateNestedManyWithoutCompletedByInput
     workLogs?: WorkLogUncheckedCreateNestedManyWithoutTechnicianInput
+    utilityPayments?: UtilityPaymentUncheckedCreateNestedManyWithoutPaidByInput
   }
 
   export type UserCreateOrConnectWithoutPurchaseRequestsInput = {
@@ -86972,6 +91098,7 @@ export namespace Prisma {
     goodsReceipts?: GoodsReceiptUpdateManyWithoutReceiverNestedInput
     maintenanceTasks?: MaintenanceTaskUpdateManyWithoutCompletedByNestedInput
     workLogs?: WorkLogUpdateManyWithoutTechnicianNestedInput
+    utilityPayments?: UtilityPaymentUpdateManyWithoutPaidByNestedInput
   }
 
   export type UserUncheckedUpdateWithoutPurchaseRequestsInput = {
@@ -87003,6 +91130,7 @@ export namespace Prisma {
     goodsReceipts?: GoodsReceiptUncheckedUpdateManyWithoutReceiverNestedInput
     maintenanceTasks?: MaintenanceTaskUncheckedUpdateManyWithoutCompletedByNestedInput
     workLogs?: WorkLogUncheckedUpdateManyWithoutTechnicianNestedInput
+    utilityPayments?: UtilityPaymentUncheckedUpdateManyWithoutPaidByNestedInput
   }
 
   export type CostCenterUpsertWithoutPurchaseRequestsInput = {
@@ -87790,6 +91918,7 @@ export namespace Prisma {
     purchaseRequests?: PurchaseRequestCreateNestedManyWithoutRequesterInput
     maintenanceTasks?: MaintenanceTaskCreateNestedManyWithoutCompletedByInput
     workLogs?: WorkLogCreateNestedManyWithoutTechnicianInput
+    utilityPayments?: UtilityPaymentCreateNestedManyWithoutPaidByInput
   }
 
   export type UserUncheckedCreateWithoutGoodsReceiptsInput = {
@@ -87821,6 +91950,7 @@ export namespace Prisma {
     purchaseRequests?: PurchaseRequestUncheckedCreateNestedManyWithoutRequesterInput
     maintenanceTasks?: MaintenanceTaskUncheckedCreateNestedManyWithoutCompletedByInput
     workLogs?: WorkLogUncheckedCreateNestedManyWithoutTechnicianInput
+    utilityPayments?: UtilityPaymentUncheckedCreateNestedManyWithoutPaidByInput
   }
 
   export type UserCreateOrConnectWithoutGoodsReceiptsInput = {
@@ -87960,6 +92090,7 @@ export namespace Prisma {
     purchaseRequests?: PurchaseRequestUpdateManyWithoutRequesterNestedInput
     maintenanceTasks?: MaintenanceTaskUpdateManyWithoutCompletedByNestedInput
     workLogs?: WorkLogUpdateManyWithoutTechnicianNestedInput
+    utilityPayments?: UtilityPaymentUpdateManyWithoutPaidByNestedInput
   }
 
   export type UserUncheckedUpdateWithoutGoodsReceiptsInput = {
@@ -87991,6 +92122,7 @@ export namespace Prisma {
     purchaseRequests?: PurchaseRequestUncheckedUpdateManyWithoutRequesterNestedInput
     maintenanceTasks?: MaintenanceTaskUncheckedUpdateManyWithoutCompletedByNestedInput
     workLogs?: WorkLogUncheckedUpdateManyWithoutTechnicianNestedInput
+    utilityPayments?: UtilityPaymentUncheckedUpdateManyWithoutPaidByNestedInput
   }
 
   export type CompanyUpsertWithoutGoodsReceiptsInput = {
@@ -88372,6 +92504,15 @@ export namespace Prisma {
     totalCost: Decimal | DecimalJsLike | number | string
     createdAt?: Date | string
     updatedAt?: Date | string
+  }
+
+  export type UtilityPaymentCreateManyPaidByInput = {
+    id?: string
+    amount: Decimal | DecimalJsLike | number | string
+    kwhPurchased?: Decimal | DecimalJsLike | number | string | null
+    meterId: string
+    transactionRef: string
+    createdAt?: Date | string
   }
 
   export type RefreshTokenUpdateWithoutUserInput = {
@@ -89033,6 +93174,33 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
+  export type UtilityPaymentUpdateWithoutPaidByInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    amount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    kwhPurchased?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    transactionRef?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    meter?: MeterUpdateOneRequiredWithoutUtilityPaymentsNestedInput
+  }
+
+  export type UtilityPaymentUncheckedUpdateWithoutPaidByInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    amount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    kwhPurchased?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    meterId?: StringFieldUpdateOperationsInput | string
+    transactionRef?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type UtilityPaymentUncheckedUpdateManyWithoutPaidByInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    amount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    kwhPurchased?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    meterId?: StringFieldUpdateOperationsInput | string
+    transactionRef?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
   export type PermissionCreateManyRoleInput = {
     id?: string
     resource: string
@@ -89119,6 +93287,7 @@ export namespace Prisma {
     goodsReceipts?: GoodsReceiptUpdateManyWithoutReceiverNestedInput
     maintenanceTasks?: MaintenanceTaskUpdateManyWithoutCompletedByNestedInput
     workLogs?: WorkLogUpdateManyWithoutTechnicianNestedInput
+    utilityPayments?: UtilityPaymentUpdateManyWithoutPaidByNestedInput
   }
 
   export type UserUncheckedUpdateWithoutRoleInput = {
@@ -89150,6 +93319,7 @@ export namespace Prisma {
     goodsReceipts?: GoodsReceiptUncheckedUpdateManyWithoutReceiverNestedInput
     maintenanceTasks?: MaintenanceTaskUncheckedUpdateManyWithoutCompletedByNestedInput
     workLogs?: WorkLogUncheckedUpdateManyWithoutTechnicianNestedInput
+    utilityPayments?: UtilityPaymentUncheckedUpdateManyWithoutPaidByNestedInput
   }
 
   export type UserUncheckedUpdateManyWithoutRoleInput = {
@@ -89896,6 +94066,13 @@ export namespace Prisma {
     assetId?: string | null
     zoneId?: string | null
     spaceId?: string | null
+    isSmartMeter?: boolean
+    deviceId?: string | null
+    currentPower?: Decimal | DecimalJsLike | number | string
+    currentVoltage?: Decimal | DecimalJsLike | number | string
+    currentBalance?: Decimal | DecimalJsLike | number | string
+    tariffRate?: Decimal | DecimalJsLike | number | string
+    lowBalanceLimit?: Decimal | DecimalJsLike | number | string
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -90274,6 +94451,13 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     type?: EnumMeterTypeFieldUpdateOperationsInput | $Enums.MeterType
     unit?: StringFieldUpdateOperationsInput | string
+    isSmartMeter?: BoolFieldUpdateOperationsInput | boolean
+    deviceId?: NullableStringFieldUpdateOperationsInput | string | null
+    currentPower?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    currentVoltage?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    currentBalance?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    tariffRate?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    lowBalanceLimit?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     asset?: AssetUpdateOneWithoutMetersNestedInput
@@ -90281,6 +94465,8 @@ export namespace Prisma {
     space?: SpaceUpdateOneWithoutMetersNestedInput
     readings?: MeterReadingUpdateManyWithoutMeterNestedInput
     preventiveTriggers?: MeterMaintenanceTriggerUpdateManyWithoutMeterNestedInput
+    meterTelemetries?: MeterTelemetryUpdateManyWithoutMeterNestedInput
+    utilityPayments?: UtilityPaymentUpdateManyWithoutMeterNestedInput
   }
 
   export type MeterUncheckedUpdateWithoutBuildingInput = {
@@ -90291,10 +94477,19 @@ export namespace Prisma {
     assetId?: NullableStringFieldUpdateOperationsInput | string | null
     zoneId?: NullableStringFieldUpdateOperationsInput | string | null
     spaceId?: NullableStringFieldUpdateOperationsInput | string | null
+    isSmartMeter?: BoolFieldUpdateOperationsInput | boolean
+    deviceId?: NullableStringFieldUpdateOperationsInput | string | null
+    currentPower?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    currentVoltage?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    currentBalance?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    tariffRate?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    lowBalanceLimit?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     readings?: MeterReadingUncheckedUpdateManyWithoutMeterNestedInput
     preventiveTriggers?: MeterMaintenanceTriggerUncheckedUpdateManyWithoutMeterNestedInput
+    meterTelemetries?: MeterTelemetryUncheckedUpdateManyWithoutMeterNestedInput
+    utilityPayments?: UtilityPaymentUncheckedUpdateManyWithoutMeterNestedInput
   }
 
   export type MeterUncheckedUpdateManyWithoutBuildingInput = {
@@ -90305,6 +94500,13 @@ export namespace Prisma {
     assetId?: NullableStringFieldUpdateOperationsInput | string | null
     zoneId?: NullableStringFieldUpdateOperationsInput | string | null
     spaceId?: NullableStringFieldUpdateOperationsInput | string | null
+    isSmartMeter?: BoolFieldUpdateOperationsInput | boolean
+    deviceId?: NullableStringFieldUpdateOperationsInput | string | null
+    currentPower?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    currentVoltage?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    currentBalance?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    tariffRate?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    lowBalanceLimit?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -90829,7 +95031,7 @@ export namespace Prisma {
   export type MaintenanceItemCreateManyZoneInput = {
     id?: string
     quantity: number
-    cost?: Decimal | DecimalJsLike | number | string
+    cost: Decimal | DecimalJsLike | number | string
     maintenanceId: string
     itemId: string
     createdAt?: Date | string
@@ -90844,6 +95046,13 @@ export namespace Prisma {
     assetId?: string | null
     buildingId?: string | null
     spaceId?: string | null
+    isSmartMeter?: boolean
+    deviceId?: string | null
+    currentPower?: Decimal | DecimalJsLike | number | string
+    currentVoltage?: Decimal | DecimalJsLike | number | string
+    currentBalance?: Decimal | DecimalJsLike | number | string
+    tariffRate?: Decimal | DecimalJsLike | number | string
+    lowBalanceLimit?: Decimal | DecimalJsLike | number | string
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -91067,6 +95276,13 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     type?: EnumMeterTypeFieldUpdateOperationsInput | $Enums.MeterType
     unit?: StringFieldUpdateOperationsInput | string
+    isSmartMeter?: BoolFieldUpdateOperationsInput | boolean
+    deviceId?: NullableStringFieldUpdateOperationsInput | string | null
+    currentPower?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    currentVoltage?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    currentBalance?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    tariffRate?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    lowBalanceLimit?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     asset?: AssetUpdateOneWithoutMetersNestedInput
@@ -91074,6 +95290,8 @@ export namespace Prisma {
     space?: SpaceUpdateOneWithoutMetersNestedInput
     readings?: MeterReadingUpdateManyWithoutMeterNestedInput
     preventiveTriggers?: MeterMaintenanceTriggerUpdateManyWithoutMeterNestedInput
+    meterTelemetries?: MeterTelemetryUpdateManyWithoutMeterNestedInput
+    utilityPayments?: UtilityPaymentUpdateManyWithoutMeterNestedInput
   }
 
   export type MeterUncheckedUpdateWithoutZoneInput = {
@@ -91084,10 +95302,19 @@ export namespace Prisma {
     assetId?: NullableStringFieldUpdateOperationsInput | string | null
     buildingId?: NullableStringFieldUpdateOperationsInput | string | null
     spaceId?: NullableStringFieldUpdateOperationsInput | string | null
+    isSmartMeter?: BoolFieldUpdateOperationsInput | boolean
+    deviceId?: NullableStringFieldUpdateOperationsInput | string | null
+    currentPower?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    currentVoltage?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    currentBalance?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    tariffRate?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    lowBalanceLimit?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     readings?: MeterReadingUncheckedUpdateManyWithoutMeterNestedInput
     preventiveTriggers?: MeterMaintenanceTriggerUncheckedUpdateManyWithoutMeterNestedInput
+    meterTelemetries?: MeterTelemetryUncheckedUpdateManyWithoutMeterNestedInput
+    utilityPayments?: UtilityPaymentUncheckedUpdateManyWithoutMeterNestedInput
   }
 
   export type MeterUncheckedUpdateManyWithoutZoneInput = {
@@ -91098,6 +95325,13 @@ export namespace Prisma {
     assetId?: NullableStringFieldUpdateOperationsInput | string | null
     buildingId?: NullableStringFieldUpdateOperationsInput | string | null
     spaceId?: NullableStringFieldUpdateOperationsInput | string | null
+    isSmartMeter?: BoolFieldUpdateOperationsInput | boolean
+    deviceId?: NullableStringFieldUpdateOperationsInput | string | null
+    currentPower?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    currentVoltage?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    currentBalance?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    tariffRate?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    lowBalanceLimit?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -91470,6 +95704,13 @@ export namespace Prisma {
     assetId?: string | null
     buildingId?: string | null
     zoneId?: string | null
+    isSmartMeter?: boolean
+    deviceId?: string | null
+    currentPower?: Decimal | DecimalJsLike | number | string
+    currentVoltage?: Decimal | DecimalJsLike | number | string
+    currentBalance?: Decimal | DecimalJsLike | number | string
+    tariffRate?: Decimal | DecimalJsLike | number | string
+    lowBalanceLimit?: Decimal | DecimalJsLike | number | string
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -91788,6 +96029,13 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     type?: EnumMeterTypeFieldUpdateOperationsInput | $Enums.MeterType
     unit?: StringFieldUpdateOperationsInput | string
+    isSmartMeter?: BoolFieldUpdateOperationsInput | boolean
+    deviceId?: NullableStringFieldUpdateOperationsInput | string | null
+    currentPower?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    currentVoltage?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    currentBalance?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    tariffRate?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    lowBalanceLimit?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     asset?: AssetUpdateOneWithoutMetersNestedInput
@@ -91795,6 +96043,8 @@ export namespace Prisma {
     zone?: ZoneUpdateOneWithoutMetersNestedInput
     readings?: MeterReadingUpdateManyWithoutMeterNestedInput
     preventiveTriggers?: MeterMaintenanceTriggerUpdateManyWithoutMeterNestedInput
+    meterTelemetries?: MeterTelemetryUpdateManyWithoutMeterNestedInput
+    utilityPayments?: UtilityPaymentUpdateManyWithoutMeterNestedInput
   }
 
   export type MeterUncheckedUpdateWithoutSpaceInput = {
@@ -91805,10 +96055,19 @@ export namespace Prisma {
     assetId?: NullableStringFieldUpdateOperationsInput | string | null
     buildingId?: NullableStringFieldUpdateOperationsInput | string | null
     zoneId?: NullableStringFieldUpdateOperationsInput | string | null
+    isSmartMeter?: BoolFieldUpdateOperationsInput | boolean
+    deviceId?: NullableStringFieldUpdateOperationsInput | string | null
+    currentPower?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    currentVoltage?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    currentBalance?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    tariffRate?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    lowBalanceLimit?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     readings?: MeterReadingUncheckedUpdateManyWithoutMeterNestedInput
     preventiveTriggers?: MeterMaintenanceTriggerUncheckedUpdateManyWithoutMeterNestedInput
+    meterTelemetries?: MeterTelemetryUncheckedUpdateManyWithoutMeterNestedInput
+    utilityPayments?: UtilityPaymentUncheckedUpdateManyWithoutMeterNestedInput
   }
 
   export type MeterUncheckedUpdateManyWithoutSpaceInput = {
@@ -91819,6 +96078,13 @@ export namespace Prisma {
     assetId?: NullableStringFieldUpdateOperationsInput | string | null
     buildingId?: NullableStringFieldUpdateOperationsInput | string | null
     zoneId?: NullableStringFieldUpdateOperationsInput | string | null
+    isSmartMeter?: BoolFieldUpdateOperationsInput | boolean
+    deviceId?: NullableStringFieldUpdateOperationsInput | string | null
+    currentPower?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    currentVoltage?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    currentBalance?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    tariffRate?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    lowBalanceLimit?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -92030,6 +96296,13 @@ export namespace Prisma {
     buildingId?: string | null
     zoneId?: string | null
     spaceId?: string | null
+    isSmartMeter?: boolean
+    deviceId?: string | null
+    currentPower?: Decimal | DecimalJsLike | number | string
+    currentVoltage?: Decimal | DecimalJsLike | number | string
+    currentBalance?: Decimal | DecimalJsLike | number | string
+    tariffRate?: Decimal | DecimalJsLike | number | string
+    lowBalanceLimit?: Decimal | DecimalJsLike | number | string
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -92356,6 +96629,13 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     type?: EnumMeterTypeFieldUpdateOperationsInput | $Enums.MeterType
     unit?: StringFieldUpdateOperationsInput | string
+    isSmartMeter?: BoolFieldUpdateOperationsInput | boolean
+    deviceId?: NullableStringFieldUpdateOperationsInput | string | null
+    currentPower?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    currentVoltage?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    currentBalance?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    tariffRate?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    lowBalanceLimit?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     building?: BuildingUpdateOneWithoutMetersNestedInput
@@ -92363,6 +96643,8 @@ export namespace Prisma {
     space?: SpaceUpdateOneWithoutMetersNestedInput
     readings?: MeterReadingUpdateManyWithoutMeterNestedInput
     preventiveTriggers?: MeterMaintenanceTriggerUpdateManyWithoutMeterNestedInput
+    meterTelemetries?: MeterTelemetryUpdateManyWithoutMeterNestedInput
+    utilityPayments?: UtilityPaymentUpdateManyWithoutMeterNestedInput
   }
 
   export type MeterUncheckedUpdateWithoutAssetInput = {
@@ -92373,10 +96655,19 @@ export namespace Prisma {
     buildingId?: NullableStringFieldUpdateOperationsInput | string | null
     zoneId?: NullableStringFieldUpdateOperationsInput | string | null
     spaceId?: NullableStringFieldUpdateOperationsInput | string | null
+    isSmartMeter?: BoolFieldUpdateOperationsInput | boolean
+    deviceId?: NullableStringFieldUpdateOperationsInput | string | null
+    currentPower?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    currentVoltage?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    currentBalance?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    tariffRate?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    lowBalanceLimit?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     readings?: MeterReadingUncheckedUpdateManyWithoutMeterNestedInput
     preventiveTriggers?: MeterMaintenanceTriggerUncheckedUpdateManyWithoutMeterNestedInput
+    meterTelemetries?: MeterTelemetryUncheckedUpdateManyWithoutMeterNestedInput
+    utilityPayments?: UtilityPaymentUncheckedUpdateManyWithoutMeterNestedInput
   }
 
   export type MeterUncheckedUpdateManyWithoutAssetInput = {
@@ -92387,6 +96678,13 @@ export namespace Prisma {
     buildingId?: NullableStringFieldUpdateOperationsInput | string | null
     zoneId?: NullableStringFieldUpdateOperationsInput | string | null
     spaceId?: NullableStringFieldUpdateOperationsInput | string | null
+    isSmartMeter?: BoolFieldUpdateOperationsInput | boolean
+    deviceId?: NullableStringFieldUpdateOperationsInput | string | null
+    currentPower?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    currentVoltage?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    currentBalance?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    tariffRate?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    lowBalanceLimit?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -92878,6 +97176,7 @@ export namespace Prisma {
     goodsReceipts?: GoodsReceiptUpdateManyWithoutReceiverNestedInput
     maintenanceTasks?: MaintenanceTaskUpdateManyWithoutCompletedByNestedInput
     workLogs?: WorkLogUpdateManyWithoutTechnicianNestedInput
+    utilityPayments?: UtilityPaymentUpdateManyWithoutPaidByNestedInput
   }
 
   export type UserUncheckedUpdateWithoutCompanyInput = {
@@ -92909,6 +97208,7 @@ export namespace Prisma {
     goodsReceipts?: GoodsReceiptUncheckedUpdateManyWithoutReceiverNestedInput
     maintenanceTasks?: MaintenanceTaskUncheckedUpdateManyWithoutCompletedByNestedInput
     workLogs?: WorkLogUncheckedUpdateManyWithoutTechnicianNestedInput
+    utilityPayments?: UtilityPaymentUncheckedUpdateManyWithoutPaidByNestedInput
   }
 
   export type UserUncheckedUpdateManyWithoutCompanyInput = {
@@ -93587,6 +97887,7 @@ export namespace Prisma {
     goodsReceipts?: GoodsReceiptUpdateManyWithoutReceiverNestedInput
     maintenanceTasks?: MaintenanceTaskUpdateManyWithoutCompletedByNestedInput
     workLogs?: WorkLogUpdateManyWithoutTechnicianNestedInput
+    utilityPayments?: UtilityPaymentUpdateManyWithoutPaidByNestedInput
   }
 
   export type UserUncheckedUpdateWithoutTeamsInput = {
@@ -93618,6 +97919,7 @@ export namespace Prisma {
     goodsReceipts?: GoodsReceiptUncheckedUpdateManyWithoutReceiverNestedInput
     maintenanceTasks?: MaintenanceTaskUncheckedUpdateManyWithoutCompletedByNestedInput
     workLogs?: WorkLogUncheckedUpdateManyWithoutTechnicianNestedInput
+    utilityPayments?: UtilityPaymentUncheckedUpdateManyWithoutPaidByNestedInput
   }
 
   export type UserUncheckedUpdateManyWithoutTeamsInput = {
@@ -94284,6 +98586,7 @@ export namespace Prisma {
     goodsReceipts?: GoodsReceiptUpdateManyWithoutReceiverNestedInput
     maintenanceTasks?: MaintenanceTaskUpdateManyWithoutCompletedByNestedInput
     workLogs?: WorkLogUpdateManyWithoutTechnicianNestedInput
+    utilityPayments?: UtilityPaymentUpdateManyWithoutPaidByNestedInput
   }
 
   export type UserUncheckedUpdateWithoutCalenderEntityInput = {
@@ -94315,6 +98618,7 @@ export namespace Prisma {
     goodsReceipts?: GoodsReceiptUncheckedUpdateManyWithoutReceiverNestedInput
     maintenanceTasks?: MaintenanceTaskUncheckedUpdateManyWithoutCompletedByNestedInput
     workLogs?: WorkLogUncheckedUpdateManyWithoutTechnicianNestedInput
+    utilityPayments?: UtilityPaymentUncheckedUpdateManyWithoutPaidByNestedInput
   }
 
   export type UserUncheckedUpdateManyWithoutCalenderEntityInput = {
@@ -94346,7 +98650,7 @@ export namespace Prisma {
   export type MaintenanceItemCreateManyMaintenanceInput = {
     id?: string
     quantity: number
-    cost?: Decimal | DecimalJsLike | number | string
+    cost: Decimal | DecimalJsLike | number | string
     itemId: string
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -94713,7 +99017,7 @@ export namespace Prisma {
   export type MaintenanceItemCreateManyItemInput = {
     id?: string
     quantity: number
-    cost?: Decimal | DecimalJsLike | number | string
+    cost: Decimal | DecimalJsLike | number | string
     maintenanceId: string
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -94917,6 +99221,24 @@ export namespace Prisma {
     updatedAt?: Date | string
   }
 
+  export type MeterTelemetryCreateManyMeterInput = {
+    id?: string
+    timestamp?: Date | string
+    kwh: Decimal | DecimalJsLike | number | string
+    voltage?: Decimal | DecimalJsLike | number | string | null
+    current?: Decimal | DecimalJsLike | number | string | null
+    power?: Decimal | DecimalJsLike | number | string | null
+  }
+
+  export type UtilityPaymentCreateManyMeterInput = {
+    id?: string
+    amount: Decimal | DecimalJsLike | number | string
+    kwhPurchased?: Decimal | DecimalJsLike | number | string | null
+    paidByUserId: string
+    transactionRef: string
+    createdAt?: Date | string
+  }
+
   export type MeterReadingUpdateWithoutMeterInput = {
     id?: StringFieldUpdateOperationsInput | string
     value?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
@@ -94972,6 +99294,60 @@ export namespace Prisma {
     lastTriggerReading?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type MeterTelemetryUpdateWithoutMeterInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    timestamp?: DateTimeFieldUpdateOperationsInput | Date | string
+    kwh?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    voltage?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    current?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    power?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+  }
+
+  export type MeterTelemetryUncheckedUpdateWithoutMeterInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    timestamp?: DateTimeFieldUpdateOperationsInput | Date | string
+    kwh?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    voltage?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    current?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    power?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+  }
+
+  export type MeterTelemetryUncheckedUpdateManyWithoutMeterInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    timestamp?: DateTimeFieldUpdateOperationsInput | Date | string
+    kwh?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    voltage?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    current?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    power?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+  }
+
+  export type UtilityPaymentUpdateWithoutMeterInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    amount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    kwhPurchased?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    transactionRef?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    paidBy?: UserUpdateOneRequiredWithoutUtilityPaymentsNestedInput
+  }
+
+  export type UtilityPaymentUncheckedUpdateWithoutMeterInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    amount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    kwhPurchased?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    paidByUserId?: StringFieldUpdateOperationsInput | string
+    transactionRef?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type UtilityPaymentUncheckedUpdateManyWithoutMeterInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    amount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    kwhPurchased?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    paidByUserId?: StringFieldUpdateOperationsInput | string
+    transactionRef?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type PurchaseOrderCreateManyCostCenterInput = {
@@ -95387,6 +99763,7 @@ export namespace Prisma {
     goodsReceipts?: GoodsReceiptUpdateManyWithoutReceiverNestedInput
     maintenanceTasks?: MaintenanceTaskUpdateManyWithoutCompletedByNestedInput
     workLogs?: WorkLogUpdateManyWithoutTechnicianNestedInput
+    utilityPayments?: UtilityPaymentUpdateManyWithoutPaidByNestedInput
   }
 
   export type UserUncheckedUpdateWithoutCostCenterInput = {
@@ -95418,6 +99795,7 @@ export namespace Prisma {
     goodsReceipts?: GoodsReceiptUncheckedUpdateManyWithoutReceiverNestedInput
     maintenanceTasks?: MaintenanceTaskUncheckedUpdateManyWithoutCompletedByNestedInput
     workLogs?: WorkLogUncheckedUpdateManyWithoutTechnicianNestedInput
+    utilityPayments?: UtilityPaymentUncheckedUpdateManyWithoutPaidByNestedInput
   }
 
   export type UserUncheckedUpdateManyWithoutCostCenterInput = {
