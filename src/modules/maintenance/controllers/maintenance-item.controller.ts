@@ -9,7 +9,6 @@ import { BadRequestError, NotFoundError } from "../../../errors";
 
 const stockService = new StockService();
 
-
 export class MaintenanceItemController {
   /**
    * Add Item to Maintenance (Consumes stock)
@@ -17,8 +16,11 @@ export class MaintenanceItemController {
   async addItem(req: Request, res: Response, next: NextFunction) {
     try {
       // const { maintenanceId } = req.params;
-      let maintenanceId = req.params.maintenanceId || req.body.maintenanceId;
-      const { itemId, quantity, warehouseId } = req.body;
+      let maintenanceId: string =
+        req.params.maintenanceId || req.body.maintenanceId;
+      let itemId: string = req.params.itemId || req.body.itemId;
+      let quantity: number = req.params.quantity || req.body.quantity;
+      let warehouseId: string = req.params.warehouseId || req.body.warehouseId;
 
       if (!itemId || !quantity || !warehouseId) {
         throw new BadRequestError(
@@ -44,6 +46,12 @@ export class MaintenanceItemController {
         notes: `Used in Maintenance ${maintenance.code || maintenanceId}`,
       });
 
+      // 2.5 Fetch Item to get cost lookup
+      const item = await prisma.item.findUnique({
+        where: { id: itemId },
+      });
+      if (!item) throw new NotFoundError("Item");
+
       // 3. Create MaintenanceItem link
       // Use upsert to handle case where item is already added (increment quantity)
       const maintenanceItem = await prisma.maintenanceItem.upsert({
@@ -60,7 +68,7 @@ export class MaintenanceItemController {
           maintenanceId,
           itemId,
           quantity,
-          // cost: item.cost * quantity,
+          cost: Number(item.cost) * quantity,
         },
       });
 
@@ -69,7 +77,6 @@ export class MaintenanceItemController {
       next(error);
     }
   }
-
 
   /**
    * Get items for a maintenance request

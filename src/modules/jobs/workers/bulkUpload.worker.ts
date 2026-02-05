@@ -24,9 +24,12 @@ const floorService = new FloorsService();
 const spaceService = new SpacesService();
 const zoneService = new ZonesService();
 
-const connection = new IORedis({
-  maxRetriesPerRequest: null,
-});
+const connection = new IORedis(
+  process.env.NODE_ENV === "production"
+    ? process.env.REDIS_URL!
+    : "redis://localhost:6379",
+  { maxRetriesPerRequest: null },
+);
 
 const BATCH_SIZE = 50;
 
