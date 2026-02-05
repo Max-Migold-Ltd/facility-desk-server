@@ -1,10 +1,16 @@
 import { Router } from "express";
 import { MaintenanceController } from "./maintenance.controller";
 import { authenticate } from "../../middleware/auth.middleware";
-import { body } from "express-validator";
 import { validate } from "../../middleware/validate.middleware";
 import maintenanceItemRouter from "./routes/maintenance-item.routes";
-// import { requirePermission } from "../../middleware/permission.middleware"; // Use if needed
+import {
+  createMaintenanceSchema,
+  assignMaintenanceSchema,
+  updateMaintenanceStatusSchema,
+  createPreventiveMaintenanceSchema,
+  updateMaintenanceSchema,
+} from "./maintenance.validation";
+import { body } from "express-validator";
 
 const router = Router();
 
@@ -15,9 +21,9 @@ router.use(authenticate);
 
 /**
  * @swagger
- * /api/v1/maintenance:
+ * /api/v1/maintenance/preventive:
  *   post:
- *     summary: Create a corrective maintenance request
+ *     summary: Create a preventive maintenance configuration
  *     tags: [Maintenance]
  *     security:
  *       - bearerAuth: []
@@ -27,8 +33,55 @@ router.use(authenticate);
  *         application/json:
  *           schema:
  *             type: object
- *             required: [description, siteId, requesterId]
+ *             required: [name, description, siteId]
  *             properties:
+ *               name: { type: string }
+ *               description: { type: string }
+ *               siteId: { type: string, format: uuid }
+ *               frequency:
+ *                 type: string
+ *                 enum: [DAILY, WEEKLY, MONTHLY, YEARLY, CUSTOM]
+ *               priority:
+ *                 type: string
+ *                 enum: [LOW, MEDIUM, HIGH]
+ *               duration: { type: integer, description: "Duration in minutes" }
+ *               assetId: { type: string, format: uuid }
+ *               buildingId: { type: string, format: uuid }
+ *               floorId: { type: string, format: uuid }
+ *               spaceId: { type: string, format: uuid }
+ *               zoneId: { type: string, format: uuid }
+ *               teamId: { type: string, format: uuid }
+ *     responses:
+ *       201:
+ *         description: Created
+ *       400:
+ *         description: Validation error
+ */
+router.post(
+  "/preventive",
+  validate(createPreventiveMaintenanceSchema),
+  maintenanceController.createPreventive,
+);
+
+/**
+ * @swagger
+ * /api/v1/maintenance:
+ *   post:
+ *     summary: Create a maintenance request
+ *     tags: [Maintenance]
+ *     security:
+ *       - bearerAuth: []
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             required: [type, description, siteId, requesterId]
+ *             properties:
+ *               type:
+ *                 type: string
+ *                 enum: [CORRECTIVE, PREDICTIVE, EMERGENCY, INSPECTION, CALIBRATION, SMALL_PROJECT, SOFT_SERVICE]
  *               description:
  *                 type: string
  *               siteId:
@@ -52,128 +105,20 @@ router.use(authenticate);
  *     responses:
  *       201:
  *         description: Created
+ *       400:
+ *         description: Validation error
  */
-router.post(
-  "/",
-  validate([
-    body("description").notEmpty().withMessage("Description is required"),
-    body("siteId").isUUID().withMessage("Valid Site ID is required"),
-    body("assetId")
-      .optional()
-      .isUUID()
-      .withMessage("Valid Asset ID is required"),
-    body("requesterId").isUUID().withMessage("Valid Requester ID is required"),
-    body("priority")
-      .optional()
-      .isIn(["LOW", "MEDIUM", "HIGH"])
-      .withMessage("Invalid priority"),
-    body("startDate").optional().isISO8601().withMessage("Invalid start date"),
-    body("endDate").optional().isISO8601().withMessage("Invalid end date"),
-  ]),
-  maintenanceController.create,
-);
 
-/**
- * @swagger
- * /api/v1/maintenance:
- *   get:
- *     summary: Get all maintenance requests
- *     tags: [Maintenance]
- *     security:
- *       - bearerAuth: []
- *     parameters:
- *       - in: query
- *         name: page
- *         schema: { type: integer }
- *       - in: query
- *         name: limit
- *         schema: { type: integer }
- *       - in: query
- *         name: type
- *         schema: { type: string, enum: [PREVENTIVE, CORRECTIVE] }
- *       - in: query
- *         name: priority
- *         schema: { type: string, enum: [LOW, MEDIUM, HIGH] }
- *       - in: query
- *         name: processStatus
- *         schema: { type: string, enum: [PENDING, IN_PROGRESS, COMPLETED] }
- *       - in: query
- *         name: minDate
- *         schema: { type: string, format: date-time }
- *       - in: query
- *         name: maxDate
- *         schema: { type: string, format: date-time }
- *       - in: query
- *         name: assetId
- *         schema: { type: string, format: uuid }
- *     responses:
- *       200:
- *         description: List of maintenance requests
- */
-router.get("/", maintenanceController.getAll);
+router
+  .route("/")
+  .get(maintenanceController.getAll)
+  .post(validate(createMaintenanceSchema), maintenanceController.create);
 
-/**
- * @swagger
- * /api/v1/maintenance/{id}:
- *   get:
- *     summary: Get maintenance by ID
- *     tags: [Maintenance]
- *     security:
- *       - bearerAuth: []
- *     parameters:
- *       - in: path
- *         name: id
- *         required: true
- *         schema: { type: string }
- *     responses:
- *       200:
- *         description: Details
- */
-router.get("/:id", maintenanceController.getById);
-
-/**
- * @swagger
- * /api/v1/maintenance/{id}:
- *   patch:
- *     summary: Update maintenance request
- *     tags: [Maintenance]
- *     security:
- *       - bearerAuth: []
- *     parameters:
- *       - in: path
- *         name: id
- *         required: true
- *     requestBody:
- *       content:
- *         application/json:
- *           schema:
- *             type: object
- *             properties:
- *               processStatus: { type: string, enum: [PENDING, IN_PROGRESS, COMPLETED] }
- *               outcome: { type: string }
- *     responses:
- *       200:
- *         description: Updated
- */
-router.patch("/:id", maintenanceController.update);
-
-/**
- * @swagger
- * /api/v1/maintenance/{id}:
- *   delete:
- *     summary: Delete maintenance request
- *     tags: [Maintenance]
- *     security:
- *       - bearerAuth: []
- *     parameters:
- *       - in: path
- *         name: id
- *         required: true
- *     responses:
- *       200:
- *         description: Deleted
- */
-router.delete("/:id", maintenanceController.delete);
+router
+  .route("/:id")
+  .get(maintenanceController.getById)
+  .patch(validate(updateMaintenanceSchema), maintenanceController.update)
+  .delete(maintenanceController.delete);
 
 /**
  * @swagger
@@ -199,13 +144,7 @@ router.delete("/:id", maintenanceController.delete);
  */
 router.patch(
   "/:id/assign",
-  validate([
-    body("assigneeId")
-      .optional()
-      .isUUID()
-      .withMessage("Valid Assignee ID is required"),
-    body("teamId").optional().isUUID().withMessage("Valid Team ID is required"),
-  ]),
+  validate(assignMaintenanceSchema),
   maintenanceController.assign,
 );
 
@@ -233,12 +172,7 @@ router.patch(
  */
 router.patch(
   "/:id/status",
-  validate([
-    body("status")
-      .isIn(["PENDING", "IN_PROGRESS", "COMPLETED"])
-      .withMessage("Invalid status"),
-    body("notes").optional().isString(),
-  ]),
+  validate(updateMaintenanceStatusSchema),
   maintenanceController.updateStatus,
 );
 

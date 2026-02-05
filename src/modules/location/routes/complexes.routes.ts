@@ -1,8 +1,53 @@
 import { Router } from "express";
 import { ComplexesController } from "../controllers/complexes.controller";
+import { requirePermission } from "../../../middleware/permission.middleware";
 
 const router = Router();
 const complexesController = new ComplexesController();
+
+/**
+ * @swagger
+ * /api/v1/complexes/bulk:
+ *   post:
+ *     summary: Bulk upload complexes
+ *     description: Upload a file to create multiple complexes at once.
+ *     tags: [Complexes]
+ *     security:
+ *       - bearerAuth: []
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         multipart/form-data:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               file:
+ *                 type: string
+ *                 format: binary
+ *     responses:
+ *       200:
+ *         description: File uploaded successfully, processing started
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 status:
+ *                   type: boolean
+ *                   example: true
+ *                 message:
+ *                   type: string
+ *                   example: File uploaded successfully. Processing Started
+ *       400:
+ *         description: Validation error or missing file
+ *       401:
+ *         description: Not authenticated
+ */
+router.post(
+  "/bulk",
+  requirePermission("Site", "WRITE"),
+  complexesController.bulkComplexes,
+);
 
 /**
  * @swagger

@@ -1,8 +1,53 @@
 import { Router } from "express";
 import { BuildingsController } from "../controllers/buildings.controller";
+import { requirePermission } from "../../../middleware/permission.middleware";
 
 const router = Router();
 const buildingsController = new BuildingsController();
+
+/**
+ * @swagger
+ * /api/v1/buildings/bulk:
+ *   post:
+ *     summary: Bulk upload buildings
+ *     description: Upload a file to create multiple buildings at once.
+ *     tags: [Buildings]
+ *     security:
+ *       - bearerAuth: []
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         multipart/form-data:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               file:
+ *                 type: string
+ *                 format: binary
+ *     responses:
+ *       200:
+ *         description: File uploaded successfully, processing started
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 status:
+ *                   type: boolean
+ *                   example: true
+ *                 message:
+ *                   type: string
+ *                   example: File uploaded successfully. Processing Started
+ *       400:
+ *         description: Validation error or missing file
+ *       401:
+ *         description: Not authenticated
+ */
+router.post(
+  "/bulk",
+  requirePermission("Site", "WRITE"),
+  buildingsController.bulkBuildings,
+);
 
 /**
  * @swagger

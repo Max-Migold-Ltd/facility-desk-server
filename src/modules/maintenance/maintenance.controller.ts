@@ -64,6 +64,18 @@ export class MaintenanceController {
     }
   }
 
+  async createPreventive(req: Request, res: Response, next: NextFunction) {
+    try {
+      const maintenance = await maintenanceService.createPreventive(req.body);
+      res.status(201).json({
+        success: true,
+        data: maintenance,
+      });
+    } catch (error) {
+      next(error);
+    }
+  }
+
   async getAll(req: Request, res: Response, next: NextFunction) {
     try {
       const result = await maintenanceService.findAll(

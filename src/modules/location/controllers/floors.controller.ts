@@ -6,7 +6,7 @@ import bulkUploadQueue from "../../jobs/queues/bulkUpload.queue";
 const floorsService = new FloorsService();
 
 export class FloorsController {
-  async bulkBuuildings(req: Request, res: Response, next: NextFunction) {
+  async bulkfloors(req: Request, res: Response, next: NextFunction) {
     if (!req.file) {
       return next(new NotFoundError("File"));
     }

@@ -124,6 +124,32 @@ async function main() {
   });
   console.log(`   - Company: ${mainCompany.name}`);
 
+  const customerCompany = await prisma.company.upsert({
+    where: { code: "CUST-001" },
+    update: {},
+    create: {
+      code: "CUST-001",
+      name: "Tech Solutions Ltd",
+      type: CompanyType.CUSTOMER,
+      description: "IT Services Client",
+      addressId: mainAddress.id, // Simplifying by using same address for seed
+    },
+  });
+  console.log(`   - Company: ${customerCompany.name}`);
+
+  const supplierCompany = await prisma.company.upsert({
+    where: { code: "SUP-001" },
+    update: {},
+    create: {
+      code: "SUP-001",
+      name: "Cooling Experts Inc",
+      type: CompanyType.SUPPLIER,
+      description: "HVAC Maintenance Provider",
+      addressId: mainAddress.id,
+    },
+  });
+  console.log(`   - Company: ${supplierCompany.name}`);
+
   // ============================================================================
   // 3. USERS (Merged with Employee)
   // ============================================================================
@@ -155,6 +181,24 @@ async function main() {
       employeeCode: "EMP-003",
       employeeType: EmployeeType.INTERNAL_EMPLOYEE,
     },
+    {
+      email: "client@techsolutions.com",
+      firstName: "Alice",
+      lastName: "Client",
+      roleKey: "USER",
+      employeeCode: "CUST-EMP-01",
+      employeeType: EmployeeType.CUSTOMER_EMPLOYEE,
+      companyId: customerCompany.id,
+    },
+    {
+      email: "contractor@coolingexperts.com",
+      firstName: "Bob",
+      lastName: "Contractor",
+      roleKey: "TECHNICIAN",
+      employeeCode: "SUP-EMP-01",
+      employeeType: EmployeeType.SUPPLIER_EMPLOYEE,
+      companyId: supplierCompany.id,
+    },
   ];
 
   const usersMap = new Map<string, string>(); // Email -> Id
@@ -172,7 +216,8 @@ async function main() {
       status: UserStatus.ACTIVE,
       employeeCode: u.employeeCode,
       employeeType: u.employeeType,
-      companyId: mainCompany.id,
+
+      companyId: u.companyId || mainCompany.id,
       serviceStatus: ServiceStatus.ACTIVE,
     };
 
@@ -307,7 +352,7 @@ async function main() {
     },
   });
   console.log(
-    `   - Location Path: ${site.name} -> ${complex.name} -> ${building.name} -> ${floor.name} -> ${zone.name} -> ${space.name}`
+    `   - Location Path: ${site.name} -> ${complex.name} -> ${building.name} -> ${floor.name} -> ${zone.name} -> ${space.name}`,
   );
 
   // ============================================================================
@@ -386,6 +431,76 @@ async function main() {
       },
     });
     console.log(`   - Maintenance Request: ${maintenance.code}`);
+    console.log(`   - Maintenance Request: ${maintenance.code}`);
+
+    // In Progress Maintenance
+    const inProgressMaint = await prisma.maintenance.upsert({
+      where: { code: "WO-2023-002" },
+      update: {},
+      create: {
+        code: "WO-2023-002",
+        type: MaintenanceType.CORRECTIVE,
+        description: "Leak reported in server room ceiling",
+        priority: Priority.HIGH,
+        siteId: complex.id,
+        buildingId: building.id,
+        floorId: floor.id,
+        spaceId: space.id,
+        requesterId: managerId,
+        assigneeId: techId,
+        processStatus: Status.IN_PROGRESS,
+        execStart: new Date(),
+        activityStartTime: new Date(),
+      },
+    });
+    console.log(`   - Maintenance (In Progress): ${inProgressMaint.code}`);
+
+    // Completed Maintenance with Metadata
+    const completedMaint = await prisma.maintenance.upsert({
+      where: { code: "WO-2023-003" },
+      update: {},
+      create: {
+        code: "WO-2023-003",
+        type: MaintenanceType.SMALL_PROJECT,
+        description: "Install new shelving unit",
+        priority: Priority.MEDIUM,
+        siteId: complex.id,
+        floorId: floor.id,
+        spaceId: space.id,
+        requesterId: managerId,
+        assigneeId: techId,
+        processStatus: Status.COMPLETED,
+        execStart: new Date(Date.now() - 86400000), // Yesterday
+        execEndDate: new Date(),
+        outcome: "SATISFACTORY",
+        processNotes: "Installation completed successfully. Client signed off.",
+      },
+    });
+    console.log(`   - Maintenance (Completed): ${completedMaint.code}`);
+  }
+
+  // Client Request
+  const clientUser = await prisma.user.findUnique({
+    where: { email: "client@techsolutions.com" },
+  });
+
+  if (clientUser) {
+    const clientReq = await prisma.maintenance.upsert({
+      where: { code: "WO-2023-004" },
+      update: {},
+      create: {
+        code: "WO-2023-004",
+        type: MaintenanceType.SOFT_SERVICE,
+        description: "Office cleaning request",
+        priority: Priority.LOW,
+        siteId: complex.id,
+        buildingId: building.id,
+        floorId: floor.id,
+        requesterId: clientUser.id,
+        processStatus: Status.PENDING,
+      },
+    });
+    console.log(`   - Client Request: ${clientReq.code}`);
   }
 
   console.log("\n✅ Database seeding completed successfully!");

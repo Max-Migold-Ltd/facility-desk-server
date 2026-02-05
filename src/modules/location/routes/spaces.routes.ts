@@ -1,8 +1,53 @@
 import { Router } from "express";
+import { requirePermission } from "../../../middleware/permission.middleware";
 import { SpacesController } from "../controllers/spaces.controller";
 
 const router = Router();
 const spacesController = new SpacesController();
+
+/**
+ * @swagger
+ * /api/v1/spaces/bulk:
+ *   post:
+ *     summary: Bulk upload spaces (rooms)
+ *     description: Upload a file to create multiple spaces at once.
+ *     tags: [Spaces]
+ *     security:
+ *       - bearerAuth: []
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         multipart/form-data:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               file:
+ *                 type: string
+ *                 format: binary
+ *     responses:
+ *       200:
+ *         description: File uploaded successfully, processing started
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 status:
+ *                   type: boolean
+ *                   example: true
+ *                 message:
+ *                   type: string
+ *                   example: File uploaded successfully. Processing Started
+ *       400:
+ *         description: Validation error or missing file
+ *       401:
+ *         description: Not authenticated
+ */
+router.post(
+  "/bulk",
+  requirePermission("Site", "WRITE"),
+  spacesController.bulkSpaces,
+);
 
 /**
  * @swagger

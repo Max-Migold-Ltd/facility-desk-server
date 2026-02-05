@@ -1,8 +1,53 @@
 import { Router } from "express";
 import { FloorsController } from "../controllers/floors.controller";
+import { requirePermission } from "../../../middleware/permission.middleware";
 
 const router = Router();
 const floorsController = new FloorsController();
+
+/**
+ * @swagger
+ * /api/v1/floors/bulk:
+ *   post:
+ *     summary: Bulk upload floors
+ *     description: Upload a file to create multiple floors at once.
+ *     tags: [Floors]
+ *     security:
+ *       - bearerAuth: []
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         multipart/form-data:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               file:
+ *                 type: string
+ *                 format: binary
+ *     responses:
+ *       200:
+ *         description: File uploaded successfully, processing started
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 status:
+ *                   type: boolean
+ *                   example: true
+ *                 message:
+ *                   type: string
+ *                   example: File uploaded successfully. Processing Started
+ *       400:
+ *         description: Validation error or missing file
+ *       401:
+ *         description: Not authenticated
+ */
+router.post(
+  "/bulk",
+  requirePermission("Site", "WRITE"),
+  floorsController.bulkfloors,
+);
 
 /**
  * @swagger
@@ -185,10 +230,7 @@ const floorsController = new FloorsController();
  *       401:
  *         description: Not authenticated
  */
-router
-  .route("/")
-  .get(floorsController.getAll)
-  .post(floorsController.create);
+router.route("/").get(floorsController.getAll).post(floorsController.create);
 
 /**
  * @swagger

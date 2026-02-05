@@ -30,6 +30,26 @@ export class MaintenanceService {
     return `${prefix}-${Date.now()}-${Math.floor(Math.random() * 1000)}`;
   }
 
+  private getNextRunDate(frequency: string): Date {
+    const now = new Date();
+    const nextRunDate = new Date(now);
+    switch (frequency) {
+      case "DAILY":
+        nextRunDate.setDate(nextRunDate.getDate() + 1);
+        break;
+      case "WEEKLY":
+        nextRunDate.setDate(nextRunDate.getDate() + 7);
+        break;
+      case "MONTHLY":
+        nextRunDate.setMonth(nextRunDate.getMonth() + 1);
+        break;
+      case "YEARLY":
+        nextRunDate.setFullYear(nextRunDate.getFullYear() + 1);
+        break;
+    }
+    return nextRunDate;
+  }
+
   async getMaterialCost(maintenanceId: string) {
     const maintenance = await prisma.maintenance.findUnique({
       where: { id: maintenanceId },
@@ -220,6 +240,43 @@ export class MaintenanceService {
     return maintenance;
   }
 
+  async createPreventive(
+    data: Prisma.PreventiveCreateInput & {
+      siteId: string;
+      requesterId: string;
+      assetId?: string;
+      buildingId?: string;
+      floorId?: string;
+      roomId?: string;
+      spaceId?: string;
+      zoneId?: string;
+      teamId?: string;
+    },
+  ) {
+    const preventive = await prisma.preventive.create({
+      data: {
+        code: this.generateCode(MaintenanceType.PREVENTIVE),
+        description: data.description,
+        priority: data.priority,
+        duration: data.duration,
+
+        asset: data.assetId ? { connect: { id: data.assetId } } : undefined,
+        building: data.buildingId
+          ? { connect: { id: data.buildingId } }
+          : undefined,
+        floor: data.floorId ? { connect: { id: data.floorId } } : undefined,
+        space: data.spaceId ? { connect: { id: data.spaceId } } : undefined,
+        site: { connect: { id: data.siteId } },
+        zone: data.zoneId ? { connect: { id: data.zoneId } } : undefined,
+        team: data.teamId ? { connect: { id: data.teamId } } : undefined,
+        name: data.name,
+        nextRun: this.getNextRunDate(data.frequency || "MONTHLY"),
+      },
+    });
+
+    return preventive;
+  }
+
   async createFromPreventive(preventiveId: string) {
     const preventive = await prisma.preventive.findUnique({
       where: { id: preventiveId },
@@ -362,7 +419,7 @@ export class MaintenanceService {
   }
 
   async update(id: string, data: UpdateMaintenanceDto) {
-    const maintenance = await this.findById(id); // Ensure exists
+    const maintenance = await prisma.maintenance.findUnique({ where: { id } }); // Ensure exists
     if (!maintenance) {
       throw new NotFoundError("Maintenance");
     }
