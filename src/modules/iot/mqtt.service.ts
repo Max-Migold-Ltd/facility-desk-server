@@ -1,5 +1,6 @@
 import mqtt from "mqtt";
 import prisma from "../../lib/prisma";
+import { NotFoundError } from "../../errors";
 
 export class MQTTService {
   private client: mqtt.MqttClient;
@@ -23,10 +24,10 @@ export class MQTTService {
 
     // 1. Find the Meter in DB
     const meter = await prisma.meter.findUnique({
-      where: { deviceId }, // Ensure you added this field to schema
+      where: { deviceId },
     });
 
-    if (!meter) return;
+    if (!meter) return new NotFoundError(`Meter with ID: ${deviceId}`);
 
     // 2. Calculate Usage & Cost (Server-Side Metering Logic)
     // We compare new kWh with the last recorded kWh to find usage since last ping
@@ -56,7 +57,7 @@ export class MQTTService {
     });
 
     // 4. Log History (Telemetry)
-    // Optimization: Only log every 15 mins or if value changes significantly
+    // Optimization: Only log every 15 mins? or if value changes significantly
     await prisma.meterTelemetry.create({
       data: {
         meterId: meter.id,
@@ -90,8 +91,8 @@ export class MQTTService {
     }
   }
 
-  //   Listen for wehooks from paystack
-  async topUpMeter(userId: string, meterId: string, amount: number) {
+  //   Listen for wehooks from paystack or whatever payment gateway
+  async topUpMeter(userId: string, meterId: string, amount: number, transactionRef: string) {
     return await prisma.$transaction(async (tx) => {
       // 1. Create Payment Record
       await tx.utilityPayment.create({
@@ -99,7 +100,7 @@ export class MQTTService {
           amount,
           meterId,
           paidByUserId: userId,
-          transactionRef: `TX-${Date.now()}`, // Or real Ref from Paystack
+          transactionRef
         },
       });
 
@@ -114,7 +115,9 @@ export class MQTTService {
       // 3. Check if we need to Reconnect
       // If balance was negative/zero and is now positive, send "ON" command
       if (updatedMeter.currentBalance.toNumber() > 0) {
-        // mqttService.publish(`meters/${updatedMeter.deviceId}/command`, { state: "ON" })
+        this.client.publish(`meters/${updatedMeter.deviceId}/command`, JSON.stringify({ state: "ON" }));
+        // Send alwert that meter has been reconnected
+        console.log(`[ACTION] Meter ${updatedMeter.name} Reconnected (Balance: ${updatedMeter.currentBalance})`);
       }
 
       return updatedMeter;
