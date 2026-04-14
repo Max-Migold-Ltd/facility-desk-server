@@ -52,8 +52,8 @@ router.use(authenticate);
  */
 router
   .route("/")
-  .post(requirePermission("Items", "WRITE"), controller.create)
-  .get(controller.getAll);
+  .get(controller.getAll)
+  .post(requirePermission("Items", "WRITE"), controller.create);
 
 /**
  * @swagger

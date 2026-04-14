@@ -1,5 +1,7 @@
 import { Router } from "express";
 import { AssetCategoryController } from "../controllers/asset-category.controller";
+import { authenticate } from "../../../middleware/auth.middleware";
+import { requirePermission } from "../../../middleware/permission.middleware";
 
 const router = Router();
 const assetCategoryController = new AssetCategoryController();
@@ -93,7 +95,7 @@ const assetCategoryController = new AssetCategoryController();
 router
   .route("/")
   .get(assetCategoryController.getAll)
-  .post(assetCategoryController.create);
+  .post(authenticate, requirePermission("Asset", "WRITE"), assetCategoryController.create);
 
 /**
  * @swagger
@@ -178,8 +180,8 @@ router
 router
   .route("/:id")
   .get(assetCategoryController.getById)
-  .patch(assetCategoryController.update)
-  .delete(assetCategoryController.delete);
+  .patch(authenticate, requirePermission("Asset", "WRITE"), assetCategoryController.update)
+  .delete(authenticate, requirePermission("Asset", "WRITE"), assetCategoryController.delete);
 
 export default router;
 

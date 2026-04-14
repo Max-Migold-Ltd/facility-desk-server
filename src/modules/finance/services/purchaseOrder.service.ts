@@ -1,4 +1,4 @@
-import { BadRequestError } from "../../../errors";
+import { BadRequestError, NotFoundError } from "../../../errors";
 import {
   PurchaseOrderStatus,
   StockMovementType,
@@ -6,6 +6,7 @@ import {
 } from "../../../generated/prisma";
 import { StockService } from "../../logistics/services/stock.service";
 import prisma from "../../../lib/prisma";
+import { CostCenterService } from "./cost-center.service";
 
 interface ReceivePurchaseOrderDto {
   purchaseOrderId: string;
@@ -20,11 +21,63 @@ interface ReceivePurchaseOrderDto {
 }
 
 const stockService = new StockService();
+const costCenterService = new CostCenterService();
 
 export class PurchaseOrderService {
-  async getAll() {}
-  async findById(id: string) {}
+  async getAll() {
+    return await prisma.purchaseOrder.findMany({ include: { items: true, goodsReceipts: { include: { items: true } } } });
+  }
+  async findById(id: string) {
+    const po = await prisma.purchaseOrder.findUnique({ where: { id }, include: { items: true, goodsReceipts: { include: { items: true } } } });
+    if (!po) throw new NotFoundError(`Purchase order with ID: ${id}`);
+    return po;
+  }
 
+  async createPO(quotationId: string, costCenterId: string) {
+    // Check costcenterId
+    const cc = await prisma.costCenter.findUnique({ where: { id: costCenterId } });
+    if (!cc) throw new NotFoundError(`Cost center with ID: ${costCenterId}`);
+
+    const quotation = await prisma.quotation.findUnique({ where: { id: quotationId }, include: { items: true } });
+    if (!quotation) throw new NotFoundError(`Quotation with ID: ${quotationId}`);
+
+    const totalAmount = quotation.items.reduce((acc, item) => Number(item.totalPrice) + acc, 0);
+
+    // Check if budget is available
+    await costCenterService.reserveBudget(
+      costCenterId,
+      totalAmount,
+    );
+
+    const po = await prisma.purchaseOrder.create({
+      data: {
+        quotationId: quotationId,
+        purchaseRequestId: quotation.purchaseRequestId,
+        supplierId: quotation.supplierId,
+        totalAmount,
+        costCenterId: costCenterId,
+        status: "DRAFT",
+        items: {
+          create: quotation.items.map(item => ({
+            itemId: item.itemId,
+            quantity: item.quantity,
+            unitPrice: item.unitPrice,
+            totalPrice: item.totalPrice,
+          }))
+        }
+      }
+    })
+    return po;
+  }
+
+  approvePO(poId: string) {
+    return prisma.purchaseOrder.update({
+      where: { id: poId },
+      data: {
+        status: "ISSUED",
+      }
+    })
+  }
   //
   async receiveGoods(data: ReceivePurchaseOrderDto) {
     return await prisma.$transaction(async (tx) => {

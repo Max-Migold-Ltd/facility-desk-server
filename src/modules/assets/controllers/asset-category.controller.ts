@@ -59,7 +59,7 @@ export class AssetCategoryController {
   async delete(req: Request, res: Response, next: NextFunction) {
     try {
       await assetCategoryService.delete(req.params.id);
-      res.status(200).json({
+      res.status(204).json({
         success: true,
         data: null,
       });

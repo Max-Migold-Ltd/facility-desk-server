@@ -32,6 +32,7 @@ export class ZonesController {
       const result = await service.findAll({ ...req.query, page, limit });
       res.status(200).json({
         success: true,
+        length: result.data.length,
         data: result.data,
         pagination: result.pagination,
       });

@@ -9,7 +9,9 @@ export class AssetController {
       const assets = await assetService.findAll(req.query);
       res.status(200).json({
         success: true,
-        data: assets,
+        length: assets.data.length,
+        data: assets.data,
+        pagination: assets.pagination,
       });
     } catch (error) {
       next(error);

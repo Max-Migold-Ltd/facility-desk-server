@@ -647,6 +647,7 @@ model Company {
   maintenances   Maintenance[]
   purchaseOrders PurchaseOrder[]
   goodsReceipts  GoodsReceipt[]
+  quotations     Quotation[]
 
   @@map("companies")
 }
@@ -679,6 +680,8 @@ model Address {
   zipCode   String?
   latitude  Float?
   longitude Float?
+
+  // location Unsupported("geography(POINT, 4326)")
 
   companies  Company[]
   sites      Site[]
@@ -914,10 +917,10 @@ model Warehouse {
 }
 
 model Item {
-  id            String  @id @default(uuid())
-  name          String  @unique
-  description   String?
-  code          String  @unique
+  id          String  @id @default(uuid())
+  name        String  @unique
+  description String?
+
   category      String?
   unitOfMeasure String?
   cost          Decimal @db.Decimal(15, 2)
@@ -931,6 +934,7 @@ model Item {
   purchaseOrderItems   PurchaseOrderItem[]
   purchaseRequestItems PurchaseRequestItem[]
   goodsReceiptItems    GoodsReceiptItem[]
+  quotationItems       QuotationItem[]
 
   @@map("items")
 }
@@ -1053,9 +1057,9 @@ model Meter {
   currentPower   Decimal @default(0) @db.Decimal(10, 2)
   currentVoltage Decimal @default(0) @db.Decimal(10, 2)
   currentBalance Decimal @default(0) @db.Decimal(10, 2)
-  
+
   // Configuration
-  tariffRate     Decimal  @default(0) // Cost per kWh (e.g. NGN 70.00)
+  tariffRate      Decimal @default(0) // Cost per kWh (e.g. NGN 70.00)
   lowBalanceLimit Decimal @default(500) // Alert when balance < NGN 500
 
   readings           MeterReading[]
@@ -1065,6 +1069,7 @@ model Meter {
   updatedAt        DateTime         @updatedAt
   meterTelemetries MeterTelemetry[]
   utilityPayments  UtilityPayment[]
+  meterTokens      MeterToken[]
 
   @@map("meters")
 }
@@ -1119,6 +1124,30 @@ model MeterReading {
 
   @@index([meterId, timestamp])
   @@map("meter_readings")
+}
+
+enum MeterTokenStatus {
+  PENDING
+  USED
+  EXPIRED
+}
+
+model MeterToken {
+  id String @id @default(uuid())
+
+  meterId String
+  meter   Meter  @relation(fields: [meterId], references: [id], onDelete: Cascade)
+
+  token          String  @unique
+  amount         Decimal @db.Decimal(10, 2)
+  transactionRef String  @unique
+
+  status MeterTokenStatus @default(PENDING)
+
+  createdAt DateTime @default(now())
+  expiresAt DateTime
+
+  @@map("meter_tokens")
 }
 
 model MeterMaintenanceTrigger {
@@ -1196,6 +1225,7 @@ model PurchaseRequest {
   createdAt      DateTime        @default(now())
   updatedAt      DateTime        @updatedAt
   purchaseOrders PurchaseOrder[]
+  quotations     Quotation[]
 
   @@map("purchase_requests")
 }
@@ -1209,12 +1239,52 @@ model PurchaseRequestItem {
   itemId String
   item   Item   @relation(fields: [itemId], references: [id])
 
-  quantity Int
+  quantity       Int
+  estimatedPrice Decimal? @db.Decimal(15, 2)
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
   @@map("purchase_request_items")
+}
+
+// Procurement step/team in between contacts suppliers, gets quotation, compare prices (can be more than one) and determines the unit price
+
+model Quotation {
+  id String @id @default(uuid())
+
+  purchaseRequestId String
+  purchaseRequest   PurchaseRequest @relation(fields: [purchaseRequestId], references: [id], onDelete: Cascade)
+
+  supplierId String
+  supplier   Company @relation(fields: [supplierId], references: [id])
+
+  items QuotationItem[]
+
+  createdAt      DateTime        @default(now())
+  updatedAt      DateTime        @updatedAt
+  purchaseOrders PurchaseOrder[]
+
+  @@map("quotations")
+}
+
+model QuotationItem {
+  id String @id @default(uuid())
+
+  quotationId String
+  quotation   Quotation @relation(fields: [quotationId], references: [id], onDelete: Cascade)
+
+  itemId String
+  item   Item   @relation(fields: [itemId], references: [id])
+
+  quantity   Int
+  unitPrice  Decimal @db.Decimal(15, 2)
+  totalPrice Decimal @db.Decimal(15, 2)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@map("quotation_items")
 }
 
 enum PurchaseOrderStatus {
@@ -1231,6 +1301,9 @@ model PurchaseOrder {
 
   purchaseRequestId String
   purchaseRequest   PurchaseRequest @relation(fields: [purchaseRequestId], references: [id], onDelete: Cascade)
+
+  quotationId String
+  quotation   Quotation @relation(fields: [quotationId], references: [id])
 
   supplierId String
   supplier   Company @relation(fields: [supplierId], references: [id])

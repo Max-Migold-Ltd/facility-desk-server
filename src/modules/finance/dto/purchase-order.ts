@@ -1,4 +1,4 @@
-import { PurchaseOrderStatus } from "../../../generated/prisma";
+import { PurchaseOrderStatus, QuotationItem } from "../../../generated/prisma";
 
 export interface PurchaseOrder {
   id: string;
@@ -22,7 +22,19 @@ export interface PurchaseOrderItem {
   updatedAt: Date;
 }
 
+export interface CreateQuotationDto {
+  supplierId: string;
+  items: {
+    itemId: string;
+    unitPrice: number;
+  }[]
+}
+
+// export interface QuotationItem {
+
+// }
+
 export interface CreatePurchaseOrderDto extends Omit<
   PurchaseOrder,
   "id" | "createdAt" | "updatedAt"
-> {}
+> { }

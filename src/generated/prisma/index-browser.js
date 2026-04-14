@@ -517,7 +517,6 @@ exports.Prisma.ItemScalarFieldEnum = {
   id: 'id',
   name: 'name',
   description: 'description',
-  code: 'code',
   category: 'category',
   unitOfMeasure: 'unitOfMeasure',
   cost: 'cost',
@@ -617,6 +616,17 @@ exports.Prisma.MeterReadingScalarFieldEnum = {
   createdAt: 'createdAt'
 };
 
+exports.Prisma.MeterTokenScalarFieldEnum = {
+  id: 'id',
+  meterId: 'meterId',
+  token: 'token',
+  amount: 'amount',
+  transactionRef: 'transactionRef',
+  status: 'status',
+  createdAt: 'createdAt',
+  expiresAt: 'expiresAt'
+};
+
 exports.Prisma.MeterMaintenanceTriggerScalarFieldEnum = {
   id: 'id',
   meterId: 'meterId',
@@ -658,6 +668,26 @@ exports.Prisma.PurchaseRequestItemScalarFieldEnum = {
   purchaseRequestId: 'purchaseRequestId',
   itemId: 'itemId',
   quantity: 'quantity',
+  estimatedPrice: 'estimatedPrice',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.QuotationScalarFieldEnum = {
+  id: 'id',
+  purchaseRequestId: 'purchaseRequestId',
+  supplierId: 'supplierId',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.QuotationItemScalarFieldEnum = {
+  id: 'id',
+  quotationId: 'quotationId',
+  itemId: 'itemId',
+  quantity: 'quantity',
+  unitPrice: 'unitPrice',
+  totalPrice: 'totalPrice',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 };
@@ -666,6 +696,7 @@ exports.Prisma.PurchaseOrderScalarFieldEnum = {
   id: 'id',
   status: 'status',
   purchaseRequestId: 'purchaseRequestId',
+  quotationId: 'quotationId',
   supplierId: 'supplierId',
   costCenterId: 'costCenterId',
   totalAmount: 'totalAmount',
@@ -908,6 +939,12 @@ exports.MeterReadingSource = exports.$Enums.MeterReadingSource = {
   CSV_IMPORT: 'CSV_IMPORT'
 };
 
+exports.MeterTokenStatus = exports.$Enums.MeterTokenStatus = {
+  PENDING: 'PENDING',
+  USED: 'USED',
+  EXPIRED: 'EXPIRED'
+};
+
 exports.TriggerCondition = exports.$Enums.TriggerCondition = {
   EVERY_X_UNITS: 'EVERY_X_UNITS',
   ABOVE_THRESHOLD: 'ABOVE_THRESHOLD',
@@ -962,10 +999,13 @@ exports.Prisma.ModelName = {
   MeterTelemetry: 'MeterTelemetry',
   UtilityPayment: 'UtilityPayment',
   MeterReading: 'MeterReading',
+  MeterToken: 'MeterToken',
   MeterMaintenanceTrigger: 'MeterMaintenanceTrigger',
   CostCenter: 'CostCenter',
   PurchaseRequest: 'PurchaseRequest',
   PurchaseRequestItem: 'PurchaseRequestItem',
+  Quotation: 'Quotation',
+  QuotationItem: 'QuotationItem',
   PurchaseOrder: 'PurchaseOrder',
   PurchaseOrderItem: 'PurchaseOrderItem',
   GoodsReceipt: 'GoodsReceipt',

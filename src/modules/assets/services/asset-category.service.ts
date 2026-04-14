@@ -32,7 +32,7 @@ export class AssetCategoryService {
       ];
     }
 
-    const [count, categories] = await prisma.$transaction([
+    const [count, categories] = await Promise.all([
       prisma.assetCategory.count({ where: whereClause }),
       prisma.assetCategory.findMany({
         where: whereClause,

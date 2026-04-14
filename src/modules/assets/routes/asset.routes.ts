@@ -1,5 +1,7 @@
 import { Router } from "express";
 import { AssetController } from "../controllers/asset.controller";
+import { authenticate } from "../../../middleware/auth.middleware";
+import { requirePermission } from "../../../middleware/permission.middleware";
 
 const router = Router();
 const assetController = new AssetController();
@@ -195,7 +197,7 @@ const assetController = new AssetController();
 router
   .route("/")
   .get(assetController.getAll)
-  .post(assetController.create);
+  .post(authenticate, requirePermission("Asset", "WRITE"), assetController.create);
 
 /**
  * @swagger
@@ -399,8 +401,8 @@ router
 router
   .route("/:id")
   .get(assetController.getById)
-  .patch(assetController.update)
-  .delete(assetController.delete);
+  .patch(authenticate, requirePermission("Asset", "WRITE"), assetController.update)
+  .delete(authenticate, requirePermission("Asset", "WRITE"), assetController.delete);
 
 export default router;
 

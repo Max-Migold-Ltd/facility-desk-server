@@ -1,7 +1,6 @@
 import { Router } from "express";
 import { PermissionsController } from "./permissions.controller";
 import { authenticate } from "../../middleware/auth.middleware";
-import { requireRole } from "../../middleware/rbac.middleware";
 import { requirePermission } from "../../middleware/permission.middleware";
 import { validate } from "../../middleware/validate.middleware";
 import {

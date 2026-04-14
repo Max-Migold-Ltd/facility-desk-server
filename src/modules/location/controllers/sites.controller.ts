@@ -35,7 +35,8 @@ export class SitesController {
     const sites = await service.findAll();
     res.status(200).json({
       status: true,
-      data: { length: sites.length, sites },
+      length: sites.length,
+      data: sites,
     });
   }
 

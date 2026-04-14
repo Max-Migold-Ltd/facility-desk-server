@@ -22,24 +22,23 @@ export const createCostCenterValidation = [
 export const createPurchaseRequestValidation = [
   body("description").notEmpty().withMessage("Description is required"),
   body("costCenterId")
-    .isMongoId()
+    .isUUID()
     .withMessage("Valid Cost Center ID is required"),
-  body("requesterId").isMongoId().withMessage("Valid Requester ID is required"),
   body("items")
     .isArray({ min: 1 })
     .withMessage("Items must be an array with at least one item"),
-  body("items.*.itemId").isMongoId().withMessage("Valid Item ID is required"),
+  body("items.*.itemId").isUUID().withMessage("Valid Item ID is required"),
   body("items.*.quantity").isNumeric().withMessage("Quantity must be a number"),
 ];
 
 export const approvePurchaseRequestValidation = [
   body("costCenterId")
-    .isMongoId()
+    .isUUID()
     .withMessage("Valid Cost Center ID is required"),
-  body("supplierId").isMongoId().withMessage("Valid Supplier ID is required"),
+  body("supplierId").isUUID().withMessage("Valid Supplier ID is required"),
   body("totalAmount").isNumeric().withMessage("Total Amount must be a number"),
   body("purchaseRequestId")
-    .isMongoId()
+    .isUUID()
     .withMessage("Valid Purchase Request ID is required"),
   body("items").optional().isArray().withMessage("Items must be an array"),
   body("items.*.itemId")
@@ -57,11 +56,11 @@ export const approvePurchaseRequestValidation = [
 ];
 
 export const receivePurchaseOrderValidation = [
-  body("warehouseId").isMongoId().withMessage("Valid Warehouse ID is required"),
-  body("companyId").isMongoId().withMessage("Valid Company ID is required"),
+  body("warehouseId").isUUID().withMessage("Valid Warehouse ID is required"),
+  body("companyId").isUUID().withMessage("Valid Company ID is required"),
   body("items")
     .isArray({ min: 1 })
     .withMessage("Items must be an array with at least one item"),
-  body("items.*.itemId").isMongoId().withMessage("Valid Item ID is required"),
+  body("items.*.itemId").isUUID().withMessage("Valid Item ID is required"),
   body("items.*.quantity").isNumeric().withMessage("Quantity must be a number"),
 ];

@@ -27,12 +27,7 @@ export class SitesService {
   }
 
   async findAll() {
-    return prisma.site.findMany({
-      include: {
-        complexes: true,
-        address: true,
-      },
-    });
+    return prisma.site.findMany();
   }
 
   async findOne(id: string) {

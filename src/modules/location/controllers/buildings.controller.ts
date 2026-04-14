@@ -31,7 +31,8 @@ export class BuildingsController {
       res.status(200).json({
         success: true,
         length: buildings.data.length,
-        data: buildings,
+        data: buildings.data,
+        pagination: buildings.pagination,
       });
     } catch (error) {
       next(error);

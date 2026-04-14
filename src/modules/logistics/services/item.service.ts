@@ -5,16 +5,15 @@ import { Prisma } from "../../../generated/prisma";
 
 export class ItemService {
   async create(data: CreateItemDto) {
-    const existing = await prisma.item.findUnique({
-      where: { code: data.code },
-    });
-
-    if (existing) {
-      throw new ConflictError("Item with this code already exists");
-    }
 
     return await prisma.item.create({
-      data,
+       data: {
+        name: data.name,
+        description: data.description,
+        category: data.category,
+        unitOfMeasure: data.unitOfMeasure,
+        cost: data.cost,
+       },
     });
   }
 
@@ -31,7 +30,6 @@ export class ItemService {
     if (search) {
       where.OR = [
         { name: { contains: search, mode: "insensitive" } },
-        { code: { contains: search, mode: "insensitive" } },
         { description: { contains: search, mode: "insensitive" } },
       ];
     }
@@ -75,16 +73,6 @@ export class ItemService {
   }
 
   async update(id: string, data: UpdateItemDto) {
-    await this.getOne(id);
-
-    if (data.code) {
-      const existing = await prisma.item.findUnique({
-        where: { code: data.code },
-      });
-      if (existing && existing.id !== id) {
-        throw new ConflictError("Item with this code already exists");
-      }
-    }
 
     return await prisma.item.update({
       where: { id },

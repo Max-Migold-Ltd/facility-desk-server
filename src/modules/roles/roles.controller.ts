@@ -10,7 +10,8 @@ export class RolesController {
 
       res.status(200).json({
         success: true,
-        data: { length: roles.length, roles },
+        length: roles.length,
+        data: roles,
       });
     } catch (error) {
       next(error);
@@ -23,7 +24,7 @@ export class RolesController {
 
       res.status(200).json({
         success: true,
-        data: { role },
+        data: role,
       });
     } catch (error) {
       next(error);

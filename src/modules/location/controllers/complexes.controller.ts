@@ -29,7 +29,8 @@ export class ComplexesController {
       res.status(200).json({
         success: true,
         length: complexes.data.length,
-        data: complexes,
+        data: complexes.data,
+        pagination: complexes.pagination,
       });
     } catch (error) {
       next(error);

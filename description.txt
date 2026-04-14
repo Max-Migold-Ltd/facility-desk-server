@@ -162,3 +162,9 @@ Purchase order(PO):
     - Warehouse receives materials
     - Warehouse updates stock
     - Warehouse updates movement logs
+
+
+Permissions to add:
+Warehouse
+Items
+Finance

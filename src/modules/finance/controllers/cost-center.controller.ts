@@ -17,7 +17,7 @@ export class CostCenterController {
 
   async getAll(req: Request, res: Response) {
     const list = await service.findAll();
-    res.status(200).json({ status: true, data: list });
+    res.status(200).json({ status: true, length: list.length, data: list });
   }
 
   async getById(req: Request, res: Response) {
