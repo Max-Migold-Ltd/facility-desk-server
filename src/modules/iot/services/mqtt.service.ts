@@ -6,7 +6,15 @@ import { NotFoundError } from "../../../errors";
 export class MQTTService {
   private client: mqtt.MqttClient;
 
+  private globalConfig = {
+    currentPowerSource: "GRID",
+    gridTariff: 225.00,
+    genTariff: 450.00,
+  };
+
   constructor() {
+    this.initGlobalConfig();
+
     const brokerUrl = process.env.NODE_ENV === "production" ? "mqtts://localhost:8883" : "mqtt://localhost:1883";
     this.client = mqtt.connect(brokerUrl, {
       username: process.env.MQTT_USERNAME,
@@ -18,32 +26,65 @@ export class MQTTService {
       console.log("✓ MQTT Client connected");
       // 2. Subscribe to all meters
       // Topic pattern: "meters/{deviceId}/telemetry"
-      this.client.subscribe("meters/#", (err) => {
+      this.client.subscribe("meters/+/telemetry", (err) => {
         if (!err) {
           console.log("✓ MQTT Client subscribed to all meters");
         }
       });
+      this.client.subscribe("system/power_status");
     });
 
     this.client.on("message", (topic, payload) => {
       const data = JSON.parse(payload.toString());
-      const deviceId = topic.split("/")[1];
-      this.processTelemetry(deviceId, data);
-    })
+
+      if (topic === "system/power_status") {
+        this.processPowerSourceChange(data);
+      } else if (topic.startsWith("meters/")) {
+        const deviceId = topic.split("/")[1];
+        this.processTelemetry(deviceId, data);
+      }
+    });
   }
 
-  async processTelemetry(deviceId: string, data: any) {
-    // Data format: { kwh: 5001.5, volts: 220, amps: 5.5 }
+  private async initGlobalConfig() {
+    let config = await prisma.systemConfig.findUnique({
+      where: { id: "GLOBAL_CONFIG" }
+    });
 
-    // 1. Find the Meter in DB
+    // Seed the database if it's the first time running
+    if (!config) {
+      config = await prisma.systemConfig.create({
+        data: { id: "GLOBAL_CONFIG" }
+      });
+    }
+
+    this.globalConfig = {
+      currentPowerSource: config.currentPowerSource,
+      gridTariff: Number(config.gridTariff),
+      genTariff: Number(config.genTariff),
+    };
+    console.log("✓ Global Tariff Config Loaded:", this.globalConfig);
+  }
+
+  async processPowerSourceChange(data: { source: "GRID" | "GENERATOR" }) {
+    // 1. Update the Database
+    await prisma.systemConfig.update({
+      where: { id: "GLOBAL_CONFIG" },
+      data: { currentPowerSource: data.source }
+    });
+
+    // 2. Update the Memory Cache instantly
+    this.globalConfig.currentPowerSource = data.source;
+
+    console.log(`[SYSTEM] Power source switched to ${data.source}`);
+  }
+  async processTelemetry(deviceId: string, data: any) {
     const meter = await prisma.meter.findUnique({
       where: { deviceId },
     });
 
-    if (!meter) return new NotFoundError(`Meter with ID: ${deviceId}`);
+    if (!meter) return;
 
-    // 2. Calculate Usage & Cost (Server-Side Metering Logic)
-    // We compare new kWh with the last recorded kWh to find usage since last ping
     const lastLog = await prisma.meterTelemetry.findFirst({
       where: { meterId: meter.id },
       orderBy: { timestamp: "desc" },
@@ -51,26 +92,31 @@ export class MQTTService {
 
     let costDeducted = 0;
     if (lastLog) {
-      const kwhUsed = Number(data.kwh) - Number(lastLog.kwh);
+      let kwhUsed = Number(data.kwh) - Number(lastLog.kwh);
+
+      // Hardware Reset Protection
+      if (kwhUsed < 0) kwhUsed = Number(data.kwh);
+
       if (kwhUsed > 0) {
-        costDeducted = kwhUsed * Number(meter.tariffRate);
+        // Read directly from RAM, no database hit required for pricing
+        const activeTariff = this.globalConfig.currentPowerSource === "GENERATOR"
+          ? this.globalConfig.genTariff
+          : this.globalConfig.gridTariff;
+
+        costDeducted = kwhUsed * activeTariff;
       }
     }
 
-    // 3. Update Meter State (Realtime Snapshot)
+    // Update meter state & deduct balance
     await prisma.meter.update({
       where: { id: meter.id },
       data: {
-        currentPower:
-          data.power || (Number(data.volts) * Number(data.amps)) / 1000,
+        currentPower: data.power || (Number(data.volts) * Number(data.amps)) / 1000,
         currentVoltage: data.volts,
-        // Deduct balance automatically
         currentBalance: { decrement: costDeducted },
       },
     });
-
-    // 4. Log History (Telemetry)
-    // Optimization: Only log every 15 mins? or if value changes significantly
+    // Log History (Telemetry)
     await prisma.meterTelemetry.create({
       data: {
         meterId: meter.id,
@@ -81,9 +127,13 @@ export class MQTTService {
       },
     });
 
-    // 5. Trigger ALERTS
+    // Trigger ALERTS
     this.checkAlerts(meter, costDeducted);
   }
+  // connect to a meter
+  // Disconnect from a meter when balance is low(0 or less)
+  // Dual tariff management(phcn and generator power)
+  // real time deduction
 
   private async checkAlerts(meter: any, latestCost: number) {
     // Low Balance Check
@@ -126,43 +176,24 @@ export class MQTTService {
       });
 
       // 3. Check if we need to Reconnect
-      // If balance was negative/zero and is now positive, send "ON" command
       if (updatedMeter.currentBalance.toNumber() > 0) {
-        this.client.publish(`meters/${updatedMeter.deviceId}/command`, JSON.stringify({ state: "ON" }));
-        // Send alwert that meter has been reconnected
-        console.log(`[ACTION] Meter ${updatedMeter.name} Reconnected (Balance: ${updatedMeter.currentBalance})`);
+        await this.publishBalance(meterId, updatedMeter.currentBalance.toNumber());
       }
 
       return updatedMeter;
     });
   }
 
-  async generatePrepaidToken(amount: number, meterId: string, transactionRef: string) {
-    await prisma.meter.findUniqueOrThrow({
+  async publishBalance(meterId: string, balance: number) {
+    const meter = await prisma.meter.findUniqueOrThrow({
       where: { id: meterId },
     });
-
-    const tobeEncrypted = {
-      meterId,
-      amount,
-      transactionRef,
-      timestamp: new Date().toISOString(),
+    // check if balance is zero or less
+    if (balance <= 0) {
+      this.client.publish(`meters/${meter.deviceId}/command`, JSON.stringify({ state: "OFF" }));
     }
-
-    // Create encryption token using meterId as key
-    const cipher = crypto.createCipheriv("aes-256-cbc", Buffer.from(meterId), Buffer.from(transactionRef));
-    let encrypted = cipher.update(JSON.stringify(tobeEncrypted), "utf-8", "hex");
-    encrypted += cipher.final("hex");
-
-    return encrypted;
-  }
-
-  async useToken(token: string, meterId: string){
-    const decipher = crypto.createDecipheriv("aes-256-cbc", Buffer.from(meterId), Buffer.from(token));
-    let decrypted = decipher.update(token, "hex", "utf-8");
-    decrypted += decipher.final("utf-8");
-
-    const data = JSON.parse(decrypted);
-    
+    this.client.publish(`meters/${meter.deviceId}/balance`, JSON.stringify({ balance, state: "ON" }));
+    // Send alwert that meter has been reconnected
+    console.log(`[ACTION] Meter ${meter.name} Reconnected (Balance: ${balance})`);
   }
 }

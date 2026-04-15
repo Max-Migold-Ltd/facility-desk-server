@@ -566,6 +566,14 @@ exports.Prisma.RefreshTokenScalarFieldEnum = {
   updatedAt: 'updatedAt'
 };
 
+exports.Prisma.SystemConfigScalarFieldEnum = {
+  id: 'id',
+  currentPowerSource: 'currentPowerSource',
+  gridTariff: 'gridTariff',
+  genTariff: 'genTariff',
+  updatedAt: 'updatedAt'
+};
+
 exports.Prisma.MeterScalarFieldEnum = {
   id: 'id',
   name: 'name',
@@ -618,6 +626,7 @@ exports.Prisma.MeterReadingScalarFieldEnum = {
 
 exports.Prisma.MeterTokenScalarFieldEnum = {
   id: 'id',
+  userId: 'userId',
   meterId: 'meterId',
   token: 'token',
   amount: 'amount',
@@ -928,6 +937,11 @@ exports.StockReferenceType = exports.$Enums.StockReferenceType = {
   OTHER: 'OTHER'
 };
 
+exports.PowerSource = exports.$Enums.PowerSource = {
+  GRID: 'GRID',
+  GENERATOR: 'GENERATOR'
+};
+
 exports.MeterType = exports.$Enums.MeterType = {
   CUMULATIVE: 'CUMULATIVE',
   GAUGE: 'GAUGE'
@@ -995,6 +1009,7 @@ exports.Prisma.ModelName = {
   StockMovement: 'StockMovement',
   MaintenanceItem: 'MaintenanceItem',
   RefreshToken: 'RefreshToken',
+  SystemConfig: 'SystemConfig',
   Meter: 'Meter',
   MeterTelemetry: 'MeterTelemetry',
   UtilityPayment: 'UtilityPayment',

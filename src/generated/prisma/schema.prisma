@@ -251,6 +251,7 @@ model User {
   maintenanceTasks MaintenanceTask[]
   workLogs         WorkLog[]
   utilityPayments  UtilityPayment[]
+  meterTokens      MeterToken[]
 
   @@index([email])
   @@index([roleId])
@@ -1017,6 +1018,22 @@ model RefreshToken {
 // =========================== METERING ================================== 
 // =======================================================================
 
+enum PowerSource {
+  GRID
+  GENERATOR
+}
+
+model SystemConfig {
+  id                 String      @id @default("GLOBAL_CONFIG")
+  currentPowerSource PowerSource @default(GRID)
+  gridTariff         Decimal     @default(225.00) // NGN per kWh
+  genTariff          Decimal     @default(450.00) // NGN per kWh
+
+  updatedAt DateTime @updatedAt
+
+  @@map("system_config")
+}
+
 enum MeterType {
   CUMULATIVE // e.g., Odometer, Water Meter (Always increases)
   GAUGE // e.g., Temperature, Pressure (Fluctuates)
@@ -1134,6 +1151,9 @@ enum MeterTokenStatus {
 
 model MeterToken {
   id String @id @default(uuid())
+
+  userId String
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   meterId String
   meter   Meter  @relation(fields: [meterId], references: [id], onDelete: Cascade)
