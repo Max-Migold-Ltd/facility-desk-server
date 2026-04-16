@@ -11,6 +11,7 @@ export class PurchaseRequestController {
       const pr = await purchaseRequestService.getAll();
       res.status(200).json({
         status: true,
+        length: pr.length,
         data: pr,
       });
     } catch (error) {

@@ -6,6 +6,7 @@ import { connectDatabase, disconnectDatabase } from "./config/database";
 import { CONSTANTS } from "./config/constants";
 import { initPreventiveScheduler } from "./modules/jobs/preventive.scheduler";
 import "./modules/jobs/workers/bulkUpload.worker";
+import { MQTTService } from "./modules/iot/services/mqtt.service";
 
 let server: any;
 
@@ -16,6 +17,9 @@ async function startServer() {
 
     // Initialize Cron Jobs
     // initPreventiveScheduler();
+
+    // Initialize MQTT Service
+    new MQTTService();
 
     // Start Express server
     server = app.listen(CONSTANTS.PORT, () => {
